@@ -905,6 +905,13 @@
         </div>
 
         <div class="control">
+          <label class="toggle">
+            <input id="libAuthorOnly" type="checkbox" />
+            Search author only
+          </label>
+        </div>
+
+        <div class="control">
           <div class="label">Sort</div>
           <select id="libSort" class="select">
             <option value="author">Author A→Z</option>
@@ -964,6 +971,13 @@
         <div class="control">
           <div class="label">Search (title/author)</div>
           <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" />
+        </div>
+
+        <div class="control">
+          <label class="toggle">
+            <input id="planAuthorOnly" type="checkbox" />
+            Search author only
+          </label>
         </div>
 
         <div class="control">
@@ -1520,11 +1534,13 @@
         tier: "all",
         sort: "plan",
         onlyIncomplete: false,
+        planAuthorOnly: false,
         // library view
         libQ: "",
         libSort: "author",
         libTierPresence: "all",
         libShow: "all",
+        libAuthorOnly: false,
         // bundle view
         bundleYear: "1"
       },
@@ -2081,11 +2097,16 @@
       const q = normalizeText(state.filters.libQ);
       const tierPresence = state.filters.libTierPresence;
       const show = state.filters.libShow;
+      const authorOnly = state.filters.libAuthorOnly;
 
       let items = state.libraryWorks.slice();
 
       if (q){
-        items = items.filter(it => normalizeText(`${it.author} ${it.title}`).includes(q));
+        if (authorOnly) {
+          items = items.filter(it => normalizeText(it.author).includes(q));
+        } else {
+          items = items.filter(it => normalizeText(`${it.author} ${it.title}`).includes(q));
+        }
       }
 
       if (tierPresence !== "all"){
@@ -2125,6 +2146,7 @@
     function applyPlanFilters(){
       const f = state.filters;
       const q = normalizeText(f.q);
+      const authorOnly = f.planAuthorOnly;
 
       let items = state.flatWorks.slice();
 
@@ -2136,7 +2158,11 @@
         items = items.filter(x => x.tier === f.tier);
       }
       if (q){
-        items = items.filter(x => x.search.includes(q));
+        if (authorOnly) {
+          items = items.filter(x => normalizeText(x.author).includes(q));
+        } else {
+          items = items.filter(x => x.search.includes(q));
+        }
       }
       if (f.onlyIncomplete){
         items = items.filter(x => !state.checks[x.key]);
@@ -3409,16 +3435,19 @@
 
       // Library filters
       $("#libQ").addEventListener("input", e => { state.filters.libQ = e.target.value; renderLibrary(); });
+      $("#libAuthorOnly").addEventListener("change", e => { state.filters.libAuthorOnly = e.target.checked; renderLibrary(); });
       $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; renderLibrary(); });
       $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; renderLibrary(); });
       $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; renderLibrary(); });
       $("#libBundleSelect").addEventListener("change", e => { updateLibBundlePageDropdown(); });
       $("#libResetBtn").addEventListener("click", ()=> {
         state.filters.libQ = "";
+        state.filters.libAuthorOnly = false;
         state.filters.libSort = "author";
         state.filters.libTierPresence = "all";
         state.filters.libShow = "all";
         $("#libQ").value = "";
+        $("#libAuthorOnly").checked = false;
         $("#libSort").value = "author";
         $("#libTierPresence").value = "all";
         $("#libShow").value = "all";
@@ -3427,6 +3456,7 @@
 
       // Plan filters
       $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); updateProgressBadge(); });
+      $("#planAuthorOnly").addEventListener("change", e => { state.filters.planAuthorOnly = e.target.checked; renderPlan(); updateProgressBadge(); });
       $("#yearPrev").addEventListener("click", () => {
         const idx = state.availableYears.indexOf(Number(state.filters.year));
         if (idx > 0){ state.filters.year = String(state.availableYears[idx - 1]); updateYearStepper(); renderPlan(); }

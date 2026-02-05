@@ -110,6 +110,77 @@
       gap:8px;
     }
 
+    /* Progress badge popup wrapper */
+    .progressBadgeWrap{
+      position:relative;
+      display:inline-block;
+    }
+    .progressBadgeWrap .badge{
+      cursor:pointer;
+    }
+    .progressPopup{
+      display:none;
+      position:absolute;
+      top:100%;
+      right:0;
+      margin-top:8px;
+      background:#fff;
+      border:var(--border);
+      box-shadow:var(--shadow);
+      padding:12px;
+      min-width:260px;
+      max-width:360px;
+      z-index:1000;
+    }
+    .progressPopup.show{
+      display:block;
+    }
+    .progressPopupTitle{
+      font-weight:900;
+      font-size:13px;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      margin-bottom:10px;
+      border-bottom:var(--borderThin);
+      padding-bottom:8px;
+    }
+    .progressPopupRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:6px 0;
+      border-bottom:var(--borderThin);
+    }
+    .progressPopupRow:last-child{
+      border-bottom:none;
+    }
+    .progressPopupName{
+      font-weight:600;
+      font-size:12px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      flex:1;
+    }
+    .progressPopupScore{
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .progressPopupBar{
+      width:60px;
+      height:8px;
+      border:var(--borderThin);
+      background:#fff;
+      position:relative;
+    }
+    .progressPopupBar > span{
+      display:block;
+      height:100%;
+      background:#000;
+    }
+
     /* Buttons / inputs */
     .btn{
       border:var(--border);
@@ -812,7 +883,13 @@
 
         <div class="navRow">
           <div class="badge" id="countBadge">0</div>
-          <div class="badge" id="progressBadge">Progress: 0%</div>
+          <div class="progressBadgeWrap" id="progressBadgeWrap">
+            <div class="badge" id="progressBadge">Progress: 0%</div>
+            <div class="progressPopup" id="progressPopup" aria-hidden="true">
+              <div class="progressPopupTitle">Reading Scores</div>
+              <div id="progressPopupContent"></div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -942,7 +1019,7 @@
         <div class="control">
           <div class="label">Select Bundle</div>
           <select id="bundleSelect" class="select">
-            <option value="__default__">Ten-Year Reading Plan</option>
+            <!-- User bundles only - Ten-Year Plan has its own tab -->
           </select>
         </div>
 
@@ -967,6 +1044,10 @@
           <button class="btn" id="addBundlePageBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             Add Page
+          </button>
+          <button class="btn" id="renamePageBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
+            Rename Page
           </button>
           <button class="btn" id="renameBundleBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
@@ -1622,22 +1703,35 @@
     }
 
     function getActiveBundle(){
-      return getBundleById(state.activeBundleId) || state.defaultBundle;
+      // Return the active bundle for bundle view, excluding the default bundle
+      const bundle = getBundleById(state.activeBundleId);
+      // If the selected bundle is the default, return null for bundle view
+      if (bundle && bundle.isDefault) return null;
+      return bundle;
     }
 
     function buildBundleDropdowns(){
-      const allBundles = getAllBundles();
+      // User bundles only (exclude default Ten-Year Reading Plan from bundle view)
+      const userBundles = state.bundles || [];
       
-      // Bundle view dropdown
+      // Bundle view dropdown (user bundles only - Ten-Year Plan has its own tab)
       const bundleSelect = $("#bundleSelect");
-      bundleSelect.innerHTML = allBundles.map(b => 
+      const bundleOptions = userBundles.map(b => 
         `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
-      ).join("");
+      );
+      if (bundleOptions.length === 0) {
+        bundleOptions.push(`<option value="">— No Bundles Yet —</option>`);
+      }
+      bundleSelect.innerHTML = bundleOptions.join("");
+      // Set to first user bundle if current selection was default
+      if (state.activeBundleId === "__default__" && userBundles.length > 0) {
+        state.activeBundleId = userBundles[0].id;
+        saveActiveBundle(state.activeBundleId);
+      }
       bundleSelect.value = state.activeBundleId;
 
       // Library page bundle dropdown (user bundles only, not default)
       const libBundleSelect = $("#libBundleSelect");
-      const userBundles = state.bundles || [];
       libBundleSelect.innerHTML = 
         `<option value="">— Select Bundle —</option>` +
         userBundles.map(b => 
@@ -1663,7 +1757,11 @@
         if (!availablePages.includes(Number(state.filters.bundleYear))){
           state.filters.bundleYear = availablePages.length > 0 ? String(availablePages[0]) : "1";
         }
-        bundlePageDisplay.textContent = `Page ${state.filters.bundleYear}`;
+        // Show custom page name if available
+        const currentPage = Number(state.filters.bundleYear);
+        const yearObj = years.find(y => Number(y.year) === currentPage);
+        const pageName = yearObj?.name || `Page ${state.filters.bundleYear}`;
+        bundlePageDisplay.textContent = pageName;
       }
     }
 
@@ -1740,6 +1838,20 @@
       bundle.plan_name = newName;
       saveBundles(state.bundles);
       buildBundleDropdowns();
+    }
+
+    function renameBundlePage(bundleId, pageNum, newName){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return;
+      
+      const yearObj = bundle.years?.find(y => Number(y.year) === pageNum);
+      if (yearObj){
+        yearObj.name = newName;
+        saveBundles(state.bundles);
+        // Update the page display
+        $("#bundlePageDisplay").textContent = newName;
+        renderBundles();
+      }
     }
 
     function addBookToBundle(bundleId, pageNum, bookData){
@@ -1826,10 +1938,63 @@
       return { total, done, pct };
     }
 
+    function computeBundleProgress(bundle){
+      let total = 0;
+      let done = 0;
+      for (const year of (bundle.years || [])){
+        for (const reading of (year.readings || [])){
+          for (const work of (reading.works || [])){
+            total++;
+            const bundleWorkKey = `bundle:${bundle.id}:${year.year}:${reading.order || 1}:${work.title || "Untitled"}`;
+            if (state.checks[bundleWorkKey]) done++;
+          }
+        }
+      }
+      const pct = total ? Math.round((done/total)*100) : 0;
+      return { total, done, pct };
+    }
+
     function updateProgressBadge(){
       const { total, done, pct } = computeProgress();
       $("#progressBadge").textContent = `Progress: ${pct}%`;
       $("#countBadge").textContent = `${done}/${total} done`;
+      
+      // Update popup content
+      updateProgressPopup();
+    }
+
+    function updateProgressPopup(){
+      const popupContent = $("#progressPopupContent");
+      let html = '';
+      
+      // Ten-Year Reading Plan progress
+      const tenYearProgress = computeProgress();
+      html += `
+        <div class="progressPopupRow">
+          <span class="progressPopupName">Ten-Year Reading Plan</span>
+          <span class="progressPopupScore">${tenYearProgress.done}/${tenYearProgress.total}</span>
+          <span class="progressPopupBar"><span style="width:${tenYearProgress.pct}%"></span></span>
+        </div>
+      `;
+      
+      // User bundles progress
+      const userBundles = state.bundles || [];
+      for (const bundle of userBundles){
+        const bp = computeBundleProgress(bundle);
+        html += `
+          <div class="progressPopupRow">
+            <span class="progressPopupName">${escapeHtml(bundle.plan_name)}</span>
+            <span class="progressPopupScore">${bp.done}/${bp.total}</span>
+            <span class="progressPopupBar"><span style="width:${bp.pct}%"></span></span>
+          </div>
+        `;
+      }
+      
+      if (userBundles.length === 0){
+        html += `<div style="font-size:11px; color:var(--muted); padding:6px 0;">No user bundles yet.</div>`;
+      }
+      
+      popupContent.innerHTML = html;
     }
 
     /* =========================================================
@@ -2117,17 +2282,31 @@
 
     function bundlePageCardHtml(bundle, yearData){
       const pageNum = Number(yearData.year);
+      const pageName = yearData.name || `Page ${pageNum}`;
       const readings = yearData.readings || [];
       const total = readings.reduce((acc, r) => acc + (r.works?.length || 0), 0);
+      
+      // Count completed works in this bundle page
+      let done = 0;
+      for (const r of readings) {
+        for (const w of (r.works || [])) {
+          const bundleWorkKey = `bundle:${bundle.id}:${pageNum}:${r.order || 1}:${w.title || "Untitled"}`;
+          if (state.checks[bundleWorkKey]) done++;
+        }
+      }
+      const pct = total ? Math.round((done/total)*100) : 0;
+      const barW = pct;
 
       const readingsHtml = readings.map(r => bundleReadingBlockHtml(bundle, pageNum, r)).join("");
 
       return `
         <section class="yearCard" data-year="${pageNum}" data-bundleid="${escapeHtml(bundle.id)}">
           <div class="yearHeader">
-            <h2 class="yearTitle">Page ${escapeHtml(pageNum)}</h2>
+            <h2 class="yearTitle">${escapeHtml(pageName)}</h2>
             <div class="yearMeta">
-              <span>${escapeHtml(total)} work${total !== 1 ? 's' : ''}</span>
+              <span>${escapeHtml(done)}/${escapeHtml(total)} done</span>
+              <span class="mono">•</span>
+              <span class="bar" aria-label="progress bar"><span style="width:${barW}%"></span></span>
               ${bundle.isDefault ? '<span class="pill">Read-only</span>' : ''}
             </div>
           </div>
@@ -2143,24 +2322,31 @@
       const works = reading.works || [];
 
       const worksHtml = works.map(w => bundleWorkRowHtml(bundle, pageNum, order, w, author)).join("");
-      const isEditable = !bundle.isDefault;
 
       return `
-        <div class="readingBlock" data-year="${pageNum}" data-order="${order}">
+        <div class="readingBlock" data-year="${pageNum}" data-order="${order}" data-bundleid="${escapeHtml(bundle.id)}">
           <div class="readingHead">
             <div class="readingLeft">
               <div class="order">#${escapeHtml(order)}</div>
               <div class="author">${escapeHtml(author)}</div>
               <span class="tier">${escapeHtml(tier)}</span>
             </div>
-            ${isEditable ? `
-              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="button" data-action="markBundleBlockDone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Mark block done
+              </button>
+              <button class="btn" type="button" data-action="markBundleBlockUndone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
+                Mark block undone
+              </button>
+              ${!bundle.isDefault ? `
                 <button class="btn" type="button" data-action="removeReading" data-bundleid="${escapeHtml(bundle.id)}" data-page="${pageNum}" data-order="${order}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                   Remove
                 </button>
-              </div>
-            ` : ''}
+              ` : ''}
+            </div>
           </div>
           <div class="worksList">
             ${worksHtml}
@@ -2172,22 +2358,41 @@
     function bundleWorkRowHtml(bundle, pageNum, order, work, author){
       const title = work.title || "Untitled";
       const sourceUrl = work.sourceUrl || "";
+      const selection = work.selection || "";
+      const sel = selection ? `Selection: ${selection}` : "";
+      const sels = Array.isArray(work.selections) && work.selections.length ? `Selections: ${work.selections.join("; ")}` : "";
+      const subLines = [sel, sels].filter(Boolean);
+
+      // Generate workKey for checkbox state (similar to plan view)
+      const bundleWorkKey = `bundle:${bundle.id}:${pageNum}:${order}:${title}`;
+      const checked = !!state.checks[bundleWorkKey];
+      
+      // Count notes for this book
+      const noteCount = state.notes.filter(n => n.book_tag === title).length;
 
       return `
         <div class="workRow"
+             data-workkey="${escapeHtml(bundleWorkKey)}"
              data-book="${escapeHtml(title)}"
              data-author="${escapeHtml(author)}"
              data-year="${escapeHtml(pageNum)}"
              data-order="${escapeHtml(order)}"
+             data-selection="${escapeHtml(selection)}"
              ${sourceUrl ? `data-sourceurl="${escapeHtml(sourceUrl)}"` : ""}
         >
-          <div class="workMain" style="flex:1;">
+          <div class="workCheck">
+            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleBundleComplete" />
+          </div>
+
+          <div class="workMain">
             <p class="workTitle">${escapeHtml(title)}</p>
             <div class="workSub">
               <div class="tagRow">
                 <span class="pill">Page ${escapeHtml(pageNum)}</span>
                 <span class="pill">Order ${escapeHtml(order)}</span>
+                <span class="pill">Notes ${escapeHtml(noteCount)}</span>
               </div>
+              ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
             </div>
           </div>
 
@@ -2201,10 +2406,26 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
                 Wikipedia
               </button>
+              <button class="btn" type="button" data-action="openWikiSearch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                WikiSearch
+              </button>
               ${sourceUrl ? `<button class="btn" type="button" data-action="openSource">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
               </button>` : ""}
+              <button class="btn" type="button" data-action="openLibraryForWork">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                View in library
+              </button>
+              <button class="btn" type="button" data-action="newNoteFromWork">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                New note
+              </button>
+              <button class="btn" type="button" data-action="openNotesForBook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                Open notes
+              </button>
             </div>
           </div></div>
         </div>
@@ -2215,6 +2436,19 @@
       const grid = $("#bundlesGrid");
 
       grid.onclick = (e) => {
+        // Mobile: tap anywhere on work row (outside buttons/checkboxes) toggles work row expansion
+        if (!window.matchMedia("(hover:hover)").matches) {
+          if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
+            const row = e.target.closest(".workRow");
+            if (row) {
+              const was = row.classList.contains("active");
+              grid.querySelectorAll(".workRow.active").forEach(r => r.classList.remove("active"));
+              if (!was) row.classList.add("active");
+              return;
+            }
+          }
+        }
+
         const btn = e.target.closest("[data-action]");
         if (!btn) return;
 
@@ -2227,6 +2461,23 @@
           if (confirm("Remove this reading from the bundle?")){
             removeReadingFromBundle(bundleId, page, order);
           }
+          return;
+        }
+
+        // Mark bundle block done/undone
+        if (action === "markBundleBlockDone" || action === "markBundleBlockUndone"){
+          const block = btn.closest(".readingBlock");
+          if (!block) return;
+          const bundleId = block.dataset.bundleid;
+          const pageNum = Number(block.dataset.year);
+          const order = Number(block.dataset.order);
+          const workRows = block.querySelectorAll(".workRow[data-workkey]");
+          for (const r of workRows) {
+            const key = r.dataset.workkey;
+            state.checks[key] = (action === "markBundleBlockDone");
+          }
+          saveChecks(state.checks);
+          renderBundles();
           return;
         }
 
@@ -2247,11 +2498,57 @@
           return;
         }
 
+        if (action === "openWikiSearch"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const q = encodeURIComponent(`${title} ${author}`.trim());
+          window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
         if (action === "openSource"){
           const sourceUrl = row.dataset.sourceurl;
           if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
           return;
         }
+
+        if (action === "openLibraryForWork"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          gotoLibraryWork(author, title);
+          return;
+        }
+
+        if (action === "newNoteFromWork" || action === "openNotesForBook"){
+          const ctx = {
+            book_tag: row.dataset.book || "",
+            author: row.dataset.author || "",
+            year: row.dataset.year || "",
+            order: row.dataset.order || "",
+            selection: row.dataset.selection || ""
+          };
+
+          if (action === "newNoteFromWork"){
+            openDrawer("notes");
+            startNewNote(ctx);
+          } else {
+            openDrawer("notes");
+            state.notesUI.tag = ctx.book_tag;
+            $("#noteTagFilter").value = ctx.book_tag;
+            renderNotesList();
+          }
+          return;
+        }
+      };
+
+      grid.onchange = (e) => {
+        const cb = e.target.closest('input[type="checkbox"][data-action="toggleBundleComplete"]');
+        if (!cb) return;
+        const row = cb.closest(".workRow");
+        const key = row.dataset.workkey;
+        state.checks[key] = cb.checked;
+        saveChecks(state.checks);
+        renderBundles();
       };
     }
 
@@ -2995,6 +3292,44 @@
         if (e.key === "Escape" && state.drawer.open) closeDrawer();
       });
 
+      // Progress popup hover/click handling
+      const progressWrap = $("#progressBadgeWrap");
+      const progressPopup = $("#progressPopup");
+      const hoverMediaQuery = window.matchMedia("(hover:hover)");
+      
+      // Desktop: show on hover
+      progressWrap.addEventListener("mouseenter", () => {
+        if (hoverMediaQuery.matches) {
+          updateProgressPopup();
+          progressPopup.classList.add("show");
+          progressPopup.setAttribute("aria-hidden", "false");
+        }
+      });
+      progressWrap.addEventListener("mouseleave", () => {
+        if (hoverMediaQuery.matches) {
+          progressPopup.classList.remove("show");
+          progressPopup.setAttribute("aria-hidden", "true");
+        }
+      });
+      
+      // Mobile: toggle on click
+      $("#progressBadge").addEventListener("click", (e) => {
+        if (!hoverMediaQuery.matches) {
+          e.stopPropagation();
+          updateProgressPopup();
+          progressPopup.classList.toggle("show");
+          progressPopup.setAttribute("aria-hidden", progressPopup.classList.contains("show") ? "false" : "true");
+        }
+      });
+      
+      // Close popup when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!progressWrap.contains(e.target)) {
+          progressPopup.classList.remove("show");
+          progressPopup.setAttribute("aria-hidden", "true");
+        }
+      });
+
       // Library filters
       $("#libQ").addEventListener("input", e => { state.filters.libQ = e.target.value; renderLibrary(); });
       $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; renderLibrary(); });
@@ -3086,6 +3421,25 @@
           return;
         }
         addPageToBundle(bundle.id);
+      });
+
+      $("#renamePageBtn").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle){
+          alert("Please select a bundle first.");
+          return;
+        }
+        if (bundle.isDefault){
+          alert("Cannot rename pages in the default Ten-Year Reading Plan.");
+          return;
+        }
+        const currentPage = Number(state.filters.bundleYear) || 1;
+        const yearObj = bundle.years?.find(y => Number(y.year) === currentPage);
+        const currentName = yearObj?.name || `Page ${currentPage}`;
+        const newName = prompt("Enter a new name for this page:", currentName);
+        if (newName && newName.trim()){
+          renameBundlePage(bundle.id, currentPage, newName.trim());
+        }
       });
 
       $("#renameBundleBtn").addEventListener("click", () => {

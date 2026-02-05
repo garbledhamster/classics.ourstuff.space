@@ -1,300 +1,440 @@
 # Project Gutenberg Sources for Classics Collection
 
-This document tracks the availability of books from our collection on Project Gutenberg. Each book is marked with one of three symbols:
+This document tracks the availability of books from our collection on Project Gutenberg.
+
+**Status Indicators:**
 - ✅ Available on Project Gutenberg (with URL)
-- ⚠️ Uncertain/Need verification  
+- ⚠️ Needs verification
 - ⛔ Not available on Project Gutenberg
 
-**Quick Stats:**
+**Statistics:**
 - Total Books: 398
-- Verified Available: ~85+
-- Verified NOT Available: 6
-- Needing Verification: ~307
+- Available with Source: 101
+- Needing Verification: 297
+
+**Last Updated:** 2026-02-05
 
 ---
 
-## 🔍 Quick Navigation
+## Complete Book List
 
-- [Ancient Works (Pre-500 CE)](#ancient-works-pre-500-ce)
-- [Greek Drama](#greek-drama---aeschylus)
-- [Greek Philosophy](#greek-philosophy---plato)
-- [Roman Works](#roman-works)
-- [Medieval & Renaissance](#medieval--renaissance)
-- [Shakespeare](#shakespeare-complete-works)
-- [Early Modern Philosophy (1500-1700)](#early-modern-philosophy-1500-1700)
-- [Enlightenment Philosophy (1700-1800)](#enlightenment-philosophy-1700-1800)
-- [19th Century Works](#19th-century-philosophy--social-thought)
-- [Scientific Works](#scientific-works-16th-19th-century)
-- [Early 20th Century](#early-20th-century-1900-1930)
-- [Books NOT Available](#books-not-available-on-project-gutenberg-)
-- [Summary of Findings](#summary-of-findings)
-
----
-
-**Legend:**
-- **Item #**: Reference number from project.json (or "Various" if exact match pending)
-- **Title**: Book title
-- **Author**: Author name
-- **PG #**: Project Gutenberg ebook number (if available)
-- **URL**: Direct link to Project Gutenberg ebook
-
----
-
-## Books Available on Project Gutenberg ✅
-
-### Ancient Works (Pre-500 CE)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 1 | The Epic of Gilgamesh | Unknown | 18897 | https://www.gutenberg.org/ebooks/18897 |
-| 2 | the Bible (King James version) | Unknown | 10 | https://www.gutenberg.org/ebooks/10 |
-| 6 | Qur'an | Unknown | 7440 | https://www.gutenberg.org/ebooks/7440 |
-| 7 | Beowulf | Unknown | 16328 | https://www.gutenberg.org/ebooks/16328 |
-| 9 | The Destruction of Dá Derga's Hostel | Unknown | 14019 | https://www.gutenberg.org/ebooks/14019 |
-| 14 | The Iliad | Homer | 6130 | https://www.gutenberg.org/ebooks/6130 |
-| 15 | The Odyssey | Homer | 1727 | https://www.gutenberg.org/ebooks/1727 |
-
-### Greek Drama - Aeschylus
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 16 | The Suppliant Maidens | Aeschylus | 8714 | https://www.gutenberg.org/ebooks/8714 |
-| 17 | The Persians | Aeschylus | 8714 | https://www.gutenberg.org/ebooks/8714 |
-| 19 | Prometheus Bound | Aeschylus | 8714 | https://www.gutenberg.org/ebooks/8714 |
-| 21 | Agamemnon | Aeschylus | 5096 | https://www.gutenberg.org/ebooks/5096 |
-| 22 | Choephoroe | Aeschylus | 14418 | https://www.gutenberg.org/ebooks/14418 |
-| 23 | The Eumenides | Aeschylus | 14417 | https://www.gutenberg.org/ebooks/14417 |
-
-### Greek Drama - Sophocles
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 24 | Oedipus the King | Sophocles | 27673 | https://www.gutenberg.org/ebooks/27673 |
-| 25 | Oedipus at Colonus | Sophocles | 31 | https://www.gutenberg.org/ebooks/31 |
-| 26 | Antigone | Sophocles | 31 | https://www.gutenberg.org/ebooks/31 |
-| 27-30 | Ajax, Electra, Trachiniae, Philoctetes | Sophocles | Multiple | https://www.gutenberg.org/ebooks/author/26 |
-
-### Greek Drama - Euripides
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 32 | Medea | Euripides | 35451 | https://www.gutenberg.org/ebooks/35451 |
-| 33 | Hippolytus | Euripides | Various | https://www.gutenberg.org/ebooks/author/1680 |
-| 34 | Alcestis | Euripides | 10523 | https://www.gutenberg.org/ebooks/10523 |
-
-### Greek Comedy - Aristophanes
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 51 | The Clouds | Aristophanes | 2562 | https://www.gutenberg.org/ebooks/2562 |
-
-### Greek Philosophy - Plato
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | The Republic | Plato | 1497 | https://www.gutenberg.org/ebooks/1497 |
-| Various | Symposium | Plato | 1600 | https://www.gutenberg.org/ebooks/1600 |
-| Various | Apology | Plato | 1656 | https://www.gutenberg.org/ebooks/1656 |
-| Various | Phaedo | Plato | 1658 | https://www.gutenberg.org/ebooks/1658 |
-
-### Greek Philosophy - Aristotle
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | Poetics | Aristotle | 1974 | https://www.gutenberg.org/ebooks/1974 |
-| Various | Nicomachean Ethics | Aristotle | 8438 | https://www.gutenberg.org/ebooks/8438 |
-| Various | Physics, Metaphysics | Aristotle | Various | MIT Classics Archive |
-
-### Roman Works
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | The Aeneid | Virgil | 228 | https://www.gutenberg.org/ebooks/228 |
-| Various | Meditations | Marcus Aurelius | 2680 | https://www.gutenberg.org/ebooks/2680 |
-| Various | Parallel Lives | Plutarch | 674 | https://www.gutenberg.org/ebooks/674 |
-| 135 | On the Natural Faculties | Galen | 43383 | https://www.gutenberg.org/ebooks/43383 |
-| Various | The Republic | Cicero | 54161 | https://www.gutenberg.org/ebooks/54161 |
-
-### Medieval & Renaissance
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | The Canterbury Tales | Geoffrey Chaucer | 2383 | https://www.gutenberg.org/ebooks/2383 |
-| Various | The Divine Comedy | Dante Alighieri | 8800 | https://www.gutenberg.org/ebooks/8800 |
-
-### Shakespeare (Complete Works)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| ALL | Complete Works of Shakespeare | William Shakespeare | 100 | https://www.gutenberg.org/ebooks/100 |
-| Various | Hamlet | William Shakespeare | 1524 | https://www.gutenberg.org/ebooks/1524 |
-| Various | Romeo and Juliet | William Shakespeare | 1112 | https://www.gutenberg.org/ebooks/1112 |
-| Various | Macbeth | William Shakespeare | 2264 | https://www.gutenberg.org/ebooks/2264 |
-| Various | King Lear | William Shakespeare | 1128 | https://www.gutenberg.org/ebooks/1128 |
-
-### Early Modern Philosophy (1500-1700)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | The Prince | Niccolò Machiavelli | 1232 | https://www.gutenberg.org/ebooks/1232 |
-| Various | Discourse on Method | René Descartes | 59 | https://www.gutenberg.org/ebooks/59 |
-| Various | Paradise Lost | John Milton | 26 | https://www.gutenberg.org/ebooks/26 |
-
-### Enlightenment Philosophy (1700-1800)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | Essay Concerning Human Understanding | John Locke | 10615 | https://www.gutenberg.org/ebooks/10615 |
-| Various | Two Treatises of Government | John Locke | 7370 | https://www.gutenberg.org/ebooks/7370 |
-| Various | Enquiry Concerning Human Understanding | David Hume | 9662 | https://www.gutenberg.org/ebooks/9662 |
-| Various | Treatise of Human Nature | David Hume | 4705 | https://www.gutenberg.org/ebooks/4705 |
-| Various | Wealth of Nations | Adam Smith | 3300 | https://www.gutenberg.org/ebooks/3300 |
-| Various | Critique of Pure Reason | Immanuel Kant | 4280 | https://www.gutenberg.org/ebooks/4280 |
-
-### 19th Century Philosophy & Social Thought
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | On Liberty | John Stuart Mill | 34901 | https://www.gutenberg.org/ebooks/34901 |
-| Various | Utilitarianism | John Stuart Mill | 11224 | https://www.gutenberg.org/ebooks/11224 |
-
-### 19th Century American Literature
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | Walden | Henry David Thoreau | 205 | https://www.gutenberg.org/ebooks/205 |
-| Various | Leaves of Grass | Walt Whitman | 1322 | https://www.gutenberg.org/ebooks/1322 |
-| Various | Representative Men | Ralph Waldo Emerson | 6312 | https://www.gutenberg.org/ebooks/6312 |
-| 301 | Moby Dick; or, The Whale | Herman Melville | 2701 | https://www.gutenberg.org/ebooks/2701 |
-
-### 19th Century European Literature & Science
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 302 | The Origin of Species | Charles Darwin | 1228 | https://www.gutenberg.org/ebooks/1228 |
-| 303 | The Descent of Man | Charles Darwin | Various | Check PG Darwin page |
-| 306 | War and Peace | Leo Tolstoy | 2600 | https://www.gutenberg.org/ebooks/2600 |
-| 307 | The Brothers Karamazov | Fyodor Dostoevsky | 28054 | https://www.gutenberg.org/ebooks/28054 |
-
-### Early 20th Century (1900-1930)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 308 | The Principles of Psychology | William James | 57628 | https://www.gutenberg.org/ebooks/57628 |
-| Various | The Interpretation of Dreams | Sigmund Freud | 66048 | https://www.gutenberg.org/ebooks/66048 |
-
----
-
-### Scientific Works (16th-19th Century)
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| 261 | Mathematical Principles of Natural Philosophy | Sir Isaac Newton | 76404 | https://www.gutenberg.org/ebooks/76404 |
-| Various | On the Motion of the Heart & Blood | William Harvey | 67065 | https://www.gutenberg.org/ebooks/67065 |
-
-### 18th-19th Century Philosophy
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | Leviathan | Thomas Hobbes | 3207 | https://www.gutenberg.org/ebooks/3207 |
-| Various | The Social Contract | Jean-Jacques Rousseau | 46333 | https://www.gutenberg.org/ebooks/46333 |
-| Various | Discourse on Inequality | Jean-Jacques Rousseau | 11136 | https://www.gutenberg.org/ebooks/11136 |
-| 300 | Faust | Johann Wolfgang von Goethe | 63203 | https://www.gutenberg.org/ebooks/63203 |
-
-### 19th Century German Philosophy
-
-| Item # | Title | Author | PG # | URL |
-|--------|-------|--------|------|-----|
-| Various | Thus Spake Zarathustra | Friedrich Nietzsche | 1998 | https://www.gutenberg.org/ebooks/1998 |
-| Various | Beyond Good and Evil | Friedrich Nietzsche | 4363 | https://www.gutenberg.org/ebooks/4363 |
-
----
-
-## Books NOT Available on Project Gutenberg ⛔
-
-| Item # | Title | Author | Reason |
-|--------|-------|--------|--------|
-| 11 | The Great Conversation | Hutchins & Adler | Available on Internet Archive, not PG |
-| 12-13 | The Great Ideas I & II | Hutchins & Adler | Available on Internet Archive, not PG |
-| Various | On the Revolutions of Heavenly Spheres | Nicolaus Copernicus | Not on PG (available on Internet Archive) |
-| Various | Dialogue Concerning Two Chief World Systems | Galileo Galilei | Not on PG (available on Internet Archive) |
-| Various | Phenomenology of Spirit (English) | G.W.F. Hegel | Only German version on PG #6698 |
-| 304 | Capital (Das Kapital) | Karl Marx | Not available in English on PG (Spanish version exists) |
-
----
-
-## Books Needing Additional Verification ⚠️
-
-The following categories need systematic searching:
-- Remaining Aristophanes plays (The Knights, The Peace, The Birds, etc.)
-- Remaining Euripides plays 
-- Complete Aristotle works (On the Soul, Politics, etc.)
-- Medieval works (Song of Roland, Story of the Volsungs, etc.)
-- Complete Shakespeare collection verification
-- 18th-19th century novels
-- Scientific works by Newton, Copernicus, Galileo, Harvey
-- Political philosophy (Hobbes, Rousseau, etc.)
-- 20th century works (many may be under copyright)
-
----
-
-## Search Progress
-
-- **Total Books**: 398
-- **Verified Available on PG**: ~85+
-- **Verified NOT Available on PG**: 6
-- **Needing Verification**: ~307
-
-**Last Updated**: 2026-02-05
-
----
-
-## Summary of Findings
-
-### High-Confidence Findings (✅ Verified Available)
-The following categories are well-represented on Project Gutenberg:
-- **Ancient Literature**: Most major works (Gilgamesh, Homer, Virgil, etc.)
-- **Greek Drama**: Complete works of Aeschylus, Sophocles, Euripides, and Aristophanes
-- **Greek Philosophy**: Plato and Aristotle's major works
-- **Roman Philosophy & History**: Marcus Aurelius, Cicero, Plutarch, Galen
-- **Medieval Literature**: Dante, Chaucer
-- **Shakespeare**: Complete works plus individual plays
-- **Enlightenment Philosophy**: Hobbes, Locke, Hume, Rousseau, Kant, Smith
-- **19th Century Philosophy**: Mill, Nietzsche
-- **American Literature**: Thoreau, Whitman, Emerson, Melville
-- **19th Century European Literature**: Tolstoy, Dostoevsky, Goethe
-- **Science**: Darwin, Newton, Harvey
-- **Early 20th Century**: William James, Freud
-
-### Confirmed NOT Available (⛔)
-- Great Books introductory volumes (available on Internet Archive)
-- Copernicus & Galileo's major works (available on Internet Archive)
-- Marx's Capital in English (available elsewhere)
-- Hegel's Phenomenology in English (German version on PG)
-
-### Areas Needing Further Investigation (⚠️)
-- Remaining Greek and Roman minor works
-- Medieval texts (Song of Roland, Norse sagas)
-- Complete Aristotle corpus (many works on MIT Classics Archive, not PG)
-- 17th-18th century works
-- 19th century novels and minor works
-- 20th century works (many still under copyright)
+| Status | Item # | Title | Author | Vol | Date | PG # | URL |
+|--------|--------|-------|--------|-----|------|------|-----|
+| ⚠️ | 1 | The Epic of Gilgamesh |  |  | -1200 |  |  |
+| ⚠️ | 2 | the Bible (King James version) |  |  | 1769 |  |  |
+| ⚠️ | 3 | the Bible (Douay version) |  |  | 1752 |  |  |
+| ⚠️ | 4 | The Bhagavad Gita |  |  | -500 |  |  |
+| ⚠️ | 5 | Analects (The Sayings of Confucius) |  |  | -220 |  |  |
+| ⚠️ | 6 | Qur'an |  |  | 632 |  |  |
+| ⚠️ | 7 | Beowulf |  |  | 1025 |  |  |
+| ⚠️ | 8 | The Song of Roland |  |  | 1115 |  |  |
+| ⚠️ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 |  |  |
+| ⚠️ | 10 | The Story of the Volsungs and Niblungs |  |  | 1877 |  |  |
+| ⚠️ | 11 | The Great Conversation | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 1 | 1952 |  |  |
+| ⚠️ | 12 | The Great Ideas I : ANGEL to LOVE | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 2 | 1952 |  |  |
+| ⚠️ | 13 | The Great Ideas II
+: MAN to WORLD | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 3 | 1952 |  |  |
+| ✅ | 14 | The Iliad | Homer | 4 | -700 | 6130 | [Link](https://www.gutenberg.org/ebooks/6130) |
+| ✅ | 15 | The Odyssey | Homer | 4 | -700 | 1727 | [Link](https://www.gutenberg.org/ebooks/1727) |
+| ⚠️ | 16 | The Suppliant Maidens | Aeschylus | 5 | -458 |  |  |
+| ⚠️ | 17 | The Persians | Aeschylus | 5 | -472 |  |  |
+| ⚠️ | 18 | Seven Against Thebes | Aeschylus | 5 | -467 |  |  |
+| ✅ | 19 | Prometheus Bound | Aeschylus | 5 | -424 | 8714 | [Link](https://www.gutenberg.org/ebooks/8714) |
+| ⚠️ | 20 | The Oresteia | Aeschylus | 5 | -450 |  |  |
+| ✅ | 21 | Agamemnon | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
+| ✅ | 22 | Choephoroe | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
+| ✅ | 23 | The Eumenides | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
+| ✅ | 24 | Oedipus the King | Sophocles | 5 | -429 | 31 | [Link](https://www.gutenberg.org/ebooks/31) |
+| ⚠️ | 25 | Oedipus at Colonus | Sophocles | 5 | -401 |  |  |
+| ✅ | 26 | Antigone | Sophocles | 5 | -450 | 31 | [Link](https://www.gutenberg.org/ebooks/31) |
+| ✅ | 27 | Ajax | Sophocles | 5 | -450 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
+| ✅ | 28 | Electra | Sophocles | 5 | -450 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
+| ⚠️ | 29 | The Trachiniae | Sophocles | 5 | -425 |  |  |
+| ⚠️ | 30 | Philoctetes | Sophocles | 5 | -409 |  |  |
+| ⚠️ | 31 | Rhesus | Euripides | 5 | -440 |  |  |
+| ✅ | 32 | Medea | Euripides | 5 | -431 | 35451 | [Link](https://www.gutenberg.org/ebooks/35451) |
+| ✅ | 33 | Hippolytus | Euripides | 5 | -428 | 14681 | [Link](https://www.gutenberg.org/ebooks/14681) |
+| ⚠️ | 34 | Alcestis | Euripides | 5 | -438 |  |  |
+| ⚠️ | 35 | Heracleidae | Euripides | 5 | -430 |  |  |
+| ⚠️ | 36 | The Suppliants | Euripides | 5 | -458 |  |  |
+| ✅ | 37 | The Trojan Women | Euripides | 5 | -415 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ⚠️ | 38 | Ion | Euripides | 5 | -412 |  |  |
+| ⚠️ | 39 | Helen | Euripides | 5 | -412 |  |  |
+| ⚠️ | 40 | Andromache | Euripides | 5 | -425 |  |  |
+| ✅ | 41 | Electra | Euripides | 5 | -414 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
+| ⚠️ | 42 | Bacchantes | Euripides | 5 | -405 |  |  |
+| ⚠️ | 43 | Hecuba | Euripides | 5 | -424 |  |  |
+| ⚠️ | 44 | Heracles Mad | Euripides | 5 | -416 |  |  |
+| ⚠️ | 45 | The Phoenician Women | Euripides | 5 | -425 |  |  |
+| ⚠️ | 46 | Orestes | Euripides | 5 | -404 |  |  |
+| ⚠️ | 47 | Iphigenia in Tauris | Euripides | 5 | -412 |  |  |
+| ⚠️ | 48 | Iphigenia in Aulis | Euripides | 5 | -406 |  |  |
+| ⚠️ | 49 | The Acharnians | Aristophanes | 5 | -425 |  |  |
+| ⚠️ | 50 | The Knights | Aristophanes | 5 | -424 |  |  |
+| ✅ | 51 | The Clouds | Aristophanes | 5 | -423 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
+| ⚠️ | 52 | The Wasps | Aristophanes | 5 | -422 |  |  |
+| ⚠️ | 53 | Peace | Aristophanes | 5 | -421 |  |  |
+| ⚠️ | 54 | The Birds | Aristophanes | 5 | -414 |  |  |
+| ⚠️ | 55 | The Frogs | Aristophanes | 5 | -405 |  |  |
+| ✅ | 56 | Lysistrata | Aristophanes | 5 | -411 | 7700 | [Link](https://www.gutenberg.org/ebooks/7700) |
+| ✅ | 57 | Thesmophoriazusae | Aristophanes | 5 | -411 | 8688 | [Link](https://www.gutenberg.org/ebooks/8688) |
+| ⚠️ | 58 | Ecclesiazousae | Aristophanes | 5 | -391 |  |  |
+| ✅ | 59 | Plutus | Aristophanes | 5 | -388 | 2012 | [Link](https://www.gutenberg.org/ebooks/2012) |
+| ✅ | 60 | The History | Herodotus | 6 | -430 | 2707 | [Link](https://www.gutenberg.org/ebooks/2707) |
+| ⚠️ | 61 | History of the Peloponnesian War | Thucydides | 6 | -400 |  |  |
+| ⚠️ | 62 | Dialogues | Plato | 7 | -370 |  |  |
+| ⚠️ | 63 | Charmides | Plato | 7 | -390 |  |  |
+| ⚠️ | 64 | Lysis | Plato | 7 | -387 |  |  |
+| ⚠️ | 65 | Laches | Plato | 7 | -390 |  |  |
+| ⚠️ | 66 | Protagoras | Plato | 7 | -390 |  |  |
+| ⚠️ | 67 | Euthydemus | Plato | 7 | -367 |  |  |
+| ⚠️ | 68 | Cratylus | Plato | 7 | -367 |  |  |
+| ⚠️ | 69 | Phaedrus | Plato | 7 | -367 |  |  |
+| ⚠️ | 70 | Ion | Plato | 7 | -390 |  |  |
+| ✅ | 71 | Symposium | Plato | 7 | -367 | 1600 | [Link](https://www.gutenberg.org/ebooks/1600) |
+| ✅ | 72 | Meno | Plato | 7 | -367 | 1643 | [Link](https://www.gutenberg.org/ebooks/1643) |
+| ⚠️ | 73 | Euthyphro | Plato | 7 | -390 |  |  |
+| ✅ | 74 | Apology | Plato | 7 | -390 | 1656 | [Link](https://www.gutenberg.org/ebooks/1656) |
+| ✅ | 75 | Crito | Plato | 7 | -390 | 1657 | [Link](https://www.gutenberg.org/ebooks/1657) |
+| ✅ | 76 | Phaedo | Plato | 7 | -367 | 1658 | [Link](https://www.gutenberg.org/ebooks/1658) |
+| ✅ | 77 | Gorgias | Plato | 7 | 390 | 1672 | [Link](https://www.gutenberg.org/ebooks/1672) |
+| ✅ | 78 | The Republic | Plato | 7 | -375 | 1497 | [Link](https://www.gutenberg.org/ebooks/1497) |
+| ✅ | 79 | Timaeus | Plato | 7 | -387 | 1572 | [Link](https://www.gutenberg.org/ebooks/1572) |
+| ⚠️ | 80 | Critias | Plato | 7 | -387 |  |  |
+| ⚠️ | 81 | Parmenides | Plato | 7 | -367 |  |  |
+| ✅ | 82 | Theaetetus | Plato | 7 | -367 | 1726 | [Link](https://www.gutenberg.org/ebooks/1726) |
+| ✅ | 83 | Sophist | Plato | 7 | -361 | 1735 | [Link](https://www.gutenberg.org/ebooks/1735) |
+| ✅ | 84 | Statesman | Plato | 7 | -387 | 1738 | [Link](https://www.gutenberg.org/ebooks/1738) |
+| ✅ | 85 | Philebus | Plato | 7 | -387 | 1744 | [Link](https://www.gutenberg.org/ebooks/1744) |
+| ✅ | 86 | Laws | Plato | 7 | -367 | 1750 | [Link](https://www.gutenberg.org/ebooks/1750) |
+| ⚠️ | 87 | The Seventh Letter | Plato | 7 | -352 |  |  |
+| ✅ | 88 | Categories | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/categories.html) |
+| ✅ | 89 | On Interpretation | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/interpretation.html) |
+| ⚠️ | 90 | Prior Analytics | Aristotle | 8 | -350 |  |  |
+| ⚠️ | 91 | Posterior Analytics | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 92 | Topics | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 93 | Sophistical Refutations | Aristotle | 8 | -322 |  |  |
+| ✅ | 94 | Physics | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/physics.html) |
+| ⚠️ | 95 | On the Heavens | Aristotle | 8 | -350 |  |  |
+| ⚠️ | 96 | On Generation and Corruption | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 97 | Meteorology | Aristotle | 8 | -340 |  |  |
+| ✅ | 98 | Metaphysics | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/metaphysics.html) |
+| ✅ | 99 | On the Soul | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/soul.html) |
+| ⚠️ | 100 | Minor biological works | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 101 | On Sense and the Sensible | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 102 | On Memory and Reminisence | Aristotle | 8 | -350 |  |  |
+| ⚠️ | 103 | On Sleep and Sleeplessness | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 104 | On Dreams | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 105 | On Prophesying by Dreams | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 106 | On Longevity and Shortness of Life | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 107 | On Youth and Old Age, On Life and Death, On Breathing | Aristotle | 8 | -322 |  |  |
+| ⚠️ | 108 | History of Animals | Aristotle | 9 | -322 |  |  |
+| ⚠️ | 109 | Parts of Animals | Aristotle | 9 | -350 |  |  |
+| ⚠️ | 110 | On the Motion of Animals | Aristotle | 9 | -322 |  |  |
+| ⚠️ | 111 | On the Gait of Animals | Aristotle | 9 | -322 |  |  |
+| ⚠️ | 112 | On the Generation of Animals | Aristotle | 9 | -322 |  |  |
+| ✅ | 113 | Nicomachean Ethics | Aristotle | 9 | -322 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
+| ✅ | 114 | Politics | Aristotle | 9 | -322 | 6762 | [Link](https://www.gutenberg.org/ebooks/6762) |
+| ⚠️ | 115 | The Athenian Constitution | Aristotle | 9 | -322 |  |  |
+| ✅ | 116 | Rhetoric | Aristotle | 9 | -322 |  | [Link](https://classics.mit.edu/Aristotle/rhetoric.html) |
+| ✅ | 117 | Poetics | Aristotle | 9 | -335 | 1974 | [Link](https://www.gutenberg.org/ebooks/1974) |
+| ⚠️ | 118 | The Hippocratic Oath | Hippocrates | 10 | -370 |  |  |
+| ⚠️ | 119 | On Ancient Medicine | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 120 | On Airs, Water, and Places | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 121 | The Book of Prognostics | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 122 | On Regimen in Acute Diseases | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 123 | Of the Epidemics | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 124 | On Injuries of the Head | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 125 | On the Surgery | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 126 | On Fractures | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 127 | On the Articulations | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 128 | Instruments of Reduction | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 129 | Aphorisms | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 130 | The Law | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 131 | The Ulcer | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 132 | On Fistulae | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 133 | On Hemorrhoids | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 134 | On the Sacred Disease | Hippocrates | 10 | -400 |  |  |
+| ⚠️ | 135 | On the Natural Faculties | Galen | 10 | 199 |  |  |
+| ✅ | 136 | The Thirteen Books of Euclid's Elements | Euclid | 11 | -300 | 21076 | [Link](https://www.gutenberg.org/ebooks/21076) |
+| ⚠️ | 137 | On the Sphere and Cylinder | Archimedes | 11 | -225 |  |  |
+| ⚠️ | 138 | Measurement of a Circle | Archimedes | 11 | -250 |  |  |
+| ⚠️ | 139 | On Conoids and Spheroids | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 140 | On Spirals | Archimedes | 11 | -225 |  |  |
+| ⚠️ | 141 | On the Equilibrium of Planes | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 142 | The Sand Reckoner | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 143 | The Quadrature of the Parabola | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 144 | On Floating Bodies | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 145 | Book of Lemmas | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 146 | The Method Treating of Mechanical Problems | Archimedes | 11 | -212 |  |  |
+| ⚠️ | 147 | On Conic Sections | Apollonius of Perga | 11 | -190 |  |  |
+| ⚠️ | 148 | Introduction to Arithmetic | Nicomachus of Gerasa | 11 | 120 |  |  |
+| ✅ | 149 | On the Nature of Things | Lucretius | 12 | 1473 | 785 | [Link](https://www.gutenberg.org/ebooks/785) |
+| ✅ | 150 | The Discourses | Epictetus | 12 | 108 | 10661 | [Link](https://www.gutenberg.org/ebooks/10661) |
+| ✅ | 151 | The Meditations | Marcus Aurelius | 12 | 180 | 2680 | [Link](https://www.gutenberg.org/ebooks/2680) |
+| ✅ | 152 | Eclogues | Virgil | 13 | -38 | 232 | [Link](https://www.gutenberg.org/ebooks/232) |
+| ✅ | 153 | Georgics | Virgil | 13 | -29 | 232 | [Link](https://www.gutenberg.org/ebooks/232) |
+| ⚠️ | 154 | Aeneid | Virgil | 13 | -19 |  |  |
+| ✅ | 155 | The Lives of the Noble Grecians and Romans | Plutarch | 14 | 100 | 674 | [Link](https://www.gutenberg.org/ebooks/674) |
+| ✅ | 156 | The Annals | P. Cornelius Tacitus | 15 | 117 | 3674 | [Link](https://www.gutenberg.org/ebooks/3674) |
+| ✅ | 157 | The Histories | P. Cornelius Tacitus | 15 | 105 | 16927 | [Link](https://www.gutenberg.org/ebooks/16927) |
+| ⚠️ | 158 | Almagest | Ptolemy | 16 | 170 |  |  |
+| ⚠️ | 159 | On the Revolutions of Heavenly Spheres | Nicolaus Copernicus | 16 | 1543 |  |  |
+| ⚠️ | 160 | Epitome of Copernican Astronomy (Books IV–V) | Johannes Kepler | 16 | 1621 |  |  |
+| ⚠️ | 161 | The Harmonies of the World (Book V) | Johannes Kepler | 16 | 1619 |  |  |
+| ⚠️ | 162 | The Six Enneads | Plotinus | 17 | 250 |  |  |
+| ⚠️ | 163 | The Confessions | Augustine of Hippo | 18 | 400 |  |  |
+| ✅ | 164 | The City of God | Augustine of Hippo | 18 | 426 | 45304 | [Link](https://www.gutenberg.org/ebooks/45304) |
+| ✅ | 165 | On Christian Doctrine | Augustine of Hippo | 18 | 426 | 9242 | [Link](https://www.gutenberg.org/ebooks/9242) |
+| ✅ | 166 | Summa Theologica | Thomas Aquinas | 19 | 1274 | 17611 | [Link](https://www.gutenberg.org/ebooks/17611) |
+| ✅ | 167 | Summa Theologica | Thomas Aquinas | 20 | 1274 | 17611 | [Link](https://www.gutenberg.org/ebooks/17611) |
+| ⚠️ | 168 | Divine Comedy | Dante Alighieri | 21 | 1321 |  |  |
+| ⚠️ | 169 | Troilus and Criseyde | Geoffrey Chaucer | 22 | 1385 |  |  |
+| ✅ | 170 | The Canterbury Tales | Geoffrey Chaucer | 22 | 1476 | 2383 | [Link](https://www.gutenberg.org/ebooks/2383) |
+| ✅ | 171 | The Prince | Niccolò Machiavelli | 23 | 1532 | 1232 | [Link](https://www.gutenberg.org/ebooks/1232) |
+| ✅ | 172 | Leviathan | Thomas Hobbes | 23 | 1651 | 3207 | [Link](https://www.gutenberg.org/ebooks/3207) |
+| ⚠️ | 173 | Gargantua and Pantagruel | François Rabelais | 24 | 1564 |  |  |
+| ✅ | 174 | Essays | Michel Eyquem de Montaigne | 25 | 1592 | 3600 | [Link](https://www.gutenberg.org/ebooks/3600) |
+| ⚠️ | 175 | The First Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
+| ⚠️ | 176 | The Second Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
+| ⚠️ | 177 | The Third Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
+| ⚠️ | 178 | The Tragedy of Richard the Third | William Shakespeare | 26 | 1594 |  |  |
+| ✅ | 179 | The Comedy of Errors | William Shakespeare | 26 | 1594 | 23046 | [Link](https://www.gutenberg.org/ebooks/23046) |
+| ⚠️ | 180 | Titus Andronicus | William Shakespeare | 26 | 1593 |  |  |
+| ✅ | 181 | The Taming of the Shrew | William Shakespeare | 26 | 1593 | 1107 | [Link](https://www.gutenberg.org/ebooks/1107) |
+| ⚠️ | 182 | The Two Gentlemen of Verona | William Shakespeare | 26 | 1593 |  |  |
+| ⚠️ | 183 | Love's Labour's Lost | William Shakespeare | 26 | 1595 |  |  |
+| ⚠️ | 184 | Romeo and Juliet | William Shakespeare | 26 | 1596 |  |  |
+| ⚠️ | 185 | The Tragedy of King Richard the Second | William Shakespeare | 26 | 1595 |  |  |
+| ⚠️ | 186 | A Midsummer Night's Dream | William Shakespeare | 26 | 1595 |  |  |
+| ⚠️ | 187 | The Life and Death of King John | William Shakespeare | 26 | 1595 |  |  |
+| ⚠️ | 188 | The Merchant of Venice | William Shakespeare | 26 | 1596 |  |  |
+| ⚠️ | 189 | The First Part of King Henry the Fourth | William Shakespeare | 26 | 1597 |  |  |
+| ⚠️ | 190 | The Second Part of King Henry the Fourth | William Shakespeare | 26 | 1599 |  |  |
+| ⚠️ | 191 | Much Ado About Nothing | William Shakespeare | 26 | 1599 |  |  |
+| ⚠️ | 192 | The Life of King Henry the Fifth | William Shakespeare | 26 | 1599 |  |  |
+| ✅ | 193 | Julius Caesar | William Shakespeare | 26 | 1599 | 1522 | [Link](https://www.gutenberg.org/ebooks/1522) |
+| ✅ | 194 | As You Like It | William Shakespeare | 26 | 1599 | 1523 | [Link](https://www.gutenberg.org/ebooks/1523) |
+| ⚠️ | 195 | Twelfth Night; or, What You Will | William Shakespeare | 27 | 1602 |  |  |
+| ⚠️ | 196 | The Tragedy of Hamlet, Prince of Denmark | William Shakespeare | 27 | 1601 |  |  |
+| ⚠️ | 197 | The Merry Wives of Windsor | William Shakespeare | 27 | 1602 |  |  |
+| ✅ | 198 | Troilus and Cressida | William Shakespeare | 27 | 1602 | 1790 | [Link](https://www.gutenberg.org/ebooks/1790) |
+| ⚠️ | 199 | All's Well That Ends Well | William Shakespeare | 27 | 1608 |  |  |
+| ⚠️ | 200 | Measure for Measure | William Shakespeare | 27 | 1604 |  |  |
+| ⚠️ | 201 | Othello, the Moor of Venice | William Shakespeare | 27 | 1603 |  |  |
+| ✅ | 202 | King Lear | William Shakespeare | 27 | 1605 | 1532 | [Link](https://www.gutenberg.org/ebooks/1532) |
+| ✅ | 203 | Macbeth | William Shakespeare | 27 | 1606 | 1533 | [Link](https://www.gutenberg.org/ebooks/1533) |
+| ✅ | 204 | Antony and Cleopatra | William Shakespeare | 27 | 1607 | 1534 | [Link](https://www.gutenberg.org/ebooks/1534) |
+| ✅ | 205 | Coriolanus | William Shakespeare | 27 | 1608 | 1535 | [Link](https://www.gutenberg.org/ebooks/1535) |
+| ⚠️ | 206 | Timon of Athens | William Shakespeare | 27 | 1606 |  |  |
+| ⚠️ | 207 | Pericles, Prince of Tyre | William Shakespeare | 27 | 1609 |  |  |
+| ⚠️ | 208 | Cymbeline | William Shakespeare | 27 | 1611 |  |  |
+| ⚠️ | 209 | The Winter's Tale | William Shakespeare | 27 | 1623 |  |  |
+| ⚠️ | 210 | The Tempest | William Shakespeare | 27 | 1611 |  |  |
+| ⚠️ | 211 | The Famous History of the Life of King Henry the Eighth | William Shakespeare | 27 | 1623 |  |  |
+| ⚠️ | 212 | Sonnets | William Shakespeare | 27 | 1605 |  |  |
+| ⚠️ | 213 | On the Loadstone and Magnetic Bodies | William Gilbert | 28 | 1893 |  |  |
+| ⚠️ | 214 | Dialogues Concerning the Two New Sciences | Galileo Galilei | 28 | 1638 |  |  |
+| ⚠️ | 215 | On the Motion of the Heart and Blood in Animals | William Harvey | 28 | 1657 |  |  |
+| ⚠️ | 216 | On the Circulation of Blood | William Harvey | 28 | 1628 |  |  |
+| ⚠️ | 217 | On Animal Generation | William Harvey | 28 | 1651 |  |  |
+| ⚠️ | 218 | The History of Don Quixote de la Mancha | Miguel de Cervantes | 29 | 1605 |  |  |
+| ⚠️ | 219 | The Advancement of Learning | Sir Francis Bacon | 30 | 1605 |  |  |
+| ✅ | 220 | Novum Organum | Sir Francis Bacon | 30 | 1620 | 45988 | [Link](https://www.gutenberg.org/ebooks/45988) |
+| ⚠️ | 221 | New Atlantis | Sir Francis Bacon | 30 | 1627 |  |  |
+| ⚠️ | 222 | Rules for the Direction of the Mind | René Descartes | 31 | 1701 |  |  |
+| ⚠️ | 223 | Discourse on the Method | René Descartes | 31 | 1637 |  |  |
+| ✅ | 224 | Meditations on First Philosophy | René Descartes | 31 | 1641 | 59 | [Link](https://www.gutenberg.org/ebooks/59) |
+| ⚠️ | 225 | Objections Against the Meditations and Replies | René Descartes | 31 | 1642 |  |  |
+| ⚠️ | 226 | The Geometry | René Descartes | 31 | 1649 |  |  |
+| ✅ | 227 | Ethics | Benedict de Spinoza | 31 | 1677 | 3800 | [Link](https://www.gutenberg.org/ebooks/3800) |
+| ⚠️ | 228 | On the Morning of Christ's Nativity | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 229 | A Paraphrase on Psalm 114 | John Milton | 32 | 1645 |  |  |
+| ⚠️ | 230 | Psalm 136 | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 231 | The Passion | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 232 | On Time | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 233 | Upon the Circumcision | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 234 | At a Solemn Musick | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 235 | An Epitaph on the Marchioness of Winchester | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 236 | Song on May Morning | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 237 | On Shakespeare | John Milton | 32 | 1630 |  |  |
+| ⚠️ | 238 | On the University Carrier | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 239 | Another on the same | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 240 | L'Allegro | John Milton | 32 | 1645 |  |  |
+| ⚠️ | 241 | Il Penseroso | John Milton | 32 | 1646 |  |  |
+| ⚠️ | 242 | Arcades | John Milton | 32 | 1634 |  |  |
+| ⚠️ | 243 | Lycida | John Milton | 32 | 1638 |  |  |
+| ⚠️ | 244 | Comus | John Milton | 32 | 1634 |  |  |
+| ⚠️ | 245 | On the Death of a Fair Infant | John Milton | 32 | 1628 |  |  |
+| ⚠️ | 246 | At a Vacation Exercise | John Milton | 32 | 1631 |  |  |
+| ⚠️ | 247 | The Fifth Ode of Horace | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 248 | Sonnets (I, and VII—XIX) | John Milton | 32 | 1655 |  |  |
+| ⚠️ | 249 | On the New Forcers of Conscience | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 250 | On the Lord General Fairfax at the Siege of Colchester | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 251 | To the Lord General Cromwell | John Milton | 32 | 1652 |  |  |
+| ⚠️ | 252 | To Sir Henry Vane the Younger | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 253 | To Mister Cyriack the Skinner upon his Blindness | John Milton | 32 | 1673 |  |  |
+| ⚠️ | 254 | Psalms (I—VIII & LXXX—LXXXVIII) | John Milton | 32 | 1653 |  |  |
+| ✅ | 255 | Paradise Lost | John Milton | 32 | 1667 | 26 | [Link](https://www.gutenberg.org/ebooks/26) |
+| ⚠️ | 256 | Samson Agonistes | John Milton | 32 | 1674 |  |  |
+| ✅ | 257 | Areopagitica | John Milton | 32 | 1644 | 608 | [Link](https://www.gutenberg.org/ebooks/608) |
+| ⚠️ | 258 | The Provincial Letters | Blaise Pascal | 33 | 1657 |  |  |
+| ⚠️ | 259 | Pensées | Blaise Pascal | 33 | 1670 |  |  |
+| ⚠️ | 260 | Scientific and mathematical essays | Blaise Pascal | 33 | 1658 |  |  |
+| ⚠️ | 261 | Mathematical Principles of Natural Philosophy | Sir Isaac Newton | 34 | 1687 |  |  |
+| ⚠️ | 262 | Optics | Sir Isaac Newton | 34 | 1704 |  |  |
+| ⚠️ | 263 | Treatise on Light | Christiaan Huygens | 34 | 1690 |  |  |
+| ✅ | 264 | A Letter Concerning Toleration | John Locke | 35 | 1689 | 14865 | [Link](https://www.gutenberg.org/ebooks/14865) |
+| ⚠️ | 265 | Concerning Civil Government, Second Essay | John Locke | 35 | 1690 |  |  |
+| ✅ | 266 | An Essay Concerning Human Understanding | John Locke | 35 | 1689 | 10615 | [Link](https://www.gutenberg.org/ebooks/10615) |
+| ⚠️ | 267 | The Principles of Human Knowledge | George Berkeley | 35 | 1710 |  |  |
+| ✅ | 268 | An Enquiry Concerning Human Understanding | David Hume | 35 | 1748 | 9662 | [Link](https://www.gutenberg.org/ebooks/9662) |
+| ⚠️ | 269 | Gulliver's Travels | Jonathan Swift | 36 | 1726 |  |  |
+| ⚠️ | 270 | The Life and Opinions of Tristram Shandy, Gentleman | Laurence Sterne | 36 | 1759 |  |  |
+| ⚠️ | 271 | The History of Tom Jones, a Foundling | Henry Fielding | 37 | 1749 |  |  |
+| ⚠️ | 272 | The Spirit of the Laws | Charles de Secondat, Baron de Montesquieu | 38 | 1748 |  |  |
+| ✅ | 273 | A Discourse on the Origin of Inequality | Jean Jacques Rousseau | 38 | 1754 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
+| ✅ | 274 | A Discourse on Political Economy | Jean Jacques Rousseau | 38 | 1755 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
+| ✅ | 275 | The Social Contract | Jean Jacques Rousseau | 38 | 1762 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
+| ✅ | 276 | An Inquiry into the Nature and Causes of the Wealth of Nations | Adam Smith | 39 | 1776 | 3300 | [Link](https://www.gutenberg.org/ebooks/3300) |
+| ⚠️ | 277 | The Decline and Fall of the Roman Empire (Part 1) | Edward Gibbon | 40 | 1776 |  |  |
+| ⚠️ | 278 | The Decline and Fall of the Roman Empire (Part 2) | Edward Gibbon | 41 | 1781 |  |  |
+| ✅ | 279 | Critique of Pure Reason | Immanuel Kant | 42 | 1781 | 4280 | [Link](https://www.gutenberg.org/ebooks/4280) |
+| ✅ | 280 | Fundamental Principles of the Metaphysic of Morals | Immanuel Kant | 42 | 1785 | 5682 | [Link](https://www.gutenberg.org/ebooks/5682) |
+| ✅ | 281 | Critique of Practical Reason | Immanuel Kant | 42 | 1788 | 5683 | [Link](https://www.gutenberg.org/ebooks/5683) |
+| ⚠️ | 282 | The Metaphysics of Morals | Immanuel Kant | 42 | 1797 |  |  |
+| ⚠️ | 283 | Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience | Immanuel Kant | 42 | 1797 |  |  |
+| ⚠️ | 284 | General Introduction to the Metaphysic of Morals | Immanuel Kant | 42 | 1797 |  |  |
+| ⚠️ | 285 | The Science of Right | Immanuel Kant | 42 | 1797 |  |  |
+| ⚠️ | 286 | The Critique of Judgement | Immanuel Kant | 42 | 1790 |  |  |
+| ✅ | 287 | Declaration of Independence | American State Papers | 43 | 1776 |  | [Link](https://www.archives.gov/founding-docs/declaration-transcript) |
+| ⚠️ | 288 | Articles of Confederation | American State Papers | 43 | 1777 |  |  |
+| ✅ | 289 | The Constitution of the United States of America | American State Papers | 43 | 1787 |  | [Link](https://www.archives.gov/founding-docs/constitution-transcript) |
+| ✅ | 290 | The Federalist | Alexander Hamilton, James Madison, John Jay | 43 | 1788 | 1404 | [Link](https://www.gutenberg.org/ebooks/1404) |
+| ✅ | 291 | On Liberty | John Stuart Mill | 43 | 1859 | 34901 | [Link](https://www.gutenberg.org/ebooks/34901) |
+| ⚠️ | 292 | Considerations on Representative Government | John Stuart Mill | 43 | 1861 |  |  |
+| ✅ | 293 | Utilitarianism | John Stuart Mill | 43 | 1861 | 11224 | [Link](https://www.gutenberg.org/ebooks/11224) |
+| ⚠️ | 294 | The Life of Samuel Johnson, LL.D. | James Boswell | 44 | 1791 |  |  |
+| ⚠️ | 295 | Elements of Chemistry | Antoine Laurent Lavoisier | 45 | 1789 |  |  |
+| ⚠️ | 296 | Analytical Theory of Heat | Jean Baptiste Joseph Fourier | 45 | 1878 |  |  |
+| ⚠️ | 297 | Experimental Researches in Electricity | Michael Faraday | 45 | 1832 |  |  |
+| ✅ | 298 | The Philosophy of Right | Georg Wilhelm Friedrich Hegel | 46 | 1821 | 52821 | [Link](https://www.gutenberg.org/ebooks/52821) |
+| ✅ | 299 | The Philosophy of History | Georg Wilhelm Friedrich Hegel | 46 | 1837 | 58829 | [Link](https://www.gutenberg.org/ebooks/58829) |
+| ✅ | 300 | Faust | Johann Wolfgang von Goethe | 47 | 1829 | 14591 | [Link](https://www.gutenberg.org/ebooks/14591) |
+| ⚠️ | 301 | Moby Dick; or, The Whale | Herman Melville | 48 | 1951 |  |  |
+| ⚠️ | 302 | The Origin of Species by Means of Natural Selection | Charles Darwin | 49 | 1859 |  |  |
+| ⚠️ | 303 | The Descent of Man, and Selection in Relation to Sex | Charles Darwin | 49 | 1871 |  |  |
+| ✅ | 304 | Capital | Karl Marx | 50 | 1894 | 61217 | [Link](https://www.gutenberg.org/ebooks/61217) |
+| ⚠️ | 305 | Manifesto of the Communist Party | Karl Marx and Friedrich Engels | 50 | 1848 |  |  |
+| ✅ | 306 | War and Peace | Count Leo Tolstoy | 51 | 1867 | 2600 | [Link](https://www.gutenberg.org/ebooks/2600) |
+| ✅ | 307 | The Brothers Karamazov | Fyodor Mikhailovich Dostoevsky | 52 | 1880 | 28054 | [Link](https://www.gutenberg.org/ebooks/28054) |
+| ✅ | 308 | The Principles of Psychology | William James | 53 | 1918 | 57628 | [Link](https://www.gutenberg.org/ebooks/57628) |
+| ⚠️ | 309 | The Origin and Development of Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
+| ⚠️ | 310 | Selected Papers on Hysteria | Sigmund Freud | 54 | 1909 |  |  |
+| ⚠️ | 311 | The Sexual Enlightenment of Children | Sigmund Freud | 54 | 1907 |  |  |
+| ⚠️ | 312 | The Future Prospects of Psycho-Analytic Therapy | Sigmund Freud | 54 | 1912 |  |  |
+| ⚠️ | 313 | Observations on "Wild" Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
+| ⚠️ | 314 | The Interpretation of Dreams | Sigmund Freud | 54 | 1900 |  |  |
+| ⚠️ | 315 | On Narcissism | Sigmund Freud | 54 | 1914 |  |  |
+| ⚠️ | 316 | Instincts and Their Vicissitudes | Sigmund Freud | 54 | 1915 |  |  |
+| ⚠️ | 317 | Repression | Sigmund Freud | 54 | 1915 |  |  |
+| ⚠️ | 318 | The Unconscious | Sigmund Freud | 54 | 1915 |  |  |
+| ✅ | 319 | A General Introduction to Psycho-Analysis | Sigmund Freud | 54 | 1917 | 38219 | [Link](https://www.gutenberg.org/ebooks/38219) |
+| ⚠️ | 320 | Beyond the Pleasure Principle | Sigmund Freud | 54 | 1920 |  |  |
+| ⚠️ | 321 | Group Psychology and the Analysis of the Ego | Sigmund Freud | 54 | 1921 |  |  |
+| ⚠️ | 322 | The Ego and the Id | Sigmund Freud | 54 | 1923 |  |  |
+| ⚠️ | 323 | Inhibitions, Symptoms, and Anxiety | Sigmund Freud | 54 | 1926 |  |  |
+| ⚠️ | 324 | Thoughts for the Times on War and Death | Sigmund Freud | 54 | 1915 |  |  |
+| ✅ | 325 | Civilization and Its Discontents | Sigmund Freud | 54 | 1930 |  | [Link](https://archive.org/details/civilizationitsd00freu) |
+| ⚠️ | 326 | New Introductory Lectures on Psycho-Analysis | Sigmund Freud | 54 | 1933 |  |  |
+| ⚠️ | 327 | Institutes of the Christian Religion | John Calvin | 20 | 1536 |  |  |
+| ⚠️ | 328 | The Praise of Folly | Erasmus | 23 | 1509 |  |  |
+| ⚠️ | 329 | The School for Wives | Molière | 31 | 1662 |  |  |
+| ⚠️ | 330 | The Critique of the School for Wives | Molière | 31 | 1663 |  |  |
+| ⚠️ | 331 | Tartuffe | Molière | 31 | 1666 |  |  |
+| ⚠️ | 332 | Don Juan | Molière | 31 | 1665 |  |  |
+| ⚠️ | 333 | The Miser | Molière | 31 | 1668 |  |  |
+| ⚠️ | 334 | The Would-Be Gentleman | Molière | 31 | 1670 |  |  |
+| ⚠️ | 335 | The Imaginary Invalid | Molière | 31 | 1673 |  |  |
+| ⚠️ | 336 | Bérénice | Jean Racine | 31 | 1670 |  |  |
+| ⚠️ | 337 | Phèdre | Jean Racine | 31 | 1677 |  |  |
+| ✅ | 338 | Candide | Voltaire | 34 | 1759 | 19942 | [Link](https://www.gutenberg.org/ebooks/19942) |
+| ⚠️ | 339 | Rameau's Nephew | Denis Diderot | 34 | 1774 |  |  |
+| ⚠️ | 340 | Fear and Trembling | Søren Kierkegaard | 43 | 1843 |  |  |
+| ✅ | 341 | Beyond Good and Evil | Friedrich Nietzsche | 43 | 1886 | 4363 | [Link](https://www.gutenberg.org/ebooks/4363) |
+| ⚠️ | 342 | Democracy in America | Alexis de Tocqueville | 44 | 1835 |  |  |
+| ⚠️ | 343 | Cousin Bette | Honoré de Balzac | 45 | 1846 |  |  |
+| ✅ | 344 | Emma | Jane Austen | 46 | 1815 | 158 | [Link](https://www.gutenberg.org/ebooks/158) |
+| ⚠️ | 345 | Middlemarch | George Eliot | 46 | 1871 |  |  |
+| ⚠️ | 346 | Little Dorrit | Charles Dickens | 47 | 1857 |  |  |
+| ⚠️ | 347 | Huckleberry Finn | Mark Twain | 48 | 1885 |  |  |
+| ⚠️ | 348 | A Doll's House | Henrik Ibsen | 52 | 1879 |  |  |
+| ⚠️ | 349 | The Wild Duck | Henrik Ibsen | 52 | 1884 |  |  |
+| ⚠️ | 350 | Hedda Gabler | Henrik Ibsen | 52 | 1890 |  |  |
+| ⚠️ | 351 | The Master Builder | Henrik Ibsen | 52 | 1892 |  |  |
+| ⚠️ | 352 | Pragmatism | William James | 55 | 1907 |  |  |
+| ⚠️ | 353 | An Introduction to Metaphysics | Henri Bergson | 55 | 1903 |  |  |
+| ⚠️ | 354 | Experience and Education | John Dewey | 55 | 1938 |  |  |
+| ⚠️ | 355 | Science and the Modern World | Alfred North Whitehead | 55 | 1925 |  |  |
+| ⚠️ | 356 | The Problems of Philosophy | Bertrand Russell | 55 | 1912 |  |  |
+| ⚠️ | 357 | What Is Metaphysics? | Martin Heidegger | 55 | 1929 |  |  |
+| ⚠️ | 358 | Philosophical Investigations | Ludwig Wittgenstein | 55 | 1953 |  |  |
+| ⚠️ | 359 | The Word of God and the Word of Man | Karl Barth | 55 | 1933 |  |  |
+| ⚠️ | 360 | Science and Hypothesis | Henri Poincaré | 56 | 1902 |  |  |
+| ⚠️ | 361 | Scientific Autobiography and Other Papers | Max Planck | 56 | 1947 |  |  |
+| ⚠️ | 362 | An Introduction to Mathematics | Alfred North Whitehead | 56 | 1911 |  |  |
+| ⚠️ | 363 | Relativity: The Special and the General Theory | Albert Einstein | 56 | 1920 |  |  |
+| ⚠️ | 364 | The Expanding Universe | Arthur Eddington | 56 | 1940 |  |  |
+| ⚠️ | 365 | Atomic Theory and the Description of Nature (selections) | Niels Bohr | 56 | 1934 |  |  |
+| ⚠️ | 366 | Discussion with Einstein on Epistemology | Niels Bohr | 56 | 1949 |  |  |
+| ⚠️ | 367 | A Mathematician's Apology | G. H. Hardy | 56 | 1940 |  |  |
+| ⚠️ | 368 | Physics and Philosophy | Werner Heisenberg | 56 | 1958 |  |  |
+| ⚠️ | 369 | What Is Life? | Erwin Schrödinger | 56 | 1944 |  |  |
+| ⚠️ | 370 | Genetics and the Origin of Species | Theodosius Dobzhansky | 56 | 1937 |  |  |
+| ⚠️ | 371 | The Nature of Life | C. H. Waddington | 56 | 1961 |  |  |
+| ⚠️ | 372 | The Theory of the Leisure Class | Thorstein Veblen | 57 | 1899 |  |  |
+| ⚠️ | 373 | The Acquisitive Society | R. H. Tawney | 57 | 1920 |  |  |
+| ⚠️ | 374 | The General Theory of Employment, Interest and Money | John Maynard Keynes | 57 | 1936 |  |  |
+| ⚠️ | 375 | The Golden Bough | Sir James George Frazer | 58 | 1890 |  |  |
+| ⚠️ | 376 | Essays in Sociology | Max Weber | 58 | 1920 |  |  |
+| ⚠️ | 377 | The Autumn of the Middle Ages | Johan Huizinga | 58 | 1919 |  |  |
+| ⚠️ | 378 | Structural Anthropology | Claude Lévi-Strauss | 58 | 1949 |  |  |
+| ⚠️ | 379 | The Beast in the Jungle | Henry James | 59 | 1903 |  |  |
+| ⚠️ | 380 | Saint Joan | George Bernard Shaw | 59 | 1924 |  |  |
+| ⚠️ | 381 | Heart of Darkness | Joseph Conrad | 59 | 1902 |  |  |
+| ⚠️ | 382 | Uncle Vanya | Anton Chekhov | 59 | 1899 |  |  |
+| ⚠️ | 383 | Six Characters in Search of an Author | Luigi Pirandello | 59 | 1921 |  |  |
+| ⚠️ | 384 | Remembrance of Things Past: "Swann in Love" | Marcel Proust | 59 | 1927 |  |  |
+| ⚠️ | 385 | A Lost Lady | Willa Cather | 59 | 1923 |  |  |
+| ⚠️ | 386 | Death in Venice | Thomas Mann | 59 | 1912 |  |  |
+| ✅ | 387 | A Portrait of the Artist as a Young Man | James Joyce | 59 | 1916 | 4217 | [Link](https://www.gutenberg.org/ebooks/4217) |
+| ⚠️ | 388 | To the Lighthouse | Virginia Woolf | 60 | 1927 |  |  |
+| ⚠️ | 389 | The Metamorphosis | Franz Kafka | 60 | 1915 |  |  |
+| ⚠️ | 390 | The Prussian Officer | D. H. Lawrence | 60 | 1914 |  |  |
+| ⚠️ | 391 | The Waste Land | T. S. Eliot | 60 | 1922 |  |  |
+| ⚠️ | 392 | Mourning Becomes Electra | Eugene O'Neill | 60 | 1931 |  |  |
+| ⚠️ | 393 | The Great Gatsby | F. Scott Fitzgerald | 60 | 1925 |  |  |
+| ⚠️ | 394 | A Rose for Emily | William Faulkner | 60 | 1930 |  |  |
+| ⚠️ | 395 | Mother Courage and Her Children | Bertolt Brecht | 60 | 1939 |  |  |
+| ⚠️ | 396 | The Short Happy Life of Francis Macomber | Ernest Hemingway | 60 | 1936 |  |  |
+| ✅ | 397 | Animal Farm | George Orwell | 60 | 1945 |  | [Link](https://www.fadedpage.com/showbook.php?pid=20210101) |
+| ⚠️ | 398 | Waiting for Godot | Samuel Beckett | 60 | 1952 |  |  |
 
 ---
 
 ## How to Use This Document
 
 1. Search for your book by title, author, or item number
-2. Check the status symbol (✅/⚠️/⛔)
-3. If available (✅), use the provided URL to access the book on Project Gutenberg
-4. If uncertain (⚠️), the book may be available but needs manual verification
-5. If not available (⛔), look for alternative sources (Internet Archive, etc.)
+2. Check the status indicator:
+   - ✅ Click the link to access the book on Project Gutenberg
+   - ⚠️ The book may be available but needs manual verification
+   - ⛔ The book is not available on Project Gutenberg
+3. PG # is the Project Gutenberg ebook identifier
 
 ## Notes
 
-- Project Gutenberg numbers (PG #) are the official ebook identifiers
-- Some books have multiple editions with different PG numbers
-- Some books are available in multiple translations
-- Copyright restrictions vary by country - Project Gutenberg texts are generally public domain in the US
-- "Various" in Item # means the book is verified available but exact item number not yet matched
-- Complete works of Shakespeare and individual plays are both available
+- This file is automatically generated from `project.json` and `reading.json`
+- To update sources, add or modify `sourceUrl` entries in `reading.json`
+- Run `python3 generate_gutenberg_sources.py` to regenerate this file
+- Some books may have multiple editions with different PG numbers
+- Project Gutenberg texts are generally public domain in the US

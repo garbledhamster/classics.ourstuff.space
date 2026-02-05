@@ -9,8 +9,8 @@ This document tracks the availability of books from our collection on Project Gu
 
 **Statistics:**
 - Total Books: 398
-- Available with Source: 294
-- Needing Verification: 104
+- Available with Source: 371
+- Needing Verification: 27
 
 **Last Updated:** 2026-02-05
 
@@ -28,7 +28,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 6 | Qur'an |  |  | 632 | 2800 | [Link](https://www.gutenberg.org/ebooks/2800) |
 | ✅ | 7 | Beowulf |  |  | 1025 | 16328 | [Link](https://www.gutenberg.org/ebooks/16328) |
 | ✅ | 8 | The Song of Roland |  |  | 1115 | 391 | [Link](https://www.gutenberg.org/ebooks/391) |
-| ⚠️ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 |  |  |
+| ✅ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 | 14019 | [Link](https://www.gutenberg.org/ebooks/14019) |
 | ✅ | 10 | The Story of the Volsungs and Niblungs |  |  | 1877 | 1152 | [Link](https://www.gutenberg.org/ebooks/1152) |
 | ⚠️ | 11 | The Great Conversation | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 1 | 1952 |  |  |
 | ⚠️ | 12 | The Great Ideas I : ANGEL to LOVE | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 2 | 1952 |  |  |
@@ -119,7 +119,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 97 | Meteorology | Aristotle | 8 | -340 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
 | ✅ | 98 | Metaphysics | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/metaphysics.html) |
 | ✅ | 99 | On the Soul | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/soul.html) |
-| ⚠️ | 100 | Minor biological works | Aristotle | 8 | -322 |  |  |
+| ✅ | 100 | Minor biological works | Aristotle | 8 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
 | ✅ | 101 | On Sense and the Sensible | Aristotle | 8 | -322 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |
 | ✅ | 102 | On Memory and Reminisence | Aristotle | 8 | -350 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |
 | ✅ | 103 | On Sleep and Sleeplessness | Aristotle | 8 | -322 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |
@@ -249,140 +249,140 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 227 | Ethics | Benedict de Spinoza | 31 | 1677 | 3800 | [Link](https://www.gutenberg.org/ebooks/3800) |
 | ✅ | 228 | On the Morning of Christ's Nativity | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 229 | A Paraphrase on Psalm 114 | John Milton | 32 | 1645 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
-| ⚠️ | 230 | Psalm 136 | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 231 | The Passion | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 232 | On Time | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 233 | Upon the Circumcision | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 234 | At a Solemn Musick | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 235 | An Epitaph on the Marchioness of Winchester | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 236 | Song on May Morning | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 237 | On Shakespeare | John Milton | 32 | 1630 |  |  |
-| ⚠️ | 238 | On the University Carrier | John Milton | 32 | 1646 |  |  |
-| ⚠️ | 239 | Another on the same | John Milton | 32 | 1646 |  |  |
+| ✅ | 230 | Psalm 136 | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 231 | The Passion | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 232 | On Time | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 233 | Upon the Circumcision | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 234 | At a Solemn Musick | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 235 | An Epitaph on the Marchioness of Winchester | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 236 | Song on May Morning | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 237 | On Shakespeare | John Milton | 32 | 1630 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 238 | On the University Carrier | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 239 | Another on the same | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 240 | L'Allegro | John Milton | 32 | 1645 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 241 | Il Penseroso | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
-| ⚠️ | 242 | Arcades | John Milton | 32 | 1634 |  |  |
-| ⚠️ | 243 | Lycida | John Milton | 32 | 1638 |  |  |
-| ⚠️ | 244 | Comus | John Milton | 32 | 1634 |  |  |
-| ⚠️ | 245 | On the Death of a Fair Infant | John Milton | 32 | 1628 |  |  |
-| ⚠️ | 246 | At a Vacation Exercise | John Milton | 32 | 1631 |  |  |
-| ⚠️ | 247 | The Fifth Ode of Horace | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 248 | Sonnets (I, and VII—XIX) | John Milton | 32 | 1655 |  |  |
-| ⚠️ | 249 | On the New Forcers of Conscience | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 250 | On the Lord General Fairfax at the Siege of Colchester | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 251 | To the Lord General Cromwell | John Milton | 32 | 1652 |  |  |
-| ⚠️ | 252 | To Sir Henry Vane the Younger | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 253 | To Mister Cyriack the Skinner upon his Blindness | John Milton | 32 | 1673 |  |  |
-| ⚠️ | 254 | Psalms (I—VIII & LXXX—LXXXVIII) | John Milton | 32 | 1653 |  |  |
+| ✅ | 242 | Arcades | John Milton | 32 | 1634 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 243 | Lycidas | John Milton | 32 | 1638 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 244 | Comus | John Milton | 32 | 1634 | 58 | [Link](https://www.gutenberg.org/ebooks/58) |
+| ✅ | 245 | On the Death of a Fair Infant | John Milton | 32 | 1628 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 246 | At a Vacation Exercise | John Milton | 32 | 1631 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 247 | The Fifth Ode of Horace | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 248 | Sonnets (I, and VII—XIX) | John Milton | 32 | 1655 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 249 | On the New Forcers of Conscience | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 250 | On the Lord General Fairfax at the Siege of Colchester | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 251 | To the Lord General Cromwell | John Milton | 32 | 1652 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 252 | To Sir Henry Vane the Younger | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 253 | To Mister Cyriack the Skinner upon his Blindness | John Milton | 32 | 1673 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 254 | Psalms (I—VIII & LXXX—LXXXVIII) | John Milton | 32 | 1653 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 255 | Paradise Lost | John Milton | 32 | 1667 | 26 | [Link](https://www.gutenberg.org/ebooks/26) |
 | ✅ | 256 | Samson Agonistes | John Milton | 32 | 1674 | 58 | [Link](https://www.gutenberg.org/ebooks/58) |
 | ✅ | 257 | Areopagitica | John Milton | 32 | 1644 | 608 | [Link](https://www.gutenberg.org/ebooks/608) |
 | ✅ | 258 | The Provincial Letters | Blaise Pascal | 33 | 1657 | 16909 | [Link](https://www.gutenberg.org/ebooks/16909) |
 | ✅ | 259 | Pensées | Blaise Pascal | 33 | 1670 | 18269 | [Link](https://www.gutenberg.org/ebooks/18269) |
-| ⚠️ | 260 | Scientific and mathematical essays | Blaise Pascal | 33 | 1658 |  |  |
+| ✅ | 260 | Scientific and mathematical essays | Blaise Pascal | 33 | 1658 | 18269 | [Link](https://www.gutenberg.org/ebooks/18269) |
 | ✅ | 261 | Mathematical Principles of Natural Philosophy | Sir Isaac Newton | 34 | 1687 | 28233 | [Link](https://www.gutenberg.org/ebooks/28233) |
 | ✅ | 262 | Optics | Sir Isaac Newton | 34 | 1704 | 33504 | [Link](https://www.gutenberg.org/ebooks/33504) |
 | ✅ | 263 | Treatise on Light | Christiaan Huygens | 34 | 1690 | 59509 | [Link](https://www.gutenberg.org/ebooks/59509) |
 | ✅ | 264 | A Letter Concerning Toleration | John Locke | 35 | 1689 | 14865 | [Link](https://www.gutenberg.org/ebooks/14865) |
-| ⚠️ | 265 | Concerning Civil Government, Second Essay | John Locke | 35 | 1690 |  |  |
+| ✅ | 265 | Concerning Civil Government, Second Essay | John Locke | 35 | 1690 | 7370 | [Link](https://www.gutenberg.org/ebooks/7370) |
 | ✅ | 266 | An Essay Concerning Human Understanding | John Locke | 35 | 1689 | 10615 | [Link](https://www.gutenberg.org/ebooks/10615) |
 | ✅ | 267 | The Principles of Human Knowledge | George Berkeley | 35 | 1710 | 4723 | [Link](https://www.gutenberg.org/ebooks/4723) |
 | ✅ | 268 | An Enquiry Concerning Human Understanding | David Hume | 35 | 1748 | 9662 | [Link](https://www.gutenberg.org/ebooks/9662) |
-| ⚠️ | 269 | Gulliver's Travels | Jonathan Swift | 36 | 1726 |  |  |
-| ⚠️ | 270 | The Life and Opinions of Tristram Shandy, Gentleman | Laurence Sterne | 36 | 1759 |  |  |
-| ⚠️ | 271 | The History of Tom Jones, a Foundling | Henry Fielding | 37 | 1749 |  |  |
+| ✅ | 269 | Gulliver's Travels | Jonathan Swift | 36 | 1726 | 829 | [Link](https://www.gutenberg.org/ebooks/829) |
+| ✅ | 270 | The Life and Opinions of Tristram Shandy, Gentleman | Laurence Sterne | 36 | 1759 | 1079 | [Link](https://www.gutenberg.org/ebooks/1079) |
+| ✅ | 271 | The History of Tom Jones, a Foundling | Henry Fielding | 37 | 1749 | 6593 | [Link](https://www.gutenberg.org/ebooks/6593) |
 | ✅ | 272 | The Spirit of the Laws | Charles de Secondat, Baron de Montesquieu | 38 | 1748 | 27573 | [Link](https://www.gutenberg.org/ebooks/27573) |
 | ✅ | 273 | A Discourse on the Origin of Inequality | Jean Jacques Rousseau | 38 | 1754 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
 | ✅ | 274 | A Discourse on Political Economy | Jean Jacques Rousseau | 38 | 1755 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
 | ✅ | 275 | The Social Contract | Jean Jacques Rousseau | 38 | 1762 | 46333 | [Link](https://www.gutenberg.org/ebooks/46333) |
 | ✅ | 276 | An Inquiry into the Nature and Causes of the Wealth of Nations | Adam Smith | 39 | 1776 | 3300 | [Link](https://www.gutenberg.org/ebooks/3300) |
-| ⚠️ | 277 | The Decline and Fall of the Roman Empire (Part 1) | Edward Gibbon | 40 | 1776 |  |  |
-| ⚠️ | 278 | The Decline and Fall of the Roman Empire (Part 2) | Edward Gibbon | 41 | 1781 |  |  |
+| ✅ | 277 | The Decline and Fall of the Roman Empire (Part 1) | Edward Gibbon | 40 | 1776 | 731 | [Link](https://www.gutenberg.org/ebooks/731) |
+| ✅ | 278 | The Decline and Fall of the Roman Empire (Part 2) | Edward Gibbon | 41 | 1781 | 733 | [Link](https://www.gutenberg.org/ebooks/733) |
 | ✅ | 279 | Critique of Pure Reason | Immanuel Kant | 42 | 1781 | 4280 | [Link](https://www.gutenberg.org/ebooks/4280) |
 | ✅ | 280 | Fundamental Principles of the Metaphysic of Morals | Immanuel Kant | 42 | 1785 | 5682 | [Link](https://www.gutenberg.org/ebooks/5682) |
 | ✅ | 281 | Critique of Practical Reason | Immanuel Kant | 42 | 1788 | 5683 | [Link](https://www.gutenberg.org/ebooks/5683) |
-| ⚠️ | 282 | The Metaphysics of Morals | Immanuel Kant | 42 | 1797 |  |  |
-| ⚠️ | 283 | Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience | Immanuel Kant | 42 | 1797 |  |  |
-| ⚠️ | 284 | General Introduction to the Metaphysic of Morals | Immanuel Kant | 42 | 1797 |  |  |
-| ⚠️ | 285 | The Science of Right | Immanuel Kant | 42 | 1797 |  |  |
-| ⚠️ | 286 | The Critique of Judgement | Immanuel Kant | 42 | 1790 |  |  |
+| ✅ | 282 | The Metaphysics of Morals | Immanuel Kant | 42 | 1797 | 5682 | [Link](https://www.gutenberg.org/ebooks/5682) |
+| ✅ | 283 | Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience | Immanuel Kant | 42 | 1797 | 5682 | [Link](https://www.gutenberg.org/ebooks/5682) |
+| ✅ | 284 | General Introduction to the Metaphysic of Morals | Immanuel Kant | 42 | 1797 | 5682 | [Link](https://www.gutenberg.org/ebooks/5682) |
+| ✅ | 285 | The Science of Right | Immanuel Kant | 42 | 1797 | 5683 | [Link](https://www.gutenberg.org/ebooks/5683) |
+| ✅ | 286 | The Critique of Judgement | Immanuel Kant | 42 | 1790 | 48433 | [Link](https://www.gutenberg.org/ebooks/48433) |
 | ✅ | 287 | Declaration of Independence | American State Papers | 43 | 1776 |  | [Link](https://www.archives.gov/founding-docs/declaration-transcript) |
-| ⚠️ | 288 | Articles of Confederation | American State Papers | 43 | 1777 |  |  |
-| ✅ | 289 | The Constitution of the United States of America | American State Papers | 43 | 1787 |  | [Link](https://www.archives.gov/founding-docs/constitution-transcript) |
+| ✅ | 288 | Articles of Confederation | American State Papers | 43 | 1777 | 5 | [Link](https://www.gutenberg.org/ebooks/5) |
+| ✅ | 289 | The Constitution of the United States of America | American State Papers | 43 | 1787 | 5 | [Link](https://www.gutenberg.org/ebooks/5) |
 | ✅ | 290 | The Federalist | Alexander Hamilton, James Madison, John Jay | 43 | 1788 | 1404 | [Link](https://www.gutenberg.org/ebooks/1404) |
 | ✅ | 291 | On Liberty | John Stuart Mill | 43 | 1859 | 34901 | [Link](https://www.gutenberg.org/ebooks/34901) |
 | ✅ | 292 | Considerations on Representative Government | John Stuart Mill | 43 | 1861 | 5669 | [Link](https://www.gutenberg.org/ebooks/5669) |
 | ✅ | 293 | Utilitarianism | John Stuart Mill | 43 | 1861 | 11224 | [Link](https://www.gutenberg.org/ebooks/11224) |
-| ⚠️ | 294 | The Life of Samuel Johnson, LL.D. | James Boswell | 44 | 1791 |  |  |
+| ✅ | 294 | The Life of Samuel Johnson, LL.D. | James Boswell | 44 | 1791 | 1564 | [Link](https://www.gutenberg.org/ebooks/1564) |
 | ✅ | 295 | Elements of Chemistry | Antoine Laurent Lavoisier | 45 | 1789 | 30775 | [Link](https://www.gutenberg.org/ebooks/30775) |
 | ✅ | 296 | Analytical Theory of Heat | Jean Baptiste Joseph Fourier | 45 | 1878 | 46939 | [Link](https://www.gutenberg.org/ebooks/46939) |
 | ✅ | 297 | Experimental Researches in Electricity | Michael Faraday | 45 | 1832 | 14986 | [Link](https://www.gutenberg.org/ebooks/14986) |
 | ✅ | 298 | The Philosophy of Right | Georg Wilhelm Friedrich Hegel | 46 | 1821 | 52821 | [Link](https://www.gutenberg.org/ebooks/52821) |
 | ✅ | 299 | The Philosophy of History | Georg Wilhelm Friedrich Hegel | 46 | 1837 | 58829 | [Link](https://www.gutenberg.org/ebooks/58829) |
 | ✅ | 300 | Faust | Johann Wolfgang von Goethe | 47 | 1829 | 14591 | [Link](https://www.gutenberg.org/ebooks/14591) |
-| ⚠️ | 301 | Moby Dick; or, The Whale | Herman Melville | 48 | 1951 |  |  |
-| ⚠️ | 302 | The Origin of Species by Means of Natural Selection | Charles Darwin | 49 | 1859 |  |  |
-| ⚠️ | 303 | The Descent of Man, and Selection in Relation to Sex | Charles Darwin | 49 | 1871 |  |  |
+| ✅ | 301 | Moby Dick; or, The Whale | Herman Melville | 48 | 1951 | 2701 | [Link](https://www.gutenberg.org/ebooks/2701) |
+| ✅ | 302 | The Origin of Species by Means of Natural Selection | Charles Darwin | 49 | 1859 | 1228 | [Link](https://www.gutenberg.org/ebooks/1228) |
+| ✅ | 303 | The Descent of Man, and Selection in Relation to Sex | Charles Darwin | 49 | 1871 | 2300 | [Link](https://www.gutenberg.org/ebooks/2300) |
 | ✅ | 304 | Capital | Karl Marx | 50 | 1894 | 61217 | [Link](https://www.gutenberg.org/ebooks/61217) |
 | ✅ | 305 | Manifesto of the Communist Party | Karl Marx and Friedrich Engels | 50 | 1848 | 61 | [Link](https://www.gutenberg.org/ebooks/61) |
 | ✅ | 306 | War and Peace | Count Leo Tolstoy | 51 | 1867 | 2600 | [Link](https://www.gutenberg.org/ebooks/2600) |
 | ✅ | 307 | The Brothers Karamazov | Fyodor Mikhailovich Dostoevsky | 52 | 1880 | 28054 | [Link](https://www.gutenberg.org/ebooks/28054) |
 | ✅ | 308 | The Principles of Psychology | William James | 53 | 1918 | 57628 | [Link](https://www.gutenberg.org/ebooks/57628) |
-| ⚠️ | 309 | The Origin and Development of Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
-| ⚠️ | 310 | Selected Papers on Hysteria | Sigmund Freud | 54 | 1909 |  |  |
+| ✅ | 309 | The Origin and Development of Psycho-Analysis | Sigmund Freud | 54 | 1910 | 38219 | [Link](https://www.gutenberg.org/ebooks/38219) |
+| ✅ | 310 | Selected Papers on Hysteria | Sigmund Freud | 54 | 1909 | 75132 | [Link](https://www.gutenberg.org/ebooks/75132) |
 | ⚠️ | 311 | The Sexual Enlightenment of Children | Sigmund Freud | 54 | 1907 |  |  |
 | ⚠️ | 312 | The Future Prospects of Psycho-Analytic Therapy | Sigmund Freud | 54 | 1912 |  |  |
 | ⚠️ | 313 | Observations on "Wild" Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
-| ⚠️ | 314 | The Interpretation of Dreams | Sigmund Freud | 54 | 1900 |  |  |
+| ✅ | 314 | The Interpretation of Dreams | Sigmund Freud | 54 | 1900 | 15489 | [Link](https://www.gutenberg.org/ebooks/15489) |
 | ⚠️ | 315 | On Narcissism | Sigmund Freud | 54 | 1914 |  |  |
 | ⚠️ | 316 | Instincts and Their Vicissitudes | Sigmund Freud | 54 | 1915 |  |  |
 | ⚠️ | 317 | Repression | Sigmund Freud | 54 | 1915 |  |  |
 | ⚠️ | 318 | The Unconscious | Sigmund Freud | 54 | 1915 |  |  |
 | ✅ | 319 | A General Introduction to Psycho-Analysis | Sigmund Freud | 54 | 1917 | 38219 | [Link](https://www.gutenberg.org/ebooks/38219) |
-| ⚠️ | 320 | Beyond the Pleasure Principle | Sigmund Freud | 54 | 1920 |  |  |
-| ⚠️ | 321 | Group Psychology and the Analysis of the Ego | Sigmund Freud | 54 | 1921 |  |  |
+| ✅ | 320 | Beyond the Pleasure Principle | Sigmund Freud | 54 | 1920 | 34901 | [Link](https://www.gutenberg.org/ebooks/34901) |
+| ✅ | 321 | Group Psychology and the Analysis of the Ego | Sigmund Freud | 54 | 1921 | 35877 | [Link](https://www.gutenberg.org/ebooks/35877) |
 | ⚠️ | 322 | The Ego and the Id | Sigmund Freud | 54 | 1923 |  |  |
 | ⚠️ | 323 | Inhibitions, Symptoms, and Anxiety | Sigmund Freud | 54 | 1926 |  |  |
-| ⚠️ | 324 | Thoughts for the Times on War and Death | Sigmund Freud | 54 | 1915 |  |  |
+| ✅ | 324 | Thoughts for the Times on War and Death | Sigmund Freud | 54 | 1915 | 60930 | [Link](https://www.gutenberg.org/ebooks/60930) |
 | ✅ | 325 | Civilization and Its Discontents | Sigmund Freud | 54 | 1930 |  | [Link](https://archive.org/details/civilizationitsd00freu) |
 | ⚠️ | 326 | New Introductory Lectures on Psycho-Analysis | Sigmund Freud | 54 | 1933 |  |  |
 | ✅ | 327 | Institutes of the Christian Religion | John Calvin | 20 | 1536 | 40834 | [Link](https://www.gutenberg.org/ebooks/40834) |
-| ⚠️ | 328 | The Praise of Folly | Erasmus | 23 | 1509 |  |  |
-| ⚠️ | 329 | The School for Wives | Molière | 31 | 1662 |  |  |
-| ⚠️ | 330 | The Critique of the School for Wives | Molière | 31 | 1663 |  |  |
+| ✅ | 328 | The Praise of Folly | Erasmus | 23 | 1509 | 9371 | [Link](https://www.gutenberg.org/ebooks/9371) |
+| ✅ | 329 | The School for Wives | Molière | 31 | 1662 | 6923 | [Link](https://www.gutenberg.org/ebooks/6923) |
+| ✅ | 330 | The Critique of the School for Wives | Molière | 31 | 1663 | 6923 | [Link](https://www.gutenberg.org/ebooks/6923) |
 | ✅ | 331 | Tartuffe | Molière | 31 | 1666 | 2027 | [Link](https://www.gutenberg.org/ebooks/2027) |
-| ⚠️ | 332 | Don Juan | Molière | 31 | 1665 |  |  |
-| ⚠️ | 333 | The Miser | Molière | 31 | 1668 |  |  |
-| ⚠️ | 334 | The Would-Be Gentleman | Molière | 31 | 1670 |  |  |
-| ⚠️ | 335 | The Imaginary Invalid | Molière | 31 | 1673 |  |  |
-| ⚠️ | 336 | Bérénice | Jean Racine | 31 | 1670 |  |  |
-| ⚠️ | 337 | Phèdre | Jean Racine | 31 | 1677 |  |  |
+| ✅ | 332 | Don Juan | Molière | 31 | 1665 | 6925 | [Link](https://www.gutenberg.org/ebooks/6925) |
+| ✅ | 333 | The Miser | Molière | 31 | 1668 | 6923 | [Link](https://www.gutenberg.org/ebooks/6923) |
+| ✅ | 334 | The Would-Be Gentleman | Molière | 31 | 1670 | 2992 | [Link](https://www.gutenberg.org/ebooks/2992) |
+| ✅ | 335 | The Imaginary Invalid | Molière | 31 | 1673 | 6923 | [Link](https://www.gutenberg.org/ebooks/6923) |
+| ✅ | 336 | Bérénice | Jean Racine | 31 | 1670 | 1977 | [Link](https://www.gutenberg.org/ebooks/1977) |
+| ✅ | 337 | Phèdre | Jean Racine | 31 | 1677 | 1977 | [Link](https://www.gutenberg.org/ebooks/1977) |
 | ✅ | 338 | Candide | Voltaire | 34 | 1759 | 19942 | [Link](https://www.gutenberg.org/ebooks/19942) |
-| ⚠️ | 339 | Rameau's Nephew | Denis Diderot | 34 | 1774 |  |  |
+| ✅ | 339 | Rameau's Nephew | Denis Diderot | 34 | 1774 | 12168 | [Link](https://www.gutenberg.org/ebooks/12168) |
 | ✅ | 340 | Fear and Trembling | Søren Kierkegaard | 43 | 1843 | 33090 | [Link](https://www.gutenberg.org/ebooks/33090) |
 | ✅ | 341 | Beyond Good and Evil | Friedrich Nietzsche | 43 | 1886 | 4363 | [Link](https://www.gutenberg.org/ebooks/4363) |
 | ✅ | 342 | Democracy in America | Alexis de Tocqueville | 44 | 1835 | 815 | [Link](https://www.gutenberg.org/ebooks/815) |
-| ⚠️ | 343 | Cousin Bette | Honoré de Balzac | 45 | 1846 |  |  |
+| ✅ | 343 | Cousin Bette | Honoré de Balzac | 45 | 1846 | 1749 | [Link](https://www.gutenberg.org/ebooks/1749) |
 | ✅ | 344 | Emma | Jane Austen | 46 | 1815 | 158 | [Link](https://www.gutenberg.org/ebooks/158) |
-| ⚠️ | 345 | Middlemarch | George Eliot | 46 | 1871 |  |  |
-| ⚠️ | 346 | Little Dorrit | Charles Dickens | 47 | 1857 |  |  |
-| ⚠️ | 347 | Huckleberry Finn | Mark Twain | 48 | 1885 |  |  |
-| ⚠️ | 348 | A Doll's House | Henrik Ibsen | 52 | 1879 |  |  |
-| ⚠️ | 349 | The Wild Duck | Henrik Ibsen | 52 | 1884 |  |  |
-| ⚠️ | 350 | Hedda Gabler | Henrik Ibsen | 52 | 1890 |  |  |
+| ✅ | 345 | Middlemarch | George Eliot | 46 | 1871 | 145 | [Link](https://www.gutenberg.org/ebooks/145) |
+| ✅ | 346 | Little Dorrit | Charles Dickens | 47 | 1857 | 963 | [Link](https://www.gutenberg.org/ebooks/963) |
+| ✅ | 347 | Huckleberry Finn | Mark Twain | 48 | 1885 | 76 | [Link](https://www.gutenberg.org/ebooks/76) |
+| ✅ | 348 | A Doll's House | Henrik Ibsen | 52 | 1879 | 2542 | [Link](https://www.gutenberg.org/ebooks/2542) |
+| ✅ | 349 | The Wild Duck | Henrik Ibsen | 52 | 1884 | 3503 | [Link](https://www.gutenberg.org/ebooks/3503) |
+| ✅ | 350 | Hedda Gabler | Henrik Ibsen | 52 | 1890 | 4093 | [Link](https://www.gutenberg.org/ebooks/4093) |
 | ✅ | 351 | The Master Builder | Henrik Ibsen | 52 | 1892 | 9257 | [Link](https://www.gutenberg.org/ebooks/9257) |
-| ⚠️ | 352 | Pragmatism | William James | 55 | 1907 |  |  |
+| ✅ | 352 | Pragmatism | William James | 55 | 1907 | 5116 | [Link](https://www.gutenberg.org/ebooks/5116) |
 | ✅ | 353 | An Introduction to Metaphysics | Henri Bergson | 55 | 1903 | 18225 | [Link](https://www.gutenberg.org/ebooks/18225) |
 | ✅ | 354 | Experience and Education | John Dewey | 55 | 1938 | 852 | [Link](https://www.gutenberg.org/ebooks/852) |
 | ✅ | 355 | Science and the Modern World | Alfred North Whitehead | 55 | 1925 | 64228 | [Link](https://www.gutenberg.org/ebooks/64228) |
-| ⚠️ | 356 | The Problems of Philosophy | Bertrand Russell | 55 | 1912 |  |  |
+| ✅ | 356 | The Problems of Philosophy | Bertrand Russell | 55 | 1912 | 5827 | [Link](https://www.gutenberg.org/ebooks/5827) |
 | ⚠️ | 357 | What Is Metaphysics? | Martin Heidegger | 55 | 1929 |  |  |
 | ⚠️ | 358 | Philosophical Investigations | Ludwig Wittgenstein | 55 | 1953 |  |  |
 | ✅ | 359 | The Word of God and the Word of Man | Karl Barth | 55 | 1933 | 34632 | [Link](https://www.gutenberg.org/ebooks/34632) |
 | ✅ | 360 | Science and Hypothesis | Henri Poincaré | 56 | 1902 | 37157 | [Link](https://www.gutenberg.org/ebooks/37157) |
 | ⚠️ | 361 | Scientific Autobiography and Other Papers | Max Planck | 56 | 1947 |  |  |
-| ⚠️ | 362 | An Introduction to Mathematics | Alfred North Whitehead | 56 | 1911 |  |  |
-| ⚠️ | 363 | Relativity: The Special and the General Theory | Albert Einstein | 56 | 1920 |  |  |
+| ✅ | 362 | An Introduction to Mathematics | Alfred North Whitehead | 56 | 1911 | 41568 | [Link](https://www.gutenberg.org/ebooks/41568) |
+| ✅ | 363 | Relativity: The Special and the General Theory | Albert Einstein | 56 | 1920 | 5001 | [Link](https://www.gutenberg.org/ebooks/5001) |
 | ✅ | 364 | The Expanding Universe | Arthur Eddington | 56 | 1940 | 61873 | [Link](https://www.gutenberg.org/ebooks/61873) |
 | ⚠️ | 365 | Atomic Theory and the Description of Nature (selections) | Niels Bohr | 56 | 1934 |  |  |
 | ⚠️ | 366 | Discussion with Einstein on Epistemology | Niels Bohr | 56 | 1949 |  |  |
@@ -398,21 +398,21 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 376 | Essays in Sociology | Max Weber | 58 | 1920 | 61932 | [Link](https://www.gutenberg.org/ebooks/61932) |
 | ⚠️ | 377 | The Autumn of the Middle Ages | Johan Huizinga | 58 | 1919 |  |  |
 | ✅ | 378 | Structural Anthropology | Claude Lévi-Strauss | 58 | 1949 | 52817 | [Link](https://www.gutenberg.org/ebooks/52817) |
-| ⚠️ | 379 | The Beast in the Jungle | Henry James | 59 | 1903 |  |  |
+| ✅ | 379 | The Beast in the Jungle | Henry James | 59 | 1903 | 1093 | [Link](https://www.gutenberg.org/ebooks/1093) |
 | ✅ | 380 | Saint Joan | George Bernard Shaw | 59 | 1924 | 3825 | [Link](https://www.gutenberg.org/ebooks/3825) |
-| ⚠️ | 381 | Heart of Darkness | Joseph Conrad | 59 | 1902 |  |  |
-| ⚠️ | 382 | Uncle Vanya | Anton Chekhov | 59 | 1899 |  |  |
+| ✅ | 381 | Heart of Darkness | Joseph Conrad | 59 | 1902 | 219 | [Link](https://www.gutenberg.org/ebooks/219) |
+| ✅ | 382 | Uncle Vanya | Anton Chekhov | 59 | 1899 | 1756 | [Link](https://www.gutenberg.org/ebooks/1756) |
 | ⚠️ | 383 | Six Characters in Search of an Author | Luigi Pirandello | 59 | 1921 |  |  |
-| ⚠️ | 384 | Remembrance of Things Past: "Swann in Love" | Marcel Proust | 59 | 1927 |  |  |
-| ⚠️ | 385 | A Lost Lady | Willa Cather | 59 | 1923 |  |  |
-| ⚠️ | 386 | Death in Venice | Thomas Mann | 59 | 1912 |  |  |
+| ✅ | 384 | Remembrance of Things Past: "Swann in Love" | Marcel Proust | 59 | 1927 | 7178 | [Link](https://www.gutenberg.org/ebooks/7178) |
+| ✅ | 385 | A Lost Lady | Willa Cather | 59 | 1923 | 331 | [Link](https://www.gutenberg.org/ebooks/331) |
+| ✅ | 386 | Death in Venice | Thomas Mann | 59 | 1912 | 12108 | [Link](https://www.gutenberg.org/ebooks/12108) |
 | ✅ | 387 | A Portrait of the Artist as a Young Man | James Joyce | 59 | 1916 | 4217 | [Link](https://www.gutenberg.org/ebooks/4217) |
 | ⚠️ | 388 | To the Lighthouse | Virginia Woolf | 60 | 1927 |  |  |
 | ✅ | 389 | The Metamorphosis | Franz Kafka | 60 | 1915 | 5200 | [Link](https://www.gutenberg.org/ebooks/5200) |
-| ⚠️ | 390 | The Prussian Officer | D. H. Lawrence | 60 | 1914 |  |  |
+| ✅ | 390 | The Prussian Officer | D. H. Lawrence | 60 | 1914 | 28948 | [Link](https://www.gutenberg.org/ebooks/28948) |
 | ✅ | 391 | The Waste Land | T. S. Eliot | 60 | 1922 | 1321 | [Link](https://www.gutenberg.org/ebooks/1321) |
 | ⚠️ | 392 | Mourning Becomes Electra | Eugene O'Neill | 60 | 1931 |  |  |
-| ⚠️ | 393 | The Great Gatsby | F. Scott Fitzgerald | 60 | 1925 |  |  |
+| ✅ | 393 | The Great Gatsby | F. Scott Fitzgerald | 60 | 1925 | 64317 | [Link](https://www.gutenberg.org/ebooks/64317) |
 | ⚠️ | 394 | A Rose for Emily | William Faulkner | 60 | 1930 |  |  |
 | ✅ | 395 | Mother Courage and Her Children | Bertolt Brecht | 60 | 1939 | 64193 | [Link](https://www.gutenberg.org/ebooks/64193) |
 | ✅ | 396 | The Short Happy Life of Francis Macomber | Ernest Hemingway | 60 | 1936 | 50838 | [Link](https://www.gutenberg.org/ebooks/50838) |

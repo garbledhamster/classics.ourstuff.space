@@ -3717,6 +3717,755 @@
               "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
             }
           ]
+        },
+        {
+          "order": 44,
+          "tier": "supplementary",
+          "author": "Adam Smith",
+          "works": [
+            {
+              "title": "An Inquiry into the Nature and Causes of the Wealth of Nations",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/3300"
+            }
+          ]
+        },
+        {
+          "order": 45,
+          "tier": "supplementary",
+          "author": "Albert Einstein",
+          "works": [
+            {
+              "title": "Relativity: The Special and the General Theory",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5001"
+            }
+          ]
+        },
+        {
+          "order": 46,
+          "tier": "supplementary",
+          "author": "Alfred North Whitehead",
+          "works": [
+            {
+              "title": "An Introduction to Mathematics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/41568"
+            }
+          ]
+        },
+        {
+          "order": 47,
+          "tier": "supplementary",
+          "author": "American State Papers",
+          "works": [
+            {
+              "title": "Articles of Confederation",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5"
+            },
+            {
+              "title": "The Constitution of the United States of America",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5"
+            }
+          ]
+        },
+        {
+          "order": 48,
+          "tier": "supplementary",
+          "author": "Anton Chekhov",
+          "works": [
+            {
+              "title": "Uncle Vanya",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1756"
+            }
+          ]
+        },
+        {
+          "order": 49,
+          "tier": "supplementary",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Minor biological works"
+            }
+          ]
+        },
+        {
+          "order": 50,
+          "tier": "supplementary",
+          "author": "Bertrand Russell",
+          "works": [
+            {
+              "title": "The Problems of Philosophy",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5827"
+            }
+          ]
+        },
+        {
+          "order": 51,
+          "tier": "supplementary",
+          "author": "Blaise Pascal",
+          "works": [
+            {
+              "title": "Scientific and mathematical essays",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/18269"
+            }
+          ]
+        },
+        {
+          "order": 52,
+          "tier": "supplementary",
+          "author": "Charles Darwin",
+          "works": [
+            {
+              "title": "The Origin of Species by Means of Natural Selection",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1228"
+            },
+            {
+              "title": "The Descent of Man, and Selection in Relation to Sex",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2300"
+            }
+          ]
+        },
+        {
+          "order": 53,
+          "tier": "supplementary",
+          "author": "Charles Dickens",
+          "works": [
+            {
+              "title": "Little Dorrit",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/963"
+            }
+          ]
+        },
+        {
+          "order": 54,
+          "tier": "supplementary",
+          "author": "D. H. Lawrence",
+          "works": [
+            {
+              "title": "The Prussian Officer",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/28948"
+            }
+          ]
+        },
+        {
+          "order": 55,
+          "tier": "supplementary",
+          "author": "Denis Diderot",
+          "works": [
+            {
+              "title": "Rameau's Nephew",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/12168"
+            }
+          ]
+        },
+        {
+          "order": 56,
+          "tier": "supplementary",
+          "author": "Edward Gibbon",
+          "works": [
+            {
+              "title": "The Decline and Fall of the Roman Empire (Part 1)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/731"
+            },
+            {
+              "title": "The Decline and Fall of the Roman Empire (Part 2)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/733"
+            }
+          ]
+        },
+        {
+          "order": 57,
+          "tier": "supplementary",
+          "author": "Erasmus",
+          "works": [
+            {
+              "title": "The Praise of Folly",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/9371"
+            }
+          ]
+        },
+        {
+          "order": 58,
+          "tier": "supplementary",
+          "author": "Eugene O'Neill",
+          "works": [
+            {
+              "title": "Mourning Becomes Electra"
+            }
+          ]
+        },
+        {
+          "order": 59,
+          "tier": "supplementary",
+          "author": "F. Scott Fitzgerald",
+          "works": [
+            {
+              "title": "The Great Gatsby",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/64317"
+            }
+          ]
+        },
+        {
+          "order": 60,
+          "tier": "supplementary",
+          "author": "George Eliot",
+          "works": [
+            {
+              "title": "Middlemarch",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/145"
+            }
+          ]
+        },
+        {
+          "order": 61,
+          "tier": "supplementary",
+          "author": "Henrik Ibsen",
+          "works": [
+            {
+              "title": "A Doll's House",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2542"
+            },
+            {
+              "title": "The Wild Duck",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/3503"
+            },
+            {
+              "title": "Hedda Gabler",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/4093"
+            }
+          ]
+        },
+        {
+          "order": 62,
+          "tier": "supplementary",
+          "author": "Henry Fielding",
+          "works": [
+            {
+              "title": "The History of Tom Jones, a Foundling",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6593"
+            }
+          ]
+        },
+        {
+          "order": 63,
+          "tier": "supplementary",
+          "author": "Henry James",
+          "works": [
+            {
+              "title": "The Beast in the Jungle",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1093"
+            }
+          ]
+        },
+        {
+          "order": 64,
+          "tier": "supplementary",
+          "author": "Herman Melville",
+          "works": [
+            {
+              "title": "Moby Dick; or, The Whale",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2701"
+            }
+          ]
+        },
+        {
+          "order": 65,
+          "tier": "supplementary",
+          "author": "Honoré de Balzac",
+          "works": [
+            {
+              "title": "Cousin Bette",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1749"
+            }
+          ]
+        },
+        {
+          "order": 66,
+          "tier": "supplementary",
+          "author": "Immanuel Kant",
+          "works": [
+            {
+              "title": "The Metaphysics of Morals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+            },
+            {
+              "title": "Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+            },
+            {
+              "title": "General Introduction to the Metaphysic of Morals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+            },
+            {
+              "title": "The Science of Right",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5683"
+            },
+            {
+              "title": "The Critique of Judgement",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/48433"
+            }
+          ]
+        },
+        {
+          "order": 67,
+          "tier": "supplementary",
+          "author": "James Boswell",
+          "works": [
+            {
+              "title": "The Life of Samuel Johnson, LL.D.",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1564"
+            }
+          ]
+        },
+        {
+          "order": 68,
+          "tier": "supplementary",
+          "author": "Jean Racine",
+          "works": [
+            {
+              "title": "Bérénice",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1977"
+            },
+            {
+              "title": "Phèdre",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1977"
+            }
+          ]
+        },
+        {
+          "order": 69,
+          "tier": "supplementary",
+          "author": "Johan Huizinga",
+          "works": [
+            {
+              "title": "The Autumn of the Middle Ages"
+            }
+          ]
+        },
+        {
+          "order": 70,
+          "tier": "supplementary",
+          "author": "John Locke",
+          "works": [
+            {
+              "title": "Concerning Civil Government, Second Essay",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/7370"
+            }
+          ]
+        },
+        {
+          "order": 71,
+          "tier": "supplementary",
+          "author": "John Maynard Keynes",
+          "works": [
+            {
+              "title": "The General Theory of Employment, Interest and Money"
+            }
+          ]
+        },
+        {
+          "order": 72,
+          "tier": "supplementary",
+          "author": "John Milton",
+          "works": [
+            {
+              "title": "Psalm 136",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "The Passion",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "On Time",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Upon the Circumcision",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "At a Solemn Musick",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "An Epitaph on the Marchioness of Winchester",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Song on May Morning",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "On Shakespeare",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "On the University Carrier",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Another on the same",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Arcades",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Lycida",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Comus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/58"
+            },
+            {
+              "title": "On the Death of a Fair Infant",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "At a Vacation Exercise",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "The Fifth Ode of Horace",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Sonnets (I, and VII—XIX)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "On the New Forcers of Conscience",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "On the Lord General Fairfax at the Siege of Colchester",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "To the Lord General Cromwell",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "To Sir Henry Vane the Younger",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "To Mister Cyriack the Skinner upon his Blindness",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            },
+            {
+              "title": "Psalms (I—VIII & LXXX—LXXXVIII)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+            }
+          ]
+        },
+        {
+          "order": 73,
+          "tier": "supplementary",
+          "author": "Jonathan Swift",
+          "works": [
+            {
+              "title": "Gulliver's Travels",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/829"
+            }
+          ]
+        },
+        {
+          "order": 74,
+          "tier": "supplementary",
+          "author": "Joseph Conrad",
+          "works": [
+            {
+              "title": "Heart of Darkness",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/219"
+            }
+          ]
+        },
+        {
+          "order": 75,
+          "tier": "supplementary",
+          "author": "Laurence Sterne",
+          "works": [
+            {
+              "title": "The Life and Opinions of Tristram Shandy, Gentleman",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1079"
+            }
+          ]
+        },
+        {
+          "order": 76,
+          "tier": "supplementary",
+          "author": "Ludwig Wittgenstein",
+          "works": [
+            {
+              "title": "Philosophical Investigations"
+            }
+          ]
+        },
+        {
+          "order": 77,
+          "tier": "supplementary",
+          "author": "Luigi Pirandello",
+          "works": [
+            {
+              "title": "Six Characters in Search of an Author"
+            }
+          ]
+        },
+        {
+          "order": 78,
+          "tier": "supplementary",
+          "author": "Marcel Proust",
+          "works": [
+            {
+              "title": "Remembrance of Things Past: \"Swann in Love\"",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/7178"
+            }
+          ]
+        },
+        {
+          "order": 79,
+          "tier": "supplementary",
+          "author": "Mark Twain",
+          "works": [
+            {
+              "title": "Huckleberry Finn",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/76"
+            }
+          ]
+        },
+        {
+          "order": 80,
+          "tier": "supplementary",
+          "author": "Martin Heidegger",
+          "works": [
+            {
+              "title": "What Is Metaphysics?"
+            }
+          ]
+        },
+        {
+          "order": 81,
+          "tier": "supplementary",
+          "author": "Max Planck",
+          "works": [
+            {
+              "title": "Scientific Autobiography and Other Papers"
+            }
+          ]
+        },
+        {
+          "order": 82,
+          "tier": "supplementary",
+          "author": "Molière",
+          "works": [
+            {
+              "title": "The School for Wives",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+            },
+            {
+              "title": "The Critique of the School for Wives",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+            },
+            {
+              "title": "Don Juan",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6925"
+            },
+            {
+              "title": "The Miser",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+            },
+            {
+              "title": "The Would-Be Gentleman",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2992"
+            },
+            {
+              "title": "The Imaginary Invalid",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+            }
+          ]
+        },
+        {
+          "order": 83,
+          "tier": "supplementary",
+          "author": "Niels Bohr",
+          "works": [
+            {
+              "title": "Atomic Theory and the Description of Nature (selections)"
+            },
+            {
+              "title": "Discussion with Einstein on Epistemology"
+            }
+          ]
+        },
+        {
+          "order": 84,
+          "tier": "supplementary",
+          "author": "R. H. Tawney",
+          "works": [
+            {
+              "title": "The Acquisitive Society"
+            }
+          ]
+        },
+        {
+          "order": 85,
+          "tier": "supplementary",
+          "author": "Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)",
+          "works": [
+            {
+              "title": "The Great Conversation"
+            },
+            {
+              "title": "The Great Ideas I : ANGEL to LOVE"
+            },
+            {
+              "title": "The Great Ideas II: MAN to WORLD"
+            }
+          ]
+        },
+        {
+          "order": 86,
+          "tier": "supplementary",
+          "author": "Samuel Beckett",
+          "works": [
+            {
+              "title": "Waiting for Godot"
+            }
+          ]
+        },
+        {
+          "order": 87,
+          "tier": "supplementary",
+          "author": "Sigmund Freud",
+          "works": [
+            {
+              "title": "The Origin and Development of Psycho-Analysis"
+            },
+            {
+              "title": "Selected Papers on Hysteria"
+            },
+            {
+              "title": "The Sexual Enlightenment of Children"
+            },
+            {
+              "title": "The Future Prospects of Psycho-Analytic Therapy"
+            },
+            {
+              "title": "Observations on \"Wild\" Psycho-Analysis"
+            },
+            {
+              "title": "The Interpretation of Dreams",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/15489"
+            },
+            {
+              "title": "On Narcissism"
+            },
+            {
+              "title": "Instincts and Their Vicissitudes"
+            },
+            {
+              "title": "Repression"
+            },
+            {
+              "title": "The Unconscious"
+            },
+            {
+              "title": "Beyond the Pleasure Principle",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/34901"
+            },
+            {
+              "title": "Group Psychology and the Analysis of the Ego",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35877"
+            },
+            {
+              "title": "The Ego and the Id"
+            },
+            {
+              "title": "Inhibitions, Symptoms, and Anxiety"
+            },
+            {
+              "title": "Thoughts for the Times on War and Death"
+            },
+            {
+              "title": "New Introductory Lectures on Psycho-Analysis"
+            }
+          ]
+        },
+        {
+          "order": 88,
+          "tier": "supplementary",
+          "author": "Theodosius Dobzhansky",
+          "works": [
+            {
+              "title": "Genetics and the Origin of Species"
+            }
+          ]
+        },
+        {
+          "order": 89,
+          "tier": "supplementary",
+          "author": "Thomas Mann",
+          "works": [
+            {
+              "title": "Death in Venice",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/12108"
+            }
+          ]
+        },
+        {
+          "order": 90,
+          "tier": "supplementary",
+          "author": "Unknown Author",
+          "works": [
+            {
+              "title": "The Destruction of Dá Derga’s Hostel"
+            }
+          ]
+        },
+        {
+          "order": 91,
+          "tier": "supplementary",
+          "author": "Virginia Woolf",
+          "works": [
+            {
+              "title": "To the Lighthouse"
+            }
+          ]
+        },
+        {
+          "order": 92,
+          "tier": "supplementary",
+          "author": "Willa Cather",
+          "works": [
+            {
+              "title": "A Lost Lady",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/331"
+            }
+          ]
+        },
+        {
+          "order": 93,
+          "tier": "supplementary",
+          "author": "William Faulkner",
+          "works": [
+            {
+              "title": "A Rose for Emily"
+            }
+          ]
+        },
+        {
+          "order": 94,
+          "tier": "supplementary",
+          "author": "William James",
+          "works": [
+            {
+              "title": "Pragmatism",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/5116"
+            }
+          ]
         }
       ]
     }

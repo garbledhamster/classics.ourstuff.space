@@ -30,9 +30,15 @@ def build_source_mapping(reading_data):
     sources = {}
     
     for year in reading_data.get('years', []):
+        if not year:
+            continue
         for reading_item in year.get('readings', []):
+            if not reading_item:
+                continue
             author = reading_item.get('author', '')
             for work in reading_item.get('works', []):
+                if not work:
+                    continue
                 title = work.get('title', '').strip()
                 source_url = work.get('sourceUrl', '')
                 

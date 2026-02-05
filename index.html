@@ -796,6 +796,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             Ten-Year Reading Plan
           </button>
+          <button class="btn" id="tabBundles" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            Reading Bundles
+          </button>
           <button class="btn" id="openOpenAlexBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
             OpenAlex Options
@@ -850,6 +854,20 @@
             <option value="complete">Only complete</option>
           </select>
         </div>
+        <div class="control">
+          <div class="label">Add to Bundle</div>
+          <select id="libBundleSelect" class="select">
+            <option value="">— Select Bundle —</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <div class="label">Bundle Page</div>
+          <select id="libBundlePageSelect" class="select">
+            <option value="1">Page 1</option>
+          </select>
+        </div>
+
 
         <div class="rowWide">
           <div class="help">Browse all works here. Use “Go to Plan” to jump into the Ten-Year schedule.</div>
@@ -918,9 +936,55 @@
       <div id="planGrid" class="grid" aria-live="polite"></div>
     </section>
 
+    <!-- ===== BUNDLES VIEW ===== -->
+    <section id="bundlesView" class="view" aria-label="Reading Bundles view">
+      <section class="controls" aria-label="bundle controls">
+        <div class="control">
+          <div class="label">Select Bundle</div>
+          <select id="bundleSelect" class="select">
+            <option value="__default__">Ten-Year Reading Plan</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <div class="label">Page</div>
+          <div class="yearStepper">
+            <button class="btn" id="bundlePagePrev" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <span id="bundlePageDisplay" class="yearNum">Page 1</span>
+            <button class="btn" id="bundlePageNext" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="rowWide">
+          <button class="btn" id="newBundleBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            New Bundle
+          </button>
+          <button class="btn" id="addBundlePageBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Add Page
+          </button>
+          <button class="btn" id="renameBundleBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
+            Rename Bundle
+          </button>
+          <button class="btn" id="deleteBundleBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Delete Bundle
+          </button>
+        </div>
+      </section>
+
+      <div id="bundlesGrid" class="grid" aria-live="polite"></div>
+    </section>
+
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data file: <span class="mono">./reading.json</span></div>
-      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex)</div>
+      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex + bundles)</div>
     </footer>
   </div>
 
@@ -1162,6 +1226,8 @@
     const LS_CHECKS = "greatworks.reading.checks.v2";
     const LS_NOTES  = "greatworks.reading.notes.v1";
     const LS_OA     = "greatworks.openalex.settings.v1";
+    const LS_BUNDLES = "greatworks.reading.bundles.v1";
+    const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
 
     /* =========================================================
        HELPERS
@@ -1246,6 +1312,27 @@
     }
     function saveOpenAlexSettings(s){
       localStorage.setItem(LS_OA, JSON.stringify(s));
+    }
+
+    // Bundle storage functions
+    function loadBundles(){
+      return safeJsonParse(localStorage.getItem(LS_BUNDLES) || "[]", []);
+    }
+    function saveBundles(arr){
+      localStorage.setItem(LS_BUNDLES, JSON.stringify(arr));
+    }
+    function loadActiveBundle(){
+      return localStorage.getItem(LS_ACTIVE_BUNDLE) || "__default__";
+    }
+    function saveActiveBundle(id){
+      localStorage.setItem(LS_ACTIVE_BUNDLE, id);
+    }
+    function bundleUid(){
+      // Use crypto.randomUUID if available, fallback to timestamp-based ID
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return "bundle_" + crypto.randomUUID();
+      }
+      return "bundle_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
     }
 
     // Simple stable hash for DOM ids (no crypto needed)
@@ -1335,7 +1422,10 @@
       checks: loadChecks(),
       notes: loadNotes(),
       openalex: loadOpenAlexSettings(),
-      view: "library",   // "library" | "plan"
+      bundles: loadBundles(),          // user-created bundles
+      activeBundleId: loadActiveBundle(), // currently selected bundle id
+      defaultBundle: null,             // the default bundle from reading.json
+      view: "library",   // "library" | "plan" | "bundles"
       availableYears: [],
       filters: {
         // plan view
@@ -1348,7 +1438,9 @@
         libQ: "",
         libSort: "author",
         libTierPresence: "all",
-        libShow: "all"
+        libShow: "all",
+        // bundle view
+        bundleYear: "1"
       },
       ui: {},
       drawer: { open:false, which:null }, // notes | openalex
@@ -1369,6 +1461,14 @@
 
         state.plan = data;
 
+        // Store as the default bundle (read-only, from reading.json)
+        state.defaultBundle = {
+          id: "__default__",
+          plan_name: data.plan_name || "Ten-Year Reading Plan",
+          years: typeof structuredClone === 'function' ? structuredClone(data.years) : JSON.parse(JSON.stringify(data.years)),
+          isDefault: true
+        };
+
         const today = new Date().toLocaleDateString(undefined, { weekday:"long", year:"numeric", month:"long", day:"numeric" });
         $("#today").textContent = today;
 
@@ -1376,6 +1476,7 @@
         buildLibraryWorks();
         fillYearOptions();
         buildTagsUniverse();
+        buildBundleDropdowns();
 
         syncOpenAlexUIFromState();
         updateOpenAlexPreview();
@@ -1501,6 +1602,192 @@
     }
 
     /* =========================================================
+       BUNDLE MANAGEMENT
+       ========================================================= */
+    function getAllBundles(){
+      // Returns array of all bundles (default + user-created)
+      const bundles = [];
+      if (state.defaultBundle){
+        bundles.push(state.defaultBundle);
+      }
+      for (const b of state.bundles){
+        bundles.push(b);
+      }
+      return bundles;
+    }
+
+    function getBundleById(id){
+      if (id === "__default__") return state.defaultBundle;
+      return state.bundles.find(b => b.id === id) || null;
+    }
+
+    function getActiveBundle(){
+      return getBundleById(state.activeBundleId) || state.defaultBundle;
+    }
+
+    function buildBundleDropdowns(){
+      const allBundles = getAllBundles();
+      
+      // Bundle view dropdown
+      const bundleSelect = $("#bundleSelect");
+      bundleSelect.innerHTML = allBundles.map(b => 
+        `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
+      ).join("");
+      bundleSelect.value = state.activeBundleId;
+
+      // Library page bundle dropdown (user bundles only, not default)
+      const libBundleSelect = $("#libBundleSelect");
+      const userBundles = state.bundles || [];
+      libBundleSelect.innerHTML = 
+        `<option value="">— Select Bundle —</option>` +
+        userBundles.map(b => 
+          `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
+        ).join("");
+
+      updateBundlePageDropdown();
+      updateLibBundlePageDropdown();
+    }
+
+    function updateBundlePageDropdown(){
+      const bundle = getActiveBundle();
+      if (!bundle) return;
+      
+      const years = bundle.years || [];
+      const bundlePageDisplay = $("#bundlePageDisplay");
+      
+      if (years.length === 0){
+        state.filters.bundleYear = "1";
+        bundlePageDisplay.textContent = "Page 1";
+      } else {
+        const availablePages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+        if (!availablePages.includes(Number(state.filters.bundleYear))){
+          state.filters.bundleYear = availablePages.length > 0 ? String(availablePages[0]) : "1";
+        }
+        bundlePageDisplay.textContent = `Page ${state.filters.bundleYear}`;
+      }
+    }
+
+    function updateLibBundlePageDropdown(){
+      const libBundleSelect = $("#libBundleSelect");
+      const libBundlePageSelect = $("#libBundlePageSelect");
+      const selectedBundleId = libBundleSelect.value;
+
+      if (!selectedBundleId){
+        libBundlePageSelect.innerHTML = `<option value="1">Page 1</option>`;
+        return;
+      }
+
+      const bundle = getBundleById(selectedBundleId);
+      if (!bundle || !bundle.years || bundle.years.length === 0){
+        libBundlePageSelect.innerHTML = `<option value="1">Page 1</option>`;
+        return;
+      }
+
+      const pages = bundle.years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+      libBundlePageSelect.innerHTML = pages.map(p => 
+        `<option value="${p}">Page ${p}</option>`
+      ).join("");
+    }
+
+    function createNewBundle(name){
+      const bundle = {
+        id: bundleUid(),
+        plan_name: name || "New Bundle",
+        years: [{ year: 1, readings: [] }],
+        isDefault: false
+      };
+      state.bundles.push(bundle);
+      saveBundles(state.bundles);
+      state.activeBundleId = bundle.id;
+      saveActiveBundle(state.activeBundleId);
+      buildBundleDropdowns();
+      return bundle;
+    }
+
+    function addPageToBundle(bundleId){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return;
+
+      const years = bundle.years || [];
+      const maxYear = years.reduce((m, y) => Math.max(m, Number(y.year) || 0), 0);
+      const newYear = maxYear + 1;
+      
+      bundle.years.push({ year: newYear, readings: [] });
+      saveBundles(state.bundles);
+      state.filters.bundleYear = String(newYear);
+      updateBundlePageDropdown();
+      renderBundles();
+    }
+
+    function deleteBundle(bundleId){
+      if (bundleId === "__default__") return; // Cannot delete default
+      
+      const idx = state.bundles.findIndex(b => b.id === bundleId);
+      if (idx >= 0){
+        state.bundles.splice(idx, 1);
+        saveBundles(state.bundles);
+        state.activeBundleId = "__default__";
+        saveActiveBundle(state.activeBundleId);
+        buildBundleDropdowns();
+        renderBundles();
+      }
+    }
+
+    function renameBundle(bundleId, newName){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return;
+      
+      bundle.plan_name = newName;
+      saveBundles(state.bundles);
+      buildBundleDropdowns();
+    }
+
+    function addBookToBundle(bundleId, pageNum, bookData){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return false;
+
+      let yearObj = bundle.years.find(y => Number(y.year) === pageNum);
+      if (!yearObj){
+        yearObj = { year: pageNum, readings: [] };
+        bundle.years.push(yearObj);
+        bundle.years.sort((a,b) => Number(a.year) - Number(b.year));
+      }
+
+      // Find next order number
+      const maxOrder = yearObj.readings.reduce((m, r) => Math.max(m, Number(r.order) || 0), 0);
+      
+      yearObj.readings.push({
+        order: maxOrder + 1,
+        tier: "core",
+        author: bookData.author || "Unknown",
+        works: [{
+          title: bookData.title || "Untitled",
+          sourceUrl: bookData.sourceUrl || ""
+        }]
+      });
+
+      saveBundles(state.bundles);
+      return true;
+    }
+
+    function removeReadingFromBundle(bundleId, pageNum, order){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return;
+
+      const yearObj = bundle.years.find(y => Number(y.year) === pageNum);
+      if (!yearObj) return;
+
+      const idx = yearObj.readings.findIndex(r => Number(r.order) === order);
+      if (idx >= 0){
+        yearObj.readings.splice(idx, 1);
+        // Re-order remaining readings
+        yearObj.readings.forEach((r, i) => r.order = i + 1);
+        saveBundles(state.bundles);
+        renderBundles();
+      }
+    }
+
+    /* =========================================================
        VIEW SWITCHING
        ========================================================= */
     function setView(view){
@@ -1508,11 +1795,20 @@
 
       $("#libraryView").classList.toggle("on", view === "library");
       $("#planView").classList.toggle("on", view === "plan");
+      $("#bundlesView").classList.toggle("on", view === "bundles");
 
       $("#tabLibrary").classList.toggle("tabOn", view === "library");
       $("#tabPlan").classList.toggle("tabOn", view === "plan");
+      $("#tabBundles").classList.toggle("tabOn", view === "bundles");
 
-      $("#planName").textContent = (view === "library") ? "Library" : (state.plan?.plan_name || "Ten-Year Plan");
+      if (view === "library"){
+        $("#planName").textContent = "Library";
+      } else if (view === "plan"){
+        $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
+      } else if (view === "bundles"){
+        const bundle = getActiveBundle();
+        $("#planName").textContent = bundle?.plan_name || "Reading Bundles";
+      }
 
       renderAll();
     }
@@ -1634,7 +1930,8 @@
       updateProgressBadge();
 
       if (state.view === "library") renderLibrary();
-      else renderPlan();
+      else if (state.view === "plan") renderPlan();
+      else if (state.view === "bundles") renderBundles();
 
       // Keep OpenAlex preview live
       updateOpenAlexPreview();
@@ -1746,6 +2043,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 Go to plan
               </button>
+              <button class="btn" type="button" data-action="addToBundle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
+                Add to Bundle
+              </button>
             </div>
           </div></div>
         </section>
@@ -1772,6 +2073,186 @@
 
       grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       wirePlanDelegation();
+    }
+
+    function renderBundles(){
+      const grid = $("#bundlesGrid");
+      const bundle = getActiveBundle();
+
+      if (!bundle){
+        grid.innerHTML = `
+          <div class="yearCard">
+            <div class="yearHeader">
+              <h2 class="yearTitle">No bundle selected</h2>
+              <div class="yearMeta"><span>Create a new bundle to get started</span></div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // Update the header with bundle name
+      $("#planName").textContent = bundle.plan_name;
+
+      const years = bundle.years || [];
+      const currentPage = Number(state.filters.bundleYear) || 1;
+      const yearData = years.find(y => Number(y.year) === currentPage);
+
+      if (!yearData){
+        grid.innerHTML = `
+          <div class="yearCard">
+            <div class="yearHeader">
+              <h2 class="yearTitle">Page ${currentPage}</h2>
+              <div class="yearMeta"><span>No readings yet</span></div>
+            </div>
+            <div class="help">${bundle.isDefault ? 'This is a read-only bundle from reading.json.' : 'Add books from the Library to this bundle page.'}</div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = bundlePageCardHtml(bundle, yearData);
+      wireBundlesDelegation();
+    }
+
+    function bundlePageCardHtml(bundle, yearData){
+      const pageNum = Number(yearData.year);
+      const readings = yearData.readings || [];
+      const total = readings.reduce((acc, r) => acc + (r.works?.length || 0), 0);
+
+      const readingsHtml = readings.map(r => bundleReadingBlockHtml(bundle, pageNum, r)).join("");
+
+      return `
+        <section class="yearCard" data-year="${pageNum}" data-bundleid="${escapeHtml(bundle.id)}">
+          <div class="yearHeader">
+            <h2 class="yearTitle">Page ${escapeHtml(pageNum)}</h2>
+            <div class="yearMeta">
+              <span>${escapeHtml(total)} work${total !== 1 ? 's' : ''}</span>
+              ${bundle.isDefault ? '<span class="pill">Read-only</span>' : ''}
+            </div>
+          </div>
+          ${readingsHtml || '<div class="help">No readings on this page yet.</div>'}
+        </section>
+      `;
+    }
+
+    function bundleReadingBlockHtml(bundle, pageNum, reading){
+      const order = reading.order || 1;
+      const tier = reading.tier || "core";
+      const author = reading.author || "Unknown";
+      const works = reading.works || [];
+
+      const worksHtml = works.map(w => bundleWorkRowHtml(bundle, pageNum, order, w, author)).join("");
+      const isEditable = !bundle.isDefault;
+
+      return `
+        <div class="readingBlock" data-year="${pageNum}" data-order="${order}">
+          <div class="readingHead">
+            <div class="readingLeft">
+              <div class="order">#${escapeHtml(order)}</div>
+              <div class="author">${escapeHtml(author)}</div>
+              <span class="tier">${escapeHtml(tier)}</span>
+            </div>
+            ${isEditable ? `
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn" type="button" data-action="removeReading" data-bundleid="${escapeHtml(bundle.id)}" data-page="${pageNum}" data-order="${order}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  Remove
+                </button>
+              </div>
+            ` : ''}
+          </div>
+          <div class="worksList">
+            ${worksHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function bundleWorkRowHtml(bundle, pageNum, order, work, author){
+      const title = work.title || "Untitled";
+      const sourceUrl = work.sourceUrl || "";
+
+      return `
+        <div class="workRow"
+             data-book="${escapeHtml(title)}"
+             data-author="${escapeHtml(author)}"
+             data-year="${escapeHtml(pageNum)}"
+             data-order="${escapeHtml(order)}"
+             ${sourceUrl ? `data-sourceurl="${escapeHtml(sourceUrl)}"` : ""}
+        >
+          <div class="workMain" style="flex:1;">
+            <p class="workTitle">${escapeHtml(title)}</p>
+            <div class="workSub">
+              <div class="tagRow">
+                <span class="pill">Page ${escapeHtml(pageNum)}</span>
+                <span class="pill">Order ${escapeHtml(order)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="workDrawer"><div>
+            <div class="workActions">
+              <button class="btn" type="button" data-action="openOpenAlex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                OpenAlex
+              </button>
+              <button class="btn" type="button" data-action="openWikipedia">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                Wikipedia
+              </button>
+              ${sourceUrl ? `<button class="btn" type="button" data-action="openSource">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Source
+              </button>` : ""}
+            </div>
+          </div></div>
+        </div>
+      `;
+    }
+
+    function wireBundlesDelegation(){
+      const grid = $("#bundlesGrid");
+
+      grid.onclick = (e) => {
+        const btn = e.target.closest("[data-action]");
+        if (!btn) return;
+
+        const action = btn.dataset.action;
+
+        if (action === "removeReading"){
+          const bundleId = btn.dataset.bundleid;
+          const page = Number(btn.dataset.page);
+          const order = Number(btn.dataset.order);
+          if (confirm("Remove this reading from the bundle?")){
+            removeReadingFromBundle(bundleId, page, order);
+          }
+          return;
+        }
+
+        const row = btn.closest(".workRow");
+        if (!row) return;
+
+        if (action === "openOpenAlex"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openWikipedia"){
+          const title = row.dataset.book || "";
+          const wikiTitle = encodeURIComponent(title.replace(/\s+/g, "_"));
+          window.open(`https://en.wikipedia.org/wiki/${wikiTitle}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openSource"){
+          const sourceUrl = row.dataset.sourceurl;
+          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
+          return;
+        }
+      };
     }
 
     function yearCardHtml(year, items){
@@ -1984,6 +2465,42 @@
           state.notesUI.tag = title;
           $("#noteTagFilter").value = title;
           renderNotesList();
+          return;
+        }
+
+        if (btn.dataset.action === "addToBundle"){
+          const selectedBundleId = $("#libBundleSelect").value;
+          const selectedPage = Number($("#libBundlePageSelect").value) || 1;
+          const sourceUrl = card.dataset.sourceurl || "";
+
+          if (!selectedBundleId){
+            alert("Please select a bundle from the dropdown first.");
+            return;
+          }
+
+          const bundle = getBundleById(selectedBundleId);
+          if (!bundle){
+            alert("Bundle not found. Please select a valid bundle.");
+            return;
+          }
+
+          if (bundle.isDefault){
+            alert("Cannot add to the default Ten-Year Reading Plan. Please create or select a user bundle.");
+            return;
+          }
+
+          const success = addBookToBundle(selectedBundleId, selectedPage, {
+            title,
+            author,
+            sourceUrl
+          });
+
+          if (success){
+            alert(`Added "${title}" to "${bundle.plan_name}" (Page ${selectedPage})`);
+            updateLibBundlePageDropdown();
+          } else {
+            alert("Failed to add book to bundle.");
+          }
           return;
         }
       };
@@ -2464,6 +2981,7 @@
       // Tabs
       $("#tabLibrary").addEventListener("click", ()=> setView("library"));
       $("#tabPlan").addEventListener("click", ()=> setView("plan"));
+      $("#tabBundles").addEventListener("click", ()=> setView("bundles"));
 
       // Global drawer buttons
       $("#openNotesBtn").addEventListener("click", () => openDrawer("notes"));
@@ -2482,6 +3000,7 @@
       $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; renderLibrary(); });
       $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; renderLibrary(); });
       $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; renderLibrary(); });
+      $("#libBundleSelect").addEventListener("change", e => { updateLibBundlePageDropdown(); });
       $("#libResetBtn").addEventListener("click", ()=> {
         state.filters.libQ = "";
         state.filters.libSort = "author";
@@ -2513,6 +3032,91 @@
         state.checks = {};
         saveChecks(state.checks);
         renderAll();
+      });
+
+      // Bundle controls
+      $("#bundleSelect").addEventListener("change", e => {
+        state.activeBundleId = e.target.value;
+        saveActiveBundle(state.activeBundleId);
+        state.filters.bundleYear = "1";
+        updateBundlePageDropdown();
+        renderBundles();
+      });
+
+      $("#bundlePagePrev").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle) return;
+        const years = (bundle.years || []).map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+        const idx = years.indexOf(Number(state.filters.bundleYear));
+        if (idx > 0){
+          state.filters.bundleYear = String(years[idx - 1]);
+          updateBundlePageDropdown();
+          renderBundles();
+        }
+      });
+
+      $("#bundlePageNext").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle) return;
+        const years = (bundle.years || []).map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+        const idx = years.indexOf(Number(state.filters.bundleYear));
+        if (idx < years.length - 1){
+          state.filters.bundleYear = String(years[idx + 1]);
+          updateBundlePageDropdown();
+          renderBundles();
+        }
+      });
+
+      $("#newBundleBtn").addEventListener("click", () => {
+        const name = prompt("Enter a name for your new bundle:", "My Reading Bundle");
+        if (name && name.trim()){
+          createNewBundle(name.trim());
+          setView("bundles");
+        }
+      });
+
+      $("#addBundlePageBtn").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle){
+          alert("Please select a bundle first.");
+          return;
+        }
+        if (bundle.isDefault){
+          alert("Cannot add pages to the default Ten-Year Reading Plan. Please create or select a user bundle.");
+          return;
+        }
+        addPageToBundle(bundle.id);
+      });
+
+      $("#renameBundleBtn").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle){
+          alert("Please select a bundle first.");
+          return;
+        }
+        if (bundle.isDefault){
+          alert("Cannot rename the default Ten-Year Reading Plan.");
+          return;
+        }
+        const newName = prompt("Enter a new name for this bundle:", bundle.plan_name);
+        if (newName && newName.trim()){
+          renameBundle(bundle.id, newName.trim());
+          $("#planName").textContent = newName.trim();
+        }
+      });
+
+      $("#deleteBundleBtn").addEventListener("click", () => {
+        const bundle = getActiveBundle();
+        if (!bundle){
+          alert("Please select a bundle first.");
+          return;
+        }
+        if (bundle.isDefault){
+          alert("Cannot delete the default Ten-Year Reading Plan.");
+          return;
+        }
+        if (!confirm(`Delete bundle "${bundle.plan_name}"? This cannot be undone.`)) return;
+        deleteBundle(bundle.id);
       });
 
       // Notes

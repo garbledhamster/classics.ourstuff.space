@@ -3456,7 +3456,7 @@
 
       // Plan filters
       $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); updateProgressBadge(); });
-      $("#planAuthorOnly").addEventListener("change", e => { state.filters.planAuthorOnly = e.target.checked; renderPlan(); updateProgressBadge(); });
+      $("#planAuthorOnly").addEventListener("change", e => { state.filters.planAuthorOnly = e.target.checked; renderPlan(); });
       $("#yearPrev").addEventListener("click", () => {
         const idx = state.availableYears.indexOf(Number(state.filters.year));
         if (idx > 0){ state.filters.year = String(state.availableYears[idx - 1]); updateYearStepper(); renderPlan(); }

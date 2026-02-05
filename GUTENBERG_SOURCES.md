@@ -9,8 +9,8 @@ This document tracks the availability of books from our collection on Project Gu
 
 **Statistics:**
 - Total Books: 398
-- Available with Source: 101
-- Needing Verification: 297
+- Available with Source: 194
+- Needing Verification: 204
 
 **Last Updated:** 2026-02-05
 
@@ -20,103 +20,104 @@ This document tracks the availability of books from our collection on Project Gu
 
 | Status | Item # | Title | Author | Vol | Date | PG # | URL |
 |--------|--------|-------|--------|-----|------|------|-----|
-| ⚠️ | 1 | The Epic of Gilgamesh |  |  | -1200 |  |  |
-| ⚠️ | 2 | the Bible (King James version) |  |  | 1769 |  |  |
+| ✅ | 1 | The Epic of Gilgamesh |  |  | -1200 | 11000 | [Link](https://www.gutenberg.org/ebooks/11000) |
+| ✅ | 2 | the Bible (King James version) |  |  | 1769 | 10 | [Link](https://www.gutenberg.org/ebooks/10) |
 | ⚠️ | 3 | the Bible (Douay version) |  |  | 1752 |  |  |
-| ⚠️ | 4 | The Bhagavad Gita |  |  | -500 |  |  |
-| ⚠️ | 5 | Analects (The Sayings of Confucius) |  |  | -220 |  |  |
+| ✅ | 4 | The Bhagavad Gita |  |  | -500 | 2388 | [Link](https://www.gutenberg.org/ebooks/2388) |
+| ✅ | 5 | Analects (The Sayings of Confucius) |  |  | -220 | 3100 | [Link](https://www.gutenberg.org/ebooks/3100) |
 | ⚠️ | 6 | Qur'an |  |  | 632 |  |  |
-| ⚠️ | 7 | Beowulf |  |  | 1025 |  |  |
+| ✅ | 7 | Beowulf |  |  | 1025 | 16328 | [Link](https://www.gutenberg.org/ebooks/16328) |
 | ⚠️ | 8 | The Song of Roland |  |  | 1115 |  |  |
 | ⚠️ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 |  |  |
 | ⚠️ | 10 | The Story of the Volsungs and Niblungs |  |  | 1877 |  |  |
 | ⚠️ | 11 | The Great Conversation | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 1 | 1952 |  |  |
 | ⚠️ | 12 | The Great Ideas I : ANGEL to LOVE | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 2 | 1952 |  |  |
-| ⚠️ | 13 | The Great Ideas II : MAN to WORLD | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 3 | 1952 |  |  |
+| ⚠️ | 13 | The Great Ideas II
+: MAN to WORLD | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 3 | 1952 |  |  |
 | ✅ | 14 | The Iliad | Homer | 4 | -700 | 6130 | [Link](https://www.gutenberg.org/ebooks/6130) |
 | ✅ | 15 | The Odyssey | Homer | 4 | -700 | 1727 | [Link](https://www.gutenberg.org/ebooks/1727) |
-| ⚠️ | 16 | The Suppliant Maidens | Aeschylus | 5 | -458 |  |  |
-| ⚠️ | 17 | The Persians | Aeschylus | 5 | -472 |  |  |
-| ⚠️ | 18 | Seven Against Thebes | Aeschylus | 5 | -467 |  |  |
+| ✅ | 16 | The Suppliant Maidens | Aeschylus | 5 | -458 | 8714 | [Link](https://www.gutenberg.org/ebooks/8714) |
+| ✅ | 17 | The Persians | Aeschylus | 5 | -472 | 8714 | [Link](https://www.gutenberg.org/ebooks/8714) |
+| ✅ | 18 | Seven Against Thebes | Aeschylus | 5 | -467 | 8714 | [Link](https://www.gutenberg.org/ebooks/8714) |
 | ✅ | 19 | Prometheus Bound | Aeschylus | 5 | -424 | 8714 | [Link](https://www.gutenberg.org/ebooks/8714) |
 | ⚠️ | 20 | The Oresteia | Aeschylus | 5 | -450 |  |  |
 | ✅ | 21 | Agamemnon | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
 | ✅ | 22 | Choephoroe | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
 | ✅ | 23 | The Eumenides | Aeschylus | 5 | -450 | 14417 | [Link](https://www.gutenberg.org/ebooks/14417) |
 | ✅ | 24 | Oedipus the King | Sophocles | 5 | -429 | 31 | [Link](https://www.gutenberg.org/ebooks/31) |
-| ⚠️ | 25 | Oedipus at Colonus | Sophocles | 5 | -401 |  |  |
+| ✅ | 25 | Oedipus at Colonus | Sophocles | 5 | -401 | 31 | [Link](https://www.gutenberg.org/ebooks/31) |
 | ✅ | 26 | Antigone | Sophocles | 5 | -450 | 31 | [Link](https://www.gutenberg.org/ebooks/31) |
 | ✅ | 27 | Ajax | Sophocles | 5 | -450 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
 | ✅ | 28 | Electra | Sophocles | 5 | -450 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
-| ⚠️ | 29 | The Trachiniae | Sophocles | 5 | -425 |  |  |
-| ⚠️ | 30 | Philoctetes | Sophocles | 5 | -409 |  |  |
+| ✅ | 29 | The Trachiniae | Sophocles | 5 | -425 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
+| ✅ | 30 | Philoctetes | Sophocles | 5 | -409 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
 | ⚠️ | 31 | Rhesus | Euripides | 5 | -440 |  |  |
 | ✅ | 32 | Medea | Euripides | 5 | -431 | 35451 | [Link](https://www.gutenberg.org/ebooks/35451) |
 | ✅ | 33 | Hippolytus | Euripides | 5 | -428 | 14681 | [Link](https://www.gutenberg.org/ebooks/14681) |
-| ⚠️ | 34 | Alcestis | Euripides | 5 | -438 |  |  |
-| ⚠️ | 35 | Heracleidae | Euripides | 5 | -430 |  |  |
-| ⚠️ | 36 | The Suppliants | Euripides | 5 | -458 |  |  |
+| ✅ | 34 | Alcestis | Euripides | 5 | -438 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 35 | Heracleidae | Euripides | 5 | -430 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 36 | The Suppliants | Euripides | 5 | -458 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
 | ✅ | 37 | The Trojan Women | Euripides | 5 | -415 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
-| ⚠️ | 38 | Ion | Euripides | 5 | -412 |  |  |
+| ✅ | 38 | Ion | Euripides | 5 | -412 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
 | ⚠️ | 39 | Helen | Euripides | 5 | -412 |  |  |
-| ⚠️ | 40 | Andromache | Euripides | 5 | -425 |  |  |
+| ✅ | 40 | Andromache | Euripides | 5 | -425 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
 | ✅ | 41 | Electra | Euripides | 5 | -414 | 14484 | [Link](https://www.gutenberg.org/ebooks/14484) |
-| ⚠️ | 42 | Bacchantes | Euripides | 5 | -405 |  |  |
-| ⚠️ | 43 | Hecuba | Euripides | 5 | -424 |  |  |
-| ⚠️ | 44 | Heracles Mad | Euripides | 5 | -416 |  |  |
-| ⚠️ | 45 | The Phoenician Women | Euripides | 5 | -425 |  |  |
-| ⚠️ | 46 | Orestes | Euripides | 5 | -404 |  |  |
-| ⚠️ | 47 | Iphigenia in Tauris | Euripides | 5 | -412 |  |  |
-| ⚠️ | 48 | Iphigenia in Aulis | Euripides | 5 | -406 |  |  |
-| ⚠️ | 49 | The Acharnians | Aristophanes | 5 | -425 |  |  |
-| ⚠️ | 50 | The Knights | Aristophanes | 5 | -424 |  |  |
+| ✅ | 42 | Bacchantes | Euripides | 5 | -405 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 43 | Hecuba | Euripides | 5 | -424 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 44 | Heracles Mad | Euripides | 5 | -416 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 45 | The Phoenician Women | Euripides | 5 | -425 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 46 | Orestes | Euripides | 5 | -404 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 47 | Iphigenia in Tauris | Euripides | 5 | -412 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 48 | Iphigenia in Aulis | Euripides | 5 | -406 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
+| ✅ | 49 | The Acharnians | Aristophanes | 5 | -425 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
+| ✅ | 50 | The Knights | Aristophanes | 5 | -424 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
 | ✅ | 51 | The Clouds | Aristophanes | 5 | -423 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
-| ⚠️ | 52 | The Wasps | Aristophanes | 5 | -422 |  |  |
-| ⚠️ | 53 | Peace | Aristophanes | 5 | -421 |  |  |
-| ⚠️ | 54 | The Birds | Aristophanes | 5 | -414 |  |  |
-| ⚠️ | 55 | The Frogs | Aristophanes | 5 | -405 |  |  |
+| ✅ | 52 | The Wasps | Aristophanes | 5 | -422 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
+| ✅ | 53 | Peace | Aristophanes | 5 | -421 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
+| ✅ | 54 | The Birds | Aristophanes | 5 | -414 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
+| ✅ | 55 | The Frogs | Aristophanes | 5 | -405 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
 | ✅ | 56 | Lysistrata | Aristophanes | 5 | -411 | 7700 | [Link](https://www.gutenberg.org/ebooks/7700) |
 | ✅ | 57 | Thesmophoriazusae | Aristophanes | 5 | -411 | 8688 | [Link](https://www.gutenberg.org/ebooks/8688) |
-| ⚠️ | 58 | Ecclesiazousae | Aristophanes | 5 | -391 |  |  |
+| ✅ | 58 | Ecclesiazousae | Aristophanes | 5 | -391 | 2562 | [Link](https://www.gutenberg.org/ebooks/2562) |
 | ✅ | 59 | Plutus | Aristophanes | 5 | -388 | 2012 | [Link](https://www.gutenberg.org/ebooks/2012) |
 | ✅ | 60 | The History | Herodotus | 6 | -430 | 2707 | [Link](https://www.gutenberg.org/ebooks/2707) |
-| ⚠️ | 61 | History of the Peloponnesian War | Thucydides | 6 | -400 |  |  |
+| ✅ | 61 | History of the Peloponnesian War | Thucydides | 6 | -400 | 7142 | [Link](https://www.gutenberg.org/ebooks/7142) |
 | ⚠️ | 62 | Dialogues | Plato | 7 | -370 |  |  |
-| ⚠️ | 63 | Charmides | Plato | 7 | -390 |  |  |
-| ⚠️ | 64 | Lysis | Plato | 7 | -387 |  |  |
-| ⚠️ | 65 | Laches | Plato | 7 | -390 |  |  |
-| ⚠️ | 66 | Protagoras | Plato | 7 | -390 |  |  |
-| ⚠️ | 67 | Euthydemus | Plato | 7 | -367 |  |  |
-| ⚠️ | 68 | Cratylus | Plato | 7 | -367 |  |  |
-| ⚠️ | 69 | Phaedrus | Plato | 7 | -367 |  |  |
-| ⚠️ | 70 | Ion | Plato | 7 | -390 |  |  |
+| ✅ | 63 | Charmides | Plato | 7 | -390 | 1580 | [Link](https://www.gutenberg.org/ebooks/1580) |
+| ✅ | 64 | Lysis | Plato | 7 | -387 | 1591 | [Link](https://www.gutenberg.org/ebooks/1591) |
+| ✅ | 65 | Laches | Plato | 7 | -390 | 1584 | [Link](https://www.gutenberg.org/ebooks/1584) |
+| ✅ | 66 | Protagoras | Plato | 7 | -390 | 1591 | [Link](https://www.gutenberg.org/ebooks/1591) |
+| ✅ | 67 | Euthydemus | Plato | 7 | -367 | 1598 | [Link](https://www.gutenberg.org/ebooks/1598) |
+| ✅ | 68 | Cratylus | Plato | 7 | -367 | 1616 | [Link](https://www.gutenberg.org/ebooks/1616) |
+| ✅ | 69 | Phaedrus | Plato | 7 | -367 | 1636 | [Link](https://www.gutenberg.org/ebooks/1636) |
+| ✅ | 70 | Ion | Plato | 7 | -390 | 35173 | [Link](https://www.gutenberg.org/ebooks/35173) |
 | ✅ | 71 | Symposium | Plato | 7 | -367 | 1600 | [Link](https://www.gutenberg.org/ebooks/1600) |
 | ✅ | 72 | Meno | Plato | 7 | -367 | 1643 | [Link](https://www.gutenberg.org/ebooks/1643) |
-| ⚠️ | 73 | Euthyphro | Plato | 7 | -390 |  |  |
+| ✅ | 73 | Euthyphro | Plato | 7 | -390 | 1642 | [Link](https://www.gutenberg.org/ebooks/1642) |
 | ✅ | 74 | Apology | Plato | 7 | -390 | 1656 | [Link](https://www.gutenberg.org/ebooks/1656) |
 | ✅ | 75 | Crito | Plato | 7 | -390 | 1657 | [Link](https://www.gutenberg.org/ebooks/1657) |
 | ✅ | 76 | Phaedo | Plato | 7 | -367 | 1658 | [Link](https://www.gutenberg.org/ebooks/1658) |
 | ✅ | 77 | Gorgias | Plato | 7 | 390 | 1672 | [Link](https://www.gutenberg.org/ebooks/1672) |
 | ✅ | 78 | The Republic | Plato | 7 | -375 | 1497 | [Link](https://www.gutenberg.org/ebooks/1497) |
 | ✅ | 79 | Timaeus | Plato | 7 | -387 | 1572 | [Link](https://www.gutenberg.org/ebooks/1572) |
-| ⚠️ | 80 | Critias | Plato | 7 | -387 |  |  |
-| ⚠️ | 81 | Parmenides | Plato | 7 | -367 |  |  |
+| ✅ | 80 | Critias | Plato | 7 | -387 | 1571 | [Link](https://www.gutenberg.org/ebooks/1571) |
+| ✅ | 81 | Parmenides | Plato | 7 | -367 | 1687 | [Link](https://www.gutenberg.org/ebooks/1687) |
 | ✅ | 82 | Theaetetus | Plato | 7 | -367 | 1726 | [Link](https://www.gutenberg.org/ebooks/1726) |
 | ✅ | 83 | Sophist | Plato | 7 | -361 | 1735 | [Link](https://www.gutenberg.org/ebooks/1735) |
 | ✅ | 84 | Statesman | Plato | 7 | -387 | 1738 | [Link](https://www.gutenberg.org/ebooks/1738) |
 | ✅ | 85 | Philebus | Plato | 7 | -387 | 1744 | [Link](https://www.gutenberg.org/ebooks/1744) |
 | ✅ | 86 | Laws | Plato | 7 | -367 | 1750 | [Link](https://www.gutenberg.org/ebooks/1750) |
-| ⚠️ | 87 | The Seventh Letter | Plato | 7 | -352 |  |  |
+| ✅ | 87 | The Seventh Letter | Plato | 7 | -352 | 1571 | [Link](https://www.gutenberg.org/ebooks/1571) |
 | ✅ | 88 | Categories | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/categories.html) |
 | ✅ | 89 | On Interpretation | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/interpretation.html) |
-| ⚠️ | 90 | Prior Analytics | Aristotle | 8 | -350 |  |  |
-| ⚠️ | 91 | Posterior Analytics | Aristotle | 8 | -322 |  |  |
-| ⚠️ | 92 | Topics | Aristotle | 8 | -322 |  |  |
-| ⚠️ | 93 | Sophistical Refutations | Aristotle | 8 | -322 |  |  |
+| ✅ | 90 | Prior Analytics | Aristotle | 8 | -350 | 26095 | [Link](https://www.gutenberg.org/ebooks/26095) |
+| ✅ | 91 | Posterior Analytics | Aristotle | 8 | -322 | 26095 | [Link](https://www.gutenberg.org/ebooks/26095) |
+| ✅ | 92 | Topics | Aristotle | 8 | -322 | 26095 | [Link](https://www.gutenberg.org/ebooks/26095) |
+| ✅ | 93 | Sophistical Refutations | Aristotle | 8 | -322 | 26095 | [Link](https://www.gutenberg.org/ebooks/26095) |
 | ✅ | 94 | Physics | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/physics.html) |
-| ⚠️ | 95 | On the Heavens | Aristotle | 8 | -350 |  |  |
-| ⚠️ | 96 | On Generation and Corruption | Aristotle | 8 | -322 |  |  |
-| ⚠️ | 97 | Meteorology | Aristotle | 8 | -340 |  |  |
+| ✅ | 95 | On the Heavens | Aristotle | 8 | -350 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
+| ✅ | 96 | On Generation and Corruption | Aristotle | 8 | -322 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
+| ✅ | 97 | Meteorology | Aristotle | 8 | -340 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
 | ✅ | 98 | Metaphysics | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/metaphysics.html) |
 | ✅ | 99 | On the Soul | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/soul.html) |
 | ⚠️ | 100 | Minor biological works | Aristotle | 8 | -322 |  |  |
@@ -127,43 +128,43 @@ This document tracks the availability of books from our collection on Project Gu
 | ⚠️ | 105 | On Prophesying by Dreams | Aristotle | 8 | -322 |  |  |
 | ⚠️ | 106 | On Longevity and Shortness of Life | Aristotle | 8 | -322 |  |  |
 | ⚠️ | 107 | On Youth and Old Age, On Life and Death, On Breathing | Aristotle | 8 | -322 |  |  |
-| ⚠️ | 108 | History of Animals | Aristotle | 9 | -322 |  |  |
-| ⚠️ | 109 | Parts of Animals | Aristotle | 9 | -350 |  |  |
-| ⚠️ | 110 | On the Motion of Animals | Aristotle | 9 | -322 |  |  |
-| ⚠️ | 111 | On the Gait of Animals | Aristotle | 9 | -322 |  |  |
-| ⚠️ | 112 | On the Generation of Animals | Aristotle | 9 | -322 |  |  |
+| ✅ | 108 | History of Animals | Aristotle | 9 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
+| ✅ | 109 | Parts of Animals | Aristotle | 9 | -350 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
+| ✅ | 110 | On the Motion of Animals | Aristotle | 9 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
+| ✅ | 111 | On the Gait of Animals | Aristotle | 9 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
+| ✅ | 112 | On the Generation of Animals | Aristotle | 9 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
 | ✅ | 113 | Nicomachean Ethics | Aristotle | 9 | -322 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
 | ✅ | 114 | Politics | Aristotle | 9 | -322 | 6762 | [Link](https://www.gutenberg.org/ebooks/6762) |
-| ⚠️ | 115 | The Athenian Constitution | Aristotle | 9 | -322 |  |  |
+| ✅ | 115 | The Athenian Constitution | Aristotle | 9 | -322 | 26095 | [Link](https://www.gutenberg.org/ebooks/26095) |
 | ✅ | 116 | Rhetoric | Aristotle | 9 | -322 |  | [Link](https://classics.mit.edu/Aristotle/rhetoric.html) |
 | ✅ | 117 | Poetics | Aristotle | 9 | -335 | 1974 | [Link](https://www.gutenberg.org/ebooks/1974) |
-| ⚠️ | 118 | The Hippocratic Oath | Hippocrates | 10 | -370 |  |  |
-| ⚠️ | 119 | On Ancient Medicine | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 120 | On Airs, Water, and Places | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 121 | The Book of Prognostics | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 122 | On Regimen in Acute Diseases | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 123 | Of the Epidemics | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 124 | On Injuries of the Head | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 125 | On the Surgery | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 126 | On Fractures | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 127 | On the Articulations | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 128 | Instruments of Reduction | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 129 | Aphorisms | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 130 | The Law | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 131 | The Ulcer | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 132 | On Fistulae | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 133 | On Hemorrhoids | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 134 | On the Sacred Disease | Hippocrates | 10 | -400 |  |  |
-| ⚠️ | 135 | On the Natural Faculties | Galen | 10 | 199 |  |  |
+| ✅ | 118 | The Hippocratic Oath | Hippocrates | 10 | -370 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 119 | On Ancient Medicine | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 120 | On Airs, Water, and Places | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 121 | The Book of Prognostics | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 122 | On Regimen in Acute Diseases | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 123 | Of the Epidemics | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 124 | On Injuries of the Head | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 125 | On the Surgery | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 126 | On Fractures | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 127 | On the Articulations | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 128 | Instruments of Reduction | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 129 | Aphorisms | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 130 | The Law | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 131 | The Ulcer | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 132 | On Fistulae | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 133 | On Hemorrhoids | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 134 | On the Sacred Disease | Hippocrates | 10 | -400 | 26495 | [Link](https://www.gutenberg.org/ebooks/26495) |
+| ✅ | 135 | On the Natural Faculties | Galen | 10 | 199 | 31577 | [Link](https://www.gutenberg.org/ebooks/31577) |
 | ✅ | 136 | The Thirteen Books of Euclid's Elements | Euclid | 11 | -300 | 21076 | [Link](https://www.gutenberg.org/ebooks/21076) |
-| ⚠️ | 137 | On the Sphere and Cylinder | Archimedes | 11 | -225 |  |  |
-| ⚠️ | 138 | Measurement of a Circle | Archimedes | 11 | -250 |  |  |
-| ⚠️ | 139 | On Conoids and Spheroids | Archimedes | 11 | -212 |  |  |
-| ⚠️ | 140 | On Spirals | Archimedes | 11 | -225 |  |  |
-| ⚠️ | 141 | On the Equilibrium of Planes | Archimedes | 11 | -212 |  |  |
-| ⚠️ | 142 | The Sand Reckoner | Archimedes | 11 | -212 |  |  |
-| ⚠️ | 143 | The Quadrature of the Parabola | Archimedes | 11 | -212 |  |  |
-| ⚠️ | 144 | On Floating Bodies | Archimedes | 11 | -212 |  |  |
+| ✅ | 137 | On the Sphere and Cylinder | Archimedes | 11 | -225 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 138 | Measurement of a Circle | Archimedes | 11 | -250 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 139 | On Conoids and Spheroids | Archimedes | 11 | -212 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 140 | On Spirals | Archimedes | 11 | -225 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 141 | On the Equilibrium of Planes | Archimedes | 11 | -212 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 142 | The Sand Reckoner | Archimedes | 11 | -212 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 143 | The Quadrature of the Parabola | Archimedes | 11 | -212 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
+| ✅ | 144 | On Floating Bodies | Archimedes | 11 | -212 | 35543 | [Link](https://www.gutenberg.org/ebooks/35543) |
 | ⚠️ | 145 | Book of Lemmas | Archimedes | 11 | -212 |  |  |
 | ⚠️ | 146 | The Method Treating of Mechanical Problems | Archimedes | 11 | -212 |  |  |
 | ⚠️ | 147 | On Conic Sections | Apollonius of Perga | 11 | -190 |  |  |
@@ -173,7 +174,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 151 | The Meditations | Marcus Aurelius | 12 | 180 | 2680 | [Link](https://www.gutenberg.org/ebooks/2680) |
 | ✅ | 152 | Eclogues | Virgil | 13 | -38 | 232 | [Link](https://www.gutenberg.org/ebooks/232) |
 | ✅ | 153 | Georgics | Virgil | 13 | -29 | 232 | [Link](https://www.gutenberg.org/ebooks/232) |
-| ⚠️ | 154 | Aeneid | Virgil | 13 | -19 |  |  |
+| ✅ | 154 | Aeneid | Virgil | 13 | -19 | 228 | [Link](https://www.gutenberg.org/ebooks/228) |
 | ✅ | 155 | The Lives of the Noble Grecians and Romans | Plutarch | 14 | 100 | 674 | [Link](https://www.gutenberg.org/ebooks/674) |
 | ✅ | 156 | The Annals | P. Cornelius Tacitus | 15 | 117 | 3674 | [Link](https://www.gutenberg.org/ebooks/3674) |
 | ✅ | 157 | The Histories | P. Cornelius Tacitus | 15 | 105 | 16927 | [Link](https://www.gutenberg.org/ebooks/16927) |
@@ -182,29 +183,29 @@ This document tracks the availability of books from our collection on Project Gu
 | ⚠️ | 160 | Epitome of Copernican Astronomy (Books IV–V) | Johannes Kepler | 16 | 1621 |  |  |
 | ⚠️ | 161 | The Harmonies of the World (Book V) | Johannes Kepler | 16 | 1619 |  |  |
 | ⚠️ | 162 | The Six Enneads | Plotinus | 17 | 250 |  |  |
-| ⚠️ | 163 | The Confessions | Augustine of Hippo | 18 | 400 |  |  |
+| ✅ | 163 | The Confessions | Augustine of Hippo | 18 | 400 | 3296 | [Link](https://www.gutenberg.org/ebooks/3296) |
 | ✅ | 164 | The City of God | Augustine of Hippo | 18 | 426 | 45304 | [Link](https://www.gutenberg.org/ebooks/45304) |
 | ✅ | 165 | On Christian Doctrine | Augustine of Hippo | 18 | 426 | 9242 | [Link](https://www.gutenberg.org/ebooks/9242) |
 | ✅ | 166 | Summa Theologica | Thomas Aquinas | 19 | 1274 | 17611 | [Link](https://www.gutenberg.org/ebooks/17611) |
 | ✅ | 167 | Summa Theologica | Thomas Aquinas | 20 | 1274 | 17611 | [Link](https://www.gutenberg.org/ebooks/17611) |
-| ⚠️ | 168 | Divine Comedy | Dante Alighieri | 21 | 1321 |  |  |
-| ⚠️ | 169 | Troilus and Criseyde | Geoffrey Chaucer | 22 | 1385 |  |  |
+| ✅ | 168 | Divine Comedy | Dante Alighieri | 21 | 1321 | 1001 | [Link](https://www.gutenberg.org/ebooks/1001) |
+| ✅ | 169 | Troilus and Criseyde | Geoffrey Chaucer | 22 | 1385 | 257 | [Link](https://www.gutenberg.org/ebooks/257) |
 | ✅ | 170 | The Canterbury Tales | Geoffrey Chaucer | 22 | 1476 | 2383 | [Link](https://www.gutenberg.org/ebooks/2383) |
 | ✅ | 171 | The Prince | Niccolò Machiavelli | 23 | 1532 | 1232 | [Link](https://www.gutenberg.org/ebooks/1232) |
 | ✅ | 172 | Leviathan | Thomas Hobbes | 23 | 1651 | 3207 | [Link](https://www.gutenberg.org/ebooks/3207) |
 | ⚠️ | 173 | Gargantua and Pantagruel | François Rabelais | 24 | 1564 |  |  |
 | ✅ | 174 | Essays | Michel Eyquem de Montaigne | 25 | 1592 | 3600 | [Link](https://www.gutenberg.org/ebooks/3600) |
-| ⚠️ | 175 | The First Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
-| ⚠️ | 176 | The Second Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
-| ⚠️ | 177 | The Third Part of King Henry the Sixth | William Shakespeare | 26 | 1591 |  |  |
-| ⚠️ | 178 | The Tragedy of Richard the Third | William Shakespeare | 26 | 1594 |  |  |
+| ✅ | 175 | The First Part of King Henry the Sixth | William Shakespeare | 26 | 1591 | 1765 | [Link](https://www.gutenberg.org/ebooks/1765) |
+| ✅ | 176 | The Second Part of King Henry the Sixth | William Shakespeare | 26 | 1591 | 1766 | [Link](https://www.gutenberg.org/ebooks/1766) |
+| ✅ | 177 | The Third Part of King Henry the Sixth | William Shakespeare | 26 | 1591 | 1767 | [Link](https://www.gutenberg.org/ebooks/1767) |
+| ✅ | 178 | The Tragedy of Richard the Third | William Shakespeare | 26 | 1594 | 2256 | [Link](https://www.gutenberg.org/ebooks/2256) |
 | ✅ | 179 | The Comedy of Errors | William Shakespeare | 26 | 1594 | 23046 | [Link](https://www.gutenberg.org/ebooks/23046) |
-| ⚠️ | 180 | Titus Andronicus | William Shakespeare | 26 | 1593 |  |  |
+| ✅ | 180 | Titus Andronicus | William Shakespeare | 26 | 1593 | 1755 | [Link](https://www.gutenberg.org/ebooks/1755) |
 | ✅ | 181 | The Taming of the Shrew | William Shakespeare | 26 | 1593 | 1107 | [Link](https://www.gutenberg.org/ebooks/1107) |
 | ⚠️ | 182 | The Two Gentlemen of Verona | William Shakespeare | 26 | 1593 |  |  |
 | ⚠️ | 183 | Love's Labour's Lost | William Shakespeare | 26 | 1595 |  |  |
 | ⚠️ | 184 | Romeo and Juliet | William Shakespeare | 26 | 1596 |  |  |
-| ⚠️ | 185 | The Tragedy of King Richard the Second | William Shakespeare | 26 | 1595 |  |  |
+| ✅ | 185 | The Tragedy of King Richard the Second | William Shakespeare | 26 | 1595 | 1257 | [Link](https://www.gutenberg.org/ebooks/1257) |
 | ⚠️ | 186 | A Midsummer Night's Dream | William Shakespeare | 26 | 1595 |  |  |
 | ⚠️ | 187 | The Life and Death of King John | William Shakespeare | 26 | 1595 |  |  |
 | ⚠️ | 188 | The Merchant of Venice | William Shakespeare | 26 | 1596 |  |  |
@@ -215,7 +216,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 193 | Julius Caesar | William Shakespeare | 26 | 1599 | 1522 | [Link](https://www.gutenberg.org/ebooks/1522) |
 | ✅ | 194 | As You Like It | William Shakespeare | 26 | 1599 | 1523 | [Link](https://www.gutenberg.org/ebooks/1523) |
 | ⚠️ | 195 | Twelfth Night; or, What You Will | William Shakespeare | 27 | 1602 |  |  |
-| ⚠️ | 196 | The Tragedy of Hamlet, Prince of Denmark | William Shakespeare | 27 | 1601 |  |  |
+| ✅ | 196 | The Tragedy of Hamlet, Prince of Denmark | William Shakespeare | 27 | 1601 | 1524 | [Link](https://www.gutenberg.org/ebooks/1524) |
 | ⚠️ | 197 | The Merry Wives of Windsor | William Shakespeare | 27 | 1602 |  |  |
 | ✅ | 198 | Troilus and Cressida | William Shakespeare | 27 | 1602 | 1790 | [Link](https://www.gutenberg.org/ebooks/1790) |
 | ⚠️ | 199 | All's Well That Ends Well | William Shakespeare | 27 | 1608 |  |  |

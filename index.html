@@ -1204,6 +1204,13 @@
       try{ return JSON.parse(str); } catch { return fallback; }
     }
 
+    function isValidUrl(str){
+      try{
+        const url = new URL(str);
+        return url.protocol === "http:" || url.protocol === "https:";
+      } catch { return false; }
+    }
+
     function loadChecks(){
       return safeJsonParse(localStorage.getItem(LS_CHECKS) || "{}", {});
     }
@@ -1397,6 +1404,8 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
+            const rawSourceUrl = w.sourceUrl ? String(w.sourceUrl).trim() : "";
+            const sourceUrl = isValidUrl(rawSourceUrl) ? rawSourceUrl : "";
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
             const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")}`);
@@ -1409,7 +1418,8 @@
               author,
               work: { title, selection, selections },
               key,
-              search
+              search,
+              sourceUrl
             });
           }
         }
@@ -1434,12 +1444,15 @@
             hasCore:false,
             hasSupplemental:false,
             occurrences: [], // { year, order, tier, marker, key, selection, selections }
-            search: normalizeText(`${author} ${title}`)
+            search: normalizeText(`${author} ${title}`),
+            sourceUrl: ""
           });
         }
         const item = map.get(libKey);
         if (fw.tier === "core") item.hasCore = true;
         if (fw.tier === "supplemental") item.hasSupplemental = true;
+        // Pick up sourceUrl from any occurrence (prefer first non-empty)
+        if (!item.sourceUrl && fw.sourceUrl) item.sourceUrl = fw.sourceUrl;
 
         item.occurrences.push({
           year: fw.year,
@@ -1682,7 +1695,7 @@
       const firstKey = occ[0]?.key || "";
 
       return `
-        <section class="libCard" id="${escapeHtml(it.id)}" data-libkey="${escapeHtml(it.libKey)}" data-author="${escapeHtml(it.author)}" data-title="${escapeHtml(it.title)}">
+        <section class="libCard" id="${escapeHtml(it.id)}" data-libkey="${escapeHtml(it.libKey)}" data-author="${escapeHtml(it.author)}" data-title="${escapeHtml(it.title)}"${it.sourceUrl ? ` data-sourceurl="${escapeHtml(it.sourceUrl)}"` : ""}>
           <div class="libHead">
             <div style="min-width:0;">
               <p class="libTitle">${escapeHtml(it.title)}</p>
@@ -1709,6 +1722,18 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
               </button>
+              <button class="btn" type="button" data-action="openWikipediaLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                Wikipedia
+              </button>
+              <button class="btn" type="button" data-action="openWikiSearchLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                WikiSearch
+              </button>
+              ${it.sourceUrl ? `<button class="btn" type="button" data-action="openSourceLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Source
+              </button>` : ""}
               <button class="btn" type="button" data-action="newNoteLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 New note
@@ -1828,6 +1853,7 @@
              data-order="${escapeHtml(w.order)}"
              data-tier="${escapeHtml(w.tier)}"
              data-selection="${escapeHtml(w.work.selection || "")}"
+             ${w.sourceUrl ? `data-sourceurl="${escapeHtml(w.sourceUrl)}"` : ""}
              id="wk_${escapeHtml(hash32(w.key))}"
         >
           <div class="workCheck">
@@ -1853,6 +1879,18 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
               </button>
+              <button class="btn" type="button" data-action="openWikipedia">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+                Wikipedia
+              </button>
+              <button class="btn" type="button" data-action="openWikiSearch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                WikiSearch
+              </button>
+              ${w.sourceUrl ? `<button class="btn" type="button" data-action="openSource">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                Source
+              </button>` : ""}
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -1902,6 +1940,24 @@
 
         if (btn.dataset.action === "openOpenAlexLib"){
           window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openWikipediaLib"){
+          const wikiTitle = encodeURIComponent(title.replace(/\s+/g, "_"));
+          window.open(`https://en.wikipedia.org/wiki/${wikiTitle}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openWikiSearchLib"){
+          const q = encodeURIComponent(`${title} ${author}`.trim());
+          window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openSourceLib"){
+          const sourceUrl = card.dataset.sourceurl;
+          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -1975,6 +2031,27 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openWikipedia"){
+          const title = row.dataset.book || "";
+          const wikiTitle = encodeURIComponent(title.replace(/\s+/g, "_"));
+          window.open(`https://en.wikipedia.org/wiki/${wikiTitle}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openWikiSearch"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const q = encodeURIComponent(`${title} ${author}`.trim());
+          window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openSource"){
+          const sourceUrl = row.dataset.sourceurl;
+          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
           return;
         }
 

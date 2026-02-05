@@ -159,12 +159,40 @@ This document tracks the availability of books from our collection on Project Gu
 
 ---
 
+### Scientific Works (16th-19th Century)
+
+| Item # | Title | Author | PG # | URL |
+|--------|-------|--------|------|-----|
+| 261 | Mathematical Principles of Natural Philosophy | Sir Isaac Newton | 76404 | https://www.gutenberg.org/ebooks/76404 |
+| Various | On the Motion of the Heart & Blood | William Harvey | 67065 | https://www.gutenberg.org/ebooks/67065 |
+
+### 18th-19th Century Philosophy
+
+| Item # | Title | Author | PG # | URL |
+|--------|-------|--------|------|-----|
+| Various | Leviathan | Thomas Hobbes | 3207 | https://www.gutenberg.org/ebooks/3207 |
+| Various | The Social Contract | Jean-Jacques Rousseau | 46333 | https://www.gutenberg.org/ebooks/46333 |
+| Various | Discourse on Inequality | Jean-Jacques Rousseau | 11136 | https://www.gutenberg.org/ebooks/11136 |
+| 300 | Faust | Johann Wolfgang von Goethe | 63203 | https://www.gutenberg.org/ebooks/63203 |
+
+### 19th Century German Philosophy
+
+| Item # | Title | Author | PG # | URL |
+|--------|-------|--------|------|-----|
+| Various | Thus Spake Zarathustra | Friedrich Nietzsche | 1998 | https://www.gutenberg.org/ebooks/1998 |
+| Various | Beyond Good and Evil | Friedrich Nietzsche | 4363 | https://www.gutenberg.org/ebooks/4363 |
+
+---
+
 ## Books NOT Available on Project Gutenberg ⛔
 
 | Item # | Title | Author | Reason |
 |--------|-------|--------|--------|
 | 11 | The Great Conversation | Hutchins & Adler | Available on Internet Archive, not PG |
 | 12-13 | The Great Ideas I & II | Hutchins & Adler | Available on Internet Archive, not PG |
+| Various | On the Revolutions of Heavenly Spheres | Nicolaus Copernicus | Not on PG (available on Internet Archive) |
+| Various | Dialogue Concerning Two Chief World Systems | Galileo Galilei | Not on PG (available on Internet Archive) |
+| Various | Phenomenology of Spirit (English) | G.W.F. Hegel | Only German version on PG #6698 |
 | 304 | Capital (Das Kapital) | Karl Marx | Not available in English on PG (Spanish version exists) |
 
 ---
@@ -187,11 +215,44 @@ The following categories need systematic searching:
 ## Search Progress
 
 - **Total Books**: 398
-- **Verified Available on PG**: ~75+
-- **Verified NOT Available on PG**: 3
-- **Needing Verification**: ~320
+- **Verified Available on PG**: ~85+
+- **Verified NOT Available on PG**: 6
+- **Needing Verification**: ~307
 
 **Last Updated**: 2026-02-05
+
+---
+
+## Summary of Findings
+
+### High-Confidence Findings (✅ Verified Available)
+The following categories are well-represented on Project Gutenberg:
+- **Ancient Literature**: Most major works (Gilgamesh, Homer, Virgil, etc.)
+- **Greek Drama**: Complete works of Aeschylus, Sophocles, Euripides, and Aristophanes
+- **Greek Philosophy**: Plato and Aristotle's major works
+- **Roman Philosophy & History**: Marcus Aurelius, Cicero, Plutarch, Galen
+- **Medieval Literature**: Dante, Chaucer
+- **Shakespeare**: Complete works plus individual plays
+- **Enlightenment Philosophy**: Hobbes, Locke, Hume, Rousseau, Kant, Smith
+- **19th Century Philosophy**: Mill, Nietzsche
+- **American Literature**: Thoreau, Whitman, Emerson, Melville
+- **19th Century European Literature**: Tolstoy, Dostoevsky, Goethe
+- **Science**: Darwin, Newton, Harvey
+- **Early 20th Century**: William James, Freud
+
+### Confirmed NOT Available (⛔)
+- Great Books introductory volumes (available on Internet Archive)
+- Copernicus & Galileo's major works (available on Internet Archive)
+- Marx's Capital in English (available elsewhere)
+- Hegel's Phenomenology in English (German version on PG)
+
+### Areas Needing Further Investigation (⚠️)
+- Remaining Greek and Roman minor works
+- Medieval texts (Song of Roland, Norse sagas)
+- Complete Aristotle corpus (many works on MIT Classics Archive, not PG)
+- 17th-18th century works
+- 19th century novels and minor works
+- 20th century works (many still under copyright)
 
 ---
 

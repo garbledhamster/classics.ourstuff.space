@@ -300,11 +300,31 @@
       color:var(--muted);
       overflow-wrap:anywhere;
     }
+    /* Library card button drawer – slides out from under card */
+    .libDrawer{
+      display:grid;
+      grid-template-rows:0fr;
+      transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+    }
+    .libDrawer > div{ overflow:hidden; }
     .libActions{
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      justify-content:flex-end;
+      border-top:var(--borderThin);
+      padding:10px 0 4px;
+      background:#fafafa;
+    }
+    /* open: snappier ease-out */
+    @media(hover:hover){
+      .libCard:hover .libDrawer{
+        grid-template-rows:1fr;
+        transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+      }
+    }
+    .libCard.active .libDrawer{
+      grid-template-rows:1fr;
+      transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
     }
 
     .occList{
@@ -436,7 +456,7 @@
     .worksList{ display:grid; gap:8px; min-width:0; }
     .workRow{
       display:grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
       gap:10px;
       align-items:start;
       border:var(--borderThin);
@@ -473,12 +493,31 @@
       overflow-wrap:anywhere;
     }
 
+    /* Work-row button drawer – slides out from under row */
+    .workDrawer{
+      grid-column:1/-1;
+      display:grid;
+      grid-template-rows:0fr;
+      transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+    }
+    .workDrawer > div{ overflow:hidden; }
     .workActions{
       display:flex;
-      flex-direction:column;
       gap:8px;
-      align-items:flex-end;
-      min-width:0;
+      flex-wrap:wrap;
+      border-top:var(--borderThin);
+      padding:8px 0 2px;
+      background:#fafafa;
+    }
+    @media(hover:hover){
+      .workRow:hover .workDrawer{
+        grid-template-rows:1fr;
+        transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+      }
+    }
+    .workRow.active .workDrawer{
+      grid-template-rows:1fr;
+      transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
     }
 
     /* Flash highlight */
@@ -1576,12 +1615,6 @@
               </div>
             </div>
 
-            <div class="libActions">
-              <button class="btn" type="button" data-action="openOpenAlexLib">OpenAlex</button>
-              <button class="btn" type="button" data-action="newNoteLib">New note</button>
-              <button class="btn" type="button" data-action="openNotesLib">Open notes</button>
-              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">Go to plan</button>
-            </div>
           </div>
 
           <div class="help">Plan occurrences (click a pill to jump):</div>
@@ -1589,6 +1622,15 @@
             ${occPills}
             ${more}
           </div>
+
+          <div class="libDrawer"><div>
+            <div class="libActions">
+              <button class="btn" type="button" data-action="openOpenAlexLib">OpenAlex</button>
+              <button class="btn" type="button" data-action="newNoteLib">New note</button>
+              <button class="btn" type="button" data-action="openNotesLib">Open notes</button>
+              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">Go to plan</button>
+            </div>
+          </div></div>
         </section>
       `;
     }
@@ -1718,12 +1760,14 @@
             </div>
           </div>
 
-          <div class="workActions">
-            <button class="btn" type="button" data-action="openOpenAlex">OpenAlex</button>
-            <button class="btn" type="button" data-action="openLibraryForWork">View in library</button>
-            <button class="btn" type="button" data-action="newNoteFromWork">New note</button>
-            <button class="btn" type="button" data-action="openNotesForBook">Open notes</button>
-          </div>
+          <div class="workDrawer"><div>
+            <div class="workActions">
+              <button class="btn" type="button" data-action="openOpenAlex">OpenAlex</button>
+              <button class="btn" type="button" data-action="openLibraryForWork">View in library</button>
+              <button class="btn" type="button" data-action="newNoteFromWork">New note</button>
+              <button class="btn" type="button" data-action="openNotesForBook">Open notes</button>
+            </div>
+          </div></div>
         </div>
       `;
     }
@@ -1735,6 +1779,19 @@
       const grid = $("#libraryGrid");
 
       grid.onclick = (e) => {
+        // Mobile: tap anywhere on card (outside buttons) toggles drawer
+        if (!window.matchMedia("(hover:hover)").matches) {
+          if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
+            const card = e.target.closest(".libCard");
+            if (card) {
+              const was = card.classList.contains("active");
+              grid.querySelectorAll(".libCard.active").forEach(c => c.classList.remove("active"));
+              if (!was) card.classList.add("active");
+              return;
+            }
+          }
+        }
+
         const btn = e.target.closest("[data-action]");
         if (!btn) return;
 
@@ -1781,6 +1838,19 @@
       const grid = $("#planGrid");
 
       grid.onclick = (e) => {
+        // Mobile: tap anywhere on work row (outside buttons/checkboxes) toggles drawer
+        if (!window.matchMedia("(hover:hover)").matches) {
+          if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
+            const row = e.target.closest(".workRow");
+            if (row) {
+              const was = row.classList.contains("active");
+              grid.querySelectorAll(".workRow.active").forEach(r => r.classList.remove("active"));
+              if (!was) row.classList.add("active");
+              return;
+            }
+          }
+        }
+
         const btn = e.target.closest("[data-action]");
         if (!btn) return;
 

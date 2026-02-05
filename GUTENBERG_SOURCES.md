@@ -9,8 +9,8 @@ This document tracks the availability of books from our collection on Project Gu
 
 **Statistics:**
 - Total Books: 398
-- Available with Source: 368
-- Needing Verification: 30
+- Available with Source: 371
+- Needing Verification: 27
 
 **Last Updated:** 2026-02-05
 
@@ -328,8 +328,8 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 306 | War and Peace | Count Leo Tolstoy | 51 | 1867 | 2600 | [Link](https://www.gutenberg.org/ebooks/2600) |
 | ✅ | 307 | The Brothers Karamazov | Fyodor Mikhailovich Dostoevsky | 52 | 1880 | 28054 | [Link](https://www.gutenberg.org/ebooks/28054) |
 | ✅ | 308 | The Principles of Psychology | William James | 53 | 1918 | 57628 | [Link](https://www.gutenberg.org/ebooks/57628) |
-| ⚠️ | 309 | The Origin and Development of Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
-| ⚠️ | 310 | Selected Papers on Hysteria | Sigmund Freud | 54 | 1909 |  |  |
+| ✅ | 309 | The Origin and Development of Psycho-Analysis | Sigmund Freud | 54 | 1910 | 38219 | [Link](https://www.gutenberg.org/ebooks/38219) |
+| ✅ | 310 | Selected Papers on Hysteria | Sigmund Freud | 54 | 1909 | 75132 | [Link](https://www.gutenberg.org/ebooks/75132) |
 | ⚠️ | 311 | The Sexual Enlightenment of Children | Sigmund Freud | 54 | 1907 |  |  |
 | ⚠️ | 312 | The Future Prospects of Psycho-Analytic Therapy | Sigmund Freud | 54 | 1912 |  |  |
 | ⚠️ | 313 | Observations on "Wild" Psycho-Analysis | Sigmund Freud | 54 | 1910 |  |  |
@@ -343,7 +343,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 321 | Group Psychology and the Analysis of the Ego | Sigmund Freud | 54 | 1921 | 35877 | [Link](https://www.gutenberg.org/ebooks/35877) |
 | ⚠️ | 322 | The Ego and the Id | Sigmund Freud | 54 | 1923 |  |  |
 | ⚠️ | 323 | Inhibitions, Symptoms, and Anxiety | Sigmund Freud | 54 | 1926 |  |  |
-| ⚠️ | 324 | Thoughts for the Times on War and Death | Sigmund Freud | 54 | 1915 |  |  |
+| ✅ | 324 | Thoughts for the Times on War and Death | Sigmund Freud | 54 | 1915 | 60930 | [Link](https://www.gutenberg.org/ebooks/60930) |
 | ✅ | 325 | Civilization and Its Discontents | Sigmund Freud | 54 | 1930 |  | [Link](https://archive.org/details/civilizationitsd00freu) |
 | ⚠️ | 326 | New Introductory Lectures on Psycho-Analysis | Sigmund Freud | 54 | 1933 |  |  |
 | ✅ | 327 | Institutes of the Christian Religion | John Calvin | 20 | 1536 | 40834 | [Link](https://www.gutenberg.org/ebooks/40834) |

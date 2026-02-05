@@ -4343,10 +4343,12 @@
           "author": "Sigmund Freud",
           "works": [
             {
-              "title": "The Origin and Development of Psycho-Analysis"
+              "title": "The Origin and Development of Psycho-Analysis",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/38219"
             },
             {
-              "title": "Selected Papers on Hysteria"
+              "title": "Selected Papers on Hysteria",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/75132"
             },
             {
               "title": "The Sexual Enlightenment of Children"
@@ -4388,7 +4390,8 @@
               "title": "Inhibitions, Symptoms, and Anxiety"
             },
             {
-              "title": "Thoughts for the Times on War and Death"
+              "title": "Thoughts for the Times on War and Death",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/60930"
             },
             {
               "title": "New Introductory Lectures on Psycho-Analysis"

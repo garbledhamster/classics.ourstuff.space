@@ -1,6 +1,13 @@
 # Classics Collection - Project Gutenberg Sources
 
-This repository tracks sources for a collection of classic books, with a focus on availability on Project Gutenberg.
+This repository tracks sources for a collection of classic books, with a focus on availability across multiple Project Gutenberg sites and partner libraries.
+
+## Supported Sources
+
+- **Project Gutenberg (US)** - gutenberg.org
+- **Project Gutenberg Australia** - gutenberg.net.au
+- **Project Gutenberg Canada** - gutenberg.ca
+- **Roy Glashan's Library** - freeread.de
 
 ## Files
 
@@ -21,15 +28,15 @@ python3 generate_gutenberg_sources.py
 
 This will:
 1. Read all 398 books from `project.json`
-2. Cross-reference with `reading.json` to find existing Project Gutenberg source URLs
+2. Cross-reference with `reading.json` to find existing source URLs from multiple Gutenberg sites
 3. Generate `GUTENBERG_SOURCES.md` with a complete table showing:
-   - ✅ Books with confirmed Project Gutenberg sources (with links)
+   - ✅ Books with confirmed sources (with links)
    - ⚠️ Books that need verification
-   - ⛔ Books confirmed not available on Project Gutenberg
+   - ⛔ Books confirmed not available
 
 ### Adding New Sources
 
-To add or update Project Gutenberg sources:
+To add or update sources from any supported Project Gutenberg site or partner library:
 
 1. Edit `reading.json` and add/update the `sourceUrl` field for books in the reading plan
 2. Run `python3 generate_gutenberg_sources.py` to regenerate the markdown file
@@ -42,6 +49,12 @@ Example of a book with source in `reading.json`:
   "sourceUrl": "https://www.gutenberg.org/ebooks/1656"
 }
 ```
+
+Supported URL formats:
+- `https://www.gutenberg.org/ebooks/[id]` (Project Gutenberg US)
+- `https://gutenberg.net.au/ebooks[##]/[id].html` (Project Gutenberg Australia)
+- `https://gutenberg.ca/[path]` (Project Gutenberg Canada)
+- `https://freeread.de/[path]` (Roy Glashan's Library)
 
 ### Output Format
 

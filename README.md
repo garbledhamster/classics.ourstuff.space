@@ -11,10 +11,11 @@ This repository tracks sources for a collection of classic books, with a focus o
 
 ## Files
 
-- **`project.json`**: Master list of 398 classic books with metadata (title, author, volume, date, item number)
-- **`reading.json`**: Reading plan with source URLs for books available on Project Gutenberg
+- **`project.json`**: Master list of 398 classic books with metadata (title, author, volume, date, item number, and source URLs)
+- **`reading.json`**: Ten-year reading plan organizing books by year and tier (no source URLs)
 - **`GUTENBERG_SOURCES.md`**: Auto-generated reference showing which books have Project Gutenberg sources
-- **`generate_gutenberg_sources.py`**: Script to generate GUTENBERG_SOURCES.md from the JSON files
+- **`generate_gutenberg_sources.py`**: Script to generate GUTENBERG_SOURCES.md from project.json
+- **`index.html`**: Interactive web application that uses both files (plan from reading.json, sources from project.json)
 
 ## Generating the Sources Reference
 
@@ -28,7 +29,7 @@ python3 generate_gutenberg_sources.py
 
 This will:
 1. Read all 398 books from `project.json`
-2. Cross-reference with `reading.json` to find existing source URLs from multiple Gutenberg sites
+2. Extract source URLs from the `src` field
 3. Generate `GUTENBERG_SOURCES.md` with a complete table showing:
    - ✅ Books with confirmed sources (with links)
    - ⚠️ Books that need verification
@@ -38,15 +39,19 @@ This will:
 
 To add or update sources from any supported Project Gutenberg site or partner library:
 
-1. Edit `reading.json` and add/update the `sourceUrl` field for books in the reading plan
+1. Edit `project.json` and add/update the `src` field for books
 2. Run `python3 generate_gutenberg_sources.py` to regenerate the markdown file
 3. Commit both files
 
-Example of a book with source in `reading.json`:
+Example of a book with source in `project.json`:
 ```json
 {
   "title": "Apology",
-  "sourceUrl": "https://www.gutenberg.org/ebooks/1656"
+  "author": "Plato",
+  "vol": 7,
+  "date": -390,
+  "item": 74,
+  "src": "https://www.gutenberg.org/ebooks/1656"
 }
 ```
 
@@ -71,15 +76,24 @@ The generated markdown file includes:
 ## Current Statistics
 
 - **Total Books**: 398
-- **Books with Sources**: 101
-- **Books Needing Verification**: 297
+- **Books with Sources**: 279
+- **Books Needing Verification**: 119
+
+## Data Architecture
+
+- **`project.json`**: Single source of truth for all book metadata and source URLs
+- **`reading.json`**: Organizes books into a 10-year reading plan by year and tier
+- The web application (`index.html`) loads both files:
+  - Reading plan structure comes from `reading.json`
+  - Source URLs for each book come from `project.json` (matched by author and title)
 
 ## Project Structure
 
 ```
 .
-├── project.json                    # Master list of all books
-├── reading.json                    # Reading plan with sources
+├── project.json                    # Master list of all books with source URLs
+├── reading.json                    # 10-year reading plan (organization only)
+├── index.html                      # Interactive web application
 ├── generate_gutenberg_sources.py  # Generator script
 ├── GUTENBERG_SOURCES.md           # Generated reference (do not edit manually)
 └── README.md                       # This file
@@ -89,9 +103,10 @@ The generated markdown file includes:
 
 When adding new books or sources:
 1. Add book metadata to `project.json`
-2. If the book has a Project Gutenberg source, add the `sourceUrl` to the corresponding entry in `reading.json`
-3. Run the generator script to update `GUTENBERG_SOURCES.md`
-4. Commit all changed files
+2. If the book has a Project Gutenberg source, add the `src` field to the entry in `project.json`
+3. Organize books in the reading plan using `reading.json` (no source URLs needed here)
+4. Run the generator script to update `GUTENBERG_SOURCES.md`
+5. Commit all changed files
 
 ## License
 

@@ -1064,7 +1064,7 @@
     </section>
 
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
-      <div>Data file: <span class="mono">./reading.json</span></div>
+      <div>Data files: <span class="mono">./reading.json</span> (plan), <span class="mono">./project.json</span> (sources)</div>
       <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex + bundles)</div>
     </footer>
   </div>
@@ -1498,6 +1498,7 @@
        ========================================================= */
     const state = {
       plan: null,
+      projectBooks: [],  // master list of books from project.json with sourceUrls
       flatWorks: [],     // plan entries (can include duplicates across years)
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
@@ -1535,6 +1536,14 @@
     async function loadPlan(){
       clearError();
       try{
+        // Load project.json first for sourceUrls
+        const projectRes = await fetch("./project.json", { cache:"no-store" });
+        if (!projectRes.ok) throw new Error(`Could not load project.json (${projectRes.status})`);
+        const projectData = await projectRes.json();
+        if (!Array.isArray(projectData)) throw new Error("project.json must be an array");
+        state.projectBooks = projectData;
+
+        // Load reading.json for the 10-year plan
         const res = await fetch("./reading.json", { cache:"no-store" });
         if (!res.ok) throw new Error(`Could not load reading.json (${res.status})`);
         const data = await res.json();
@@ -1569,6 +1578,27 @@
       }
     }
 
+    /* =========================================================
+       SOURCE URL LOOKUP
+       ========================================================= */
+    function getSourceUrlFromProject(author, title){
+      // Look up sourceUrl from project.json by matching author and title
+      const normalizeStr = (s) => (s || "").toLowerCase().trim();
+      const authorNorm = normalizeStr(author);
+      const titleNorm = normalizeStr(title);
+      
+      for (const book of state.projectBooks){
+        const bookAuthor = normalizeStr(book.author);
+        const bookTitle = normalizeStr(book.title);
+        
+        // Match both author and title
+        if (bookAuthor === authorNorm && bookTitle === titleNorm){
+          return book.src || "";
+        }
+      }
+      return "";
+    }
+
     function flattenPlan(){
       const flat = [];
       const years = state.plan.years || [];
@@ -1586,8 +1616,9 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
-            const rawSourceUrl = w.sourceUrl ? String(w.sourceUrl).trim() : "";
-            const sourceUrl = isValidUrl(rawSourceUrl) ? rawSourceUrl : "";
+            
+            // Look up sourceUrl from project.json instead of reading.json
+            const sourceUrl = getSourceUrlFromProject(author, title);
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
             const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")}`);

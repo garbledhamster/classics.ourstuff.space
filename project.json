@@ -1,466 +1,3166 @@
 [
-  {"title":"The Epic of Gilgamesh","author":null,"vol":null,"date":-1200,"item":1},
-  {"title":"the Bible (King James version)","author":null,"vol":null,"date":1769,"item":2},
-  {"title":"the Bible (Douay version)","author":null,"vol":null,"date":1752,"item":3},
-  {"title":"The Bhagavad Gita","author":null,"vol":null,"date":-500,"item":4},
-  {"title":"Analects (The Sayings of Confucius)","author":null,"vol":null,"date":-220,"item":5},
-  {"title":"Qur'an","author":null,"vol":null,"date":632,"item":6},
-  {"title":"Beowulf","author":null,"vol":null,"date":1025,"item":7},
-  {"title":"The Song of Roland","author":null,"vol":null,"date":1115,"item":8},
-  {"title":"The Destruction of Dá Derga’s Hostel","author":null,"vol":null,"date":1782,"item":9},
-  {"title":"The Story of the Volsungs and Niblungs","author":null,"vol":null,"date":1877,"item":10},
-
-  {"title":"The Great Conversation","author":"Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)","vol":1,"date":1952,"item":11},
-  {"title":"The Great Ideas I : ANGEL to LOVE","author":"Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)","vol":2,"date":1952,"item":12},
-  {"title":"The Great Ideas II: MAN to WORLD","author":"Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)","vol":3,"date":1952,"item":13},
-
-  {"title":"The Iliad","author":"Homer","vol":4,"date":-700,"item":14},
-  {"title":"The Odyssey","author":"Homer","vol":4,"date":-700,"item":15},
-
-  {"title":"The Suppliant Maidens","author":"Aeschylus","vol":5,"date":-458,"item":16},
-  {"title":"The Persians","author":"Aeschylus","vol":5,"date":-472,"item":17},
-  {"title":"Seven Against Thebes","author":"Aeschylus","vol":5,"date":-467,"item":18},
-  {"title":"Prometheus Bound","author":"Aeschylus","vol":5,"date":-424,"item":19},
-  {"title":"The Oresteia","author":"Aeschylus","vol":5,"date":-450,"item":20},
-  {"title":"Agamemnon","author":"Aeschylus","vol":5,"date":-450,"item":21},
-  {"title":"Choephoroe","author":"Aeschylus","vol":5,"date":-450,"item":22},
-  {"title":"The Eumenides","author":"Aeschylus","vol":5,"date":-450,"item":23},
-
-  {"title":"Oedipus the King","author":"Sophocles","vol":5,"date":-429,"item":24},
-  {"title":"Oedipus at Colonus","author":"Sophocles","vol":5,"date":-401,"item":25},
-  {"title":"Antigone","author":"Sophocles","vol":5,"date":-450,"item":26},
-  {"title":"Ajax","author":"Sophocles","vol":5,"date":-450,"item":27},
-  {"title":"Electra","author":"Sophocles","vol":5,"date":-450,"item":28},
-  {"title":"The Trachiniae","author":"Sophocles","vol":5,"date":-425,"item":29},
-  {"title":"Philoctetes","author":"Sophocles","vol":5,"date":-409,"item":30},
-
-  {"title":"Rhesus","author":"Euripides","vol":5,"date":-440,"item":31},
-  {"title":"Medea","author":"Euripides","vol":5,"date":-431,"item":32},
-  {"title":"Hippolytus","author":"Euripides","vol":5,"date":-428,"item":33},
-  {"title":"Alcestis","author":"Euripides","vol":5,"date":-438,"item":34},
-  {"title":"Heracleidae","author":"Euripides","vol":5,"date":-430,"item":35},
-  {"title":"The Suppliants","author":"Euripides","vol":5,"date":-458,"item":36},
-  {"title":"The Trojan Women","author":"Euripides","vol":5,"date":-415,"item":37},
-  {"title":"Ion","author":"Euripides","vol":5,"date":-412,"item":38},
-  {"title":"Helen","author":"Euripides","vol":5,"date":-412,"item":39},
-  {"title":"Andromache","author":"Euripides","vol":5,"date":-425,"item":40},
-  {"title":"Electra","author":"Euripides","vol":5,"date":-414,"item":41},
-  {"title":"Bacchantes","author":"Euripides","vol":5,"date":-405,"item":42},
-  {"title":"Hecuba","author":"Euripides","vol":5,"date":-424,"item":43},
-  {"title":"Heracles Mad","author":"Euripides","vol":5,"date":-416,"item":44},
-  {"title":"The Phoenician Women","author":"Euripides","vol":5,"date":-425,"item":45},
-  {"title":"Orestes","author":"Euripides","vol":5,"date":-404,"item":46},
-  {"title":"Iphigenia in Tauris","author":"Euripides","vol":5,"date":-412,"item":47},
-  {"title":"Iphigenia in Aulis","author":"Euripides","vol":5,"date":-406,"item":48},
-
-  {"title":"The Acharnians","author":"Aristophanes","vol":5,"date":-425,"item":49},
-  {"title":"The Knights","author":"Aristophanes","vol":5,"date":-424,"item":50},
-  {"title":"The Clouds","author":"Aristophanes","vol":5,"date":-423,"item":51},
-  {"title":"The Wasps","author":"Aristophanes","vol":5,"date":-422,"item":52},
-  {"title":"Peace","author":"Aristophanes","vol":5,"date":-421,"item":53},
-  {"title":"The Birds","author":"Aristophanes","vol":5,"date":-414,"item":54},
-  {"title":"The Frogs","author":"Aristophanes","vol":5,"date":-405,"item":55},
-  {"title":"Lysistrata","author":"Aristophanes","vol":5,"date":-411,"item":56},
-  {"title":"Thesmophoriazusae","author":"Aristophanes","vol":5,"date":-411,"item":57},
-  {"title":"Ecclesiazousae","author":"Aristophanes","vol":5,"date":-391,"item":58},
-  {"title":"Plutus","author":"Aristophanes","vol":5,"date":-388,"item":59},
-
-  {"title":"The History","author":"Herodotus","vol":6,"date":-430,"item":60},
-  {"title":"History of the Peloponnesian War","author":"Thucydides","vol":6,"date":-400,"item":61},
-
-  {"title":"Dialogues","author":"Plato","vol":7,"date":-370,"item":62},
-  {"title":"Charmides","author":"Plato","vol":7,"date":-390,"item":63},
-  {"title":"Lysis","author":"Plato","vol":7,"date":-387,"item":64},
-  {"title":"Laches","author":"Plato","vol":7,"date":-390,"item":65},
-  {"title":"Protagoras","author":"Plato","vol":7,"date":-390,"item":66},
-  {"title":"Euthydemus","author":"Plato","vol":7,"date":-367,"item":67},
-  {"title":"Cratylus","author":"Plato","vol":7,"date":-367,"item":68},
-  {"title":"Phaedrus","author":"Plato","vol":7,"date":-367,"item":69},
-  {"title":"Ion","author":"Plato","vol":7,"date":-390,"item":70},
-  {"title":"Symposium","author":"Plato","vol":7,"date":-367,"item":71},
-  {"title":"Meno","author":"Plato","vol":7,"date":-367,"item":72},
-  {"title":"Euthyphro","author":"Plato","vol":7,"date":-390,"item":73},
-  {"title":"Apology","author":"Plato","vol":7,"date":-390,"item":74},
-  {"title":"Crito","author":"Plato","vol":7,"date":-390,"item":75},
-  {"title":"Phaedo","author":"Plato","vol":7,"date":-367,"item":76},
-  {"title":"Gorgias","author":"Plato","vol":7,"date":390,"item":77},
-  {"title":"The Republic","author":"Plato","vol":7,"date":-375,"item":78},
-  {"title":"Timaeus","author":"Plato","vol":7,"date":-387,"item":79},
-  {"title":"Critias","author":"Plato","vol":7,"date":-387,"item":80},
-  {"title":"Parmenides","author":"Plato","vol":7,"date":-367,"item":81},
-  {"title":"Theaetetus","author":"Plato","vol":7,"date":-367,"item":82},
-  {"title":"Sophist","author":"Plato","vol":7,"date":-361,"item":83},
-  {"title":"Statesman","author":"Plato","vol":7,"date":-387,"item":84},
-  {"title":"Philebus","author":"Plato","vol":7,"date":-387,"item":85},
-  {"title":"Laws","author":"Plato","vol":7,"date":-367,"item":86},
-  {"title":"The Seventh Letter","author":"Plato","vol":7,"date":-352,"item":87},
-
-  {"title":"Categories","author":"Aristotle","vol":8,"date":-322,"item":88},
-  {"title":"On Interpretation","author":"Aristotle","vol":8,"date":-322,"item":89},
-  {"title":"Prior Analytics","author":"Aristotle","vol":8,"date":-350,"item":90},
-  {"title":"Posterior Analytics","author":"Aristotle","vol":8,"date":-322,"item":91},
-  {"title":"Topics","author":"Aristotle","vol":8,"date":-322,"item":92},
-  {"title":"Sophistical Refutations","author":"Aristotle","vol":8,"date":-322,"item":93},
-  {"title":"Physics","author":"Aristotle","vol":8,"date":-350,"item":94},
-  {"title":"On the Heavens","author":"Aristotle","vol":8,"date":-350,"item":95},
-  {"title":"On Generation and Corruption","author":"Aristotle","vol":8,"date":-322,"item":96},
-  {"title":"Meteorology","author":"Aristotle","vol":8,"date":-340,"item":97},
-  {"title":"Metaphysics","author":"Aristotle","vol":8,"date":-322,"item":98},
-  {"title":"On the Soul","author":"Aristotle","vol":8,"date":-350,"item":99},
-  {"title":"Minor biological works","author":"Aristotle","vol":8,"date":-322,"item":100},
-  {"title":"On Sense and the Sensible","author":"Aristotle","vol":8,"date":-322,"item":101},
-  {"title":"On Memory and Reminisence","author":"Aristotle","vol":8,"date":-350,"item":102},
-  {"title":"On Sleep and Sleeplessness","author":"Aristotle","vol":8,"date":-322,"item":103},
-  {"title":"On Dreams","author":"Aristotle","vol":8,"date":-322,"item":104},
-  {"title":"On Prophesying by Dreams","author":"Aristotle","vol":8,"date":-322,"item":105},
-  {"title":"On Longevity and Shortness of Life","author":"Aristotle","vol":8,"date":-322,"item":106},
-  {"title":"On Youth and Old Age, On Life and Death, On Breathing","author":"Aristotle","vol":8,"date":-322,"item":107},
-
-  {"title":"History of Animals","author":"Aristotle","vol":9,"date":-322,"item":108},
-  {"title":"Parts of Animals","author":"Aristotle","vol":9,"date":-350,"item":109},
-  {"title":"On the Motion of Animals","author":"Aristotle","vol":9,"date":-322,"item":110},
-  {"title":"On the Gait of Animals","author":"Aristotle","vol":9,"date":-322,"item":111},
-  {"title":"On the Generation of Animals","author":"Aristotle","vol":9,"date":-322,"item":112},
-  {"title":"Nicomachean Ethics","author":"Aristotle","vol":9,"date":-322,"item":113},
-  {"title":"Politics","author":"Aristotle","vol":9,"date":-322,"item":114},
-  {"title":"The Athenian Constitution","author":"Aristotle","vol":9,"date":-322,"item":115},
-  {"title":"Rhetoric","author":"Aristotle","vol":9,"date":-322,"item":116},
-  {"title":"Poetics","author":"Aristotle","vol":9,"date":-335,"item":117},
-
-  {"title":"The Hippocratic Oath","author":"Hippocrates","vol":10,"date":-370,"item":118},
-  {"title":"On Ancient Medicine","author":"Hippocrates","vol":10,"date":-400,"item":119},
-  {"title":"On Airs, Water, and Places","author":"Hippocrates","vol":10,"date":-400,"item":120},
-  {"title":"The Book of Prognostics","author":"Hippocrates","vol":10,"date":-400,"item":121},
-  {"title":"On Regimen in Acute Diseases","author":"Hippocrates","vol":10,"date":-400,"item":122},
-  {"title":"Of the Epidemics","author":"Hippocrates","vol":10,"date":-400,"item":123},
-  {"title":"On Injuries of the Head","author":"Hippocrates","vol":10,"date":-400,"item":124},
-  {"title":"On the Surgery","author":"Hippocrates","vol":10,"date":-400,"item":125},
-  {"title":"On Fractures","author":"Hippocrates","vol":10,"date":-400,"item":126},
-  {"title":"On the Articulations","author":"Hippocrates","vol":10,"date":-400,"item":127},
-  {"title":"Instruments of Reduction","author":"Hippocrates","vol":10,"date":-400,"item":128},
-  {"title":"Aphorisms","author":"Hippocrates","vol":10,"date":-400,"item":129},
-  {"title":"The Law","author":"Hippocrates","vol":10,"date":-400,"item":130},
-  {"title":"The Ulcer","author":"Hippocrates","vol":10,"date":-400,"item":131},
-  {"title":"On Fistulae","author":"Hippocrates","vol":10,"date":-400,"item":132},
-  {"title":"On Hemorrhoids","author":"Hippocrates","vol":10,"date":-400,"item":133},
-  {"title":"On the Sacred Disease","author":"Hippocrates","vol":10,"date":-400,"item":134},
-
-  {"title":"On the Natural Faculties","author":"Galen","vol":10,"date":199,"item":135},
-
-  {"title":"The Thirteen Books of Euclid's Elements","author":"Euclid","vol":11,"date":-300,"item":136},
-  {"title":"On the Sphere and Cylinder","author":"Archimedes","vol":11,"date":-225,"item":137},
-  {"title":"Measurement of a Circle","author":"Archimedes","vol":11,"date":-250,"item":138},
-  {"title":"On Conoids and Spheroids","author":"Archimedes","vol":11,"date":-212,"item":139},
-  {"title":"On Spirals","author":"Archimedes","vol":11,"date":-225,"item":140},
-  {"title":"On the Equilibrium of Planes","author":"Archimedes","vol":11,"date":-212,"item":141},
-  {"title":"The Sand Reckoner","author":"Archimedes","vol":11,"date":-212,"item":142},
-  {"title":"The Quadrature of the Parabola","author":"Archimedes","vol":11,"date":-212,"item":143},
-  {"title":"On Floating Bodies","author":"Archimedes","vol":11,"date":-212,"item":144},
-  {"title":"Book of Lemmas","author":"Archimedes","vol":11,"date":-212,"item":145},
-  {"title":"The Method Treating of Mechanical Problems","author":"Archimedes","vol":11,"date":-212,"item":146},
-  {"title":"On Conic Sections","author":"Apollonius of Perga","vol":11,"date":-190,"item":147},
-  {"title":"Introduction to Arithmetic","author":"Nicomachus of Gerasa","vol":11,"date":120,"item":148},
-
-  {"title":"On the Nature of Things","author":"Lucretius","vol":12,"date":1473,"item":149},
-  {"title":"The Discourses","author":"Epictetus","vol":12,"date":108,"item":150},
-  {"title":"The Meditations","author":"Marcus Aurelius","vol":12,"date":180,"item":151},
-
-  {"title":"Eclogues","author":"Virgil","vol":13,"date":-38,"item":152},
-  {"title":"Georgics","author":"Virgil","vol":13,"date":-29,"item":153},
-  {"title":"Aeneid","author":"Virgil","vol":13,"date":-19,"item":154},
-
-  {"title":"The Lives of the Noble Grecians and Romans","author":"Plutarch","vol":14,"date":100,"item":155},
-
-  {"title":"The Annals","author":"P. Cornelius Tacitus","vol":15,"date":117,"item":156},
-  {"title":"The Histories","author":"P. Cornelius Tacitus","vol":15,"date":105,"item":157},
-
-  {"title":"Almagest","author":"Ptolemy","vol":16,"date":170,"item":158},
-  {"title":"On the Revolutions of Heavenly Spheres","author":"Nicolaus Copernicus","vol":16,"date":1543,"item":159},
-  {"title":"Epitome of Copernican Astronomy (Books IV–V)","author":"Johannes Kepler","vol":16,"date":1621,"item":160},
-  {"title":"The Harmonies of the World (Book V)","author":"Johannes Kepler","vol":16,"date":1619,"item":161},
-
-  {"title":"The Six Enneads","author":"Plotinus","vol":17,"date":250,"item":162},
-
-  {"title":"The Confessions","author":"Augustine of Hippo","vol":18,"date":400,"item":163},
-  {"title":"The City of God","author":"Augustine of Hippo","vol":18,"date":426,"item":164},
-  {"title":"On Christian Doctrine","author":"Augustine of Hippo","vol":18,"date":426,"item":165},
-
-  {"title":"Summa Theologica","author":"Thomas Aquinas","vol":19,"date":1274,"item":166},
-  {"title":"Summa Theologica","author":"Thomas Aquinas","vol":20,"date":1274,"item":167},
-
-  {"title":"Divine Comedy","author":"Dante Alighieri","vol":21,"date":1321,"item":168},
-
-  {"title":"Troilus and Criseyde","author":"Geoffrey Chaucer","vol":22,"date":1385,"item":169},
-  {"title":"The Canterbury Tales","author":"Geoffrey Chaucer","vol":22,"date":1476,"item":170},
-
-  {"title":"The Prince","author":"Niccolò Machiavelli","vol":23,"date":1532,"item":171},
-  {"title":"Leviathan","author":"Thomas Hobbes","vol":23,"date":1651,"item":172},
-
-  {"title":"Gargantua and Pantagruel","author":"François Rabelais","vol":24,"date":1564,"item":173},
-
-  {"title":"Essays","author":"Michel Eyquem de Montaigne","vol":25,"date":1592,"item":174},
-
-  {"title":"The First Part of King Henry the Sixth","author":"William Shakespeare","vol":26,"date":1591,"item":175},
-  {"title":"The Second Part of King Henry the Sixth","author":"William Shakespeare","vol":26,"date":1591,"item":176},
-  {"title":"The Third Part of King Henry the Sixth","author":"William Shakespeare","vol":26,"date":1591,"item":177},
-  {"title":"The Tragedy of Richard the Third","author":"William Shakespeare","vol":26,"date":1594,"item":178},
-  {"title":"The Comedy of Errors","author":"William Shakespeare","vol":26,"date":1594,"item":179},
-  {"title":"Titus Andronicus","author":"William Shakespeare","vol":26,"date":1593,"item":180},
-  {"title":"The Taming of the Shrew","author":"William Shakespeare","vol":26,"date":1593,"item":181},
-  {"title":"The Two Gentlemen of Verona","author":"William Shakespeare","vol":26,"date":1593,"item":182},
-  {"title":"Love's Labour's Lost","author":"William Shakespeare","vol":26,"date":1595,"item":183},
-  {"title":"Romeo and Juliet","author":"William Shakespeare","vol":26,"date":1596,"item":184},
-  {"title":"The Tragedy of King Richard the Second","author":"William Shakespeare","vol":26,"date":1595,"item":185},
-  {"title":"A Midsummer Night's Dream","author":"William Shakespeare","vol":26,"date":1595,"item":186},
-  {"title":"The Life and Death of King John","author":"William Shakespeare","vol":26,"date":1595,"item":187},
-  {"title":"The Merchant of Venice","author":"William Shakespeare","vol":26,"date":1596,"item":188},
-  {"title":"The First Part of King Henry the Fourth","author":"William Shakespeare","vol":26,"date":1597,"item":189},
-  {"title":"The Second Part of King Henry the Fourth","author":"William Shakespeare","vol":26,"date":1599,"item":190},
-  {"title":"Much Ado About Nothing","author":"William Shakespeare","vol":26,"date":1599,"item":191},
-  {"title":"The Life of King Henry the Fifth","author":"William Shakespeare","vol":26,"date":1599,"item":192},
-  {"title":"Julius Caesar","author":"William Shakespeare","vol":26,"date":1599,"item":193},
-  {"title":"As You Like It","author":"William Shakespeare","vol":26,"date":1599,"item":194},
-
-  {"title":"Twelfth Night; or, What You Will","author":"William Shakespeare","vol":27,"date":1602,"item":195},
-  {"title":"The Tragedy of Hamlet, Prince of Denmark","author":"William Shakespeare","vol":27,"date":1601,"item":196},
-  {"title":"The Merry Wives of Windsor","author":"William Shakespeare","vol":27,"date":1602,"item":197},
-  {"title":"Troilus and Cressida","author":"William Shakespeare","vol":27,"date":1602,"item":198},
-  {"title":"All's Well That Ends Well","author":"William Shakespeare","vol":27,"date":1608,"item":199},
-  {"title":"Measure for Measure","author":"William Shakespeare","vol":27,"date":1604,"item":200},
-  {"title":"Othello, the Moor of Venice","author":"William Shakespeare","vol":27,"date":1603,"item":201},
-  {"title":"King Lear","author":"William Shakespeare","vol":27,"date":1605,"item":202},
-  {"title":"Macbeth","author":"William Shakespeare","vol":27,"date":1606,"item":203},
-  {"title":"Antony and Cleopatra","author":"William Shakespeare","vol":27,"date":1607,"item":204},
-  {"title":"Coriolanus","author":"William Shakespeare","vol":27,"date":1608,"item":205},
-  {"title":"Timon of Athens","author":"William Shakespeare","vol":27,"date":1606,"item":206},
-  {"title":"Pericles, Prince of Tyre","author":"William Shakespeare","vol":27,"date":1609,"item":207},
-  {"title":"Cymbeline","author":"William Shakespeare","vol":27,"date":1611,"item":208},
-  {"title":"The Winter's Tale","author":"William Shakespeare","vol":27,"date":1623,"item":209},
-  {"title":"The Tempest","author":"William Shakespeare","vol":27,"date":1611,"item":210},
-  {"title":"The Famous History of the Life of King Henry the Eighth","author":"William Shakespeare","vol":27,"date":1623,"item":211},
-  {"title":"Sonnets","author":"William Shakespeare","vol":27,"date":1605,"item":212},
-
-  {"title":"On the Loadstone and Magnetic Bodies","author":"William Gilbert","vol":28,"date":1893,"item":213},
-  {"title":"Dialogues Concerning the Two New Sciences","author":"Galileo Galilei","vol":28,"date":1638,"item":214},
-  {"title":"On the Motion of the Heart and Blood in Animals","author":"William Harvey","vol":28,"date":1657,"item":215},
-  {"title":"On the Circulation of Blood","author":"William Harvey","vol":28,"date":1628,"item":216},
-  {"title":"On Animal Generation","author":"William Harvey","vol":28,"date":1651,"item":217},
-
-  {"title":"The History of Don Quixote de la Mancha","author":"Miguel de Cervantes","vol":29,"date":1605,"item":218},
-
-  {"title":"The Advancement of Learning","author":"Sir Francis Bacon","vol":30,"date":1605,"item":219},
-  {"title":"Novum Organum","author":"Sir Francis Bacon","vol":30,"date":1620,"item":220},
-  {"title":"New Atlantis","author":"Sir Francis Bacon","vol":30,"date":1627,"item":221},
-
-  {"title":"Rules for the Direction of the Mind","author":"René Descartes","vol":31,"date":1701,"item":222},
-  {"title":"Discourse on the Method","author":"René Descartes","vol":31,"date":1637,"item":223},
-  {"title":"Meditations on First Philosophy","author":"René Descartes","vol":31,"date":1641,"item":224},
-  {"title":"Objections Against the Meditations and Replies","author":"René Descartes","vol":31,"date":1642,"item":225},
-  {"title":"The Geometry","author":"René Descartes","vol":31,"date":1649,"item":226},
-
-  {"title":"Ethics","author":"Benedict de Spinoza","vol":31,"date":1677,"item":227},
-
-  {"title":"On the Morning of Christ's Nativity","author":"John Milton","vol":32,"date":1646,"item":228},
-  {"title":"A Paraphrase on Psalm 114","author":"John Milton","vol":32,"date":1645,"item":229},
-  {"title":"Psalm 136","author":"John Milton","vol":32,"date":1673,"item":230},
-  {"title":"The Passion","author":"John Milton","vol":32,"date":1646,"item":231},
-  {"title":"On Time","author":"John Milton","vol":32,"date":1646,"item":232},
-  {"title":"Upon the Circumcision","author":"John Milton","vol":32,"date":1646,"item":233},
-  {"title":"At a Solemn Musick","author":"John Milton","vol":32,"date":1646,"item":234},
-  {"title":"An Epitaph on the Marchioness of Winchester","author":"John Milton","vol":32,"date":1646,"item":235},
-  {"title":"Song on May Morning","author":"John Milton","vol":32,"date":1646,"item":236},
-  {"title":"On Shakespeare","author":"John Milton","vol":32,"date":1630,"item":237},
-  {"title":"On the University Carrier","author":"John Milton","vol":32,"date":1646,"item":238},
-  {"title":"Another on the same","author":"John Milton","vol":32,"date":1646,"item":239},
-  {"title":"L'Allegro","author":"John Milton","vol":32,"date":1645,"item":240},
-  {"title":"Il Penseroso","author":"John Milton","vol":32,"date":1646,"item":241},
-  {"title":"Arcades","author":"John Milton","vol":32,"date":1634,"item":242},
-  {"title":"Lycidas","author":"John Milton","vol":32,"date":1638,"item":243},
-  {"title":"Comus","author":"John Milton","vol":32,"date":1634,"item":244},
-  {"title":"On the Death of a Fair Infant","author":"John Milton","vol":32,"date":1628,"item":245},
-  {"title":"At a Vacation Exercise","author":"John Milton","vol":32,"date":1631,"item":246},
-  {"title":"The Fifth Ode of Horace","author":"John Milton","vol":32,"date":1673,"item":247},
-  {"title":"Sonnets (I, and VII—XIX)","author":"John Milton","vol":32,"date":1655,"item":248},
-  {"title":"On the New Forcers of Conscience","author":"John Milton","vol":32,"date":1673,"item":249},
-  {"title":"On the Lord General Fairfax at the Siege of Colchester","author":"John Milton","vol":32,"date":1673,"item":250},
-  {"title":"To the Lord General Cromwell","author":"John Milton","vol":32,"date":1652,"item":251},
-  {"title":"To Sir Henry Vane the Younger","author":"John Milton","vol":32,"date":1673,"item":252},
-  {"title":"To Mister Cyriack the Skinner upon his Blindness","author":"John Milton","vol":32,"date":1673,"item":253},
-  {"title":"Psalms (I—VIII & LXXX—LXXXVIII)","author":"John Milton","vol":32,"date":1653,"item":254},
-  {"title":"Paradise Lost","author":"John Milton","vol":32,"date":1667,"item":255},
-  {"title":"Samson Agonistes","author":"John Milton","vol":32,"date":1674,"item":256},
-  {"title":"Areopagitica","author":"John Milton","vol":32,"date":1644,"item":257},
-
-  {"title":"The Provincial Letters","author":"Blaise Pascal","vol":33,"date":1657,"item":258},
-  {"title":"Pensées","author":"Blaise Pascal","vol":33,"date":1670,"item":259},
-  {"title":"Scientific and mathematical essays","author":"Blaise Pascal","vol":33,"date":1658,"item":260},
-
-  {"title":"Mathematical Principles of Natural Philosophy","author":"Sir Isaac Newton","vol":34,"date":1687,"item":261},
-  {"title":"Optics","author":"Sir Isaac Newton","vol":34,"date":1704,"item":262},
-  {"title":"Treatise on Light","author":"Christiaan Huygens","vol":34,"date":1690,"item":263},
-
-  {"title":"A Letter Concerning Toleration","author":"John Locke","vol":35,"date":1689,"item":264},
-  {"title":"Concerning Civil Government, Second Essay","author":"John Locke","vol":35,"date":1690,"item":265},
-  {"title":"An Essay Concerning Human Understanding","author":"John Locke","vol":35,"date":1689,"item":266},
-  {"title":"The Principles of Human Knowledge","author":"George Berkeley","vol":35,"date":1710,"item":267},
-  {"title":"An Enquiry Concerning Human Understanding","author":"David Hume","vol":35,"date":1748,"item":268},
-
-  {"title":"Gulliver's Travels","author":"Jonathan Swift","vol":36,"date":1726,"item":269},
-  {"title":"The Life and Opinions of Tristram Shandy, Gentleman","author":"Laurence Sterne","vol":36,"date":1759,"item":270},
-
-  {"title":"The History of Tom Jones, a Foundling","author":"Henry Fielding","vol":37,"date":1749,"item":271},
-
-  {"title":"The Spirit of the Laws","author":"Charles de Secondat, Baron de Montesquieu","vol":38,"date":1748,"item":272},
-  {"title":"A Discourse on the Origin of Inequality","author":"Jean Jacques Rousseau","vol":38,"date":1754,"item":273},
-  {"title":"A Discourse on Political Economy","author":"Jean Jacques Rousseau","vol":38,"date":1755,"item":274},
-  {"title":"The Social Contract","author":"Jean Jacques Rousseau","vol":38,"date":1762,"item":275},
-
-  {"title":"An Inquiry into the Nature and Causes of the Wealth of Nations","author":"Adam Smith","vol":39,"date":1776,"item":276},
-
-  {"title":"The Decline and Fall of the Roman Empire (Part 1)","author":"Edward Gibbon","vol":40,"date":1776,"item":277},
-  {"title":"The Decline and Fall of the Roman Empire (Part 2)","author":"Edward Gibbon","vol":41,"date":1781,"item":278},
-
-  {"title":"Critique of Pure Reason","author":"Immanuel Kant","vol":42,"date":1781,"item":279},
-  {"title":"Fundamental Principles of the Metaphysic of Morals","author":"Immanuel Kant","vol":42,"date":1785,"item":280},
-  {"title":"Critique of Practical Reason","author":"Immanuel Kant","vol":42,"date":1788,"item":281},
-  {"title":"The Metaphysics of Morals","author":"Immanuel Kant","vol":42,"date":1797,"item":282},
-  {"title":"Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience","author":"Immanuel Kant","vol":42,"date":1797,"item":283},
-  {"title":"General Introduction to the Metaphysic of Morals","author":"Immanuel Kant","vol":42,"date":1797,"item":284},
-  {"title":"The Science of Right","author":"Immanuel Kant","vol":42,"date":1797,"item":285},
-  {"title":"The Critique of Judgement","author":"Immanuel Kant","vol":42,"date":1790,"item":286},
-
-  {"title":"Declaration of Independence","author":"American State Papers","vol":43,"date":1776,"item":287},
-  {"title":"Articles of Confederation","author":"American State Papers","vol":43,"date":1777,"item":288},
-  {"title":"The Constitution of the United States of America","author":"American State Papers","vol":43,"date":1787,"item":289},
-  {"title":"The Federalist","author":"Alexander Hamilton, James Madison, John Jay","vol":43,"date":1788,"item":290},
-  {"title":"On Liberty","author":"John Stuart Mill","vol":43,"date":1859,"item":291},
-  {"title":"Considerations on Representative Government","author":"John Stuart Mill","vol":43,"date":1861,"item":292},
-  {"title":"Utilitarianism","author":"John Stuart Mill","vol":43,"date":1861,"item":293},
-
-  {"title":"The Life of Samuel Johnson, LL.D.","author":"James Boswell","vol":44,"date":1791,"item":294},
-
-  {"title":"Elements of Chemistry","author":"Antoine Laurent Lavoisier","vol":45,"date":1789,"item":295},
-  {"title":"Analytical Theory of Heat","author":"Jean Baptiste Joseph Fourier","vol":45,"date":1878,"item":296},
-  {"title":"Experimental Researches in Electricity","author":"Michael Faraday","vol":45,"date":1832,"item":297},
-
-  {"title":"The Philosophy of Right","author":"Georg Wilhelm Friedrich Hegel","vol":46,"date":1821,"item":298},
-  {"title":"The Philosophy of History","author":"Georg Wilhelm Friedrich Hegel","vol":46,"date":1837,"item":299},
-
-  {"title":"Faust","author":"Johann Wolfgang von Goethe","vol":47,"date":1829,"item":300},
-
-  {"title":"Moby Dick; or, The Whale","author":"Herman Melville","vol":48,"date":1951,"item":301},
-
-  {"title":"The Origin of Species by Means of Natural Selection","author":"Charles Darwin","vol":49,"date":1859,"item":302},
-  {"title":"The Descent of Man, and Selection in Relation to Sex","author":"Charles Darwin","vol":49,"date":1871,"item":303},
-
-  {"title":"Capital","author":"Karl Marx","vol":50,"date":1894,"item":304},
-  {"title":"Manifesto of the Communist Party","author":"Karl Marx and Friedrich Engels","vol":50,"date":1848,"item":305},
-
-  {"title":"War and Peace","author":"Count Leo Tolstoy","vol":51,"date":1867,"item":306},
-  {"title":"The Brothers Karamazov","author":"Fyodor Mikhailovich Dostoevsky","vol":52,"date":1880,"item":307},
-
-  {"title":"The Principles of Psychology","author":"William James","vol":53,"date":1918,"item":308},
-
-  {"title":"The Origin and Development of Psycho-Analysis","author":"Sigmund Freud","vol":54,"date":1910,"item":309},
-  {"title":"Selected Papers on Hysteria","author":"Sigmund Freud","vol":54,"date":1909,"item":310},
-  {"title":"The Sexual Enlightenment of Children","author":"Sigmund Freud","vol":54,"date":1907,"item":311},
-  {"title":"The Future Prospects of Psycho-Analytic Therapy","author":"Sigmund Freud","vol":54,"date":1912,"item":312},
-  {"title":"Observations on \"Wild\" Psycho-Analysis","author":"Sigmund Freud","vol":54,"date":1910,"item":313},
-  {"title":"The Interpretation of Dreams","author":"Sigmund Freud","vol":54,"date":1900,"item":314},
-  {"title":"On Narcissism","author":"Sigmund Freud","vol":54,"date":1914,"item":315},
-  {"title":"Instincts and Their Vicissitudes","author":"Sigmund Freud","vol":54,"date":1915,"item":316},
-  {"title":"Repression","author":"Sigmund Freud","vol":54,"date":1915,"item":317},
-  {"title":"The Unconscious","author":"Sigmund Freud","vol":54,"date":1915,"item":318},
-  {"title":"A General Introduction to Psycho-Analysis","author":"Sigmund Freud","vol":54,"date":1917,"item":319},
-  {"title":"Beyond the Pleasure Principle","author":"Sigmund Freud","vol":54,"date":1920,"item":320},
-  {"title":"Group Psychology and the Analysis of the Ego","author":"Sigmund Freud","vol":54,"date":1921,"item":321},
-  {"title":"The Ego and the Id","author":"Sigmund Freud","vol":54,"date":1923,"item":322},
-  {"title":"Inhibitions, Symptoms, and Anxiety","author":"Sigmund Freud","vol":54,"date":1926,"item":323},
-  {"title":"Thoughts for the Times on War and Death","author":"Sigmund Freud","vol":54,"date":1915,"item":324},
-  {"title":"Civilization and Its Discontents","author":"Sigmund Freud","vol":54,"date":1930,"item":325},
-  {"title":"New Introductory Lectures on Psycho-Analysis","author":"Sigmund Freud","vol":54,"date":1933,"item":326},
-
-  {"title":"Institutes of the Christian Religion","author":"John Calvin","vol":20,"date":1536,"item":327},
-  {"title":"The Praise of Folly","author":"Erasmus","vol":23,"date":1509,"item":328},
-
-  {"title":"The School for Wives","author":"Molière","vol":31,"date":1662,"item":329},
-  {"title":"The Critique of the School for Wives","author":"Molière","vol":31,"date":1663,"item":330},
-  {"title":"Tartuffe","author":"Molière","vol":31,"date":1666,"item":331},
-  {"title":"Don Juan","author":"Molière","vol":31,"date":1665,"item":332},
-  {"title":"The Miser","author":"Molière","vol":31,"date":1668,"item":333},
-  {"title":"The Would-Be Gentleman","author":"Molière","vol":31,"date":1670,"item":334},
-  {"title":"The Imaginary Invalid","author":"Molière","vol":31,"date":1673,"item":335},
-
-  {"title":"Bérénice","author":"Jean Racine","vol":31,"date":1670,"item":336},
-  {"title":"Phèdre","author":"Jean Racine","vol":31,"date":1677,"item":337},
-
-  {"title":"Candide","author":"Voltaire","vol":34,"date":1759,"item":338},
-  {"title":"Rameau's Nephew","author":"Denis Diderot","vol":34,"date":1774,"item":339},
-
-  {"title":"Fear and Trembling","author":"Søren Kierkegaard","vol":43,"date":1843,"item":340},
-  {"title":"Beyond Good and Evil","author":"Friedrich Nietzsche","vol":43,"date":1886,"item":341},
-  {"title":"Democracy in America","author":"Alexis de Tocqueville","vol":44,"date":1835,"item":342},
-  {"title":"Cousin Bette","author":"Honoré de Balzac","vol":45,"date":1846,"item":343},
-  {"title":"Emma","author":"Jane Austen","vol":46,"date":1815,"item":344},
-  {"title":"Middlemarch","author":"George Eliot","vol":46,"date":1871,"item":345},
-  {"title":"Little Dorrit","author":"Charles Dickens","vol":47,"date":1857,"item":346},
-  {"title":"Huckleberry Finn","author":"Mark Twain","vol":48,"date":1885,"item":347},
-
-  {"title":"A Doll's House","author":"Henrik Ibsen","vol":52,"date":1879,"item":348},
-  {"title":"The Wild Duck","author":"Henrik Ibsen","vol":52,"date":1884,"item":349},
-  {"title":"Hedda Gabler","author":"Henrik Ibsen","vol":52,"date":1890,"item":350},
-  {"title":"The Master Builder","author":"Henrik Ibsen","vol":52,"date":1892,"item":351},
-
-  {"title":"Pragmatism","author":"William James","vol":55,"date":1907,"item":352},
-  {"title":"An Introduction to Metaphysics","author":"Henri Bergson","vol":55,"date":1903,"item":353},
-  {"title":"Experience and Education","author":"John Dewey","vol":55,"date":1938,"item":354},
-  {"title":"Science and the Modern World","author":"Alfred North Whitehead","vol":55,"date":1925,"item":355},
-  {"title":"The Problems of Philosophy","author":"Bertrand Russell","vol":55,"date":1912,"item":356},
-  {"title":"What Is Metaphysics?","author":"Martin Heidegger","vol":55,"date":1929,"item":357},
-  {"title":"Philosophical Investigations","author":"Ludwig Wittgenstein","vol":55,"date":1953,"item":358},
-  {"title":"The Word of God and the Word of Man","author":"Karl Barth","vol":55,"date":1933,"item":359},
-
-  {"title":"Science and Hypothesis","author":"Henri Poincaré","vol":56,"date":1902,"item":360},
-  {"title":"Scientific Autobiography and Other Papers","author":"Max Planck","vol":56,"date":1947,"item":361},
-  {"title":"An Introduction to Mathematics","author":"Alfred North Whitehead","vol":56,"date":1911,"item":362},
-  {"title":"Relativity: The Special and the General Theory","author":"Albert Einstein","vol":56,"date":1920,"item":363},
-  {"title":"The Expanding Universe","author":"Arthur Eddington","vol":56,"date":1940,"item":364},
-  {"title":"Atomic Theory and the Description of Nature (selections)","author":"Niels Bohr","vol":56,"date":1934,"item":365},
-  {"title":"Discussion with Einstein on Epistemology","author":"Niels Bohr","vol":56,"date":1949,"item":366},
-  {"title":"A Mathematician's Apology","author":"G. H. Hardy","vol":56,"date":1940,"item":367},
-  {"title":"Physics and Philosophy","author":"Werner Heisenberg","vol":56,"date":1958,"item":368},
-  {"title":"What Is Life?","author":"Erwin Schrödinger","vol":56,"date":1944,"item":369},
-  {"title":"Genetics and the Origin of Species","author":"Theodosius Dobzhansky","vol":56,"date":1937,"item":370},
-  {"title":"The Nature of Life","author":"C. H. Waddington","vol":56,"date":1961,"item":371},
-
-  {"title":"The Theory of the Leisure Class","author":"Thorstein Veblen","vol":57,"date":1899,"item":372},
-  {"title":"The Acquisitive Society","author":"R. H. Tawney","vol":57,"date":1920,"item":373},
-  {"title":"The General Theory of Employment, Interest and Money","author":"John Maynard Keynes","vol":57,"date":1936,"item":374},
-
-  {"title":"The Golden Bough","author":"Sir James George Frazer","vol":58,"date":1890,"item":375},
-  {"title":"Essays in Sociology","author":"Max Weber","vol":58,"date":1920,"item":376},
-  {"title":"The Autumn of the Middle Ages","author":"Johan Huizinga","vol":58,"date":1919,"item":377},
-  {"title":"Structural Anthropology","author":"Claude Lévi-Strauss","vol":58,"date":1949,"item":378},
-
-  {"title":"The Beast in the Jungle","author":"Henry James","vol":59,"date":1903,"item":379},
-  {"title":"Saint Joan","author":"George Bernard Shaw","vol":59,"date":1924,"item":380},
-  {"title":"Heart of Darkness","author":"Joseph Conrad","vol":59,"date":1902,"item":381},
-  {"title":"Uncle Vanya","author":"Anton Chekhov","vol":59,"date":1899,"item":382},
-  {"title":"Six Characters in Search of an Author","author":"Luigi Pirandello","vol":59,"date":1921,"item":383},
-  {"title":"Remembrance of Things Past: \"Swann in Love\"","author":"Marcel Proust","vol":59,"date":1927,"item":384},
-  {"title":"A Lost Lady","author":"Willa Cather","vol":59,"date":1923,"item":385},
-  {"title":"Death in Venice","author":"Thomas Mann","vol":59,"date":1912,"item":386},
-  {"title":"A Portrait of the Artist as a Young Man","author":"James Joyce","vol":59,"date":1916,"item":387},
-
-  {"title":"To the Lighthouse","author":"Virginia Woolf","vol":60,"date":1927,"item":388},
-  {"title":"The Metamorphosis","author":"Franz Kafka","vol":60,"date":1915,"item":389},
-  {"title":"The Prussian Officer","author":"D. H. Lawrence","vol":60,"date":1914,"item":390},
-  {"title":"The Waste Land","author":"T. S. Eliot","vol":60,"date":1922,"item":391},
-  {"title":"Mourning Becomes Electra","author":"Eugene O'Neill","vol":60,"date":1931,"item":392},
-  {"title":"The Great Gatsby","author":"F. Scott Fitzgerald","vol":60,"date":1925,"item":393},
-  {"title":"A Rose for Emily","author":"William Faulkner","vol":60,"date":1930,"item":394},
-  {"title":"Mother Courage and Her Children","author":"Bertolt Brecht","vol":60,"date":1939,"item":395},
-  {"title":"The Short Happy Life of Francis Macomber","author":"Ernest Hemingway","vol":60,"date":1936,"item":396},
-  {"title":"Animal Farm","author":"George Orwell","vol":60,"date":1945,"item":397},
-  {"title":"Waiting for Godot","author":"Samuel Beckett","vol":60,"date":1952,"item":398}
+  {
+    "title": "The Epic of Gilgamesh",
+    "author": null,
+    "vol": null,
+    "date": -1200,
+    "item": 1,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/11000"
+  },
+  {
+    "title": "the Bible (King James version)",
+    "author": null,
+    "vol": null,
+    "date": 1769,
+    "item": 2,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/10"
+  },
+  {
+    "title": "the Bible (Douay version)",
+    "author": null,
+    "vol": null,
+    "date": 1752,
+    "item": 3,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8300"
+  },
+  {
+    "title": "The Bhagavad Gita",
+    "author": null,
+    "vol": null,
+    "date": -500,
+    "item": 4,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2388"
+  },
+  {
+    "title": "Analects (The Sayings of Confucius)",
+    "author": null,
+    "vol": null,
+    "date": -220,
+    "item": 5,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3100"
+  },
+  {
+    "title": "Qur'an",
+    "author": null,
+    "vol": null,
+    "date": 632,
+    "item": 6,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2800"
+  },
+  {
+    "title": "Beowulf",
+    "author": null,
+    "vol": null,
+    "date": 1025,
+    "item": 7,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/16328"
+  },
+  {
+    "title": "The Song of Roland",
+    "author": null,
+    "vol": null,
+    "date": 1115,
+    "item": 8,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/391"
+  },
+  {
+    "title": "The Destruction of Dá Derga’s Hostel",
+    "author": null,
+    "vol": null,
+    "date": 1782,
+    "item": 9,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14019"
+  },
+  {
+    "title": "The Story of the Volsungs and Niblungs",
+    "author": null,
+    "vol": null,
+    "date": 1877,
+    "item": 10,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1152"
+  },
+  {
+    "title": "The Great Conversation",
+    "author": "Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)",
+    "vol": 1,
+    "date": 1952,
+    "item": 11
+  },
+  {
+    "title": "The Great Ideas I : ANGEL to LOVE",
+    "author": "Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)",
+    "vol": 2,
+    "date": 1952,
+    "item": 12
+  },
+  {
+    "title": "The Great Ideas II: MAN to WORLD",
+    "author": "Robert Maynard Hutchins (Editor)\nMortimer J. Adler (Editor)",
+    "vol": 3,
+    "date": 1952,
+    "item": 13
+  },
+  {
+    "title": "The Iliad",
+    "author": "Homer",
+    "vol": 4,
+    "date": -700,
+    "item": 14,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6130"
+  },
+  {
+    "title": "The Odyssey",
+    "author": "Homer",
+    "vol": 4,
+    "date": -700,
+    "item": 15,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1727"
+  },
+  {
+    "title": "The Suppliant Maidens",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -458,
+    "item": 16,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+  },
+  {
+    "title": "The Persians",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -472,
+    "item": 17,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+  },
+  {
+    "title": "Seven Against Thebes",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -467,
+    "item": 18,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+  },
+  {
+    "title": "Prometheus Bound",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -424,
+    "item": 19,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+  },
+  {
+    "title": "The Oresteia",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -450,
+    "item": 20,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
+  },
+  {
+    "title": "Agamemnon",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -450,
+    "item": 21,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
+  },
+  {
+    "title": "Choephoroe",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -450,
+    "item": 22,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
+  },
+  {
+    "title": "The Eumenides",
+    "author": "Aeschylus",
+    "vol": 5,
+    "date": -450,
+    "item": 23,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
+  },
+  {
+    "title": "Oedipus the King",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -429,
+    "item": 24,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/31"
+  },
+  {
+    "title": "Oedipus at Colonus",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -401,
+    "item": 25,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/31"
+  },
+  {
+    "title": "Antigone",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -450,
+    "item": 26,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/31"
+  },
+  {
+    "title": "Ajax",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -450,
+    "item": 27,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+  },
+  {
+    "title": "Electra",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -450,
+    "item": 28,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+  },
+  {
+    "title": "The Trachiniae",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -425,
+    "item": 29,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+  },
+  {
+    "title": "Philoctetes",
+    "author": "Sophocles",
+    "vol": 5,
+    "date": -409,
+    "item": 30,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+  },
+  {
+    "title": "Rhesus",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -440,
+    "item": 31,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Medea",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -431,
+    "item": 32,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35451"
+  },
+  {
+    "title": "Hippolytus",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -428,
+    "item": 33,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14681"
+  },
+  {
+    "title": "Alcestis",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -438,
+    "item": 34,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Heracleidae",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -430,
+    "item": 35,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "The Suppliants",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -458,
+    "item": 36,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "The Trojan Women",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -415,
+    "item": 37,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Ion",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -412,
+    "item": 38,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Helen",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -412,
+    "item": 39,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35188"
+  },
+  {
+    "title": "Andromache",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -425,
+    "item": 40,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Electra",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -414,
+    "item": 41,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+  },
+  {
+    "title": "Bacchantes",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -405,
+    "item": 42,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Hecuba",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -424,
+    "item": 43,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Heracles Mad",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -416,
+    "item": 44,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "The Phoenician Women",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -425,
+    "item": 45,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Orestes",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -404,
+    "item": 46,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Iphigenia in Tauris",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -412,
+    "item": 47,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Iphigenia in Aulis",
+    "author": "Euripides",
+    "vol": 5,
+    "date": -406,
+    "item": 48,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "The Acharnians",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -425,
+    "item": 49,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "The Knights",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -424,
+    "item": 50,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "The Clouds",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -423,
+    "item": 51,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "The Wasps",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -422,
+    "item": 52,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "Peace",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -421,
+    "item": 53,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "The Birds",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -414,
+    "item": 54,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "The Frogs",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -405,
+    "item": 55,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "Lysistrata",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -411,
+    "item": 56,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/7700"
+  },
+  {
+    "title": "Thesmophoriazusae",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -411,
+    "item": 57,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8688"
+  },
+  {
+    "title": "Ecclesiazousae",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -391,
+    "item": 58,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+  },
+  {
+    "title": "Plutus",
+    "author": "Aristophanes",
+    "vol": 5,
+    "date": -388,
+    "item": 59,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2012"
+  },
+  {
+    "title": "The History",
+    "author": "Herodotus",
+    "vol": 6,
+    "date": -430,
+    "item": 60,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2707"
+  },
+  {
+    "title": "History of the Peloponnesian War",
+    "author": "Thucydides",
+    "vol": 6,
+    "date": -400,
+    "item": 61,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/7142"
+  },
+  {
+    "title": "Dialogues",
+    "author": "Plato",
+    "vol": 7,
+    "date": -370,
+    "item": 62,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1636"
+  },
+  {
+    "title": "Charmides",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 63,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1580"
+  },
+  {
+    "title": "Lysis",
+    "author": "Plato",
+    "vol": 7,
+    "date": -387,
+    "item": 64,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1591"
+  },
+  {
+    "title": "Laches",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 65,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1584"
+  },
+  {
+    "title": "Protagoras",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 66,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1591"
+  },
+  {
+    "title": "Euthydemus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 67,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1598"
+  },
+  {
+    "title": "Cratylus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 68,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1616"
+  },
+  {
+    "title": "Phaedrus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 69,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1636"
+  },
+  {
+    "title": "Ion",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 70,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+  },
+  {
+    "title": "Symposium",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 71,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1600"
+  },
+  {
+    "title": "Meno",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 72,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1643"
+  },
+  {
+    "title": "Euthyphro",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 73,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1642"
+  },
+  {
+    "title": "Apology",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 74,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1656"
+  },
+  {
+    "title": "Crito",
+    "author": "Plato",
+    "vol": 7,
+    "date": -390,
+    "item": 75,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1657"
+  },
+  {
+    "title": "Phaedo",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 76,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1658"
+  },
+  {
+    "title": "Gorgias",
+    "author": "Plato",
+    "vol": 7,
+    "date": 390,
+    "item": 77,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1672"
+  },
+  {
+    "title": "The Republic",
+    "author": "Plato",
+    "vol": 7,
+    "date": -375,
+    "item": 78,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1497"
+  },
+  {
+    "title": "Timaeus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -387,
+    "item": 79,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1572"
+  },
+  {
+    "title": "Critias",
+    "author": "Plato",
+    "vol": 7,
+    "date": -387,
+    "item": 80,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1571"
+  },
+  {
+    "title": "Parmenides",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 81,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1687"
+  },
+  {
+    "title": "Theaetetus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 82,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1726"
+  },
+  {
+    "title": "Sophist",
+    "author": "Plato",
+    "vol": 7,
+    "date": -361,
+    "item": 83,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1735"
+  },
+  {
+    "title": "Statesman",
+    "author": "Plato",
+    "vol": 7,
+    "date": -387,
+    "item": 84,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1738"
+  },
+  {
+    "title": "Philebus",
+    "author": "Plato",
+    "vol": 7,
+    "date": -387,
+    "item": 85,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1744"
+  },
+  {
+    "title": "Laws",
+    "author": "Plato",
+    "vol": 7,
+    "date": -367,
+    "item": 86,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1750"
+  },
+  {
+    "title": "The Seventh Letter",
+    "author": "Plato",
+    "vol": 7,
+    "date": -352,
+    "item": 87,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1571"
+  },
+  {
+    "title": "Categories",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 88,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/categories.html"
+  },
+  {
+    "title": "On Interpretation",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 89,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/interpretation.html"
+  },
+  {
+    "title": "Prior Analytics",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -350,
+    "item": 90,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+  },
+  {
+    "title": "Posterior Analytics",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 91,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+  },
+  {
+    "title": "Topics",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 92,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+  },
+  {
+    "title": "Sophistical Refutations",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 93,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+  },
+  {
+    "title": "Physics",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -350,
+    "item": 94,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/physics.html"
+  },
+  {
+    "title": "On the Heavens",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -350,
+    "item": 95,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+  },
+  {
+    "title": "On Generation and Corruption",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 96,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+  },
+  {
+    "title": "Meteorology",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -340,
+    "item": 97,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+  },
+  {
+    "title": "Metaphysics",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 98,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/metaphysics.html"
+  },
+  {
+    "title": "On the Soul",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -350,
+    "item": 99,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/soul.html"
+  },
+  {
+    "title": "Minor biological works",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 100,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "On Sense and the Sensible",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 101,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Memory and Reminisence",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -350,
+    "item": 102,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Sleep and Sleeplessness",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 103,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Dreams",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 104,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Prophesying by Dreams",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 105,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Longevity and Shortness of Life",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 106,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "On Youth and Old Age, On Life and Death, On Breathing",
+    "author": "Aristotle",
+    "vol": 8,
+    "date": -322,
+    "item": 107,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57342"
+  },
+  {
+    "title": "History of Animals",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 108,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "Parts of Animals",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -350,
+    "item": 109,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "On the Motion of Animals",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 110,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "On the Gait of Animals",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 111,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "On the Generation of Animals",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 112,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+  },
+  {
+    "title": "Nicomachean Ethics",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 113,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+  },
+  {
+    "title": "Politics",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 114,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6762"
+  },
+  {
+    "title": "The Athenian Constitution",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 115,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+  },
+  {
+    "title": "Rhetoric",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -322,
+    "item": 116,
+    "sourceUrl": "https://classics.mit.edu/Aristotle/rhetoric.html"
+  },
+  {
+    "title": "Poetics",
+    "author": "Aristotle",
+    "vol": 9,
+    "date": -335,
+    "item": 117,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1974"
+  },
+  {
+    "title": "The Hippocratic Oath",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -370,
+    "item": 118,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Ancient Medicine",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 119,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Airs, Water, and Places",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 120,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "The Book of Prognostics",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 121,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Regimen in Acute Diseases",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 122,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "Of the Epidemics",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 123,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Injuries of the Head",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 124,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On the Surgery",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 125,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Fractures",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 126,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On the Articulations",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 127,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "Instruments of Reduction",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 128,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "Aphorisms",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 129,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "The Law",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 130,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "The Ulcer",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 131,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Fistulae",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 132,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On Hemorrhoids",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 133,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On the Sacred Disease",
+    "author": "Hippocrates",
+    "vol": 10,
+    "date": -400,
+    "item": 134,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+  },
+  {
+    "title": "On the Natural Faculties",
+    "author": "Galen",
+    "vol": 10,
+    "date": 199,
+    "item": 135,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/31577"
+  },
+  {
+    "title": "The Thirteen Books of Euclid's Elements",
+    "author": "Euclid",
+    "vol": 11,
+    "date": -300,
+    "item": 136,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/21076"
+  },
+  {
+    "title": "On the Sphere and Cylinder",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -225,
+    "item": 137,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "Measurement of a Circle",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -250,
+    "item": 138,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "On Conoids and Spheroids",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 139,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "On Spirals",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -225,
+    "item": 140,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "On the Equilibrium of Planes",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 141,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "The Sand Reckoner",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 142,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "The Quadrature of the Parabola",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 143,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "On Floating Bodies",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 144,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+  },
+  {
+    "title": "Book of Lemmas",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 145,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26640"
+  },
+  {
+    "title": "The Method Treating of Mechanical Problems",
+    "author": "Archimedes",
+    "vol": 11,
+    "date": -212,
+    "item": 146,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26640"
+  },
+  {
+    "title": "On Conic Sections",
+    "author": "Apollonius of Perga",
+    "vol": 11,
+    "date": -190,
+    "item": 147,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/53632"
+  },
+  {
+    "title": "Introduction to Arithmetic",
+    "author": "Nicomachus of Gerasa",
+    "vol": 11,
+    "date": 120,
+    "item": 148,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/16341"
+  },
+  {
+    "title": "On the Nature of Things",
+    "author": "Lucretius",
+    "vol": 12,
+    "date": 1473,
+    "item": 149,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/785"
+  },
+  {
+    "title": "The Discourses",
+    "author": "Epictetus",
+    "vol": 12,
+    "date": 108,
+    "item": 150,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/10661"
+  },
+  {
+    "title": "The Meditations",
+    "author": "Marcus Aurelius",
+    "vol": 12,
+    "date": 180,
+    "item": 151,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2680"
+  },
+  {
+    "title": "Eclogues",
+    "author": "Virgil",
+    "vol": 13,
+    "date": -38,
+    "item": 152,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/232"
+  },
+  {
+    "title": "Georgics",
+    "author": "Virgil",
+    "vol": 13,
+    "date": -29,
+    "item": 153,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/232"
+  },
+  {
+    "title": "Aeneid",
+    "author": "Virgil",
+    "vol": 13,
+    "date": -19,
+    "item": 154,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/228"
+  },
+  {
+    "title": "The Lives of the Noble Grecians and Romans",
+    "author": "Plutarch",
+    "vol": 14,
+    "date": 100,
+    "item": 155,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/674"
+  },
+  {
+    "title": "The Annals",
+    "author": "P. Cornelius Tacitus",
+    "vol": 15,
+    "date": 117,
+    "item": 156,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3674"
+  },
+  {
+    "title": "The Histories",
+    "author": "P. Cornelius Tacitus",
+    "vol": 15,
+    "date": 105,
+    "item": 157,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/16927"
+  },
+  {
+    "title": "Almagest",
+    "author": "Ptolemy",
+    "vol": 16,
+    "date": 170,
+    "item": 158,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/62421"
+  },
+  {
+    "title": "On the Revolutions of Heavenly Spheres",
+    "author": "Nicolaus Copernicus",
+    "vol": 16,
+    "date": 1543,
+    "item": 159,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/54484"
+  },
+  {
+    "title": "Epitome of Copernican Astronomy (Books IV–V)",
+    "author": "Johannes Kepler",
+    "vol": 16,
+    "date": 1621,
+    "item": 160,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/55642"
+  },
+  {
+    "title": "The Harmonies of the World (Book V)",
+    "author": "Johannes Kepler",
+    "vol": 16,
+    "date": 1619,
+    "item": 161,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/55642"
+  },
+  {
+    "title": "The Six Enneads",
+    "author": "Plotinus",
+    "vol": 17,
+    "date": 250,
+    "item": 162,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/53108"
+  },
+  {
+    "title": "The Confessions",
+    "author": "Augustine of Hippo",
+    "vol": 18,
+    "date": 400,
+    "item": 163,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3296"
+  },
+  {
+    "title": "The City of God",
+    "author": "Augustine of Hippo",
+    "vol": 18,
+    "date": 426,
+    "item": 164,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/45304"
+  },
+  {
+    "title": "On Christian Doctrine",
+    "author": "Augustine of Hippo",
+    "vol": 18,
+    "date": 426,
+    "item": 165,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/9242"
+  },
+  {
+    "title": "Summa Theologica",
+    "author": "Thomas Aquinas",
+    "vol": 19,
+    "date": 1274,
+    "item": 166,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
+  },
+  {
+    "title": "Summa Theologica",
+    "author": "Thomas Aquinas",
+    "vol": 20,
+    "date": 1274,
+    "item": 167,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
+  },
+  {
+    "title": "Divine Comedy",
+    "author": "Dante Alighieri",
+    "vol": 21,
+    "date": 1321,
+    "item": 168,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1001"
+  },
+  {
+    "title": "Troilus and Criseyde",
+    "author": "Geoffrey Chaucer",
+    "vol": 22,
+    "date": 1385,
+    "item": 169,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/257"
+  },
+  {
+    "title": "The Canterbury Tales",
+    "author": "Geoffrey Chaucer",
+    "vol": 22,
+    "date": 1476,
+    "item": 170,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2383"
+  },
+  {
+    "title": "The Prince",
+    "author": "Niccolò Machiavelli",
+    "vol": 23,
+    "date": 1532,
+    "item": 171,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1232"
+  },
+  {
+    "title": "Leviathan",
+    "author": "Thomas Hobbes",
+    "vol": 23,
+    "date": 1651,
+    "item": 172,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3207"
+  },
+  {
+    "title": "Gargantua and Pantagruel",
+    "author": "François Rabelais",
+    "vol": 24,
+    "date": 1564,
+    "item": 173,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1200"
+  },
+  {
+    "title": "Essays",
+    "author": "Michel Eyquem de Montaigne",
+    "vol": 25,
+    "date": 1592,
+    "item": 174,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3600"
+  },
+  {
+    "title": "The First Part of King Henry the Sixth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1591,
+    "item": 175,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1765"
+  },
+  {
+    "title": "The Second Part of King Henry the Sixth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1591,
+    "item": 176,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1766"
+  },
+  {
+    "title": "The Third Part of King Henry the Sixth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1591,
+    "item": 177,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1767"
+  },
+  {
+    "title": "The Tragedy of Richard the Third",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1594,
+    "item": 178,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2256"
+  },
+  {
+    "title": "The Comedy of Errors",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1594,
+    "item": 179,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/23046"
+  },
+  {
+    "title": "Titus Andronicus",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1593,
+    "item": 180,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1755"
+  },
+  {
+    "title": "The Taming of the Shrew",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1593,
+    "item": 181,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1107"
+  },
+  {
+    "title": "The Two Gentlemen of Verona",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1593,
+    "item": 182,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1511"
+  },
+  {
+    "title": "Love's Labour's Lost",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1595,
+    "item": 183,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1511"
+  },
+  {
+    "title": "Romeo and Juliet",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1596,
+    "item": 184,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1513"
+  },
+  {
+    "title": "The Tragedy of King Richard the Second",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1595,
+    "item": 185,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1257"
+  },
+  {
+    "title": "A Midsummer Night's Dream",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1595,
+    "item": 186,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1514"
+  },
+  {
+    "title": "The Life and Death of King John",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1595,
+    "item": 187,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1515"
+  },
+  {
+    "title": "The Merchant of Venice",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1596,
+    "item": 188,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1515"
+  },
+  {
+    "title": "The First Part of King Henry the Fourth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1597,
+    "item": 189,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1516"
+  },
+  {
+    "title": "The Second Part of King Henry the Fourth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1599,
+    "item": 190,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1517"
+  },
+  {
+    "title": "Much Ado About Nothing",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1599,
+    "item": 191,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1519"
+  },
+  {
+    "title": "The Life of King Henry the Fifth",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1599,
+    "item": 192,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1522"
+  },
+  {
+    "title": "Julius Caesar",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1599,
+    "item": 193,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1522"
+  },
+  {
+    "title": "As You Like It",
+    "author": "William Shakespeare",
+    "vol": 26,
+    "date": 1599,
+    "item": 194,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1523"
+  },
+  {
+    "title": "Twelfth Night; or, What You Will",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1602,
+    "item": 195,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1526"
+  },
+  {
+    "title": "The Tragedy of Hamlet, Prince of Denmark",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1601,
+    "item": 196,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1524"
+  },
+  {
+    "title": "The Merry Wives of Windsor",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1602,
+    "item": 197,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1527"
+  },
+  {
+    "title": "Troilus and Cressida",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1602,
+    "item": 198,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1790"
+  },
+  {
+    "title": "All's Well That Ends Well",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1608,
+    "item": 199,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1529"
+  },
+  {
+    "title": "Measure for Measure",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1604,
+    "item": 200,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1530"
+  },
+  {
+    "title": "Othello, the Moor of Venice",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1603,
+    "item": 201,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1531"
+  },
+  {
+    "title": "King Lear",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1605,
+    "item": 202,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1532"
+  },
+  {
+    "title": "Macbeth",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1606,
+    "item": 203,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1533"
+  },
+  {
+    "title": "Antony and Cleopatra",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1607,
+    "item": 204,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1534"
+  },
+  {
+    "title": "Coriolanus",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1608,
+    "item": 205,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1535"
+  },
+  {
+    "title": "Timon of Athens",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1606,
+    "item": 206,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1538"
+  },
+  {
+    "title": "Pericles, Prince of Tyre",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1609,
+    "item": 207,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1540"
+  },
+  {
+    "title": "Cymbeline",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1611,
+    "item": 208,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1542"
+  },
+  {
+    "title": "The Winter's Tale",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1623,
+    "item": 209,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1543"
+  },
+  {
+    "title": "The Tempest",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1611,
+    "item": 210,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1539"
+  },
+  {
+    "title": "The Famous History of the Life of King Henry the Eighth",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1623,
+    "item": 211,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1544"
+  },
+  {
+    "title": "Sonnets",
+    "author": "William Shakespeare",
+    "vol": 27,
+    "date": 1605,
+    "item": 212,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1041"
+  },
+  {
+    "title": "On the Loadstone and Magnetic Bodies",
+    "author": "William Gilbert",
+    "vol": 28,
+    "date": 1893,
+    "item": 213,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/33810"
+  },
+  {
+    "title": "Dialogues Concerning the Two New Sciences",
+    "author": "Galileo Galilei",
+    "vol": 28,
+    "date": 1638,
+    "item": 214,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/37729"
+  },
+  {
+    "title": "On the Motion of the Heart and Blood in Animals",
+    "author": "William Harvey",
+    "vol": 28,
+    "date": 1657,
+    "item": 215,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26758"
+  },
+  {
+    "title": "On the Circulation of Blood",
+    "author": "William Harvey",
+    "vol": 28,
+    "date": 1628,
+    "item": 216,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26758"
+  },
+  {
+    "title": "On Animal Generation",
+    "author": "William Harvey",
+    "vol": 28,
+    "date": 1651,
+    "item": 217,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26758"
+  },
+  {
+    "title": "The History of Don Quixote de la Mancha",
+    "author": "Miguel de Cervantes",
+    "vol": 29,
+    "date": 1605,
+    "item": 218,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/996"
+  },
+  {
+    "title": "The Advancement of Learning",
+    "author": "Sir Francis Bacon",
+    "vol": 30,
+    "date": 1605,
+    "item": 219,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5500"
+  },
+  {
+    "title": "Novum Organum",
+    "author": "Sir Francis Bacon",
+    "vol": 30,
+    "date": 1620,
+    "item": 220,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/45988"
+  },
+  {
+    "title": "New Atlantis",
+    "author": "Sir Francis Bacon",
+    "vol": 30,
+    "date": 1627,
+    "item": 221,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2434"
+  },
+  {
+    "title": "Rules for the Direction of the Mind",
+    "author": "René Descartes",
+    "vol": 31,
+    "date": 1701,
+    "item": 222,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59362"
+  },
+  {
+    "title": "Discourse on the Method",
+    "author": "René Descartes",
+    "vol": 31,
+    "date": 1637,
+    "item": 223,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59"
+  },
+  {
+    "title": "Meditations on First Philosophy",
+    "author": "René Descartes",
+    "vol": 31,
+    "date": 1641,
+    "item": 224,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59"
+  },
+  {
+    "title": "Objections Against the Meditations and Replies",
+    "author": "René Descartes",
+    "vol": 31,
+    "date": 1642,
+    "item": 225,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59362"
+  },
+  {
+    "title": "The Geometry",
+    "author": "René Descartes",
+    "vol": 31,
+    "date": 1649,
+    "item": 226,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26400"
+  },
+  {
+    "title": "Ethics",
+    "author": "Benedict de Spinoza",
+    "vol": 31,
+    "date": 1677,
+    "item": 227,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3800"
+  },
+  {
+    "title": "On the Morning of Christ's Nativity",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 228,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "A Paraphrase on Psalm 114",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1645,
+    "item": 229,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Psalm 136",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 230,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "The Passion",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 231,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "On Time",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 232,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Upon the Circumcision",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 233,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "At a Solemn Musick",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 234,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "An Epitaph on the Marchioness of Winchester",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 235,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Song on May Morning",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 236,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "On Shakespeare",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1630,
+    "item": 237,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "On the University Carrier",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 238,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Another on the same",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 239,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "L'Allegro",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1645,
+    "item": 240,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Il Penseroso",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1646,
+    "item": 241,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Arcades",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1634,
+    "item": 242,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Lycidas",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1638,
+    "item": 243,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Comus",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1634,
+    "item": 244,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/58"
+  },
+  {
+    "title": "On the Death of a Fair Infant",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1628,
+    "item": 245,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "At a Vacation Exercise",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1631,
+    "item": 246,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "The Fifth Ode of Horace",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 247,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Sonnets (I, and VII—XIX)",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1655,
+    "item": 248,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "On the New Forcers of Conscience",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 249,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "On the Lord General Fairfax at the Siege of Colchester",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 250,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "To the Lord General Cromwell",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1652,
+    "item": 251,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "To Sir Henry Vane the Younger",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 252,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "To Mister Cyriack the Skinner upon his Blindness",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1673,
+    "item": 253,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Psalms (I—VIII & LXXX—LXXXVIII)",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1653,
+    "item": 254,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1745"
+  },
+  {
+    "title": "Paradise Lost",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1667,
+    "item": 255,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/26"
+  },
+  {
+    "title": "Samson Agonistes",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1674,
+    "item": 256,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/58"
+  },
+  {
+    "title": "Areopagitica",
+    "author": "John Milton",
+    "vol": 32,
+    "date": 1644,
+    "item": 257,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/608"
+  },
+  {
+    "title": "The Provincial Letters",
+    "author": "Blaise Pascal",
+    "vol": 33,
+    "date": 1657,
+    "item": 258,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/16909"
+  },
+  {
+    "title": "Pensées",
+    "author": "Blaise Pascal",
+    "vol": 33,
+    "date": 1670,
+    "item": 259,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/18269"
+  },
+  {
+    "title": "Scientific and mathematical essays",
+    "author": "Blaise Pascal",
+    "vol": 33,
+    "date": 1658,
+    "item": 260,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/18269"
+  },
+  {
+    "title": "Mathematical Principles of Natural Philosophy",
+    "author": "Sir Isaac Newton",
+    "vol": 34,
+    "date": 1687,
+    "item": 261,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/28233"
+  },
+  {
+    "title": "Optics",
+    "author": "Sir Isaac Newton",
+    "vol": 34,
+    "date": 1704,
+    "item": 262,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/33504"
+  },
+  {
+    "title": "Treatise on Light",
+    "author": "Christiaan Huygens",
+    "vol": 34,
+    "date": 1690,
+    "item": 263,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/59509"
+  },
+  {
+    "title": "A Letter Concerning Toleration",
+    "author": "John Locke",
+    "vol": 35,
+    "date": 1689,
+    "item": 264,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14865"
+  },
+  {
+    "title": "Concerning Civil Government, Second Essay",
+    "author": "John Locke",
+    "vol": 35,
+    "date": 1690,
+    "item": 265,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/7370"
+  },
+  {
+    "title": "An Essay Concerning Human Understanding",
+    "author": "John Locke",
+    "vol": 35,
+    "date": 1689,
+    "item": 266,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/10615"
+  },
+  {
+    "title": "The Principles of Human Knowledge",
+    "author": "George Berkeley",
+    "vol": 35,
+    "date": 1710,
+    "item": 267,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4723"
+  },
+  {
+    "title": "An Enquiry Concerning Human Understanding",
+    "author": "David Hume",
+    "vol": 35,
+    "date": 1748,
+    "item": 268,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/9662"
+  },
+  {
+    "title": "Gulliver's Travels",
+    "author": "Jonathan Swift",
+    "vol": 36,
+    "date": 1726,
+    "item": 269,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/829"
+  },
+  {
+    "title": "The Life and Opinions of Tristram Shandy, Gentleman",
+    "author": "Laurence Sterne",
+    "vol": 36,
+    "date": 1759,
+    "item": 270,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1079"
+  },
+  {
+    "title": "The History of Tom Jones, a Foundling",
+    "author": "Henry Fielding",
+    "vol": 37,
+    "date": 1749,
+    "item": 271,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6593"
+  },
+  {
+    "title": "The Spirit of the Laws",
+    "author": "Charles de Secondat, Baron de Montesquieu",
+    "vol": 38,
+    "date": 1748,
+    "item": 272,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/27573"
+  },
+  {
+    "title": "A Discourse on the Origin of Inequality",
+    "author": "Jean Jacques Rousseau",
+    "vol": 38,
+    "date": 1754,
+    "item": 273,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/46333"
+  },
+  {
+    "title": "A Discourse on Political Economy",
+    "author": "Jean Jacques Rousseau",
+    "vol": 38,
+    "date": 1755,
+    "item": 274,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/46333"
+  },
+  {
+    "title": "The Social Contract",
+    "author": "Jean Jacques Rousseau",
+    "vol": 38,
+    "date": 1762,
+    "item": 275,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/46333"
+  },
+  {
+    "title": "An Inquiry into the Nature and Causes of the Wealth of Nations",
+    "author": "Adam Smith",
+    "vol": 39,
+    "date": 1776,
+    "item": 276,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3300"
+  },
+  {
+    "title": "The Decline and Fall of the Roman Empire (Part 1)",
+    "author": "Edward Gibbon",
+    "vol": 40,
+    "date": 1776,
+    "item": 277,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/731"
+  },
+  {
+    "title": "The Decline and Fall of the Roman Empire (Part 2)",
+    "author": "Edward Gibbon",
+    "vol": 41,
+    "date": 1781,
+    "item": 278,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/733"
+  },
+  {
+    "title": "Critique of Pure Reason",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1781,
+    "item": 279,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4280"
+  },
+  {
+    "title": "Fundamental Principles of the Metaphysic of Morals",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1785,
+    "item": 280,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+  },
+  {
+    "title": "Critique of Practical Reason",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1788,
+    "item": 281,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5683"
+  },
+  {
+    "title": "The Metaphysics of Morals",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1797,
+    "item": 282,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+  },
+  {
+    "title": "Preface and Introduction to the Metaphysical Elements of Ethics with a note on Conscience",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1797,
+    "item": 283,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+  },
+  {
+    "title": "General Introduction to the Metaphysic of Morals",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1797,
+    "item": 284,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5682"
+  },
+  {
+    "title": "The Science of Right",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1797,
+    "item": 285,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5683"
+  },
+  {
+    "title": "The Critique of Judgement",
+    "author": "Immanuel Kant",
+    "vol": 42,
+    "date": 1790,
+    "item": 286,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/48433"
+  },
+  {
+    "title": "Declaration of Independence",
+    "author": "American State Papers",
+    "vol": 43,
+    "date": 1776,
+    "item": 287,
+    "sourceUrl": "https://www.archives.gov/founding-docs/declaration-transcript"
+  },
+  {
+    "title": "Articles of Confederation",
+    "author": "American State Papers",
+    "vol": 43,
+    "date": 1777,
+    "item": 288,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5"
+  },
+  {
+    "title": "The Constitution of the United States of America",
+    "author": "American State Papers",
+    "vol": 43,
+    "date": 1787,
+    "item": 289,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5"
+  },
+  {
+    "title": "The Federalist",
+    "author": "Alexander Hamilton, James Madison, John Jay",
+    "vol": 43,
+    "date": 1788,
+    "item": 290,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1404"
+  },
+  {
+    "title": "On Liberty",
+    "author": "John Stuart Mill",
+    "vol": 43,
+    "date": 1859,
+    "item": 291,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/34901"
+  },
+  {
+    "title": "Considerations on Representative Government",
+    "author": "John Stuart Mill",
+    "vol": 43,
+    "date": 1861,
+    "item": 292,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5669"
+  },
+  {
+    "title": "Utilitarianism",
+    "author": "John Stuart Mill",
+    "vol": 43,
+    "date": 1861,
+    "item": 293,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/11224"
+  },
+  {
+    "title": "The Life of Samuel Johnson, LL.D.",
+    "author": "James Boswell",
+    "vol": 44,
+    "date": 1791,
+    "item": 294,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1564"
+  },
+  {
+    "title": "Elements of Chemistry",
+    "author": "Antoine Laurent Lavoisier",
+    "vol": 45,
+    "date": 1789,
+    "item": 295,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/30775"
+  },
+  {
+    "title": "Analytical Theory of Heat",
+    "author": "Jean Baptiste Joseph Fourier",
+    "vol": 45,
+    "date": 1878,
+    "item": 296,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/46939"
+  },
+  {
+    "title": "Experimental Researches in Electricity",
+    "author": "Michael Faraday",
+    "vol": 45,
+    "date": 1832,
+    "item": 297,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14986"
+  },
+  {
+    "title": "The Philosophy of Right",
+    "author": "Georg Wilhelm Friedrich Hegel",
+    "vol": 46,
+    "date": 1821,
+    "item": 298,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/52821"
+  },
+  {
+    "title": "The Philosophy of History",
+    "author": "Georg Wilhelm Friedrich Hegel",
+    "vol": 46,
+    "date": 1837,
+    "item": 299,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/58829"
+  },
+  {
+    "title": "Faust",
+    "author": "Johann Wolfgang von Goethe",
+    "vol": 47,
+    "date": 1829,
+    "item": 300,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/14591"
+  },
+  {
+    "title": "Moby Dick; or, The Whale",
+    "author": "Herman Melville",
+    "vol": 48,
+    "date": 1951,
+    "item": 301,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2701"
+  },
+  {
+    "title": "The Origin of Species by Means of Natural Selection",
+    "author": "Charles Darwin",
+    "vol": 49,
+    "date": 1859,
+    "item": 302,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1228"
+  },
+  {
+    "title": "The Descent of Man, and Selection in Relation to Sex",
+    "author": "Charles Darwin",
+    "vol": 49,
+    "date": 1871,
+    "item": 303,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2300"
+  },
+  {
+    "title": "Capital",
+    "author": "Karl Marx",
+    "vol": 50,
+    "date": 1894,
+    "item": 304,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/61217"
+  },
+  {
+    "title": "Manifesto of the Communist Party",
+    "author": "Karl Marx and Friedrich Engels",
+    "vol": 50,
+    "date": 1848,
+    "item": 305,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/61"
+  },
+  {
+    "title": "War and Peace",
+    "author": "Count Leo Tolstoy",
+    "vol": 51,
+    "date": 1867,
+    "item": 306,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2600"
+  },
+  {
+    "title": "The Brothers Karamazov",
+    "author": "Fyodor Mikhailovich Dostoevsky",
+    "vol": 52,
+    "date": 1880,
+    "item": 307,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/28054"
+  },
+  {
+    "title": "The Principles of Psychology",
+    "author": "William James",
+    "vol": 53,
+    "date": 1918,
+    "item": 308,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/57628"
+  },
+  {
+    "title": "The Origin and Development of Psycho-Analysis",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1910,
+    "item": 309,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/38219"
+  },
+  {
+    "title": "Selected Papers on Hysteria",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1909,
+    "item": 310,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/75132"
+  },
+  {
+    "title": "The Sexual Enlightenment of Children",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1907,
+    "item": 311
+  },
+  {
+    "title": "The Future Prospects of Psycho-Analytic Therapy",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1912,
+    "item": 312
+  },
+  {
+    "title": "Observations on \"Wild\" Psycho-Analysis",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1910,
+    "item": 313
+  },
+  {
+    "title": "The Interpretation of Dreams",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1900,
+    "item": 314,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/15489"
+  },
+  {
+    "title": "On Narcissism",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1914,
+    "item": 315
+  },
+  {
+    "title": "Instincts and Their Vicissitudes",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1915,
+    "item": 316
+  },
+  {
+    "title": "Repression",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1915,
+    "item": 317
+  },
+  {
+    "title": "The Unconscious",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1915,
+    "item": 318
+  },
+  {
+    "title": "A General Introduction to Psycho-Analysis",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1917,
+    "item": 319,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/38219"
+  },
+  {
+    "title": "Beyond the Pleasure Principle",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1920,
+    "item": 320,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/34901"
+  },
+  {
+    "title": "Group Psychology and the Analysis of the Ego",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1921,
+    "item": 321,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/35877"
+  },
+  {
+    "title": "The Ego and the Id",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1923,
+    "item": 322
+  },
+  {
+    "title": "Inhibitions, Symptoms, and Anxiety",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1926,
+    "item": 323
+  },
+  {
+    "title": "Thoughts for the Times on War and Death",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1915,
+    "item": 324,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/60930"
+  },
+  {
+    "title": "Civilization and Its Discontents",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1930,
+    "item": 325,
+    "sourceUrl": "https://archive.org/details/civilizationitsd00freu"
+  },
+  {
+    "title": "New Introductory Lectures on Psycho-Analysis",
+    "author": "Sigmund Freud",
+    "vol": 54,
+    "date": 1933,
+    "item": 326
+  },
+  {
+    "title": "Institutes of the Christian Religion",
+    "author": "John Calvin",
+    "vol": 20,
+    "date": 1536,
+    "item": 327,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/40834"
+  },
+  {
+    "title": "The Praise of Folly",
+    "author": "Erasmus",
+    "vol": 23,
+    "date": 1509,
+    "item": 328,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/9371"
+  },
+  {
+    "title": "The School for Wives",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1662,
+    "item": 329,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+  },
+  {
+    "title": "The Critique of the School for Wives",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1663,
+    "item": 330,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+  },
+  {
+    "title": "Tartuffe",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1666,
+    "item": 331,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2027"
+  },
+  {
+    "title": "Don Juan",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1665,
+    "item": 332,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6925"
+  },
+  {
+    "title": "The Miser",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1668,
+    "item": 333,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+  },
+  {
+    "title": "The Would-Be Gentleman",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1670,
+    "item": 334,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2992"
+  },
+  {
+    "title": "The Imaginary Invalid",
+    "author": "Molière",
+    "vol": 31,
+    "date": 1673,
+    "item": 335,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/6923"
+  },
+  {
+    "title": "Bérénice",
+    "author": "Jean Racine",
+    "vol": 31,
+    "date": 1670,
+    "item": 336,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1977"
+  },
+  {
+    "title": "Phèdre",
+    "author": "Jean Racine",
+    "vol": 31,
+    "date": 1677,
+    "item": 337,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1977"
+  },
+  {
+    "title": "Candide",
+    "author": "Voltaire",
+    "vol": 34,
+    "date": 1759,
+    "item": 338,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/19942"
+  },
+  {
+    "title": "Rameau's Nephew",
+    "author": "Denis Diderot",
+    "vol": 34,
+    "date": 1774,
+    "item": 339,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/12168"
+  },
+  {
+    "title": "Fear and Trembling",
+    "author": "Søren Kierkegaard",
+    "vol": 43,
+    "date": 1843,
+    "item": 340,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/33090"
+  },
+  {
+    "title": "Beyond Good and Evil",
+    "author": "Friedrich Nietzsche",
+    "vol": 43,
+    "date": 1886,
+    "item": 341,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4363"
+  },
+  {
+    "title": "Democracy in America",
+    "author": "Alexis de Tocqueville",
+    "vol": 44,
+    "date": 1835,
+    "item": 342,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/815"
+  },
+  {
+    "title": "Cousin Bette",
+    "author": "Honoré de Balzac",
+    "vol": 45,
+    "date": 1846,
+    "item": 343,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1749"
+  },
+  {
+    "title": "Emma",
+    "author": "Jane Austen",
+    "vol": 46,
+    "date": 1815,
+    "item": 344,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/158"
+  },
+  {
+    "title": "Middlemarch",
+    "author": "George Eliot",
+    "vol": 46,
+    "date": 1871,
+    "item": 345,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/145"
+  },
+  {
+    "title": "Little Dorrit",
+    "author": "Charles Dickens",
+    "vol": 47,
+    "date": 1857,
+    "item": 346,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/963"
+  },
+  {
+    "title": "Huckleberry Finn",
+    "author": "Mark Twain",
+    "vol": 48,
+    "date": 1885,
+    "item": 347,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/76"
+  },
+  {
+    "title": "A Doll's House",
+    "author": "Henrik Ibsen",
+    "vol": 52,
+    "date": 1879,
+    "item": 348,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/2542"
+  },
+  {
+    "title": "The Wild Duck",
+    "author": "Henrik Ibsen",
+    "vol": 52,
+    "date": 1884,
+    "item": 349,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3503"
+  },
+  {
+    "title": "Hedda Gabler",
+    "author": "Henrik Ibsen",
+    "vol": 52,
+    "date": 1890,
+    "item": 350,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4093"
+  },
+  {
+    "title": "The Master Builder",
+    "author": "Henrik Ibsen",
+    "vol": 52,
+    "date": 1892,
+    "item": 351,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/9257"
+  },
+  {
+    "title": "Pragmatism",
+    "author": "William James",
+    "vol": 55,
+    "date": 1907,
+    "item": 352,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5116"
+  },
+  {
+    "title": "An Introduction to Metaphysics",
+    "author": "Henri Bergson",
+    "vol": 55,
+    "date": 1903,
+    "item": 353,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/18225"
+  },
+  {
+    "title": "Experience and Education",
+    "author": "John Dewey",
+    "vol": 55,
+    "date": 1938,
+    "item": 354,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/852"
+  },
+  {
+    "title": "Science and the Modern World",
+    "author": "Alfred North Whitehead",
+    "vol": 55,
+    "date": 1925,
+    "item": 355,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/64228"
+  },
+  {
+    "title": "The Problems of Philosophy",
+    "author": "Bertrand Russell",
+    "vol": 55,
+    "date": 1912,
+    "item": 356,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5827"
+  },
+  {
+    "title": "What Is Metaphysics?",
+    "author": "Martin Heidegger",
+    "vol": 55,
+    "date": 1929,
+    "item": 357
+  },
+  {
+    "title": "Philosophical Investigations",
+    "author": "Ludwig Wittgenstein",
+    "vol": 55,
+    "date": 1953,
+    "item": 358
+  },
+  {
+    "title": "The Word of God and the Word of Man",
+    "author": "Karl Barth",
+    "vol": 55,
+    "date": 1933,
+    "item": 359,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/34632"
+  },
+  {
+    "title": "Science and Hypothesis",
+    "author": "Henri Poincaré",
+    "vol": 56,
+    "date": 1902,
+    "item": 360,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/37157"
+  },
+  {
+    "title": "Scientific Autobiography and Other Papers",
+    "author": "Max Planck",
+    "vol": 56,
+    "date": 1947,
+    "item": 361
+  },
+  {
+    "title": "An Introduction to Mathematics",
+    "author": "Alfred North Whitehead",
+    "vol": 56,
+    "date": 1911,
+    "item": 362,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/41568"
+  },
+  {
+    "title": "Relativity: The Special and the General Theory",
+    "author": "Albert Einstein",
+    "vol": 56,
+    "date": 1920,
+    "item": 363,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5001"
+  },
+  {
+    "title": "The Expanding Universe",
+    "author": "Arthur Eddington",
+    "vol": 56,
+    "date": 1940,
+    "item": 364,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/61873"
+  },
+  {
+    "title": "Atomic Theory and the Description of Nature (selections)",
+    "author": "Niels Bohr",
+    "vol": 56,
+    "date": 1934,
+    "item": 365
+  },
+  {
+    "title": "Discussion with Einstein on Epistemology",
+    "author": "Niels Bohr",
+    "vol": 56,
+    "date": 1949,
+    "item": 366
+  },
+  {
+    "title": "A Mathematician's Apology",
+    "author": "G. H. Hardy",
+    "vol": 56,
+    "date": 1940,
+    "item": 367,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/60066"
+  },
+  {
+    "title": "Physics and Philosophy",
+    "author": "Werner Heisenberg",
+    "vol": 56,
+    "date": 1958,
+    "item": 368,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/58895"
+  },
+  {
+    "title": "What Is Life?",
+    "author": "Erwin Schrödinger",
+    "vol": 56,
+    "date": 1944,
+    "item": 369,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/62091"
+  },
+  {
+    "title": "Genetics and the Origin of Species",
+    "author": "Theodosius Dobzhansky",
+    "vol": 56,
+    "date": 1937,
+    "item": 370
+  },
+  {
+    "title": "The Nature of Life",
+    "author": "C. H. Waddington",
+    "vol": 56,
+    "date": 1961,
+    "item": 371,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/52205"
+  },
+  {
+    "title": "The Theory of the Leisure Class",
+    "author": "Thorstein Veblen",
+    "vol": 57,
+    "date": 1899,
+    "item": 372,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/833"
+  },
+  {
+    "title": "The Acquisitive Society",
+    "author": "R. H. Tawney",
+    "vol": 57,
+    "date": 1920,
+    "item": 373,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/33741"
+  },
+  {
+    "title": "The General Theory of Employment, Interest and Money",
+    "author": "John Maynard Keynes",
+    "vol": 57,
+    "date": 1936,
+    "item": 374,
+    "sourceUrl": "https://gutenberg.net.au/ebooks03/0300071h.html"
+  },
+  {
+    "title": "The Golden Bough",
+    "author": "Sir James George Frazer",
+    "vol": 58,
+    "date": 1890,
+    "item": 375,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/41082"
+  },
+  {
+    "title": "Essays in Sociology",
+    "author": "Max Weber",
+    "vol": 58,
+    "date": 1920,
+    "item": 376,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/61932"
+  },
+  {
+    "title": "The Autumn of the Middle Ages",
+    "author": "Johan Huizinga",
+    "vol": 58,
+    "date": 1919,
+    "item": 377,
+    "sourceUrl": "https://en.wikisource.org/wiki/The_Waning_of_the_Middle_Ages"
+  },
+  {
+    "title": "Structural Anthropology",
+    "author": "Claude Lévi-Strauss",
+    "vol": 58,
+    "date": 1949,
+    "item": 378,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/52817"
+  },
+  {
+    "title": "The Beast in the Jungle",
+    "author": "Henry James",
+    "vol": 59,
+    "date": 1903,
+    "item": 379,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1093"
+  },
+  {
+    "title": "Saint Joan",
+    "author": "George Bernard Shaw",
+    "vol": 59,
+    "date": 1924,
+    "item": 380,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/3825"
+  },
+  {
+    "title": "Heart of Darkness",
+    "author": "Joseph Conrad",
+    "vol": 59,
+    "date": 1902,
+    "item": 381,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/219"
+  },
+  {
+    "title": "Uncle Vanya",
+    "author": "Anton Chekhov",
+    "vol": 59,
+    "date": 1899,
+    "item": 382,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1756"
+  },
+  {
+    "title": "Six Characters in Search of an Author",
+    "author": "Luigi Pirandello",
+    "vol": 59,
+    "date": 1921,
+    "item": 383,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/42148"
+  },
+  {
+    "title": "Remembrance of Things Past: \"Swann in Love\"",
+    "author": "Marcel Proust",
+    "vol": 59,
+    "date": 1927,
+    "item": 384,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/7178"
+  },
+  {
+    "title": "A Lost Lady",
+    "author": "Willa Cather",
+    "vol": 59,
+    "date": 1923,
+    "item": 385,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/331"
+  },
+  {
+    "title": "Death in Venice",
+    "author": "Thomas Mann",
+    "vol": 59,
+    "date": 1912,
+    "item": 386,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/12108"
+  },
+  {
+    "title": "A Portrait of the Artist as a Young Man",
+    "author": "James Joyce",
+    "vol": 59,
+    "date": 1916,
+    "item": 387,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/4217"
+  },
+  {
+    "title": "To the Lighthouse",
+    "author": "Virginia Woolf",
+    "vol": 60,
+    "date": 1927,
+    "item": 388,
+    "sourceUrl": "https://gutenberg.net.au/ebooks01/0100101h.html"
+  },
+  {
+    "title": "The Metamorphosis",
+    "author": "Franz Kafka",
+    "vol": 60,
+    "date": 1915,
+    "item": 389,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/5200"
+  },
+  {
+    "title": "The Prussian Officer",
+    "author": "D. H. Lawrence",
+    "vol": 60,
+    "date": 1914,
+    "item": 390,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/28948"
+  },
+  {
+    "title": "The Waste Land",
+    "author": "T. S. Eliot",
+    "vol": 60,
+    "date": 1922,
+    "item": 391,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/1321"
+  },
+  {
+    "title": "Mourning Becomes Electra",
+    "author": "Eugene O'Neill",
+    "vol": 60,
+    "date": 1931,
+    "item": 392,
+    "sourceUrl": "https://gutenberg.net.au/ebooks04/0400141h.html"
+  },
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "vol": 60,
+    "date": 1925,
+    "item": 393,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/64317"
+  },
+  {
+    "title": "A Rose for Emily",
+    "author": "William Faulkner",
+    "vol": 60,
+    "date": 1930,
+    "item": 394,
+    "sourceUrl": "https://archive.org/details/ARoseForEmily1930"
+  },
+  {
+    "title": "Mother Courage and Her Children",
+    "author": "Bertolt Brecht",
+    "vol": 60,
+    "date": 1939,
+    "item": 395,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/64193"
+  },
+  {
+    "title": "The Short Happy Life of Francis Macomber",
+    "author": "Ernest Hemingway",
+    "vol": 60,
+    "date": 1936,
+    "item": 396,
+    "sourceUrl": "https://www.gutenberg.org/ebooks/50838"
+  },
+  {
+    "title": "Animal Farm",
+    "author": "George Orwell",
+    "vol": 60,
+    "date": 1945,
+    "item": 397,
+    "sourceUrl": "https://www.fadedpage.com/showbook.php?pid=20210101"
+  },
+  {
+    "title": "Waiting for Godot",
+    "author": "Samuel Beckett",
+    "vol": 60,
+    "date": 1952,
+    "item": 398
+  }
 ]

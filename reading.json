@@ -3890,7 +3890,8 @@
           "author": "Eugene O'Neill",
           "works": [
             {
-              "title": "Mourning Becomes Electra"
+              "title": "Mourning Becomes Electra",
+              "sourceUrl": "https://gutenberg.net.au/ebooks04/0400141h.html"
             }
           ]
         },
@@ -4307,7 +4308,8 @@
           "author": "R. H. Tawney",
           "works": [
             {
-              "title": "The Acquisitive Society"
+              "title": "The Acquisitive Society",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/33741"
             }
           ]
         },
@@ -4436,7 +4438,8 @@
           "author": "Virginia Woolf",
           "works": [
             {
-              "title": "To the Lighthouse"
+              "title": "To the Lighthouse",
+              "sourceUrl": "https://gutenberg.net.au/ebooks01/0100101h.html"
             }
           ]
         },

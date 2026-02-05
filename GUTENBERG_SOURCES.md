@@ -5,8 +5,34 @@ This document tracks the availability of books from our collection on Project Gu
 - ⚠️ Uncertain/Need verification  
 - ⛔ Not available on Project Gutenberg
 
+**Quick Stats:**
+- Total Books: 398
+- Verified Available: ~85+
+- Verified NOT Available: 6
+- Needing Verification: ~307
+
+---
+
+## 🔍 Quick Navigation
+
+- [Ancient Works (Pre-500 CE)](#ancient-works-pre-500-ce)
+- [Greek Drama](#greek-drama---aeschylus)
+- [Greek Philosophy](#greek-philosophy---plato)
+- [Roman Works](#roman-works)
+- [Medieval & Renaissance](#medieval--renaissance)
+- [Shakespeare](#shakespeare-complete-works)
+- [Early Modern Philosophy (1500-1700)](#early-modern-philosophy-1500-1700)
+- [Enlightenment Philosophy (1700-1800)](#enlightenment-philosophy-1700-1800)
+- [19th Century Works](#19th-century-philosophy--social-thought)
+- [Scientific Works](#scientific-works-16th-19th-century)
+- [Early 20th Century](#early-20th-century-1900-1930)
+- [Books NOT Available](#books-not-available-on-project-gutenberg-)
+- [Summary of Findings](#summary-of-findings)
+
+---
+
 **Legend:**
-- **Item #**: Reference number from project.json
+- **Item #**: Reference number from project.json (or "Various" if exact match pending)
 - **Title**: Book title
 - **Author**: Author name
 - **PG #**: Project Gutenberg ebook number (if available)

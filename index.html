@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Great Works Navigator</title>
+
+  <!-- Modern UI libs (public CDNs) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <!-- Tom Select (nice multi-select + tags) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
+
+  <!-- Marked for markdown-ish snippets (optional future use) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+
+  <!-- Fuse.js for fuzzy search -->
+  <script defer src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+
+  <!-- Tom Select JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.12);
+      --muted: rgba(255,255,255,.7);
+      --muted2: rgba(255,255,255,.55);
+      --text: rgba(255,255,255,.92);
+      --accent: #7dd3fc;
+      --accent2: #a78bfa;
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --bad: #ef4444;
+
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 22px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f7f7fb;
+        --card: rgba(0,0,0,.05);
+        --card2: rgba(0,0,0,.07);
+        --border: rgba(0,0,0,.12);
+        --muted: rgba(0,0,0,.68);
+        --muted2: rgba(0,0,0,.52);
+        --text: rgba(0,0,0,.88);
+        --shadow: 0 12px 30px rgba(0,0,0,.12);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background:
+        radial-gradient(1200px 800px at 15% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(1200px 800px at 85% 20%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(1200px 800px at 60% 90%, rgba(34,197,94,.12), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header{
+      padding: 26px 18px 12px;
+      position: sticky;
+      top:0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.15));
+      border-bottom: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: light){
+      header{ background: linear-gradient(to bottom, rgba(255,255,255,.75), rgba(255,255,255,.35)); }
+    }
+
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 14px;
+    }
+    .toprow{
+      display:flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .title{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 260px;
+    }
+    .badge{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(125,211,252,.25), rgba(167,139,250,.25));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .title h1{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: .2px;
+      line-height:1.15;
+    }
+    .title p{
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr auto;
+      gap: 10px;
+      align-items: end;
+      flex: 1;
+      min-width: 680px;
+    }
+    @media (max-width: 980px){
+      .controls{ grid-template-columns: 1fr 1fr; min-width: 0; width: 100%; }
+    }
+
+    label{
+      font-size: 11px;
+      color: var(--muted2);
+      display:block;
+      margin: 0 0 6px;
+      letter-spacing: .25px;
+    }
+    input[type="text"], input[type="number"], select{
+      width:100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      outline: none;
+    }
+    @media (prefers-color-scheme: light){
+      input[type="text"], input[type="number"], select{ background: rgba(255,255,255,.75); }
+    }
+    input::placeholder{ color: rgba(255,255,255,.45); }
+    @media (prefers-color-scheme: light){
+      input::placeholder{ color: rgba(0,0,0,.45); }
+    }
+
+    .btnrow{
+      display:flex;
+      gap: 8px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    button{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform .08s ease, background .12s ease;
+      font-weight: 600;
+      letter-spacing: .15px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    button:hover{ background: rgba(255,255,255,.10); }
+    button:active{ transform: translateY(1px); }
+    .primary{
+      background: linear-gradient(135deg, rgba(125,211,252,.25), rgba(167,139,250,.22));
+      border-color: rgba(125,211,252,.35);
+    }
+    .primary:hover{ background: linear-gradient(135deg, rgba(125,211,252,.30), rgba(167,139,250,.26)); }
+
+    main{ padding: 14px 0 34px; }
+    .meta{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 10px 0 14px;
+      flex-wrap: wrap;
+    }
+    .meta .counts{
+      font-size: 12px;
+      color: var(--muted);
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .pill{
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 1020px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius2);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset: -60px -60px auto auto;
+      width: 140px; height: 140px;
+      background: radial-gradient(circle at 30% 30%, rgba(125,211,252,.18), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(167,139,250,.14), transparent 60%);
+      transform: rotate(20deg);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 15px;
+      line-height: 1.25;
+      padding-right: 18px;
+    }
+    .sub{
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+    .row{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin-top: 10px;
+    }
+    .tag{
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+    }
+    .linkrow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+    a.action{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card2);
+      color: var(--text);
+      text-decoration:none;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    a.action:hover{ filter: brightness(1.05); }
+    a.action .ti{ opacity:.95; }
+
+    .tiny{
+      font-size: 11px;
+      color: var(--muted2);
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    .loading, .error{
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px dashed var(--border);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: 13px;
+      box-shadow: var(--shadow);
+    }
+    .error{ border-style: solid; border-color: rgba(239,68,68,.35); color: rgba(239,68,68,.9); }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .footer code{
+      font-family: var(--mono);
+      background: rgba(255,255,255,.07);
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    /* Tom Select theme tweaks */
+    .ts-control, .ts-dropdown{
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      background: rgba(255,255,255,.06) !important;
+      color: var(--text) !important;
+    }
+    .ts-control{ padding: 8px 10px !important; }
+    .ts-dropdown{ box-shadow: var(--shadow) !important; }
+    .ts-dropdown .option{ padding: 10px 10px !important; }
+    .ts-dropdown .active{ background: rgba(125,211,252,.16) !important; }
+    .ts-wrapper.multi .ts-control > div{
+      background: rgba(125,211,252,.18) !important;
+      border: 1px solid rgba(125,211,252,.25) !important;
+      color: var(--text) !important;
+      border-radius: 999px !important;
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 8px !important;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <div class="toprow">
+      <div class="title">
+        <div class="badge" aria-hidden="true"><i class="ti ti-books" style="font-size:20px;"></i></div>
+        <div>
+          <h1>Great Works Navigator</h1>
+          <p>Loads <span style="font-family:var(--mono)">project.json</span>, links to Wikipedia, and generates OpenAlex research searches.</p>
+        </div>
+      </div>
+
+      <div class="controls" aria-label="filters">
+        <div>
+          <label for="q">Search (title / author / keywords)</label>
+          <input id="q" type="text" placeholder="e.g., Plato, Republic, tragedy, ethics, Darwin…" autocomplete="off">
+        </div>
+
+        <div>
+          <label for="vol">Volume</label>
+          <select id="vol">
+            <option value="">All</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="author">Author</label>
+          <select id="author" placeholder="All"></select>
+        </div>
+
+        <div>
+          <label for="century">Century</label>
+          <select id="century">
+            <option value="">All</option>
+          </select>
+        </div>
+
+        <div class="btnrow">
+          <button id="reset" title="Clear filters">
+            <i class="ti ti-refresh"></i> Reset
+          </button>
+          <button id="export" class="primary" title="Export visible list as JSON">
+            <i class="ti ti-download"></i> Export
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="meta">
+    <div class="counts" id="counts">
+      <span class="pill">loading…</span>
+    </div>
+
+    <div class="counts">
+      <span class="pill" title="Wikipedia links are built from a best-effort title/author heuristic. You can override by adding wikipedia_url in project.json.">
+        Wiki: auto
+      </span>
+      <span class="pill" title="OpenAlex links are generated as searches; you can add openalex_* fields later if you want exact IDs.">
+        OpenAlex: searches
+      </span>
+    </div>
+  </div>
+
+  <div id="status" class="loading">Loading <code>project.json</code>…</div>
+  <div id="grid" class="grid" style="display:none;"></div>
+
+  <div class="footer">
+    <div><strong>Optional enhancements (no code changes needed):</strong></div>
+    <ul>
+      <li>Add <code>wikipedia_url</code> to an item to override auto Wikipedia linking.</li>
+      <li>Add <code>keywords</code> (array of strings) to boost OpenAlex searches and filtering.</li>
+      <li>Add <code>openalex_work_id</code> (like <code>W2741809807</code>) if you later want exact OpenAlex entity linking.</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+/**
+ * Great Works Navigator
+ * - Loads ./project.json (array of items with {title, author, vol, date, item})
+ * - Renders searchable/filterable cards
+ * - Creates Wikipedia link (heuristic) + OpenAlex search links
+ *
+ * Expected file: project.json in same folder as index.html
+ */
+
+(function(){
+  // ---------- Utilities ----------
+  const $ = (sel) => document.querySelector(sel);
+  const escapeHtml = (s) => (s ?? "").toString()
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const uniq = (arr) => Array.from(new Set(arr));
+  const toInt = (x) => {
+    const n = Number.parseInt(x, 10);
+    return Number.isFinite(n) ? n : null;
+  };
+
+  // Convert a year (can be negative BCE) to century label like "5th BCE" or "17th"
+  function centuryLabel(year){
+    if (year === null || year === undefined || !Number.isFinite(Number(year))) return "Unknown";
+    const y = Number(year);
+
+    // Example: -1..-100 is 1st BCE, -101..-200 is 2nd BCE, etc
+    // Example: 1..100 is 1st, 101..200 is 2nd, etc
+    const abs = Math.abs(y);
+    const c = Math.ceil(abs / 100) || 1;
+
+    const ord = (n) => {
+      const s = ["th","st","nd","rd"], v = n % 100;
+      return n + (s[(v-20)%10] || s[v] || s[0]);
+    };
+
+    return y < 0 ? `${ord(c)} BCE` : `${ord(c)}`;
+  }
+
+  function normalizeTitleForWiki(title){
+    // Wikipedia uses underscores; we can just use spaces and encodeURIComponent.
+    // We'll remove quotes and collapse whitespace.
+    return (title || "")
+      .replace(/[“”"]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  // If user supplies wikipedia_url, use that. Otherwise build:
+  // https://en.wikipedia.org/wiki/<Title> (best-effort)
+  function wikipediaUrl(item){
+    if (item && item.wikipedia_url) return item.wikipedia_url;
+    const t = normalizeTitleForWiki(item?.title);
+    if (!t) return null;
+
+    // For ambiguous titles like "Electra", appending author helps.
+    // Wikipedia often disambiguates with "(play)" etc, but we can't know reliably.
+    // We'll use a search link that always works, plus a direct guess link.
+    // We'll expose both to the user: direct + search.
+    return `https://en.wikipedia.org/wiki/${encodeURIComponent(t)}`;
+  }
+
+  function wikipediaSearchUrl(item){
+    const t = (item?.title || "").trim();
+    const a = (item?.author || "").toString().replace(/\s+/g, " ").trim();
+    const q = a ? `${t} ${a}` : t;
+    return `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`;
+  }
+
+  // Build a keyword string for searching in-app + OpenAlex.
+  // Uses title + author + optional keywords[] + a few derived tokens.
+  function buildKeywords(item){
+    const parts = [];
+    if (item?.title) parts.push(item.title);
+    if (item?.author) parts.push(item.author);
+    if (Array.isArray(item?.keywords)) parts.push(item.keywords.join(" "));
+    // also include volume and century as searchable terms
+    if (item?.vol !== null && item?.vol !== undefined) parts.push(`vol ${item.vol}`);
+    if (item?.date !== null && item?.date !== undefined) parts.push(centuryLabel(Number(item.date)));
+    return parts.join(" ").replace(/\s+/g, " ").trim();
+  }
+
+  // OpenAlex search links (works + citations) using title/author/keywords
+  // docs: https://docs.openalex.org/
+  function openAlexLinks(item){
+    const title = (item?.title || "").trim();
+    const author = (item?.author || "").toString().replace(/\s+/g, " ").trim();
+    const kw = Array.isArray(item?.keywords) ? item.keywords : [];
+    const year = toInt(item?.date);
+
+    // Query design:
+    // - Primary: title + author
+    // - Secondary: title + keywords
+    // - Optional filter: from_publication_date for modern works (year >= 1400)
+    // Note: OpenAlex is for scholarly works; many classics won't have direct "book" records.
+    // Still, searches can retrieve scholarship about them (critiques, citations, analyses).
+    const baseQuery = [title, author].filter(Boolean).join(" ").trim() || title;
+    const kwQuery = uniq([title, ...kw]).filter(Boolean).join(" ").trim();
+
+    // Slightly bias modern-ish filter; for ancient works it's not helpful.
+    const dateFilter = (Number.isFinite(year) && year >= 1400)
+      ? `&filter=from_publication_date:${year}-01-01,to_publication_date:${clamp(year+20, year, year+50)}-12-31`
+      : "";
+
+    // "Works" search:
+    const worksSearch = `https://openalex.org/works?search=${encodeURIComponent(baseQuery)}${dateFilter}`;
+
+    // Scholarship about the work/author/title:
+    // - Use a broader search without date filter and with keywords when present.
+    const scholarshipSearch = `https://openalex.org/works?search=${encodeURIComponent(kwQuery || baseQuery)}`;
+
+    // Citations: OpenAlex doesn’t offer a simple "citations search page" URL,
+    // but you can approximate by searching for the title and then exploring a work.
+    // We'll provide a "works search" and "concepts search" for topics/areas too.
+    const conceptsSearch = `https://openalex.org/concepts?search=${encodeURIComponent(title)}`;
+
+    // Authors search can help locate scholar pages if relevant:
+    const authorsSearch = author
+      ? `https://openalex.org/authors?search=${encodeURIComponent(author)}`
+      : `https://openalex.org/authors?search=${encodeURIComponent(title)}`;
+
+    // If user later adds openalex_work_id, we can deep link:
+    const exactWork = item?.openalex_work_id
+      ? `https://openalex.org/${encodeURIComponent(item.openalex_work_id)}`
+      : null;
+
+    return { worksSearch, scholarshipSearch, conceptsSearch, authorsSearch, exactWork };
+  }
+
+  // ---------- State ----------
+  let all = [];
+  let view = [];
+  let fuse = null;
+
+  // Filters
+  const state = {
+    q: "",
+    vol: "",
+    century: "",
+    authors: [] // multi-select
+  };
+
+  // TomSelect instance
+  let authorSelect = null;
+
+  // ---------- Rendering ----------
+  function renderCounts(){
+    const total = all.length;
+    const shown = view.length;
+    const vols = uniq(view.map(x => x.vol).filter(v => v !== null && v !== undefined)).length;
+
+    $("#counts").innerHTML = `
+      <span class="pill">items: ${shown} / ${total}</span>
+      <span class="pill">volumes in view: ${vols || 0}</span>
+      <span class="pill">sort: item#</span>
+    `;
+  }
+
+  function formatDate(year){
+    const y = toInt(year);
+    if (y === null) return "Unknown";
+    if (y < 0) return `${Math.abs(y)} BCE`;
+    return `${y} CE`;
+  }
+
+  function safeAuthor(a){
+    const s = (a ?? "").toString().trim();
+    return s.length ? s : "Unknown";
+  }
+
+  function cardHtml(item){
+    const title = escapeHtml(item.title || "Untitled");
+    const author = escapeHtml(safeAuthor(item.author));
+    const vol = item.vol ?? "—";
+    const date = formatDate(item.date);
+    const cent = centuryLabel(Number(item.date));
+
+    const wikiDirect = wikipediaUrl(item);
+    const wikiSearch = wikipediaSearchUrl(item);
+
+    const oax = openAlexLinks(item);
+
+    // Show short explanation so user knows what OpenAlex links do.
+    const explain = `OpenAlex is scholarly metadata (papers/books). These links search for criticism, scholarship, and related research about this work.`;
+
+    return `
+      <article class="card" data-item="${escapeHtml(item.item)}">
+        <h3>${title}</h3>
+        <p class="sub">${author}</p>
+        <div class="row">
+          <span class="tag">item ${escapeHtml(item.item)}</span>
+          <span class="tag">vol ${escapeHtml(vol)}</span>
+          <span class="tag">${escapeHtml(date)}</span>
+          <span class="tag">${escapeHtml(cent)}</span>
+        </div>
+
+        <div class="linkrow" role="group" aria-label="links">
+          ${wikiDirect ? `<a class="action" href="${wikiDirect}" target="_blank" rel="noopener">
+            <i class="ti ti-brand-wikipedia"></i> Wikipedia
+          </a>` : ""}
+
+          <a class="action" href="${wikiSearch}" target="_blank" rel="noopener" title="If the direct page is ambiguous, this search always works.">
+            <i class="ti ti-search"></i> Wiki Search
+          </a>
+
+          ${oax.exactWork ? `<a class="action" href="${oax.exactWork}" target="_blank" rel="noopener" title="Exact OpenAlex work ID (if provided).">
+            <i class="ti ti-link"></i> OpenAlex ID
+          </a>` : ""}
+
+          <a class="action" href="${oax.worksSearch}" target="_blank" rel="noopener" title="Search OpenAlex works for this title/author.">
+            <i class="ti ti-building-library"></i> OpenAlex Works
+          </a>
+
+          <a class="action" href="${oax.scholarshipSearch}" target="_blank" rel="noopener" title="Broader search: title + keywords (if any).">
+            <i class="ti ti-file-search"></i> Scholarship
+          </a>
+
+          <a class="action" href="${oax.conceptsSearch}" target="_blank" rel="noopener" title="Search OpenAlex concepts related to the title.">
+            <i class="ti ti-bulb"></i> Concepts
+          </a>
+
+          <a class="action" href="${oax.authorsSearch}" target="_blank" rel="noopener" title="Search OpenAlex authors; useful for scholarship and commentator trails.">
+            <i class="ti ti-users"></i> Authors
+          </a>
+        </div>
+
+        <div class="tiny">${escapeHtml(explain)}</div>
+      </article>
+    `;
+  }
+
+  function renderGrid(){
+    const grid = $("#grid");
+    grid.innerHTML = view.map(cardHtml).join("");
+    $("#status").style.display = "none";
+    grid.style.display = "grid";
+    renderCounts();
+  }
+
+  // ---------- Filtering / Search ----------
+  function applyFilters(){
+    const vol = state.vol;
+    const century = state.century;
+    const selectedAuthors = state.authors || [];
+
+    let filtered = all;
+
+    if (vol){
+      filtered = filtered.filter(x => String(x.vol ?? "") === String(vol));
+    }
+    if (century){
+      filtered = filtered.filter(x => centuryLabel(Number(x.date)) === century);
+    }
+    if (selectedAuthors.length){
+      const set = new Set(selectedAuthors);
+      filtered = filtered.filter(x => set.has(safeAuthor(x.author)));
+    }
+
+    // Search last (so it searches within filtered space)
+    const q = (state.q || "").trim();
+    if (q && fuse){
+      // Fuse search on all items, then intersect with current filtered
+      const results = fuse.search(q).map(r => r.item);
+      const ids = new Set(filtered.map(x => x.__id));
+      filtered = results.filter(x => ids.has(x.__id));
+    }
+
+    // stable order by item number if present; else title
+    filtered = filtered.slice().sort((a,b) => {
+      const ai = toInt(a.item), bi = toInt(b.item);
+      if (ai !== null && bi !== null) return ai - bi;
+      return String(a.title||"").localeCompare(String(b.title||""));
+    });
+
+    view = filtered;
+    renderGrid();
+  }
+
+  // ---------- Controls setup ----------
+  function populateVolOptions(){
+    const vols = uniq(all.map(x => x.vol).filter(v => v !== null && v !== undefined))
+      .sort((a,b) => Number(a) - Number(b));
+    const sel = $("#vol");
+    // keep "All"
+    sel.innerHTML = `<option value="">All</option>` + vols.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+  }
+
+  function populateCenturyOptions(){
+    const centuries = uniq(all.map(x => centuryLabel(Number(x.date))))
+      .sort((a,b) => {
+        // Sort BCE first by descending age, then CE ascending.
+        const parse = (s) => {
+          if (s === "Unknown") return { group: 2, n: 9999 };
+          const isB = s.includes("BCE");
+          const n = Number.parseInt(s, 10);
+          return { group: isB ? 0 : 1, n: isB ? -n : n };
+        };
+        const A = parse(a), B = parse(b);
+        if (A.group !== B.group) return A.group - B.group;
+        return A.n - B.n;
+      });
+
+    const sel = $("#century");
+    sel.innerHTML = `<option value="">All</option>` + centuries.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+  }
+
+  function setupAuthorSelect(){
+    const authors = uniq(all.map(x => safeAuthor(x.author))).sort((a,b) => a.localeCompare(b));
+    const select = $("#author");
+    select.innerHTML = authors.map(a => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
+
+    // tom-select multi
+    authorSelect = new TomSelect(select, {
+      plugins: ['remove_button', 'clear_button'],
+      maxItems: null,
+      hideSelected: true,
+      create: false,
+      persist: false,
+      placeholder: "All",
+      onChange: (values) => {
+        state.authors = Array.isArray(values) ? values : (values ? [values] : []);
+        applyFilters();
+      }
+    });
+  }
+
+  function setupFuse(){
+    fuse = new Fuse(all, {
+      includeScore: true,
+      threshold: 0.35,
+      ignoreLocation: true,
+      minMatchCharLength: 2,
+      keys: [
+        { name: "title", weight: 0.55 },
+        { name: "author", weight: 0.30 },
+        { name: "__kw", weight: 0.15 }
+      ]
+    });
+  }
+
+  function bindEvents(){
+    $("#q").addEventListener("input", (e) => {
+      state.q = e.target.value || "";
+      applyFilters();
+    });
+
+    $("#vol").addEventListener("change", (e) => {
+      state.vol = e.target.value || "";
+      applyFilters();
+    });
+
+    $("#century").addEventListener("change", (e) => {
+      state.century = e.target.value || "";
+      applyFilters();
+    });
+
+    $("#reset").addEventListener("click", () => {
+      state.q = "";
+      state.vol = "";
+      state.century = "";
+      state.authors = [];
+
+      $("#q").value = "";
+      $("#vol").value = "";
+      $("#century").value = "";
+
+      if (authorSelect){
+        authorSelect.clear(true);
+      }
+      applyFilters();
+    });
+
+    $("#export").addEventListener("click", () => {
+      const payload = view.map(({__id,__kw,...rest}) => rest);
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "visible-works.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 2500);
+    });
+  }
+
+  // ---------- Data load ----------
+  async function loadProjectJson(){
+    const status = $("#status");
+    status.className = "loading";
+    status.innerHTML = `Loading <code>project.json</code>…`;
+
+    try{
+      const res = await fetch("./project.json", { cache: "no-store" });
+      if (!res.ok) throw new Error(`HTTP ${res.status} while fetching project.json`);
+      const data = await res.json();
+
+      if (!Array.isArray(data)) throw new Error("project.json must be a JSON array of items");
+      // Normalize and attach internal fields
+      all = data.map((x, idx) => {
+        const item = { ...x };
+        item.__id = `${idx}-${x.item ?? ""}-${x.title ?? ""}`; // stable-ish
+        item.__kw = buildKeywords(item);
+        // normalize author string
+        if (item.author === null || item.author === undefined || String(item.author).trim() === "") {
+          item.author = null;
+        } else {
+          item.author = String(item.author).trim();
+        }
+        return item;
+      });
+
+      populateVolOptions();
+      populateCenturyOptions();
+      setupAuthorSelect();
+      setupFuse();
+      bindEvents();
+
+      view = all.slice().sort((a,b) => {
+        const ai = toInt(a.item), bi = toInt(b.item);
+        if (ai !== null && bi !== null) return ai - bi;
+        return String(a.title||"").localeCompare(String(b.title||""));
+      });
+
+      $("#status").style.display = "none";
+      $("#grid").style.display = "grid";
+      renderGrid();
+
+    } catch(err){
+      console.error(err);
+      status.className = "error";
+      status.innerHTML = `
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <i class="ti ti-alert-triangle" style="font-size:18px;margin-top:2px;"></i>
+          <div>
+            <div style="font-weight:800;margin-bottom:6px;">Could not load <code>project.json</code></div>
+            <div style="color:inherit;opacity:.9;">${escapeHtml(err.message || String(err))}</div>
+            <div style="margin-top:10px;color:inherit;opacity:.85;">
+              Make sure <code>index.html</code> and <code>project.json</code> are in the same folder, and you're serving them via a local server (not <code>file://</code>), e.g. VS Code Live Server.
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Run
+  window.addEventListener("DOMContentLoaded", loadProjectJson);
+})();
+</script>
+</body>
+</html>

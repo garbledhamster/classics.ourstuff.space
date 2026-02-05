@@ -186,21 +186,24 @@
     .btn:hover, .btnlink:hover{ transform: translate(-1px,-1px); }
     .btn:active, .btnlink:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
 
-    /* Plan layout */
+    /* ===== Plan layout: LEFT->RIGHT reading order ===== */
     .grid{
-      column-gap:16px;
-      columns: 2 420px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap:16px;
+      align-items:start;
     }
-    @media (max-width:980px){ .grid{ columns: 1 420px; } }
+    @media (max-width:460px){
+      .grid{ grid-template-columns: 1fr; }
+    }
 
     /* Year card */
     .yearCard{
-      break-inside: avoid;
       border:var(--border);
       border-radius:var(--radius);
       background:#fff;
       box-shadow:var(--shadow);
-      margin:0 0 16px 0;
+      margin:0;
       padding:12px;
     }
     .yearHeader{
@@ -387,18 +390,19 @@
       letter-spacing:0.05em;
     }
 
-    /* ===== Notes Drawer ===== */
-    .drawerOverlay{
+    /* ===== Drawer / Popout base ===== */
+    .overlay{
       position:fixed;
       inset:0;
       background: #00000055;
       display:none;
       z-index:50;
     }
+    .overlay.open{ display:block; }
+
     .drawer{
       position:fixed;
       top:0;
-      right:0;
       height:100%;
       width:min(520px, 94vw);
       background:#fff;
@@ -409,9 +413,9 @@
       z-index:60;
       display:flex;
       flex-direction:column;
+      right:0;
     }
     .drawer.open{ transform: translateX(0); }
-    .drawerOverlay.open{ display:block; }
 
     .drawerHeader{
       padding:12px;
@@ -437,6 +441,7 @@
       gap:12px;
     }
 
+    /* ===== Notes Drawer ===== */
     .noteTools{
       border:var(--border);
       box-shadow:var(--shadowSm);
@@ -527,6 +532,43 @@
       letter-spacing:0.05em;
       line-height:1.2;
     }
+
+    /* ===== OpenAlex Popout (left drawer style) ===== */
+    .oaDrawer{
+      left:0;
+      right:auto;
+      border-left:none;
+      border-right:var(--border);
+      box-shadow: 10px 0 0 #000;
+      transform: translateX(-105%);
+    }
+    .oaDrawer.open{ transform: translateX(0); }
+
+    .oaPreview{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      background:#fff;
+      padding:10px;
+      display:grid;
+      gap:8px;
+      word-break: break-word;
+    }
+    .tiny{
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      color:var(--muted);
+    }
+    .codebox{
+      border:var(--borderThin);
+      padding:8px;
+      background:#fff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:11px;
+      line-height:1.3;
+      white-space:pre-wrap;
+    }
   </style>
 </head>
 
@@ -591,6 +633,7 @@
         </label>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="btn" id="openOpenAlexBtn" type="button">OpenAlex Options</button>
           <button class="btn" id="expandAllBtn" type="button">Expand all</button>
           <button class="btn" id="collapseAllBtn" type="button">Collapse all</button>
           <button class="btn" id="resetChecksBtn" type="button">Reset checks</button>
@@ -604,18 +647,20 @@
 
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data file: <span class="mono">./reading.json</span></div>
-      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes)</div>
+      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex)</div>
     </footer>
   </div>
 
-  <!-- Notes Drawer -->
-  <div id="drawerOverlay" class="drawerOverlay" aria-hidden="true"></div>
-  <aside id="drawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
+  <!-- Shared overlay (used for either drawer) -->
+  <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+  <!-- Notes Drawer (right) -->
+  <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
     <div class="drawerHeader">
       <h2 class="drawerTitle">Notes</h2>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn" id="newNoteBtn" type="button">New note</button>
-        <button class="btn" id="closeDrawerBtn" type="button">Close</button>
+        <button class="btn" id="closeNotesBtn" type="button">Close</button>
       </div>
     </div>
 
@@ -690,12 +735,130 @@
     </div>
   </aside>
 
+  <!-- OpenAlex Options Popout (left) -->
+  <aside id="oaDrawer" class="drawer oaDrawer" aria-label="OpenAlex options" aria-hidden="true">
+    <div class="drawerHeader">
+      <h2 class="drawerTitle">OpenAlex Options</h2>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn" id="oaResetBtn" type="button">Reset</button>
+        <button class="btn" id="oaCloseBtn" type="button">Close</button>
+      </div>
+    </div>
+
+    <div class="drawerBody">
+      <section class="noteTools">
+        <div class="help">These settings apply when you click “OpenAlex” on any work card.</div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Filter target</div>
+            <select id="oaTarget" class="select">
+              <option value="title_and_abstract.search">Title + Abstract</option>
+              <option value="title.search">Title only</option>
+            </select>
+          </div>
+
+          <div class="control">
+            <div class="label">Work type</div>
+            <select id="oaType" class="select">
+              <option value="all">All</option>
+              <option value="journal-article">Journal article</option>
+              <option value="book">Book</option>
+              <option value="book-chapter">Book chapter</option>
+              <option value="proceedings-article">Proceedings article</option>
+              <option value="preprint">Preprint</option>
+              <option value="dissertation">Dissertation</option>
+              <option value="report">Report</option>
+              <option value="dataset">Dataset</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="noteToolsRow">
+          <label class="toggle" style="justify-content:flex-start;">
+            <input id="oaIsOa" type="checkbox" />
+            Open access only
+          </label>
+
+          <div class="control">
+            <div class="label">Language</div>
+            <select id="oaLang" class="select">
+              <option value="all">Any</option>
+              <option value="en">English</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+              <option value="es">Spanish</option>
+              <option value="it">Italian</option>
+              <option value="la">Latin</option>
+              <option value="grc">Ancient Greek</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">From year</div>
+            <input id="oaFromYear" class="input" type="number" min="1000" max="2100" placeholder="e.g., 1950" />
+          </div>
+          <div class="control">
+            <div class="label">To year</div>
+            <input id="oaToYear" class="input" type="number" min="1000" max="2100" placeholder="e.g., 2026" />
+          </div>
+        </div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Min citations</div>
+            <input id="oaMinCites" class="input" type="number" min="0" max="1000000" placeholder="e.g., 10" />
+          </div>
+          <div class="control">
+            <div class="label">Sort</div>
+            <select id="oaSort" class="select">
+              <option value="relevance">Relevance</option>
+              <option value="cited_by_count:desc">Citations ↓</option>
+              <option value="publication_date:desc">Newest ↓</option>
+              <option value="publication_date:asc">Oldest ↑</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Per page</div>
+            <select id="oaPerPage" class="select">
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+            </select>
+          </div>
+          <div class="control">
+            <div class="label">Test query</div>
+            <input id="oaTestQ" class="input" type="text" placeholder="e.g., Candide" />
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="oaTestBtn" type="button">Test OpenAlex</button>
+        </div>
+      </section>
+
+      <section class="oaPreview">
+        <div class="tiny">Preview URL (using test query)</div>
+        <div id="oaPreview" class="codebox"></div>
+        <div class="tiny">Format baseline:</div>
+        <div class="codebox">https://openalex.org/works?search=Candide&page=1&amp;filter=title_and_abstract.search:Candide</div>
+      </section>
+    </div>
+  </aside>
+
   <script>
     /* =========================================================
        STORAGE KEYS
        ========================================================= */
     const LS_CHECKS = "greatworks.reading.checks.v1";
     const LS_NOTES  = "greatworks.reading.notes.v1";
+    const LS_OA     = "greatworks.openalex.settings.v1";
 
     /* =========================================================
        HELPERS
@@ -727,7 +890,6 @@
     }
 
     function uid(){
-      // stable-enough local id
       return "n_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
     }
 
@@ -753,19 +915,93 @@
       localStorage.setItem(LS_NOTES, JSON.stringify(arr));
     }
 
+    function defaultOpenAlexSettings(){
+      return {
+        target: "title_and_abstract.search",
+        type: "all",
+        is_oa: false,
+        lang: "all",
+        from_year: "",
+        to_year: "",
+        min_cites: "",
+        sort: "relevance",
+        per_page: 25,
+        test_q: "Candide"
+      };
+    }
+
+    function loadOpenAlexSettings(){
+      const s = safeJsonParse(localStorage.getItem(LS_OA) || "null", null);
+      return { ...defaultOpenAlexSettings(), ...(s || {}) };
+    }
+    function saveOpenAlexSettings(s){
+      localStorage.setItem(LS_OA, JSON.stringify(s));
+    }
+
     function workKey({year, order, tier, author, title, selection, selections}){
-      // deterministic key per work occurrence in plan
       const sel = selection ? `|${selection}` : "";
       const sels = Array.isArray(selections) ? `|${selections.join(" / ")}` : "";
       return `y${year}|o${order}|${tier}|${author}|${title}${sel}${sels}`.toLowerCase();
     }
 
-    function humanWorkLine(w){
-      const t = w.title || "Untitled";
-      const parts = [];
-      if (w.selection) parts.push(w.selection);
-      if (Array.isArray(w.selections) && w.selections.length) parts.push(w.selections.join("; "));
-      return parts.length ? `${t} — ${parts.join(" | ")}` : t;
+    /* =========================================================
+       OPENALEX URL BUILDER
+       Uses user-provided baseline domain and pattern
+       ========================================================= */
+    function buildOpenAlexUrl({ title, author }){
+      const s = state.openalex;
+
+      const q = `${title} ${author}`.trim();
+      const page = 1;
+
+      const filterParts = [];
+      // Always apply the target filter to the title (this matches the example style)
+      filterParts.push(`${s.target}:${encodeURIComponent(title)}`);
+
+      if (s.type && s.type !== "all"){
+        filterParts.push(`type:${encodeURIComponent(s.type)}`);
+      }
+      if (s.is_oa){
+        filterParts.push(`is_oa:true`);
+      }
+      if (s.lang && s.lang !== "all"){
+        // OpenAlex uses language code on work records; filter key can be `language`
+        filterParts.push(`language:${encodeURIComponent(s.lang)}`);
+      }
+      const fromY = String(s.from_year || "").trim();
+      const toY = String(s.to_year || "").trim();
+      if (fromY){
+        // date-based filter is more widely supported than year range
+        filterParts.push(`from_publication_date:${encodeURIComponent(fromY)}-01-01`);
+      }
+      if (toY){
+        filterParts.push(`to_publication_date:${encodeURIComponent(toY)}-12-31`);
+      }
+      const minC = String(s.min_cites || "").trim();
+      if (minC){
+        // range operator encoded in value
+        filterParts.push(`cited_by_count:${encodeURIComponent(">" + minC)}`);
+      }
+
+      const params = new URLSearchParams();
+      params.set("search", q);
+      params.set("page", String(page));
+      params.set("per_page", String(s.per_page || 25));
+      if (s.sort && s.sort !== "relevance"){
+        params.set("sort", s.sort);
+      }
+      if (filterParts.length){
+        // OpenAlex expects comma-separated filters
+        params.set("filter", filterParts.join(","));
+      }
+
+      return `https://openalex.org/works?${params.toString()}`;
+    }
+
+    function buildOpenAlexPreviewUrl(){
+      const t = String(state.openalex.test_q || "Candide").trim() || "Candide";
+      // preview uses test query as "title" and no author
+      return buildOpenAlexUrl({ title: t, author: "" });
     }
 
     /* =========================================================
@@ -773,9 +1009,10 @@
        ========================================================= */
     const state = {
       plan: null,
-      flatWorks: [], // each: {year, order, tier, marker?, author, work:{title,selection,selections}, key, search}
+      flatWorks: [],
       checks: loadChecks(),
       notes: loadNotes(),
+      openalex: loadOpenAlexSettings(),
       filters: {
         q: "",
         year: "all",
@@ -784,15 +1021,18 @@
         onlyIncomplete: false
       },
       ui: {
-        expandedYears: new Set() // which year cards are expanded (details open)
+        expandedYears: new Set()
+      },
+      drawer: {
+        open: false,
+        which: null // "notes" | "openalex"
       },
       notesUI: {
-        open: false,
         search: "",
         tag: "all",
         editingId: null
       },
-      tagsUniverse: [] // list of unique work titles (for note tagging)
+      tagsUniverse: []
     };
 
     /* =========================================================
@@ -816,6 +1056,13 @@
         fillYearOptions();
         buildTagsUniverse();
         wireUI();
+
+        // Default expanded: Year 1 open
+        state.ui.expandedYears.add(1);
+
+        syncOpenAlexUIFromState();
+        updateOpenAlexPreview();
+
         renderAll();
       } catch(err){
         setError(`LOAD ERROR: ${err.message}`);
@@ -858,16 +1105,11 @@
       }
       state.flatWorks = flat;
 
-      // Count badge
       $("#countBadge").textContent = `${flat.length} works`;
-
-      // Default expanded: Year 1 open
-      state.ui.expandedYears.add(1);
     }
 
     function fillYearOptions(){
       const sel = $("#yearSel");
-      // remove existing year options except "All"
       while (sel.options.length > 1) sel.remove(1);
       const years = (state.plan.years || []).map(y=>Number(y.year)).filter(n=>Number.isFinite(n)).sort((a,b)=>a-b);
       for (const y of years){
@@ -879,7 +1121,6 @@
     }
 
     function buildTagsUniverse(){
-      // For notes "book tag": use unique work titles appearing in the plan
       const set = new Set();
       for (const fw of state.flatWorks){
         const t = fw.work.title;
@@ -887,13 +1128,12 @@
       }
       state.tagsUniverse = Array.from(set).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:"base" }));
 
-      // Fill note filter dropdown
-      const filterSel = $("#noteTagFilter");
-      filterSel.innerHTML = `<option value="all">All</option>` + state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+      $("#noteTagFilter").innerHTML =
+        `<option value="all">All</option>` +
+        state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
 
-      // Fill editor dropdown
-      const editSel = $("#editBookTag");
-      editSel.innerHTML = state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+      $("#editBookTag").innerHTML =
+        state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
     }
 
     /* =========================================================
@@ -909,20 +1149,16 @@
         const y = Number(f.year);
         items = items.filter(x => x.year === y);
       }
-
       if (f.tier !== "all"){
         items = items.filter(x => x.tier === f.tier);
       }
-
       if (q){
         items = items.filter(x => x.search.includes(q));
       }
-
       if (f.onlyIncomplete){
         items = items.filter(x => !state.checks[x.key]);
       }
 
-      // Sorting
       if (f.sort === "plan"){
         items.sort((a,b)=> a.year-b.year || a.order-b.order || a.work.title.localeCompare(b.work.title));
       } else if (f.sort === "author"){
@@ -962,7 +1198,6 @@
     function updateProgressBadge(){
       const { total, done, pct } = computeProgress();
       $("#progressBadge").textContent = `Progress: ${pct}%`;
-      // also update count badge to show done/total
       $("#countBadge").textContent = `${done}/${total} works`;
     }
 
@@ -972,7 +1207,11 @@
     function renderAll(){
       updateProgressBadge();
       renderPlan();
-      renderNotesList();
+      if (state.drawer.open && state.drawer.which === "notes"){
+        renderNotesList();
+      }
+      // OpenAlex drawer preview stays live
+      updateOpenAlexPreview();
     }
 
     function renderPlan(){
@@ -994,13 +1233,10 @@
       }
 
       grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
-
-      // wire per-card events after injection
       wirePlanDelegation();
     }
 
     function yearCardHtml(year, items){
-      // year progress among items shown (not entire year)
       const total = items.length;
       const done = items.reduce((acc,x)=> acc + (state.checks[x.key] ? 1 : 0), 0);
       const pct = total ? Math.round((done/total)*100) : 0;
@@ -1008,7 +1244,6 @@
       const open = state.ui.expandedYears.has(year);
       const barW = pct;
 
-      // group items by reading block (order + author + tier + marker)
       const blocks = new Map();
       for (const it of items){
         const blockKey = `${it.order}|${it.tier}|${it.marker||""}|${it.author}`;
@@ -1074,7 +1309,6 @@
       const sels = Array.isArray(w.work.selections) && w.work.selections.length ? `Selections: ${w.work.selections.join("; ")}` : "";
       const subLines = [sel, sels].filter(Boolean);
 
-      // count notes for this title
       const noteCount = state.notes.filter(n => n.book_tag === title).length;
 
       return `
@@ -1104,6 +1338,7 @@
           </div>
 
           <div class="workActions">
+            <button class="btn" type="button" data-action="openOpenAlex">OpenAlex</button>
             <button class="btn" type="button" data-action="newNoteFromWork">New note</button>
             <button class="btn" type="button" data-action="openNotesForBook">Open notes</button>
           </div>
@@ -1112,7 +1347,7 @@
     }
 
     /* =========================================================
-       UI WIRING: MAIN CONTROLS
+       UI WIRING
        ========================================================= */
     function wireUI(){
       $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderAll(); });
@@ -1137,11 +1372,21 @@
         renderAll();
       });
 
-      // Notes drawer buttons
-      $("#openNotesBtn").addEventListener("click", () => openDrawer());
-      $("#closeDrawerBtn").addEventListener("click", () => closeDrawer());
-      $("#drawerOverlay").addEventListener("click", () => closeDrawer());
-      document.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && state.notesUI.open) closeDrawer(); });
+      // Drawer open buttons
+      $("#openNotesBtn").addEventListener("click", () => openDrawer("notes"));
+      $("#openOpenAlexBtn").addEventListener("click", () => openDrawer("openalex"));
+
+      // Drawer close buttons
+      $("#closeNotesBtn").addEventListener("click", () => closeDrawer());
+      $("#oaCloseBtn").addEventListener("click", () => closeDrawer());
+
+      // Overlay click closes
+      $("#overlay").addEventListener("click", () => closeDrawer());
+
+      // Escape closes
+      document.addEventListener("keydown", (e)=>{
+        if (e.key === "Escape" && state.drawer.open) closeDrawer();
+      });
 
       // Notes tools
       $("#noteSearch").addEventListener("input", (e)=>{ state.notesUI.search = e.target.value; renderNotesList(); });
@@ -1152,15 +1397,101 @@
       $("#importNotesBtn").addEventListener("click", ()=> $("#importFile").click());
       $("#importFile").addEventListener("change", importNotesFile);
 
-      // Editor actions
       $("#saveNoteBtn").addEventListener("click", saveEditorNote);
       $("#deleteNoteBtn").addEventListener("click", deleteEditorNote);
       $("#cancelEditBtn").addEventListener("click", () => hideEditor());
+
+      // OpenAlex tools
+      $("#oaResetBtn").addEventListener("click", () => {
+        if (!confirm("Reset OpenAlex options to defaults?")) return;
+        state.openalex = defaultOpenAlexSettings();
+        saveOpenAlexSettings(state.openalex);
+        syncOpenAlexUIFromState();
+        updateOpenAlexPreview();
+      });
+
+      $("#oaTarget").addEventListener("change", (e)=>{ state.openalex.target = e.target.value; persistOA(); });
+      $("#oaType").addEventListener("change", (e)=>{ state.openalex.type = e.target.value; persistOA(); });
+      $("#oaIsOa").addEventListener("change", (e)=>{ state.openalex.is_oa = e.target.checked; persistOA(); });
+      $("#oaLang").addEventListener("change", (e)=>{ state.openalex.lang = e.target.value; persistOA(); });
+      $("#oaFromYear").addEventListener("input", (e)=>{ state.openalex.from_year = e.target.value; persistOA(false); });
+      $("#oaToYear").addEventListener("input", (e)=>{ state.openalex.to_year = e.target.value; persistOA(false); });
+      $("#oaMinCites").addEventListener("input", (e)=>{ state.openalex.min_cites = e.target.value; persistOA(false); });
+      $("#oaSort").addEventListener("change", (e)=>{ state.openalex.sort = e.target.value; persistOA(); });
+      $("#oaPerPage").addEventListener("change", (e)=>{ state.openalex.per_page = Number(e.target.value); persistOA(); });
+      $("#oaTestQ").addEventListener("input", (e)=>{ state.openalex.test_q = e.target.value; persistOA(false); });
+
+      $("#oaTestBtn").addEventListener("click", () => {
+        const url = buildOpenAlexPreviewUrl();
+        window.open(url, "_blank", "noopener,noreferrer");
+      });
+    }
+
+    function persistOA(updatePreview=true){
+      saveOpenAlexSettings(state.openalex);
+      if (updatePreview) updateOpenAlexPreview();
+      else $("#oaPreview").textContent = buildOpenAlexPreviewUrl();
+    }
+
+    function openDrawer(which){
+      state.drawer.open = true;
+      state.drawer.which = which;
+
+      $("#overlay").classList.add("open");
+      $("#overlay").setAttribute("aria-hidden", "false");
+
+      if (which === "notes"){
+        $("#notesDrawer").classList.add("open");
+        $("#notesDrawer").setAttribute("aria-hidden", "false");
+        $("#oaDrawer").classList.remove("open");
+        $("#oaDrawer").setAttribute("aria-hidden", "true");
+        renderNotesList();
+      } else {
+        $("#oaDrawer").classList.add("open");
+        $("#oaDrawer").setAttribute("aria-hidden", "false");
+        $("#notesDrawer").classList.remove("open");
+        $("#notesDrawer").setAttribute("aria-hidden", "true");
+        hideEditor();
+        updateOpenAlexPreview();
+      }
+    }
+
+    function closeDrawer(){
+      state.drawer.open = false;
+      state.drawer.which = null;
+
+      $("#overlay").classList.remove("open");
+      $("#overlay").setAttribute("aria-hidden", "true");
+
+      $("#notesDrawer").classList.remove("open");
+      $("#notesDrawer").setAttribute("aria-hidden", "true");
+
+      $("#oaDrawer").classList.remove("open");
+      $("#oaDrawer").setAttribute("aria-hidden", "true");
+
+      hideEditor();
+    }
+
+    function syncOpenAlexUIFromState(){
+      $("#oaTarget").value = state.openalex.target;
+      $("#oaType").value = state.openalex.type;
+      $("#oaIsOa").checked = !!state.openalex.is_oa;
+      $("#oaLang").value = state.openalex.lang;
+      $("#oaFromYear").value = state.openalex.from_year || "";
+      $("#oaToYear").value = state.openalex.to_year || "";
+      $("#oaMinCites").value = state.openalex.min_cites || "";
+      $("#oaSort").value = state.openalex.sort;
+      $("#oaPerPage").value = String(state.openalex.per_page || 25);
+      $("#oaTestQ").value = state.openalex.test_q || "Candide";
+    }
+
+    function updateOpenAlexPreview(){
+      $("#oaPreview").textContent = buildOpenAlexPreviewUrl();
     }
 
     function wirePlanDelegation(){
       const grid = $("#grid");
-      // Avoid stacking multiple listeners by resetting handler each render
+
       grid.onclick = (e) => {
         const btn = e.target.closest("[data-action]");
         if (!btn) return;
@@ -1180,16 +1511,25 @@
           return;
         }
 
+        const row = btn.closest(".workRow");
+        if (!row) return;
+
+        if (action === "openOpenAlex"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const url = buildOpenAlexUrl({ title, author });
+          window.open(url, "_blank", "noopener,noreferrer");
+          return;
+        }
+
         if (action === "newNoteFromWork" || action === "openNotesForBook"){
-          const row = btn.closest(".workRow");
-          if (!row) return;
           const ctx = getWorkContextFromRow(row);
 
           if (action === "newNoteFromWork"){
-            openDrawer();
+            openDrawer("notes");
             startNewNote(ctx);
           } else {
-            openDrawer();
+            openDrawer("notes");
             state.notesUI.tag = ctx.book_tag;
             $("#noteTagFilter").value = ctx.book_tag;
             renderNotesList();
@@ -1206,12 +1546,9 @@
         state.checks[key] = cb.checked;
         saveChecks(state.checks);
         updateProgressBadge();
-
-        // update notes count pill quickly by rerendering just this year card? simplest full render:
         renderPlan();
       };
 
-      // Track details expand/collapse to remember expanded years
       grid.ontoggle = (e) => {
         const details = e.target;
         if (!details || !details.classList.contains("yearDetails")) return;
@@ -1237,26 +1574,8 @@
     }
 
     /* =========================================================
-       NOTES DRAWER
+       NOTES
        ========================================================= */
-    function openDrawer(){
-      state.notesUI.open = true;
-      $("#drawer").classList.add("open");
-      $("#drawerOverlay").classList.add("open");
-      $("#drawer").setAttribute("aria-hidden", "false");
-      $("#drawerOverlay").setAttribute("aria-hidden", "false");
-      renderNotesList();
-    }
-
-    function closeDrawer(){
-      state.notesUI.open = false;
-      $("#drawer").classList.remove("open");
-      $("#drawerOverlay").classList.remove("open");
-      $("#drawer").setAttribute("aria-hidden", "true");
-      $("#drawerOverlay").setAttribute("aria-hidden", "true");
-      hideEditor();
-    }
-
     function filteredNotes(){
       const q = normalizeText(state.notesUI.search);
       const tag = state.notesUI.tag;
@@ -1266,21 +1585,17 @@
       if (tag !== "all"){
         notes = notes.filter(n => n.book_tag === tag);
       }
-
       if (q){
         notes = notes.filter(n => {
           const hay = normalizeText(`${n.title} ${n.body} ${n.book_tag} ${n.author} ${n.selection}`);
           return hay.includes(q);
         });
       }
-
-      // newest first
       notes.sort((a,b)=> (b.updated_at || "").localeCompare(a.updated_at || ""));
       return notes;
     }
 
     function renderNotesList(){
-      // Sync dropdown UI for tag filter
       const tagSel = $("#noteTagFilter");
       if (tagSel && tagSel.value !== state.notesUI.tag) tagSel.value = state.notesUI.tag;
 
@@ -1301,7 +1616,6 @@
         list.innerHTML = notes.map(n => noteItemHtml(n)).join("");
       }
 
-      // note click -> edit
       list.onclick = (e) => {
         const item = e.target.closest("[data-noteid]");
         if (!item) return;
@@ -1337,9 +1651,6 @@
       `;
     }
 
-    /* =========================================================
-       NOTE EDITOR
-       ========================================================= */
     function showEditor(){
       $("#noteEditor").style.display = "grid";
       $("#noteList").style.display = "none";
@@ -1351,11 +1662,9 @@
     }
 
     function startNewNote(ctx){
-      // ctx: {book_tag, author, year, selection}
       const id = uid();
       state.notesUI.editingId = id;
 
-      // Pre-fill
       $("#editTitle").value = ctx.book_tag ? `${ctx.book_tag} — ` : "";
       $("#editBookTag").value = ctx.book_tag && state.tagsUniverse.includes(ctx.book_tag) ? ctx.book_tag : (state.tagsUniverse[0] || "");
       $("#editYear").value = ctx.year ? String(ctx.year) : "";
@@ -1427,7 +1736,6 @@
 
       saveNotes(state.notes);
 
-      // Keep filter aligned to saved tag if user is filtering
       if (state.notesUI.tag !== "all" && state.notesUI.tag !== book_tag){
         state.notesUI.tag = book_tag;
         $("#noteTagFilter").value = book_tag;
@@ -1435,8 +1743,6 @@
 
       renderNotesList();
       hideEditor();
-
-      // Update plan pills showing note counts
       renderPlan();
     }
 
@@ -1453,14 +1759,8 @@
       renderPlan();
     }
 
-    /* =========================================================
-       NOTES IMPORT/EXPORT
-       ========================================================= */
     function exportNotes(){
-      const payload = {
-        exported_at: nowIso(),
-        notes: state.notes
-      };
+      const payload = { exported_at: nowIso(), notes: state.notes };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
       const url = URL.createObjectURL(blob);
 
@@ -1487,7 +1787,6 @@
         else if (parsed && Array.isArray(parsed.notes)) notesIn = parsed.notes;
         else throw new Error("Import must be an array of notes, or { notes: [...] }");
 
-        // Normalize / de-dupe by id
         const existing = new Map(state.notes.map(n => [n.id, n]));
         for (const n of notesIn){
           if (!n || !n.id) continue;
@@ -1507,7 +1806,6 @@
         state.notes = Array.from(existing.values()).sort((a,b)=> (b.updated_at||"").localeCompare(a.updated_at||""));
         saveNotes(state.notes);
 
-        // Reset file input
         $("#importFile").value = "";
 
         renderAll();

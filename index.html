@@ -1863,20 +1863,17 @@
       if (!bundle || bundle.isDefault) return;
       
       const idx = bundle.years?.findIndex(y => Number(y.year) === pageNum);
-      if (idx !== undefined && idx >= 0){
+      if (idx >= 0){
         bundle.years.splice(idx, 1);
         saveBundles(state.bundles);
         
         // Navigate to a valid page after deletion
         const remainingPages = bundle.years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
         if (remainingPages.length > 0){
-          // Go to the previous page if it exists, otherwise go to the first page
-          const currentIdx = remainingPages.findIndex(p => p >= pageNum);
-          if (currentIdx > 0){
-            state.filters.bundleYear = String(remainingPages[currentIdx - 1]);
-          } else {
-            state.filters.bundleYear = String(remainingPages[0]);
-          }
+          // Try to navigate to a page close to the deleted one
+          // Find the first page that is less than the deleted page, or use the first page
+          const prevPage = remainingPages.filter(p => p < pageNum).pop();
+          state.filters.bundleYear = String(prevPage || remainingPages[0]);
         } else {
           // No pages left, default to page 1
           state.filters.bundleYear = "1";

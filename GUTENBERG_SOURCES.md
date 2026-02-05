@@ -262,7 +262,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 240 | L'Allegro | John Milton | 32 | 1645 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 241 | Il Penseroso | John Milton | 32 | 1646 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 242 | Arcades | John Milton | 32 | 1634 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
-| ✅ | 243 | Lycida | John Milton | 32 | 1638 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
+| ✅ | 243 | Lycidas | John Milton | 32 | 1638 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 244 | Comus | John Milton | 32 | 1634 | 58 | [Link](https://www.gutenberg.org/ebooks/58) |
 | ✅ | 245 | On the Death of a Fair Infant | John Milton | 32 | 1628 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |
 | ✅ | 246 | At a Vacation Exercise | John Milton | 32 | 1631 | 1745 | [Link](https://www.gutenberg.org/ebooks/1745) |

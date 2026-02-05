@@ -41,7 +41,7 @@
           "works": [
             {
               "title": "Republic",
-              "selection": "Book I\u2013II",
+              "selection": "Book I–II",
               "sourceUrl": "https://www.gutenberg.org/ebooks/1497"
             }
           ]
@@ -104,7 +104,7 @@
           "works": [
             {
               "title": "Confessions",
-              "selection": "Book I\u2013VIII",
+              "selection": "Book I–VIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/3296"
             }
           ]
@@ -127,7 +127,7 @@
           "works": [
             {
               "title": "Gargantua and Pantagruel",
-              "selection": "Book I\u2013II"
+              "selection": "Book I–II"
             }
           ]
         },
@@ -180,7 +180,7 @@
           "works": [
             {
               "title": "The Social Contract",
-              "selection": "Book I\u2013II",
+              "selection": "Book I–II",
               "sourceUrl": "https://www.gutenberg.org/ebooks/46333"
             }
           ]
@@ -192,7 +192,7 @@
           "works": [
             {
               "title": "The Decline and Fall of the Roman Empire",
-              "selection": "Ch. 15\u201316"
+              "selection": "Ch. 15–16"
             }
           ]
         },
@@ -211,7 +211,7 @@
             },
             {
               "title": "The Federalist",
-              "selection": "Numbers 1\u201310, 15, 31, 47, 51, 68\u201371",
+              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71",
               "sourceUrl": "https://www.gutenberg.org/ebooks/1404"
             }
           ]
@@ -223,7 +223,7 @@
           "works": [
             {
               "title": "The Wealth of Nations",
-              "selection": "Introduction\u2014Book I, Ch. 9",
+              "selection": "Introduction—Book I, Ch. 9",
               "sourceUrl": "https://www.gutenberg.org/ebooks/3300"
             }
           ]
@@ -246,7 +246,7 @@
           "works": [
             {
               "title": "Democracy in America",
-              "selection": "Vol. 1, Part II, Ch. 6\u20138"
+              "selection": "Vol. 1, Part II, Ch. 6–8"
             }
           ]
         },
@@ -265,7 +265,7 @@
           "order": 21,
           "tier": "supplemental",
           "marker": "**",
-          "author": "Schr\u00f6dinger",
+          "author": "Schrödinger",
           "works": [
             {
               "title": "What Is Life?"
@@ -329,7 +329,7 @@
           "works": [
             {
               "title": "The History",
-              "selection": "Book I\u2013II",
+              "selection": "Book I–II",
               "sourceUrl": "https://www.gutenberg.org/ebooks/2707"
             }
           ]
@@ -363,7 +363,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book II; Book III, Ch. 5\u201312; Book VI, Ch. 8\u201313",
+              "selection": "Book II; Book III, Ch. 5–12; Book VI, Ch. 8–13",
               "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
             }
           ]
@@ -385,7 +385,7 @@
           "works": [
             {
               "title": "On the Nature of Things",
-              "selection": "Book I\u2013IV",
+              "selection": "Book I–IV",
               "sourceUrl": "https://www.gutenberg.org/ebooks/785"
             }
           ]
@@ -430,8 +430,8 @@
           "author": "Pascal",
           "works": [
             {
-              "title": "Pens\u00e9es",
-              "selection": "Numbers 72, 82\u201383, 100, 128, 131, 139, 142\u2013143, 171, 194\u2013195, 219, 229, 233\u2013234, 242, 273, 277, 282, 289, 298, 303, 320, 323, 325, 330\u2013331, 374, 385, 392, 395\u2013397, 409, 412\u2013413, 416, 418, 425, 430, 434\u2013435, 463, 491, 525\u2013531, 538, 543, 547, 553, 556, 564, 571, 586, 598, 607\u2013610, 613, 619\u2013620, 631, 640, 644, 673, 675, 684, 692\u2013693, 737, 760, 768, 792\u2013793"
+              "title": "Pensées",
+              "selection": "Numbers 72, 82–83, 100, 128, 131, 139, 142–143, 171, 194–195, 219, 229, 233–234, 242, 273, 277, 282, 289, 298, 303, 320, 323, 325, 330–331, 374, 385, 392, 395–397, 409, 412–413, 416, 418, 425, 430, 434–435, 463, 491, 525–531, 538, 543, 547, 553, 556, 564, 571, 586, 598, 607–610, 613, 619–620, 631, 640, 644, 673, 675, 684, 692–693, 737, 760, 768, 792–793"
             }
           ]
         },
@@ -451,7 +451,7 @@
           "author": "Swift",
           "works": [
             {
-              "title": "Gulliver\u2019s Travels"
+              "title": "Gulliver’s Travels"
             }
           ]
         },
@@ -520,7 +520,7 @@
           "works": [
             {
               "title": "Science and the Modern World",
-              "selection": "Ch. I\u2013VI"
+              "selection": "Ch. I–VI"
             }
           ]
         }
@@ -547,7 +547,7 @@
           "works": [
             {
               "title": "The History",
-              "selection": "Book VII\u2013IX",
+              "selection": "Book VII–IX",
               "sourceUrl": "https://www.gutenberg.org/ebooks/2707"
             }
           ]
@@ -559,7 +559,7 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
-              "selection": "Book I\u2013II, V"
+              "selection": "Book I–II, V"
             }
           ]
         },
@@ -581,7 +581,7 @@
           "works": [
             {
               "title": "On Interpretation",
-              "selection": "Ch. 1\u201310",
+              "selection": "Ch. 1–10",
               "sourceUrl": "https://classics.mit.edu/Aristotle/interpretation.html"
             }
           ]
@@ -593,7 +593,7 @@
           "works": [
             {
               "title": "Politics",
-              "selection": "Book III\u2013V",
+              "selection": "Book III–V",
               "sourceUrl": "https://www.gutenberg.org/ebooks/6762"
             }
           ]
@@ -628,7 +628,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I\u2013II, QQ 90\u201397",
+              "selection": "Part I–II, QQ 90–97",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -673,7 +673,7 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
-              "selection": "Book III, Ch. 1\u20133, 9\u201311",
+              "selection": "Book III, Ch. 1–3, 9–11",
               "sourceUrl": "https://www.gutenberg.org/ebooks/10615"
             }
           ]
@@ -695,7 +695,7 @@
           "works": [
             {
               "title": "Considerations on Representative Government",
-              "selection": "Ch. 1\u20136"
+              "selection": "Ch. 1–6"
             }
           ]
         },
@@ -717,7 +717,7 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
-              "selection": "Part I\u2013II",
+              "selection": "Part I–II",
               "sourceUrl": "https://www.gutenberg.org/ebooks/28054"
             }
           ]
@@ -748,7 +748,7 @@
           "order": 20,
           "tier": "supplemental",
           "marker": "**",
-          "author": "L\u00e9vi-Strauss",
+          "author": "Lévi-Strauss",
           "works": [
             {
               "title": "Structural Anthropology",
@@ -760,11 +760,11 @@
           "order": 21,
           "tier": "supplemental",
           "marker": "**",
-          "author": "Poincar\u00e9",
+          "author": "Poincaré",
           "works": [
             {
               "title": "Science and Hypothesis",
-              "selection": "Part I\u2013II"
+              "selection": "Part I–II"
             }
           ]
         }
@@ -802,7 +802,7 @@
           "works": [
             {
               "title": "Republic",
-              "selection": "Book VI\u2013VII",
+              "selection": "Book VI–VII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/1497"
             }
           ]
@@ -825,7 +825,7 @@
           "works": [
             {
               "title": "Physics",
-              "selection": "Book IV, Ch. 1\u20135, 10\u201314",
+              "selection": "Book IV, Ch. 1–5, 10–14",
               "sourceUrl": "https://classics.mit.edu/Aristotle/physics.html"
             }
           ]
@@ -837,7 +837,7 @@
           "works": [
             {
               "title": "Metaphysics",
-              "selection": "Book I, Ch. 1\u20132; Book IV; Book VI, Ch. 1; Book XI, Ch. 1\u20134",
+              "selection": "Book I, Ch. 1–2; Book IV; Book VI, Ch. 1; Book XI, Ch. 1–4",
               "sourceUrl": "https://classics.mit.edu/Aristotle/metaphysics.html"
             }
           ]
@@ -849,7 +849,7 @@
           "works": [
             {
               "title": "Confessions",
-              "selection": "Book IX\u2013XIII",
+              "selection": "Book IX–XIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/3296"
             }
           ]
@@ -861,7 +861,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 16\u201317, 84\u201388",
+              "selection": "Part I, QQ 16–17, 84–88",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -974,7 +974,7 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
-              "selection": "Part III\u2013IV",
+              "selection": "Part III–IV",
               "sourceUrl": "https://www.gutenberg.org/ebooks/28054"
             }
           ]
@@ -1023,7 +1023,7 @@
           "works": [
             {
               "title": "Physics and Philosophy",
-              "selection": "Ch. 1\u20136"
+              "selection": "Ch. 1–6"
             }
           ]
         }
@@ -1061,7 +1061,7 @@
           "works": [
             {
               "title": "On the Soul",
-              "selection": "Book II, Ch. 1\u20133; Book III",
+              "selection": "Book II, Ch. 1–3; Book III",
               "sourceUrl": "https://classics.mit.edu/Aristotle/soul.html"
             }
           ]
@@ -1075,22 +1075,27 @@
               "title": "The Oath"
             },
             {
-              "title": "On Ancient Medicine"
+              "title": "On Ancient Medicine",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
             },
             {
               "title": "On Airs, Waters, and Places"
             },
             {
-              "title": "The Book of Prognostics"
+              "title": "The Book of Prognostics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
             },
             {
-              "title": "Of the Epidemics"
+              "title": "Of the Epidemics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
             },
             {
-              "title": "The Law"
+              "title": "The Law",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
             },
             {
-              "title": "On the Sacred Disease"
+              "title": "On the Sacred Disease",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
             }
           ]
         },
@@ -1100,7 +1105,8 @@
           "author": "Galen",
           "works": [
             {
-              "title": "On the Natural Faculties"
+              "title": "On the Natural Faculties",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/31577"
             }
           ]
         },
@@ -1110,7 +1116,8 @@
           "author": "Virgil",
           "works": [
             {
-              "title": "The Aeneid"
+              "title": "The Aeneid",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/228"
             }
           ]
         },
@@ -1121,7 +1128,7 @@
           "works": [
             {
               "title": "Almagest",
-              "selection": "Book I, Ch. 1\u20138"
+              "selection": "Book I, Ch. 1–8"
             }
           ]
         },
@@ -1132,7 +1139,7 @@
           "works": [
             {
               "title": "On the Revolutions of Heavenly Spheres",
-              "selection": "Introduction\u2014Book I, Ch. 11"
+              "selection": "Introduction—Book I, Ch. 11"
             }
           ]
         },
@@ -1143,7 +1150,7 @@
           "works": [
             {
               "title": "Epitome of Copernican Astronomy",
-              "selection": "Book IV, Part II, Ch. 1\u20132"
+              "selection": "Book IV, Part II, Ch. 1–2"
             }
           ]
         },
@@ -1164,7 +1171,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 75\u201376, 78\u201379",
+              "selection": "Part I, QQ 75–76, 78–79",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -1244,7 +1251,7 @@
           "works": [
             {
               "title": "The Origin of Species",
-              "selection": "Introduction\u2014Ch. 6, Ch. 15",
+              "selection": "Introduction—Ch. 6, Ch. 15",
               "sourceUrl": "https://www.gutenberg.org/ebooks/22764"
             }
           ]
@@ -1256,7 +1263,7 @@
           "works": [
             {
               "title": "War and Peace",
-              "selection": "Book I\u2013VIII",
+              "selection": "Book I–VIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/2600"
             }
           ]
@@ -1394,7 +1401,7 @@
           "works": [
             {
               "title": "The City of God",
-              "selection": "Book XV\u2013XVIII",
+              "selection": "Book XV–XVIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/45304"
             }
           ]
@@ -1406,7 +1413,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 1\u201313",
+              "selection": "Part I, QQ 1–13",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -1497,7 +1504,7 @@
           "works": [
             {
               "title": "The Decline and Fall of the Roman Empire",
-              "selection": "Ch. 1\u20135; General Observations on the Fall of the Roman Empire in the West"
+              "selection": "Ch. 1–5; General Observations on the Fall of the Roman Empire in the West"
             }
           ]
         },
@@ -1532,7 +1539,7 @@
           "works": [
             {
               "title": "War and Peace",
-              "selection": "Book IX\u2013XV; Epilogues",
+              "selection": "Book IX–XV; Epilogues",
               "sourceUrl": "https://www.gutenberg.org/ebooks/2600"
             }
           ]
@@ -1556,7 +1563,7 @@
           "works": [
             {
               "title": "The Waning of the Middle Ages",
-              "selection": "I\u2013X"
+              "selection": "I–X"
             }
           ]
         },
@@ -1624,7 +1631,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book VIII\u2013X",
+              "selection": "Book VIII–X",
               "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
             }
           ]
@@ -1635,18 +1642,21 @@
           "author": "Archimedes",
           "works": [
             {
-              "title": "Measurement of a Circle"
+              "title": "Measurement of a Circle",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
             },
             {
               "title": "On the Equilibrium of Planes",
-              "selection": "Book I"
+              "selection": "Book I",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
             },
             {
               "title": "The Sand-Reckoner"
             },
             {
               "title": "On Floating Bodies",
-              "selection": "Book I"
+              "selection": "Book I",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
             }
           ]
         },
@@ -1678,7 +1688,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I\u2013II, QQ 1\u20135",
+              "selection": "Part I–II, QQ 1–5",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -1702,7 +1712,7 @@
           "works": [
             {
               "title": "Gargantual and Pantagruel",
-              "selection": "Book III\u2013IV"
+              "selection": "Book III–IV"
             }
           ]
         },
@@ -1744,7 +1754,7 @@
           "works": [
             {
               "title": "Ethics",
-              "selection": "Part IV\u2013V",
+              "selection": "Part IV–V",
               "sourceUrl": "https://www.gutenberg.org/ebooks/3800"
             }
           ]
@@ -1896,7 +1906,7 @@
           "works": [
             {
               "title": "Rhetoric",
-              "selection": "Book I, Ch. 1\u2014Book II, Ch. 1; Book II, Ch. 20\u2014Book III, Ch. 1; Book III, Ch. 13\u201319",
+              "selection": "Book I, Ch. 1—Book II, Ch. 1; Book II, Ch. 20—Book III, Ch. 1; Book III, Ch. 13–19",
               "sourceUrl": "https://classics.mit.edu/Aristotle/rhetoric.html"
             }
           ]
@@ -1946,7 +1956,7 @@
           "works": [
             {
               "title": "The Advancement of Learning",
-              "selection": "Book I, Ch. 1\u2014Book II, Ch. 11"
+              "selection": "Book I, Ch. 1—Book II, Ch. 11"
             }
           ]
         },
@@ -2024,7 +2034,7 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Prefaces, Part I\u2013II",
+              "selection": "Prefaces, Part I–II",
               "sourceUrl": "https://www.gutenberg.org/ebooks/61217"
             }
           ]
@@ -2048,7 +2058,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. VIII\u2013X",
+              "selection": "Ch. VIII–X",
               "sourceUrl": "https://www.gutenberg.org/ebooks/57628"
             }
           ]
@@ -2073,7 +2083,7 @@
           "works": [
             {
               "title": "The Word of God and the Word of Man",
-              "selection": "I\u2013IV"
+              "selection": "I–IV"
             }
           ]
         },
@@ -2133,7 +2143,7 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
-              "selection": "Book VII\u2013VIII"
+              "selection": "Book VII–VIII"
             }
           ]
         },
@@ -2144,7 +2154,7 @@
           "works": [
             {
               "title": "Politics",
-              "selection": "Book VII\u2013VIII",
+              "selection": "Book VII–VIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/6762"
             }
           ]
@@ -2184,7 +2194,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part II\u2013II, QQ 1\u20137",
+              "selection": "Part II–II, QQ 1–7",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -2239,7 +2249,7 @@
           "works": [
             {
               "title": "The Spirit of the Laws",
-              "selection": "Book I\u2013V, VIII, XI\u2013XII"
+              "selection": "Book I–V, VIII, XI–XII"
             }
           ]
         },
@@ -2250,7 +2260,7 @@
           "works": [
             {
               "title": "Experimental Researches in Electricity",
-              "selection": "Series I\u2013II"
+              "selection": "Series I–II"
             },
             {
               "title": "A Speculation Touching Electric Conduction and the Nature of Matter"
@@ -2276,7 +2286,7 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Part III\u2013IV",
+              "selection": "Part III–IV",
               "sourceUrl": "https://www.gutenberg.org/ebooks/61217"
             }
           ]
@@ -2300,7 +2310,7 @@
           "works": [
             {
               "title": "On Conic Sections",
-              "selection": "Book I, Prop. 1\u201315; Book III, Prop. 42\u201355"
+              "selection": "Book I, Prop. 1–15; Book III, Prop. 42–55"
             }
           ]
         },
@@ -2324,7 +2334,7 @@
           "works": [
             {
               "title": "Analytical Theory of Heat",
-              "selection": "Preliminary Discourse, Ch. 1\u20132"
+              "selection": "Preliminary Discourse, Ch. 1–2"
             }
           ]
         },
@@ -2332,7 +2342,7 @@
           "order": 19,
           "tier": "supplemental",
           "marker": "**",
-          "author": "Moli\u00e8re",
+          "author": "Molière",
           "works": [
             {
               "title": "Tartuffe"
@@ -2434,11 +2444,13 @@
           "works": [
             {
               "title": "Parts of Animals",
-              "selection": "Book I, Ch. 1\u2014Book II, Ch. 1"
+              "selection": "Book I, Ch. 1—Book II, Ch. 1",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
             },
             {
               "title": "On the Generation of Animals",
-              "selection": "Book I, Ch. 1, 17\u201318, 20\u201323"
+              "selection": "Book I, Ch. 1, 17–18, 20–23",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
             }
           ]
         },
@@ -2449,7 +2461,7 @@
           "works": [
             {
               "title": "On the Nature of Things",
-              "selection": "Book V\u2013VI",
+              "selection": "Book V–VI",
               "sourceUrl": "https://www.gutenberg.org/ebooks/785"
             }
           ]
@@ -2476,7 +2488,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 65\u201374",
+              "selection": "Part I, QQ 65–74",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -2488,7 +2500,7 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 90\u2013102",
+              "selection": "Part I, QQ 90–102",
               "sourceUrl": "https://www.gutenberg.org/ebooks/17611"
             }
           ]
@@ -2502,13 +2514,13 @@
               "title": "The Canterbury Tales",
               "selections": [
                 "Prologue",
-                "Knight\u2019s Tale",
-                "Miller\u2019s Prologue and Tale",
-                "Reeve\u2019s Prologue and Tale",
-                "Wife of Bath\u2019s Prologue and Tale",
-                "Friar\u2019s Prologue and Tale",
-                "Summoner\u2019s Prologue and Tale",
-                "Pardoner\u2019s Prologue and Tale"
+                "Knight’s Tale",
+                "Miller’s Prologue and Tale",
+                "Reeve’s Prologue and Tale",
+                "Wife of Bath’s Prologue and Tale",
+                "Friar’s Prologue and Tale",
+                "Summoner’s Prologue and Tale",
+                "Pardoner’s Prologue and Tale"
               ],
               "sourceUrl": "https://www.gutenberg.org/ebooks/2383"
             }
@@ -2542,7 +2554,8 @@
           "works": [
             {
               "title": "On the Generation of Animals",
-              "selection": "Introduction\u2014Exercise 62"
+              "selection": "Introduction—Exercise 62",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
             }
           ]
         },
@@ -2601,7 +2614,7 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Part VII\u2013VIII",
+              "selection": "Part VII–VIII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/61217"
             }
           ]
@@ -2613,7 +2626,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. I, V\u2013VII",
+              "selection": "Ch. I, V–VII",
               "sourceUrl": "https://www.gutenberg.org/ebooks/57628"
             }
           ]
@@ -2659,7 +2672,7 @@
           "works": [
             {
               "title": "The Waning of the Middle Ages",
-              "selection": "XI\u2013XXIII"
+              "selection": "XI–XXIII"
             }
           ]
         },
@@ -2682,6 +2695,565 @@
           "works": [
             {
               "title": "The Waste Land"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 11,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "supplementary",
+          "author": "Unknown",
+          "works": [
+            {
+              "title": "The Epic of Gilgamesh",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/11000"
+            },
+            {
+              "title": "the Bible (King James version)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/10"
+            },
+            {
+              "title": "The Bhagavad Gita",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2388"
+            },
+            {
+              "title": "Beowulf",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/16328"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "supplementary",
+          "author": "Confucius",
+          "works": [
+            {
+              "title": "Analects (The Sayings of Confucius)",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/3100"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "supplementary",
+          "author": "Aeschylus",
+          "works": [
+            {
+              "title": "The Suppliant Maidens",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+            },
+            {
+              "title": "The Persians",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+            },
+            {
+              "title": "Seven Against Thebes",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8714"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "supplementary",
+          "author": "Sophocles",
+          "works": [
+            {
+              "title": "Oedipus at Colonus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/31"
+            },
+            {
+              "title": "The Trachiniae",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+            },
+            {
+              "title": "Philoctetes",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/14484"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "supplementary",
+          "author": "Euripides",
+          "works": [
+            {
+              "title": "Alcestis",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Heracleidae",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "The Suppliants",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Ion",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Andromache",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Hecuba",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Iphigenia in Tauris",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Iphigenia in Aulis",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Bacchantes",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Orestes",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "The Phoenician Women",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            },
+            {
+              "title": "Heracles Mad",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35173"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "supplementary",
+          "author": "Aristophanes",
+          "works": [
+            {
+              "title": "The Acharnians",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "The Knights",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "The Wasps",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "Peace",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "The Birds",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "The Frogs",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            },
+            {
+              "title": "Ecclesiazousae",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2562"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "supplementary",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Charmides",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1580"
+            },
+            {
+              "title": "Lysis",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1591"
+            },
+            {
+              "title": "Laches",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1584"
+            },
+            {
+              "title": "Protagoras",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1591"
+            },
+            {
+              "title": "Euthydemus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1598"
+            },
+            {
+              "title": "Cratylus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1616"
+            },
+            {
+              "title": "Phaedrus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1636"
+            },
+            {
+              "title": "Euthyphro",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1642"
+            },
+            {
+              "title": "Critias",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1571"
+            },
+            {
+              "title": "Parmenides",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1687"
+            },
+            {
+              "title": "The Seventh Letter",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1571"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "supplementary",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Prior Analytics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+            },
+            {
+              "title": "Posterior Analytics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+            },
+            {
+              "title": "Topics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+            },
+            {
+              "title": "Sophistical Refutations",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+            },
+            {
+              "title": "On the Heavens",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+            },
+            {
+              "title": "On Generation and Corruption",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+            },
+            {
+              "title": "Meteorology",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/8438"
+            },
+            {
+              "title": "History of Animals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+            },
+            {
+              "title": "Parts of Animals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+            },
+            {
+              "title": "On the Motion of Animals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+            },
+            {
+              "title": "On the Gait of Animals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+            },
+            {
+              "title": "On the Generation of Animals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
+            },
+            {
+              "title": "The Athenian Constitution",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26095"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "supplementary",
+          "author": "Hippocrates",
+          "works": [
+            {
+              "title": "The Hippocratic Oath",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Ancient Medicine",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Airs, Water, and Places",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "The Book of Prognostics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Regimen in Acute Diseases",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "Of the Epidemics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Injuries of the Head",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On the Surgery",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Fractures",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On the Articulations",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "Instruments of Reduction",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "Aphorisms",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "The Law",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "The Ulcer",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Fistulae",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On Hemorrhoids",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            },
+            {
+              "title": "On the Sacred Disease",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/26495"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "supplementary",
+          "author": "Galen",
+          "works": [
+            {
+              "title": "On the Natural Faculties",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/31577"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "supplementary",
+          "author": "Euclid",
+          "works": [
+            {
+              "title": "The Thirteen Books of Euclid's Elements",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/21076"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "supplementary",
+          "author": "Archimedes",
+          "works": [
+            {
+              "title": "On the Sphere and Cylinder",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "Measurement of a Circle",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "On Conoids and Spheroids",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "On Spirals",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "On the Equilibrium of Planes",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "The Sand Reckoner",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "The Quadrature of the Parabola",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            },
+            {
+              "title": "On Floating Bodies",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/35543"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "supplementary",
+          "author": "Thucydides",
+          "works": [
+            {
+              "title": "History of the Peloponnesian War",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/7142"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "supplementary",
+          "author": "Herodotus",
+          "works": [
+            {
+              "title": "History",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2707"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "supplementary",
+          "author": "Virgil",
+          "works": [
+            {
+              "title": "The Aeneid",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/228"
+            },
+            {
+              "title": "Eclogues",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/232"
+            },
+            {
+              "title": "Georgics",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/232"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "supplementary",
+          "author": "Julius Caesar",
+          "works": [
+            {
+              "title": "The Gallic Wars",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/10657"
+            },
+            {
+              "title": "The Civil Wars",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/10657"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "supplementary",
+          "author": "Epictetus",
+          "works": [
+            {
+              "title": "The Discourses",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/10661"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "supplementary",
+          "author": "Marcus Aurelius",
+          "works": [
+            {
+              "title": "The Meditations",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2680"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "supplementary",
+          "author": "Augustine of Hippo",
+          "works": [
+            {
+              "title": "The Confessions",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/3296"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "supplementary",
+          "author": "Dante Alighieri",
+          "works": [
+            {
+              "title": "Divine Comedy",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1001"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "supplementary",
+          "author": "Geoffrey Chaucer",
+          "works": [
+            {
+              "title": "Troilus and Criseyde",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/257"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "supplementary",
+          "author": "William Shakespeare",
+          "works": [
+            {
+              "title": "The First Part of King Henry the Sixth",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1765"
+            },
+            {
+              "title": "The Second Part of King Henry the Sixth",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1766"
+            },
+            {
+              "title": "The Third Part of King Henry the Sixth",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1767"
+            },
+            {
+              "title": "The Tragedy of Richard the Third",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/2256"
+            },
+            {
+              "title": "Titus Andronicus",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1755"
+            },
+            {
+              "title": "The Tragedy of King Richard the Second",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1257"
+            },
+            {
+              "title": "The Tragedy of Hamlet, Prince of Denmark",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/1524"
             }
           ]
         }

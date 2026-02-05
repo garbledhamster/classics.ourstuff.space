@@ -4,423 +4,529 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>Great Works Navigator</title>
+  <title>Ten-Year Great Works Reading Guide</title>
 
-  <!-- Fonts: newspaper serif + clean UI sans -->
+  <!-- Neo-brutal newspaper fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Minimal modern reset -->
   <style>
-    /* ===== Reset (compact) ===== */
+    /* ===== Reset ===== */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
     body { margin: 0; }
     img, svg { display: block; max-width: 100%; }
-    button, input, select { font: inherit; }
+    button, input, select, textarea { font: inherit; }
     a { color: inherit; }
 
-    /* ===== Neo-brutal newspaper theme ===== */
+    /* ===== Neo-brutal newspaper theme (B/W, hard edges) ===== */
     :root{
-      --paper: #ffffff;
-      --ink: #000000;
-      --ink-2: #111111;
-      --muted: #444444;
-      --rule: #000000;
-      --shadow: 8px 8px 0 var(--ink);
-      --shadow-sm: 5px 5px 0 var(--ink);
-      --border: 2px solid var(--ink);
-      --border-thin: 1px solid var(--ink);
-      --radius: 0px; /* hard edges */
-      --gap: 16px;
-      --max: 1200px;
+      --paper:#fff;
+      --ink:#000;
+      --ink2:#111;
+      --muted:#444;
+      --border:2px solid var(--ink);
+      --borderThin:1px solid var(--ink);
+      --shadow:8px 8px 0 var(--ink);
+      --shadowSm:5px 5px 0 var(--ink);
+      --shadowXs:3px 3px 0 var(--ink);
+      --gap:16px;
+      --max:1200px;
+      --radius:0px; /* HARD EDGES */
     }
 
     body{
-      background: var(--paper);
-      color: var(--ink);
+      background:var(--paper);
+      color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.25;
+      line-height:1.25;
     }
 
     .wrap{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:18px;
     }
 
     /* Masthead */
     header.masthead{
-      border-top: 6px solid var(--ink);
-      border-bottom: 3px solid var(--ink);
-      padding: 14px 0 12px 0;
-      margin-bottom: 16px;
+      border-top:6px solid var(--ink);
+      border-bottom:3px solid var(--ink);
+      padding:14px 0 12px 0;
+      margin-bottom:16px;
     }
     .mast-top{
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
     }
     .brand{
       font-family: Newsreader, Georgia, "Times New Roman", serif;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      font-size: clamp(28px, 3.2vw, 44px);
-      line-height: 1;
-      text-transform: uppercase;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      font-size:clamp(26px,3vw,44px);
+      line-height:1;
+      text-transform:uppercase;
     }
     .dateline{
       font-family: Newsreader, Georgia, "Times New Roman", serif;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--ink-2);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
+      font-weight:600;
+      font-size:14px;
+      color:var(--ink2);
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
     }
-    .rule{
-      height: 1px;
-      background: var(--ink);
-      margin-top: 10px;
-    }
+    .rule{ height:1px; background:var(--ink); margin-top:10px; }
     .subhead{
-      margin-top: 10px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 13px;
-      color: var(--muted);
+      margin-top:10px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      font-size:13px;
+      color:var(--muted);
     }
     .badge{
-      border: var(--border-thin);
-      padding: 6px 10px;
-      background: #fff;
-      box-shadow: 3px 3px 0 var(--ink);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 12px;
-      color: var(--ink);
-      white-space: nowrap;
+      border:var(--borderThin);
+      padding:6px 10px;
+      background:#fff;
+      box-shadow:var(--shadowXs);
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      font-size:12px;
+      color:var(--ink);
+      white-space:nowrap;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
     }
 
-    /* Controls bar */
+    /* Controls */
     .controls{
-      border: var(--border);
-      box-shadow: var(--shadow-sm);
-      padding: 12px;
-      background: #fff;
-      display: grid;
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      padding:12px;
+      background:#fff;
+      display:grid;
       grid-template-columns: 1.6fr 1fr 1fr 1fr;
-      gap: 10px;
-      align-items: end;
-      margin-bottom: 16px;
+      gap:10px;
+      align-items:end;
+      margin-bottom:16px;
     }
+    @media (max-width:980px){ .controls{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width:560px){ .controls{ grid-template-columns: 1fr; } }
 
-    @media (max-width: 980px){
-      .controls{ grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px){
-      .controls{ grid-template-columns: 1fr; }
-    }
-
-    .control{
-      display: grid;
-      gap: 6px;
-    }
+    .control{ display:grid; gap:6px; }
     .label{
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
     }
     .input, .select{
-      border: var(--border);
-      border-radius: var(--radius);
-      padding: 10px 10px;
-      background: #fff;
-      outline: none;
-      box-shadow: 0 0 0 0 transparent;
+      border:var(--border);
+      border-radius:var(--radius);
+      padding:10px;
+      background:#fff;
+      outline:none;
     }
     .input:focus, .select:focus{
-      box-shadow: 0 0 0 3px #00000022;
+      box-shadow:0 0 0 3px #00000022;
     }
 
-    .toggleRow{
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
+    .rowWide{
+      grid-column: 1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
     .toggle{
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      border: var(--border);
-      box-shadow: 3px 3px 0 var(--ink);
-      padding: 8px 10px;
-      user-select: none;
-      background: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 12px;
-      font-weight: 800;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:var(--border);
+      box-shadow:var(--shadowXs);
+      padding:8px 10px;
+      background:#fff;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      font-size:12px;
+      font-weight:900;
+      user-select:none;
     }
-    .toggle input{
-      width: 16px; height: 16px;
-      accent-color: #000;
-    }
-
-    /* Layout: newspaper columns */
-    .grid{
-      column-gap: 16px;
-      columns: 3 320px;
-    }
-    @media (max-width: 980px){ .grid{ columns: 2 320px; } }
-    @media (max-width: 560px){ .grid{ columns: 1 320px; } }
-
-    /* Cards */
-    .card{
-      break-inside: avoid;
-      border: var(--border);
-      border-radius: var(--radius);
-      background: #fff;
-      box-shadow: var(--shadow);
-      margin: 0 0 16px 0;
-      padding: 12px;
-      position: relative;
-      transition: transform 120ms ease;
-    }
-    .card:hover{ transform: translate(-2px, -2px); }
-
-    .kicker{
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      padding-bottom: 10px;
-      border-bottom: var(--border-thin);
-      margin-bottom: 10px;
-    }
-    .itemNo{
-      font-family: Newsreader, Georgia, "Times New Roman", serif;
-      font-weight: 900;
-      font-size: 20px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .metaTiny{
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 800;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      text-align: right;
-    }
-
-    .title{
-      font-family: Newsreader, Georgia, "Times New Roman", serif;
-      font-weight: 900;
-      font-size: 20px;
-      line-height: 1.1;
-      margin: 0 0 8px 0;
-      letter-spacing: -0.01em;
-    }
-    .author{
-      margin: 0 0 10px 0;
-      font-size: 13px;
-      color: var(--ink-2);
-      font-weight: 600;
-    }
-    .author small{
-      display: block;
-      color: var(--muted);
-      font-weight: 600;
-      margin-top: 2px;
-    }
-
-    .actions{
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
+    .toggle input{ width:16px; height:16px; accent-color:#000; }
 
     .btn, .btnlink{
-      border: var(--border);
-      border-radius: var(--radius);
-      background: #fff;
-      box-shadow: 3px 3px 0 var(--ink);
-      padding: 8px 10px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      line-height: 1;
+      border:var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadowXs);
+      padding:8px 10px;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      line-height:1;
     }
-    .btn:hover, .btnlink:hover{ transform: translate(-1px, -1px); }
-    .btn:active, .btnlink:active{ transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+    .btn:hover, .btnlink:hover{ transform: translate(-1px,-1px); }
+    .btn:active, .btnlink:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
 
-    .pillrow{
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 8px;
+    /* Plan layout */
+    .grid{
+      column-gap:16px;
+      columns: 2 420px;
     }
-    .pill{
-      border: var(--border-thin);
-      padding: 6px 8px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 800;
-      color: var(--muted);
-      background: #fff;
-    }
+    @media (max-width:980px){ .grid{ columns: 1 420px; } }
 
-    /* OpenAlex section inside card */
-    details.oa{
-      margin-top: 10px;
-      border-top: var(--border-thin);
-      padding-top: 10px;
+    /* Year card */
+    .yearCard{
+      break-inside: avoid;
+      border:var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadow);
+      margin:0 0 16px 0;
+      padding:12px;
     }
-    details.oa > summary{
-      cursor: pointer;
-      list-style: none;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+    .yearHeader{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      padding-bottom:10px;
+      border-bottom:var(--borderThin);
+      margin-bottom:10px;
+      flex-wrap:wrap;
     }
-    details.oa > summary::-webkit-details-marker{ display: none; }
-
-    .oaBox{
-      margin-top: 10px;
-      border: var(--border);
-      box-shadow: 4px 4px 0 var(--ink);
-      padding: 10px;
-      background: #fff;
-      display: grid;
-      gap: 10px;
-    }
-    .oaControls{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    @media (max-width: 560px){
-      .oaControls{ grid-template-columns: 1fr; }
-    }
-    .oaControl{
-      display: grid;
-      gap: 6px;
-    }
-    .oaControl .select, .oaControl .input{
-      padding: 9px 10px;
-    }
-    .oaChecks{
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .oaChecks label{
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ink-2);
-      border: var(--border-thin);
-      padding: 6px 8px;
-    }
-    .oaChecks input{ accent-color: #000; }
-
-    .oaActions{
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .oaResults{
-      border-top: var(--border-thin);
-      padding-top: 10px;
-      display: grid;
-      gap: 8px;
-    }
-    .oaResult{
-      border: var(--border-thin);
-      padding: 10px;
-      background: #fff;
-    }
-    .oaResult a{
-      text-decoration: none;
-      border-bottom: 1px solid #000;
-    }
-    .oaResultTitle{
-      font-weight: 900;
-      font-size: 13px;
-      margin: 0 0 6px 0;
+    .yearTitle{
       font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-weight:900;
+      font-size:22px;
+      letter-spacing:-0.01em;
+      margin:0;
+      text-transform:uppercase;
     }
-    .oaResultMeta{
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      font-weight: 800;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    /* Footer/status */
-    .status{
-      margin-top: 16px;
-      border-top: 3px solid var(--ink);
-      padding-top: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .error{
-      border: var(--border);
-      box-shadow: var(--shadow-sm);
-      padding: 12px;
-      background: #fff;
-      margin-bottom: 16px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    .yearMeta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:flex-end;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
     }
     .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .readingBlock{
+      border:var(--borderThin);
+      padding:10px;
+      margin-top:10px;
+      background:#fff;
+    }
+    .readingHead{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      border-bottom:var(--borderThin);
+      padding-bottom:8px;
+      margin-bottom:8px;
+    }
+    .readingLeft{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:baseline;
+    }
+    .order{
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-weight:900;
+      font-size:18px;
+      line-height:1;
+    }
+    .author{
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      font-size:12px;
+    }
+    .tier{
+      border:var(--borderThin);
+      padding:4px 8px;
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      background:#fff;
+    }
+    .marker{
+      border:var(--borderThin);
+      padding:4px 8px;
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      background:#fff;
+    }
+
+    .worksList{
+      display:grid;
+      gap:8px;
+    }
+    .workRow{
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      gap:10px;
+      align-items:start;
+      border:var(--borderThin);
+      padding:10px;
+      background:#fff;
+    }
+    .workCheck{
+      display:flex;
+      align-items:center;
+      padding-top:2px;
+    }
+    .workCheck input{
+      width:18px; height:18px;
+      accent-color:#000;
+    }
+    .workMain{
+      display:grid;
+      gap:6px;
+      min-width:0;
+    }
+    .workTitle{
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-weight:900;
+      font-size:16px;
+      margin:0;
+      line-height:1.1;
+    }
+    .workSub{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      line-height:1.2;
+      display:grid;
+      gap:4px;
+    }
+    .tagRow{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin-top:2px;
+    }
+    .pill{
+      border:var(--borderThin);
+      padding:4px 8px;
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      color:var(--muted);
+      background:#fff;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .workActions{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:flex-end;
+    }
+
+    /* Progress bar (brutal) */
+    .bar{
+      height:12px;
+      border:var(--borderThin);
+      background:#fff;
+      position:relative;
+      width: 180px;
+      max-width: 100%;
+    }
+    .bar > span{
+      display:block;
+      height:100%;
+      background:#000;
+      width:0%;
+    }
+
+    /* Errors */
+    .error{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      padding:12px;
+      background:#fff;
+      margin-bottom:16px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+    }
+
+    /* ===== Notes Drawer ===== */
+    .drawerOverlay{
+      position:fixed;
+      inset:0;
+      background: #00000055;
+      display:none;
+      z-index:50;
+    }
+    .drawer{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100%;
+      width:min(520px, 94vw);
+      background:#fff;
+      border-left:var(--border);
+      box-shadow: -10px 0 0 #000;
+      transform: translateX(105%);
+      transition: transform 160ms ease;
+      z-index:60;
+      display:flex;
+      flex-direction:column;
+    }
+    .drawer.open{ transform: translateX(0); }
+    .drawerOverlay.open{ display:block; }
+
+    .drawerHeader{
+      padding:12px;
+      border-bottom:var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .drawerTitle{
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:-0.01em;
+      font-size:20px;
+      margin:0;
+    }
+    .drawerBody{
+      padding:12px;
+      overflow:auto;
+      display:grid;
+      gap:12px;
+    }
+
+    .noteTools{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      padding:10px;
+      display:grid;
+      gap:10px;
+      background:#fff;
+    }
+    .noteToolsRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:520px){ .noteToolsRow{ grid-template-columns: 1fr; } }
+
+    .noteList{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      background:#fff;
+    }
+    .noteItem{
+      border-top:var(--borderThin);
+      padding:10px;
+      display:grid;
+      gap:6px;
+    }
+    .noteItem:first-child{ border-top:none; }
+    .noteItemHead{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .noteItemTitle{
+      font-weight:900;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      margin:0;
+    }
+    .noteItemMeta{
+      color:var(--muted);
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .noteItemPreview{
+      color:#111;
+      font-size:13px;
+      line-height:1.25;
+      white-space:pre-wrap;
+      max-height: 5.2em;
+      overflow:hidden;
+    }
+
+    .editor{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      background:#fff;
+      padding:10px;
+      display:grid;
+      gap:10px;
+    }
+    .textarea{
+      width:100%;
+      min-height: 180px;
+      border:var(--border);
+      border-radius:var(--radius);
+      padding:10px;
+      outline:none;
+      resize: vertical;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.35;
+    }
+    .textarea:focus{ box-shadow:0 0 0 3px #00000022; }
+
+    .help{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      line-height:1.2;
+    }
   </style>
 </head>
 
@@ -428,18 +534,20 @@
   <div class="wrap">
     <header class="masthead">
       <div class="mast-top">
-        <div class="brand">Great Works Navigator</div>
+        <div class="brand">Reading Guide</div>
         <div class="dateline">
-          <span id="datelineLeft">Index</span>
+          <span id="planName">Ten-Year Plan</span>
           <span class="mono">•</span>
-          <span id="datelineRight">Loading…</span>
+          <span id="today">Loading…</span>
         </div>
       </div>
       <div class="rule"></div>
       <div class="subhead">
-        <div class="badge" id="countBadge">0 works</div>
-        <div class="badge">Neo-Brutal Newspaper</div>
-        <div class="badge">Wiki + OpenAlex</div>
+        <div class="badge" id="countBadge">0 readings</div>
+        <div class="badge" id="progressBadge">Progress: 0%</div>
+        <div class="badge">
+          <button class="btn" id="openNotesBtn" type="button">Notes Drawer</button>
+        </div>
       </div>
     </header>
 
@@ -448,49 +556,44 @@
     <section class="controls" aria-label="filters">
       <div class="control">
         <div class="label">Search (title/author)</div>
-        <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Candide…" autocomplete="off" />
+        <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" />
       </div>
 
       <div class="control">
-        <div class="label">Volume</div>
-        <select id="vol" class="select">
+        <div class="label">Year</div>
+        <select id="yearSel" class="select">
           <option value="all">All</option>
         </select>
       </div>
 
       <div class="control">
-        <div class="label">Era</div>
-        <select id="era" class="select">
+        <div class="label">Tier</div>
+        <select id="tierSel" class="select">
           <option value="all">All</option>
-          <option value="ancient">Ancient (≤ 500)</option>
-          <option value="medieval">Medieval (501–1500)</option>
-          <option value="earlymodern">Early Modern (1501–1800)</option>
-          <option value="modern">Modern (1801+)</option>
+          <option value="core">Core</option>
+          <option value="supplemental">Supplemental</option>
         </select>
       </div>
 
       <div class="control">
         <div class="label">Sort</div>
-        <select id="sort" class="select">
-          <option value="item">Item #</option>
-          <option value="dateAsc">Date ↑</option>
-          <option value="dateDesc">Date ↓</option>
-          <option value="title">Title A→Z</option>
+        <select id="sortSel" class="select">
+          <option value="plan">Plan order</option>
           <option value="author">Author A→Z</option>
+          <option value="title">Title A→Z</option>
         </select>
       </div>
 
-      <div class="control" style="grid-column: 1 / -1;">
-        <div class="toggleRow">
-          <label class="toggle">
-            <input id="onlyWithAuthors" type="checkbox" />
-            Only with author
-          </label>
-          <label class="toggle">
-            <input id="onlyWithVol" type="checkbox" />
-            Only with volume
-          </label>
-          <span class="badge" id="shownBadge">Shown: 0</span>
+      <div class="rowWide">
+        <label class="toggle">
+          <input id="onlyIncomplete" type="checkbox" />
+          Only incomplete
+        </label>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <button class="btn" id="expandAllBtn" type="button">Expand all</button>
+          <button class="btn" id="collapseAllBtn" type="button">Collapse all</button>
+          <button class="btn" id="resetChecksBtn" type="button">Reset checks</button>
         </div>
       </div>
     </section>
@@ -499,586 +602,925 @@
       <div id="grid" class="grid" aria-live="polite"></div>
     </main>
 
-    <footer class="status">
-      <div>
-        Data file: <span class="mono">./project.json</span>
-      </div>
-      <div>
-        Tip: Open a card’s “OpenAlex research” to filter by <span class="mono">type</span>, angle, sort, and OA-only.
-      </div>
+    <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+      <div>Data file: <span class="mono">./reading.json</span></div>
+      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes)</div>
     </footer>
   </div>
 
+  <!-- Notes Drawer -->
+  <div id="drawerOverlay" class="drawerOverlay" aria-hidden="true"></div>
+  <aside id="drawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
+    <div class="drawerHeader">
+      <h2 class="drawerTitle">Notes</h2>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn" id="newNoteBtn" type="button">New note</button>
+        <button class="btn" id="closeDrawerBtn" type="button">Close</button>
+      </div>
+    </div>
+
+    <div class="drawerBody">
+      <section class="noteTools">
+        <div class="help">Search notes + filter by book tag. Create notes from readings or here.</div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Search (title/body)</div>
+            <input id="noteSearch" class="input" type="search" placeholder="e.g., justice, virtue, war…" autocomplete="off" />
+          </div>
+
+          <div class="control">
+            <div class="label">Filter (book tag)</div>
+            <select id="noteTagFilter" class="select">
+              <option value="all">All</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="exportNotesBtn" type="button">Export JSON</button>
+          <button class="btn" id="importNotesBtn" type="button">Import JSON</button>
+          <input id="importFile" type="file" accept="application/json" style="display:none;" />
+        </div>
+      </section>
+
+      <section class="noteList" id="noteList" aria-label="notes list"></section>
+
+      <section class="editor" id="noteEditor" style="display:none;" aria-label="note editor">
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Note title</div>
+            <input id="editTitle" class="input" type="text" placeholder="e.g., Republic — justice and the soul" />
+          </div>
+          <div class="control">
+            <div class="label">Book tag</div>
+            <select id="editBookTag" class="select"></select>
+          </div>
+        </div>
+
+        <div class="noteToolsRow">
+          <div class="control">
+            <div class="label">Year</div>
+            <input id="editYear" class="input" type="number" min="1" max="10" placeholder="1" />
+          </div>
+          <div class="control">
+            <div class="label">Author</div>
+            <input id="editAuthor" class="input" type="text" placeholder="e.g., Plato" />
+          </div>
+        </div>
+
+        <div class="control">
+          <div class="label">Selections / reference</div>
+          <input id="editSelection" class="input" type="text" placeholder="e.g., Book I–II; Ch. 1–5" />
+        </div>
+
+        <div class="control">
+          <div class="label">Body</div>
+          <textarea id="editBody" class="textarea" placeholder="Write your note…"></textarea>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="saveNoteBtn" type="button">Save</button>
+          <button class="btn" id="deleteNoteBtn" type="button">Delete</button>
+          <button class="btn" id="cancelEditBtn" type="button">Cancel</button>
+        </div>
+
+        <div class="help" id="editMeta"></div>
+      </section>
+    </div>
+  </aside>
+
   <script>
-    // ===== Utilities =====
+    /* =========================================================
+       STORAGE KEYS
+       ========================================================= */
+    const LS_CHECKS = "greatworks.reading.checks.v1";
+    const LS_NOTES  = "greatworks.reading.notes.v1";
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
     const $ = (sel, root=document) => root.querySelector(sel);
 
-    function escapeHtml(str) {
+    function escapeHtml(str){
       return String(str ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
     }
 
     function normalizeText(s){
-      return String(s ?? "")
-        .toLowerCase()
-        .replace(/\s+/g, " ")
-        .trim();
+      return String(s ?? "").toLowerCase().replace(/\s+/g," ").trim();
     }
-
-    function yearToLabel(y){
-      if (y === null || y === undefined || y === "") return "—";
-      const n = Number(y);
-      if (!Number.isFinite(n)) return String(y);
-      if (n < 0) return `${Math.abs(n)} BCE`;
-      return `${n} CE`;
-    }
-
-    function eraOf(year){
-      const y = Number(year);
-      if (!Number.isFinite(y)) return "unknown";
-      if (y <= 500) return "ancient";
-      if (y <= 1500) return "medieval";
-      if (y <= 1800) return "earlymodern";
-      return "modern";
-    }
-
-    function wikiUrlFromTitle(title){
-      // Direct wiki page attempt (best-effort). If a title doesn't match perfectly,
-      // Wikipedia will still often redirect or show suggestions.
-      const slug = String(title ?? "").trim().replace(/\s+/g, "_");
-      return `https://en.wikipedia.org/wiki/${encodeURIComponent(slug)}`;
-    }
-
-    function wikiSearchUrl(title){
-      return `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(String(title ?? "").trim())}`;
-    }
-
-    // ===== OpenAlex URL builders (matches your required format) =====
-    // Required base format example:
-    // https://openalex.org/works?search=Candide&page=1&filter=title_and_abstract.search:Candide
-    //
-    // We extend filter with comma-separated filters like:
-    // filter=title_and_abstract.search:Candide,type:review,is_oa:true
-    //
-    // And optionally add sort=... (OpenAlex supports this on the API; web typically accepts it too).
-    //
-    // Work type values (common): article, book, book-chapter, review, dissertation, report, dataset,
-    // reference-entry, letter, editorial, peer-review, preprint, paratext, etc.
-    const OA_TYPES = [
-      { value: "all", label: "All types" },
-      { value: "article", label: "Articles" },
-      { value: "book", label: "Books" },
-      { value: "book-chapter", label: "Book chapters" },
-      { value: "review", label: "Reviews" },
-      { value: "dissertation", label: "Dissertations" },
-      { value: "report", label: "Reports" },
-      { value: "dataset", label: "Datasets" },
-      { value: "reference-entry", label: "Reference entries" },
-      { value: "letter", label: "Letters" },
-      { value: "editorial", label: "Editorials" },
-      { value: "peer-review", label: "Peer review" },
-      { value: "preprint", label: "Preprints" }
-    ];
-
-    const OA_ANGLES = [
-      { value: "general", label: "General" },
-      { value: "criticism", label: "Criticism / critique" },
-      { value: "interpretation", label: "Interpretation" },
-      { value: "reception", label: "Reception" },
-      { value: "commentary", label: "Commentary" },
-      { value: "translation", label: "Translation" },
-      { value: "adaptation", label: "Adaptation" }
-    ];
-
-    const OA_SORTS = [
-      { value: "relevance", label: "Relevance" },
-      { value: "cited", label: "Most cited" },
-      { value: "recent", label: "Most recent" }
-    ];
-
-    function buildOpenAlexQuery({ title, type="all", angle="general", sort="relevance", oaOnly=false }) {
-      const cleanTitle = String(title ?? "").trim();
-      const angleKeyword = (angle && angle !== "general") ? angle : "";
-
-      // FILTER segments (comma-separated)
-      // Always include title_and_abstract.search:<TITLE> as you requested.
-      const filterSegs = [
-        `title_and_abstract.search:${encodeURIComponent(cleanTitle)}`
-      ];
-
-      // Add "angle" keyword as an additional search filter to narrow the set
-      if (angleKeyword) {
-        filterSegs.push(`title_and_abstract.search:${encodeURIComponent(angleKeyword)}`);
-      }
-
-      // Type focus (hone in on OpenAlex work types)
-      if (type && type !== "all") {
-        filterSegs.push(`type:${encodeURIComponent(type)}`);
-      }
-
-      // OA focus
-      if (oaOnly) {
-        filterSegs.push(`is_oa:true`);
-      }
-
-      const filterStr = filterSegs.join(",");
-
-      // SEARCH param: we include title plus optional angle keyword for extra relevance.
-      const searchStr = angleKeyword ? `${cleanTitle} ${angleKeyword}` : cleanTitle;
-
-      // Optional sort (OpenAlex API supports these; OpenAlex web generally accepts them too)
-      let sortParam = "";
-      if (sort === "cited") sortParam = "&sort=cited_by_count:desc";
-      if (sort === "recent") sortParam = "&sort=publication_date:desc";
-
-      // Web UI link (as you requested)
-      const webUrl =
-        `https://openalex.org/works` +
-        `?search=${encodeURIComponent(searchStr)}` +
-        `&page=1` +
-        `&filter=${filterStr}` +
-        sortParam;
-
-      // API link (for previews + programmatic use)
-      const apiUrl =
-        `https://api.openalex.org/works` +
-        `?search=${encodeURIComponent(searchStr)}` +
-        `&page=1` +
-        `&filter=${filterStr}` +
-        sortParam;
-
-      return { webUrl, apiUrl };
-    }
-
-    // ===== App state =====
-    const state = {
-      works: [],
-      filtered: [],
-      q: "",
-      vol: "all",
-      era: "all",
-      sort: "item",
-      onlyWithAuthors: false,
-      onlyWithVol: false
-    };
-
-    const oaCache = new Map(); // apiUrl -> results array
 
     function setError(msg){
       const box = $("#errorBox");
       box.style.display = "block";
       box.textContent = msg;
     }
-
     function clearError(){
       const box = $("#errorBox");
       box.style.display = "none";
       box.textContent = "";
     }
 
-    function fillVolumeOptions(works){
-      const volSelect = $("#vol");
-      const vols = new Set();
-      for (const w of works){
-        if (w.vol !== null && w.vol !== undefined && w.vol !== "") vols.add(String(w.vol));
-      }
-      const sorted = Array.from(vols).sort((a,b)=>Number(a)-Number(b));
-      for (const v of sorted){
-        const opt = document.createElement("option");
-        opt.value = v;
-        opt.textContent = `Vol ${v}`;
-        volSelect.appendChild(opt);
-      }
+    function uid(){
+      // stable-enough local id
+      return "n_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
     }
 
-    function applyFilters(){
-      const q = normalizeText(state.q);
-      const vol = state.vol;
-      const era = state.era;
-
-      let out = state.works.filter(w => {
-        if (state.onlyWithAuthors && !normalizeText(w.author)) return false;
-        if (state.onlyWithVol && (w.vol === null || w.vol === undefined || w.vol === "")) return false;
-
-        if (vol !== "all" && String(w.vol ?? "") !== vol) return false;
-
-        if (era !== "all") {
-          const e = eraOf(w.date);
-          if (e !== era) return false;
-        }
-
-        if (q) {
-          const hay = w._search;
-          return hay.includes(q);
-        }
-        return true;
-      });
-
-      // Sort
-      const s = state.sort;
-      out.sort((a,b)=>{
-        if (s === "item") return (a.item ?? 0) - (b.item ?? 0);
-        if (s === "dateAsc") return (Number(a.date) || 0) - (Number(b.date) || 0);
-        if (s === "dateDesc") return (Number(b.date) || 0) - (Number(a.date) || 0);
-        if (s === "title") return String(a.title ?? "").localeCompare(String(b.title ?? ""), undefined, { sensitivity: "base" });
-        if (s === "author") return String(a.author ?? "").localeCompare(String(b.author ?? ""), undefined, { sensitivity: "base" });
-        return 0;
-      });
-
-      state.filtered = out;
-      render();
+    function nowIso(){
+      return new Date().toISOString();
     }
 
-    function render(){
-      const grid = $("#grid");
-      const shownBadge = $("#shownBadge");
-      shownBadge.textContent = `Shown: ${state.filtered.length}`;
-
-      // Render cards
-      grid.innerHTML = state.filtered.map(w => cardHtml(w)).join("");
+    function safeJsonParse(str, fallback){
+      try{ return JSON.parse(str); } catch { return fallback; }
     }
 
-    function cardHtml(w){
-      const title = escapeHtml(w.title);
-      const authorRaw = String(w.author ?? "").trim();
-      const authorLines = authorRaw ? authorRaw.split("\n").map(s => s.trim()).filter(Boolean) : [];
-      const authorMain = authorLines[0] ? escapeHtml(authorLines[0]) : "—";
-      const authorRest = authorLines.slice(1);
-
-      const dateLabel = yearToLabel(w.date);
-      const volLabel = (w.vol === null || w.vol === undefined || w.vol === "") ? "—" : `Vol ${escapeHtml(w.vol)}`;
-
-      const wiki = wikiUrlFromTitle(w.title);
-      const wikiAlt = wikiSearchUrl(w.title);
-
-      // Default OpenAlex links (general, all types)
-      const { webUrl, apiUrl } = buildOpenAlexQuery({
-        title: w.title,
-        type: "all",
-        angle: "general",
-        sort: "relevance",
-        oaOnly: false
-      });
-
-      // Data attrs help us update links & preview per-card
-      return `
-        <article class="card" data-item="${escapeHtml(w.item)}" data-title="${escapeHtml(w.title)}">
-          <div class="kicker">
-            <div class="itemNo">#${escapeHtml(w.item)}</div>
-            <div class="metaTiny">
-              <span>${escapeHtml(volLabel)}</span>
-              <span class="mono">•</span>
-              <span>${escapeHtml(dateLabel)}</span>
-            </div>
-          </div>
-
-          <h2 class="title">${title}</h2>
-
-          <p class="author">
-            <span>${authorMain}</span>
-            ${authorRest.length ? `<small>${authorRest.map(escapeHtml).join("<br>")}</small>` : ""}
-          </p>
-
-          <div class="pillrow">
-            <span class="pill">Era: ${escapeHtml(eraOf(w.date))}</span>
-            <span class="pill">Date: ${escapeHtml(dateLabel)}</span>
-          </div>
-
-          <div class="actions">
-            <a class="btnlink" href="${wiki}" target="_blank" rel="noopener">Wikipedia</a>
-            <a class="btnlink" href="${wikiAlt}" target="_blank" rel="noopener">Wiki Search</a>
-          </div>
-
-          <details class="oa">
-            <summary>
-              <span>OpenAlex research</span>
-              <span class="mono">+</span>
-            </summary>
-
-            <div class="oaBox">
-              <div class="oaControls">
-                <div class="oaControl">
-                  <div class="label">Focus (type)</div>
-                  <select class="select" data-oa-type>
-                    ${OA_TYPES.map(t => `<option value="${escapeHtml(t.value)}">${escapeHtml(t.label)}</option>`).join("")}
-                  </select>
-                </div>
-
-                <div class="oaControl">
-                  <div class="label">Angle</div>
-                  <select class="select" data-oa-angle>
-                    ${OA_ANGLES.map(a => `<option value="${escapeHtml(a.value)}">${escapeHtml(a.label)}</option>`).join("")}
-                  </select>
-                </div>
-
-                <div class="oaControl">
-                  <div class="label">Sort</div>
-                  <select class="select" data-oa-sort>
-                    ${OA_SORTS.map(s => `<option value="${escapeHtml(s.value)}">${escapeHtml(s.label)}</option>`).join("")}
-                  </select>
-                </div>
-
-                <div class="oaControl">
-                  <div class="label">Quick search term</div>
-                  <input class="input" data-oa-extra placeholder="optional: add keyword (e.g., 'satire')" />
-                </div>
-              </div>
-
-              <div class="oaChecks">
-                <label>
-                  <input type="checkbox" data-oa-oaonly />
-                  OA only
-                </label>
-                <label>
-                  <input type="checkbox" data-oa-previewauto />
-                  Auto-preview on change
-                </label>
-              </div>
-
-              <div class="oaActions">
-                <a class="btnlink" data-oa-web href="${webUrl}" target="_blank" rel="noopener">OpenAlex Web</a>
-                <a class="btnlink" data-oa-api href="${apiUrl}" target="_blank" rel="noopener">API (JSON)</a>
-                <button class="btn" type="button" data-oa-preview>Preview 10</button>
-              </div>
-
-              <div class="oaResults" data-oa-results style="display:none;"></div>
-            </div>
-          </details>
-        </article>
-      `;
+    function loadChecks(){
+      return safeJsonParse(localStorage.getItem(LS_CHECKS) || "{}", {});
+    }
+    function saveChecks(obj){
+      localStorage.setItem(LS_CHECKS, JSON.stringify(obj));
     }
 
-    function getCardConfig(card){
-      const title = card.dataset.title || "";
-
-      const type = $("[data-oa-type]", card).value || "all";
-      const angle = $("[data-oa-angle]", card).value || "general";
-      const sort = $("[data-oa-sort]", card).value || "relevance";
-      const oaOnly = $("[data-oa-oaonly]", card).checked;
-      const extra = normalizeText($("[data-oa-extra]", card).value || "");
-      const auto = $("[data-oa-previewauto]", card).checked;
-
-      // Extra keyword:
-      // We incorporate it as an additional title_and_abstract.search filter AND as part of the search query,
-      // keeping your required base filter title_and_abstract.search:<TITLE>.
-      return { title, type, angle, sort, oaOnly, extra, auto };
+    function loadNotes(){
+      return safeJsonParse(localStorage.getItem(LS_NOTES) || "[]", []);
+    }
+    function saveNotes(arr){
+      localStorage.setItem(LS_NOTES, JSON.stringify(arr));
     }
 
-    function buildOpenAlexQueryWithExtra(cfg){
-      const base = buildOpenAlexQuery(cfg);
-
-      if (!cfg.extra) return base;
-
-      // Manually extend to keep required URL structure + add extra filter segment.
-      // We do: filter=title_and_abstract.search:<TITLE>,title_and_abstract.search:<ANGLE>,title_and_abstract.search:<EXTRA>,type:...
-      // and search=<TITLE> <ANGLE> <EXTRA>
-      const cleanTitle = String(cfg.title ?? "").trim();
-      const angleKeyword = (cfg.angle && cfg.angle !== "general") ? cfg.angle : "";
-      const extraKeyword = cfg.extra;
-
-      const filterSegs = [
-        `title_and_abstract.search:${encodeURIComponent(cleanTitle)}`
-      ];
-      if (angleKeyword) filterSegs.push(`title_and_abstract.search:${encodeURIComponent(angleKeyword)}`);
-      if (extraKeyword) filterSegs.push(`title_and_abstract.search:${encodeURIComponent(extraKeyword)}`);
-      if (cfg.type && cfg.type !== "all") filterSegs.push(`type:${encodeURIComponent(cfg.type)}`);
-      if (cfg.oaOnly) filterSegs.push(`is_oa:true`);
-
-      const filterStr = filterSegs.join(",");
-      const searchStr = [cleanTitle, angleKeyword, extraKeyword].filter(Boolean).join(" ");
-
-      let sortParam = "";
-      if (cfg.sort === "cited") sortParam = "&sort=cited_by_count:desc";
-      if (cfg.sort === "recent") sortParam = "&sort=publication_date:desc";
-
-      return {
-        webUrl:
-          `https://openalex.org/works?search=${encodeURIComponent(searchStr)}&page=1&filter=${filterStr}${sortParam}`,
-        apiUrl:
-          `https://api.openalex.org/works?search=${encodeURIComponent(searchStr)}&page=1&filter=${filterStr}${sortParam}`
-      };
+    function workKey({year, order, tier, author, title, selection, selections}){
+      // deterministic key per work occurrence in plan
+      const sel = selection ? `|${selection}` : "";
+      const sels = Array.isArray(selections) ? `|${selections.join(" / ")}` : "";
+      return `y${year}|o${order}|${tier}|${author}|${title}${sel}${sels}`.toLowerCase();
     }
 
-    function updateOpenAlexLinks(card){
-      const cfg = getCardConfig(card);
-      const { webUrl, apiUrl } = buildOpenAlexQueryWithExtra(cfg);
-      $("[data-oa-web]", card).href = webUrl;
-      $("[data-oa-api]", card).href = apiUrl;
+    function humanWorkLine(w){
+      const t = w.title || "Untitled";
+      const parts = [];
+      if (w.selection) parts.push(w.selection);
+      if (Array.isArray(w.selections) && w.selections.length) parts.push(w.selections.join("; "));
+      return parts.length ? `${t} — ${parts.join(" | ")}` : t;
     }
 
-    async function previewOpenAlex(card){
-      const resultsBox = $("[data-oa-results]", card);
-      resultsBox.style.display = "block";
-      resultsBox.innerHTML = `<div class="oaResult"><span class="mono">Loading…</span></div>`;
+    /* =========================================================
+       APP STATE
+       ========================================================= */
+    const state = {
+      plan: null,
+      flatWorks: [], // each: {year, order, tier, marker?, author, work:{title,selection,selections}, key, search}
+      checks: loadChecks(),
+      notes: loadNotes(),
+      filters: {
+        q: "",
+        year: "all",
+        tier: "all",
+        sort: "plan",
+        onlyIncomplete: false
+      },
+      ui: {
+        expandedYears: new Set() // which year cards are expanded (details open)
+      },
+      notesUI: {
+        open: false,
+        search: "",
+        tag: "all",
+        editingId: null
+      },
+      tagsUniverse: [] // list of unique work titles (for note tagging)
+    };
 
-      const cfg = getCardConfig(card);
-      const { apiUrl } = buildOpenAlexQueryWithExtra(cfg);
-
-      // Add per-page=10 for the preview
-      const url = apiUrl + (apiUrl.includes("?") ? "&" : "?") + "per-page=10";
-
-      if (oaCache.has(url)){
-        renderOAResults(resultsBox, oaCache.get(url));
-        return;
-      }
-
+    /* =========================================================
+       LOAD READING PLAN
+       ========================================================= */
+    async function loadPlan(){
+      clearError();
       try{
-        const res = await fetch(url, { headers: { "Accept": "application/json" } });
-        if (!res.ok) throw new Error(`OpenAlex API error: ${res.status}`);
+        const res = await fetch("./reading.json", { cache:"no-store" });
+        if (!res.ok) throw new Error(`Could not load reading.json (${res.status})`);
         const data = await res.json();
-        const items = Array.isArray(data.results) ? data.results : [];
-        oaCache.set(url, items);
-        renderOAResults(resultsBox, items);
-      } catch (err){
-        resultsBox.innerHTML = `
-          <div class="oaResult">
-            <div class="oaResultTitle">Preview failed</div>
-            <div class="oaResultMeta">Try opening “API (JSON)” directly. (${escapeHtml(err.message)})</div>
-          </div>
-        `;
-      }
-    }
+        if (!data || !Array.isArray(data.years)) throw new Error("reading.json must include { plan_name, years: [...] }");
 
-    function renderOAResults(box, items){
-      if (!items.length){
-        box.innerHTML = `
-          <div class="oaResult">
-            <div class="oaResultTitle">No results</div>
-            <div class="oaResultMeta">Try changing type/angle, or add a keyword.</div>
-          </div>
-        `;
-        return;
-      }
+        state.plan = data;
+        $("#planName").textContent = data.plan_name || "Reading Plan";
 
-      box.innerHTML = items.map(w => {
-        const title = escapeHtml(w.display_name || w.title || "Untitled");
-        const year = escapeHtml(w.publication_year ?? "—");
-        const type = escapeHtml(w.type ?? "—");
-        const cites = escapeHtml(w.cited_by_count ?? 0);
+        const today = new Date().toLocaleDateString(undefined, { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+        $("#today").textContent = today;
 
-        const landing =
-          w.primary_location && w.primary_location.landing_page_url ? w.primary_location.landing_page_url :
-          (w.id ? String(w.id).replace("https://openalex.org/", "https://openalex.org/") : "");
-
-        const href = landing ? escapeHtml(landing) : (w.id ? escapeHtml(w.id) : "#");
-
-        return `
-          <div class="oaResult">
-            <div class="oaResultTitle"><a href="${href}" target="_blank" rel="noopener">${title}</a></div>
-            <div class="oaResultMeta">
-              <span>${year}</span>
-              <span class="mono">•</span>
-              <span>${type}</span>
-              <span class="mono">•</span>
-              <span>${cites} cites</span>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    // ===== Events =====
-    function wireControls(){
-      $("#q").addEventListener("input", (e)=>{ state.q = e.target.value; applyFilters(); });
-      $("#vol").addEventListener("change", (e)=>{ state.vol = e.target.value; applyFilters(); });
-      $("#era").addEventListener("change", (e)=>{ state.era = e.target.value; applyFilters(); });
-      $("#sort").addEventListener("change", (e)=>{ state.sort = e.target.value; applyFilters(); });
-      $("#onlyWithAuthors").addEventListener("change",(e)=>{ state.onlyWithAuthors = e.target.checked; applyFilters(); });
-      $("#onlyWithVol").addEventListener("change",(e)=>{ state.onlyWithVol = e.target.checked; applyFilters(); });
-
-      // Event delegation for OpenAlex controls inside cards
-      $("#grid").addEventListener("change", (e)=>{
-        const card = e.target.closest(".card");
-        if (!card) return;
-
-        if (e.target.matches("[data-oa-type], [data-oa-angle], [data-oa-sort], [data-oa-oaonly], [data-oa-previewauto]")) {
-          updateOpenAlexLinks(card);
-          const cfg = getCardConfig(card);
-          if (cfg.auto) previewOpenAlex(card);
-        }
-      });
-
-      $("#grid").addEventListener("input", (e)=>{
-        const card = e.target.closest(".card");
-        if (!card) return;
-
-        if (e.target.matches("[data-oa-extra]")) {
-          updateOpenAlexLinks(card);
-          const cfg = getCardConfig(card);
-          if (cfg.auto) {
-            // small debounce per card
-            clearTimeout(card._oaDebounce);
-            card._oaDebounce = setTimeout(()=> previewOpenAlex(card), 250);
-          }
-        }
-      });
-
-      $("#grid").addEventListener("click", (e)=>{
-        const card = e.target.closest(".card");
-        if (!card) return;
-
-        if (e.target.matches("[data-oa-preview]")) {
-          e.preventDefault();
-          updateOpenAlexLinks(card);
-          previewOpenAlex(card);
-        }
-      });
-
-      // Cosmetic: summary +/- toggle
-      $("#grid").addEventListener("toggle", (e)=>{
-        const details = e.target;
-        if (details && details.matches("details.oa")) {
-          const summary = details.querySelector("summary .mono");
-          if (summary) summary.textContent = details.open ? "−" : "+";
-        }
-      });
-    }
-
-    // ===== Load =====
-    async function load(){
-      try{
-        clearError();
-        const res = await fetch("./project.json", { cache: "no-store" });
-        if (!res.ok) throw new Error(`Could not load project.json (${res.status})`);
-        const data = await res.json();
-        if (!Array.isArray(data)) throw new Error("project.json must be a JSON array of works.");
-
-        // Normalize
-        const works = data.map(w => {
-          const title = String(w.title ?? "").trim();
-          const author = (w.author === null || w.author === undefined) ? "" : String(w.author);
-          const vol = (w.vol === null || w.vol === undefined || w.vol === "") ? null : w.vol;
-          const date = (w.date === null || w.date === undefined || w.date === "") ? null : Number(w.date);
-          const item = (w.item === null || w.item === undefined) ? null : Number(w.item);
-
-          const search = normalizeText(`${title} ${author} ${vol ?? ""} ${date ?? ""} ${item ?? ""}`);
-
-          return { title, author, vol, date, item, _search: search };
-        });
-
-        state.works = works;
-
-        fillVolumeOptions(works);
-        $("#countBadge").textContent = `${works.length} works`;
-
-        // Dateline
-        const now = new Date();
-        const dateStr = now.toLocaleDateString(undefined, { weekday: "long", year: "numeric", month: "long", day: "numeric" });
-        $("#datelineLeft").textContent = "Great Works Index";
-        $("#datelineRight").textContent = dateStr;
-
-        wireControls();
-        applyFilters();
-      } catch (err){
+        flattenPlan();
+        fillYearOptions();
+        buildTagsUniverse();
+        wireUI();
+        renderAll();
+      } catch(err){
         setError(`LOAD ERROR: ${err.message}`);
       }
     }
 
-    load();
+    function flattenPlan(){
+      const flat = [];
+      const years = state.plan.years || [];
+      for (const y of years){
+        const yearNum = Number(y.year);
+        const readings = y.readings || [];
+        for (const r of readings){
+          const order = Number(r.order);
+          const tier = String(r.tier || "").toLowerCase();
+          const marker = r.marker ?? "";
+          const author = String(r.author || "").trim();
+
+          const works = Array.isArray(r.works) ? r.works : [];
+          for (const w of works){
+            const title = String(w.title || "").trim();
+            const selection = w.selection ? String(w.selection).trim() : "";
+            const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
+
+            const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
+            const search = normalizeText(`${yearNum} ${order} ${tier} ${author} ${title} ${selection} ${(selections||[]).join(" ")}`);
+
+            flat.push({
+              year: yearNum,
+              order,
+              tier,
+              marker,
+              author,
+              work: { title, selection, selections },
+              key,
+              search
+            });
+          }
+        }
+      }
+      state.flatWorks = flat;
+
+      // Count badge
+      $("#countBadge").textContent = `${flat.length} works`;
+
+      // Default expanded: Year 1 open
+      state.ui.expandedYears.add(1);
+    }
+
+    function fillYearOptions(){
+      const sel = $("#yearSel");
+      // remove existing year options except "All"
+      while (sel.options.length > 1) sel.remove(1);
+      const years = (state.plan.years || []).map(y=>Number(y.year)).filter(n=>Number.isFinite(n)).sort((a,b)=>a-b);
+      for (const y of years){
+        const opt = document.createElement("option");
+        opt.value = String(y);
+        opt.textContent = `Year ${y}`;
+        sel.appendChild(opt);
+      }
+    }
+
+    function buildTagsUniverse(){
+      // For notes "book tag": use unique work titles appearing in the plan
+      const set = new Set();
+      for (const fw of state.flatWorks){
+        const t = fw.work.title;
+        if (t) set.add(t);
+      }
+      state.tagsUniverse = Array.from(set).sort((a,b)=>a.localeCompare(b, undefined, { sensitivity:"base" }));
+
+      // Fill note filter dropdown
+      const filterSel = $("#noteTagFilter");
+      filterSel.innerHTML = `<option value="all">All</option>` + state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+
+      // Fill editor dropdown
+      const editSel = $("#editBookTag");
+      editSel.innerHTML = state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+    }
+
+    /* =========================================================
+       FILTER + SORT + GROUPING
+       ========================================================= */
+    function applyFilters(){
+      const f = state.filters;
+      const q = normalizeText(f.q);
+
+      let items = state.flatWorks.slice();
+
+      if (f.year !== "all"){
+        const y = Number(f.year);
+        items = items.filter(x => x.year === y);
+      }
+
+      if (f.tier !== "all"){
+        items = items.filter(x => x.tier === f.tier);
+      }
+
+      if (q){
+        items = items.filter(x => x.search.includes(q));
+      }
+
+      if (f.onlyIncomplete){
+        items = items.filter(x => !state.checks[x.key]);
+      }
+
+      // Sorting
+      if (f.sort === "plan"){
+        items.sort((a,b)=> a.year-b.year || a.order-b.order || a.work.title.localeCompare(b.work.title));
+      } else if (f.sort === "author"){
+        items.sort((a,b)=> a.author.localeCompare(b.author, undefined, { sensitivity:"base" })
+          || a.year-b.year || a.order-b.order || a.work.title.localeCompare(b.work.title));
+      } else if (f.sort === "title"){
+        items.sort((a,b)=> a.work.title.localeCompare(b.work.title, undefined, { sensitivity:"base" })
+          || a.year-b.year || a.order-b.order);
+      }
+
+      return items;
+    }
+
+    function groupByYear(filtered){
+      const map = new Map();
+      for (const item of filtered){
+        if (!map.has(item.year)) map.set(item.year, []);
+        map.get(item.year).push(item);
+      }
+      const years = Array.from(map.keys()).sort((a,b)=>a-b);
+      return years.map(y => ({ year:y, items: map.get(y) }));
+    }
+
+    /* =========================================================
+       PROGRESS
+       ========================================================= */
+    function computeProgress(){
+      const total = state.flatWorks.length;
+      let done = 0;
+      for (const w of state.flatWorks){
+        if (state.checks[w.key]) done++;
+      }
+      const pct = total ? Math.round((done/total)*100) : 0;
+      return { total, done, pct };
+    }
+
+    function updateProgressBadge(){
+      const { total, done, pct } = computeProgress();
+      $("#progressBadge").textContent = `Progress: ${pct}%`;
+      // also update count badge to show done/total
+      $("#countBadge").textContent = `${done}/${total} works`;
+    }
+
+    /* =========================================================
+       RENDER
+       ========================================================= */
+    function renderAll(){
+      updateProgressBadge();
+      renderPlan();
+      renderNotesList();
+    }
+
+    function renderPlan(){
+      const grid = $("#grid");
+      const filtered = applyFilters();
+      const grouped = groupByYear(filtered);
+
+      if (!grouped.length){
+        grid.innerHTML = `
+          <div class="yearCard">
+            <div class="yearHeader">
+              <h2 class="yearTitle">No matches</h2>
+              <div class="yearMeta"><span>Try different filters</span></div>
+            </div>
+            <div class="help">Nothing matched your search/tier/year/incomplete filter.</div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
+
+      // wire per-card events after injection
+      wirePlanDelegation();
+    }
+
+    function yearCardHtml(year, items){
+      // year progress among items shown (not entire year)
+      const total = items.length;
+      const done = items.reduce((acc,x)=> acc + (state.checks[x.key] ? 1 : 0), 0);
+      const pct = total ? Math.round((done/total)*100) : 0;
+
+      const open = state.ui.expandedYears.has(year);
+      const barW = pct;
+
+      // group items by reading block (order + author + tier + marker)
+      const blocks = new Map();
+      for (const it of items){
+        const blockKey = `${it.order}|${it.tier}|${it.marker||""}|${it.author}`;
+        if (!blocks.has(blockKey)) blocks.set(blockKey, { order: it.order, tier: it.tier, marker: it.marker, author: it.author, works: [] });
+        blocks.get(blockKey).works.push(it);
+      }
+      const blockArr = Array.from(blocks.values()).sort((a,b)=>a.order-b.order);
+
+      return `
+        <section class="yearCard" data-year="${year}">
+          <div class="yearHeader">
+            <h2 class="yearTitle">Year ${year}</h2>
+            <div class="yearMeta">
+              <span>${done}/${total} done</span>
+              <span class="mono">•</span>
+              <span class="bar" aria-label="progress bar"><span style="width:${barW}%"></span></span>
+            </div>
+          </div>
+
+          <details class="yearDetails" ${open ? "open" : ""}>
+            <summary class="btn" style="list-style:none; width:max-content;">
+              ${open ? "Collapse" : "Expand"} year
+            </summary>
+
+            <div style="margin-top:10px;">
+              ${blockArr.map(b => readingBlockHtml(year, b)).join("")}
+            </div>
+          </details>
+        </section>
+      `;
+    }
+
+    function readingBlockHtml(year, block){
+      const tierLabel = block.tier || "—";
+      const marker = block.marker ? `<span class="marker">${escapeHtml(block.marker)}</span>` : "";
+      const worksHtml = block.works.map(w => workRowHtml(w)).join("");
+
+      return `
+        <div class="readingBlock" data-year="${year}" data-order="${block.order}">
+          <div class="readingHead">
+            <div class="readingLeft">
+              <div class="order">#${escapeHtml(block.order)}</div>
+              <div class="author">${escapeHtml(block.author || "Unknown")}</div>
+              <span class="tier">${escapeHtml(tierLabel)}</span>
+              ${marker}
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" type="button" data-action="markBlockDone">Mark block done</button>
+              <button class="btn" type="button" data-action="markBlockUndone">Mark block undone</button>
+            </div>
+          </div>
+          <div class="worksList">
+            ${worksHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function workRowHtml(w){
+      const checked = !!state.checks[w.key];
+      const title = w.work.title || "Untitled";
+      const sel = w.work.selection ? `Selection: ${w.work.selection}` : "";
+      const sels = Array.isArray(w.work.selections) && w.work.selections.length ? `Selections: ${w.work.selections.join("; ")}` : "";
+      const subLines = [sel, sels].filter(Boolean);
+
+      // count notes for this title
+      const noteCount = state.notes.filter(n => n.book_tag === title).length;
+
+      return `
+        <div class="workRow" data-workkey="${escapeHtml(w.key)}"
+             data-book="${escapeHtml(title)}"
+             data-author="${escapeHtml(w.author)}"
+             data-year="${escapeHtml(w.year)}"
+             data-order="${escapeHtml(w.order)}"
+             data-tier="${escapeHtml(w.tier)}"
+             data-selection="${escapeHtml(w.work.selection || "")}"
+        >
+          <div class="workCheck">
+            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" />
+          </div>
+
+          <div class="workMain">
+            <p class="workTitle">${escapeHtml(title)}</p>
+            <div class="workSub">
+              <div class="tagRow">
+                <span class="pill">Year ${escapeHtml(w.year)}</span>
+                <span class="pill">Order ${escapeHtml(w.order)}</span>
+                <span class="pill">${escapeHtml(w.tier)}</span>
+                <span class="pill">Notes ${escapeHtml(noteCount)}</span>
+              </div>
+              ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
+            </div>
+          </div>
+
+          <div class="workActions">
+            <button class="btn" type="button" data-action="newNoteFromWork">New note</button>
+            <button class="btn" type="button" data-action="openNotesForBook">Open notes</button>
+          </div>
+        </div>
+      `;
+    }
+
+    /* =========================================================
+       UI WIRING: MAIN CONTROLS
+       ========================================================= */
+    function wireUI(){
+      $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderAll(); });
+      $("#yearSel").addEventListener("change", e => { state.filters.year = e.target.value; renderAll(); });
+      $("#tierSel").addEventListener("change", e => { state.filters.tier = e.target.value; renderAll(); });
+      $("#sortSel").addEventListener("change", e => { state.filters.sort = e.target.value; renderAll(); });
+      $("#onlyIncomplete").addEventListener("change", e => { state.filters.onlyIncomplete = e.target.checked; renderAll(); });
+
+      $("#expandAllBtn").addEventListener("click", () => {
+        state.ui.expandedYears = new Set((state.plan.years || []).map(y=>Number(y.year)));
+        renderPlan();
+      });
+      $("#collapseAllBtn").addEventListener("click", () => {
+        state.ui.expandedYears.clear();
+        renderPlan();
+      });
+
+      $("#resetChecksBtn").addEventListener("click", () => {
+        if (!confirm("Reset all checkboxes? This cannot be undone.")) return;
+        state.checks = {};
+        saveChecks(state.checks);
+        renderAll();
+      });
+
+      // Notes drawer buttons
+      $("#openNotesBtn").addEventListener("click", () => openDrawer());
+      $("#closeDrawerBtn").addEventListener("click", () => closeDrawer());
+      $("#drawerOverlay").addEventListener("click", () => closeDrawer());
+      document.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && state.notesUI.open) closeDrawer(); });
+
+      // Notes tools
+      $("#noteSearch").addEventListener("input", (e)=>{ state.notesUI.search = e.target.value; renderNotesList(); });
+      $("#noteTagFilter").addEventListener("change", (e)=>{ state.notesUI.tag = e.target.value; renderNotesList(); });
+
+      $("#newNoteBtn").addEventListener("click", () => startNewNote({}));
+      $("#exportNotesBtn").addEventListener("click", exportNotes);
+      $("#importNotesBtn").addEventListener("click", ()=> $("#importFile").click());
+      $("#importFile").addEventListener("change", importNotesFile);
+
+      // Editor actions
+      $("#saveNoteBtn").addEventListener("click", saveEditorNote);
+      $("#deleteNoteBtn").addEventListener("click", deleteEditorNote);
+      $("#cancelEditBtn").addEventListener("click", () => hideEditor());
+    }
+
+    function wirePlanDelegation(){
+      const grid = $("#grid");
+      // Avoid stacking multiple listeners by resetting handler each render
+      grid.onclick = (e) => {
+        const btn = e.target.closest("[data-action]");
+        if (!btn) return;
+
+        const action = btn.dataset.action;
+
+        if (action === "markBlockDone" || action === "markBlockUndone"){
+          const block = btn.closest(".readingBlock");
+          if (!block) return;
+          const workRows = Array.from(block.querySelectorAll(".workRow"));
+          for (const row of workRows){
+            const key = row.dataset.workkey;
+            state.checks[key] = (action === "markBlockDone");
+          }
+          saveChecks(state.checks);
+          renderAll();
+          return;
+        }
+
+        if (action === "newNoteFromWork" || action === "openNotesForBook"){
+          const row = btn.closest(".workRow");
+          if (!row) return;
+          const ctx = getWorkContextFromRow(row);
+
+          if (action === "newNoteFromWork"){
+            openDrawer();
+            startNewNote(ctx);
+          } else {
+            openDrawer();
+            state.notesUI.tag = ctx.book_tag;
+            $("#noteTagFilter").value = ctx.book_tag;
+            renderNotesList();
+          }
+          return;
+        }
+      };
+
+      grid.onchange = (e) => {
+        const cb = e.target.closest('input[type="checkbox"][data-action="toggleComplete"]');
+        if (!cb) return;
+        const row = cb.closest(".workRow");
+        const key = row.dataset.workkey;
+        state.checks[key] = cb.checked;
+        saveChecks(state.checks);
+        updateProgressBadge();
+
+        // update notes count pill quickly by rerendering just this year card? simplest full render:
+        renderPlan();
+      };
+
+      // Track details expand/collapse to remember expanded years
+      grid.ontoggle = (e) => {
+        const details = e.target;
+        if (!details || !details.classList.contains("yearDetails")) return;
+        const card = details.closest(".yearCard");
+        if (!card) return;
+        const year = Number(card.dataset.year);
+        if (details.open) state.ui.expandedYears.add(year);
+        else state.ui.expandedYears.delete(year);
+      };
+    }
+
+    function getWorkContextFromRow(row){
+      const book = row.dataset.book || "";
+      const author = row.dataset.author || "";
+      const year = Number(row.dataset.year) || "";
+      const selection = row.dataset.selection || "";
+      return {
+        book_tag: book,
+        author,
+        year,
+        selection
+      };
+    }
+
+    /* =========================================================
+       NOTES DRAWER
+       ========================================================= */
+    function openDrawer(){
+      state.notesUI.open = true;
+      $("#drawer").classList.add("open");
+      $("#drawerOverlay").classList.add("open");
+      $("#drawer").setAttribute("aria-hidden", "false");
+      $("#drawerOverlay").setAttribute("aria-hidden", "false");
+      renderNotesList();
+    }
+
+    function closeDrawer(){
+      state.notesUI.open = false;
+      $("#drawer").classList.remove("open");
+      $("#drawerOverlay").classList.remove("open");
+      $("#drawer").setAttribute("aria-hidden", "true");
+      $("#drawerOverlay").setAttribute("aria-hidden", "true");
+      hideEditor();
+    }
+
+    function filteredNotes(){
+      const q = normalizeText(state.notesUI.search);
+      const tag = state.notesUI.tag;
+
+      let notes = state.notes.slice();
+
+      if (tag !== "all"){
+        notes = notes.filter(n => n.book_tag === tag);
+      }
+
+      if (q){
+        notes = notes.filter(n => {
+          const hay = normalizeText(`${n.title} ${n.body} ${n.book_tag} ${n.author} ${n.selection}`);
+          return hay.includes(q);
+        });
+      }
+
+      // newest first
+      notes.sort((a,b)=> (b.updated_at || "").localeCompare(a.updated_at || ""));
+      return notes;
+    }
+
+    function renderNotesList(){
+      // Sync dropdown UI for tag filter
+      const tagSel = $("#noteTagFilter");
+      if (tagSel && tagSel.value !== state.notesUI.tag) tagSel.value = state.notesUI.tag;
+
+      const list = $("#noteList");
+      const notes = filteredNotes();
+
+      if (!notes.length){
+        list.innerHTML = `
+          <div class="noteItem">
+            <div class="noteItemHead">
+              <p class="noteItemTitle">No notes</p>
+              <div class="noteItemMeta"><span>Create one</span></div>
+            </div>
+            <div class="noteItemPreview">Use “New note” or click “New note” on a reading.</div>
+          </div>
+        `;
+      } else {
+        list.innerHTML = notes.map(n => noteItemHtml(n)).join("");
+      }
+
+      // note click -> edit
+      list.onclick = (e) => {
+        const item = e.target.closest("[data-noteid]");
+        if (!item) return;
+        const id = item.dataset.noteid;
+        startEditNote(id);
+      };
+    }
+
+    function noteItemHtml(n){
+      const title = n.title ? escapeHtml(n.title) : "Untitled note";
+      const book = n.book_tag ? escapeHtml(n.book_tag) : "—";
+      const year = n.year ? `Year ${escapeHtml(n.year)}` : "—";
+      const updated = n.updated_at ? new Date(n.updated_at).toLocaleString() : "";
+      const preview = (n.body || "").slice(0, 220);
+
+      const pills = [
+        `<span class="pill">${book}</span>`,
+        `<span class="pill">${year}</span>`,
+        n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : ""
+      ].filter(Boolean).join("");
+
+      return `
+        <div class="noteItem" data-noteid="${escapeHtml(n.id)}">
+          <div class="noteItemHead">
+            <p class="noteItemTitle">${title}</p>
+            <div class="noteItemMeta">
+              <span>${escapeHtml(updated)}</span>
+            </div>
+          </div>
+          <div class="tagRow">${pills}</div>
+          <div class="noteItemPreview">${escapeHtml(preview)}${(n.body||"").length>220 ? "…" : ""}</div>
+        </div>
+      `;
+    }
+
+    /* =========================================================
+       NOTE EDITOR
+       ========================================================= */
+    function showEditor(){
+      $("#noteEditor").style.display = "grid";
+      $("#noteList").style.display = "none";
+    }
+    function hideEditor(){
+      $("#noteEditor").style.display = "none";
+      $("#noteList").style.display = "block";
+      state.notesUI.editingId = null;
+    }
+
+    function startNewNote(ctx){
+      // ctx: {book_tag, author, year, selection}
+      const id = uid();
+      state.notesUI.editingId = id;
+
+      // Pre-fill
+      $("#editTitle").value = ctx.book_tag ? `${ctx.book_tag} — ` : "";
+      $("#editBookTag").value = ctx.book_tag && state.tagsUniverse.includes(ctx.book_tag) ? ctx.book_tag : (state.tagsUniverse[0] || "");
+      $("#editYear").value = ctx.year ? String(ctx.year) : "";
+      $("#editAuthor").value = ctx.author || "";
+      $("#editSelection").value = ctx.selection || "";
+      $("#editBody").value = "";
+
+      $("#editMeta").textContent = "New note — not saved yet.";
+      showEditor();
+      $("#editTitle").focus();
+    }
+
+    function startEditNote(id){
+      const n = state.notes.find(x => x.id === id);
+      if (!n) return;
+
+      state.notesUI.editingId = id;
+
+      $("#editTitle").value = n.title || "";
+      $("#editBookTag").value = n.book_tag && state.tagsUniverse.includes(n.book_tag) ? n.book_tag : (state.tagsUniverse[0] || "");
+      $("#editYear").value = n.year ? String(n.year) : "";
+      $("#editAuthor").value = n.author || "";
+      $("#editSelection").value = n.selection || "";
+      $("#editBody").value = n.body || "";
+
+      const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
+      $("#editMeta").textContent = meta;
+
+      showEditor();
+      $("#editBody").focus();
+    }
+
+    function saveEditorNote(){
+      const id = state.notesUI.editingId;
+      if (!id) return;
+
+      const title = $("#editTitle").value.trim();
+      const book_tag = $("#editBookTag").value;
+      const year = Number($("#editYear").value) || null;
+      const author = $("#editAuthor").value.trim();
+      const selection = $("#editSelection").value.trim();
+      const body = $("#editBody").value;
+
+      const existingIdx = state.notes.findIndex(n => n.id === id);
+
+      if (existingIdx === -1){
+        const note = {
+          id,
+          title: title || `Note — ${book_tag}`,
+          book_tag,
+          year,
+          author,
+          selection,
+          body,
+          created_at: nowIso(),
+          updated_at: nowIso()
+        };
+        state.notes.unshift(note);
+      } else {
+        const n = state.notes[existingIdx];
+        n.title = title || `Note — ${book_tag}`;
+        n.book_tag = book_tag;
+        n.year = year;
+        n.author = author;
+        n.selection = selection;
+        n.body = body;
+        n.updated_at = nowIso();
+      }
+
+      saveNotes(state.notes);
+
+      // Keep filter aligned to saved tag if user is filtering
+      if (state.notesUI.tag !== "all" && state.notesUI.tag !== book_tag){
+        state.notesUI.tag = book_tag;
+        $("#noteTagFilter").value = book_tag;
+      }
+
+      renderNotesList();
+      hideEditor();
+
+      // Update plan pills showing note counts
+      renderPlan();
+    }
+
+    function deleteEditorNote(){
+      const id = state.notesUI.editingId;
+      if (!id) return;
+      if (!confirm("Delete this note?")) return;
+
+      state.notes = state.notes.filter(n => n.id !== id);
+      saveNotes(state.notes);
+
+      renderNotesList();
+      hideEditor();
+      renderPlan();
+    }
+
+    /* =========================================================
+       NOTES IMPORT/EXPORT
+       ========================================================= */
+    function exportNotes(){
+      const payload = {
+        exported_at: nowIso(),
+        notes: state.notes
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `reading-notes-export-${new Date().toISOString().slice(0,10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      URL.revokeObjectURL(url);
+    }
+
+    async function importNotesFile(e){
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      try{
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+
+        let notesIn = [];
+        if (Array.isArray(parsed)) notesIn = parsed;
+        else if (parsed && Array.isArray(parsed.notes)) notesIn = parsed.notes;
+        else throw new Error("Import must be an array of notes, or { notes: [...] }");
+
+        // Normalize / de-dupe by id
+        const existing = new Map(state.notes.map(n => [n.id, n]));
+        for (const n of notesIn){
+          if (!n || !n.id) continue;
+          existing.set(n.id, {
+            id: String(n.id),
+            title: String(n.title || "").trim() || `Note — ${String(n.book_tag || "Unknown")}`,
+            book_tag: String(n.book_tag || "").trim(),
+            year: (n.year === null || n.year === undefined || n.year === "") ? null : Number(n.year),
+            author: String(n.author || "").trim(),
+            selection: String(n.selection || "").trim(),
+            body: String(n.body || ""),
+            created_at: n.created_at ? String(n.created_at) : nowIso(),
+            updated_at: n.updated_at ? String(n.updated_at) : nowIso()
+          });
+        }
+
+        state.notes = Array.from(existing.values()).sort((a,b)=> (b.updated_at||"").localeCompare(a.updated_at||""));
+        saveNotes(state.notes);
+
+        // Reset file input
+        $("#importFile").value = "";
+
+        renderAll();
+        alert("Notes imported.");
+      } catch(err){
+        alert(`Import failed: ${err.message}`);
+      }
+    }
+
+    /* =========================================================
+       BOOT
+       ========================================================= */
+    loadPlan();
   </script>
 </body>
 </html>

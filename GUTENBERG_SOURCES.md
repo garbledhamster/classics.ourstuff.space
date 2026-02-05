@@ -9,8 +9,8 @@ This document tracks the availability of books from our collection on Project Gu
 
 **Statistics:**
 - Total Books: 398
-- Available with Source: 366
-- Needing Verification: 32
+- Available with Source: 368
+- Needing Verification: 30
 
 **Last Updated:** 2026-02-05
 
@@ -28,7 +28,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 6 | Qur'an |  |  | 632 | 2800 | [Link](https://www.gutenberg.org/ebooks/2800) |
 | ✅ | 7 | Beowulf |  |  | 1025 | 16328 | [Link](https://www.gutenberg.org/ebooks/16328) |
 | ✅ | 8 | The Song of Roland |  |  | 1115 | 391 | [Link](https://www.gutenberg.org/ebooks/391) |
-| ⚠️ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 |  |  |
+| ✅ | 9 | The Destruction of Dá Derga’s Hostel |  |  | 1782 | 14019 | [Link](https://www.gutenberg.org/ebooks/14019) |
 | ✅ | 10 | The Story of the Volsungs and Niblungs |  |  | 1877 | 1152 | [Link](https://www.gutenberg.org/ebooks/1152) |
 | ⚠️ | 11 | The Great Conversation | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 1 | 1952 |  |  |
 | ⚠️ | 12 | The Great Ideas I : ANGEL to LOVE | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 2 | 1952 |  |  |
@@ -119,7 +119,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ✅ | 97 | Meteorology | Aristotle | 8 | -340 | 8438 | [Link](https://www.gutenberg.org/ebooks/8438) |
 | ✅ | 98 | Metaphysics | Aristotle | 8 | -322 |  | [Link](https://classics.mit.edu/Aristotle/metaphysics.html) |
 | ✅ | 99 | On the Soul | Aristotle | 8 | -350 |  | [Link](https://classics.mit.edu/Aristotle/soul.html) |
-| ⚠️ | 100 | Minor biological works | Aristotle | 8 | -322 |  |  |
+| ✅ | 100 | Minor biological works | Aristotle | 8 | -322 | 59058 | [Link](https://www.gutenberg.org/ebooks/59058) |
 | ✅ | 101 | On Sense and the Sensible | Aristotle | 8 | -322 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |
 | ✅ | 102 | On Memory and Reminisence | Aristotle | 8 | -350 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |
 | ✅ | 103 | On Sleep and Sleeplessness | Aristotle | 8 | -322 | 57342 | [Link](https://www.gutenberg.org/ebooks/57342) |

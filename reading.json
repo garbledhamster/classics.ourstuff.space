@@ -3783,7 +3783,8 @@
           "author": "Aristotle",
           "works": [
             {
-              "title": "Minor biological works"
+              "title": "Minor biological works",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/59058"
             }
           ]
         },
@@ -4421,7 +4422,8 @@
           "author": "Unknown Author",
           "works": [
             {
-              "title": "The Destruction of Dá Derga’s Hostel"
+              "title": "The Destruction of Dá Derga’s Hostel",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/14019"
             }
           ]
         },

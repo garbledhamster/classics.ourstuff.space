@@ -289,7 +289,7 @@
       display:flex;
       gap:6px;
       flex-wrap:wrap;
-      margin-top:2px;
+      margin-top:6px;
       min-width:0;
     }
 
@@ -330,6 +330,7 @@
       font-size:12px;
       color:var(--muted);
       overflow-wrap:anywhere;
+      margin-top:6px;
     }
     /* Library card button drawer – slides out from under card */
     .libDrawer{
@@ -364,6 +365,8 @@
       flex-wrap:wrap;
       align-items:center;
       min-width:0;
+      margin-top:8px;
+      margin-bottom:8px;
     }
 
     /* ===== Plan year cards ===== */
@@ -785,15 +788,27 @@
 
       <div class="subhead">
         <div class="navRow">
-          <button class="btn tabOn" id="tabLibrary" type="button">Library</button>
-          <button class="btn" id="tabPlan" type="button">Ten-Year Reading Plan</button>
+          <button class="btn tabOn" id="tabLibrary" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Library
+          </button>
+          <button class="btn" id="tabPlan" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Ten-Year Reading Plan
+          </button>
+          <button class="btn" id="openOpenAlexBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+            OpenAlex Options
+          </button>
+          <button class="btn" id="openNotesBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+            Notes Drawer
+          </button>
         </div>
 
         <div class="navRow">
           <div class="badge" id="countBadge">0</div>
           <div class="badge" id="progressBadge">Progress: 0%</div>
-          <button class="btn" id="openOpenAlexBtn" type="button">OpenAlex Options</button>
-          <button class="btn" id="openNotesBtn" type="button">Notes Drawer</button>
         </div>
       </div>
     </header>
@@ -838,7 +853,10 @@
 
         <div class="rowWide">
           <div class="help">Browse all works here. Use “Go to Plan” to jump into the Ten-Year schedule.</div>
-          <button class="btn" id="libResetBtn" type="button">Reset filters</button>
+          <button class="btn" id="libResetBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+            Reset filters
+          </button>
         </div>
       </section>
 
@@ -856,9 +874,13 @@
         <div class="control">
           <div class="label">Year</div>
           <div class="yearStepper">
-            <button class="btn" id="yearPrev" type="button">◀</button>
+            <button class="btn" id="yearPrev" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
             <span id="yearDisplay" class="yearNum">Year 1</span>
-            <button class="btn" id="yearNext" type="button">▶</button>
+            <button class="btn" id="yearNext" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
           </div>
         </div>
 
@@ -886,7 +908,10 @@
             Only incomplete
           </label>
 
-          <button class="btn" id="resetChecksBtn" type="button">Reset checks</button>
+          <button class="btn" id="resetChecksBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+            Reset checks
+          </button>
         </div>
       </section>
 
@@ -907,8 +932,14 @@
     <div class="drawerHeader">
       <h2 class="drawerTitle">Notes</h2>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn" id="newNoteBtn" type="button">New note</button>
-        <button class="btn" id="closeNotesBtn" type="button">Close</button>
+        <button class="btn" id="newNoteBtn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          New note
+        </button>
+        <button class="btn" id="closeNotesBtn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          Close
+        </button>
       </div>
     </div>
 
@@ -931,8 +962,14 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="exportNotesBtn" type="button">Export JSON</button>
-          <button class="btn" id="importNotesBtn" type="button">Import JSON</button>
+          <button class="btn" id="exportNotesBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export JSON
+          </button>
+          <button class="btn" id="importNotesBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Import JSON
+          </button>
           <input id="importFile" type="file" accept="application/json" style="display:none;" />
         </div>
       </section>
@@ -973,9 +1010,18 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="saveNoteBtn" type="button">Save</button>
-          <button class="btn" id="deleteNoteBtn" type="button">Delete</button>
-          <button class="btn" id="cancelEditBtn" type="button">Cancel</button>
+          <button class="btn" id="saveNoteBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+            Save
+          </button>
+          <button class="btn" id="deleteNoteBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Delete
+          </button>
+          <button class="btn" id="cancelEditBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            Cancel
+          </button>
         </div>
 
         <div class="help" id="editMeta"></div>
@@ -988,8 +1034,14 @@
     <div class="drawerHeader">
       <h2 class="drawerTitle">OpenAlex Options</h2>
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn" id="oaResetBtn" type="button">Reset</button>
-        <button class="btn" id="oaCloseBtn" type="button">Close</button>
+        <button class="btn" id="oaResetBtn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+          Reset
+        </button>
+        <button class="btn" id="oaCloseBtn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          Close
+        </button>
       </div>
     </div>
 
@@ -1087,7 +1139,10 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="oaTestBtn" type="button">Test OpenAlex</button>
+          <button class="btn" id="oaTestBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Test OpenAlex
+          </button>
         </div>
       </section>
 
@@ -1650,10 +1705,22 @@
 
           <div class="libDrawer"><div>
             <div class="libActions">
-              <button class="btn" type="button" data-action="openOpenAlexLib">OpenAlex</button>
-              <button class="btn" type="button" data-action="newNoteLib">New note</button>
-              <button class="btn" type="button" data-action="openNotesLib">Open notes</button>
-              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">Go to plan</button>
+              <button class="btn" type="button" data-action="openOpenAlexLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                OpenAlex
+              </button>
+              <button class="btn" type="button" data-action="newNoteLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                New note
+              </button>
+              <button class="btn" type="button" data-action="openNotesLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                Open notes
+              </button>
+              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                Go to plan
+              </button>
             </div>
           </div></div>
         </section>
@@ -1726,8 +1793,14 @@
               ${marker}
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn" type="button" data-action="markBlockDone">Mark block done</button>
-              <button class="btn" type="button" data-action="markBlockUndone">Mark block undone</button>
+              <button class="btn" type="button" data-action="markBlockDone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Mark block done
+              </button>
+              <button class="btn" type="button" data-action="markBlockUndone">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
+                Mark block undone
+              </button>
             </div>
           </div>
           <div class="worksList">
@@ -1776,10 +1849,22 @@
 
           <div class="workDrawer"><div>
             <div class="workActions">
-              <button class="btn" type="button" data-action="openOpenAlex">OpenAlex</button>
-              <button class="btn" type="button" data-action="openLibraryForWork">View in library</button>
-              <button class="btn" type="button" data-action="newNoteFromWork">New note</button>
-              <button class="btn" type="button" data-action="openNotesForBook">Open notes</button>
+              <button class="btn" type="button" data-action="openOpenAlex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                OpenAlex
+              </button>
+              <button class="btn" type="button" data-action="openLibraryForWork">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                View in library
+              </button>
+              <button class="btn" type="button" data-action="newNoteFromWork">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                New note
+              </button>
+              <button class="btn" type="button" data-action="openNotesForBook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                Open notes
+              </button>
             </div>
           </div></div>
         </div>

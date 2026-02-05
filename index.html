@@ -156,6 +156,37 @@
     }
     .input:focus, .select:focus{ box-shadow:0 0 0 3px #00000022; }
 
+    /* Year stepper  ◀ Year N ▶ */
+    .yearStepper{
+      display:flex;
+      align-items:stretch;
+      border:var(--border);
+      box-shadow:var(--shadowXs);
+      background:#fff;
+    }
+    .yearStepper .btn{
+      box-shadow:none;
+      border:none;
+      border-radius:0;
+      padding:10px 14px;
+      font-size:18px;
+      line-height:1;
+    }
+    .yearStepper .btn:first-child{ border-right:var(--borderThin); }
+    .yearStepper .btn:last-child{ border-left:var(--borderThin); }
+    .yearNum{
+      font-weight:900;
+      font-size:13px;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      white-space:nowrap;
+      min-width:78px;
+    }
+
     .toggle{
       display:inline-flex;
       align-items:center;
@@ -785,9 +816,11 @@
 
         <div class="control">
           <div class="label">Year</div>
-          <select id="yearSel" class="select">
-            <option value="all">All</option>
-          </select>
+          <div class="yearStepper">
+            <button class="btn" id="yearPrev" type="button">◀</button>
+            <span id="yearDisplay" class="yearNum">Year 1</span>
+            <button class="btn" id="yearNext" type="button">▶</button>
+          </div>
         </div>
 
         <div class="control">
@@ -814,11 +847,7 @@
             Only incomplete
           </label>
 
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <button class="btn" id="expandAllBtn" type="button">Expand all</button>
-            <button class="btn" id="collapseAllBtn" type="button">Collapse all</button>
-            <button class="btn" id="resetChecksBtn" type="button">Reset checks</button>
-          </div>
+          <button class="btn" id="resetChecksBtn" type="button">Reset checks</button>
         </div>
       </section>
 
@@ -1206,10 +1235,11 @@
       notes: loadNotes(),
       openalex: loadOpenAlexSettings(),
       view: "library",   // "library" | "plan"
+      availableYears: [],
       filters: {
         // plan view
         q: "",
-        year: "all",
+        year: "1",
         tier: "all",
         sort: "plan",
         onlyIncomplete: false,
@@ -1219,9 +1249,7 @@
         libTierPresence: "all",
         libShow: "all"
       },
-      ui: {
-        expandedYears: new Set()
-      },
+      ui: {},
       drawer: { open:false, which:null }, // notes | openalex
       notesUI: { search:"", tag:"all", editingId:null },
       tagsUniverse: [] // note tags (titles)
@@ -1247,9 +1275,6 @@
         buildLibraryWorks();
         fillYearOptions();
         buildTagsUniverse();
-
-        // Default expansion (only used once you open plan view)
-        state.ui.expandedYears.add(1);
 
         syncOpenAlexUIFromState();
         updateOpenAlexPreview();
@@ -1341,15 +1366,15 @@
     }
 
     function fillYearOptions(){
-      const sel = $("#yearSel");
-      while (sel.options.length > 1) sel.remove(1);
-      const years = (state.plan.years || []).map(y=>Number(y.year)).filter(n=>Number.isFinite(n)).sort((a,b)=>a-b);
-      for (const y of years){
-        const opt = document.createElement("option");
-        opt.value = String(y);
-        opt.textContent = `Year ${y}`;
-        sel.appendChild(opt);
+      state.availableYears = (state.plan.years || []).map(y=>Number(y.year)).filter(n=>Number.isFinite(n)).sort((a,b)=>a-b);
+      if (state.availableYears.length){
+        state.filters.year = String(state.availableYears[0]);
       }
+      updateYearStepper();
+    }
+
+    function updateYearStepper(){
+      $("#yearDisplay").textContent = `Year ${state.filters.year}`;
     }
 
     function buildTagsUniverse(){
@@ -1619,8 +1644,6 @@
       const total = items.length;
       const done = items.reduce((acc,x)=> acc + (state.checks[x.key] ? 1 : 0), 0);
       const pct = total ? Math.round((done/total)*100) : 0;
-
-      const open = state.ui.expandedYears.has(year);
       const barW = pct;
 
       const blocks = new Map();
@@ -1641,16 +1664,7 @@
               <span class="bar" aria-label="progress bar"><span style="width:${barW}%"></span></span>
             </div>
           </div>
-
-          <details class="yearDetails" ${open ? "open" : ""}>
-            <summary class="btn" style="list-style:none; width:max-content;">
-              ${open ? "Collapse" : "Expand"} year
-            </summary>
-
-            <div style="margin-top:10px;">
-              ${blockArr.map(b => readingBlockHtml(year, b)).join("")}
-            </div>
-          </details>
+          ${blockArr.map(b => readingBlockHtml(year, b)).join("")}
         </section>
       `;
     }
@@ -1842,15 +1856,7 @@
         renderAll();
       };
 
-      grid.ontoggle = (e) => {
-        const details = e.target;
-        if (!details || !details.classList.contains("yearDetails")) return;
-        const card = details.closest(".yearCard");
-        if (!card) return;
-        const year = Number(card.dataset.year);
-        if (details.open) state.ui.expandedYears.add(year);
-        else state.ui.expandedYears.delete(year);
-      };
+      // (year expand/collapse removed — single year view)
     }
 
     /* =========================================================
@@ -1861,10 +1867,11 @@
 
       setView("plan");
 
-      // Ensure the relevant year is expanded then scroll to the work row
+      // Switch stepper to the target year then scroll to the work row
       const fw = state.flatWorks.find(x => x.key === workkey);
       if (fw){
-        state.ui.expandedYears.add(fw.year);
+        state.filters.year = String(fw.year);
+        updateYearStepper();
         renderPlan();
       }
 
@@ -2257,19 +2264,18 @@
 
       // Plan filters
       $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); updateProgressBadge(); });
-      $("#yearSel").addEventListener("change", e => { state.filters.year = e.target.value; renderPlan(); });
+      $("#yearPrev").addEventListener("click", () => {
+        const idx = state.availableYears.indexOf(Number(state.filters.year));
+        if (idx > 0){ state.filters.year = String(state.availableYears[idx - 1]); updateYearStepper(); renderPlan(); }
+      });
+      $("#yearNext").addEventListener("click", () => {
+        const idx = state.availableYears.indexOf(Number(state.filters.year));
+        if (idx < state.availableYears.length - 1){ state.filters.year = String(state.availableYears[idx + 1]); updateYearStepper(); renderPlan(); }
+      });
       $("#tierSel").addEventListener("change", e => { state.filters.tier = e.target.value; renderPlan(); });
       $("#sortSel").addEventListener("change", e => { state.filters.sort = e.target.value; renderPlan(); });
       $("#onlyIncomplete").addEventListener("change", e => { state.filters.onlyIncomplete = e.target.checked; renderPlan(); });
 
-      $("#expandAllBtn").addEventListener("click", () => {
-        state.ui.expandedYears = new Set((state.plan.years || []).map(y=>Number(y.year)));
-        renderPlan();
-      });
-      $("#collapseAllBtn").addEventListener("click", () => {
-        state.ui.expandedYears.clear();
-        renderPlan();
-      });
       $("#resetChecksBtn").addEventListener("click", () => {
         if (!confirm("Reset all checkboxes? This cannot be undone.")) return;
         state.checks = {};

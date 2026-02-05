@@ -2,7 +2,7 @@
 
 This document explains why certain books do not have sources on Project Gutenberg sites or partner libraries.
 
-## Books Still Missing Sources (24 total)
+## Books Still Missing Sources (20 total)
 
 ### Great Books Compilation (3 books)
 These are copyrighted compilations/encyclopedias, not original works:
@@ -25,30 +25,35 @@ These specific essays are available only in collected volumes (like "Collected P
 
 **Note**: These are available in full on Internet Archive's "Collected Papers" volumes, but not on Project Gutenberg sites.
 
-### 20th Century Philosophy & Science (7 books)
+### 20th Century Philosophy & Science (6 books)
 These works are still under copyright or not yet available on public domain sites:
-- **What Is Metaphysics?** - Martin Heidegger (1929) - Still under copyright
-- **Philosophical Investigations** - Ludwig Wittgenstein (1953) - Public domain in Australia/Canada but not available on gutenberg.net.au
-- **Scientific Autobiography and Other Papers** - Max Planck (1947) - Available on Internet Archive, not on Gutenberg sites
-- **Atomic Theory and the Description of Nature** - Niels Bohr (1934) - Still under copyright  
+- **What Is Metaphysics?** - Martin Heidegger (1929) - Still under copyright (until 2046)
+- **Philosophical Investigations** - Ludwig Wittgenstein (1953) - English translation by Anscombe still under copyright
+- **Scientific Autobiography and Other Papers** - Max Planck (1947) - English translation not freely available
+- **Atomic Theory and the Description of Nature** - Niels Bohr (1934) - Still under copyright (until 2029 US, 2033 EU)
 - **Discussion with Einstein on Epistemology** - Niels Bohr (1949) - Still under copyright
 - **Genetics and the Origin of Species** - Theodosius Dobzhansky (1937) - Still under copyright
-- **The General Theory of Employment, Interest and Money** - John Maynard Keynes (1936) - Still under copyright
 
-### 20th Century Literature & Humanities (4 books)
-- **The Autumn of the Middle Ages** - Johan Huizinga (1919) - Only Dutch original on Gutenberg (ebook 16829), English translation still under copyright
-- **Six Characters in Search of an Author** - Luigi Pirandello (1921) - Not available on Gutenberg sites
-- **A Rose for Emily** - William Faulkner (1930) - Still under copyright
+### 20th Century Literature (1 book)
 - **Waiting for Godot** - Samuel Beckett (1952) - Still under copyright (until 2060)
+
+## Recently Added Sources
+
+The following books now have public domain sources:
+- **Gulliver's Travels** - Jonathan Swift - Project Gutenberg (ebook 829)
+- **Six Characters in Search of an Author** - Luigi Pirandello - Project Gutenberg (ebook 42148)
+- **The General Theory of Employment, Interest and Money** - John Maynard Keynes - Project Gutenberg Australia
+- **The Autumn of the Middle Ages** - Johan Huizinga - Wikisource (1924 English translation)
+- **A Rose for Emily** - William Faulkner - Archive.org (entered US public domain January 1, 2026)
 
 ## Summary
 
-Of the 24 books without sources:
+Of the 20 books without sources:
 - **3** are copyrighted reference works (Great Books series)
 - **10** Freud essays exist only in collected volumes
-- **11** are still under copyright or not available on supported sites
+- **7** are still under copyright or translations are not available on supported sites
 
-The repository now has **374 out of 398 books (94%)** with confirmed sources across multiple Project Gutenberg sites.
+The repository now has **378 out of 398 books (95%)** with confirmed sources across multiple Project Gutenberg sites and partner libraries.
 
 ## Recommendation
 
@@ -57,4 +62,4 @@ For the remaining books:
 2. The 20th century works under copyright will need to wait for copyright expiration
 3. The Great Books series would require commercial sources
 
-Most users seeking classic public domain books will find comprehensive coverage with the current 374 sources.
+Most users seeking classic public domain books will find comprehensive coverage with the current 378 sources.

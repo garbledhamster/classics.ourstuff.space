@@ -15,8 +15,8 @@ This document tracks the availability of books from our collection on various Pr
 
 **Statistics:**
 - Total Books: 398
-- Available with Source: 374
-- Needing Verification: 24
+- Available with Source: 378
+- Needing Verification: 20
 
 **Last Updated:** 2026-02-05
 
@@ -399,16 +399,16 @@ This document tracks the availability of books from our collection on various Pr
 | ✅ | 371 | The Nature of Life | C. H. Waddington | 56 | 1961 | 52205 | [Link](https://www.gutenberg.org/ebooks/52205) |
 | ✅ | 372 | The Theory of the Leisure Class | Thorstein Veblen | 57 | 1899 | 833 | [Link](https://www.gutenberg.org/ebooks/833) |
 | ✅ | 373 | The Acquisitive Society | R. H. Tawney | 57 | 1920 | 33741 | [Link](https://www.gutenberg.org/ebooks/33741) |
-| ⚠️ | 374 | The General Theory of Employment, Interest and Money | John Maynard Keynes | 57 | 1936 |  |  |
+| ✅ | 374 | The General Theory of Employment, Interest and Money | John Maynard Keynes | 57 | 1936 | 0300071h | [Link](https://gutenberg.net.au/ebooks03/0300071h.html) |
 | ✅ | 375 | The Golden Bough | Sir James George Frazer | 58 | 1890 | 41082 | [Link](https://www.gutenberg.org/ebooks/41082) |
 | ✅ | 376 | Essays in Sociology | Max Weber | 58 | 1920 | 61932 | [Link](https://www.gutenberg.org/ebooks/61932) |
-| ⚠️ | 377 | The Autumn of the Middle Ages | Johan Huizinga | 58 | 1919 |  |  |
+| ✅ | 377 | The Autumn of the Middle Ages | Johan Huizinga | 58 | 1919 |  | [Link](https://en.wikisource.org/wiki/The_Waning_of_the_Middle_Ages) |
 | ✅ | 378 | Structural Anthropology | Claude Lévi-Strauss | 58 | 1949 | 52817 | [Link](https://www.gutenberg.org/ebooks/52817) |
 | ✅ | 379 | The Beast in the Jungle | Henry James | 59 | 1903 | 1093 | [Link](https://www.gutenberg.org/ebooks/1093) |
 | ✅ | 380 | Saint Joan | George Bernard Shaw | 59 | 1924 | 3825 | [Link](https://www.gutenberg.org/ebooks/3825) |
 | ✅ | 381 | Heart of Darkness | Joseph Conrad | 59 | 1902 | 219 | [Link](https://www.gutenberg.org/ebooks/219) |
 | ✅ | 382 | Uncle Vanya | Anton Chekhov | 59 | 1899 | 1756 | [Link](https://www.gutenberg.org/ebooks/1756) |
-| ⚠️ | 383 | Six Characters in Search of an Author | Luigi Pirandello | 59 | 1921 |  |  |
+| ✅ | 383 | Six Characters in Search of an Author | Luigi Pirandello | 59 | 1921 | 42148 | [Link](https://www.gutenberg.org/ebooks/42148) |
 | ✅ | 384 | Remembrance of Things Past: "Swann in Love" | Marcel Proust | 59 | 1927 | 7178 | [Link](https://www.gutenberg.org/ebooks/7178) |
 | ✅ | 385 | A Lost Lady | Willa Cather | 59 | 1923 | 331 | [Link](https://www.gutenberg.org/ebooks/331) |
 | ✅ | 386 | Death in Venice | Thomas Mann | 59 | 1912 | 12108 | [Link](https://www.gutenberg.org/ebooks/12108) |
@@ -419,7 +419,7 @@ This document tracks the availability of books from our collection on various Pr
 | ✅ | 391 | The Waste Land | T. S. Eliot | 60 | 1922 | 1321 | [Link](https://www.gutenberg.org/ebooks/1321) |
 | ✅ | 392 | Mourning Becomes Electra | Eugene O'Neill | 60 | 1931 | 0400141h | [Link](https://gutenberg.net.au/ebooks04/0400141h.html) |
 | ✅ | 393 | The Great Gatsby | F. Scott Fitzgerald | 60 | 1925 | 64317 | [Link](https://www.gutenberg.org/ebooks/64317) |
-| ⚠️ | 394 | A Rose for Emily | William Faulkner | 60 | 1930 |  |  |
+| ✅ | 394 | A Rose for Emily | William Faulkner | 60 | 1930 |  | [Link](https://archive.org/details/ARoseForEmily1930) |
 | ✅ | 395 | Mother Courage and Her Children | Bertolt Brecht | 60 | 1939 | 64193 | [Link](https://www.gutenberg.org/ebooks/64193) |
 | ✅ | 396 | The Short Happy Life of Francis Macomber | Ernest Hemingway | 60 | 1936 | 50838 | [Link](https://www.gutenberg.org/ebooks/50838) |
 | ✅ | 397 | Animal Farm | George Orwell | 60 | 1945 |  | [Link](https://www.fadedpage.com/showbook.php?pid=20210101) |

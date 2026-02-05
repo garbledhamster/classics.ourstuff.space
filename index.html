@@ -1703,7 +1703,7 @@
     }
 
     function getActiveBundle(){
-      // For bundle view, only return user bundles (not the default)
+      // Return the active bundle for bundle view, excluding the default bundle
       const bundle = getBundleById(state.activeBundleId);
       // If the selected bundle is the default, return null for bundle view
       if (bundle && bundle.isDefault) return null;
@@ -1716,11 +1716,13 @@
       
       // Bundle view dropdown (user bundles only - Ten-Year Plan has its own tab)
       const bundleSelect = $("#bundleSelect");
-      bundleSelect.innerHTML = 
-        (userBundles.length === 0 ? `<option value="">— No Bundles Yet —</option>` : '') +
-        userBundles.map(b => 
-          `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
-        ).join("");
+      const bundleOptions = userBundles.map(b => 
+        `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
+      );
+      if (bundleOptions.length === 0) {
+        bundleOptions.push(`<option value="">— No Bundles Yet —</option>`);
+      }
+      bundleSelect.innerHTML = bundleOptions.join("");
       // Set to first user bundle if current selection was default
       if (state.activeBundleId === "__default__" && userBundles.length > 0) {
         state.activeBundleId = userBundles[0].id;
@@ -2434,7 +2436,7 @@
       const grid = $("#bundlesGrid");
 
       grid.onclick = (e) => {
-        // Mobile: tap anywhere on work row (outside buttons/checkboxes) toggles drawer
+        // Mobile: tap anywhere on work row (outside buttons/checkboxes) toggles work row expansion
         if (!window.matchMedia("(hover:hover)").matches) {
           if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
             const row = e.target.closest(".workRow");
@@ -3293,17 +3295,18 @@
       // Progress popup hover/click handling
       const progressWrap = $("#progressBadgeWrap");
       const progressPopup = $("#progressPopup");
+      const hoverMediaQuery = window.matchMedia("(hover:hover)");
       
       // Desktop: show on hover
       progressWrap.addEventListener("mouseenter", () => {
-        if (window.matchMedia("(hover:hover)").matches) {
+        if (hoverMediaQuery.matches) {
           updateProgressPopup();
           progressPopup.classList.add("show");
           progressPopup.setAttribute("aria-hidden", "false");
         }
       });
       progressWrap.addEventListener("mouseleave", () => {
-        if (window.matchMedia("(hover:hover)").matches) {
+        if (hoverMediaQuery.matches) {
           progressPopup.classList.remove("show");
           progressPopup.setAttribute("aria-hidden", "true");
         }
@@ -3311,7 +3314,7 @@
       
       // Mobile: toggle on click
       $("#progressBadge").addEventListener("click", (e) => {
-        if (!window.matchMedia("(hover:hover)").matches) {
+        if (!hoverMediaQuery.matches) {
           e.stopPropagation();
           updateProgressPopup();
           progressPopup.classList.toggle("show");

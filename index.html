@@ -1498,6 +1498,7 @@
        ========================================================= */
     const state = {
       plan: null,
+      projectCatalog: [],  // book catalog from project.json with sourceUrls
       flatWorks: [],     // plan entries (can include duplicates across years)
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
@@ -1535,6 +1536,14 @@
     async function loadPlan(){
       clearError();
       try{
+        // Load project catalog for sourceUrls
+        const projRes = await fetch("./project.json", { cache:"no-store" });
+        if (!projRes.ok) throw new Error(`Could not load project.json (${projRes.status})`);
+        const projectData = await projRes.json();
+        if (!Array.isArray(projectData)) throw new Error("project.json must be an array");
+        state.projectCatalog = projectData;
+
+        // Load reading plan
         const res = await fetch("./reading.json", { cache:"no-store" });
         if (!res.ok) throw new Error(`Could not load reading.json (${res.status})`);
         const data = await res.json();
@@ -1569,6 +1578,44 @@
       }
     }
 
+    function normalizeForMatch(text){
+      // Normalize text for matching between reading.json and project.json
+      return String(text || "").toLowerCase().trim()
+        .replace(/^the\s+/i, '')
+        .replace(/^a\s+/i, '')
+        .replace(/^an\s+/i, '');
+    }
+
+    function findSourceUrlInCatalog(author, title){
+      // Look up sourceUrl from project catalog
+      if (!state.projectCatalog || !state.projectCatalog.length) return "";
+      
+      const normalizedTitle = normalizeForMatch(title);
+      const normalizedAuthor = normalizeForMatch(author);
+      
+      // Try to find matching book in catalog
+      for (const book of state.projectCatalog){
+        const bookTitle = normalizeForMatch(book.title);
+        const bookAuthor = normalizeForMatch(book.author);
+        
+        // Match by author and title
+        if (normalizedAuthor && bookAuthor && 
+            normalizedAuthor === bookAuthor && 
+            normalizedTitle === bookTitle){
+          return book.sourceUrl || "";
+        }
+        
+        // Match by title only if no author or author matches
+        if (normalizedTitle === bookTitle){
+          if (!normalizedAuthor || !bookAuthor || normalizedAuthor === bookAuthor){
+            return book.sourceUrl || "";
+          }
+        }
+      }
+      
+      return "";
+    }
+
     function flattenPlan(){
       const flat = [];
       const years = state.plan.years || [];
@@ -1586,8 +1633,8 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
-            const rawSourceUrl = w.sourceUrl ? String(w.sourceUrl).trim() : "";
-            const sourceUrl = isValidUrl(rawSourceUrl) ? rawSourceUrl : "";
+            // Look up sourceUrl from project catalog instead of reading.json
+            const sourceUrl = findSourceUrlInCatalog(author, title);
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
             const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")}`);

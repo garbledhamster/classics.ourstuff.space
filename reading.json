@@ -461,7 +461,8 @@
           "author": "Swift",
           "works": [
             {
-              "title": "Gulliver’s Travels"
+              "title": "Gulliver’s Travels",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/829"
             }
           ]
         },
@@ -4039,7 +4040,8 @@
           "author": "Johan Huizinga",
           "works": [
             {
-              "title": "The Autumn of the Middle Ages"
+              "title": "The Autumn of the Middle Ages",
+              "sourceUrl": "https://en.wikisource.org/wiki/The_Waning_of_the_Middle_Ages"
             }
           ]
         },
@@ -4060,7 +4062,8 @@
           "author": "John Maynard Keynes",
           "works": [
             {
-              "title": "The General Theory of Employment, Interest and Money"
+              "title": "The General Theory of Employment, Interest and Money",
+              "sourceUrl": "https://gutenberg.net.au/ebooks03/0300071h.html"
             }
           ]
         },
@@ -4212,7 +4215,8 @@
           "author": "Luigi Pirandello",
           "works": [
             {
-              "title": "Six Characters in Search of an Author"
+              "title": "Six Characters in Search of an Author",
+              "sourceUrl": "https://www.gutenberg.org/ebooks/42148"
             }
           ]
         },
@@ -4460,7 +4464,8 @@
           "author": "William Faulkner",
           "works": [
             {
-              "title": "A Rose for Emily"
+              "title": "A Rose for Emily",
+              "sourceUrl": "https://archive.org/details/ARoseForEmily1930"
             }
           ]
         },

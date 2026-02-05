@@ -32,8 +32,7 @@ This document tracks the availability of books from our collection on Project Gu
 | ⚠️ | 10 | The Story of the Volsungs and Niblungs |  |  | 1877 |  |  |
 | ⚠️ | 11 | The Great Conversation | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 1 | 1952 |  |  |
 | ⚠️ | 12 | The Great Ideas I : ANGEL to LOVE | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 2 | 1952 |  |  |
-| ⚠️ | 13 | The Great Ideas II
-: MAN to WORLD | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 3 | 1952 |  |  |
+| ⚠️ | 13 | The Great Ideas II : MAN to WORLD | Robert Maynard Hutchins (Editor) Mortimer J. Adler (Editor) | 3 | 1952 |  |  |
 | ✅ | 14 | The Iliad | Homer | 4 | -700 | 6130 | [Link](https://www.gutenberg.org/ebooks/6130) |
 | ✅ | 15 | The Odyssey | Homer | 4 | -700 | 1727 | [Link](https://www.gutenberg.org/ebooks/1727) |
 | ⚠️ | 16 | The Suppliant Maidens | Aeschylus | 5 | -458 |  |  |

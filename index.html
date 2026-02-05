@@ -1204,6 +1204,13 @@
       try{ return JSON.parse(str); } catch { return fallback; }
     }
 
+    function isValidUrl(str){
+      try{
+        const url = new URL(str);
+        return url.protocol === "http:" || url.protocol === "https:";
+      } catch { return false; }
+    }
+
     function loadChecks(){
       return safeJsonParse(localStorage.getItem(LS_CHECKS) || "{}", {});
     }
@@ -1397,7 +1404,8 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
-            const sourceUrl = w.sourceUrl ? String(w.sourceUrl).trim() : "";
+            const rawSourceUrl = w.sourceUrl ? String(w.sourceUrl).trim() : "";
+            const sourceUrl = isValidUrl(rawSourceUrl) ? rawSourceUrl : "";
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
             const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")}`);

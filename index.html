@@ -984,7 +984,7 @@
 
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data file: <span class="mono">./reading.json</span></div>
-      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + bundles)</div>
+      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex + bundles)</div>
     </footer>
   </div>
 
@@ -1328,6 +1328,10 @@
       localStorage.setItem(LS_ACTIVE_BUNDLE, id);
     }
     function bundleUid(){
+      // Use crypto.randomUUID if available, fallback to timestamp-based ID
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return "bundle_" + crypto.randomUUID();
+      }
       return "bundle_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
     }
 
@@ -1461,7 +1465,7 @@
         state.defaultBundle = {
           id: "__default__",
           plan_name: data.plan_name || "Ten-Year Reading Plan",
-          years: JSON.parse(JSON.stringify(data.years)), // deep copy
+          years: typeof structuredClone === 'function' ? structuredClone(data.years) : JSON.parse(JSON.stringify(data.years)),
           isDefault: true
         };
 

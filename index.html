@@ -3076,15 +3076,7 @@
         }
 
         if (action === "newNoteFromWork" || action === "openNotesForBook"){
-          const ctx = {
-            book_tag: row.dataset.book || "",
-            author: row.dataset.author || "",
-            year: row.dataset.year || "",
-            order: row.dataset.order || "",
-            selection: row.dataset.selection || "",
-            bundle_id: "__default__",  // Plan view uses default bundle
-            page_id: null  // Default bundle doesn't use page artifacts
-          };
+          const ctx = getWorkContextFromRow(row);
 
           if (action === "newNoteFromWork"){
             openDrawer("notes");
@@ -3773,7 +3765,7 @@
       if (n.bundle_id) {
         const bundle = getBundleById(n.bundle_id);
         if (bundle) {
-          bundleInfo = `Bundle: ${escapeHtml(getBundleTitle(bundle))}`;
+          bundleInfo = escapeHtml(getBundleTitle(bundle));
         }
       }
       if (n.page_id && state.pages[n.page_id]) {
@@ -3832,9 +3824,9 @@
       }
       
       if (pageName) {
-        display.textContent = `Bundle: ${bundleName} • Page: ${pageName}`;
+        display.textContent = `${bundleName} • Page: ${pageName}`;
       } else {
-        display.textContent = `Bundle: ${bundleName}`;
+        display.textContent = `${bundleName}`;
       }
     }
 

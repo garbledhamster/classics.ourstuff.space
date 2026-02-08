@@ -1717,8 +1717,8 @@
       }
 
       window.firebaseOnAuthStateChanged(window.firebaseAuth, async (user) => {
-        currentUser = user;
-        state.currentUser = user;
+        currentUser = user; // Keep for backward compatibility with existing code
+        state.currentUser = user; // Store in state for sync functions
         updateAuthUI();
         
         // Perform sync when user logs in
@@ -2313,7 +2313,7 @@
         statusEl.style.color = '#d00';
       } else if (state.sync.enabled && state.sync.lastSync) {
         const date = new Date(state.sync.lastSync);
-        const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         statusEl.textContent = `✓ Synced at ${timeStr}`;
         statusEl.style.color = '#080';
       } else if (state.currentUser) {

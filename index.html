@@ -2188,6 +2188,13 @@
         ? structuredClone(state.defaultBundle.years) 
         : JSON.parse(JSON.stringify(state.defaultBundle.years));
       
+      // Add page names to inherit "Year 1", "Year 2", etc.
+      for (const year of clonedYears) {
+        if (!year.name) {
+          year.name = `Year ${year.year}`;
+        }
+      }
+      
       const bundle = {
         id: bundleUid(),
         plan_name: name,

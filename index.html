@@ -4880,14 +4880,10 @@
       loadPlan();
     }
     
+    // Set callback first, then check if already ready
+    window.onFirebaseReady = boot;
     if (window.firebaseReady) {
       boot();
-    } else {
-      window.onFirebaseReady = boot;
-      // Double-check in case Firebase became ready while we were setting the callback
-      if (window.firebaseReady) {
-        boot();
-      }
     }
   </script>
 </body>

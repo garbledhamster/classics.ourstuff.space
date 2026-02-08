@@ -2054,16 +2054,15 @@
         const bundles = state.bundles;
         const db = window.firebaseDB;
         
-        for (const bundle of bundles) {
-          // Skip default bundle - it's the read-only plan from reading.json, shared across all users
-          if (bundle.isDefault) continue;
-          
-          const bundleRef = window.firestoreDoc(db, `users/${userId}/bundles`, bundle.id);
-          await window.firestoreSetDoc(bundleRef, {
-            ...bundle,
-            syncedAt: window.firestoreServerTimestamp()
-          }, { merge: true });
-        }
+        // Filter out default bundle
+        const userBundles = bundles.filter(bundle => !bundle.isDefault);
+        
+        // Store bundles in userPrivate/{userId} document
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          bundles: userBundles,
+          bundlesSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
       } catch (error) {
         console.error('Error syncing bundles to Firestore:', error);
         state.sync.error = error.message;
@@ -2078,13 +2077,12 @@
         const pages = state.pages;
         const db = window.firebaseDB;
         
-        for (const [pageId, page] of Object.entries(pages)) {
-          const pageRef = window.firestoreDoc(db, `users/${userId}/pages`, pageId);
-          await window.firestoreSetDoc(pageRef, {
-            ...page,
-            syncedAt: window.firestoreServerTimestamp()
-          }, { merge: true });
-        }
+        // Store pages in userPrivate/{userId} document
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          pages: pages,
+          pagesSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
       } catch (error) {
         console.error('Error syncing pages to Firestore:', error);
         state.sync.error = error.message;
@@ -2099,10 +2097,11 @@
         const checks = state.checks;
         const db = window.firebaseDB;
         
-        const checksRef = window.firestoreDoc(db, `users/${userId}/data`, 'checks');
-        await window.firestoreSetDoc(checksRef, {
-          data: checks,
-          syncedAt: window.firestoreServerTimestamp()
+        // Store checks in userPrivate/{userId} document
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          checks: checks,
+          checksSyncedAt: window.firestoreServerTimestamp()
         }, { merge: true });
       } catch (error) {
         console.error('Error syncing checks to Firestore:', error);
@@ -2118,10 +2117,11 @@
         const notes = state.notes;
         const db = window.firebaseDB;
         
-        const notesRef = window.firestoreDoc(db, `users/${userId}/data`, 'notes');
-        await window.firestoreSetDoc(notesRef, {
-          data: notes,
-          syncedAt: window.firestoreServerTimestamp()
+        // Store notes in userPrivate/{userId} document
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          notes: notes,
+          notesSyncedAt: window.firestoreServerTimestamp()
         }, { merge: true });
       } catch (error) {
         console.error('Error syncing notes to Firestore:', error);
@@ -2135,17 +2135,13 @@
       
       try {
         const db = window.firebaseDB;
-        const bundlesCol = window.firestoreCollection(db, `users/${userId}/bundles`);
-        const snapshot = await window.firestoreGetDocs(bundlesCol);
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
         
-        const bundles = [];
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          delete data.syncedAt; // Remove sync metadata
-          bundles.push(data);
-        });
-        
-        return bundles;
+        if (docSnap.exists() && docSnap.data().bundles) {
+          return docSnap.data().bundles || [];
+        }
+        return [];
       } catch (error) {
         console.error('Error loading bundles from Firestore:', error);
         state.sync.error = error.message;
@@ -2159,17 +2155,13 @@
       
       try {
         const db = window.firebaseDB;
-        const pagesCol = window.firestoreCollection(db, `users/${userId}/pages`);
-        const snapshot = await window.firestoreGetDocs(pagesCol);
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
         
-        const pages = {};
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          delete data.syncedAt; // Remove sync metadata
-          pages[doc.id] = data;
-        });
-        
-        return pages;
+        if (docSnap.exists() && docSnap.data().pages) {
+          return docSnap.data().pages || {};
+        }
+        return {};
       } catch (error) {
         console.error('Error loading pages from Firestore:', error);
         state.sync.error = error.message;
@@ -2183,11 +2175,11 @@
       
       try {
         const db = window.firebaseDB;
-        const checksRef = window.firestoreDoc(db, `users/${userId}/data`, 'checks');
-        const docSnap = await window.firestoreGetDoc(checksRef);
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists()) {
-          return docSnap.data().data || {};
+        if (docSnap.exists() && docSnap.data().checks) {
+          return docSnap.data().checks || {};
         }
         return {};
       } catch (error) {
@@ -2203,11 +2195,11 @@
       
       try {
         const db = window.firebaseDB;
-        const notesRef = window.firestoreDoc(db, `users/${userId}/data`, 'notes');
-        const docSnap = await window.firestoreGetDoc(notesRef);
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists()) {
-          return docSnap.data().data || [];
+        if (docSnap.exists() && docSnap.data().notes) {
+          return docSnap.data().notes || [];
         }
         return [];
       } catch (error) {

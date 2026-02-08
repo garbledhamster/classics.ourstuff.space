@@ -2138,7 +2138,7 @@
         const userRef = window.firestoreDoc(db, 'userPrivate', userId);
         const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists() && docSnap.data().bundles) {
+        if (docSnap.exists()) {
           return docSnap.data().bundles || [];
         }
         return [];
@@ -2158,7 +2158,7 @@
         const userRef = window.firestoreDoc(db, 'userPrivate', userId);
         const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists() && docSnap.data().pages) {
+        if (docSnap.exists()) {
           return docSnap.data().pages || {};
         }
         return {};
@@ -2178,7 +2178,7 @@
         const userRef = window.firestoreDoc(db, 'userPrivate', userId);
         const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists() && docSnap.data().checks) {
+        if (docSnap.exists()) {
           return docSnap.data().checks || {};
         }
         return {};
@@ -2198,7 +2198,7 @@
         const userRef = window.firestoreDoc(db, 'userPrivate', userId);
         const docSnap = await window.firestoreGetDoc(userRef);
         
-        if (docSnap.exists() && docSnap.data().notes) {
+        if (docSnap.exists()) {
           return docSnap.data().notes || [];
         }
         return [];

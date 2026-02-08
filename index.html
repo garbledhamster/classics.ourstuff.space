@@ -15,6 +15,7 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, onSnapshot, serverTimestamp, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
     
     // Firebase configuration
     const firebaseConfig = {
@@ -30,13 +31,25 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
     
     // Store in window for access from main script
     window.firebaseAuth = auth;
+    window.firebaseDB = db;
     window.firebaseSignIn = signInWithEmailAndPassword;
     window.firebaseSignUp = createUserWithEmailAndPassword;
     window.firebaseSignOut = signOut;
     window.firebaseOnAuthStateChanged = onAuthStateChanged;
+    window.firestoreCollection = collection;
+    window.firestoreDoc = doc;
+    window.firestoreSetDoc = setDoc;
+    window.firestoreGetDoc = getDoc;
+    window.firestoreGetDocs = getDocs;
+    window.firestoreQuery = query;
+    window.firestoreWhere = where;
+    window.firestoreOnSnapshot = onSnapshot;
+    window.firestoreServerTimestamp = serverTimestamp;
+    window.firestoreDeleteDoc = deleteDoc;
     
     // Signal that Firebase is ready
     window.firebaseReady = true;
@@ -1270,7 +1283,8 @@
 
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data files: <span class="mono">./project.json</span> (catalog + sources), <span class="mono">./reading.json</span> (reading plan)</div>
-      <div>Storage: <span class="mono">localStorage</span> (checkboxes + notes + OpenAlex + bundles)</div>
+      <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (synced across devices)</div>
+      <div id="syncStatus" style="font-weight:600;">Sign in to sync</div>
     </footer>
   </div>
 
@@ -1705,9 +1719,21 @@
         return;
       }
 
-      window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
+      window.firebaseOnAuthStateChanged(window.firebaseAuth, async (user) => {
         currentUser = user;
+        state.currentUser = user;
         updateAuthUI();
+        
+        // Perform sync when user logs in
+        if (user) {
+          await performFullSync(user.uid);
+          updateSyncStatus();
+        } else {
+          // Clear sync state when user logs out
+          state.sync.enabled = false;
+          state.sync.lastSync = null;
+          updateSyncStatus();
+        }
       });
     }
 
@@ -1940,6 +1966,7 @@
     }
     function saveChecks(obj){
       localStorage.setItem(LS_CHECKS, JSON.stringify(obj));
+      if (typeof triggerAutoSync === 'function') triggerAutoSync();
     }
 
     function loadNotes(){
@@ -1947,6 +1974,7 @@
     }
     function saveNotes(arr){
       localStorage.setItem(LS_NOTES, JSON.stringify(arr));
+      if (typeof triggerAutoSync === 'function') triggerAutoSync();
     }
 
     function defaultOpenAlexSettings(){
@@ -1994,6 +2022,7 @@
     
     function saveBundles(arr){
       localStorage.setItem(LS_BUNDLES, JSON.stringify(arr));
+      if (typeof triggerAutoSync === 'function') triggerAutoSync();
     }
     
     function loadPages(){
@@ -2002,6 +2031,7 @@
     
     function savePages(obj){
       localStorage.setItem(LS_PAGES, JSON.stringify(obj));
+      if (typeof triggerAutoSync === 'function') triggerAutoSync();
     }
     
     function loadActiveBundle(){
@@ -2010,6 +2040,286 @@
     
     function saveActiveBundle(id){
       localStorage.setItem(LS_ACTIVE_BUNDLE, id);
+    }
+
+    /* =========================================================
+       FIRESTORE SYNC FUNCTIONS
+       ========================================================= */
+    
+    // Sync bundles to Firestore
+    async function syncBundlesToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      
+      try {
+        const bundles = state.bundles;
+        const db = window.firebaseDB;
+        
+        for (const bundle of bundles) {
+          if (bundle.isDefault) continue; // Don't sync default bundle
+          
+          const bundleRef = window.firestoreDoc(db, `users/${userId}/bundles`, bundle.id);
+          await window.firestoreSetDoc(bundleRef, {
+            ...bundle,
+            syncedAt: window.firestoreServerTimestamp()
+          }, { merge: true });
+        }
+      } catch (error) {
+        console.error('Error syncing bundles to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+    
+    // Sync pages to Firestore
+    async function syncPagesToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      
+      try {
+        const pages = state.pages;
+        const db = window.firebaseDB;
+        
+        for (const [pageId, page] of Object.entries(pages)) {
+          const pageRef = window.firestoreDoc(db, `users/${userId}/pages`, pageId);
+          await window.firestoreSetDoc(pageRef, {
+            ...page,
+            syncedAt: window.firestoreServerTimestamp()
+          }, { merge: true });
+        }
+      } catch (error) {
+        console.error('Error syncing pages to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+    
+    // Sync checks to Firestore
+    async function syncChecksToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      
+      try {
+        const checks = state.checks;
+        const db = window.firebaseDB;
+        
+        const checksRef = window.firestoreDoc(db, `users/${userId}/data`, 'checks');
+        await window.firestoreSetDoc(checksRef, {
+          data: checks,
+          syncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing checks to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+    
+    // Sync notes to Firestore
+    async function syncNotesToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      
+      try {
+        const notes = state.notes;
+        const db = window.firebaseDB;
+        
+        const notesRef = window.firestoreDoc(db, `users/${userId}/data`, 'notes');
+        await window.firestoreSetDoc(notesRef, {
+          data: notes,
+          syncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing notes to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+    
+    // Load bundles from Firestore
+    async function loadBundlesFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return [];
+      
+      try {
+        const db = window.firebaseDB;
+        const bundlesCol = window.firestoreCollection(db, `users/${userId}/bundles`);
+        const snapshot = await window.firestoreGetDocs(bundlesCol);
+        
+        const bundles = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          delete data.syncedAt; // Remove sync metadata
+          bundles.push(data);
+        });
+        
+        return bundles;
+      } catch (error) {
+        console.error('Error loading bundles from Firestore:', error);
+        state.sync.error = error.message;
+        return [];
+      }
+    }
+    
+    // Load pages from Firestore
+    async function loadPagesFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return {};
+      
+      try {
+        const db = window.firebaseDB;
+        const pagesCol = window.firestoreCollection(db, `users/${userId}/pages`);
+        const snapshot = await window.firestoreGetDocs(pagesCol);
+        
+        const pages = {};
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          delete data.syncedAt; // Remove sync metadata
+          pages[doc.id] = data;
+        });
+        
+        return pages;
+      } catch (error) {
+        console.error('Error loading pages from Firestore:', error);
+        state.sync.error = error.message;
+        return {};
+      }
+    }
+    
+    // Load checks from Firestore
+    async function loadChecksFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return {};
+      
+      try {
+        const db = window.firebaseDB;
+        const checksRef = window.firestoreDoc(db, `users/${userId}/data`, 'checks');
+        const docSnap = await window.firestoreGetDoc(checksRef);
+        
+        if (docSnap.exists()) {
+          return docSnap.data().data || {};
+        }
+        return {};
+      } catch (error) {
+        console.error('Error loading checks from Firestore:', error);
+        state.sync.error = error.message;
+        return {};
+      }
+    }
+    
+    // Load notes from Firestore
+    async function loadNotesFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return [];
+      
+      try {
+        const db = window.firebaseDB;
+        const notesRef = window.firestoreDoc(db, `users/${userId}/data`, 'notes');
+        const docSnap = await window.firestoreGetDoc(notesRef);
+        
+        if (docSnap.exists()) {
+          return docSnap.data().data || [];
+        }
+        return [];
+      } catch (error) {
+        console.error('Error loading notes from Firestore:', error);
+        state.sync.error = error.message;
+        return [];
+      }
+    }
+    
+    // Full sync: push local data to Firestore and pull remote data
+    async function performFullSync(userId) {
+      if (!userId || !window.firebaseDB) return;
+      
+      state.sync.syncing = true;
+      state.sync.error = null;
+      updateSyncStatus();
+      
+      try {
+        // First, load data from Firestore
+        const [remoteBundles, remotePages, remoteChecks, remoteNotes] = await Promise.all([
+          loadBundlesFromFirestore(userId),
+          loadPagesFromFirestore(userId),
+          loadChecksFromFirestore(userId),
+          loadNotesFromFirestore(userId)
+        ]);
+        
+        // Merge remote data with local data (remote takes precedence for conflicts)
+        // For bundles and pages, merge by ID
+        if (remoteBundles.length > 0) {
+          const bundleMap = new Map(state.bundles.map(b => [b.id, b]));
+          for (const remoteBundle of remoteBundles) {
+            bundleMap.set(remoteBundle.id, remoteBundle);
+          }
+          state.bundles = Array.from(bundleMap.values());
+          saveBundles(state.bundles);
+        }
+        
+        if (Object.keys(remotePages).length > 0) {
+          state.pages = { ...state.pages, ...remotePages };
+          savePages(state.pages);
+        }
+        
+        // For checks and notes, merge keys/items
+        if (Object.keys(remoteChecks).length > 0) {
+          state.checks = { ...state.checks, ...remoteChecks };
+          saveChecks(state.checks);
+        }
+        
+        if (remoteNotes.length > 0) {
+          // Merge notes by ID, keeping remote versions for conflicts
+          const noteMap = new Map(state.notes.map(n => [n.id, n]));
+          for (const remoteNote of remoteNotes) {
+            noteMap.set(remoteNote.id, remoteNote);
+          }
+          state.notes = Array.from(noteMap.values());
+          saveNotes(state.notes);
+        }
+        
+        // Now push all local data to Firestore
+        await Promise.all([
+          syncBundlesToFirestore(userId),
+          syncPagesToFirestore(userId),
+          syncChecksToFirestore(userId),
+          syncNotesToFirestore(userId)
+        ]);
+        
+        state.sync.lastSync = new Date().toISOString();
+        state.sync.enabled = true;
+        
+        console.log('Full sync completed successfully');
+      } catch (error) {
+        console.error('Error during full sync:', error);
+        state.sync.error = error.message;
+      } finally {
+        state.sync.syncing = false;
+        updateSyncStatus();
+      }
+    }
+    
+    // Auto-sync on data changes (debounced)
+    let syncTimeout = null;
+    function triggerAutoSync() {
+      if (!state.currentUser || !state.sync.enabled) return;
+      
+      clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(async () => {
+        await performFullSync(state.currentUser.uid);
+      }, 2000); // Wait 2 seconds after last change
+    }
+    
+    // Update sync status in UI
+    function updateSyncStatus() {
+      const statusEl = document.getElementById('syncStatus');
+      if (!statusEl) return;
+      
+      if (state.sync.syncing) {
+        statusEl.textContent = '🔄 Syncing...';
+        statusEl.style.color = '#666';
+      } else if (state.sync.error) {
+        statusEl.textContent = '⚠️ Sync error';
+        statusEl.style.color = '#d00';
+      } else if (state.sync.enabled && state.sync.lastSync) {
+        const date = new Date(state.sync.lastSync);
+        const timeStr = date.toLocaleTimeString();
+        statusEl.textContent = `✓ Synced at ${timeStr}`;
+        statusEl.style.color = '#080';
+      } else if (state.currentUser) {
+        statusEl.textContent = '⚠️ Not synced';
+        statusEl.style.color = '#666';
+      } else {
+        statusEl.textContent = 'Sign in to sync';
+        statusEl.style.color = '#666';
+      }
     }
     
     // Migration function: convert old bundle format to artifact format
@@ -2298,7 +2608,14 @@
       ui: {},
       drawer: { open:false, which:null }, // notes | openalex
       notesUI: { search:"", tag:"all", editingId:null },
-      tagsUniverse: [] // note tags (titles)
+      tagsUniverse: [], // note tags (titles)
+      sync: {
+        enabled: false,
+        lastSync: null,
+        syncing: false,
+        error: null
+      },
+      currentUser: null
     };
 
     /* =========================================================

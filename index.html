@@ -2058,7 +2058,8 @@
         const db = window.firebaseDB;
         
         for (const bundle of bundles) {
-          if (bundle.isDefault) continue; // Don't sync default bundle
+          // Skip default bundle - it's the read-only plan from reading.json, shared across all users
+          if (bundle.isDefault) continue;
           
           const bundleRef = window.firestoreDoc(db, `users/${userId}/bundles`, bundle.id);
           await window.firestoreSetDoc(bundleRef, {
@@ -2236,33 +2237,36 @@
           loadNotesFromFirestore(userId)
         ]);
         
-        // Merge remote data with local data (remote takes precedence for conflicts)
-        // For bundles and pages, merge by ID - always merge to preserve local-only data
+        // Merge remote data with local data
+        // Conflict resolution: When same ID exists locally and remotely, remote version wins
+        // Always merge to preserve local-only data created while offline
+        
+        // Bundles: Merge by ID (Map.set overwrites local with remote for same ID)
         const bundleMap = new Map(state.bundles.map(b => [b.id, b]));
         for (const remoteBundle of remoteBundles) {
-          bundleMap.set(remoteBundle.id, remoteBundle);
+          bundleMap.set(remoteBundle.id, remoteBundle); // Remote wins on conflict
         }
         state.bundles = Array.from(bundleMap.values());
-        // Update localStorage directly without triggering sync
+        // Write directly to localStorage to avoid triggering auto-sync (bypass saveBundles)
         localStorage.setItem(LS_BUNDLES, JSON.stringify(state.bundles));
         
-        // Merge pages - always merge to preserve local-only data
-        state.pages = { ...state.pages, ...remotePages };
+        // Pages: Merge by ID (spread operator, remote properties overwrite local on conflict)
+        state.pages = { ...state.pages, ...remotePages }; // Remote wins on conflict
         localStorage.setItem(LS_PAGES, JSON.stringify(state.pages));
         
-        // For checks and notes, merge keys/items - always merge
-        state.checks = { ...state.checks, ...remoteChecks };
+        // Checks: Merge by key (spread operator, remote values overwrite local on conflict)
+        state.checks = { ...state.checks, ...remoteChecks }; // Remote wins on conflict
         localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
         
-        // Merge notes by ID, keeping remote versions for conflicts - always merge
+        // Notes: Merge by ID (Map.set overwrites local with remote for same ID)
         const noteMap = new Map(state.notes.map(n => [n.id, n]));
         for (const remoteNote of remoteNotes) {
-          noteMap.set(remoteNote.id, remoteNote);
+          noteMap.set(remoteNote.id, remoteNote); // Remote wins on conflict
         }
         state.notes = Array.from(noteMap.values());
         localStorage.setItem(LS_NOTES, JSON.stringify(state.notes));
         
-        // Now push all local data to Firestore
+        // Push all merged data back to Firestore (includes local-only items)
         await Promise.all([
           syncBundlesToFirestore(userId),
           syncPagesToFirestore(userId),
@@ -2284,16 +2288,19 @@
     }
     
     // Auto-sync on data changes (debounced)
+    // Note: This performs a full bidirectional sync (pull, merge, push) on every change.
+    // For production optimization, consider implementing incremental sync that only pushes changed items.
     let syncTimeout = null;
     // Reassign the triggerAutoSync function with actual implementation
     triggerAutoSync = function() {
       // Skip if already syncing to prevent loops
       if (!state.currentUser || !state.sync.enabled || state.sync.syncing) return;
       
+      // Debounce: Clear previous timeout and set a new one
       clearTimeout(syncTimeout);
       syncTimeout = setTimeout(async () => {
         await performFullSync(state.currentUser.uid);
-      }, 2000); // Wait 2 seconds after last change
+      }, 2000); // Wait 2 seconds after last change before syncing
     };
     
     // Update sync status in UI

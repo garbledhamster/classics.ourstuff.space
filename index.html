@@ -1961,12 +1961,15 @@
       } catch { return false; }
     }
 
+    // Forward declaration for triggerAutoSync (actual implementation is after sync functions)
+    let triggerAutoSync = () => {};
+
     function loadChecks(){
       return safeJsonParse(localStorage.getItem(LS_CHECKS) || "{}", {});
     }
     function saveChecks(obj){
       localStorage.setItem(LS_CHECKS, JSON.stringify(obj));
-      if (typeof triggerAutoSync === 'function') triggerAutoSync();
+      triggerAutoSync();
     }
 
     function loadNotes(){
@@ -1974,7 +1977,7 @@
     }
     function saveNotes(arr){
       localStorage.setItem(LS_NOTES, JSON.stringify(arr));
-      if (typeof triggerAutoSync === 'function') triggerAutoSync();
+      triggerAutoSync();
     }
 
     function defaultOpenAlexSettings(){
@@ -2022,7 +2025,7 @@
     
     function saveBundles(arr){
       localStorage.setItem(LS_BUNDLES, JSON.stringify(arr));
-      if (typeof triggerAutoSync === 'function') triggerAutoSync();
+      triggerAutoSync();
     }
     
     function loadPages(){
@@ -2031,7 +2034,7 @@
     
     function savePages(obj){
       localStorage.setItem(LS_PAGES, JSON.stringify(obj));
-      if (typeof triggerAutoSync === 'function') triggerAutoSync();
+      triggerAutoSync();
     }
     
     function loadActiveBundle(){
@@ -2234,36 +2237,30 @@
         ]);
         
         // Merge remote data with local data (remote takes precedence for conflicts)
-        // For bundles and pages, merge by ID
-        if (remoteBundles.length > 0) {
-          const bundleMap = new Map(state.bundles.map(b => [b.id, b]));
-          for (const remoteBundle of remoteBundles) {
-            bundleMap.set(remoteBundle.id, remoteBundle);
-          }
-          state.bundles = Array.from(bundleMap.values());
-          saveBundles(state.bundles);
+        // For bundles and pages, merge by ID - always merge to preserve local-only data
+        const bundleMap = new Map(state.bundles.map(b => [b.id, b]));
+        for (const remoteBundle of remoteBundles) {
+          bundleMap.set(remoteBundle.id, remoteBundle);
         }
+        state.bundles = Array.from(bundleMap.values());
+        // Update localStorage directly without triggering sync
+        localStorage.setItem(LS_BUNDLES, JSON.stringify(state.bundles));
         
-        if (Object.keys(remotePages).length > 0) {
-          state.pages = { ...state.pages, ...remotePages };
-          savePages(state.pages);
-        }
+        // Merge pages - always merge to preserve local-only data
+        state.pages = { ...state.pages, ...remotePages };
+        localStorage.setItem(LS_PAGES, JSON.stringify(state.pages));
         
-        // For checks and notes, merge keys/items
-        if (Object.keys(remoteChecks).length > 0) {
-          state.checks = { ...state.checks, ...remoteChecks };
-          saveChecks(state.checks);
-        }
+        // For checks and notes, merge keys/items - always merge
+        state.checks = { ...state.checks, ...remoteChecks };
+        localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
         
-        if (remoteNotes.length > 0) {
-          // Merge notes by ID, keeping remote versions for conflicts
-          const noteMap = new Map(state.notes.map(n => [n.id, n]));
-          for (const remoteNote of remoteNotes) {
-            noteMap.set(remoteNote.id, remoteNote);
-          }
-          state.notes = Array.from(noteMap.values());
-          saveNotes(state.notes);
+        // Merge notes by ID, keeping remote versions for conflicts - always merge
+        const noteMap = new Map(state.notes.map(n => [n.id, n]));
+        for (const remoteNote of remoteNotes) {
+          noteMap.set(remoteNote.id, remoteNote);
         }
+        state.notes = Array.from(noteMap.values());
+        localStorage.setItem(LS_NOTES, JSON.stringify(state.notes));
         
         // Now push all local data to Firestore
         await Promise.all([
@@ -2288,14 +2285,16 @@
     
     // Auto-sync on data changes (debounced)
     let syncTimeout = null;
-    function triggerAutoSync() {
-      if (!state.currentUser || !state.sync.enabled) return;
+    // Reassign the triggerAutoSync function with actual implementation
+    triggerAutoSync = function() {
+      // Skip if already syncing to prevent loops
+      if (!state.currentUser || !state.sync.enabled || state.sync.syncing) return;
       
       clearTimeout(syncTimeout);
       syncTimeout = setTimeout(async () => {
         await performFullSync(state.currentUser.uid);
       }, 2000); // Wait 2 seconds after last change
-    }
+    };
     
     // Update sync status in UI
     function updateSyncStatus() {

@@ -4872,7 +4872,10 @@
        BOOT
        ========================================================= */
     // Wait for Firebase to be ready before initializing auth
+    let bootCalled = false;
     function boot() {
+      if (bootCalled) return;
+      bootCalled = true;
       initAuth();
       loadPlan();
     }
@@ -4881,6 +4884,10 @@
       boot();
     } else {
       window.onFirebaseReady = boot;
+      // Double-check in case Firebase became ready while we were setting the callback
+      if (window.firebaseReady) {
+        boot();
+      }
     }
   </script>
 </body>

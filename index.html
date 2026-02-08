@@ -2150,14 +2150,6 @@
       ).join("");
     }
 
-    function createNewBundle(name){
-      const bundle = createBundleArtifact(name || "New Bundle");
-      
-      // Create first page
-      const firstPage = createPageArtifact(bundle.id, 1, "Page 1");
-      state.pages[firstPage.id] = firstPage;
-      bundle.data.bundle.pages = [firstPage.id];
-      
     function createNewBundle(name, pageName){
       const bundle = {
         id: bundleUid(),

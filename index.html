@@ -647,6 +647,57 @@
     }
     .overlay.open{ display:block; }
 
+    /* ===== Modal base ===== */
+    .modal{
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background:#fff;
+      border:var(--border);
+      box-shadow: 12px 12px 0 #000;
+      padding:0;
+      z-index:70;
+      display:none;
+      width:min(480px, 90vw);
+      opacity:0;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+    .modal.open{ 
+      display:block; 
+      opacity:1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modalHeader{
+      padding:16px;
+      border-bottom:var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .modalTitle{
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:-0.01em;
+      font-size:20px;
+      margin:0;
+    }
+    .modalBody{
+      padding:16px;
+      display:grid;
+      gap:16px;
+    }
+    .modalFooter{
+      padding:16px;
+      border-top:var(--border);
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+    }
+
     .drawer{
       position:fixed;
       top:0;
@@ -1075,6 +1126,30 @@
 
   <!-- Shared overlay (used for either drawer) -->
   <div id="overlay" class="overlay" aria-hidden="true"></div>
+
+  <!-- New Bundle Modal -->
+  <div id="newBundleModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="newBundleModalTitle">
+    <div class="modalHeader">
+      <h2 id="newBundleModalTitle" class="modalTitle">Create New Bundle</h2>
+      <button class="btn btnGhost" id="closeModalBtn" type="button" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div class="control">
+        <label for="bundleNameInput" class="label">Bundle Name</label>
+        <input id="bundleNameInput" class="input" type="text" placeholder="My Reading Bundle" autocomplete="off" />
+      </div>
+      <div class="control">
+        <label for="defaultPageNameInput" class="label">Default Page Name</label>
+        <input id="defaultPageNameInput" class="input" type="text" placeholder="Page 1" autocomplete="off" />
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="cancelModalBtn" type="button">Cancel</button>
+      <button class="btn" id="createBundleBtn" type="button">Create Bundle</button>
+    </div>
+  </div>
 
   <!-- Notes Drawer (right) -->
   <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
@@ -2083,6 +2158,13 @@
       state.pages[firstPage.id] = firstPage;
       bundle.data.bundle.pages = [firstPage.id];
       
+    function createNewBundle(name, pageName){
+      const bundle = {
+        id: bundleUid(),
+        plan_name: name || "New Bundle",
+        years: [{ year: pageName || "Page 1", readings: [] }],
+        isDefault: false
+      };
       state.bundles.push(bundle);
       saveBundles(state.bundles);
       savePages(state.pages);
@@ -3386,6 +3468,28 @@
     }
 
     /* =========================================================
+       MODAL
+       ========================================================= */
+    function openModal(){
+      $("#overlay").classList.add("open");
+      $("#overlay").setAttribute("aria-hidden", "false");
+      $("#newBundleModal").classList.add("open");
+      $("#newBundleModal").setAttribute("aria-hidden", "false");
+      
+      // Clear and focus on the first input
+      $("#bundleNameInput").value = "";
+      $("#defaultPageNameInput").value = "";
+      setTimeout(() => $("#bundleNameInput").focus(), 100);
+    }
+
+    function closeModal(){
+      $("#overlay").classList.remove("open");
+      $("#overlay").setAttribute("aria-hidden", "true");
+      $("#newBundleModal").classList.remove("open");
+      $("#newBundleModal").setAttribute("aria-hidden", "true");
+    }
+
+    /* =========================================================
        NOTES (kept same behavior)
        ========================================================= */
     function filteredNotes(){
@@ -3668,10 +3772,34 @@
 
       $("#closeNotesBtn").addEventListener("click", closeDrawer);
       $("#oaCloseBtn").addEventListener("click", closeDrawer);
-      $("#overlay").addEventListener("click", closeDrawer);
+      $("#overlay").addEventListener("click", () => {
+        if ($("#newBundleModal").classList.contains("open")) {
+          closeModal();
+        } else {
+          closeDrawer();
+        }
+      });
+
+      // Modal buttons
+      $("#closeModalBtn").addEventListener("click", closeModal);
+      $("#cancelModalBtn").addEventListener("click", closeModal);
+      $("#createBundleBtn").addEventListener("click", () => {
+        const bundleName = $("#bundleNameInput").value.trim();
+        const pageName = $("#defaultPageNameInput").value.trim();
+        
+        if (!bundleName) {
+          alert("Please enter a bundle name.");
+          return;
+        }
+        
+        createNewBundle(bundleName, pageName || "Page 1");
+        closeModal();
+        setView("bundles");
+      });
 
       document.addEventListener("keydown", (e)=>{
         if (e.key === "Escape" && state.drawer.open) closeDrawer();
+        if (e.key === "Escape" && $("#newBundleModal").classList.contains("open")) closeModal();
       });
 
       // Progress popup hover/click handling
@@ -3785,11 +3913,7 @@
       });
 
       $("#newBundleBtn").addEventListener("click", () => {
-        const name = prompt("Enter a name for your new bundle:", "My Reading Bundle");
-        if (name && name.trim()){
-          createNewBundle(name.trim());
-          setView("bundles");
-        }
+        openModal();
       });
 
       $("#addBundlePageBtn").addEventListener("click", () => {

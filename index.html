@@ -1481,7 +1481,9 @@
       const timestamp = Date.now();
       let ulid = "";
       
-      // Encode timestamp (10 chars)
+      // Encode timestamp (10 chars) in big-endian order (most significant first)
+      // We prepend characters while extracting least significant bits first
+      // to build the correct left-to-right order
       let time = timestamp;
       for (let i = TIME_LEN - 1; i >= 0; i--) {
         ulid = ENCODING.charAt(time % 32) + ulid;
@@ -1538,6 +1540,8 @@
             pages: [] // Array of page artifact IDs
           }
         },
+        // Generic extension points per artifact template spec
+        // Applications can use these for custom metadata
         extraAttributes: {
           extraAttribute1: null,
           extraAttribute2: null,
@@ -1590,6 +1594,8 @@
             readings: [] // Array of reading objects
           }
         },
+        // Generic extension points per artifact template spec
+        // Applications can use these for custom metadata
         extraAttributes: {
           extraAttribute1: null,
           extraAttribute2: null,

@@ -1487,6 +1487,11 @@
        ========================================================= */
     const $ = (sel, root=document) => root.querySelector(sel);
 
+    function buildAudiobookSearchUrl(title, author) {
+      const q = encodeURIComponent(`"${title}" ${author} public domain audiobook site:librivox.org OR site:archive.org OR site:gutenberg.org`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
+
     function escapeHtml(str){
       return String(str ?? "")
         .replaceAll("&","&amp;")
@@ -3131,8 +3136,7 @@
         if (action === "openAudiobooks") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`"${title}" ${author} public domain audiobook site:librivox.org OR site:archive.org OR site:gutenberg.org`.trim());
-          window.open(`https://www.google.com/search?q=${q}`, "_blank", "noopener,noreferrer");
+          window.open(buildAudiobookSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3373,8 +3377,7 @@
         }
 
         if (btn.dataset.action === "openAudiobooksLib"){
-          const q = encodeURIComponent(`"${title}" ${author} public domain audiobook site:librivox.org OR site:archive.org OR site:gutenberg.org`.trim());
-          window.open(`https://www.google.com/search?q=${q}`, "_blank", "noopener,noreferrer");
+          window.open(buildAudiobookSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3519,8 +3522,7 @@
         if (action === "openAudiobooks") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`"${title}" ${author} public domain audiobook site:librivox.org OR site:archive.org OR site:gutenberg.org`.trim());
-          window.open(`https://www.google.com/search?q=${q}`, "_blank", "noopener,noreferrer");
+          window.open(buildAudiobookSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 

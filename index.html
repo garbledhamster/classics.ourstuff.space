@@ -1521,6 +1521,11 @@
       return `https://www.google.com/search?q=${q}`;
     }
 
+    function buildSourceSearchUrl(title, author) {
+      const q = encodeURIComponent(`"${title}" ${author} site:gutenberg.org OR site:gutenberg.net.au OR site:gutenberg.ca OR site:archive.org OR site:wikisource.org OR site:fadedpage.com OR site:standardebooks.org OR site:freeread.de`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
+
     function escapeHtml(str){
       return String(str ?? "")
         .replaceAll("&","&amp;")
@@ -2827,10 +2832,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
               </button>
-              ${it.sourceUrl ? `<button class="btn" type="button" data-action="openSourceLib">
+              <button class="btn" type="button" data-action="openSourceLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
-              </button>` : ""}
+              </button>
               <button class="btn" type="button" data-action="newNoteLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 New note
@@ -3056,10 +3061,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
               </button>
-              ${sourceUrl ? `<button class="btn" type="button" data-action="openSource">
+              <button class="btn" type="button" data-action="openSource">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
-              </button>` : ""}
+              </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -3170,8 +3175,9 @@
         }
 
         if (action === "openSource"){
-          const sourceUrl = row.dataset.sourceurl;
-          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3331,10 +3337,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
               </button>
-              ${w.sourceUrl ? `<button class="btn" type="button" data-action="openSource">
+              <button class="btn" type="button" data-action="openSource">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
-              </button>` : ""}
+              </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -3411,8 +3417,7 @@
         }
 
         if (btn.dataset.action === "openSourceLib"){
-          const sourceUrl = card.dataset.sourceurl;
-          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
+          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3556,8 +3561,9 @@
         }
 
         if (action === "openSource"){
-          const sourceUrl = row.dataset.sourceurl;
-          if (sourceUrl) window.open(sourceUrl, "_blank", "noopener,noreferrer");
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 

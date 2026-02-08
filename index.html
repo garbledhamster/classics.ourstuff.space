@@ -365,6 +365,15 @@
       white-space: nowrap;
     }
 
+    /* Bundle and Page Control Groups */
+    .bundleControlsGroup {
+      margin-bottom: 8px;
+    }
+    .pageControlsGroup {
+      margin-bottom: 16px;
+      border-top: 3px solid var(--bg);
+    }
+
     /* Pills */
     .pill{
       border:var(--borderThin);
@@ -1095,7 +1104,8 @@
 
     <!-- ===== BUNDLES VIEW ===== -->
     <section id="bundlesView" class="view" aria-label="Reading Bundles view">
-      <section class="controls" aria-label="bundle controls">
+      <!-- Bundle Controls Group -->
+      <section class="controls bundleControlsGroup" aria-label="bundle controls">
         <div class="control">
           <div class="label">Select Bundle</div>
           <select id="bundleSelect" class="select">
@@ -1103,6 +1113,24 @@
           </select>
         </div>
 
+        <div class="rowWide">
+          <button class="btn" id="newBundleBtn" type="button" title="New Bundle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span class="btnText">New Bundle</span>
+          </button>
+          <button class="btn" id="renameBundleBtn" type="button" title="Rename Bundle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
+            <span class="btnText">Rename Bundle</span>
+          </button>
+          <button class="btn" id="deleteBundleBtn" type="button" title="Delete Bundle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            <span class="btnText">Delete Bundle</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Page Controls Group -->
+      <section class="controls pageControlsGroup" aria-label="page controls">
         <div class="control">
           <div class="label">Page</div>
           <div class="yearStepper">
@@ -1117,10 +1145,6 @@
         </div>
 
         <div class="rowWide">
-          <button class="btn" id="newBundleBtn" type="button" title="New Bundle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span class="btnText">New Bundle</span>
-          </button>
           <button class="btn" id="addBundlePageBtn" type="button" title="Add Page">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             <span class="btnText">Add Page</span>
@@ -1132,14 +1156,6 @@
           <button class="btn" id="renamePageBtn" type="button" title="Rename Page">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
             <span class="btnText">Rename Page</span>
-          </button>
-          <button class="btn" id="renameBundleBtn" type="button" title="Rename Bundle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
-            <span class="btnText">Rename Bundle</span>
-          </button>
-          <button class="btn" id="deleteBundleBtn" type="button" title="Delete Bundle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-            <span class="btnText">Delete Bundle</span>
           </button>
         </div>
       </section>

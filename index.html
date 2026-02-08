@@ -3136,6 +3136,7 @@
              data-order="${escapeHtml(w.order)}"
              data-tier="${escapeHtml(w.tier)}"
              data-selection="${escapeHtml(w.work.selection || "")}"
+             data-bundleid="__default__"
              ${w.sourceUrl ? `data-sourceurl="${escapeHtml(w.sourceUrl)}"` : ""}
              id="wk_${escapeHtml(hash32(w.key))}"
         >

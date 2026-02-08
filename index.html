@@ -1054,6 +1054,11 @@
             Only incomplete
           </label>
 
+          <button class="btn" id="clonePlanBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Clone to Bundle
+          </button>
+
           <button class="btn" id="resetChecksBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
             Reset checks
@@ -2150,14 +2155,6 @@
       ).join("");
     }
 
-    function createNewBundle(name){
-      const bundle = createBundleArtifact(name || "New Bundle");
-      
-      // Create first page
-      const firstPage = createPageArtifact(bundle.id, 1, "Page 1");
-      state.pages[firstPage.id] = firstPage;
-      bundle.data.bundle.pages = [firstPage.id];
-      
     function createNewBundle(name, pageName){
       const bundle = {
         id: bundleUid(),
@@ -2167,10 +2164,47 @@
       };
       state.bundles.push(bundle);
       saveBundles(state.bundles);
-      savePages(state.pages);
       state.activeBundleId = bundle.id;
       saveActiveBundle(state.activeBundleId);
       buildBundleDropdowns();
+      return bundle;
+    }
+
+    function clonePlanToBundle(){
+      if (!state.defaultBundle) return;
+      
+      // Generate a unique name for the cloned bundle
+      const timestamp = new Date().toLocaleString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      const name = `${state.defaultBundle.plan_name} (Clone ${timestamp})`;
+      
+      // Deep clone the default bundle structure
+      const clonedYears = typeof structuredClone === 'function' 
+        ? structuredClone(state.defaultBundle.years) 
+        : JSON.parse(JSON.stringify(state.defaultBundle.years));
+      
+      const bundle = {
+        id: bundleUid(),
+        plan_name: name,
+        years: clonedYears,
+        isDefault: false
+      };
+      
+      state.bundles.push(bundle);
+      saveBundles(state.bundles);
+      state.activeBundleId = bundle.id;
+      saveActiveBundle(state.activeBundleId);
+      buildBundleDropdowns();
+      
+      // Navigate to the bundles view to show the cloned bundle
+      setView("bundles");
+      renderBundles();
+      
       return bundle;
     }
 
@@ -3877,6 +3911,10 @@
         state.checks = {};
         saveChecks(state.checks);
         renderAll();
+      });
+
+      $("#clonePlanBtn").addEventListener("click", () => {
+        clonePlanToBundle();
       });
 
       // Bundle controls

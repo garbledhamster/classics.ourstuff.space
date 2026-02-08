@@ -1156,6 +1156,50 @@
     </div>
   </div>
 
+  <!-- Alert Modal -->
+  <div id="alertModal" class="modal" aria-hidden="true" role="alertdialog" aria-labelledby="alertModalTitle">
+    <div class="modalHeader">
+      <h2 id="alertModalTitle" class="modalTitle">Alert</h2>
+    </div>
+    <div class="modalBody">
+      <p id="alertModalMessage"></p>
+    </div>
+    <div class="modalFooter">
+      <button class="btn" id="alertModalOkBtn" type="button">OK</button>
+    </div>
+  </div>
+
+  <!-- Confirm Modal -->
+  <div id="confirmModal" class="modal" aria-hidden="true" role="alertdialog" aria-labelledby="confirmModalTitle">
+    <div class="modalHeader">
+      <h2 id="confirmModalTitle" class="modalTitle">Confirm</h2>
+    </div>
+    <div class="modalBody">
+      <p id="confirmModalMessage"></p>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="confirmModalCancelBtn" type="button">Cancel</button>
+      <button class="btn" id="confirmModalOkBtn" type="button">OK</button>
+    </div>
+  </div>
+
+  <!-- Prompt Modal -->
+  <div id="promptModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="promptModalTitle">
+    <div class="modalHeader">
+      <h2 id="promptModalTitle" class="modalTitle">Input Required</h2>
+    </div>
+    <div class="modalBody">
+      <p id="promptModalMessage"></p>
+      <div class="control">
+        <input id="promptModalInput" class="input" type="text" autocomplete="off" />
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="promptModalCancelBtn" type="button">Cancel</button>
+      <button class="btn" id="promptModalOkBtn" type="button">OK</button>
+    </div>
+  </div>
+
   <!-- Notes Drawer (right) -->
   <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
     <div class="drawerHeader">
@@ -2963,9 +3007,11 @@
           const bundleId = btn.dataset.bundleid;
           const page = Number(btn.dataset.page);
           const order = Number(btn.dataset.order);
-          if (confirm("Remove this reading from the bundle?")){
-            removeReadingFromBundle(bundleId, page, order);
-          }
+          showConfirm("Remove this reading from the bundle?").then(confirmed => {
+            if (confirmed){
+              removeReadingFromBundle(bundleId, page, order);
+            }
+          });
           return;
         }
 
@@ -3276,18 +3322,18 @@
           const sourceUrl = card.dataset.sourceurl || "";
 
           if (!selectedBundleId){
-            alert("Please select a bundle from the dropdown first.");
+            showAlert("Please select a bundle from the dropdown first.");
             return;
           }
 
           const bundle = getBundleById(selectedBundleId);
           if (!bundle){
-            alert("Bundle not found. Please select a valid bundle.");
+            showAlert("Bundle not found. Please select a valid bundle.");
             return;
           }
 
           if (bundle.isDefault){
-            alert("Cannot add to the default Ten-Year Reading Plan. Please create or select a user bundle.");
+            showAlert("Cannot add to the default Ten-Year Reading Plan. Please create or select a user bundle.");
             return;
           }
 
@@ -3298,10 +3344,10 @@
           });
 
           if (success){
-            alert(`Added "${title}" to "${bundle.plan_name}" (Page ${selectedPage})`);
+            showAlert(`Added "${title}" to "${bundle.plan_name}" (Page ${selectedPage})`);
             updateLibBundlePageDropdown();
           } else {
-            alert("Failed to add book to bundle.");
+            showAlert("Failed to add book to bundle.");
           }
           return;
         }
@@ -3530,6 +3576,129 @@
       $("#newBundleModal").setAttribute("aria-hidden", "true");
     }
 
+    // Generic modal helpers for alert, confirm, and prompt
+    function showAlert(message, title = "Alert"){
+      return new Promise((resolve) => {
+        const modal = $("#alertModal");
+        const overlay = $("#overlay");
+        
+        $("#alertModalTitle").textContent = title;
+        $("#alertModalMessage").textContent = message;
+        
+        overlay.classList.add("open");
+        overlay.setAttribute("aria-hidden", "false");
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        
+        const okBtn = $("#alertModalOkBtn");
+        
+        function handleOk(){
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          okBtn.removeEventListener("click", handleOk);
+          resolve();
+        }
+        
+        okBtn.addEventListener("click", handleOk);
+        setTimeout(() => okBtn.focus(), 100);
+      });
+    }
+
+    function showConfirm(message, title = "Confirm"){
+      return new Promise((resolve) => {
+        const modal = $("#confirmModal");
+        const overlay = $("#overlay");
+        
+        $("#confirmModalTitle").textContent = title;
+        $("#confirmModalMessage").textContent = message;
+        
+        overlay.classList.add("open");
+        overlay.setAttribute("aria-hidden", "false");
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        
+        const okBtn = $("#confirmModalOkBtn");
+        const cancelBtn = $("#confirmModalCancelBtn");
+        
+        function handleOk(){
+          cleanup();
+          resolve(true);
+        }
+        
+        function handleCancel(){
+          cleanup();
+          resolve(false);
+        }
+        
+        function cleanup(){
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          okBtn.removeEventListener("click", handleOk);
+          cancelBtn.removeEventListener("click", handleCancel);
+        }
+        
+        okBtn.addEventListener("click", handleOk);
+        cancelBtn.addEventListener("click", handleCancel);
+        setTimeout(() => cancelBtn.focus(), 100);
+      });
+    }
+
+    function showPrompt(message, defaultValue = "", title = "Input Required"){
+      return new Promise((resolve) => {
+        const modal = $("#promptModal");
+        const overlay = $("#overlay");
+        const input = $("#promptModalInput");
+        
+        $("#promptModalTitle").textContent = title;
+        $("#promptModalMessage").textContent = message;
+        input.value = defaultValue;
+        
+        overlay.classList.add("open");
+        overlay.setAttribute("aria-hidden", "false");
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        
+        const okBtn = $("#promptModalOkBtn");
+        const cancelBtn = $("#promptModalCancelBtn");
+        
+        function handleOk(){
+          const value = input.value;
+          cleanup();
+          resolve(value);
+        }
+        
+        function handleCancel(){
+          cleanup();
+          resolve(null);
+        }
+        
+        function handleEnter(e){
+          if (e.key === "Enter"){
+            handleOk();
+          }
+        }
+        
+        function cleanup(){
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          okBtn.removeEventListener("click", handleOk);
+          cancelBtn.removeEventListener("click", handleCancel);
+          input.removeEventListener("keydown", handleEnter);
+        }
+        
+        okBtn.addEventListener("click", handleOk);
+        cancelBtn.addEventListener("click", handleCancel);
+        input.addEventListener("keydown", handleEnter);
+        setTimeout(() => input.focus(), 100);
+      });
+    }
+
     /* =========================================================
        NOTES (kept same behavior)
        ========================================================= */
@@ -3706,14 +3875,16 @@
     function deleteEditorNote(){
       const id = state.notesUI.editingId;
       if (!id) return;
-      if (!confirm("Delete this note?")) return;
+      showConfirm("Delete this note?").then(confirmed => {
+        if (!confirmed) return;
 
-      state.notes = state.notes.filter(n => n.id !== id);
-      saveNotes(state.notes);
+        state.notes = state.notes.filter(n => n.id !== id);
+        saveNotes(state.notes);
 
-      renderNotesList();
-      hideEditor();
-      renderAll();
+        renderNotesList();
+        hideEditor();
+        renderAll();
+      });
     }
 
     function exportNotes(){
@@ -3766,9 +3937,9 @@
         $("#importFile").value = "";
 
         renderAll();
-        alert("Notes imported.");
+        showAlert("Notes imported.");
       } catch(err){
-        alert(`Import failed: ${err.message}`);
+        showAlert(`Import failed: ${err.message}`);
       }
     }
 
@@ -3829,7 +4000,7 @@
         const pageName = $("#defaultPageNameInput").value.trim();
         
         if (!bundleName) {
-          alert("Please enter a bundle name.");
+          showAlert("Please enter a bundle name.");
           return;
         }
         
@@ -3914,10 +4085,12 @@
       $("#onlyIncomplete").addEventListener("change", e => { state.filters.onlyIncomplete = e.target.checked; renderPlan(); });
 
       $("#resetChecksBtn").addEventListener("click", () => {
-        if (!confirm("Reset all checkboxes? This cannot be undone.")) return;
-        state.checks = {};
-        saveChecks(state.checks);
-        renderAll();
+        showConfirm("Reset all checkboxes? This cannot be undone.").then(confirmed => {
+          if (!confirmed) return;
+          state.checks = {};
+          saveChecks(state.checks);
+          renderAll();
+        });
       });
 
       $("#clonePlanBtn").addEventListener("click", () => {
@@ -3964,11 +4137,11 @@
       $("#addBundlePageBtn").addEventListener("click", () => {
         const bundle = getActiveBundle();
         if (!bundle){
-          alert("Please select a bundle first.");
+          showAlert("Please select a bundle first.");
           return;
         }
         if (bundle.isDefault){
-          alert("Cannot add pages to the default Ten-Year Reading Plan. Please create or select a user bundle.");
+          showAlert("Cannot add pages to the default Ten-Year Reading Plan. Please create or select a user bundle.");
           return;
         }
         addPageToBundle(bundle.id);
@@ -3977,11 +4150,11 @@
       $("#deletePageBtn").addEventListener("click", () => {
         const bundle = getActiveBundle();
         if (!bundle){
-          alert("Please select a bundle first.");
+          showAlert("Please select a bundle first.");
           return;
         }
         if (bundle.isDefault){
-          alert("Cannot delete pages from the default Ten-Year Reading Plan. Please create or select a user bundle.");
+          showAlert("Cannot delete pages from the default Ten-Year Reading Plan. Please create or select a user bundle.");
           return;
         }
         const currentPage = Number(state.filters.bundleYear) || 1;
@@ -3989,64 +4162,71 @@
         
         // Check if the page exists
         if (!yearObj){
-          alert("This page does not exist in the bundle.");
+          showAlert("This page does not exist in the bundle.");
           return;
         }
         
         const pageName = yearObj.name || `Page ${currentPage}`;
-        if (confirm(`Delete "${pageName}"? This cannot be undone.`)){
-          deletePageFromBundle(bundle.id, currentPage);
-        }
+        showConfirm(`Delete "${pageName}"? This cannot be undone.`).then(confirmed => {
+          if (confirmed){
+            deletePageFromBundle(bundle.id, currentPage);
+          }
+        });
       });
 
       $("#renamePageBtn").addEventListener("click", () => {
         const bundle = getActiveBundle();
         if (!bundle){
-          alert("Please select a bundle first.");
+          showAlert("Please select a bundle first.");
           return;
         }
         if (bundle.isDefault){
-          alert("Cannot rename pages in the default Ten-Year Reading Plan.");
+          showAlert("Cannot rename pages in the default Ten-Year Reading Plan.");
           return;
         }
         const currentPage = Number(state.filters.bundleYear) || 1;
         const yearObj = bundle.years?.find(y => Number(y.year) === currentPage);
         const currentName = yearObj?.name || `Page ${currentPage}`;
-        const newName = prompt("Enter a new name for this page:", currentName);
-        if (newName && newName.trim()){
-          renameBundlePage(bundle.id, currentPage, newName.trim());
-        }
+        showPrompt("Enter a new name for this page:", currentName, "Rename Page").then(newName => {
+          if (newName && newName.trim()){
+            renameBundlePage(bundle.id, currentPage, newName.trim());
+          }
+        });
       });
 
       $("#renameBundleBtn").addEventListener("click", () => {
         const bundle = getActiveBundle();
         if (!bundle){
-          alert("Please select a bundle first.");
+          showAlert("Please select a bundle first.");
           return;
         }
         if (bundle.isDefault){
-          alert("Cannot rename the default Ten-Year Reading Plan.");
+          showAlert("Cannot rename the default Ten-Year Reading Plan.");
           return;
         }
-        const newName = prompt("Enter a new name for this bundle:", bundle.plan_name);
-        if (newName && newName.trim()){
-          renameBundle(bundle.id, newName.trim());
-          $("#planName").textContent = newName.trim();
-        }
+        showPrompt("Enter a new name for this bundle:", bundle.plan_name, "Rename Bundle").then(newName => {
+          if (newName && newName.trim()){
+            renameBundle(bundle.id, newName.trim());
+            $("#planName").textContent = newName.trim();
+          }
+        });
       });
 
       $("#deleteBundleBtn").addEventListener("click", () => {
         const bundle = getActiveBundle();
         if (!bundle){
-          alert("Please select a bundle first.");
+          showAlert("Please select a bundle first.");
           return;
         }
         if (bundle.isDefault){
-          alert("Cannot delete the default Ten-Year Reading Plan.");
+          showAlert("Cannot delete the default Ten-Year Reading Plan.");
           return;
         }
-        if (!confirm(`Delete bundle "${bundle.plan_name}"? This cannot be undone.`)) return;
-        deleteBundle(bundle.id);
+        showConfirm(`Delete bundle "${bundle.plan_name}"? This cannot be undone.`).then(confirmed => {
+          if (confirmed){
+            deleteBundle(bundle.id);
+          }
+        });
       });
 
       // Notes
@@ -4064,11 +4244,13 @@
 
       // OpenAlex options
       $("#oaResetBtn").addEventListener("click", () => {
-        if (!confirm("Reset OpenAlex options to defaults?")) return;
-        state.openalex = defaultOpenAlexSettings();
-        saveOpenAlexSettings(state.openalex);
-        syncOpenAlexUIFromState();
-        updateOpenAlexPreview();
+        showConfirm("Reset OpenAlex options to defaults?").then(confirmed => {
+          if (!confirmed) return;
+          state.openalex = defaultOpenAlexSettings();
+          saveOpenAlexSettings(state.openalex);
+          syncOpenAlexUIFromState();
+          updateOpenAlexPreview();
+        });
       });
 
       $("#oaTarget").addEventListener("change", (e)=>{ state.openalex.target = e.target.value; persistOA(); });

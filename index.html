@@ -204,6 +204,19 @@
     .btn:hover{ transform: translate(-1px,-1px); }
     .btn:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
 
+    /* Visually hide text but keep it accessible for screen readers */
+    .btn-text-mobile-hidden{
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     .btnGhost{
       border:var(--borderThin);
       box-shadow:none;
@@ -2884,13 +2897,13 @@
               <span class="tier">${escapeHtml(tier)}</span>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn" type="button" data-action="markBundleBlockDone">
+              <button class="btn" type="button" data-action="markBundleBlockDone" title="Mark block done" aria-label="Mark block done">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Mark block done
+                <span class="btn-text-mobile-hidden">Mark block done</span>
               </button>
-              <button class="btn" type="button" data-action="markBundleBlockUndone">
+              <button class="btn" type="button" data-action="markBundleBlockUndone" title="Mark block undone" aria-label="Mark block undone">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
-                Mark block undone
+                <span class="btn-text-mobile-hidden">Mark block undone</span>
               </button>
               ${!bundle.isDefault ? `
                 <button class="btn" type="button" data-action="removeReading" data-bundleid="${escapeHtml(bundle.id)}" data-page="${pageNum}" data-order="${order}">
@@ -3154,13 +3167,13 @@
               ${marker}
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn" type="button" data-action="markBlockDone">
+              <button class="btn" type="button" data-action="markBlockDone" title="Mark block done" aria-label="Mark block done">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Mark block done
+                <span class="btn-text-mobile-hidden">Mark block done</span>
               </button>
-              <button class="btn" type="button" data-action="markBlockUndone">
+              <button class="btn" type="button" data-action="markBlockUndone" title="Mark block undone" aria-label="Mark block undone">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
-                Mark block undone
+                <span class="btn-text-mobile-hidden">Mark block undone</span>
               </button>
             </div>
           </div>

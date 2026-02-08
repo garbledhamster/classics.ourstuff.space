@@ -15,7 +15,7 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, onSnapshot, serverTimestamp, deleteDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
     
     // Firebase configuration
     const firebaseConfig = {
@@ -45,11 +45,7 @@
     window.firestoreSetDoc = setDoc;
     window.firestoreGetDoc = getDoc;
     window.firestoreGetDocs = getDocs;
-    window.firestoreQuery = query;
-    window.firestoreWhere = where;
-    window.firestoreOnSnapshot = onSnapshot;
     window.firestoreServerTimestamp = serverTimestamp;
-    window.firestoreDeleteDoc = deleteDoc;
     
     // Signal that Firebase is ready
     window.firebaseReady = true;
@@ -1660,6 +1656,7 @@
     const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
     
     const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
+    const AUTO_SYNC_DEBOUNCE_MS = 2000; // Wait 2 seconds after last change before auto-syncing
 
     /* =========================================================
        HELPERS
@@ -2300,7 +2297,7 @@
       clearTimeout(syncTimeout);
       syncTimeout = setTimeout(async () => {
         await performFullSync(state.currentUser.uid);
-      }, 2000); // Wait 2 seconds after last change before syncing
+      }, AUTO_SYNC_DEBOUNCE_MS);
     };
     
     // Update sync status in UI
@@ -2316,7 +2313,7 @@
         statusEl.style.color = '#d00';
       } else if (state.sync.enabled && state.sync.lastSync) {
         const date = new Date(state.sync.lastSync);
-        const timeStr = date.toLocaleTimeString();
+        const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         statusEl.textContent = `✓ Synced at ${timeStr}`;
         statusEl.style.color = '#080';
       } else if (state.currentUser) {

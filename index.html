@@ -37,6 +37,12 @@
     window.firebaseSignUp = createUserWithEmailAndPassword;
     window.firebaseSignOut = signOut;
     window.firebaseOnAuthStateChanged = onAuthStateChanged;
+    
+    // Signal that Firebase is ready
+    window.firebaseReady = true;
+    if (window.onFirebaseReady) {
+      window.onFirebaseReady();
+    }
   </script>
 
   <!-- reCAPTCHA v3 -->
@@ -4865,8 +4871,20 @@
     /* =========================================================
        BOOT
        ========================================================= */
-    initAuth();
-    loadPlan();
+    // Wait for Firebase to be ready before initializing auth
+    let bootCalled = false;
+    function boot() {
+      if (bootCalled) return;
+      bootCalled = true;
+      initAuth();
+      loadPlan();
+    }
+    
+    // Set callback first, then check if already ready
+    window.onFirebaseReady = boot;
+    if (window.firebaseReady) {
+      boot();
+    }
   </script>
 </body>
 </html>

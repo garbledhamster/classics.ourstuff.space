@@ -1311,7 +1311,8 @@
     const LS_CHECKS = "greatworks.reading.checks.v2";
     const LS_NOTES  = "greatworks.reading.notes.v1";
     const LS_OA     = "greatworks.openalex.settings.v1";
-    const LS_BUNDLES = "greatworks.reading.bundles.v1";
+    const LS_BUNDLES = "greatworks.reading.bundles.v2"; // Updated to v2 for artifact format
+    const LS_PAGES = "greatworks.reading.pages.v1"; // New storage for page artifacts
     const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
 
     /* =========================================================
@@ -1401,17 +1402,204 @@
 
     // Bundle storage functions
     function loadBundles(){
-      return safeJsonParse(localStorage.getItem(LS_BUNDLES) || "[]", []);
+      // Try loading from v2 (artifact format) first
+      const bundlesV2 = localStorage.getItem(LS_BUNDLES);
+      if (bundlesV2) {
+        return safeJsonParse(bundlesV2, []);
+      }
+      
+      // Try migrating from v1 (old format)
+      const bundlesV1 = localStorage.getItem("greatworks.reading.bundles.v1");
+      if (bundlesV1) {
+        const oldBundles = safeJsonParse(bundlesV1, []);
+        const migratedBundles = migrateBundlesToArtifactFormat(oldBundles);
+        saveBundles(migratedBundles);
+        return migratedBundles;
+      }
+      
+      return [];
     }
+    
     function saveBundles(arr){
       localStorage.setItem(LS_BUNDLES, JSON.stringify(arr));
     }
+    
+    function loadPages(){
+      return safeJsonParse(localStorage.getItem(LS_PAGES) || "{}", {});
+    }
+    
+    function savePages(obj){
+      localStorage.setItem(LS_PAGES, JSON.stringify(obj));
+    }
+    
     function loadActiveBundle(){
       return localStorage.getItem(LS_ACTIVE_BUNDLE) || "__default__";
     }
+    
     function saveActiveBundle(id){
       localStorage.setItem(LS_ACTIVE_BUNDLE, id);
     }
+    
+    // Migration function: convert old bundle format to artifact format
+    function migrateBundlesToArtifactFormat(oldBundles){
+      const pages = loadPages();
+      const migratedBundles = [];
+      
+      for (const oldBundle of oldBundles) {
+        // Create bundle artifact
+        const bundle = createBundleArtifact(oldBundle.plan_name || "Migrated Bundle");
+        bundle.id = oldBundle.id || generateUlid(); // Keep old ID if available
+        bundle.createdAt = oldBundle.createdAt || nowIso();
+        bundle.updatedAt = oldBundle.updatedAt || nowIso();
+        
+        // Convert years to page artifacts
+        const pageIds = [];
+        if (oldBundle.years && Array.isArray(oldBundle.years)) {
+          for (const year of oldBundle.years) {
+            const pageId = generateUlid();
+            const pageArtifact = createPageArtifact(bundle.id, year.year || 1, year.name || `Page ${year.year}`);
+            pageArtifact.id = pageId;
+            pageArtifact.data.page.readings = year.readings || [];
+            pages[pageId] = pageArtifact;
+            pageIds.push(pageId);
+          }
+        }
+        
+        bundle.data.bundle.pages = pageIds;
+        migratedBundles.push(bundle);
+      }
+      
+      savePages(pages);
+      return migratedBundles;
+    }
+    // ULID generation (monotonic, lexicographically sortable)
+    function generateUlid(){
+      const ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+      const TIME_LEN = 10;
+      const RANDOM_LEN = 16;
+      
+      const timestamp = Date.now();
+      let ulid = "";
+      
+      // Encode timestamp (10 chars)
+      let time = timestamp;
+      for (let i = TIME_LEN - 1; i >= 0; i--) {
+        ulid = ENCODING.charAt(time % 32) + ulid;
+        time = Math.floor(time / 32);
+      }
+      
+      // Add randomness (16 chars)
+      const randomBytes = crypto.getRandomValues(new Uint8Array(RANDOM_LEN));
+      for (let i = 0; i < RANDOM_LEN; i++) {
+        ulid += ENCODING.charAt(randomBytes[i] % 32);
+      }
+      
+      return ulid;
+    }
+
+    // Create artifact template for bundle
+    function createBundleArtifact(title, owner = "uid_default"){
+      const now = nowIso();
+      return {
+        id: generateUlid(),
+        type: "bundle",
+        title: title || "New Bundle",
+        owner: owner,
+        acl: {
+          owners: [owner],
+          editors: [],
+          viewers: []
+        },
+        visibility: "private",
+        primaryProjectId: null,
+        projectIds: [],
+        tags: [],
+        status: "active",
+        schemaVersion: 1,
+        createdAt: now,
+        updatedAt: now,
+        refs: {
+          assets: [],
+          sources: [],
+          links: []
+        },
+        data: {
+          core: {
+            text: "",
+            context: {
+              source: "",
+              location: "",
+              url: ""
+            },
+            assetIds: [],
+            meta: {}
+          },
+          bundle: {
+            pages: [] // Array of page artifact IDs
+          }
+        },
+        extraAttributes: {
+          extraAttribute1: null,
+          extraAttribute2: null,
+          extraAttribute3: null,
+          extraAttribute4: null,
+          extraAttribute5: null
+        }
+      };
+    }
+
+    // Create artifact template for page
+    function createPageArtifact(bundleId, pageNumber, title, owner = "uid_default"){
+      const now = nowIso();
+      return {
+        id: generateUlid(),
+        type: "page",
+        title: title || `Page ${pageNumber}`,
+        owner: owner,
+        acl: {
+          owners: [owner],
+          editors: [],
+          viewers: []
+        },
+        visibility: "private",
+        primaryProjectId: bundleId,
+        projectIds: [bundleId],
+        tags: [],
+        status: "active",
+        schemaVersion: 1,
+        createdAt: now,
+        updatedAt: now,
+        refs: {
+          assets: [],
+          sources: [],
+          links: []
+        },
+        data: {
+          core: {
+            text: "",
+            context: {
+              source: "",
+              location: "",
+              url: ""
+            },
+            assetIds: [],
+            meta: {}
+          },
+          page: {
+            pageNumber: pageNumber,
+            readings: [] // Array of reading objects
+          }
+        },
+        extraAttributes: {
+          extraAttribute1: null,
+          extraAttribute2: null,
+          extraAttribute3: null,
+          extraAttribute4: null,
+          extraAttribute5: null
+        }
+      };
+    }
+
     function bundleUid(){
       // Use crypto.randomUUID if available, fallback to timestamp-based ID
       if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -1508,7 +1696,8 @@
       checks: loadChecks(),
       notes: loadNotes(),
       openalex: loadOpenAlexSettings(),
-      bundles: loadBundles(),          // user-created bundles
+      bundles: loadBundles(),          // user-created bundles (artifact format)
+      pages: loadPages(),              // page artifacts (keyed by page ID)
       activeBundleId: loadActiveBundle(), // currently selected bundle id
       defaultBundle: null,             // the default bundle from reading.json
       view: "library",   // "library" | "plan" | "bundles"
@@ -1736,6 +1925,47 @@
     /* =========================================================
        BUNDLE MANAGEMENT
        ========================================================= */
+    // Helper functions for artifact format
+    function getBundlePages(bundle){
+      if (!bundle) return [];
+      
+      // Handle old format (for default bundle from reading.json)
+      if (bundle.years && Array.isArray(bundle.years)) {
+        return bundle.years;
+      }
+      
+      // Handle new artifact format
+      if (bundle.data && bundle.data.bundle && Array.isArray(bundle.data.bundle.pages)) {
+        return bundle.data.bundle.pages.map(pageId => {
+          const page = state.pages[pageId];
+          if (!page) return null;
+          
+          // Convert page artifact to old format for compatibility
+          return {
+            year: page.data.page.pageNumber,
+            name: page.title,
+            readings: page.data.page.readings || []
+          };
+        }).filter(p => p !== null);
+      }
+      
+      return [];
+    }
+    
+    function getBundleTitle(bundle){
+      if (!bundle) return "";
+      return bundle.title || bundle.plan_name || "Unnamed Bundle";
+    }
+    
+    function updateBundleTitle(bundleId, newTitle){
+      const bundle = getBundleById(bundleId);
+      if (!bundle || bundle.isDefault) return;
+      
+      bundle.title = newTitle;
+      bundle.updatedAt = nowIso();
+      saveBundles(state.bundles);
+    }
+    
     function getAllBundles(){
       // Returns array of all bundles (default + user-created)
       const bundles = [];
@@ -1768,7 +1998,7 @@
       // Bundle view dropdown (user bundles only - Ten-Year Plan has its own tab)
       const bundleSelect = $("#bundleSelect");
       const bundleOptions = userBundles.map(b => 
-        `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
+        `<option value="${escapeHtml(b.id)}">${escapeHtml(getBundleTitle(b))}</option>`
       );
       if (bundleOptions.length === 0) {
         bundleOptions.push(`<option value="">— No Bundles Yet —</option>`);
@@ -1786,7 +2016,7 @@
       libBundleSelect.innerHTML = 
         `<option value="">— Select Bundle —</option>` +
         userBundles.map(b => 
-          `<option value="${escapeHtml(b.id)}">${escapeHtml(b.plan_name)}</option>`
+          `<option value="${escapeHtml(b.id)}">${escapeHtml(getBundleTitle(b))}</option>`
         ).join("");
 
       updateBundlePageDropdown();
@@ -1797,7 +2027,7 @@
       const bundle = getActiveBundle();
       if (!bundle) return;
       
-      const years = bundle.years || [];
+      const years = getBundlePages(bundle);
       const bundlePageDisplay = $("#bundlePageDisplay");
       
       if (years.length === 0){
@@ -1827,26 +2057,29 @@
       }
 
       const bundle = getBundleById(selectedBundleId);
-      if (!bundle || !bundle.years || bundle.years.length === 0){
+      const years = getBundlePages(bundle);
+      if (years.length === 0){
         libBundlePageSelect.innerHTML = `<option value="1">Page 1</option>`;
         return;
       }
 
-      const pages = bundle.years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+      const pages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
       libBundlePageSelect.innerHTML = pages.map(p => 
         `<option value="${p}">Page ${p}</option>`
       ).join("");
     }
 
     function createNewBundle(name){
-      const bundle = {
-        id: bundleUid(),
-        plan_name: name || "New Bundle",
-        years: [{ year: 1, readings: [] }],
-        isDefault: false
-      };
+      const bundle = createBundleArtifact(name || "New Bundle");
+      
+      // Create first page
+      const firstPage = createPageArtifact(bundle.id, 1, "Page 1");
+      state.pages[firstPage.id] = firstPage;
+      bundle.data.bundle.pages = [firstPage.id];
+      
       state.bundles.push(bundle);
       saveBundles(state.bundles);
+      savePages(state.pages);
       state.activeBundleId = bundle.id;
       saveActiveBundle(state.activeBundleId);
       buildBundleDropdowns();
@@ -1857,12 +2090,18 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return;
 
-      const years = bundle.years || [];
+      const years = getBundlePages(bundle);
       const maxYear = years.reduce((m, y) => Math.max(m, Number(y.year) || 0), 0);
       const newYear = maxYear + 1;
       
-      bundle.years.push({ year: newYear, readings: [] });
+      // Create new page artifact
+      const newPage = createPageArtifact(bundle.id, newYear, `Page ${newYear}`);
+      state.pages[newPage.id] = newPage;
+      bundle.data.bundle.pages.push(newPage.id);
+      bundle.updatedAt = nowIso();
+      
       saveBundles(state.bundles);
+      savePages(state.pages);
       state.filters.bundleYear = String(newYear);
       updateBundlePageDropdown();
       renderBundles();
@@ -1870,6 +2109,16 @@
 
     function deleteBundle(bundleId){
       if (bundleId === "__default__") return; // Cannot delete default
+      
+      const bundle = getBundleById(bundleId);
+      if (bundle){
+        // Delete all pages associated with this bundle
+        const pageIds = bundle.data?.bundle?.pages || [];
+        for (const pageId of pageIds){
+          delete state.pages[pageId];
+        }
+        savePages(state.pages);
+      }
       
       const idx = state.bundles.findIndex(b => b.id === bundleId);
       if (idx >= 0){
@@ -1886,7 +2135,8 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return;
       
-      bundle.plan_name = newName;
+      bundle.title = newName;
+      bundle.updatedAt = nowIso();
       saveBundles(state.bundles);
       buildBundleDropdowns();
     }
@@ -1895,13 +2145,19 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return;
       
-      const yearObj = bundle.years?.find(y => Number(y.year) === pageNum);
-      if (yearObj){
-        yearObj.name = newName;
-        saveBundles(state.bundles);
-        // Update the page display
-        $("#bundlePageDisplay").textContent = newName;
-        renderBundles();
+      // Find the page artifact
+      const pageIds = bundle.data?.bundle?.pages || [];
+      for (const pageId of pageIds){
+        const page = state.pages[pageId];
+        if (page && page.data.page.pageNumber === pageNum){
+          page.title = newName;
+          page.updatedAt = nowIso();
+          savePages(state.pages);
+          // Update the page display
+          $("#bundlePageDisplay").textContent = newName;
+          renderBundles();
+          return;
+        }
       }
     }
 
@@ -1909,13 +2165,25 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return;
       
-      const idx = bundle.years?.findIndex(y => Number(y.year) === pageNum);
-      if (idx >= 0){
-        bundle.years.splice(idx, 1);
+      // Find and remove the page artifact
+      const pageIds = bundle.data?.bundle?.pages || [];
+      const pageIdx = pageIds.findIndex(pageId => {
+        const page = state.pages[pageId];
+        return page && page.data.page.pageNumber === pageNum;
+      });
+      
+      if (pageIdx >= 0){
+        const deletedPageId = pageIds[pageIdx];
+        delete state.pages[deletedPageId];
+        bundle.data.bundle.pages.splice(pageIdx, 1);
+        bundle.updatedAt = nowIso();
+        
         saveBundles(state.bundles);
+        savePages(state.pages);
         
         // Navigate to a valid page after deletion
-        const remainingPages = bundle.years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
+        const years = getBundlePages(bundle);
+        const remainingPages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
         if (remainingPages.length > 0){
           // Try to navigate to a page close to the deleted one
           // Find the first page that is less than the deleted page, or use the first page
@@ -1935,17 +2203,35 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return false;
 
-      let yearObj = bundle.years.find(y => Number(y.year) === pageNum);
-      if (!yearObj){
-        yearObj = { year: pageNum, readings: [] };
-        bundle.years.push(yearObj);
-        bundle.years.sort((a,b) => Number(a.year) - Number(b.year));
+      // Find or create the page
+      const pageIds = bundle.data?.bundle?.pages || [];
+      let targetPage = null;
+      
+      for (const pageId of pageIds){
+        const page = state.pages[pageId];
+        if (page && page.data.page.pageNumber === pageNum){
+          targetPage = page;
+          break;
+        }
+      }
+      
+      if (!targetPage){
+        // Create new page
+        targetPage = createPageArtifact(bundle.id, pageNum, `Page ${pageNum}`);
+        state.pages[targetPage.id] = targetPage;
+        bundle.data.bundle.pages.push(targetPage.id);
+        bundle.data.bundle.pages.sort((a, b) => {
+          const pageA = state.pages[a];
+          const pageB = state.pages[b];
+          return (pageA?.data.page.pageNumber || 0) - (pageB?.data.page.pageNumber || 0);
+        });
       }
 
       // Find next order number
-      const maxOrder = yearObj.readings.reduce((m, r) => Math.max(m, Number(r.order) || 0), 0);
+      const readings = targetPage.data.page.readings;
+      const maxOrder = readings.reduce((m, r) => Math.max(m, Number(r.order) || 0), 0);
       
-      yearObj.readings.push({
+      readings.push({
         order: maxOrder + 1,
         tier: "core",
         author: bookData.author || "Unknown",
@@ -1955,7 +2241,10 @@
         }]
       });
 
+      targetPage.updatedAt = nowIso();
+      bundle.updatedAt = nowIso();
       saveBundles(state.bundles);
+      savePages(state.pages);
       return true;
     }
 
@@ -1963,16 +2252,25 @@
       const bundle = getBundleById(bundleId);
       if (!bundle || bundle.isDefault) return;
 
-      const yearObj = bundle.years.find(y => Number(y.year) === pageNum);
-      if (!yearObj) return;
-
-      const idx = yearObj.readings.findIndex(r => Number(r.order) === order);
-      if (idx >= 0){
-        yearObj.readings.splice(idx, 1);
-        // Re-order remaining readings
-        yearObj.readings.forEach((r, i) => r.order = i + 1);
-        saveBundles(state.bundles);
-        renderBundles();
+      // Find the page
+      const pageIds = bundle.data?.bundle?.pages || [];
+      for (const pageId of pageIds){
+        const page = state.pages[pageId];
+        if (page && page.data.page.pageNumber === pageNum){
+          const readings = page.data.page.readings;
+          const idx = readings.findIndex(r => Number(r.order) === order);
+          if (idx >= 0){
+            readings.splice(idx, 1);
+            // Re-order remaining readings
+            readings.forEach((r, i) => r.order = i + 1);
+            page.updatedAt = nowIso();
+            bundle.updatedAt = nowIso();
+            saveBundles(state.bundles);
+            savePages(state.pages);
+            renderBundles();
+          }
+          return;
+        }
       }
     }
 
@@ -1996,7 +2294,7 @@
         $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
       } else if (view === "bundles"){
         const bundle = getActiveBundle();
-        $("#planName").textContent = bundle?.plan_name || "Reading Bundles";
+        $("#planName").textContent = getBundleTitle(bundle) || "Reading Bundles";
       }
 
       renderAll();
@@ -2018,7 +2316,8 @@
     function computeBundleProgress(bundle){
       let total = 0;
       let done = 0;
-      for (const year of (bundle.years || [])){
+      const years = getBundlePages(bundle);
+      for (const year of years){
         for (const reading of (year.readings || [])){
           for (const work of (reading.works || [])){
             total++;
@@ -2060,7 +2359,7 @@
         const bp = computeBundleProgress(bundle);
         html += `
           <div class="progressPopupRow">
-            <span class="progressPopupName">${escapeHtml(bundle.plan_name)}</span>
+            <span class="progressPopupName">${escapeHtml(getBundleTitle(bundle))}</span>
             <span class="progressPopupScore">${bp.done}/${bp.total}</span>
             <span class="progressPopupBar"><span style="width:${bp.pct}%"></span></span>
           </div>
@@ -2334,9 +2633,9 @@
       }
 
       // Update the header with bundle name
-      $("#planName").textContent = bundle.plan_name;
+      $("#planName").textContent = getBundleTitle(bundle);
 
-      const years = bundle.years || [];
+      const years = getBundlePages(bundle);
       const currentPage = Number(state.filters.bundleYear) || 1;
       const yearData = years.find(y => Number(y.year) === currentPage);
 

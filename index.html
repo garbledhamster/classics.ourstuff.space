@@ -1463,6 +1463,8 @@
     const LS_BUNDLES = "greatworks.reading.bundles.v2"; // Updated to v2 for artifact format
     const LS_PAGES = "greatworks.reading.pages.v1"; // New storage for page artifacts
     const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
+    
+    const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
 
     /* =========================================================
        HELPERS
@@ -3097,7 +3099,7 @@
         if (action === "openYouTube") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
+          const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -3329,7 +3331,7 @@
         }
 
         if (btn.dataset.action === "openYouTubeLib"){
-          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
+          const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -3467,7 +3469,7 @@
         if (action === "openYouTube") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
+          const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }

@@ -3097,7 +3097,7 @@
         if (action === "openYouTube") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author}`.trim());
+          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -3329,7 +3329,7 @@
         }
 
         if (btn.dataset.action === "openYouTubeLib"){
-          const q = encodeURIComponent(`${title} ${author}`.trim());
+          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -3467,7 +3467,7 @@
         if (action === "openYouTube") {
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author}`.trim());
+          const q = encodeURIComponent(`${title} ${author} summary analysis explained`.trim());
           window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
           return;
         }

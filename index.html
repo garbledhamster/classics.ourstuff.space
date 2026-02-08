@@ -11,6 +11,37 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
+  <!-- Firebase SDK (v9 modular) -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbGQLNf5DaihauUnZhVA03TAQUO_6PwZk",
+      authDomain: "ourstuff-firebase.firebaseapp.com",
+      projectId: "ourstuff-firebase",
+      storageBucket: "ourstuff-firebase.firebasestorage.app",
+      messagingSenderId: "450756988196",
+      appId: "1:450756988196:web:89ee37877b306bbb1277b1",
+      measurementId: "G-JR0JC5Z47E"
+    };
+    
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    // Store in window for access from main script
+    window.firebaseAuth = auth;
+    window.firebaseSignIn = signInWithEmailAndPassword;
+    window.firebaseSignUp = createUserWithEmailAndPassword;
+    window.firebaseSignOut = signOut;
+    window.firebaseOnAuthStateChanged = onAuthStateChanged;
+  </script>
+
+  <!-- reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdVslAsAAAAAAwyU1wyjAxIG_K187E82ID2C7Re"></script>
+
   <style>
     /* ===== Reset ===== */
     *, *::before, *::after { box-sizing: border-box; }
@@ -759,6 +790,24 @@
       justify-content:flex-end;
     }
 
+    /* Modal backdrop */
+    .modalBackdrop{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+      z-index:60;
+      display:none;
+      opacity:0;
+      transition: opacity 160ms ease;
+    }
+    .modalBackdrop.show{
+      display:block;
+      opacity:1;
+    }
+
     .drawer{
       position:fixed;
       top:0;
@@ -956,6 +1005,9 @@
 </head>
 
 <body>
+  <!-- Modal backdrop -->
+  <div id="modalBackdrop" class="modalBackdrop"></div>
+  
   <div class="wrap">
     <header class="masthead">
       <div class="mast-top">
@@ -994,6 +1046,15 @@
         </div>
 
         <div class="navRow">
+          <button class="btn" id="loginBtn" type="button" style="display:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+            Sign In
+          </button>
+          <button class="btn" id="logoutBtn" type="button" style="display:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Sign Out
+          </button>
+          <span id="userEmail" class="badge" style="display:none;"></span>
           <div class="badge" id="countBadge">0</div>
           <div class="progressBadgeWrap" id="progressBadgeWrap">
             <div class="badge" id="progressBadge">Progress: 0%</div>
@@ -1260,6 +1321,66 @@
     <div class="modalFooter">
       <button class="btn btnGhost" id="promptModalCancelBtn" type="button">Cancel</button>
       <button class="btn" id="promptModalOkBtn" type="button">OK</button>
+    </div>
+  </div>
+
+  <!-- Login/Sign-up Modal -->
+  <div id="loginModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="loginModalTitle">
+    <div class="modalHeader">
+      <h2 id="loginModalTitle" class="modalTitle">Sign In</h2>
+      <button class="btn btnGhost" id="closeLoginModalBtn" type="button" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div id="loginError" class="error" style="display:none; margin-bottom: 12px;"></div>
+      <div class="control">
+        <label for="loginEmail" class="label">Email</label>
+        <input id="loginEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" />
+      </div>
+      <div class="control">
+        <label for="loginPassword" class="label">Password</label>
+        <input id="loginPassword" class="input" type="password" placeholder="Enter password" autocomplete="current-password" />
+      </div>
+      <div class="help" style="margin-top: 8px;">
+        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="text-decoration: underline;">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="text-decoration: underline;">Terms</a>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="showSignupBtn" type="button">Create Account</button>
+      <button class="btn" id="loginSubmitBtn" type="button">Sign In</button>
+    </div>
+  </div>
+
+  <!-- Sign-up Modal -->
+  <div id="signupModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="signupModalTitle">
+    <div class="modalHeader">
+      <h2 id="signupModalTitle" class="modalTitle">Create Account</h2>
+      <button class="btn btnGhost" id="closeSignupModalBtn" type="button" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div id="signupError" class="error" style="display:none; margin-bottom: 12px;"></div>
+      <div class="control">
+        <label for="signupEmail" class="label">Email</label>
+        <input id="signupEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" />
+      </div>
+      <div class="control">
+        <label for="signupPassword" class="label">Password</label>
+        <input id="signupPassword" class="input" type="password" placeholder="Create password (min 6 characters)" autocomplete="new-password" />
+      </div>
+      <div class="control">
+        <label for="signupPasswordConfirm" class="label">Confirm Password</label>
+        <input id="signupPasswordConfirm" class="input" type="password" placeholder="Confirm password" autocomplete="new-password" />
+      </div>
+      <div class="help" style="margin-top: 8px;">
+        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="text-decoration: underline;">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="text-decoration: underline;">Terms</a>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="showLoginBtn" type="button">Back to Sign In</button>
+      <button class="btn" id="signupSubmitBtn" type="button">Create Account</button>
     </div>
   </div>
 
@@ -1546,6 +1667,236 @@
 
     function uid(){
       return "n_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+    }
+
+    /* =========================================================
+       FIREBASE AUTHENTICATION
+       ========================================================= */
+    let currentUser = null;
+    const RECAPTCHA_SITE_KEY = "6LdVslAsAAAAAAwyU1wyjAxIG_K187E82ID2C7Re";
+
+    // Initialize auth state observer
+    function initAuth() {
+      if (!window.firebaseAuth || !window.firebaseOnAuthStateChanged) {
+        console.error("Firebase not loaded");
+        // Show login button even if Firebase fails
+        $("#loginBtn").style.display = "inline-flex";
+        return;
+      }
+
+      window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
+        currentUser = user;
+        updateAuthUI();
+      });
+    }
+
+    function updateAuthUI() {
+      const loginBtn = $("#loginBtn");
+      const logoutBtn = $("#logoutBtn");
+      const userEmail = $("#userEmail");
+
+      if (currentUser) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+        userEmail.style.display = "inline-flex";
+        userEmail.textContent = currentUser.email;
+      } else {
+        loginBtn.style.display = "inline-flex";
+        logoutBtn.style.display = "none";
+        userEmail.style.display = "none";
+        userEmail.textContent = "";
+      }
+    }
+
+    function showLoginModal() {
+      const modal = $("#loginModal");
+      const backdrop = $("#modalBackdrop");
+      modal.classList.add("open");
+      backdrop.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      $("#loginEmail").focus();
+    }
+
+    function hideLoginModal() {
+      const modal = $("#loginModal");
+      const backdrop = $("#modalBackdrop");
+      modal.classList.remove("open");
+      backdrop.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      clearLoginError();
+      $("#loginEmail").value = "";
+      $("#loginPassword").value = "";
+    }
+
+    function showSignupModal() {
+      hideLoginModal();
+      const modal = $("#signupModal");
+      const backdrop = $("#modalBackdrop");
+      modal.classList.add("open");
+      backdrop.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+      $("#signupEmail").focus();
+    }
+
+    function hideSignupModal() {
+      const modal = $("#signupModal");
+      const backdrop = $("#modalBackdrop");
+      modal.classList.remove("open");
+      backdrop.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+      clearSignupError();
+      $("#signupEmail").value = "";
+      $("#signupPassword").value = "";
+      $("#signupPasswordConfirm").value = "";
+    }
+
+    function setLoginError(msg) {
+      const box = $("#loginError");
+      box.style.display = "block";
+      box.textContent = msg;
+    }
+
+    function clearLoginError() {
+      const box = $("#loginError");
+      box.style.display = "none";
+      box.textContent = "";
+    }
+
+    function setSignupError(msg) {
+      const box = $("#signupError");
+      box.style.display = "block";
+      box.textContent = msg;
+    }
+
+    function clearSignupError() {
+      const box = $("#signupError");
+      box.style.display = "none";
+      box.textContent = "";
+    }
+
+    async function executeRecaptcha(action) {
+      return new Promise((resolve, reject) => {
+        if (!window.grecaptcha) {
+          reject(new Error("reCAPTCHA not loaded"));
+          return;
+        }
+        
+        window.grecaptcha.ready(() => {
+          window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action })
+            .then(resolve)
+            .catch(reject);
+        });
+      });
+    }
+
+    async function handleLogin() {
+      const email = $("#loginEmail").value.trim();
+      const password = $("#loginPassword").value;
+
+      if (!email || !password) {
+        setLoginError("Please enter email and password");
+        return;
+      }
+
+      try {
+        clearLoginError();
+        const btn = $("#loginSubmitBtn");
+        btn.disabled = true;
+        btn.textContent = "Signing in...";
+
+        // Execute reCAPTCHA
+        const recaptchaToken = await executeRecaptcha("login");
+        console.log("reCAPTCHA token obtained:", recaptchaToken ? "✓" : "✗");
+
+        // Sign in with Firebase
+        await window.firebaseSignIn(window.firebaseAuth, email, password);
+        
+        hideLoginModal();
+      } catch (error) {
+        console.error("Login error:", error);
+        let errorMsg = "Failed to sign in. Please check your credentials.";
+        
+        if (error.code === "auth/user-not-found") {
+          errorMsg = "No account found with this email.";
+        } else if (error.code === "auth/wrong-password") {
+          errorMsg = "Incorrect password.";
+        } else if (error.code === "auth/invalid-email") {
+          errorMsg = "Invalid email address.";
+        } else if (error.code === "auth/too-many-requests") {
+          errorMsg = "Too many attempts. Please try again later.";
+        }
+        
+        setLoginError(errorMsg);
+      } finally {
+        const btn = $("#loginSubmitBtn");
+        btn.disabled = false;
+        btn.textContent = "Sign In";
+      }
+    }
+
+    async function handleSignup() {
+      const email = $("#signupEmail").value.trim();
+      const password = $("#signupPassword").value;
+      const passwordConfirm = $("#signupPasswordConfirm").value;
+
+      if (!email || !password || !passwordConfirm) {
+        setSignupError("Please fill in all fields");
+        return;
+      }
+
+      if (password.length < 6) {
+        setSignupError("Password must be at least 6 characters");
+        return;
+      }
+
+      if (password !== passwordConfirm) {
+        setSignupError("Passwords do not match");
+        return;
+      }
+
+      try {
+        clearSignupError();
+        const btn = $("#signupSubmitBtn");
+        btn.disabled = true;
+        btn.textContent = "Creating account...";
+
+        // Execute reCAPTCHA
+        const recaptchaToken = await executeRecaptcha("signup");
+        console.log("reCAPTCHA token obtained:", recaptchaToken ? "✓" : "✗");
+
+        // Create user with Firebase
+        await window.firebaseSignUp(window.firebaseAuth, email, password);
+        
+        hideSignupModal();
+        showAlert("Account created successfully! You are now signed in.");
+      } catch (error) {
+        console.error("Signup error:", error);
+        let errorMsg = "Failed to create account. Please try again.";
+        
+        if (error.code === "auth/email-already-in-use") {
+          errorMsg = "An account with this email already exists.";
+        } else if (error.code === "auth/invalid-email") {
+          errorMsg = "Invalid email address.";
+        } else if (error.code === "auth/weak-password") {
+          errorMsg = "Password is too weak. Use at least 6 characters.";
+        }
+        
+        setSignupError(errorMsg);
+      } finally {
+        const btn = $("#signupSubmitBtn");
+        btn.disabled = false;
+        btn.textContent = "Create Account";
+      }
+    }
+
+    async function handleLogout() {
+      try {
+        await window.firebaseSignOut(window.firebaseAuth);
+        showAlert("Signed out successfully");
+      } catch (error) {
+        console.error("Logout error:", error);
+        showAlert("Failed to sign out. Please try again.");
+      }
     }
 
     function nowIso(){
@@ -4205,9 +4556,40 @@
         setView("bundles");
       });
 
+      // Authentication buttons
+      $("#loginBtn").addEventListener("click", showLoginModal);
+      $("#logoutBtn").addEventListener("click", handleLogout);
+      
+      $("#closeLoginModalBtn").addEventListener("click", hideLoginModal);
+      $("#loginSubmitBtn").addEventListener("click", handleLogin);
+      $("#showSignupBtn").addEventListener("click", showSignupModal);
+      
+      $("#closeSignupModalBtn").addEventListener("click", hideSignupModal);
+      $("#signupSubmitBtn").addEventListener("click", handleSignup);
+      $("#showLoginBtn").addEventListener("click", () => {
+        hideSignupModal();
+        showLoginModal();
+      });
+
+      // Handle Enter key in login/signup forms
+      $("#loginPassword").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleLogin();
+      });
+      $("#signupPasswordConfirm").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSignup();
+      });
+
+      // Close modals with backdrop click
+      $("#modalBackdrop").addEventListener("click", () => {
+        hideLoginModal();
+        hideSignupModal();
+      });
+
       document.addEventListener("keydown", (e)=>{
         if (e.key === "Escape" && state.drawer.open) closeDrawer();
         if (e.key === "Escape" && $("#newBundleModal").classList.contains("open")) closeModal();
+        if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
+        if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
       });
 
       // Progress popup hover/click handling
@@ -4468,6 +4850,7 @@
     /* =========================================================
        BOOT
        ========================================================= */
+    initAuth();
     loadPlan();
   </script>
 </body>

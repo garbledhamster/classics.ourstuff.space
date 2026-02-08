@@ -1254,6 +1254,7 @@
         </div>
 
         <div class="help" id="editMeta"></div>
+        <div class="help" id="editBundlePageMeta" style="margin-top: 5px;"></div>
       </section>
     </div>
   </aside>
@@ -2028,6 +2029,7 @@
           
           // Convert page artifact to old format for compatibility
           return {
+            pageId: pageId,  // Include page ID for linking
             year: page.data.page.pageNumber,
             name: page.title,
             readings: page.data.page.readings || []
@@ -2780,6 +2782,7 @@
 
     function bundlePageCardHtml(bundle, yearData){
       const pageNum = Number(yearData.year);
+      const pageId = yearData.pageId || null;  // Get page ID from yearData
       const pageName = yearData.name || `Page ${pageNum}`;
       const readings = yearData.readings || [];
       const total = readings.reduce((acc, r) => acc + (r.works?.length || 0), 0);
@@ -2795,10 +2798,10 @@
       const pct = total ? Math.round((done/total)*100) : 0;
       const barW = pct;
 
-      const readingsHtml = readings.map(r => bundleReadingBlockHtml(bundle, pageNum, r)).join("");
+      const readingsHtml = readings.map(r => bundleReadingBlockHtml(bundle, pageNum, pageId, r)).join("");
 
       return `
-        <section class="yearCard" data-year="${pageNum}" data-bundleid="${escapeHtml(bundle.id)}">
+        <section class="yearCard" data-year="${pageNum}" data-bundleid="${escapeHtml(bundle.id)}"${pageId ? ` data-pageid="${escapeHtml(pageId)}"` : ""}>
           <div class="yearHeader">
             <h2 class="yearTitle">${escapeHtml(pageName)}</h2>
             <div class="yearMeta">
@@ -2813,16 +2816,16 @@
       `;
     }
 
-    function bundleReadingBlockHtml(bundle, pageNum, reading){
+    function bundleReadingBlockHtml(bundle, pageNum, pageId, reading){
       const order = reading.order || 1;
       const tier = reading.tier || "core";
       const author = reading.author || "Unknown";
       const works = reading.works || [];
 
-      const worksHtml = works.map(w => bundleWorkRowHtml(bundle, pageNum, order, w, author)).join("");
+      const worksHtml = works.map(w => bundleWorkRowHtml(bundle, pageNum, pageId, order, w, author)).join("");
 
       return `
-        <div class="readingBlock" data-year="${pageNum}" data-order="${order}" data-bundleid="${escapeHtml(bundle.id)}">
+        <div class="readingBlock" data-year="${pageNum}" data-order="${order}" data-bundleid="${escapeHtml(bundle.id)}"${pageId ? ` data-pageid="${escapeHtml(pageId)}"` : ""}>
           <div class="readingHead">
             <div class="readingLeft">
               <div class="order">#${escapeHtml(order)}</div>
@@ -2853,7 +2856,7 @@
       `;
     }
 
-    function bundleWorkRowHtml(bundle, pageNum, order, work, author){
+    function bundleWorkRowHtml(bundle, pageNum, pageId, order, work, author){
       const title = work.title || "Untitled";
       const sourceUrl = work.sourceUrl || "";
       const selection = work.selection || "";
@@ -2876,6 +2879,8 @@
              data-year="${escapeHtml(pageNum)}"
              data-order="${escapeHtml(order)}"
              data-selection="${escapeHtml(selection)}"
+             data-bundleid="${escapeHtml(bundle.id)}"
+             ${pageId ? `data-pageid="${escapeHtml(pageId)}"` : ""}
              ${sourceUrl ? `data-sourceurl="${escapeHtml(sourceUrl)}"` : ""}
         >
           <div class="workCheck">
@@ -3023,7 +3028,9 @@
             author: row.dataset.author || "",
             year: row.dataset.year || "",
             order: row.dataset.order || "",
-            selection: row.dataset.selection || ""
+            selection: row.dataset.selection || "",
+            bundle_id: "__default__",  // Plan view uses default bundle
+            page_id: null  // Default bundle doesn't use page artifacts
           };
 
           if (action === "newNoteFromWork"){
@@ -3456,7 +3463,9 @@
       const author = row.dataset.author || "";
       const year = Number(row.dataset.year) || "";
       const selection = row.dataset.selection || "";
-      return { book_tag: book, author, year, selection };
+      const bundle_id = row.dataset.bundleid || null;
+      const page_id = row.dataset.pageid || null;
+      return { book_tag: book, author, year, selection, bundle_id, page_id };
     }
 
     /* =========================================================
@@ -3581,10 +3590,26 @@
       const updated = n.updated_at ? new Date(n.updated_at).toLocaleString() : "";
       const preview = (n.body || "").slice(0, 220);
 
+      // Get bundle and page names from IDs
+      let bundleInfo = "";
+      let pageInfo = "";
+      if (n.bundle_id) {
+        const bundle = getBundleById(n.bundle_id);
+        if (bundle) {
+          bundleInfo = `Bundle: ${escapeHtml(getBundleTitle(bundle))}`;
+        }
+      }
+      if (n.page_id && state.pages[n.page_id]) {
+        const page = state.pages[n.page_id];
+        pageInfo = `Page: ${escapeHtml(page.title || `Page ${page.data.page.pageNumber}`)}`;
+      }
+
       const pills = [
         `<span class="pill">${book}</span>`,
         `<span class="pill">${year}</span>`,
-        n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : ""
+        n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : "",
+        bundleInfo ? `<span class="pill">${bundleInfo}</span>` : "",
+        pageInfo ? `<span class="pill">${pageInfo}</span>` : ""
       ].filter(Boolean).join("");
 
       return `
@@ -3611,9 +3636,36 @@
       state.notesUI.editingId = null;
     }
 
+    function updateBundlePageDisplay(){
+      const bundleId = state.notesUI.editingBundleId;
+      const pageId = state.notesUI.editingPageId;
+      const display = $("#editBundlePageMeta");
+      
+      if (!bundleId) {
+        display.textContent = "";
+        return;
+      }
+      
+      const bundle = getBundleById(bundleId);
+      const bundleName = bundle ? getBundleTitle(bundle) : "Unknown Bundle";
+      
+      let pageName = "";
+      if (pageId && state.pages[pageId]) {
+        pageName = state.pages[pageId].title || `Page ${state.pages[pageId].data.page.pageNumber}`;
+      }
+      
+      if (pageName) {
+        display.textContent = `Bundle: ${bundleName} • Page: ${pageName}`;
+      } else {
+        display.textContent = `Bundle: ${bundleName}`;
+      }
+    }
+
     function startNewNote(ctx){
       const id = uid();
       state.notesUI.editingId = id;
+      state.notesUI.editingBundleId = ctx.bundle_id || null;
+      state.notesUI.editingPageId = ctx.page_id || null;
 
       $("#editTitle").value = ctx.book_tag ? `${ctx.book_tag} — ` : "";
       $("#editBookTag").value = ctx.book_tag && state.tagsUniverse.includes(ctx.book_tag) ? ctx.book_tag : (state.tagsUniverse[0] || "");
@@ -3623,6 +3675,7 @@
       $("#editBody").value = "";
 
       $("#editMeta").textContent = "New note — not saved yet.";
+      updateBundlePageDisplay();
       showEditor();
       $("#editTitle").focus();
     }
@@ -3632,6 +3685,8 @@
       if (!n) return;
 
       state.notesUI.editingId = id;
+      state.notesUI.editingBundleId = n.bundle_id || null;
+      state.notesUI.editingPageId = n.page_id || null;
 
       $("#editTitle").value = n.title || "";
       $("#editBookTag").value = n.book_tag && state.tagsUniverse.includes(n.book_tag) ? n.book_tag : (state.tagsUniverse[0] || "");
@@ -3642,6 +3697,7 @@
 
       const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
       $("#editMeta").textContent = meta;
+      updateBundlePageDisplay();
 
       showEditor();
       $("#editBody").focus();
@@ -3657,6 +3713,8 @@
       const author = $("#editAuthor").value.trim();
       const selection = $("#editSelection").value.trim();
       const body = $("#editBody").value;
+      const bundle_id = state.notesUI.editingBundleId || null;
+      const page_id = state.notesUI.editingPageId || null;
 
       const existingIdx = state.notes.findIndex(n => n.id === id);
 
@@ -3669,6 +3727,8 @@
           author,
           selection,
           body,
+          bundle_id,
+          page_id,
           created_at: nowIso(),
           updated_at: nowIso()
         };
@@ -3681,6 +3741,8 @@
         n.author = author;
         n.selection = selection;
         n.body = body;
+        n.bundle_id = bundle_id;
+        n.page_id = page_id;
         n.updated_at = nowIso();
       }
 

@@ -1724,6 +1724,8 @@
         // Perform sync when user logs in
         if (user) {
           await performFullSync(user.uid);
+          buildBundleDropdowns();
+          renderAll();
           updateSyncStatus();
         } else {
           // Clear sync state when user logs out

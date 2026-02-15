@@ -773,6 +773,15 @@
       transform:translateX(0);
       pointer-events:auto;
     }
+    @media (prefers-reduced-motion: reduce){
+      .ytGoalDrawer{
+        transition:none;
+        transform:none;
+      }
+      .ytGoalWrap.open .ytGoalDrawer{
+        transform:none;
+      }
+    }
     .ytGoalRow{
       display:flex;
       gap:6px;
@@ -1747,7 +1756,7 @@
           Google
         </button>
         <div class="ytGoalWrap">
-          <button class="btn" type="button" data-action="toggleYouTubeGoals" aria-expanded="false">
+          <button class="btn" type="button" data-action="toggleYouTubeGoals" aria-expanded="false" aria-label="YouTube learning goals">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             YouTube
           </button>
@@ -1760,12 +1769,17 @@
         </div>
       `;
     }
-    function closeLearningGoalDrawers(root = document) {
+    let lastLearningGoalToggleBtn = null;
+    function closeLearningGoalDrawers(root = document, options = {}) {
+      const restoreFocus = options.restoreFocus;
       root.querySelectorAll(".ytGoalWrap.open").forEach(wrap => {
         wrap.classList.remove("open");
         const btn = $("[data-action='toggleYouTubeGoals']", wrap);
         if (btn) btn.setAttribute("aria-expanded", "false");
       });
+      if (restoreFocus && lastLearningGoalToggleBtn && document.contains(lastLearningGoalToggleBtn)) {
+        lastLearningGoalToggleBtn.focus();
+      }
     }
     function toggleLearningGoalDrawer(btn) {
       const wrap = btn.closest(".ytGoalWrap");
@@ -1775,6 +1789,9 @@
       if (willOpen) {
         wrap.classList.add("open");
         btn.setAttribute("aria-expanded", "true");
+        lastLearningGoalToggleBtn = btn;
+      } else {
+        lastLearningGoalToggleBtn = null;
       }
     }
 
@@ -5077,7 +5094,7 @@
         if (e.key === "Escape" && $("#newBundleModal").classList.contains("open")) closeModal();
         if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
         if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
-        if (e.key === "Escape") closeLearningGoalDrawers();
+        if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
       });
 
       // Progress popup hover/click handling
@@ -5117,7 +5134,7 @@
           progressPopup.setAttribute("aria-hidden", "true");
         }
         if (!e.target.closest(".ytGoalWrap")) {
-          closeLearningGoalDrawers();
+          closeLearningGoalDrawers(document, { restoreFocus: false });
         }
       });
 

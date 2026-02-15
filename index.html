@@ -746,6 +746,45 @@
       grid-template-rows:1fr;
       transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
     }
+    .ytGoalWrap{
+      position:relative;
+      display:inline-flex;
+    }
+    .ytGoalDrawer{
+      position:absolute;
+      left:0;
+      top:calc(100% + 6px);
+      z-index:6;
+      width:min(320px, 78vw);
+      border:var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadowSm);
+      padding:8px;
+      display:grid;
+      gap:6px;
+      transform:translateX(-8px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    .ytGoalWrap.open .ytGoalDrawer{
+      opacity:1;
+      transform:translateX(0);
+      pointer-events:auto;
+    }
+    .ytGoalRow{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+    }
+    .ytGoalHint{
+      font-size:11px;
+      color:var(--muted);
+      font-weight:700;
+      letter-spacing:0.03em;
+      text-transform:uppercase;
+    }
 
     /* Flash highlight */
     .flash{
@@ -1666,6 +1705,13 @@
     const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
     
     const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
+    const LEARNING_GOAL_OPTIONS = [
+      { label: "Understand", query: "understand main ideas" },
+      { label: "Apply", query: "real world examples and practice" },
+      { label: "Analyze", query: "compare themes and analysis" },
+      { label: "Evaluate", query: "critical review and evaluation" },
+      { label: "Create", query: "creative project prompts" }
+    ];
     const AUTO_SYNC_DEBOUNCE_MS = 2000; // Wait 2 seconds after last change before auto-syncing
 
     /* =========================================================
@@ -1681,6 +1727,55 @@
     function buildSourceSearchUrl(title, author) {
       const q = encodeURIComponent(`"${title}" ${author} site:gutenberg.org OR site:gutenberg.net.au OR site:gutenberg.ca OR site:archive.org OR site:wikisource.org OR site:fadedpage.com OR site:standardebooks.org OR site:freeread.de`.trim());
       return `https://www.google.com/search?q=${q}`;
+    }
+    function buildLearningSearchUrl({ title, author, platform, goal }) {
+      const goalText = String(goal || "").trim();
+      const q = encodeURIComponent(`${title} ${author}${platform === "youtube" ? YOUTUBE_SEARCH_SUFFIX : ""} ${goalText}`.trim());
+      if (platform === "youtube") {
+        return `https://www.youtube.com/results?search_query=${q}`;
+      }
+      return `https://www.google.com/search?q=${q}`;
+    }
+    function renderLearningButtons() {
+      const optionButtons = LEARNING_GOAL_OPTIONS.map(goal => `
+        <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="youtube" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)} · YouTube</button>
+        <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="google" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)} · Google</button>
+      `).join("");
+      return `
+        <button class="btn" type="button" data-action="openGoogle">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+          Google
+        </button>
+        <div class="ytGoalWrap">
+          <button class="btn" type="button" data-action="toggleYouTubeGoals" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            YouTube
+          </button>
+          <div class="ytGoalDrawer">
+            <div class="ytGoalHint">Choose a Bloom-style learning goal</div>
+            <div class="ytGoalRow">
+              ${optionButtons}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function closeLearningGoalDrawers(root = document) {
+      root.querySelectorAll(".ytGoalWrap.open").forEach(wrap => {
+        wrap.classList.remove("open");
+        const btn = $("[data-action='toggleYouTubeGoals']", wrap);
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+    }
+    function toggleLearningGoalDrawer(btn) {
+      const wrap = btn.closest(".ytGoalWrap");
+      if (!wrap) return;
+      const willOpen = !wrap.classList.contains("open");
+      closeLearningGoalDrawers();
+      if (willOpen) {
+        wrap.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+      }
     }
 
     function escapeHtml(str){
@@ -3514,10 +3609,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 WikiSearch
               </button>
-              <button class="btn" type="button" data-action="openYouTubeLib">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                YouTube
-              </button>
+              ${renderLearningButtons()}
               <button class="btn" type="button" data-action="openAudiobooksLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
@@ -3743,10 +3835,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 WikiSearch
               </button>
-              <button class="btn" type="button" data-action="openYouTube">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                YouTube
-              </button>
+              ${renderLearningButtons()}
               <button class="btn" type="button" data-action="openAudiobooks">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
@@ -3846,6 +3935,26 @@
           const author = row.dataset.author || "";
           const q = encodeURIComponent(`${title} ${author}`.trim());
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (action === "toggleYouTubeGoals") {
+          toggleLearningGoalDrawer(btn);
+          return;
+        }
+        if (action === "openLearningGoal") {
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const platform = btn.dataset.platform || "youtube";
+          const goal = btn.dataset.goal || "";
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform, goal }), "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (action === "openGoogle") {
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform: "google", goal: "" }), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4019,10 +4128,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 WikiSearch
               </button>
-              <button class="btn" type="button" data-action="openYouTube">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                YouTube
-              </button>
+              ${renderLearningButtons()}
               <button class="btn" type="button" data-action="openAudiobooks">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
@@ -4092,6 +4198,22 @@
         if (btn.dataset.action === "openWikiSearchLib"){
           const q = encodeURIComponent(`${title} ${author}`.trim());
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (btn.dataset.action === "toggleYouTubeGoals") {
+          toggleLearningGoalDrawer(btn);
+          return;
+        }
+        if (btn.dataset.action === "openLearningGoal") {
+          const platform = btn.dataset.platform || "youtube";
+          const goal = btn.dataset.goal || "";
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform, goal }), "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (btn.dataset.action === "openGoogle"){
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform: "google", goal: "" }), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4232,6 +4354,26 @@
           const author = row.dataset.author || "";
           const q = encodeURIComponent(`${title} ${author}`.trim());
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (action === "toggleYouTubeGoals") {
+          toggleLearningGoalDrawer(btn);
+          return;
+        }
+        if (action === "openLearningGoal") {
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const platform = btn.dataset.platform || "youtube";
+          const goal = btn.dataset.goal || "";
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform, goal }), "_blank", "noopener,noreferrer");
+          return;
+        }
+        if (action === "openGoogle") {
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          closeLearningGoalDrawers();
+          window.open(buildLearningSearchUrl({ title, author, platform: "google", goal: "" }), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4935,6 +5077,7 @@
         if (e.key === "Escape" && $("#newBundleModal").classList.contains("open")) closeModal();
         if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
         if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
+        if (e.key === "Escape") closeLearningGoalDrawers();
       });
 
       // Progress popup hover/click handling
@@ -4972,6 +5115,9 @@
         if (!progressWrap.contains(e.target)) {
           progressPopup.classList.remove("show");
           progressPopup.setAttribute("aria-hidden", "true");
+        }
+        if (!e.target.closest(".ytGoalWrap")) {
+          closeLearningGoalDrawers();
         }
       });
 

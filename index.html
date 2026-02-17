@@ -496,6 +496,7 @@
       box-shadow:var(--shadow);
       padding:12px;
       min-width:0;
+      position:relative;
     }
     .libHead{
       display:flex;
@@ -690,6 +691,11 @@
       padding:10px;
       background:#fff;
       min-width:0;
+      position:relative;
+    }
+    .libCard.learningGoalsHostOpen,
+    .workRow.learningGoalsHostOpen{
+      z-index:119;
     }
     .workCheck{ display:flex; align-items:center; padding-top:2px; }
     .workCheck input{ width:18px; height:18px; accent-color:#000; }
@@ -750,11 +756,14 @@
       position:relative;
       display:inline-flex;
     }
+    .ytGoalWrap.open{
+      z-index:120;
+    }
     .ytGoalDrawer{
       position:absolute;
       left:0;
       top:calc(100% + 6px);
-      z-index:6;
+      z-index:120;
       width:min(320px, 78vw);
       border:var(--border);
       border-radius:var(--radius);
@@ -1746,24 +1755,31 @@
       return `https://www.google.com/search?q=${q}`;
     }
     function renderLearningButtons() {
-      const optionButtons = LEARNING_GOAL_OPTIONS.map(goal => `
-        <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="youtube" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)} · YouTube</button>
-        <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="google" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)} · Google</button>
+      const buildPlatformGoalButtons = (platform) => LEARNING_GOAL_OPTIONS.map(goal => `
+        <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="${platform}" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)}</button>
       `).join("");
       return `
-        <button class="btn" type="button" data-action="openGoogle">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-          Google
-        </button>
         <div class="ytGoalWrap">
-          <button class="btn" type="button" data-action="toggleYouTubeGoals" aria-expanded="false" aria-label="YouTube learning goals">
+          <button class="btn" type="button" data-action="toggleLearningGoals" aria-expanded="false" aria-label="Open Google learning goals menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+            Google
+          </button>
+          <div class="ytGoalDrawer">
+            <div class="ytGoalHint">Choose a Bloom-style learning goal</div>
+            <div class="ytGoalRow">
+              ${buildPlatformGoalButtons("google")}
+            </div>
+          </div>
+        </div>
+        <div class="ytGoalWrap">
+          <button class="btn" type="button" data-action="toggleLearningGoals" aria-expanded="false" aria-label="Open YouTube learning goals menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             YouTube
           </button>
           <div class="ytGoalDrawer">
             <div class="ytGoalHint">Choose a Bloom-style learning goal</div>
             <div class="ytGoalRow">
-              ${optionButtons}
+              ${buildPlatformGoalButtons("youtube")}
             </div>
           </div>
         </div>
@@ -1774,9 +1790,10 @@
       const restoreFocus = options.restoreFocus;
       root.querySelectorAll(".ytGoalWrap.open").forEach(wrap => {
         wrap.classList.remove("open");
-        const btn = $("[data-action='toggleYouTubeGoals']", wrap);
+        const btn = $("[data-action='toggleLearningGoals'], [data-action='toggleYouTubeGoals']", wrap);
         if (btn) btn.setAttribute("aria-expanded", "false");
       });
+      root.querySelectorAll(".learningGoalsHostOpen").forEach(host => host.classList.remove("learningGoalsHostOpen"));
       if (restoreFocus && lastLearningGoalToggleBtn && document.contains(lastLearningGoalToggleBtn)) {
         lastLearningGoalToggleBtn.focus();
       }
@@ -1784,11 +1801,13 @@
     function toggleLearningGoalDrawer(btn) {
       const wrap = btn.closest(".ytGoalWrap");
       if (!wrap) return;
+      const host = btn.closest(".workRow, .libCard");
       const willOpen = !wrap.classList.contains("open");
       closeLearningGoalDrawers();
       if (willOpen) {
         wrap.classList.add("open");
         btn.setAttribute("aria-expanded", "true");
+        if (host) host.classList.add("learningGoalsHostOpen");
         lastLearningGoalToggleBtn = btn;
       } else {
         lastLearningGoalToggleBtn = null;
@@ -3954,7 +3973,7 @@
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
-        if (action === "toggleYouTubeGoals") {
+        if (action === "toggleLearningGoals" || action === "toggleYouTubeGoals") {
           toggleLearningGoalDrawer(btn);
           return;
         }
@@ -4217,7 +4236,7 @@
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
-        if (btn.dataset.action === "toggleYouTubeGoals") {
+        if (btn.dataset.action === "toggleLearningGoals" || btn.dataset.action === "toggleYouTubeGoals") {
           toggleLearningGoalDrawer(btn);
           return;
         }
@@ -4373,7 +4392,7 @@
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
-        if (action === "toggleYouTubeGoals") {
+        if (action === "toggleLearningGoals" || action === "toggleYouTubeGoals") {
           toggleLearningGoalDrawer(btn);
           return;
         }

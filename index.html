@@ -1482,6 +1482,68 @@
     </div>
   </div>
 
+  <!-- Search Settings Modal -->
+  <div id="searchSettingsModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="searchSettingsModalTitle">
+    <div class="modalHeader">
+      <h2 id="searchSettingsModalTitle" class="modalTitle">Search Settings</h2>
+      <button class="btn btnGhost" id="closeSearchSettingsModalBtn" type="button" aria-label="Close modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <!-- Live Search Preview -->
+      <div class="control">
+        <label class="label" style="font-weight: 600; margin-bottom: 8px;">Search Preview</label>
+        <div id="searchPreview" class="codebox" style="padding: 12px; word-break: break-word; background: #f5f5f5; font-size: 13px; line-height: 1.4;"></div>
+      </div>
+
+      <!-- Settings Section -->
+      <div style="border-top: var(--borderThin); padding-top: 16px; margin-top: 8px;">
+        <div style="font-weight: 600; margin-bottom: 12px;">Search Components</div>
+        
+        <!-- Include Title Checkbox -->
+        <div class="control" style="margin-bottom: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="includeTitle" checked style="cursor: pointer;">
+            <span>Include Title</span>
+          </label>
+        </div>
+
+        <!-- Include Author Checkbox -->
+        <div class="control" style="margin-bottom: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="includeAuthor" checked style="cursor: pointer;">
+            <span>Include Author</span>
+          </label>
+        </div>
+
+        <!-- Selected Works Checkbox with Conditional Dropdown -->
+        <div class="control" style="margin-bottom: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="includeSelectedWorks" style="cursor: pointer;">
+            <span>Include Selected Work</span>
+          </label>
+          <div id="selectedWorksContainer" style="display: none; margin-top: 8px; margin-left: 26px;">
+            <select id="selectedWorksDropdown" class="input" style="width: 100%; max-width: 300px;">
+              <option value="">-- Select a work --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Custom Search Textbox -->
+        <div class="control" style="margin-top: 16px;">
+          <label for="customSearch" class="label">Custom Search Addition</label>
+          <input type="text" id="customSearch" class="input" placeholder="Add custom text to the end of search..." />
+          <div class="help" style="margin-top: 4px; font-size: 12px; color: #666;">This text will be appended to the end of the search query</div>
+        </div>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="searchSettingsCancelBtn" type="button">Cancel</button>
+      <button class="btn" id="searchSettingsOpenBtn" type="button">Open Search</button>
+    </div>
+  </div>
+
   <!-- Notes Drawer (right) -->
   <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
     <div class="drawerHeader">
@@ -2084,6 +2146,149 @@
         console.error("Logout error:", error);
         showAlert("Failed to sign out. Please try again.");
       }
+    }
+
+    /* =========================================================
+       SEARCH SETTINGS MODAL
+       ========================================================= */
+    let searchSettingsModalContext = {
+      title: "",
+      author: "",
+      platform: "",
+      goal: "",
+      works: []
+    };
+
+    function showSearchSettingsModal({ title, author, platform, goal = "", works = [] }) {
+      const modal = $("#searchSettingsModal");
+      const backdrop = $("#modalBackdrop");
+      
+      // Store context
+      searchSettingsModalContext = { title, author, platform, goal, works };
+      
+      // Reset form to default state
+      $("#includeTitle").checked = true;
+      $("#includeAuthor").checked = true;
+      $("#includeSelectedWorks").checked = false;
+      $("#customSearch").value = "";
+      $("#selectedWorksContainer").style.display = "none";
+      
+      // Populate works dropdown
+      const dropdown = $("#selectedWorksDropdown");
+      dropdown.innerHTML = '<option value="">-- Select a work --</option>';
+      if (works && works.length > 0) {
+        works.forEach(work => {
+          const opt = document.createElement("option");
+          opt.value = work.title || work;
+          opt.textContent = work.title || work;
+          dropdown.appendChild(opt);
+        });
+        $("#includeSelectedWorks").disabled = false;
+      } else {
+        $("#includeSelectedWorks").disabled = true;
+      }
+      
+      // Update search preview
+      updateSearchPreview();
+      
+      // Show modal
+      modal.classList.add("open");
+      backdrop.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function hideSearchSettingsModal() {
+      const modal = $("#searchSettingsModal");
+      const backdrop = $("#modalBackdrop");
+      modal.classList.remove("open");
+      backdrop.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    function updateSearchPreview() {
+      const { title, author, platform, goal } = searchSettingsModalContext;
+      const includeTitle = $("#includeTitle").checked;
+      const includeAuthor = $("#includeAuthor").checked;
+      const includeSelectedWorks = $("#includeSelectedWorks").checked;
+      const selectedWork = $("#selectedWorksDropdown").value;
+      const customSearch = $("#customSearch").value.trim();
+      
+      let searchParts = [];
+      
+      if (includeTitle) {
+        searchParts.push(title);
+      }
+      
+      if (includeAuthor) {
+        searchParts.push(author);
+      }
+      
+      if (includeSelectedWorks && selectedWork) {
+        searchParts.push(selectedWork);
+      }
+      
+      // Add platform-specific suffix for YouTube
+      if (platform === "youtube") {
+        searchParts.push(YOUTUBE_SEARCH_SUFFIX);
+      }
+      
+      // Add learning goal if present
+      if (goal) {
+        searchParts.push(goal);
+      }
+      
+      // Add custom search at the end
+      if (customSearch) {
+        searchParts.push(customSearch);
+      }
+      
+      const searchQuery = searchParts.filter(p => p).join(" ");
+      $("#searchPreview").textContent = searchQuery || "(empty search)";
+    }
+
+    function buildSearchUrlFromSettings() {
+      const { title, author, platform, goal } = searchSettingsModalContext;
+      const includeTitle = $("#includeTitle").checked;
+      const includeAuthor = $("#includeAuthor").checked;
+      const includeSelectedWorks = $("#includeSelectedWorks").checked;
+      const selectedWork = $("#selectedWorksDropdown").value;
+      const customSearch = $("#customSearch").value.trim();
+      
+      let searchParts = [];
+      
+      if (includeTitle) {
+        searchParts.push(title);
+      }
+      
+      if (includeAuthor) {
+        searchParts.push(author);
+      }
+      
+      if (includeSelectedWorks && selectedWork) {
+        searchParts.push(selectedWork);
+      }
+      
+      // Add platform-specific suffix for YouTube
+      if (platform === "youtube") {
+        searchParts.push(YOUTUBE_SEARCH_SUFFIX);
+      }
+      
+      // Add learning goal if present
+      if (goal) {
+        searchParts.push(goal);
+      }
+      
+      // Add custom search at the end
+      if (customSearch) {
+        searchParts.push(customSearch);
+      }
+      
+      const q = encodeURIComponent(searchParts.filter(p => p).join(" "));
+      
+      if (platform === "youtube") {
+        return `https://www.youtube.com/results?search_query=${q}`;
+      }
+      return `https://www.google.com/search?q=${q}`;
     }
 
     function nowIso(){
@@ -3974,7 +4179,21 @@
           return;
         }
         if (action === "toggleLearningGoals" || action === "toggleYouTubeGoals") {
-          toggleLearningGoalDrawer(btn);
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const platform = btn.dataset.platform || (action === "toggleYouTubeGoals" ? "youtube" : "google");
+          
+          // Try to get works from the reading block
+          const readingBlock = row.closest(".readingBlock");
+          let works = [];
+          if (readingBlock) {
+            // Get all work rows in this reading block
+            const workRows = readingBlock.querySelectorAll(".workRow");
+            works = Array.from(workRows).map(wr => wr.dataset.book || "").filter(Boolean);
+          }
+          
+          closeLearningGoalDrawers();
+          showSearchSettingsModal({ title, author, platform, goal: "", works });
           return;
         }
         if (action === "openLearningGoal") {
@@ -4237,7 +4456,11 @@
           return;
         }
         if (btn.dataset.action === "toggleLearningGoals" || btn.dataset.action === "toggleYouTubeGoals") {
-          toggleLearningGoalDrawer(btn);
+          const platform = btn.dataset.platform || (btn.dataset.action === "toggleYouTubeGoals" ? "youtube" : "google");
+          
+          // In library view, no works are grouped so works array is empty
+          closeLearningGoalDrawers();
+          showSearchSettingsModal({ title, author, platform, goal: "", works: [] });
           return;
         }
         if (btn.dataset.action === "openLearningGoal") {
@@ -4393,7 +4616,21 @@
           return;
         }
         if (action === "toggleLearningGoals" || action === "toggleYouTubeGoals") {
-          toggleLearningGoalDrawer(btn);
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          const platform = btn.dataset.platform || (action === "toggleYouTubeGoals" ? "youtube" : "google");
+          
+          // Try to get works from the reading block
+          const readingBlock = row.closest(".readingBlock");
+          let works = [];
+          if (readingBlock) {
+            // Get all work rows in this reading block
+            const workRows = readingBlock.querySelectorAll(".workRow");
+            works = Array.from(workRows).map(wr => wr.dataset.book || "").filter(Boolean);
+          }
+          
+          closeLearningGoalDrawers();
+          showSearchSettingsModal({ title, author, platform, goal: "", works });
           return;
         }
         if (action === "openLearningGoal") {
@@ -5094,6 +5331,26 @@
         showLoginModal();
       });
 
+      // Search Settings Modal
+      $("#closeSearchSettingsModalBtn").addEventListener("click", hideSearchSettingsModal);
+      $("#searchSettingsCancelBtn").addEventListener("click", hideSearchSettingsModal);
+      $("#searchSettingsOpenBtn").addEventListener("click", () => {
+        const url = buildSearchUrlFromSettings();
+        hideSearchSettingsModal();
+        window.open(url, "_blank", "noopener,noreferrer");
+      });
+      
+      // Update search preview when settings change
+      $("#includeTitle").addEventListener("change", updateSearchPreview);
+      $("#includeAuthor").addEventListener("change", updateSearchPreview);
+      $("#includeSelectedWorks").addEventListener("change", (e) => {
+        const container = $("#selectedWorksContainer");
+        container.style.display = e.target.checked ? "block" : "none";
+        updateSearchPreview();
+      });
+      $("#selectedWorksDropdown").addEventListener("change", updateSearchPreview);
+      $("#customSearch").addEventListener("input", updateSearchPreview);
+
       // Handle Enter key in login/signup forms
       $("#loginPassword").addEventListener("keydown", (e) => {
         if (e.key === "Enter") handleLogin();
@@ -5106,6 +5363,7 @@
       $("#modalBackdrop").addEventListener("click", () => {
         hideLoginModal();
         hideSignupModal();
+        hideSearchSettingsModal();
       });
 
       document.addEventListener("keydown", (e)=>{

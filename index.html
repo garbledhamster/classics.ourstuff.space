@@ -1505,6 +1505,19 @@
       </button>
     </div>
     <div class="modalBody">
+      <!-- Platform Indicator -->
+      <div id="searchPlatformIndicator" class="control" style="margin-bottom: 16px; padding: 12px; background: #e8f4fd; border-radius: 4px; border-left: 4px solid #2196F3;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg id="searchPlatformIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <div>
+            <div style="font-weight: 600; font-size: 14px;">Search Platform</div>
+            <div id="searchPlatformName" style="font-size: 13px; color: #555;">Google</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Live Search Preview -->
       <div class="control">
         <label class="label" style="font-weight: 600; margin-bottom: 8px;">Search Preview</label>
@@ -1563,7 +1576,7 @@
     </div>
     <div class="modalFooter">
       <button class="btn btnGhost" id="searchSettingsCancelBtn" type="button">Cancel</button>
-      <button class="btn" id="searchSettingsOpenBtn" type="button">Open Search</button>
+      <button class="btn" id="searchSettingsOpenBtn" type="button">Open in Google</button>
     </div>
   </div>
 
@@ -2190,6 +2203,28 @@
       
       // Store context
       searchSettingsModalContext = { title, author, platform, goal, works, bloomsLevel: null };
+      
+      // Update modal title based on platform
+      const platformName = platform === "youtube" ? "YouTube" : "Google";
+      $("#searchSettingsModalTitle").textContent = `${platformName} Search Settings`;
+      
+      // Update platform indicator
+      $("#searchPlatformName").textContent = platformName;
+      const platformIcon = $("#searchPlatformIcon");
+      if (platform === "youtube") {
+        // YouTube icon (play button)
+        platformIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+        $("#searchPlatformIndicator").style.background = "#ffe8e8";
+        $("#searchPlatformIndicator").style.borderLeftColor = "#ff0000";
+      } else {
+        // Google icon (search)
+        platformIcon.innerHTML = '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>';
+        $("#searchPlatformIndicator").style.background = "#e8f4fd";
+        $("#searchPlatformIndicator").style.borderLeftColor = "#2196F3";
+      }
+      
+      // Update "Open Search" button text
+      $("#searchSettingsOpenBtn").textContent = `Open in ${platformName}`;
       
       // Reset form to default state
       $("#includeTitle").checked = true;

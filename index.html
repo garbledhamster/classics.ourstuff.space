@@ -285,6 +285,18 @@
       padding:7px 10px;
     }
 
+    .btnBloom{
+      border:var(--borderThin);
+      box-shadow:none;
+      padding:7px 10px;
+      transition: all 0.2s ease;
+    }
+    .btnBloom.active{
+      background: var(--ink);
+      color: var(--page);
+      border-color: var(--ink);
+    }
+
     .control{ display:grid; gap:6px; min-width:0; }
     .label{
       font-size:12px;
@@ -1532,6 +1544,15 @@
           </div>
         </div>
 
+        <!-- Bloom's Taxonomy Level -->
+        <div class="control" style="margin-top: 16px; margin-bottom: 16px;">
+          <label class="label">Bloom's Taxonomy Level</label>
+          <div class="help" style="margin-top: 4px; margin-bottom: 8px; font-size: 12px; color: #666;">Select a learning level to optimize search results (click again to deselect)</div>
+          <div id="bloomsButtonsContainer" style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <!-- Buttons will be dynamically inserted here -->
+          </div>
+        </div>
+
         <!-- Custom Search Textbox -->
         <div class="control" style="margin-top: 16px;">
           <label for="customSearch" class="label">Custom Search Addition</label>
@@ -1788,7 +1809,8 @@
     
     const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
     const LEARNING_GOAL_OPTIONS = [
-      { label: "Understand", query: "understand main ideas" },
+      { label: "Remember", query: "summary overview introduction" },
+      { label: "Understand", query: "main ideas explained" },
       { label: "Apply", query: "real world examples and practice" },
       { label: "Analyze", query: "compare themes and analysis" },
       { label: "Evaluate", query: "critical review and evaluation" },
@@ -2158,7 +2180,8 @@
       author: "",
       platform: "",
       goal: "",
-      works: []
+      works: [],
+      bloomsLevel: null
     };
 
     function showSearchSettingsModal({ title, author, platform, goal = "", works = [] }) {
@@ -2166,7 +2189,7 @@
       const backdrop = $("#modalBackdrop");
       
       // Store context
-      searchSettingsModalContext = { title, author, platform, goal, works };
+      searchSettingsModalContext = { title, author, platform, goal, works, bloomsLevel: null };
       
       // Reset form to default state
       $("#includeTitle").checked = true;
@@ -2190,6 +2213,14 @@
         $("#includeSelectedWorks").disabled = true;
       }
       
+      // Populate Bloom's taxonomy buttons
+      const bloomsContainer = $("#bloomsButtonsContainer");
+      bloomsContainer.innerHTML = LEARNING_GOAL_OPTIONS.map(option => `
+        <button class="btn btnBloom" type="button" data-blooms-level="${escapeHtml(option.label)}" data-blooms-query="${escapeHtml(option.query)}">
+          ${escapeHtml(option.label)}
+        </button>
+      `).join("");
+      
       // Update search preview
       updateSearchPreview();
       
@@ -2208,7 +2239,7 @@
     }
 
     function updateSearchPreview() {
-      const { title, author, platform, goal } = searchSettingsModalContext;
+      const { title, author, platform, goal, bloomsLevel } = searchSettingsModalContext;
       const includeTitle = $("#includeTitle").checked;
       const includeAuthor = $("#includeAuthor").checked;
       const includeSelectedWorks = $("#includeSelectedWorks").checked;
@@ -2234,7 +2265,15 @@
         searchParts.push(YOUTUBE_SEARCH_SUFFIX);
       }
       
-      // Add learning goal if present
+      // Add Bloom's level query if selected
+      if (bloomsLevel) {
+        const bloomsOption = LEARNING_GOAL_OPTIONS.find(opt => opt.label === bloomsLevel);
+        if (bloomsOption) {
+          searchParts.push(bloomsOption.query);
+        }
+      }
+      
+      // Add learning goal if present (from old flow)
       if (goal) {
         searchParts.push(goal);
       }
@@ -2249,7 +2288,7 @@
     }
 
     function buildSearchUrlFromSettings() {
-      const { title, author, platform, goal } = searchSettingsModalContext;
+      const { title, author, platform, goal, bloomsLevel } = searchSettingsModalContext;
       const includeTitle = $("#includeTitle").checked;
       const includeAuthor = $("#includeAuthor").checked;
       const includeSelectedWorks = $("#includeSelectedWorks").checked;
@@ -2275,7 +2314,15 @@
         searchParts.push(YOUTUBE_SEARCH_SUFFIX);
       }
       
-      // Add learning goal if present
+      // Add Bloom's level query if selected
+      if (bloomsLevel) {
+        const bloomsOption = LEARNING_GOAL_OPTIONS.find(opt => opt.label === bloomsLevel);
+        if (bloomsOption) {
+          searchParts.push(bloomsOption.query);
+        }
+      }
+      
+      // Add learning goal if present (from old flow)
       if (goal) {
         searchParts.push(goal);
       }
@@ -5352,6 +5399,28 @@
       });
       $("#selectedWorksDropdown").addEventListener("change", updateSearchPreview);
       $("#customSearch").addEventListener("input", updateSearchPreview);
+      
+      // Handle Bloom's taxonomy button clicks (event delegation)
+      $("#bloomsButtonsContainer").addEventListener("click", (e) => {
+        const btn = e.target.closest(".btnBloom");
+        if (!btn) return;
+        
+        const level = btn.dataset.bloomsLevel;
+        
+        // Toggle: if clicking the active button, deselect it
+        if (searchSettingsModalContext.bloomsLevel === level) {
+          searchSettingsModalContext.bloomsLevel = null;
+          btn.classList.remove("active");
+        } else {
+          // Deselect all other buttons
+          $("#bloomsButtonsContainer").querySelectorAll(".btnBloom").forEach(b => b.classList.remove("active"));
+          // Select this button
+          searchSettingsModalContext.bloomsLevel = level;
+          btn.classList.add("active");
+        }
+        
+        updateSearchPreview();
+      });
 
       // Handle Enter key in login/signup forms
       $("#loginPassword").addEventListener("keydown", (e) => {

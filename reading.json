@@ -385,14 +385,62 @@
           "author": "American State Papers",
           "works": [
             {
-              "title": "Declaration of Independence"
+              "title": "Declaration of Independence",
+              "themes": "Citizen; Government; Justice; Law; Liberty; Revolution; Constitution; Democracy",
+              "great_ideas": [
+                "Citizen",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Constitution",
+                "Democracy",
+                "Revolution"
+              ]
             },
             {
-              "title": "Constitution of the United States"
+              "title": "Constitution of the United States",
+              "themes": "Government; Law; State; Constitution; Citizen; Democracy; Justice; Liberty",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Constitution",
+                "Citizen",
+                "Democracy",
+                "Justice",
+                "Liberty",
+                "State"
+              ]
             },
             {
-              "title": "The Federalist",
-              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71"
+              "title": "The Federalist Papers",
+              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71",
+              "themes": "Citizen; Constitution; Democracy; Government; Law; Liberty; State; Justice",
+              "great_ideas": [
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Law",
+                "Liberty",
+                "Justice",
+                "State"
+              ]
+            },
+            {
+              "title": "The Articles of Confederation",
+              "selection": "Focus: Articles II-III, IX, XIII; compare to Constitution",
+              "themes": "Government; Law; Constitution; State; Citizen; Liberty; Democracy; Justice",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Constitution",
+                "Citizen",
+                "Liberty",
+                "Democracy",
+                "Justice",
+                "State"
+              ]
             }
           ]
         },
@@ -479,71 +527,6 @@
                 "Truth",
                 "Will",
                 "Religion"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "core",
-          "author": "American Founding Documents",
-          "works": [
-            {
-              "title": "Constitution of the United States",
-              "themes": "Government; Law; State; Constitution; Citizen; Democracy; Justice; Liberty",
-              "great_ideas": [
-                "Government",
-                "Law",
-                "Constitution",
-                "Citizen",
-                "Democracy",
-                "Justice",
-                "Liberty",
-                "State"
-              ]
-            },
-            {
-              "title": "Declaration of Independence",
-              "themes": "Citizen; Government; Justice; Law; Liberty; Revolution; Constitution; Democracy",
-              "great_ideas": [
-                "Citizen",
-                "Government",
-                "Justice",
-                "Law",
-                "Liberty",
-                "Constitution",
-                "Democracy",
-                "Revolution"
-              ]
-            },
-            {
-              "title": "The Articles of Confederation",
-              "selection": "Focus: Articles II-III, IX, XIII; compare to Constitution",
-              "themes": "Government; Law; Constitution; State; Citizen; Liberty; Democracy; Justice",
-              "great_ideas": [
-                "Government",
-                "Law",
-                "Constitution",
-                "Citizen",
-                "Liberty",
-                "Democracy",
-                "Justice",
-                "State"
-              ]
-            },
-            {
-              "title": "The Federalist Papers",
-              "selection": "Nos. 1-10, 15, 31, 47, 51, 68-71",
-              "themes": "Citizen; Constitution; Democracy; Government; Law; Liberty; State; Justice",
-              "great_ideas": [
-                "Citizen",
-                "Constitution",
-                "Democracy",
-                "Government",
-                "Law",
-                "Liberty",
-                "Justice",
-                "State"
               ]
             }
           ]
@@ -4985,28 +4968,6 @@
         },
         {
           "order": 6,
-          "tier": "core",
-          "author": "Thomas Aquinas",
-          "works": [
-            {
-              "title": "Summa Theologica",
-              "selection": "Part I, QQ 90-102",
-              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
-              "great_ideas": [
-                "God",
-                "Justice",
-                "Law",
-                "Reasoning",
-                "Soul",
-                "Theology",
-                "Truth",
-                "Virtue and Vice"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 7,
           "tier": "core",
           "author": "Thomas Aquinas",
           "works": [

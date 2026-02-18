@@ -11,10 +11,32 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Apology"
+              "title": "Apology",
+              "themes": "Courage; Dialectic; Duty; Justice; Knowledge; Law; Truth; Education",
+              "great_ideas": [
+                "Courage",
+                "Dialectic",
+                "Duty",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Education",
+                "Truth"
+              ]
             },
             {
-              "title": "Crito"
+              "title": "Crito",
+              "themes": "Law; Justice; Government; Citizen; Duty; Liberty; Dialectic; Education",
+              "great_ideas": [
+                "Law",
+                "Justice",
+                "Government",
+                "Citizen",
+                "Duty",
+                "Liberty",
+                "Dialectic",
+                "Education"
+              ]
             }
           ]
         },
@@ -24,10 +46,32 @@
           "author": "Aristophanes",
           "works": [
             {
-              "title": "Clouds"
+              "title": "Clouds",
+              "themes": "Education; Art; Custom and Convention; Democracy; Desire; Government; Rhetoric; Experience",
+              "great_ideas": [
+                "Education",
+                "Art",
+                "Custom and Convention",
+                "Democracy",
+                "Desire",
+                "Government",
+                "Experience",
+                "Rhetoric"
+              ]
             },
             {
-              "title": "Lysistrata"
+              "title": "Lysistrata",
+              "themes": "Art; Custom and Convention; Democracy; Desire; Education; Government; Rhetoric; Courage",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Democracy",
+                "Desire",
+                "Education",
+                "Government",
+                "Courage",
+                "Rhetoric"
+              ]
             }
           ]
         },
@@ -38,7 +82,18 @@
           "works": [
             {
               "title": "Republic",
-              "selection": "Book I–II"
+              "selection": "Book I-II",
+              "themes": "Citizen; Democracy; Education; Good and Evil; Government; Justice; Law; Liberty",
+              "great_ideas": [
+                "Citizen",
+                "Democracy",
+                "Education",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty"
+              ]
             }
           ]
         },
@@ -49,7 +104,18 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book I"
+              "selection": "Book I",
+              "themes": "Duty; Happiness; Justice; Pleasure and Pain; Prudence; Reasoning; Temperance; Virtue and Vice",
+              "great_ideas": [
+                "Duty",
+                "Happiness",
+                "Justice",
+                "Pleasure and Pain",
+                "Prudence",
+                "Reasoning",
+                "Temperance",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -60,7 +126,18 @@
           "works": [
             {
               "title": "Politics",
-              "selection": "Book I"
+              "selection": "Book I",
+              "themes": "Aristocracy; Citizen; Constitution; Democracy; Government; Law; Monarchy; Oligarchy",
+              "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Law",
+                "Monarchy",
+                "Oligarchy"
+              ]
             }
           ]
         },
@@ -71,7 +148,17 @@
           "works": [
             {
               "title": "The Lives of the Noble Grecians and Romans",
-              "selection": "Lycurgus; Numa Pompilius; Lycurgus and Numa Compared; Alexander; Caesar"
+              "selection": "Lycurgus; Numa Pompilius; Lycurgus and Numa Compared; Alexander; Caesar",
+              "themes": "Courage; Government; History; Honor; Justice; State; Virtue and Vice",
+              "great_ideas": [
+                "Courage",
+                "Government",
+                "History",
+                "Honor",
+                "Justice",
+                "State",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -81,10 +168,46 @@
           "author": "New Testament",
           "works": [
             {
-              "title": "The Gospel According to Saint Matthew"
+              "title": "The Gospel According to Saint Matthew",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "The Acts of the Apostles"
+              "title": "The Acts of the Apostles",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
+            },
+            {
+              "title": "Gospel of Matthew",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -95,7 +218,18 @@
           "works": [
             {
               "title": "Confessions",
-              "selection": "Book I–VIII"
+              "selection": "Book I-VIII",
+              "themes": "God; Love; Sin; Soul; Time; Truth; Will; Religion",
+              "great_ideas": [
+                "God",
+                "Love",
+                "Sin",
+                "Soul",
+                "Time",
+                "Truth",
+                "Will",
+                "Religion"
+              ]
             }
           ]
         },
@@ -105,7 +239,17 @@
           "author": "Machiavelli",
           "works": [
             {
-              "title": "The Prince"
+              "title": "The Prince",
+              "themes": "Constitution; Government; Law; Prudence; Revolution; State; Tyranny and Despotism",
+              "great_ideas": [
+                "Constitution",
+                "Government",
+                "Law",
+                "Prudence",
+                "Revolution",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -116,7 +260,16 @@
           "works": [
             {
               "title": "Gargantua and Pantagruel",
-              "selection": "Book I–II"
+              "selection": "Book I-II",
+              "themes": "Art; Custom and Convention; Education; Good and Evil; Happiness; Language",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Education",
+                "Good and Evil",
+                "Happiness",
+                "Language"
+              ]
             }
           ]
         },
@@ -135,6 +288,18 @@
                 "Of Cannibals",
                 "That the Relish of Good and Evil Depends in a Great Measure upon the Opinion We Have of Them",
                 "Upon Some Verses of Virgil"
+              ],
+              "selection": "Of Custom...; Of Pedantry; Of the Education of Children; ...; Of Cannibals; ...; Upon Some Verses of Virgil",
+              "themes": "Custom and Convention; Education; Experience; Opinion; Reasoning; Truth; Virtue and Vice; Knowledge",
+              "great_ideas": [
+                "Custom and Convention",
+                "Education",
+                "Experience",
+                "Knowledge",
+                "Opinion",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice"
               ]
             }
           ]
@@ -145,7 +310,18 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "Hamlet"
+              "title": "Hamlet",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -156,7 +332,18 @@
           "works": [
             {
               "title": "Concerning Civil Government",
-              "selection": "Second Essay"
+              "selection": "Second Essay",
+              "themes": "Government; Constitution; Law; Citizen; Justice; Liberty; Experience; Knowledge",
+              "great_ideas": [
+                "Government",
+                "Constitution",
+                "Law",
+                "Citizen",
+                "Justice",
+                "Liberty",
+                "Experience",
+                "Knowledge"
+              ]
             }
           ]
         },
@@ -167,7 +354,18 @@
           "works": [
             {
               "title": "The Social Contract",
-              "selection": "Book I–II"
+              "selection": "Book I-II",
+              "themes": "Citizen; Constitution; Democracy; Government; Justice; Law; Liberty; State",
+              "great_ideas": [
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "State"
+              ]
             }
           ]
         },
@@ -178,7 +376,17 @@
           "works": [
             {
               "title": "The Decline and Fall of the Roman Empire",
-              "selection": "Ch. 15–16"
+              "selection": "Ch. 15-16",
+              "themes": "Cause; Government; History; Religion; Revolution; State; War and Peace",
+              "great_ideas": [
+                "Cause",
+                "Government",
+                "History",
+                "Religion",
+                "Revolution",
+                "State",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -188,14 +396,62 @@
           "author": "American State Papers",
           "works": [
             {
-              "title": "Declaration of Independence"
+              "title": "Declaration of Independence",
+              "themes": "Citizen; Government; Justice; Law; Liberty; Revolution; Constitution; Democracy",
+              "great_ideas": [
+                "Citizen",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Constitution",
+                "Democracy",
+                "Revolution"
+              ]
             },
             {
-              "title": "Constitution of the United States"
+              "title": "Constitution of the United States",
+              "themes": "Government; Law; State; Constitution; Citizen; Democracy; Justice; Liberty",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Constitution",
+                "Citizen",
+                "Democracy",
+                "Justice",
+                "Liberty",
+                "State"
+              ]
             },
             {
-              "title": "The Federalist",
-              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71"
+              "title": "The Federalist Papers",
+              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71",
+              "themes": "Citizen; Constitution; Democracy; Government; Law; Liberty; State; Justice",
+              "great_ideas": [
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Law",
+                "Liberty",
+                "Justice",
+                "State"
+              ]
+            },
+            {
+              "title": "The Articles of Confederation",
+              "selection": "Focus: Articles II-III, IX, XIII; compare to Constitution",
+              "themes": "Government; Law; Constitution; State; Citizen; Liberty; Democracy; Justice",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Constitution",
+                "Citizen",
+                "Liberty",
+                "Democracy",
+                "Justice",
+                "State"
+              ]
             }
           ]
         },
@@ -206,7 +462,17 @@
           "works": [
             {
               "title": "The Wealth of Nations",
-              "selection": "Introduction—Book I, Ch. 9"
+              "selection": "Introduction-Book I, Ch. 9",
+              "themes": "Government; Labor; Wealth; Justice; Liberty; Progress; Prudence",
+              "great_ideas": [
+                "Government",
+                "Labor",
+                "Justice",
+                "Liberty",
+                "Wealth",
+                "Progress",
+                "Prudence"
+              ]
             }
           ]
         },
@@ -216,7 +482,18 @@
           "author": "Marx & Engels",
           "works": [
             {
-              "title": "Manifesto of the Communist Party"
+              "title": "Manifesto of the Communist Party",
+              "themes": "Government; Justice; Labor; Revolution; Slavery; State; Wealth; Progress",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Labor",
+                "Revolution",
+                "Slavery",
+                "State",
+                "Wealth",
+                "Progress"
+              ]
             }
           ]
         },
@@ -228,7 +505,18 @@
           "works": [
             {
               "title": "Democracy in America",
-              "selection": "Vol. 1, Part II, Ch. 6–8"
+              "selection": "Vol. 1, Part II, Ch. 6-8",
+              "themes": "Government; Citizen; Democracy; Law; State; Constitution; Custom and Convention; Liberty",
+              "great_ideas": [
+                "Government",
+                "Citizen",
+                "Democracy",
+                "Law",
+                "Constitution",
+                "Custom and Convention",
+                "Liberty",
+                "State"
+              ]
             }
           ]
         },
@@ -239,7 +527,18 @@
           "author": "Ibsen",
           "works": [
             {
-              "title": "The Master Builder"
+              "title": "The Master Builder",
+              "themes": "Desire; Duty; Family; Good and Evil; Truth; Will; God; Religion",
+              "great_ideas": [
+                "Desire",
+                "Duty",
+                "Family",
+                "Good and Evil",
+                "God",
+                "Truth",
+                "Will",
+                "Religion"
+              ]
             }
           ]
         },
@@ -250,7 +549,40 @@
           "author": "Schrödinger",
           "works": [
             {
-              "title": "What Is Life?"
+              "title": "What Is Life?",
+              "themes": "Cause; Evolution; Life and Death; Nature; Science; God; Religion; Sin",
+              "great_ideas": [
+                "Cause",
+                "Evolution",
+                "Life and Death",
+                "God",
+                "Nature",
+                "Science",
+                "Religion",
+                "Sin"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 28,
+          "tier": "core",
+          "author": "Montesquieu",
+          "works": [
+            {
+              "title": "The Spirit of the Laws",
+              "selection": "Book I; Book XI; selections from Books VIII & XII",
+              "themes": "Law; Constitution; Government; Justice; State; Democracy; Liberty; Monarchy",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "Government",
+                "Justice",
+                "Democracy",
+                "Liberty",
+                "State",
+                "Monarchy"
+              ]
             }
           ]
         }
@@ -265,7 +597,18 @@
           "author": "Homer",
           "works": [
             {
-              "title": "The Iliad"
+              "title": "The Iliad",
+              "themes": "Courage; Desire; Fate; Honor; Justice; Life and Death; War and Peace; Love",
+              "great_ideas": [
+                "Courage",
+                "Desire",
+                "Fate",
+                "Honor",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -275,13 +618,44 @@
           "author": "Aeschylus",
           "works": [
             {
-              "title": "Agamemnon"
+              "title": "Agamemnon",
+              "themes": "Justice; Law; Punishment; Courage; Fate; Good and Evil; War and Peace",
+              "great_ideas": [
+                "Justice",
+                "Law",
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Punishment",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Choephoroe"
+              "title": "Choephoroe",
+              "themes": "Justice; Law; Punishment; Courage; Fate; Good and Evil; War and Peace",
+              "great_ideas": [
+                "Justice",
+                "Law",
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Punishment",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Eumenides"
+              "title": "Eumenides",
+              "themes": "Justice; Law; Punishment; Courage; Fate; Good and Evil; War and Peace; Being",
+              "great_ideas": [
+                "Justice",
+                "Law",
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Being",
+                "Punishment",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -291,10 +665,32 @@
           "author": "Sophocles",
           "works": [
             {
-              "title": "Oedipus the King"
+              "title": "Oedipus the King",
+              "themes": "Fate; Justice; Life and Death; Courage; Good and Evil; Law; Punishment; Language",
+              "great_ideas": [
+                "Fate",
+                "Justice",
+                "Life and Death",
+                "Courage",
+                "Good and Evil",
+                "Law",
+                "Language",
+                "Punishment"
+              ]
             },
             {
-              "title": "Antigone"
+              "title": "Antigone",
+              "themes": "Law; Justice; Courage; Fate; Good and Evil; Life and Death; Punishment; Constitution",
+              "great_ideas": [
+                "Law",
+                "Justice",
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Life and Death",
+                "Constitution",
+                "Punishment"
+              ]
             }
           ]
         },
@@ -305,7 +701,18 @@
           "works": [
             {
               "title": "The History",
-              "selection": "Book I–II"
+              "selection": "Book I-II",
+              "themes": "Government; History; War and Peace; Cause; Chance; Custom and Convention; Fate; Law",
+              "great_ideas": [
+                "Government",
+                "History",
+                "Cause",
+                "Chance",
+                "Custom and Convention",
+                "Fate",
+                "Law",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -315,7 +722,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Meno"
+              "title": "Meno",
+              "themes": "Dialectic; Education; Knowledge; Reasoning; Truth; Virtue and Vice; Good and Evil; Government",
+              "great_ideas": [
+                "Dialectic",
+                "Education",
+                "Knowledge",
+                "Good and Evil",
+                "Government",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -325,7 +743,18 @@
           "author": "Aristotle",
           "works": [
             {
-              "title": "Poetics"
+              "title": "Poetics",
+              "themes": "Art; Beauty; Definition; Emotion; Form; Poetry; Government; Happiness",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Definition",
+                "Emotion",
+                "Form",
+                "Government",
+                "Happiness",
+                "Poetry"
+              ]
             }
           ]
         },
@@ -336,7 +765,18 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book II; Book III, Ch. 5–12; Book VI, Ch. 8–13"
+              "selection": "Book II; Book III, Ch. 5-12; Book VI, Ch. 8-13",
+              "themes": "Duty; Happiness; Justice; Pleasure and Pain; Prudence; Reasoning; Temperance; Virtue and Vice",
+              "great_ideas": [
+                "Duty",
+                "Happiness",
+                "Justice",
+                "Pleasure and Pain",
+                "Prudence",
+                "Reasoning",
+                "Temperance",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -346,7 +786,14 @@
           "author": "Nicomachus",
           "works": [
             {
-              "title": "Introduction to Arithmetic"
+              "title": "Introduction to Arithmetic",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -357,7 +804,14 @@
           "works": [
             {
               "title": "On the Nature of Things",
-              "selection": "Book I–IV"
+              "selection": "Book I-IV",
+              "themes": "Nature; Physics; Science; Truth",
+              "great_ideas": [
+                "Nature",
+                "Physics",
+                "Science",
+                "Truth"
+              ]
             }
           ]
         },
@@ -367,7 +821,14 @@
           "author": "Marcus Aurelius",
           "works": [
             {
-              "title": "Meditations"
+              "title": "Meditations",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -378,7 +839,18 @@
           "works": [
             {
               "title": "Leviathan",
-              "selection": "Part I"
+              "selection": "Part I",
+              "themes": "Government; Justice; Law; Liberty; Necessity and Contingency; State; Tyranny and Despotism; Art",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Art",
+                "Necessity and Contingency",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -388,7 +860,18 @@
           "author": "Milton",
           "works": [
             {
-              "title": "Areopagitica"
+              "title": "Areopagitica",
+              "themes": "Religion; Sin; Truth; Government; Law; Liberty; Poetry; Science",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Liberty",
+                "Religion",
+                "Sin",
+                "Truth",
+                "Poetry",
+                "Science"
+              ]
             }
           ]
         },
@@ -399,7 +882,18 @@
           "works": [
             {
               "title": "Pensées",
-              "selection": "Numbers 72, 82–83, 100, 128, 131, 139, 142–143, 171, 194–195, 219, 229, 233–234, 242, 273, 277, 282, 289, 298, 303, 320, 323, 325, 330–331, 374, 385, 392, 395–397, 409, 412–413, 416, 418, 425, 430, 434–435, 463, 491, 525–531, 538, 543, 547, 553, 556, 564, 571, 586, 598, 607–610, 613, 619–620, 631, 640, 644, 673, 675, 684, 692–693, 737, 760, 768, 792–793"
+              "selection": "Selected numbers (as listed)",
+              "themes": "Chance; God; Infinity; Reasoning; Religion; Theology; Truth; Will",
+              "great_ideas": [
+                "Chance",
+                "God",
+                "Infinity",
+                "Reasoning",
+                "Religion",
+                "Theology",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -409,7 +903,18 @@
           "author": "Pascal",
           "works": [
             {
-              "title": "Treatise on the Arithmetical Triangle"
+              "title": "Treatise on the Arithmetical Triangle",
+              "themes": "God; Religion; Chance; Infinity; Reasoning; Theology; Truth; Will",
+              "great_ideas": [
+                "God",
+                "Chance",
+                "Infinity",
+                "Religion",
+                "Reasoning",
+                "Theology",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -419,7 +924,15 @@
           "author": "Swift",
           "works": [
             {
-              "title": "Gulliver’s Travels"
+              "title": "Gulliver's Travels",
+              "themes": "Science; Hypothesis; Physics; Induction; Nature",
+              "great_ideas": [
+                "Hypothesis",
+                "Induction",
+                "Science",
+                "Physics",
+                "Nature"
+              ]
             }
           ]
         },
@@ -429,7 +942,18 @@
           "author": "Rousseau",
           "works": [
             {
-              "title": "A Discourse on the Origin of Inequality"
+              "title": "A Discourse on the Origin of Inequality",
+              "themes": "Citizen; Democracy; Government; Justice; Law; Liberty; Revolution; State",
+              "great_ideas": [
+                "Citizen",
+                "Democracy",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Revolution",
+                "State"
+              ]
             }
           ]
         },
@@ -439,7 +963,18 @@
           "author": "Kant",
           "works": [
             {
-              "title": "Fundamental Principles of the Metaphysic of Morals"
+              "title": "Fundamental Principles of the Metaphysic of Morals",
+              "themes": "Duty; Justice; Law; Liberty; Virtue and Vice; Will; Judgment; Metaphysics",
+              "great_ideas": [
+                "Duty",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Judgment",
+                "Virtue and Vice",
+                "Will",
+                "Metaphysics"
+              ]
             }
           ]
         },
@@ -449,7 +984,18 @@
           "author": "Mill",
           "works": [
             {
-              "title": "On Liberty"
+              "title": "On Liberty",
+              "themes": "Government; Law; Liberty; Custom and Convention; Justice; Opinion; Democracy; Happiness",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Liberty",
+                "Custom and Convention",
+                "Justice",
+                "Democracy",
+                "Happiness",
+                "Opinion"
+              ]
             }
           ]
         },
@@ -460,7 +1006,14 @@
           "author": "Voltaire",
           "works": [
             {
-              "title": "Candide"
+              "title": "Candide",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -471,7 +1024,16 @@
           "author": "Nietzsche",
           "works": [
             {
-              "title": "Beyond Good and Evil"
+              "title": "Beyond Good and Evil",
+              "themes": "Good and Evil; Reasoning; Truth; Virtue and Vice; Will; Wisdom",
+              "great_ideas": [
+                "Good and Evil",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice",
+                "Will",
+                "Wisdom"
+              ]
             }
           ]
         },
@@ -483,7 +1045,36 @@
           "works": [
             {
               "title": "Science and the Modern World",
-              "selection": "Ch. I–VI"
+              "selection": "Ch. I-VI",
+              "themes": "Science; Mathematics; Nature; Philosophy; Progress; Reasoning; Hypothesis; Induction",
+              "great_ideas": [
+                "Hypothesis",
+                "Induction",
+                "Science",
+                "Mathematics",
+                "Nature",
+                "Philosophy",
+                "Progress",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 25,
+          "tier": "core",
+          "author": "Diderot",
+          "works": [
+            {
+              "title": "Rameau's Nephew",
+              "selection": "Focus: major turns on genius/morality; satire of society; ending exchange",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         }
@@ -498,7 +1089,18 @@
           "author": "Aeschylus",
           "works": [
             {
-              "title": "Prometheus Bound"
+              "title": "Prometheus Bound",
+              "themes": "Law; Justice; Punishment; Courage; Fate; Good and Evil; Government; State",
+              "great_ideas": [
+                "Law",
+                "Justice",
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Government",
+                "Punishment",
+                "State"
+              ]
             }
           ]
         },
@@ -509,7 +1111,18 @@
           "works": [
             {
               "title": "The History",
-              "selection": "Book VII–IX"
+              "selection": "Book VII-IX",
+              "themes": "Government; History; War and Peace; Cause; Chance; Custom and Convention; Fate; Law",
+              "great_ideas": [
+                "Government",
+                "History",
+                "Cause",
+                "Chance",
+                "Custom and Convention",
+                "Fate",
+                "Law",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -520,7 +1133,18 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
-              "selection": "Book I–II, V"
+              "selection": "Book I-II, V",
+              "themes": "War and Peace; Government; Honor; Cause; Justice; State; Tyranny and Despotism; Courage",
+              "great_ideas": [
+                "Government",
+                "Honor",
+                "Cause",
+                "Justice",
+                "Courage",
+                "War and Peace",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -530,7 +1154,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Statesman"
+              "title": "Statesman",
+              "themes": "Law; Government; Justice; Dialectic; Education; Good and Evil; Knowledge; Love",
+              "great_ideas": [
+                "Law",
+                "Government",
+                "Justice",
+                "Dialectic",
+                "Education",
+                "Good and Evil",
+                "Knowledge",
+                "Love"
+              ]
             }
           ]
         },
@@ -541,7 +1176,18 @@
           "works": [
             {
               "title": "On Interpretation",
-              "selection": "Ch. 1–10"
+              "selection": "Ch. 1-10",
+              "themes": "Government; Happiness; Justice; Law; Logic; Nature; Reasoning; Science",
+              "great_ideas": [
+                "Government",
+                "Happiness",
+                "Justice",
+                "Law",
+                "Logic",
+                "Nature",
+                "Reasoning",
+                "Science"
+              ]
             }
           ]
         },
@@ -552,7 +1198,18 @@
           "works": [
             {
               "title": "Politics",
-              "selection": "Book III–V"
+              "selection": "Book III-V",
+              "themes": "Aristocracy; Citizen; Constitution; Democracy; Government; Law; Monarchy; Oligarchy",
+              "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Law",
+                "Monarchy",
+                "Oligarchy"
+              ]
             }
           ]
         },
@@ -563,7 +1220,14 @@
           "works": [
             {
               "title": "Elements",
-              "selection": "Book I"
+              "selection": "Book I",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -573,7 +1237,14 @@
           "author": "Tacitus",
           "works": [
             {
-              "title": "The Annals"
+              "title": "The Annals",
+              "themes": "Government; State; Law; Tyranny and Despotism",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -584,7 +1255,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I–II, QQ 90–97"
+              "selection": "Part I-II, QQ 90-97",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -594,7 +1276,18 @@
           "author": "Chaucer",
           "works": [
             {
-              "title": "Troilus and Cressida"
+              "title": "Troilus and Cressida",
+              "themes": "Courage; Honor; War and Peace; Beauty; Desire; Language; Love; Opinion",
+              "great_ideas": [
+                "Courage",
+                "Honor",
+                "Beauty",
+                "Desire",
+                "Language",
+                "Love",
+                "War and Peace",
+                "Opinion"
+              ]
             }
           ]
         },
@@ -604,7 +1297,18 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "Macbeth"
+              "title": "Macbeth",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -614,7 +1318,18 @@
           "author": "Milton",
           "works": [
             {
-              "title": "Paradise Lost"
+              "title": "Paradise Lost",
+              "themes": "Government; Law; Liberty; Poetry; Religion; Sin; Truth; History",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Liberty",
+                "History",
+                "Poetry",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -625,7 +1340,18 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
-              "selection": "Book III, Ch. 1–3, 9–11"
+              "selection": "Book III, Ch. 1-3, 9-11",
+              "themes": "Constitution; Experience; Government; Justice; Knowledge; Law; Liberty; Reasoning",
+              "great_ideas": [
+                "Constitution",
+                "Experience",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Liberty",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -635,7 +1361,18 @@
           "author": "Kant",
           "works": [
             {
-              "title": "Science of Right"
+              "title": "Science of Right",
+              "themes": "Duty; Judgment; Law; Liberty; Metaphysics; Reasoning; Science; Truth",
+              "great_ideas": [
+                "Duty",
+                "Judgment",
+                "Law",
+                "Liberty",
+                "Metaphysics",
+                "Reasoning",
+                "Science",
+                "Truth"
+              ]
             }
           ]
         },
@@ -646,7 +1383,18 @@
           "works": [
             {
               "title": "Considerations on Representative Government",
-              "selection": "Ch. 1–6"
+              "selection": "Ch. 1-6",
+              "themes": "Government; Law; Democracy; Happiness; Justice; Liberty; State; Virtue and Vice",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Democracy",
+                "Happiness",
+                "Justice",
+                "Liberty",
+                "State",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -657,7 +1405,14 @@
           "works": [
             {
               "title": "Elements of Chemistry",
-              "selection": "Part I"
+              "selection": "Part I",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -668,7 +1423,14 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
-              "selection": "Part I–II"
+              "selection": "Part I-II",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -678,7 +1440,18 @@
           "author": "Freud",
           "works": [
             {
-              "title": "The Origin and Development of Psychoanalysis"
+              "title": "The Origin and Development of Psychoanalysis",
+              "themes": "Sin; Desire; Emotion; Memory and Imagination; Mind; Truth; Will; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "God",
+                "Sin",
+                "Memory and Imagination",
+                "Mind",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -689,7 +1462,14 @@
           "author": "Twain",
           "works": [
             {
-              "title": "Adventures of Huckleberry Finn"
+              "title": "Adventures of Huckleberry Finn",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -701,7 +1481,14 @@
           "works": [
             {
               "title": "Structural Anthropology",
-              "selection": "Selections"
+              "selection": "Selections",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -713,7 +1500,17 @@
           "works": [
             {
               "title": "Science and Hypothesis",
-              "selection": "Part I–II"
+              "selection": "Part I-II",
+              "themes": "Science; Hypothesis; Art; Beauty; Form; Induction; Physics",
+              "great_ideas": [
+                "Hypothesis",
+                "Art",
+                "Beauty",
+                "Form",
+                "Induction",
+                "Science",
+                "Physics"
+              ]
             }
           ]
         }
@@ -728,16 +1525,60 @@
           "author": "Euripides",
           "works": [
             {
-              "title": "Medea"
+              "title": "Medea",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Life and Death; Love; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "God"
+              ]
             },
             {
-              "title": "Hippolytus"
+              "title": "Hippolytus",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Life and Death; Love; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "God"
+              ]
             },
             {
-              "title": "The Trojan Women"
+              "title": "The Trojan Women",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Life and Death; Love; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "God"
+              ]
             },
             {
-              "title": "The Bacchantes"
+              "title": "The Bacchantes",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Life and Death; Love; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "God"
+              ]
             }
           ]
         },
@@ -748,7 +1589,18 @@
           "works": [
             {
               "title": "Republic",
-              "selection": "Book VI–VII"
+              "selection": "Book VI-VII",
+              "themes": "Citizen; Democracy; Education; Good and Evil; Government; Justice; Law; Liberty",
+              "great_ideas": [
+                "Citizen",
+                "Democracy",
+                "Education",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty"
+              ]
             }
           ]
         },
@@ -758,7 +1610,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Theaetetus"
+              "title": "Theaetetus",
+              "themes": "Dialectic; Education; Good and Evil; Government; Justice; Knowledge; Law; Love",
+              "great_ideas": [
+                "Dialectic",
+                "Education",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Love"
+              ]
             }
           ]
         },
@@ -769,7 +1632,18 @@
           "works": [
             {
               "title": "Physics",
-              "selection": "Book IV, Ch. 1–5, 10–14"
+              "selection": "Book IV, Ch. 1-5, 10-14",
+              "themes": "Science; Physics; Being; Cause; Change; Form; Metaphysics; Nature",
+              "great_ideas": [
+                "Being",
+                "Cause",
+                "Change",
+                "Form",
+                "Science",
+                "Physics",
+                "Metaphysics",
+                "Nature"
+              ]
             }
           ]
         },
@@ -780,7 +1654,18 @@
           "works": [
             {
               "title": "Metaphysics",
-              "selection": "Book I, Ch. 1–2; Book IV; Book VI, Ch. 1; Book XI, Ch. 1–4"
+              "selection": "Book I, Ch. 1-2; Book IV; Book VI, Ch. 1; Book XI, Ch. 1-4",
+              "themes": "Science; Physics; Being; Metaphysics; Philosophy; Cause; Change; Form",
+              "great_ideas": [
+                "Being",
+                "Cause",
+                "Change",
+                "Form",
+                "Science",
+                "Physics",
+                "Metaphysics",
+                "Philosophy"
+              ]
             }
           ]
         },
@@ -791,7 +1676,18 @@
           "works": [
             {
               "title": "Confessions",
-              "selection": "Book IX–XIII"
+              "selection": "Book IX-XIII",
+              "themes": "God; Love; Sin; Soul; Time; Truth; Will; Religion",
+              "great_ideas": [
+                "God",
+                "Love",
+                "Sin",
+                "Soul",
+                "Time",
+                "Truth",
+                "Will",
+                "Religion"
+              ]
             }
           ]
         },
@@ -802,7 +1698,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 16–17, 84–88"
+              "selection": "Part I, QQ 16-17, 84-88",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -812,7 +1719,18 @@
           "author": "Montaigne",
           "works": [
             {
-              "title": "Apology for Raymond de Sebonde"
+              "title": "Apology for Raymond de Sebonde",
+              "themes": "Custom and Convention; Education; Experience; Opinion; Reasoning; Truth; Virtue and Vice; God",
+              "great_ideas": [
+                "Custom and Convention",
+                "Education",
+                "Experience",
+                "God",
+                "Opinion",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -823,7 +1741,17 @@
           "works": [
             {
               "title": "Two New Sciences",
-              "selection": "Third Day, through Scholium of Theorem II"
+              "selection": "Third Day, through Scholium of Theorem II",
+              "themes": "Science; Hypothesis; Physics; Cause; Mathematics; Mechanics; Induction",
+              "great_ideas": [
+                "Hypothesis",
+                "Cause",
+                "Induction",
+                "Science",
+                "Physics",
+                "Mathematics",
+                "Mechanics"
+              ]
             }
           ]
         },
@@ -834,7 +1762,25 @@
           "works": [
             {
               "title": "Novum Organum",
-              "selection": "Preface, Book I"
+              "selection": "Preface; Book I",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            },
+            {
+              "title": "New Atlantis",
+              "selection": "(Short work) Focus: House of Salomon; the research-program vision",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -844,7 +1790,18 @@
           "author": "Descartes",
           "works": [
             {
-              "title": "Discourse on the Method"
+              "title": "Discourse on the Method",
+              "themes": "Idea; Knowledge; Logic; Metaphysics; Mind; Reasoning; Truth; Art",
+              "great_ideas": [
+                "Idea",
+                "Knowledge",
+                "Logic",
+                "Art",
+                "Metaphysics",
+                "Mind",
+                "Reasoning",
+                "Truth"
+              ]
             }
           ]
         },
@@ -855,7 +1812,18 @@
           "works": [
             {
               "title": "Mathematical Principles of Natural Philosophy",
-              "selection": "Prefaces, Definitions, Axioms, General Scholium"
+              "selection": "Prefaces; Definitions; Axioms; General Scholium",
+              "themes": "Cause; Mathematics; Mechanics; Physics; Science; Space; Time; Knowledge",
+              "great_ideas": [
+                "Cause",
+                "Knowledge",
+                "Mathematics",
+                "Mechanics",
+                "Physics",
+                "Science",
+                "Space",
+                "Time"
+              ]
             }
           ]
         },
@@ -866,7 +1834,18 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
-              "selection": "Book II"
+              "selection": "Book II",
+              "themes": "Constitution; Experience; Government; Justice; Knowledge; Law; Liberty; Reasoning",
+              "great_ideas": [
+                "Constitution",
+                "Experience",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Liberty",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -876,7 +1855,18 @@
           "author": "Hume",
           "works": [
             {
-              "title": "An Enquiry Concerning Human Understanding"
+              "title": "An Enquiry Concerning Human Understanding",
+              "themes": "Cause; Experience; Induction; Knowledge; Mind; Reasoning; Truth; God",
+              "great_ideas": [
+                "Cause",
+                "Experience",
+                "Induction",
+                "Knowledge",
+                "God",
+                "Mind",
+                "Reasoning",
+                "Truth"
+              ]
             }
           ]
         },
@@ -887,7 +1877,18 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
-              "selection": "Prefaces, Introduction, Transcendental Aesthetic"
+              "selection": "Prefaces, Introduction, Transcendental Aesthetic",
+              "themes": "Knowledge; Reasoning; Experience; Judgment; Metaphysics; Mind; Truth; Duty",
+              "great_ideas": [
+                "Knowledge",
+                "Experience",
+                "Judgment",
+                "Duty",
+                "Reasoning",
+                "Metaphysics",
+                "Mind",
+                "Truth"
+              ]
             }
           ]
         },
@@ -897,7 +1898,32 @@
           "author": "Melville",
           "works": [
             {
-              "title": "Moby Dick"
+              "title": "Moby Dick",
+              "themes": "Fate; Good and Evil; Justice; Life and Death; Nature; Truth; Art; Beauty",
+              "great_ideas": [
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Art",
+                "Beauty",
+                "Nature",
+                "Truth"
+              ]
+            },
+            {
+              "title": "Moby-Dick",
+              "themes": "Fate; Good and Evil; Justice; Life and Death; Nature; Truth; Art; Beauty",
+              "great_ideas": [
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Art",
+                "Beauty",
+                "Nature",
+                "Truth"
+              ]
             }
           ]
         },
@@ -908,7 +1934,14 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
-              "selection": "Part III–IV"
+              "selection": "Part III-IV",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -919,7 +1952,18 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. XV, XX"
+              "selection": "Ch. XV, XX",
+              "themes": "Emotion; Experience; Knowledge; Memory and Imagination; Mind; Reasoning; Truth; Will",
+              "great_ideas": [
+                "Emotion",
+                "Experience",
+                "Knowledge",
+                "Memory and Imagination",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -931,7 +1975,14 @@
           "works": [
             {
               "title": "Institutes of the Christian Religion",
-              "selection": "Book III"
+              "selection": "Book III",
+              "themes": "God; Religion; Theology; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Theology",
+                "Truth"
+              ]
             }
           ]
         },
@@ -943,7 +1994,14 @@
           "works": [
             {
               "title": "The Golden Bough",
-              "selection": "Selections"
+              "selection": "Selections",
+              "themes": "Custom and Convention; God; Religion; Sin",
+              "great_ideas": [
+                "Custom and Convention",
+                "God",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -955,7 +2013,18 @@
           "works": [
             {
               "title": "Physics and Philosophy",
-              "selection": "Ch. 1–6"
+              "selection": "Ch. 1-6",
+              "themes": "Science; Physics; Knowledge; Truth; Hypothesis; Cause; Mechanics; Philosophy",
+              "great_ideas": [
+                "Knowledge",
+                "Hypothesis",
+                "Cause",
+                "Science",
+                "Physics",
+                "Truth",
+                "Mechanics",
+                "Philosophy"
+              ]
             }
           ]
         }
@@ -970,7 +2039,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Phaedo"
+              "title": "Phaedo",
+              "themes": "Being; Immortality; Knowledge; Life and Death; Soul; Truth; Dialectic; Education",
+              "great_ideas": [
+                "Being",
+                "Immortality",
+                "Knowledge",
+                "Life and Death",
+                "Dialectic",
+                "Education",
+                "Soul",
+                "Truth"
+              ]
             }
           ]
         },
@@ -980,7 +2060,18 @@
           "author": "Aristotle",
           "works": [
             {
-              "title": "Categories"
+              "title": "Categories",
+              "themes": "Definition; Language; Logic; Quality; Quantity; Reasoning; Relation; Government",
+              "great_ideas": [
+                "Definition",
+                "Language",
+                "Logic",
+                "Government",
+                "Quality",
+                "Quantity",
+                "Reasoning",
+                "Relation"
+              ]
             }
           ]
         },
@@ -991,7 +2082,18 @@
           "works": [
             {
               "title": "On the Soul",
-              "selection": "Book II, Ch. 1–3; Book III"
+              "selection": "Book II, Ch. 1-3; Book III",
+              "themes": "Mind; Soul; Life and Death; Memory and Imagination; Nature; Sense; Government; Happiness",
+              "great_ideas": [
+                "Life and Death",
+                "Government",
+                "Happiness",
+                "Mind",
+                "Soul",
+                "Memory and Imagination",
+                "Nature",
+                "Sense"
+              ]
             }
           ]
         },
@@ -1001,25 +2103,78 @@
           "author": "Hippocrates",
           "works": [
             {
-              "title": "The Oath"
+              "title": "The Oath",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "On Ancient Medicine"
+              "title": "On Ancient Medicine",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "On Airs, Waters, and Places"
+              "title": "On Airs, Waters, and Places",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "The Book of Prognostics"
+              "title": "The Book of Prognostics",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "Of the Epidemics"
+              "title": "Of the Epidemics",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "The Law"
+              "title": "The Law",
+              "themes": "Law; Constitution; God; Government; Justice; Religion; Sin; State",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "God",
+                "Government",
+                "Justice",
+                "Religion",
+                "Sin",
+                "State"
+              ]
             },
             {
-              "title": "On the Sacred Disease"
+              "title": "On the Sacred Disease",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1029,7 +2184,14 @@
           "author": "Galen",
           "works": [
             {
-              "title": "On the Natural Faculties"
+              "title": "On the Natural Faculties",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1039,7 +2201,14 @@
           "author": "Virgil",
           "works": [
             {
-              "title": "The Aeneid"
+              "title": "The Aeneid",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1050,7 +2219,14 @@
           "works": [
             {
               "title": "Almagest",
-              "selection": "Book I, Ch. 1–8"
+              "selection": "Book I, Ch. 1-8",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1061,7 +2237,33 @@
           "works": [
             {
               "title": "On the Revolutions of Heavenly Spheres",
-              "selection": "Introduction—Book I, Ch. 11"
+              "selection": "Introduction—Book I, Ch. 11",
+              "themes": "Government; Science; State; Evolution; Law; Nature; Revolution; Hypothesis",
+              "great_ideas": [
+                "Government",
+                "Evolution",
+                "Law",
+                "Hypothesis",
+                "Science",
+                "State",
+                "Nature",
+                "Revolution"
+              ]
+            },
+            {
+              "title": "Revolutions of the Heavenly Spheres",
+              "selection": "Introduction-Book I, Ch. 11",
+              "themes": "Government; Science; State; Evolution; Law; Nature; Revolution; Hypothesis",
+              "great_ideas": [
+                "Government",
+                "Evolution",
+                "Law",
+                "Hypothesis",
+                "Science",
+                "State",
+                "Nature",
+                "Revolution"
+              ]
             }
           ]
         },
@@ -1072,7 +2274,30 @@
           "works": [
             {
               "title": "Epitome of Copernican Astronomy",
-              "selection": "Book IV, Part II, Ch. 1–2"
+              "selection": "Book IV, Part II, Ch. 1-2",
+              "themes": "Science; Art; Astronomy; Beauty; Form; Space; Hypothesis; Physics",
+              "great_ideas": [
+                "Art",
+                "Astronomy",
+                "Beauty",
+                "Form",
+                "Hypothesis",
+                "Science",
+                "Space",
+                "Physics"
+              ]
+            },
+            {
+              "title": "The Harmonies of the World",
+              "selection": "Focus: Preface/Intro; Book V (planetary harmonies & 3rd law)",
+              "themes": "Law; Constitution; Government; Justice; State",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "Government",
+                "Justice",
+                "State"
+              ]
             }
           ]
         },
@@ -1082,7 +2307,14 @@
           "author": "Plotinus",
           "works": [
             {
-              "title": "Sixth Ennead"
+              "title": "Sixth Ennead",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1093,7 +2325,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 75–76, 78–79"
+              "selection": "Part I, QQ 75-76, 78-79",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1104,7 +2347,17 @@
           "works": [
             {
               "title": "The Divine Comedy",
-              "selection": "Hell"
+              "selection": "Hell",
+              "themes": "God; Sin; Justice; Life and Death; Love; Theology; Religion",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "Sin",
+                "Theology",
+                "Religion"
+              ]
             }
           ]
         },
@@ -1114,7 +2367,27 @@
           "author": "Harvey",
           "works": [
             {
-              "title": "On the Motion of the Heart and Blood"
+              "title": "On the Motion of the Heart and Blood",
+              "themes": "Art; Beauty; Form; God; Religion; Sin",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "God",
+                "Religion",
+                "Sin"
+              ]
+            },
+            {
+              "title": "On the Circulation of Blood",
+              "selection": "Focus: experiments & quantitative argument for circulation; key objections",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1125,7 +2398,14 @@
           "works": [
             {
               "title": "Don Quixote",
-              "selection": "Part I"
+              "selection": "Part I",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1136,7 +2416,18 @@
           "works": [
             {
               "title": "Ethics",
-              "selection": "Part II"
+              "selection": "Part II",
+              "themes": "God; Metaphysics; Nature; Reasoning; Truth; Virtue and Vice; Will; Art",
+              "great_ideas": [
+                "God",
+                "Art",
+                "Metaphysics",
+                "Nature",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice",
+                "Will"
+              ]
             }
           ]
         },
@@ -1146,7 +2437,18 @@
           "author": "Berkeley",
           "works": [
             {
-              "title": "The Principles of Human Knowledge"
+              "title": "The Principles of Human Knowledge",
+              "themes": "Knowledge; Truth; Idea; Metaphysics; Mind; Sense; God; Reasoning",
+              "great_ideas": [
+                "Knowledge",
+                "Idea",
+                "God",
+                "Truth",
+                "Metaphysics",
+                "Mind",
+                "Sense",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1157,7 +2459,18 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
-              "selection": "Transcendental Analytic"
+              "selection": "Transcendental Analytic",
+              "themes": "Knowledge; Reasoning; Experience; Judgment; Metaphysics; Mind; Truth; Duty",
+              "great_ideas": [
+                "Knowledge",
+                "Experience",
+                "Judgment",
+                "Duty",
+                "Reasoning",
+                "Metaphysics",
+                "Mind",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1168,7 +2481,16 @@
           "works": [
             {
               "title": "The Origin of Species",
-              "selection": "Introduction—Ch. 6, Ch. 15"
+              "selection": "Introduction-Ch. 6; Ch. 15",
+              "themes": "Cause; Chance; Evolution; Life and Death; Nature; Science",
+              "great_ideas": [
+                "Cause",
+                "Chance",
+                "Evolution",
+                "Life and Death",
+                "Nature",
+                "Science"
+              ]
             }
           ]
         },
@@ -1179,7 +2501,14 @@
           "works": [
             {
               "title": "War and Peace",
-              "selection": "Book I–VIII"
+              "selection": "Book I-VIII",
+              "themes": "Courage; Honor; War and Peace; Truth",
+              "great_ideas": [
+                "Courage",
+                "Honor",
+                "War and Peace",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1190,7 +2519,18 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. XXVIII"
+              "selection": "Ch. XXVIII",
+              "themes": "Emotion; Experience; Knowledge; Memory and Imagination; Mind; Reasoning; Truth; Will",
+              "great_ideas": [
+                "Emotion",
+                "Experience",
+                "Knowledge",
+                "Memory and Imagination",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1201,7 +2541,16 @@
           "author": "Dewey",
           "works": [
             {
-              "title": "Experience and Education"
+              "title": "Experience and Education",
+              "themes": "Education; Experience; God; Knowledge; Religion; Sin",
+              "great_ideas": [
+                "Education",
+                "Experience",
+                "God",
+                "Knowledge",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -1212,7 +2561,18 @@
           "author": "Waddington",
           "works": [
             {
-              "title": "The Nature of Life"
+              "title": "The Nature of Life",
+              "themes": "Nature; Science; Cause; Evolution; Life and Death; God; Physics; Religion",
+              "great_ideas": [
+                "Cause",
+                "Evolution",
+                "Life and Death",
+                "God",
+                "Nature",
+                "Science",
+                "Physics",
+                "Religion"
+              ]
             }
           ]
         },
@@ -1223,7 +2583,38 @@
           "author": "Orwell",
           "works": [
             {
-              "title": "Animal Farm"
+              "title": "Animal Farm",
+              "themes": "Government; Law; Revolution; Justice; Truth; Tyranny and Despotism; Science; State",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Justice",
+                "Revolution",
+                "Truth",
+                "Tyranny and Despotism",
+                "Science",
+                "State"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 30,
+          "tier": "core",
+          "author": "Dobzhansky",
+          "works": [
+            {
+              "title": "Genetics and the Origin of Species",
+              "selection": "Preface; Ch. 1-3; selected chapters on variation/speciation",
+              "themes": "Cause; Chance; Evolution; Life and Death; Nature; Science",
+              "great_ideas": [
+                "Cause",
+                "Chance",
+                "Evolution",
+                "Life and Death",
+                "Nature",
+                "Science"
+              ]
             }
           ]
         }
@@ -1238,13 +2629,46 @@
           "author": "Old Testament",
           "works": [
             {
-              "title": "Genesis"
+              "title": "Genesis",
+              "themes": "God; Religion; Sin; Fate; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Fate",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "Exodus"
+              "title": "Exodus",
+              "themes": "God; Religion; Sin; Fate; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Fate",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "Deuteronomy"
+              "title": "Deuteronomy",
+              "themes": "God; Religion; Sin; Fate; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Fate",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -1254,7 +2678,18 @@
           "author": "Homer",
           "works": [
             {
-              "title": "The Odyssey"
+              "title": "The Odyssey",
+              "themes": "Desire; Experience; Family; Fate; Justice; Life and Death; Love; Courage",
+              "great_ideas": [
+                "Desire",
+                "Experience",
+                "Family",
+                "Fate",
+                "Justice",
+                "Life and Death",
+                "Love",
+                "Courage"
+              ]
             }
           ]
         },
@@ -1265,7 +2700,18 @@
           "works": [
             {
               "title": "Laws",
-              "selection": "Book X"
+              "selection": "Book X",
+              "themes": "Law; Government; Justice; Dialectic; Education; Good and Evil; Knowledge; Love",
+              "great_ideas": [
+                "Law",
+                "Government",
+                "Justice",
+                "Dialectic",
+                "Education",
+                "Good and Evil",
+                "Knowledge",
+                "Love"
+              ]
             }
           ]
         },
@@ -1276,7 +2722,18 @@
           "works": [
             {
               "title": "Metaphysics",
-              "selection": "Book XII"
+              "selection": "Book XII",
+              "themes": "Science; Physics; Being; Metaphysics; Philosophy; Cause; Change; Form",
+              "great_ideas": [
+                "Being",
+                "Cause",
+                "Change",
+                "Form",
+                "Science",
+                "Physics",
+                "Metaphysics",
+                "Philosophy"
+              ]
             }
           ]
         },
@@ -1286,7 +2743,17 @@
           "author": "Tacitus",
           "works": [
             {
-              "title": "The Histories"
+              "title": "The Histories",
+              "themes": "Science; Physics; Courage; Honor; Mechanics; War and Peace; Hypothesis",
+              "great_ideas": [
+                "Courage",
+                "Honor",
+                "Hypothesis",
+                "Science",
+                "Physics",
+                "Mechanics",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1296,7 +2763,14 @@
           "author": "Plotinus",
           "works": [
             {
-              "title": "Fifth Ennead"
+              "title": "Fifth Ennead",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1307,7 +2781,18 @@
           "works": [
             {
               "title": "The City of God",
-              "selection": "Book XV–XVIII"
+              "selection": "Book XV-XVIII",
+              "themes": "God; Religion; Theology; Government; History; Justice; Law; State",
+              "great_ideas": [
+                "God",
+                "Government",
+                "History",
+                "Justice",
+                "Law",
+                "Religion",
+                "Theology",
+                "State"
+              ]
             }
           ]
         },
@@ -1318,7 +2803,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 1–13"
+              "selection": "Part I, QQ 1-13",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1329,7 +2825,17 @@
           "works": [
             {
               "title": "The Divine Comedy",
-              "selection": "Purgatory"
+              "selection": "Purgatory",
+              "themes": "God; Sin; Justice; Love; Theology; Virtue and Vice; Religion",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Love",
+                "Sin",
+                "Theology",
+                "Virtue and Vice",
+                "Religion"
+              ]
             }
           ]
         },
@@ -1339,16 +2845,60 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "The Comedy of Errors"
+              "title": "The Comedy of Errors",
+              "themes": "Love; Desire; Emotion; Fate; Good and Evil; Justice; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Love",
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "The Taming of the Shrew"
+              "title": "The Taming of the Shrew",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "As You Like It"
+              "title": "As You Like It",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Twelfth Night"
+              "title": "Twelfth Night",
+              "themes": "Desire; Love; Emotion; Fate; Good and Evil; Justice; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Love",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1359,7 +2909,18 @@
           "works": [
             {
               "title": "Ethics",
-              "selection": "Part I"
+              "selection": "Part I",
+              "themes": "God; Metaphysics; Nature; Reasoning; Truth; Virtue and Vice; Will; Art",
+              "great_ideas": [
+                "God",
+                "Art",
+                "Metaphysics",
+                "Nature",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice",
+                "Will"
+              ]
             }
           ]
         },
@@ -1369,7 +2930,18 @@
           "author": "Milton",
           "works": [
             {
-              "title": "Samson Agonistes"
+              "title": "Samson Agonistes",
+              "themes": "Religion; Sin; Government; Law; Liberty; Poetry; Truth; God",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Liberty",
+                "God",
+                "Religion",
+                "Sin",
+                "Poetry",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1379,7 +2951,18 @@
           "author": "Pascal",
           "works": [
             {
-              "title": "The Provincial Letters"
+              "title": "The Provincial Letters",
+              "themes": "God; Religion; Chance; Infinity; Reasoning; Theology; Truth; Will",
+              "great_ideas": [
+                "God",
+                "Chance",
+                "Infinity",
+                "Religion",
+                "Reasoning",
+                "Theology",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1390,7 +2973,18 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
-              "selection": "Book IV"
+              "selection": "Book IV",
+              "themes": "Constitution; Experience; Government; Justice; Knowledge; Law; Liberty; Reasoning",
+              "great_ideas": [
+                "Constitution",
+                "Experience",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Liberty",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1401,7 +2995,17 @@
           "works": [
             {
               "title": "The Decline and Fall of the Roman Empire",
-              "selection": "Ch. 1–5; General Observations on the Fall of the Roman Empire in the West"
+              "selection": "Ch. 1-5; General Observations...",
+              "themes": "Cause; Government; History; Religion; Revolution; State; War and Peace",
+              "great_ideas": [
+                "Cause",
+                "Government",
+                "History",
+                "Religion",
+                "Revolution",
+                "State",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1412,7 +3016,18 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
-              "selection": "Transcendental Dialectic"
+              "selection": "Transcendental Dialectic",
+              "themes": "Knowledge; Reasoning; Experience; Judgment; Metaphysics; Mind; Truth; Duty",
+              "great_ideas": [
+                "Knowledge",
+                "Experience",
+                "Judgment",
+                "Duty",
+                "Reasoning",
+                "Metaphysics",
+                "Mind",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1423,7 +3038,16 @@
           "works": [
             {
               "title": "The Philosophy of History",
-              "selection": "Introduction"
+              "selection": "Introduction",
+              "themes": "Government; History; Knowledge; Philosophy; Truth; War and Peace",
+              "great_ideas": [
+                "Government",
+                "History",
+                "Knowledge",
+                "Philosophy",
+                "Truth",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1434,7 +3058,14 @@
           "works": [
             {
               "title": "War and Peace",
-              "selection": "Book IX–XV; Epilogues"
+              "selection": "Book IX-XV; Epilogues",
+              "themes": "Courage; Honor; War and Peace; Truth",
+              "great_ideas": [
+                "Courage",
+                "Honor",
+                "War and Peace",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1445,7 +3076,15 @@
           "author": "Kierkegaard",
           "works": [
             {
-              "title": "Fear and Trembling"
+              "title": "Fear and Trembling",
+              "themes": "Duty; God; Love; Truth; Will",
+              "great_ideas": [
+                "Duty",
+                "God",
+                "Love",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1457,7 +3096,15 @@
           "works": [
             {
               "title": "The Waning of the Middle Ages",
-              "selection": "I–X"
+              "selection": "I-X",
+              "themes": "Art; Custom and Convention; History; Religion; World",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "History",
+                "Religion",
+                "World"
+              ]
             }
           ]
         },
@@ -1468,7 +3115,43 @@
           "author": "Shaw",
           "works": [
             {
-              "title": "Saint Joan"
+              "title": "Saint Joan",
+              "themes": "Science; Hypothesis; Induction; Physics",
+              "great_ideas": [
+                "Hypothesis",
+                "Induction",
+                "Science",
+                "Physics"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 27,
+          "tier": "core",
+          "author": "Racine",
+          "works": [
+            {
+              "title": "Bérénice",
+              "selection": "Focus: Acts I-II (conflict stated); Act IV (decision); Act V (resolution)",
+              "themes": "Government; Law; State; Truth",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "State",
+                "Truth"
+              ]
+            },
+            {
+              "title": "Phèdre",
+              "selection": "Focus: Acts I-II (desire/confession); Act III (crisis); Act V (catastrophe)",
+              "themes": "Desire; Love; Pleasure and Pain; Truth",
+              "great_ideas": [
+                "Desire",
+                "Love",
+                "Pleasure and Pain",
+                "Truth"
+              ]
             }
           ]
         }
@@ -1483,13 +3166,46 @@
           "author": "Old Testament",
           "works": [
             {
-              "title": "Job"
+              "title": "Job",
+              "themes": "God; Religion; Theology; Fate; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Fate",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Theology"
+              ]
             },
             {
-              "title": "Isaiah"
+              "title": "Isaiah",
+              "themes": "Justice; Law; Fate; God; Life and Death; Love; Prophecy; Religion",
+              "great_ideas": [
+                "Justice",
+                "Law",
+                "Fate",
+                "God",
+                "Life and Death",
+                "Love",
+                "Prophecy",
+                "Religion"
+              ]
             },
             {
-              "title": "Amos"
+              "title": "Amos",
+              "themes": "Justice; Law; Fate; God; Life and Death; Love; Prophecy; Religion",
+              "great_ideas": [
+                "Justice",
+                "Law",
+                "Fate",
+                "God",
+                "Life and Death",
+                "Love",
+                "Prophecy",
+                "Religion"
+              ]
             }
           ]
         },
@@ -1499,7 +3215,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Symposium"
+              "title": "Symposium",
+              "themes": "Beauty; Desire; Love; Form; Good and Evil; Soul; Dialectic; Education",
+              "great_ideas": [
+                "Beauty",
+                "Desire",
+                "Love",
+                "Form",
+                "Good and Evil",
+                "Dialectic",
+                "Education",
+                "Soul"
+              ]
             }
           ]
         },
@@ -1509,7 +3236,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Philebus"
+              "title": "Philebus",
+              "themes": "Dialectic; Education; Good and Evil; Government; Justice; Knowledge; Law; Love",
+              "great_ideas": [
+                "Dialectic",
+                "Education",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Love"
+              ]
             }
           ]
         },
@@ -1520,7 +3258,18 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book VIII–X"
+              "selection": "Book VIII-X",
+              "themes": "Duty; Happiness; Justice; Pleasure and Pain; Prudence; Reasoning; Temperance; Virtue and Vice",
+              "great_ideas": [
+                "Duty",
+                "Happiness",
+                "Justice",
+                "Pleasure and Pain",
+                "Prudence",
+                "Reasoning",
+                "Temperance",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1530,18 +3279,46 @@
           "author": "Archimedes",
           "works": [
             {
-              "title": "Measurement of a Circle"
+              "title": "Measurement of a Circle",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             },
             {
               "title": "On the Equilibrium of Planes",
-              "selection": "Book I"
+              "selection": "Book I",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             },
             {
-              "title": "The Sand-Reckoner"
+              "title": "The Sand-Reckoner",
+              "themes": "Art; Memory and Imagination; Mind; Truth",
+              "great_ideas": [
+                "Art",
+                "Memory and Imagination",
+                "Mind",
+                "Truth"
+              ]
             },
             {
               "title": "On Floating Bodies",
-              "selection": "Book I"
+              "selection": "Book I",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1551,7 +3328,14 @@
           "author": "Epictetus",
           "works": [
             {
-              "title": "Discourses"
+              "title": "Discourses",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1561,7 +3345,14 @@
           "author": "Plotinus",
           "works": [
             {
-              "title": "First Ennead"
+              "title": "First Ennead",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1572,7 +3363,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I–II, QQ 1–5"
+              "selection": "Part I-II, QQ 1-5",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1583,7 +3385,18 @@
           "works": [
             {
               "title": "The Divine Comedy",
-              "selection": "Paradise"
+              "selection": "Paradise",
+              "themes": "God; Beauty; Immortality; Love; Theology; Truth; Religion; Sin",
+              "great_ideas": [
+                "God",
+                "Beauty",
+                "Immortality",
+                "Love",
+                "Theology",
+                "Truth",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -1594,7 +3407,16 @@
           "works": [
             {
               "title": "Gargantua and Pantagruel",
-              "selection": "Book III–IV"
+              "selection": "Book III-IV",
+              "themes": "Art; Custom and Convention; Education; Good and Evil; Happiness; Language",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Education",
+                "Good and Evil",
+                "Happiness",
+                "Language"
+              ]
             }
           ]
         },
@@ -1604,13 +3426,46 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "Julius Caesar"
+              "title": "Julius Caesar",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Antony and Cleopatra"
+              "title": "Antony and Cleopatra",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Coriolanus"
+              "title": "Coriolanus",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1621,7 +3476,17 @@
           "works": [
             {
               "title": "Two New Sciences",
-              "selection": "First Day"
+              "selection": "First Day",
+              "themes": "Science; Hypothesis; Physics; Cause; Mathematics; Mechanics; Induction",
+              "great_ideas": [
+                "Hypothesis",
+                "Cause",
+                "Induction",
+                "Science",
+                "Physics",
+                "Mathematics",
+                "Mechanics"
+              ]
             }
           ]
         },
@@ -1632,7 +3497,18 @@
           "works": [
             {
               "title": "Ethics",
-              "selection": "Part IV–V"
+              "selection": "Part IV-V",
+              "themes": "God; Metaphysics; Nature; Reasoning; Truth; Virtue and Vice; Will; Art",
+              "great_ideas": [
+                "God",
+                "Art",
+                "Metaphysics",
+                "Nature",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice",
+                "Will"
+              ]
             }
           ]
         },
@@ -1643,11 +3519,29 @@
           "works": [
             {
               "title": "Mathematical Principles of Natural Philosophy",
-              "selection": "Book III, Rules"
+              "selection": "Book III, Rules; General Scholium (revisit)",
+              "themes": "Cause; Mathematics; Mechanics; Physics; Science; Space; Time; Knowledge",
+              "great_ideas": [
+                "Cause",
+                "Knowledge",
+                "Mathematics",
+                "Mechanics",
+                "Physics",
+                "Science",
+                "Space",
+                "Time"
+              ]
             },
             {
               "title": "Optics",
-              "selection": "Book I, Part I; Book III, Queries"
+              "selection": "Book I, Part I; Book III, Queries",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1657,7 +3551,14 @@
           "author": "Huygens",
           "works": [
             {
-              "title": "Treatise on Light"
+              "title": "Treatise on Light",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1667,7 +3568,18 @@
           "author": "Kant",
           "works": [
             {
-              "title": "Critique of Practical Reason"
+              "title": "Critique of Practical Reason",
+              "themes": "Reasoning; Duty; Judgment; Law; Liberty; Metaphysics; Truth; Will",
+              "great_ideas": [
+                "Duty",
+                "Judgment",
+                "Law",
+                "Liberty",
+                "Reasoning",
+                "Metaphysics",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1678,7 +3590,18 @@
           "works": [
             {
               "title": "Critique of Judgment",
-              "selection": "Critique of Aesthetic Judgment"
+              "selection": "Critique of Aesthetic Judgment",
+              "themes": "Duty; Judgment; Law; Liberty; Metaphysics; Reasoning; Truth; Will",
+              "great_ideas": [
+                "Duty",
+                "Judgment",
+                "Law",
+                "Liberty",
+                "Metaphysics",
+                "Reasoning",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1688,7 +3611,18 @@
           "author": "Mill",
           "works": [
             {
-              "title": "Utilitarianism"
+              "title": "Utilitarianism",
+              "themes": "Democracy; Government; Happiness; Justice; Law; Liberty; Virtue and Vice; God",
+              "great_ideas": [
+                "Democracy",
+                "Government",
+                "Happiness",
+                "Justice",
+                "Law",
+                "Liberty",
+                "God",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1700,7 +3634,18 @@
           "works": [
             {
               "title": "Essays in Sociology",
-              "selection": "Part III"
+              "selection": "Part III",
+              "themes": "Custom and Convention; Government; Law; Religion; State; Art; Beauty; Form",
+              "great_ideas": [
+                "Custom and Convention",
+                "Government",
+                "Law",
+                "Art",
+                "Beauty",
+                "Form",
+                "Religion",
+                "State"
+              ]
             }
           ]
         },
@@ -1711,7 +3656,18 @@
           "author": "Proust",
           "works": [
             {
-              "title": "Swann in Love"
+              "title": "Swann in Love",
+              "themes": "Desire; Love; Memory and Imagination; Mind; Time; Truth; Beauty; Experience",
+              "great_ideas": [
+                "Desire",
+                "Love",
+                "Beauty",
+                "Experience",
+                "Memory and Imagination",
+                "Mind",
+                "Time",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1722,7 +3678,18 @@
           "author": "Brecht",
           "works": [
             {
-              "title": "Mother Courage and Her Children"
+              "title": "Mother Courage and Her Children",
+              "themes": "War and Peace; Courage; Government; Honor; Justice; Labor; Tyranny and Despotism; Wealth",
+              "great_ideas": [
+                "Courage",
+                "Government",
+                "Honor",
+                "Justice",
+                "Labor",
+                "War and Peace",
+                "Tyranny and Despotism",
+                "Wealth"
+              ]
             }
           ]
         }
@@ -1737,13 +3704,46 @@
           "author": "Aristophanes",
           "works": [
             {
-              "title": "Thesmophoriazusae"
+              "title": "Thesmophoriazusae",
+              "themes": "Art; Custom and Convention; Democracy; Desire; Education; Government; Rhetoric; God",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Democracy",
+                "Desire",
+                "Education",
+                "Government",
+                "God",
+                "Rhetoric"
+              ]
             },
             {
-              "title": "Ecclesiazusae"
+              "title": "Ecclesiazusae",
+              "themes": "Art; Custom and Convention; Democracy; Desire; Education; Government; Rhetoric; God",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Democracy",
+                "Desire",
+                "Education",
+                "Government",
+                "God",
+                "Rhetoric"
+              ]
             },
             {
-              "title": "Plutus"
+              "title": "Plutus",
+              "themes": "Art; Custom and Convention; Democracy; Desire; Education; Government; Rhetoric; God",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "Democracy",
+                "Desire",
+                "Education",
+                "Government",
+                "God",
+                "Rhetoric"
+              ]
             }
           ]
         },
@@ -1753,7 +3753,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Gorgias"
+              "title": "Gorgias",
+              "themes": "Rhetoric; Truth; Desire; Good and Evil; Government; Justice; Knowledge; Dialectic",
+              "great_ideas": [
+                "Desire",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Dialectic",
+                "Rhetoric",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1764,7 +3775,18 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
-              "selection": "Book V"
+              "selection": "Book V",
+              "themes": "Duty; Happiness; Justice; Pleasure and Pain; Prudence; Reasoning; Temperance; Virtue and Vice",
+              "great_ideas": [
+                "Duty",
+                "Happiness",
+                "Justice",
+                "Pleasure and Pain",
+                "Prudence",
+                "Reasoning",
+                "Temperance",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -1775,7 +3797,18 @@
           "works": [
             {
               "title": "Rhetoric",
-              "selection": "Book I, Ch. 1—Book II, Ch. 1; Book II, Ch. 20—Book III, Ch. 1; Book III, Ch. 13–19"
+              "selection": "Book I, Ch. 1-Book II, Ch. 1; Book II, Ch. 20-Book III, Ch. 1; Book III, Ch. 13-19",
+              "themes": "Language; Opinion; Rhetoric; Emotion; Reasoning; Truth; Government; Happiness",
+              "great_ideas": [
+                "Language",
+                "Emotion",
+                "Government",
+                "Happiness",
+                "Opinion",
+                "Rhetoric",
+                "Reasoning",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1785,7 +3818,18 @@
           "author": "Augustine",
           "works": [
             {
-              "title": "On Christian Doctrine"
+              "title": "On Christian Doctrine",
+              "themes": "God; Love; Religion; Sin; Soul; Theology; Time; Truth",
+              "great_ideas": [
+                "God",
+                "Love",
+                "Religion",
+                "Sin",
+                "Soul",
+                "Theology",
+                "Time",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1796,7 +3840,18 @@
           "works": [
             {
               "title": "Leviathan",
-              "selection": "Part II"
+              "selection": "Part II",
+              "themes": "Government; Justice; Law; Liberty; Necessity and Contingency; State; Tyranny and Despotism; Art",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Art",
+                "Necessity and Contingency",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -1806,10 +3861,32 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "Othello"
+              "title": "Othello",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "King Lear"
+              "title": "King Lear",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -1820,7 +3897,14 @@
           "works": [
             {
               "title": "The Advancement of Learning",
-              "selection": "Book I, Ch. 1—Book II, Ch. 11"
+              "selection": "Book I, Ch. 1-Book II, Ch. 11",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1830,7 +3914,32 @@
           "author": "Descartes",
           "works": [
             {
-              "title": "Meditations on First Philosophy"
+              "title": "Meditations on First Philosophy",
+              "themes": "Knowledge; Mind; Reasoning; Truth; Idea; Metaphysics; Logic; Art",
+              "great_ideas": [
+                "Knowledge",
+                "Idea",
+                "Logic",
+                "Art",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Metaphysics"
+              ]
+            },
+            {
+              "title": "Meditations on the First Philosophy",
+              "themes": "Knowledge; Mind; Reasoning; Truth; Idea; Metaphysics; Logic; Art",
+              "great_ideas": [
+                "Knowledge",
+                "Idea",
+                "Logic",
+                "Art",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Metaphysics"
+              ]
             }
           ]
         },
@@ -1841,7 +3950,18 @@
           "works": [
             {
               "title": "Ethics",
-              "selection": "Part III"
+              "selection": "Part III",
+              "themes": "God; Metaphysics; Nature; Reasoning; Truth; Virtue and Vice; Will; Art",
+              "great_ideas": [
+                "God",
+                "Art",
+                "Metaphysics",
+                "Nature",
+                "Reasoning",
+                "Truth",
+                "Virtue and Vice",
+                "Will"
+              ]
             }
           ]
         },
@@ -1851,7 +3971,18 @@
           "author": "Locke",
           "works": [
             {
-              "title": "A Letter Concerning Toleration"
+              "title": "A Letter Concerning Toleration",
+              "themes": "Government; Law; Constitution; Experience; Justice; Knowledge; Liberty; Reasoning",
+              "great_ideas": [
+                "Government",
+                "Law",
+                "Constitution",
+                "Experience",
+                "Justice",
+                "Knowledge",
+                "Liberty",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1861,7 +3992,18 @@
           "author": "Rousseau",
           "works": [
             {
-              "title": "A Discourse on Political Economy"
+              "title": "A Discourse on Political Economy",
+              "themes": "Citizen; Democracy; Government; Justice; Law; Liberty; Revolution; State",
+              "great_ideas": [
+                "Citizen",
+                "Democracy",
+                "Government",
+                "Justice",
+                "Law",
+                "Liberty",
+                "Revolution",
+                "State"
+              ]
             }
           ]
         },
@@ -1872,7 +4014,17 @@
           "works": [
             {
               "title": "The Wealth of Nations",
-              "selection": "Book II"
+              "selection": "Book II",
+              "themes": "Government; Labor; Wealth; Justice; Liberty; Progress; Prudence",
+              "great_ideas": [
+                "Government",
+                "Labor",
+                "Justice",
+                "Liberty",
+                "Wealth",
+                "Progress",
+                "Prudence"
+              ]
             }
           ]
         },
@@ -1882,7 +4034,14 @@
           "author": "Boswell",
           "works": [
             {
-              "title": "The Life of Samuel Johnson"
+              "title": "The Life of Samuel Johnson",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1893,7 +4052,18 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Prefaces, Part I–II"
+              "selection": "Prefaces; Part I-II",
+              "themes": "Government; Justice; Labor; Progress; Revolution; State; Wealth; Slavery",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Labor",
+                "Progress",
+                "Revolution",
+                "State",
+                "Wealth",
+                "Slavery"
+              ]
             }
           ]
         },
@@ -1904,7 +4074,18 @@
           "works": [
             {
               "title": "Faust",
-              "selection": "Part I"
+              "selection": "Part I",
+              "themes": "Art; Desire; Good and Evil; Love; Truth; Will; Beauty; Form",
+              "great_ideas": [
+                "Art",
+                "Desire",
+                "Good and Evil",
+                "Love",
+                "Beauty",
+                "Form",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1915,7 +4096,18 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. VIII–X"
+              "selection": "Ch. VIII-X",
+              "themes": "Emotion; Experience; Knowledge; Memory and Imagination; Mind; Reasoning; Truth; Will",
+              "great_ideas": [
+                "Emotion",
+                "Experience",
+                "Knowledge",
+                "Memory and Imagination",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1926,7 +4118,14 @@
           "author": "Sterne",
           "works": [
             {
-              "title": "Tristram Shandy"
+              "title": "Tristram Shandy",
+              "themes": "Knowledge; Philosophy; Truth; Reasoning",
+              "great_ideas": [
+                "Knowledge",
+                "Philosophy",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -1938,7 +4137,18 @@
           "works": [
             {
               "title": "The Word of God and the Word of Man",
-              "selection": "I–IV"
+              "selection": "I-IV",
+              "themes": "God; Religion; Theology; Sin; Truth; Will; Art; Beauty",
+              "great_ideas": [
+                "God",
+                "Art",
+                "Beauty",
+                "Religion",
+                "Theology",
+                "Sin",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -1949,7 +4159,18 @@
           "author": "Bergson",
           "works": [
             {
-              "title": "An Introduction to Metaphysics"
+              "title": "An Introduction to Metaphysics",
+              "themes": "Metaphysics; Time; Experience; Knowledge; Mind; Science; Truth; Physics",
+              "great_ideas": [
+                "Experience",
+                "Knowledge",
+                "Metaphysics",
+                "Time",
+                "Mind",
+                "Science",
+                "Truth",
+                "Physics"
+              ]
             }
           ]
         },
@@ -1960,7 +4181,14 @@
           "author": "Hardy",
           "works": [
             {
-              "title": "A Mathematician's Apology"
+              "title": "A Mathematician's Apology",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1971,7 +4199,76 @@
           "author": "Kafka",
           "works": [
             {
-              "title": "The Metamorphosis"
+              "title": "The Metamorphosis",
+              "themes": "Custom and Convention; Family; Love; Truth",
+              "great_ideas": [
+                "Custom and Convention",
+                "Family",
+                "Love",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 26,
+          "tier": "core",
+          "author": "Whitehead",
+          "works": [
+            {
+              "title": "An Introduction to Mathematics",
+              "selection": "Focus: chapters on number, continuity, infinity, geometry",
+              "themes": "Science; Mathematics; Nature; Philosophy; Progress; Reasoning; Quantity; Hypothesis",
+              "great_ideas": [
+                "Hypothesis",
+                "Science",
+                "Mathematics",
+                "Nature",
+                "Philosophy",
+                "Progress",
+                "Reasoning",
+                "Quantity"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 27,
+          "tier": "core",
+          "author": "James",
+          "works": [
+            {
+              "title": "Pragmatism",
+              "selection": "Lectures I-II; VI-VIII (truth, consequences, temperament)",
+              "themes": "Knowledge; Reasoning; Truth; Experience; Philosophy; Will; Memory and Imagination; Mind",
+              "great_ideas": [
+                "Knowledge",
+                "Experience",
+                "Reasoning",
+                "Truth",
+                "Philosophy",
+                "Will",
+                "Memory and Imagination",
+                "Mind"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 28,
+          "tier": "core",
+          "author": "Henry James",
+          "works": [
+            {
+              "title": "The Beast in the Jungle",
+              "selection": "(Novella) Focus: the 'waiting' motif; recognition scene; ending",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         }
@@ -1986,7 +4283,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Sophist"
+              "title": "Sophist",
+              "themes": "Dialectic; Education; Good and Evil; Government; Justice; Knowledge; Law; Love",
+              "great_ideas": [
+                "Dialectic",
+                "Education",
+                "Good and Evil",
+                "Government",
+                "Justice",
+                "Knowledge",
+                "Law",
+                "Love"
+              ]
             }
           ]
         },
@@ -1997,7 +4305,18 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
-              "selection": "Book VII–VIII"
+              "selection": "Book VII-VIII",
+              "themes": "War and Peace; Government; Honor; Cause; Justice; State; Tyranny and Despotism; Courage",
+              "great_ideas": [
+                "Government",
+                "Honor",
+                "Cause",
+                "Justice",
+                "Courage",
+                "War and Peace",
+                "State",
+                "Tyranny and Despotism"
+              ]
             }
           ]
         },
@@ -2008,7 +4327,18 @@
           "works": [
             {
               "title": "Politics",
-              "selection": "Book VII–VIII"
+              "selection": "Book VII-VIII",
+              "themes": "Aristocracy; Citizen; Constitution; Democracy; Government; Law; Monarchy; Oligarchy",
+              "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Constitution",
+                "Democracy",
+                "Government",
+                "Law",
+                "Monarchy",
+                "Oligarchy"
+              ]
             }
           ]
         },
@@ -2018,13 +4348,88 @@
           "author": "New Testament",
           "works": [
             {
-              "title": "The Gospel According to St. John"
+              "title": "The Gospel According to St. John",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "Epistle of Paul to the Romans"
+              "title": "Epistle of Paul to the Romans",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "First Epistle of Paul to the Corinthians"
+              "title": "First Epistle of Paul to the Corinthians",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
+            },
+            {
+              "title": "Epistle to the Romans",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
+            },
+            {
+              "title": "First Epistle to the Corinthians",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
+            },
+            {
+              "title": "Gospel of John",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             }
           ]
         },
@@ -2035,7 +4440,18 @@
           "works": [
             {
               "title": "The City of God",
-              "selection": "Book V, XIX"
+              "selection": "Book V, XIX",
+              "themes": "God; Religion; Theology; Government; History; Justice; Law; State",
+              "great_ideas": [
+                "God",
+                "Government",
+                "History",
+                "Justice",
+                "Law",
+                "Religion",
+                "Theology",
+                "State"
+              ]
             }
           ]
         },
@@ -2046,7 +4462,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part II–II, QQ 1–7"
+              "selection": "Part II-II, QQ 1-7",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -2056,7 +4483,14 @@
           "author": "Gilbert",
           "works": [
             {
-              "title": "On the Loadstone"
+              "title": "On the Loadstone",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2066,7 +4500,18 @@
           "author": "Descartes",
           "works": [
             {
-              "title": "Rules for the Direction of the Mind"
+              "title": "Rules for the Direction of the Mind",
+              "themes": "Knowledge; Reasoning; Mind; Truth; Idea; Logic; Metaphysics; Art",
+              "great_ideas": [
+                "Knowledge",
+                "Idea",
+                "Logic",
+                "Art",
+                "Reasoning",
+                "Mind",
+                "Truth",
+                "Metaphysics"
+              ]
             }
           ]
         },
@@ -2076,7 +4521,18 @@
           "author": "Descartes",
           "works": [
             {
-              "title": "The Geometry"
+              "title": "The Geometry",
+              "themes": "Idea; Knowledge; Logic; Metaphysics; Mind; Reasoning; Truth; Art",
+              "great_ideas": [
+                "Idea",
+                "Knowledge",
+                "Logic",
+                "Art",
+                "Metaphysics",
+                "Mind",
+                "Reasoning",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2086,10 +4542,32 @@
           "author": "Pascal",
           "works": [
             {
-              "title": "The Great Experiment Concerning the Equilibrium of Fluids"
+              "title": "The Great Experiment Concerning the Equilibrium of Fluids",
+              "themes": "God; Religion; Chance; Infinity; Reasoning; Theology; Truth; Will",
+              "great_ideas": [
+                "God",
+                "Chance",
+                "Infinity",
+                "Religion",
+                "Reasoning",
+                "Theology",
+                "Truth",
+                "Will"
+              ]
             },
             {
-              "title": "On Geometrical Demonstration"
+              "title": "On Geometrical Demonstration",
+              "themes": "God; Religion; Chance; Infinity; Reasoning; Theology; Truth; Will",
+              "great_ideas": [
+                "God",
+                "Chance",
+                "Infinity",
+                "Religion",
+                "Reasoning",
+                "Theology",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -2100,7 +4578,18 @@
           "works": [
             {
               "title": "The Spirit of the Laws",
-              "selection": "Book I–V, VIII, XI–XII"
+              "selection": "Book I–V, VIII, XI–XII",
+              "themes": "Law; Constitution; Government; Justice; State; Democracy; Liberty; Monarchy",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "Government",
+                "Justice",
+                "Democracy",
+                "Liberty",
+                "State",
+                "Monarchy"
+              ]
             }
           ]
         },
@@ -2111,10 +4600,26 @@
           "works": [
             {
               "title": "Experimental Researches in Electricity",
-              "selection": "Series I–II"
+              "selection": "Series I-II",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             },
             {
-              "title": "A Speculation Touching Electric Conduction and the Nature of Matter"
+              "title": "A Speculation Touching Electric Conduction and the Nature of Matter",
+              "themes": "God; Nature; Physics; Religion; Science; Sin",
+              "great_ideas": [
+                "God",
+                "Nature",
+                "Physics",
+                "Religion",
+                "Science",
+                "Sin"
+              ]
             }
           ]
         },
@@ -2125,7 +4630,16 @@
           "works": [
             {
               "title": "The Philosophy of Right",
-              "selection": "Part III"
+              "selection": "Part III",
+              "themes": "Art; Beauty; Form; Knowledge; Philosophy; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Knowledge",
+                "Philosophy",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2136,7 +4650,18 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Part III–IV"
+              "selection": "Part III-IV",
+              "themes": "Government; Justice; Labor; Progress; Revolution; State; Wealth; Slavery",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Labor",
+                "Progress",
+                "Revolution",
+                "State",
+                "Wealth",
+                "Slavery"
+              ]
             }
           ]
         },
@@ -2146,7 +4671,18 @@
           "author": "Freud",
           "works": [
             {
-              "title": "Civilization and Its Discontents"
+              "title": "Civilization and Its Discontents",
+              "themes": "Religion; Sin; Desire; Happiness; Law; Mind; Pleasure and Pain; Emotion",
+              "great_ideas": [
+                "Desire",
+                "Happiness",
+                "Law",
+                "Emotion",
+                "Religion",
+                "Sin",
+                "Mind",
+                "Pleasure and Pain"
+              ]
             }
           ]
         },
@@ -2158,7 +4694,14 @@
           "works": [
             {
               "title": "On Conic Sections",
-              "selection": "Book I, Prop. 1–15; Book III, Prop. 42–55"
+              "selection": "Book I, Prop. 1-15; Book III, Prop. 42-55",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -2169,7 +4712,14 @@
           "author": "Fielding",
           "works": [
             {
-              "title": "Tom Jones"
+              "title": "Tom Jones",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2181,7 +4731,14 @@
           "works": [
             {
               "title": "Analytical Theory of Heat",
-              "selection": "Preliminary Discourse, Ch. 1–2"
+              "selection": "Preliminary Discourse; Ch. 1-2",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -2192,7 +4749,17 @@
           "author": "Molière",
           "works": [
             {
-              "title": "Tartuffe"
+              "title": "Tartuffe",
+              "themes": "Science; Physics; Art; Beauty; Form; Mechanics; Hypothesis",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Hypothesis",
+                "Science",
+                "Physics",
+                "Mechanics"
+              ]
             }
           ]
         },
@@ -2203,7 +4770,14 @@
           "author": "Austen",
           "works": [
             {
-              "title": "Emma"
+              "title": "Emma",
+              "themes": "Education; Experience; Knowledge; Truth",
+              "great_ideas": [
+                "Education",
+                "Experience",
+                "Knowledge",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2214,7 +4788,14 @@
           "author": "Planck",
           "works": [
             {
-              "title": "Scientific Autobiography"
+              "title": "Scientific Autobiography",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -2225,7 +4806,15 @@
           "author": "Veblen",
           "works": [
             {
-              "title": "The Theory of the Leisure Class"
+              "title": "The Theory of the Leisure Class",
+              "themes": "Custom and Convention; Government; Labor; Progress; Wealth",
+              "great_ideas": [
+                "Custom and Convention",
+                "Government",
+                "Labor",
+                "Progress",
+                "Wealth"
+              ]
             }
           ]
         },
@@ -2236,7 +4825,18 @@
           "author": "Joyce",
           "works": [
             {
-              "title": "A Portrait of the Artist as a Young Man"
+              "title": "A Portrait of the Artist as a Young Man",
+              "themes": "Form; Art; Beauty; Being; Language; Metaphysics; Rhetoric; Sign and Symbol",
+              "great_ideas": [
+                "Form",
+                "Art",
+                "Beauty",
+                "Being",
+                "Language",
+                "Metaphysics",
+                "Rhetoric",
+                "Sign and Symbol"
+              ]
             }
           ]
         },
@@ -2247,7 +4847,75 @@
           "author": "Hemingway",
           "works": [
             {
-              "title": "The Short Happy Life of Francis Macomber"
+              "title": "The Short Happy Life of Francis Macomber",
+              "themes": "Courage; Honor; War and Peace; Truth",
+              "great_ideas": [
+                "Courage",
+                "Honor",
+                "War and Peace",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 28,
+          "tier": "core",
+          "author": "Balzac",
+          "works": [
+            {
+              "title": "Cousin Bette",
+              "selection": "Focus: opening setup; mid-novel revenge mechanics; final reckoning",
+              "themes": "Science; Physics; God; Mechanics; Religion; Sin; Hypothesis",
+              "great_ideas": [
+                "God",
+                "Hypothesis",
+                "Science",
+                "Physics",
+                "Mechanics",
+                "Religion",
+                "Sin"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 29,
+          "tier": "core",
+          "author": "Tawney",
+          "works": [
+            {
+              "title": "The Acquisitive Society",
+              "selection": "Focus: core chapters on property, function, and social purpose",
+              "themes": "Government; Justice; Labor; Law; Virtue and Vice; Wealth",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Labor",
+                "Law",
+                "Virtue and Vice",
+                "Wealth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 30,
+          "tier": "core",
+          "author": "Keynes",
+          "works": [
+            {
+              "title": "The General Theory of Employment, Interest, and Money",
+              "selection": "Book I; Book III (effective demand); Book IV (investment); Book V (money/interest)",
+              "themes": "Government; Labor; Wealth; Chance; Progress; Prudence",
+              "great_ideas": [
+                "Government",
+                "Labor",
+                "Chance",
+                "Wealth",
+                "Progress",
+                "Prudence"
+              ]
             }
           ]
         }
@@ -2262,10 +4930,32 @@
           "author": "Sophocles",
           "works": [
             {
-              "title": "Ajax"
+              "title": "Ajax",
+              "themes": "Courage; Fate; Good and Evil; Justice; Law; Life and Death; Punishment; God",
+              "great_ideas": [
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "God",
+                "Punishment"
+              ]
             },
             {
-              "title": "Electra"
+              "title": "Electra",
+              "themes": "Courage; Fate; Good and Evil; Justice; Law; Life and Death; Punishment; God",
+              "great_ideas": [
+                "Courage",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "God",
+                "Punishment"
+              ]
             }
           ]
         },
@@ -2275,7 +4965,18 @@
           "author": "Plato",
           "works": [
             {
-              "title": "Timaeus"
+              "title": "Timaeus",
+              "themes": "Nature; Science; Cause; Form; Space; Time; World; Dialectic",
+              "great_ideas": [
+                "Cause",
+                "Form",
+                "Dialectic",
+                "Nature",
+                "Science",
+                "Space",
+                "Time",
+                "World"
+              ]
             }
           ]
         },
@@ -2286,11 +4987,33 @@
           "works": [
             {
               "title": "Parts of Animals",
-              "selection": "Book I, Ch. 1—Book II, Ch. 1"
+              "selection": "On the Parts: Book I, Ch. 1-Book II, Ch. 1; On Generation: Book I, Ch. 1, 17-18, 20-23",
+              "themes": "Government; Happiness; Justice; Law; Logic; Nature; Reasoning; Science",
+              "great_ideas": [
+                "Government",
+                "Happiness",
+                "Justice",
+                "Law",
+                "Logic",
+                "Nature",
+                "Reasoning",
+                "Science"
+              ]
             },
             {
               "title": "On the Generation of Animals",
-              "selection": "Book I, Ch. 1, 17–18, 20–23"
+              "selection": "On the Parts: Book I, Ch. 1-Book II, Ch. 1; On Generation: Book I, Ch. 1, 17-18, 20-23",
+              "themes": "Government; Happiness; Justice; Law; Logic; Nature; Reasoning; Science",
+              "great_ideas": [
+                "Government",
+                "Happiness",
+                "Justice",
+                "Law",
+                "Logic",
+                "Nature",
+                "Reasoning",
+                "Science"
+              ]
             }
           ]
         },
@@ -2301,7 +5024,14 @@
           "works": [
             {
               "title": "On the Nature of Things",
-              "selection": "Book V–VI"
+              "selection": "Book V-VI",
+              "themes": "Nature; Physics; Science; Truth",
+              "great_ideas": [
+                "Nature",
+                "Physics",
+                "Science",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2311,10 +5041,24 @@
           "author": "Virgil",
           "works": [
             {
-              "title": "Eclogues"
+              "title": "Eclogues",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             },
             {
-              "title": "Georgics"
+              "title": "Georgics",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2325,18 +5069,18 @@
           "works": [
             {
               "title": "Summa Theologica",
-              "selection": "Part I, QQ 65–74"
-            }
-          ]
-        },
-        {
-          "order": 7,
-          "tier": "core",
-          "author": "Thomas Aquinas",
-          "works": [
-            {
-              "title": "Summa Theologica",
-              "selection": "Part I, QQ 90–102"
+              "selection": "Part I, QQ 90-102",
+              "themes": "Reasoning; God; Justice; Law; Soul; Theology; Truth; Virtue and Vice",
+              "great_ideas": [
+                "God",
+                "Justice",
+                "Law",
+                "Reasoning",
+                "Soul",
+                "Theology",
+                "Truth",
+                "Virtue and Vice"
+              ]
             }
           ]
         },
@@ -2356,6 +5100,14 @@
                 "Friar’s Prologue and Tale",
                 "Summoner’s Prologue and Tale",
                 "Pardoner’s Prologue and Tale"
+              ],
+              "selection": "Prologue; Knight's Tale; Miller's ...; Reeve's ...; Wife of Bath's ...; Friar's ...; Summoner's ...; Pardoner's ...",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
               ]
             }
           ]
@@ -2366,16 +5118,88 @@
           "author": "Shakespeare",
           "works": [
             {
-              "title": "Richard II"
+              "title": "Richard II",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Henry IV, Part 1"
+              "title": "Henry IV, Part 1",
+              "themes": "War and Peace; Desire; Emotion; Fate; Form; Good and Evil; Justice; Love",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Form",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Henry IV, Part 2"
+              "title": "Henry IV, Part 2",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Henry V"
+              "title": "Henry V",
+              "themes": "War and Peace; Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "War and Peace",
+                "Tyranny and Despotism"
+              ]
+            },
+            {
+              "title": "Henry IV (Part 1)",
+              "themes": "War and Peace; Desire; Emotion; Fate; Form; Good and Evil; Justice; Love",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Form",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "War and Peace"
+              ]
+            },
+            {
+              "title": "Henry IV (Part 2)",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             }
           ]
         },
@@ -2386,7 +5210,14 @@
           "works": [
             {
               "title": "On the Generation of Animals",
-              "selection": "Introduction—Exercise 62"
+              "selection": "Introduction-Exercise 62",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
             }
           ]
         },
@@ -2397,7 +5228,14 @@
           "works": [
             {
               "title": "Don Quixote",
-              "selection": "Part II"
+              "selection": "Part II",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2408,7 +5246,18 @@
           "works": [
             {
               "title": "Critique of Judgment",
-              "selection": "Critique of Teleological Judgment"
+              "selection": "Critique of Teleological Judgment",
+              "themes": "Reasoning; Duty; Judgment; Law; Liberty; Metaphysics; Truth; Will",
+              "great_ideas": [
+                "Duty",
+                "Judgment",
+                "Law",
+                "Liberty",
+                "Reasoning",
+                "Metaphysics",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -2419,7 +5268,18 @@
           "works": [
             {
               "title": "Faust",
-              "selection": "Part II"
+              "selection": "Part II",
+              "themes": "Art; Desire; Good and Evil; Love; Truth; Will; Beauty; Form",
+              "great_ideas": [
+                "Art",
+                "Desire",
+                "Good and Evil",
+                "Love",
+                "Beauty",
+                "Form",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -2430,7 +5290,18 @@
           "works": [
             {
               "title": "The Descent of Man",
-              "selection": "Part I; Part III, Ch. 21"
+              "selection": "Part I; Part III, Ch. 21",
+              "themes": "Cause; Chance; Evolution; Life and Death; Man; Nature; Science; Art",
+              "great_ideas": [
+                "Cause",
+                "Chance",
+                "Evolution",
+                "Life and Death",
+                "Art",
+                "Man",
+                "Nature",
+                "Science"
+              ]
             }
           ]
         },
@@ -2441,7 +5312,18 @@
           "works": [
             {
               "title": "Capital",
-              "selection": "Part VII–VIII"
+              "selection": "Part VII-VIII",
+              "themes": "Government; Justice; Labor; Progress; Revolution; State; Wealth; Slavery",
+              "great_ideas": [
+                "Government",
+                "Justice",
+                "Labor",
+                "Progress",
+                "Revolution",
+                "State",
+                "Wealth",
+                "Slavery"
+              ]
             }
           ]
         },
@@ -2452,7 +5334,18 @@
           "works": [
             {
               "title": "The Principles of Psychology",
-              "selection": "Ch. I, V–VII"
+              "selection": "Ch. I; Ch. V-VII",
+              "themes": "Emotion; Experience; Knowledge; Memory and Imagination; Mind; Reasoning; Truth; Will",
+              "great_ideas": [
+                "Emotion",
+                "Experience",
+                "Knowledge",
+                "Memory and Imagination",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -2462,7 +5355,18 @@
           "author": "Freud",
           "works": [
             {
-              "title": "A General Introduction to Psycho-analysis"
+              "title": "A General Introduction to Psycho-analysis",
+              "themes": "Sin; Desire; Emotion; Memory and Imagination; Mind; Truth; Will; God",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "God",
+                "Sin",
+                "Memory and Imagination",
+                "Mind",
+                "Truth",
+                "Will"
+              ]
             }
           ]
         },
@@ -2473,7 +5377,14 @@
           "author": "Boswell",
           "works": [
             {
-              "title": "The Life of Samuel Johnson"
+              "title": "The Life of Samuel Johnson",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2484,7 +5395,14 @@
           "author": "Erasmus",
           "works": [
             {
-              "title": "In Praise of Folly"
+              "title": "In Praise of Folly",
+              "themes": "Knowledge; Reasoning; Truth; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Reasoning",
+                "Truth"
+              ]
             }
           ]
         },
@@ -2496,7 +5414,15 @@
           "works": [
             {
               "title": "The Waning of the Middle Ages",
-              "selection": "XI–XXIII"
+              "selection": "XI-XXIII",
+              "themes": "Art; Custom and Convention; History; Religion; World",
+              "great_ideas": [
+                "Art",
+                "Custom and Convention",
+                "History",
+                "Religion",
+                "World"
+              ]
             }
           ]
         },
@@ -2507,7 +5433,18 @@
           "author": "Eddington",
           "works": [
             {
-              "title": "The Expanding Universe"
+              "title": "The Expanding Universe",
+              "themes": "Astronomy; Cause; Hypothesis; Science; Space; Time; Language; Logic",
+              "great_ideas": [
+                "Astronomy",
+                "Cause",
+                "Hypothesis",
+                "Language",
+                "Logic",
+                "Science",
+                "Space",
+                "Time"
+              ]
             }
           ]
         },
@@ -2518,7 +5455,376 @@
           "author": "T. S. Eliot",
           "works": [
             {
-              "title": "The Waste Land"
+              "title": "The Waste Land",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 27,
+          "tier": "core",
+          "author": "Cather",
+          "works": [
+            {
+              "title": "A Lost Lady",
+              "selection": "Focus: Parts I-II; social change theme; ending",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 28,
+          "tier": "core",
+          "author": "Faulkner",
+          "works": [
+            {
+              "title": "A Rose for Emily",
+              "selection": "(Short story) Focus: narrative structure & final reveal",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 29,
+          "tier": "core",
+          "author": "Bohr",
+          "works": [
+            {
+              "title": "Atomic Theory and the Description of Nature",
+              "selection": "Focus: complementarity; measurement; limits of classical concepts",
+              "themes": "Physics; Science; Cause; Hypothesis; Knowledge; Truth; Nature",
+              "great_ideas": [
+                "Cause",
+                "Hypothesis",
+                "Knowledge",
+                "Physics",
+                "Science",
+                "Truth",
+                "Nature"
+              ]
+            },
+            {
+              "title": "Discussion with Einstein on Epistemology",
+              "selection": "Focus: central exchanges on uncertainty & completeness",
+              "themes": "Hypothesis; Knowledge; Physics; Reasoning; Science; Truth; Cause",
+              "great_ideas": [
+                "Hypothesis",
+                "Knowledge",
+                "Cause",
+                "Physics",
+                "Reasoning",
+                "Science",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 30,
+          "tier": "core",
+          "author": "Thomas Mann",
+          "works": [
+            {
+              "title": "Death in Venice",
+              "selection": "Focus: Part II-IV (obsession); myth references; ending",
+              "themes": "Art; Beauty; Form; Truth",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 32,
+          "tier": "core",
+          "author": "Conrad",
+          "works": [
+            {
+              "title": "Heart of Darkness",
+              "selection": "Focus: frame narrative opening; Kurtz sections; closing return",
+              "themes": "Art; Beauty; Form; God; Religion; Sin",
+              "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "God",
+                "Religion",
+                "Sin"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 33,
+          "tier": "core",
+          "author": "Dickens",
+          "works": [
+            {
+              "title": "Little Dorrit",
+              "selection": "Focus: 'Circumlocution Office' episodes; Marshalsea prison chapters; closing revelations",
+              "themes": "God; Religion; Sin; Truth",
+              "great_ideas": [
+                "God",
+                "Religion",
+                "Sin",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 34,
+          "tier": "core",
+          "author": "George Eliot",
+          "works": [
+            {
+              "title": "Middlemarch",
+              "selection": "Focus: Books I-II; V-VI; Finale (author's moral reflections)",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 35,
+          "tier": "core",
+          "author": "Eugene O'Neill",
+          "works": [
+            {
+              "title": "Mourning Becomes Electra",
+              "selection": "Focus: Homecoming; The Hunted; The Haunted (trilogy arc)",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 36,
+          "tier": "core",
+          "author": "Wittgenstein",
+          "works": [
+            {
+              "title": "Philosophical Investigations",
+              "selection": "§§1-43; 65-88; 243-315 (meaning, family resemblance, private language)",
+              "themes": "Language; Sign and Symbol; Logic; Mind; Philosophy; Truth; Custom and Convention; Family",
+              "great_ideas": [
+                "Language",
+                "Logic",
+                "Custom and Convention",
+                "Family",
+                "Sign and Symbol",
+                "Mind",
+                "Philosophy",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 37,
+          "tier": "core",
+          "author": "Einstein",
+          "works": [
+            {
+              "title": "Relativity: The Special and the General Theory",
+              "selection": "Focus: Part I ch. 1-8; Part II ch. 10-16",
+              "themes": "Cause; Hypothesis; Mathematics; Physics; Science; Space; Time; Art",
+              "great_ideas": [
+                "Cause",
+                "Hypothesis",
+                "Art",
+                "Mathematics",
+                "Physics",
+                "Science",
+                "Space",
+                "Time"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 38,
+          "tier": "core",
+          "author": "Pirandello",
+          "works": [
+            {
+              "title": "Six Characters in Search of an Author",
+              "selection": "Focus: the intrusion; rehearsal conflicts; final scene ambiguity",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 39,
+          "tier": "core",
+          "author": "F. Scott Fitzgerald",
+          "works": [
+            {
+              "title": "The Great Gatsby",
+              "selection": "Ch. 1-3; 6-7; 9 (dream, class, collapse)",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 40,
+          "tier": "core",
+          "author": "Russell",
+          "works": [
+            {
+              "title": "The Problems of Philosophy",
+              "selection": "Ch. 1-3; 6; 10; 15 (appearance/reality, knowledge, universals)",
+              "themes": "Knowledge; Truth; Philosophy; Reasoning; Logic; Mind",
+              "great_ideas": [
+                "Knowledge",
+                "Logic",
+                "Truth",
+                "Philosophy",
+                "Reasoning",
+                "Mind"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 41,
+          "tier": "core",
+          "author": "D. H. Lawrence",
+          "works": [
+            {
+              "title": "The Prussian Officer",
+              "selection": "Focus: buildup of domination; climactic confrontation; aftermath",
+              "themes": "Law; Constitution; Government; Justice; State",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "Government",
+                "Justice",
+                "State"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 42,
+          "tier": "core",
+          "author": "Virginia Woolf",
+          "works": [
+            {
+              "title": "To the Lighthouse",
+              "selection": "Focus: 'The Window'; 'Time Passes'; 'The Lighthouse'",
+              "themes": "Change; Eternity; Time; Truth",
+              "great_ideas": [
+                "Change",
+                "Eternity",
+                "Time",
+                "Truth"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 43,
+          "tier": "core",
+          "author": "Chekhov",
+          "works": [
+            {
+              "title": "Uncle Vanya",
+              "selection": "Focus: Acts I-II (stasis); Act III (eruption); Act IV (aftermath)",
+              "themes": "Truth; Knowledge; Reasoning; Justice",
+              "great_ideas": [
+                "Knowledge",
+                "Justice",
+                "Truth",
+                "Reasoning"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 44,
+          "tier": "core",
+          "author": "Beckett",
+          "works": [
+            {
+              "title": "Waiting for Godot",
+              "selection": "Focus: Act I vs Act II repetitions; 'waiting' theme; ending",
+              "themes": "Desire; Life and Death; Mind; Time; Truth; God; Religion; Theology",
+              "great_ideas": [
+                "Desire",
+                "Life and Death",
+                "God",
+                "Mind",
+                "Time",
+                "Truth",
+                "Religion",
+                "Theology"
+              ]
+            }
+          ]
+        },
+        {
+          "order": 45,
+          "tier": "core",
+          "author": "Heidegger",
+          "works": [
+            {
+              "title": "What is Metaphysics?",
+              "selection": "(Whole essay) Focus: anxiety, the Nothing, science vs metaphysics",
+              "themes": "Being; Metaphysics; Philosophy; Truth; World; Science; Mind; Hypothesis",
+              "great_ideas": [
+                "Being",
+                "Hypothesis",
+                "Metaphysics",
+                "Philosophy",
+                "Truth",
+                "World",
+                "Science",
+                "Mind"
+              ]
             }
           ]
         }

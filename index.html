@@ -1163,7 +1163,7 @@
         </div>
 
         <div class="navRow">
-          <button class="btn" id="authBtn" type="button" style="display:none;">
+          <button class="btn" id="authBtn" type="button" style="display:none;" aria-label="Sign in">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="authBtnIcon">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line>
             </svg>
@@ -1989,39 +1989,88 @@
       });
     }
 
+    // SVG icon paths as constants for safety
+    const LOGIN_ICON_PATH = 'M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4';
+    const LOGIN_ICON_POLYLINE = '10 17 15 12 10 7';
+    const LOGIN_ICON_LINE = {x1: '15', y1: '12', x2: '3', y2: '12'};
+    const LOGOUT_ICON_PATH = 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4';
+    const LOGOUT_ICON_POLYLINE = '16 17 21 12 16 7';
+    const LOGOUT_ICON_LINE = {x1: '21', y1: '12', x2: '9', y2: '12'};
+
+    function setSVGIcon(iconElement, isLogout) {
+      // Clear existing content
+      while (iconElement.firstChild) {
+        iconElement.removeChild(iconElement.firstChild);
+      }
+      
+      // Create SVG elements safely using DOM methods
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      
+      if (isLogout) {
+        path.setAttribute('d', LOGOUT_ICON_PATH);
+        polyline.setAttribute('points', LOGOUT_ICON_POLYLINE);
+        line.setAttribute('x1', LOGOUT_ICON_LINE.x1);
+        line.setAttribute('y1', LOGOUT_ICON_LINE.y1);
+        line.setAttribute('x2', LOGOUT_ICON_LINE.x2);
+        line.setAttribute('y2', LOGOUT_ICON_LINE.y2);
+      } else {
+        path.setAttribute('d', LOGIN_ICON_PATH);
+        polyline.setAttribute('points', LOGIN_ICON_POLYLINE);
+        line.setAttribute('x1', LOGIN_ICON_LINE.x1);
+        line.setAttribute('y1', LOGIN_ICON_LINE.y1);
+        line.setAttribute('x2', LOGIN_ICON_LINE.x2);
+        line.setAttribute('y2', LOGIN_ICON_LINE.y2);
+      }
+      
+      iconElement.appendChild(path);
+      iconElement.appendChild(polyline);
+      iconElement.appendChild(line);
+    }
+
     function updateAuthUI() {
       const authBtn = $("#authBtn");
       const authBtnText = $("#authBtnText");
       const authBtnIcon = $("#authBtnIcon");
 
       if (currentUser) {
-        // Signed in: show email, on hover show "Sign Out"
+        // Signed in: show email, on hover/focus show "Sign Out"
         authBtn.style.display = "inline-flex";
         authBtn.classList.add("signed-in");
         authBtnText.textContent = currentUser.email;
+        authBtn.setAttribute("aria-label", "Signed in as " + currentUser.email + ". Click to sign out.");
         
-        // Update SVG to logout icon
-        authBtnIcon.innerHTML = '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line>';
+        // Update SVG to logout icon using safe DOM methods
+        setSVGIcon(authBtnIcon, true);
         
-        // Add hover listeners to change text
-        authBtn.onmouseenter = () => {
+        // Add hover and focus listeners to change text for accessibility
+        const showSignOut = () => {
           authBtnText.textContent = "Sign Out";
         };
-        authBtn.onmouseleave = () => {
+        const showEmail = () => {
           authBtnText.textContent = currentUser.email;
         };
+        
+        authBtn.onmouseenter = showSignOut;
+        authBtn.onmouseleave = showEmail;
+        authBtn.onfocus = showSignOut;
+        authBtn.onblur = showEmail;
       } else {
         // Not signed in: show "Sign In"
         authBtn.style.display = "inline-flex";
         authBtn.classList.remove("signed-in");
         authBtnText.textContent = "Sign In";
+        authBtn.setAttribute("aria-label", "Sign in");
         
-        // Update SVG to login icon
-        authBtnIcon.innerHTML = '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line>';
+        // Update SVG to login icon using safe DOM methods
+        setSVGIcon(authBtnIcon, false);
         
-        // Remove hover listeners
+        // Remove hover and focus listeners
         authBtn.onmouseenter = null;
         authBtn.onmouseleave = null;
+        authBtn.onfocus = null;
+        authBtn.onblur = null;
       }
     }
 

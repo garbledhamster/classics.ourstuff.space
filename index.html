@@ -173,14 +173,16 @@
       display:none;
     }
     
-    /* On hover when signed in, switch to logout styling */
-    #authBtn.signed-in:hover{
+    /* On hover or focus when signed in, switch to logout styling */
+    #authBtn.signed-in:hover,
+    #authBtn.signed-in:focus-visible{
       background:#ffebee;
       border:2px solid #f44336;
       color:#b71c1c;
     }
     
-    #authBtn.signed-in:hover svg{
+    #authBtn.signed-in:hover svg,
+    #authBtn.signed-in:focus-visible svg{
       display:inline;
     }
 
@@ -2036,42 +2038,49 @@
 
       if (currentUser) {
         // Signed in: show email, on hover/focus show "Sign Out"
+        const userEmail = currentUser.email; // Capture email in local scope
         authBtn.style.display = "inline-flex";
         authBtn.classList.add("signed-in");
-        authBtnText.textContent = currentUser.email;
-        authBtn.setAttribute("aria-label", "Signed in as " + currentUser.email + ". Click to sign out.");
+        authBtnText.textContent = userEmail;
+        authBtn.setAttribute("aria-label", "Signed in as " + userEmail + ". Click to sign out.");
+        authBtn.dataset.userEmail = userEmail; // Store email in data attribute for event handlers
         
         // Update SVG to logout icon using safe DOM methods
         setSVGIcon(authBtnIcon, true);
-        
-        // Add hover and focus listeners to change text for accessibility
-        const showSignOut = () => {
-          authBtnText.textContent = "Sign Out";
-        };
-        const showEmail = () => {
-          authBtnText.textContent = currentUser.email;
-        };
-        
-        authBtn.onmouseenter = showSignOut;
-        authBtn.onmouseleave = showEmail;
-        authBtn.onfocus = showSignOut;
-        authBtn.onblur = showEmail;
       } else {
         // Not signed in: show "Sign In"
         authBtn.style.display = "inline-flex";
         authBtn.classList.remove("signed-in");
         authBtnText.textContent = "Sign In";
         authBtn.setAttribute("aria-label", "Sign in");
+        delete authBtn.dataset.userEmail; // Remove email from data attribute
         
         // Update SVG to login icon using safe DOM methods
         setSVGIcon(authBtnIcon, false);
-        
-        // Remove hover and focus listeners
-        authBtn.onmouseenter = null;
-        authBtn.onmouseleave = null;
-        authBtn.onfocus = null;
-        authBtn.onblur = null;
       }
+    }
+    
+    // Set up event handlers once during initialization
+    function initAuthButtonHandlers() {
+      const authBtn = $("#authBtn");
+      const authBtnText = $("#authBtnText");
+      
+      const showSignOut = () => {
+        if (authBtn.classList.contains("signed-in")) {
+          authBtnText.textContent = "Sign Out";
+        }
+      };
+      
+      const showEmail = () => {
+        if (authBtn.classList.contains("signed-in") && authBtn.dataset.userEmail) {
+          authBtnText.textContent = authBtn.dataset.userEmail;
+        }
+      };
+      
+      authBtn.addEventListener("mouseenter", showSignOut);
+      authBtn.addEventListener("mouseleave", showEmail);
+      authBtn.addEventListener("focus", showSignOut);
+      authBtn.addEventListener("blur", showEmail);
     }
 
     function showLoginModal() {
@@ -5832,6 +5841,7 @@
       if (bootCalled) return;
       bootCalled = true;
       initAuth();
+      initAuthButtonHandlers();
       loadPlan();
     }
     

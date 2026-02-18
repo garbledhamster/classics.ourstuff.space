@@ -168,7 +168,18 @@
           "author": "New Testament",
           "works": [
             {
-              "title": "The Gospel According to Saint Matthew"
+              "title": "The Gospel According to Saint Matthew",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
               "title": "The Acts of the Apostles",
@@ -912,9 +923,6 @@
           "tier": "core",
           "author": "Swift",
           "works": [
-            {
-              "title": "Gulliver’s Travels"
-            },
             {
               "title": "Gulliver's Travels",
               "themes": "Science; Hypothesis; Physics; Induction; Nature",
@@ -1869,7 +1877,18 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
-              "selection": "Prefaces, Introduction, Transcendental Aesthetic"
+              "selection": "Prefaces, Introduction, Transcendental Aesthetic",
+              "themes": "Knowledge; Reasoning; Experience; Judgment; Metaphysics; Mind; Truth; Duty",
+              "great_ideas": [
+                "Knowledge",
+                "Experience",
+                "Judgment",
+                "Duty",
+                "Reasoning",
+                "Metaphysics",
+                "Mind",
+                "Truth"
+              ]
             }
           ]
         },
@@ -1879,7 +1898,18 @@
           "author": "Melville",
           "works": [
             {
-              "title": "Moby Dick"
+              "title": "Moby Dick",
+              "themes": "Fate; Good and Evil; Justice; Life and Death; Nature; Truth; Art; Beauty",
+              "great_ideas": [
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Life and Death",
+                "Art",
+                "Beauty",
+                "Nature",
+                "Truth"
+              ]
             },
             {
               "title": "Moby-Dick",
@@ -2207,7 +2237,18 @@
           "works": [
             {
               "title": "On the Revolutions of Heavenly Spheres",
-              "selection": "Introduction—Book I, Ch. 11"
+              "selection": "Introduction—Book I, Ch. 11",
+              "themes": "Government; Science; State; Evolution; Law; Nature; Revolution; Hypothesis",
+              "great_ideas": [
+                "Government",
+                "Evolution",
+                "Law",
+                "Hypothesis",
+                "Science",
+                "State",
+                "Nature",
+                "Revolution"
+              ]
             },
             {
               "title": "Revolutions of the Heavenly Spheres",
@@ -3873,7 +3914,18 @@
           "author": "Descartes",
           "works": [
             {
-              "title": "Meditations on First Philosophy"
+              "title": "Meditations on First Philosophy",
+              "themes": "Knowledge; Mind; Reasoning; Truth; Idea; Metaphysics; Logic; Art",
+              "great_ideas": [
+                "Knowledge",
+                "Idea",
+                "Logic",
+                "Art",
+                "Mind",
+                "Reasoning",
+                "Truth",
+                "Metaphysics"
+              ]
             },
             {
               "title": "Meditations on the First Philosophy",
@@ -4296,13 +4348,46 @@
           "author": "New Testament",
           "works": [
             {
-              "title": "The Gospel According to St. John"
+              "title": "The Gospel According to St. John",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "Epistle of Paul to the Romans"
+              "title": "Epistle of Paul to the Romans",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
-              "title": "First Epistle of Paul to the Corinthians"
+              "title": "First Epistle of Paul to the Corinthians",
+              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
+              "great_ideas": [
+                "God",
+                "Duty",
+                "Justice",
+                "Law",
+                "Life and Death",
+                "Love",
+                "Religion",
+                "Sin"
+              ]
             },
             {
               "title": "Epistle to the Romans",
@@ -4493,7 +4578,18 @@
           "works": [
             {
               "title": "The Spirit of the Laws",
-              "selection": "Book I–V, VIII, XI–XII"
+              "selection": "Book I–V, VIII, XI–XII",
+              "themes": "Law; Constitution; Government; Justice; State; Democracy; Liberty; Monarchy",
+              "great_ideas": [
+                "Law",
+                "Constitution",
+                "Government",
+                "Justice",
+                "Democracy",
+                "Liberty",
+                "State",
+                "Monarchy"
+              ]
             }
           ]
         },
@@ -5036,10 +5132,32 @@
               ]
             },
             {
-              "title": "Henry IV, Part 1"
+              "title": "Henry IV, Part 1",
+              "themes": "War and Peace; Desire; Emotion; Fate; Form; Good and Evil; Justice; Love",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Form",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "War and Peace"
+              ]
             },
             {
-              "title": "Henry IV, Part 2"
+              "title": "Henry IV, Part 2",
+              "themes": "Desire; Emotion; Fate; Good and Evil; Justice; Love; Tyranny and Despotism; War and Peace",
+              "great_ideas": [
+                "Desire",
+                "Emotion",
+                "Fate",
+                "Good and Evil",
+                "Justice",
+                "Love",
+                "Tyranny and Despotism",
+                "War and Peace"
+              ]
             },
             {
               "title": "Henry V",

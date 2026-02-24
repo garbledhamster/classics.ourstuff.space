@@ -1860,6 +1860,10 @@
       const q = encodeURIComponent(`"${title}" ${author} site:gutenberg.org OR site:gutenberg.net.au OR site:gutenberg.ca OR site:archive.org OR site:wikisource.org OR site:fadedpage.com OR site:standardebooks.org OR site:freeread.de`.trim());
       return `https://www.google.com/search?q=${q}`;
     }
+    function buildOutlinesSearchUrl(title, author) {
+      const q = encodeURIComponent(`"${title}" ${author} outline`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
     function buildLearningSearchUrl({ title, author, platform, goal }) {
       const goalText = String(goal || "").trim();
       const q = encodeURIComponent(`${title} ${author}${platform === "youtube" ? YOUTUBE_SEARCH_SUFFIX : ""} ${goalText}`.trim());
@@ -4032,6 +4036,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
               </button>
+              <button class="btn" type="button" data-action="openOutlinesLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+                Outlines
+              </button>
               <button class="btn" type="button" data-action="newNoteLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 New note
@@ -4258,6 +4266,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
               </button>
+              <button class="btn" type="button" data-action="openOutlines">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+                Outlines
+              </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -4405,6 +4417,13 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openOutlines"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4565,6 +4584,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Source
               </button>
+              <button class="btn" type="button" data-action="openOutlines">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
+                Outlines
+              </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -4662,6 +4685,11 @@
 
         if (btn.dataset.action === "openSourceLib"){
           window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openOutlinesLib"){
+          window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4842,6 +4870,13 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openOutlines"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 

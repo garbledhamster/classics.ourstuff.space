@@ -1918,7 +1918,9 @@
       return `https://www.google.com/search?q=${q}`;
     }
     function buildOutlinesSearchUrl(title, author) {
-      const q = encodeURIComponent(`"${title}" ${author} outline`.trim());
+      const types = `(outline OR "chapter outline" OR "reading guide")`;
+      const sources = `(filetype:pdf OR site:.edu OR site:sparknotes.com OR site:cliffsnotes.com OR site:litcharts.com)`;
+      const q = encodeURIComponent(`"${title}" ${author} ${types} ${sources}`.trim());
       return `https://www.google.com/search?q=${q}`;
     }
     function buildLearningSearchUrl({ title, author, platform, goal }) {

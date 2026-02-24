@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
+  <!-- Apply saved dark mode immediately to prevent flash of light theme -->
+  <script>try{if(localStorage.getItem("classicsDarkMode")==="true")document.documentElement.classList.add("dark");}catch(e){}</script>
   <title>The Classics — Library + Ten-Year Plan</title>
 
   <!-- Neo-brutal newspaper fonts -->
@@ -1117,6 +1119,57 @@
       word-break: break-word;
       min-width:0;
     }
+
+    /* ===== Dark mode ===== */
+    html.dark{
+      --paper:#111;
+      --ink:#eee;
+      --ink2:#ddd;
+      --muted:#888;
+    }
+    html.dark body{ background:var(--paper); color:var(--ink); }
+    html.dark .badge,
+    html.dark .btn,
+    html.dark .input,
+    html.dark .select,
+    html.dark .textarea,
+    html.dark .toggle,
+    html.dark .yearStepper,
+    html.dark .controls,
+    html.dark .libCard,
+    html.dark .yearCard,
+    html.dark .readingBlock,
+    html.dark .tier,
+    html.dark .marker,
+    html.dark .workRow,
+    html.dark .pill,
+    html.dark .modal,
+    html.dark .drawer,
+    html.dark .noteTools,
+    html.dark .noteList,
+    html.dark .editor,
+    html.dark .oaPreview,
+    html.dark .codebox,
+    html.dark .ytGoalDrawer,
+    html.dark .progressPopup,
+    html.dark .error{ background:#1a1a1a; color:var(--ink); }
+    html.dark .libActions,
+    html.dark .workActions{ background:#222; }
+    html.dark .bar,
+    html.dark .progressPopupBar{ background:#222; }
+    html.dark .tabOn{ background:var(--ink); color:var(--paper); }
+    html.dark .bar > span,
+    html.dark .progressPopupBar > span{ background:var(--ink); }
+    html.dark .noteItemPreview{ color:var(--ink2); }
+    html.dark .flash{ outline-color:var(--ink); }
+    html.dark .input:focus,
+    html.dark .select:focus,
+    html.dark .textarea:focus{ box-shadow:0 0 0 3px #ffffff22; }
+    html.dark footer{ border-top-color:var(--ink) !important; color:var(--muted) !important; }
+    #darkModeBtn .icon-moon{ display:inline; }
+    #darkModeBtn .icon-sun{ display:none; }
+    html.dark #darkModeBtn .icon-moon{ display:none; }
+    html.dark #darkModeBtn .icon-sun{ display:inline; }
   </style>
 </head>
 
@@ -1133,6 +1186,10 @@
           <span class="mono">•</span>
           <span id="today">Loading…</span>
         </div>
+        <button id="darkModeBtn" class="btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" style="padding:8px; line-height:0; align-self:center;">
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
       </div>
 
       <div class="rule"></div>
@@ -5885,6 +5942,36 @@
     if (window.firebaseReady) {
       boot();
     }
+
+    /* =========================================================
+       DARK MODE
+       ========================================================= */
+    (function(){
+      const DARK_KEY = "classicsDarkMode";
+      const html = document.documentElement;
+      const metaColorScheme = document.querySelector('meta[name="color-scheme"]');
+
+      function applyTheme(dark){
+        if(dark){
+          html.classList.add("dark");
+          if(metaColorScheme) metaColorScheme.content = "dark";
+        } else {
+          html.classList.remove("dark");
+          if(metaColorScheme) metaColorScheme.content = "light";
+        }
+      }
+
+      // Initialize from localStorage (also handles the case where the anti-flash
+      // script already added the class; we just keep it in sync)
+      try{ applyTheme(localStorage.getItem(DARK_KEY) === "true"); }catch(e){}
+
+      const btn = document.getElementById("darkModeBtn");
+      if(btn) btn.addEventListener("click", function(){
+        const isDark = html.classList.contains("dark");
+        applyTheme(!isDark);
+        try{ localStorage.setItem(DARK_KEY, String(!isDark)); }catch(e){}
+      });
+    })();
   </script>
 </body>
 </html>

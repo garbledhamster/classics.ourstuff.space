@@ -455,43 +455,6 @@
       white-space: nowrap;
     }
 
-    /* Bundle and Page Control Groups */
-    .bundlePageControlsContainer {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-    
-    @media (max-width: 980px) {
-      .bundlePageControlsContainer {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .bundleControlsGroup {
-      margin-bottom: 0;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-    }
-    
-    .pageControlsGroup {
-      margin-bottom: 0;
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-      border-top: none;
-    }
-    
-    .bundleButtonsRow {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      min-width: 0;
-    }
-
     /* Pills */
     .pill{
       border:var(--borderThin);
@@ -1204,10 +1167,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             Ten-Year Reading Plan
           </button>
-          <button class="btn" id="tabBundles" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-            Reading Bundles
-          </button>
           <button class="btn" id="openOpenAlexBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
             OpenAlex Options
@@ -1277,21 +1236,6 @@
             <option value="complete">Only complete</option>
           </select>
         </div>
-        <div class="control">
-          <div class="label">Add to Bundle</div>
-          <select id="libBundleSelect" class="select">
-            <option value="">— Select Bundle —</option>
-          </select>
-        </div>
-
-        <div class="control">
-          <div class="label">Bundle Page</div>
-          <select id="libBundlePageSelect" class="select">
-            <option value="1">Page 1</option>
-          </select>
-        </div>
-
-
         <div class="rowWide">
           <div class="help">Browse all works here. Use “Go to Plan” to jump into the Ten-Year schedule.</div>
           <button class="btn" id="libResetBtn" type="button">
@@ -1349,11 +1293,6 @@
             Only incomplete
           </label>
 
-          <button class="btn" id="clonePlanBtn" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            Clone to Bundle
-          </button>
-
           <button class="btn" id="resetChecksBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
             Reset checks
@@ -1373,64 +1312,7 @@
 
       <div id="planGrid" class="grid" aria-live="polite"></div>
     </section>
-
-    <!-- ===== BUNDLES VIEW ===== -->
-    <section id="bundlesView" class="view" aria-label="Reading Bundles view">
-      <!-- Bundle and Page Controls Container -->
-      <div class="bundlePageControlsContainer">
-        <!-- Bundle Controls Group -->
-        <section class="controls bundleControlsGroup" aria-label="bundle controls">
-          <div class="control">
-            <div class="label">Select Bundle</div>
-            <select id="bundleSelect" class="select">
-              <!-- User bundles only - Ten-Year Plan has its own tab -->
-            </select>
-          </div>
-          <div class="bundleButtonsRow">
-            <button class="btn" id="newBundleBtn" type="button" title="New Bundle" aria-label="New Bundle">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <button class="btn" id="renameBundleBtn" type="button" title="Rename Bundle" aria-label="Rename Bundle">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
-            </button>
-            <button class="btn" id="deleteBundleBtn" type="button" title="Delete Bundle" aria-label="Delete Bundle">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-            </button>
-          </div>
-        </section>
-
-        <!-- Page Controls Group -->
-        <section class="controls pageControlsGroup" aria-label="page controls">
-          <div class="control">
-            <div class="label">Page</div>
-            <div class="yearStepper">
-              <button class="btn" id="bundlePagePrev" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <span id="bundlePageDisplay" class="yearNum">Page 1</span>
-              <button class="btn" id="bundlePageNext" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-          </div>
-          <div class="bundleButtonsRow">
-            <button class="btn" id="addBundlePageBtn" type="button" title="Add Page" aria-label="Add Page">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </button>
-            <button class="btn" id="deletePageBtn" type="button" title="Delete Page" aria-label="Delete Page">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-            </button>
-            <button class="btn" id="renamePageBtn" type="button" title="Rename Page" aria-label="Rename Page">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
-            </button>
-          </div>
-        </section>
-      </div>
-
-      <div id="bundlesGrid" class="grid" aria-live="polite"></div>
-    </section>
-
-    <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+ style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data files: <span class="mono">./project.json</span> (catalog + sources), <span class="mono">./reading.json</span> (reading plan)</div>
       <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (when signed in)</div>
       <div id="syncStatus" style="font-weight:600;">Sign in to sync</div>
@@ -1440,31 +1322,6 @@
   <!-- Shared overlay (used for either drawer) -->
   <div id="overlay" class="overlay" aria-hidden="true"></div>
 
-  <!-- New Bundle Modal -->
-  <div id="newBundleModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="newBundleModalTitle">
-    <div class="modalHeader">
-      <h2 id="newBundleModalTitle" class="modalTitle">Create New Bundle</h2>
-      <button class="btn btnGhost" id="closeModalBtn" type="button" aria-label="Close modal">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </button>
-    </div>
-    <div class="modalBody">
-      <div class="control">
-        <label for="bundleNameInput" class="label">Bundle Name</label>
-        <input id="bundleNameInput" class="input" type="text" placeholder="My Reading Bundle" autocomplete="off" />
-      </div>
-      <div class="control">
-        <label for="defaultPageNameInput" class="label">Default Page Name</label>
-        <input id="defaultPageNameInput" class="input" type="text" placeholder="Page 1" autocomplete="off" />
-      </div>
-    </div>
-    <div class="modalFooter">
-      <button class="btn btnGhost" id="cancelModalBtn" type="button">Cancel</button>
-      <button class="btn" id="createBundleBtn" type="button">Create Bundle</button>
-    </div>
-  </div>
-
-  <!-- Alert Modal -->
   <div id="alertModal" class="modal" aria-hidden="true" role="alertdialog" aria-labelledby="alertModalTitle">
     <div class="modalHeader">
       <h2 id="alertModalTitle" class="modalTitle">Alert</h2>
@@ -1750,7 +1607,6 @@
         </div>
 
         <div class="help" id="editMeta"></div>
-        <div class="help" id="editBundlePageMeta" style="margin-top: 5px;"></div>
       </section>
     </div>
   </aside>
@@ -1888,9 +1744,6 @@
     const LS_CHECKS = "greatworks.reading.checks.v2";
     const LS_NOTES  = "greatworks.reading.notes.v1";
     const LS_OA     = "greatworks.openalex.settings.v1";
-    const LS_BUNDLES = "greatworks.reading.bundles.v2"; // Updated to v2 for artifact format
-    const LS_PAGES = "greatworks.reading.pages.v1"; // New storage for page artifacts
-    const LS_ACTIVE_BUNDLE = "greatworks.reading.activebundle.v1";
     
     const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
     const LEARNING_GOAL_OPTIONS = [
@@ -2042,7 +1895,6 @@
         // Perform sync when user logs in
         if (user) {
           await performFullSync(user.uid);
-          buildBundleDropdowns();
           renderAll();
           updateSyncStatus();
         } else {
@@ -2584,96 +2436,8 @@
       localStorage.setItem(LS_OA, JSON.stringify(s));
     }
 
-    // Bundle storage functions
-    function loadBundles(){
-      // Try loading from v2 (artifact format) first
-      const bundlesV2 = localStorage.getItem(LS_BUNDLES);
-      if (bundlesV2) {
-        return safeJsonParse(bundlesV2, []);
-      }
-      
-      // Try migrating from v1 (old format)
-      const bundlesV1 = localStorage.getItem("greatworks.reading.bundles.v1");
-      if (bundlesV1) {
-        const oldBundles = safeJsonParse(bundlesV1, []);
-        const migratedBundles = migrateBundlesToArtifactFormat(oldBundles);
-        saveBundles(migratedBundles);
-        return migratedBundles;
-      }
-      
-      return [];
-    }
-    
-    function saveBundles(arr){
-      localStorage.setItem(LS_BUNDLES, JSON.stringify(arr));
-      triggerAutoSync();
-    }
-    
-    function loadPages(){
-      return safeJsonParse(localStorage.getItem(LS_PAGES) || "{}", {});
-    }
-    
-    function savePages(obj){
-      localStorage.setItem(LS_PAGES, JSON.stringify(obj));
-      triggerAutoSync();
-    }
-    
-    function loadActiveBundle(){
-      return localStorage.getItem(LS_ACTIVE_BUNDLE) || "__default__";
-    }
-    
-    function saveActiveBundle(id){
-      localStorage.setItem(LS_ACTIVE_BUNDLE, id);
-    }
-
-    /* =========================================================
-       FIRESTORE SYNC FUNCTIONS
        ========================================================= */
     
-    // Sync bundles to Firestore
-    async function syncBundlesToFirestore(userId) {
-      if (!userId || !window.firebaseDB) return;
-      
-      try {
-        const bundles = state.bundles;
-        const db = window.firebaseDB;
-        
-        // Filter out default bundle
-        const userBundles = bundles.filter(bundle => !bundle.isDefault);
-        
-        // Store bundles in userPrivate/{userId} document
-        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
-        await window.firestoreSetDoc(userRef, {
-          bundles: userBundles,
-          bundlesSyncedAt: window.firestoreServerTimestamp()
-        }, { merge: true });
-      } catch (error) {
-        console.error('Error syncing bundles to Firestore:', error);
-        state.sync.error = error.message;
-      }
-    }
-    
-    // Sync pages to Firestore
-    async function syncPagesToFirestore(userId) {
-      if (!userId || !window.firebaseDB) return;
-      
-      try {
-        const pages = state.pages;
-        const db = window.firebaseDB;
-        
-        // Store pages in userPrivate/{userId} document
-        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
-        await window.firestoreSetDoc(userRef, {
-          pages: pages,
-          pagesSyncedAt: window.firestoreServerTimestamp()
-        }, { merge: true });
-      } catch (error) {
-        console.error('Error syncing pages to Firestore:', error);
-        state.sync.error = error.message;
-      }
-    }
-    
-    // Sync checks to Firestore
     async function syncChecksToFirestore(userId) {
       if (!userId || !window.firebaseDB) return;
       
@@ -2713,47 +2477,6 @@
       }
     }
     
-    // Load bundles from Firestore
-    async function loadBundlesFromFirestore(userId) {
-      if (!userId || !window.firebaseDB) return [];
-      
-      try {
-        const db = window.firebaseDB;
-        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
-        const docSnap = await window.firestoreGetDoc(userRef);
-        
-        if (docSnap.exists()) {
-          return docSnap.data().bundles || [];
-        }
-        return [];
-      } catch (error) {
-        console.error('Error loading bundles from Firestore:', error);
-        state.sync.error = error.message;
-        return [];
-      }
-    }
-    
-    // Load pages from Firestore
-    async function loadPagesFromFirestore(userId) {
-      if (!userId || !window.firebaseDB) return {};
-      
-      try {
-        const db = window.firebaseDB;
-        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
-        const docSnap = await window.firestoreGetDoc(userRef);
-        
-        if (docSnap.exists()) {
-          return docSnap.data().pages || {};
-        }
-        return {};
-      } catch (error) {
-        console.error('Error loading pages from Firestore:', error);
-        state.sync.error = error.message;
-        return {};
-      }
-    }
-    
-    // Load checks from Firestore
     async function loadChecksFromFirestore(userId) {
       if (!userId || !window.firebaseDB) return {};
       
@@ -2803,9 +2526,7 @@
       
       try {
         // First, load data from Firestore
-        const [remoteBundles, remotePages, remoteChecks, remoteNotes] = await Promise.all([
-          loadBundlesFromFirestore(userId),
-          loadPagesFromFirestore(userId),
+        const [remoteChecks, remoteNotes] = await Promise.all([
           loadChecksFromFirestore(userId),
           loadNotesFromFirestore(userId)
         ]);
@@ -2813,19 +2534,6 @@
         // Merge remote data with local data
         // Conflict resolution: When same ID exists locally and remotely, remote version wins
         // Always merge to preserve local-only data created while offline
-        
-        // Bundles: Merge by ID (Map.set overwrites local with remote for same ID)
-        const bundleMap = new Map(state.bundles.map(b => [b.id, b]));
-        for (const remoteBundle of remoteBundles) {
-          bundleMap.set(remoteBundle.id, remoteBundle); // Remote wins on conflict
-        }
-        state.bundles = Array.from(bundleMap.values());
-        // Write directly to localStorage to avoid triggering auto-sync (bypass saveBundles)
-        localStorage.setItem(LS_BUNDLES, JSON.stringify(state.bundles));
-        
-        // Pages: Merge by ID (spread operator, remote properties overwrite local on conflict)
-        state.pages = { ...state.pages, ...remotePages }; // Remote wins on conflict
-        localStorage.setItem(LS_PAGES, JSON.stringify(state.pages));
         
         // Checks: Merge by key (spread operator, remote values overwrite local on conflict)
         state.checks = { ...state.checks, ...remoteChecks }; // Remote wins on conflict
@@ -2841,8 +2549,6 @@
         
         // Push all merged data back to Firestore (includes local-only items)
         await Promise.all([
-          syncBundlesToFirestore(userId),
-          syncPagesToFirestore(userId),
           syncChecksToFirestore(userId),
           syncNotesToFirestore(userId)
         ]);
@@ -2901,180 +2607,6 @@
       }
     }
     
-    // Migration function: convert old bundle format to artifact format
-    function migrateBundlesToArtifactFormat(oldBundles){
-      const pages = loadPages();
-      const migratedBundles = [];
-      
-      for (const oldBundle of oldBundles) {
-        // Create bundle artifact
-        const bundle = createBundleArtifact(oldBundle.plan_name || "Migrated Bundle");
-        bundle.id = oldBundle.id || generateUlid(); // Keep old ID if available
-        bundle.createdAt = oldBundle.createdAt || nowIso();
-        bundle.updatedAt = oldBundle.updatedAt || nowIso();
-        
-        // Convert years to page artifacts
-        const pageIds = [];
-        if (oldBundle.years && Array.isArray(oldBundle.years)) {
-          for (const year of oldBundle.years) {
-            const pageId = generateUlid();
-            const pageArtifact = createPageArtifact(bundle.id, year.year || 1, year.name || `Page ${year.year}`);
-            pageArtifact.id = pageId;
-            pageArtifact.data.page.readings = year.readings || [];
-            pages[pageId] = pageArtifact;
-            pageIds.push(pageId);
-          }
-        }
-        
-        bundle.data.bundle.pages = pageIds;
-        migratedBundles.push(bundle);
-      }
-      
-      savePages(pages);
-      return migratedBundles;
-    }
-    // ULID generation (monotonic, lexicographically sortable)
-    function generateUlid(){
-      const ENCODING = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
-      const TIME_LEN = 10;
-      const RANDOM_LEN = 16;
-      
-      const timestamp = Date.now();
-      let ulid = "";
-      
-      // Encode timestamp (10 chars) in big-endian order (most significant first)
-      // We prepend characters while extracting least significant bits first
-      // to build the correct left-to-right order
-      let time = timestamp;
-      for (let i = TIME_LEN - 1; i >= 0; i--) {
-        ulid = ENCODING.charAt(time % 32) + ulid;
-        time = Math.floor(time / 32);
-      }
-      
-      // Add randomness (16 chars)
-      const randomBytes = crypto.getRandomValues(new Uint8Array(RANDOM_LEN));
-      for (let i = 0; i < RANDOM_LEN; i++) {
-        ulid += ENCODING.charAt(randomBytes[i] % 32);
-      }
-      
-      return ulid;
-    }
-
-    // Create artifact template for bundle
-    function createBundleArtifact(title, owner = "uid_default"){
-      const now = nowIso();
-      return {
-        id: generateUlid(),
-        type: "bundle",
-        title: title || "New Bundle",
-        owner: owner,
-        acl: {
-          owners: [owner],
-          editors: [],
-          viewers: []
-        },
-        visibility: "private",
-        primaryProjectId: null,
-        projectIds: [],
-        tags: [],
-        status: "active",
-        schemaVersion: 1,
-        createdAt: now,
-        updatedAt: now,
-        refs: {
-          assets: [],
-          sources: [],
-          links: []
-        },
-        data: {
-          core: {
-            text: "",
-            context: {
-              source: "",
-              location: "",
-              url: ""
-            },
-            assetIds: [],
-            meta: {}
-          },
-          bundle: {
-            pages: [] // Array of page artifact IDs
-          }
-        },
-        // Generic extension points per artifact template spec
-        // Applications can use these for custom metadata
-        extraAttributes: {
-          extraAttribute1: null,
-          extraAttribute2: null,
-          extraAttribute3: null,
-          extraAttribute4: null,
-          extraAttribute5: null
-        }
-      };
-    }
-
-    // Create artifact template for page
-    function createPageArtifact(bundleId, pageNumber, title, owner = "uid_default"){
-      const now = nowIso();
-      return {
-        id: generateUlid(),
-        type: "page",
-        title: title || `Page ${pageNumber}`,
-        owner: owner,
-        acl: {
-          owners: [owner],
-          editors: [],
-          viewers: []
-        },
-        visibility: "private",
-        primaryProjectId: bundleId,
-        projectIds: [bundleId],
-        tags: [],
-        status: "active",
-        schemaVersion: 1,
-        createdAt: now,
-        updatedAt: now,
-        refs: {
-          assets: [],
-          sources: [],
-          links: []
-        },
-        data: {
-          core: {
-            text: "",
-            context: {
-              source: "",
-              location: "",
-              url: ""
-            },
-            assetIds: [],
-            meta: {}
-          },
-          page: {
-            pageNumber: pageNumber,
-            readings: [] // Array of reading objects
-          }
-        },
-        // Generic extension points per artifact template spec
-        // Applications can use these for custom metadata
-        extraAttributes: {
-          extraAttribute1: null,
-          extraAttribute2: null,
-          extraAttribute3: null,
-          extraAttribute4: null,
-          extraAttribute5: null
-        }
-      };
-    }
-
-    function bundleUid(){
-      // Use crypto.randomUUID if available, fallback to timestamp-based ID
-      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-        return "bundle_" + crypto.randomUUID();
-      }
-      return "bundle_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
-    }
-
     // Simple stable hash for DOM ids (no crypto needed)
     function hash32(str){
       let h = 2166136261;
@@ -3163,11 +2695,7 @@
       checks: loadChecks(),
       notes: loadNotes(),
       openalex: loadOpenAlexSettings(),
-      bundles: loadBundles(),          // user-created bundles (artifact format)
-      pages: loadPages(),              // page artifacts (keyed by page ID)
-      activeBundleId: loadActiveBundle(), // currently selected bundle id
-      defaultBundle: null,             // the default bundle from reading.json
-      view: "library",   // "library" | "plan" | "bundles"
+      view: "library",   // "library" | "plan"
       availableYears: [],
       filters: {
         // plan view
@@ -3181,8 +2709,6 @@
         libSort: "author",
         libTierPresence: "all",
         libShow: "all",
-        // bundle view
-        bundleYear: "1"
       },
       ui: {},
       drawer: { open:false, which:null }, // notes | openalex
@@ -3218,14 +2744,6 @@
 
         state.plan = data;
 
-        // Store as the default bundle (read-only, from reading.json)
-        state.defaultBundle = {
-          id: "__default__",
-          plan_name: data.plan_name || "Ten-Year Reading Plan",
-          years: typeof structuredClone === 'function' ? structuredClone(data.years) : JSON.parse(JSON.stringify(data.years)),
-          isDefault: true
-        };
-
         const today = new Date().toLocaleDateString(undefined, { weekday:"long", year:"numeric", month:"long", day:"numeric" });
         $("#today").textContent = today;
 
@@ -3233,8 +2751,6 @@
         buildLibraryWorks();
         fillYearOptions();
         buildTagsUniverse();
-        buildBundleDropdowns();
-
         syncOpenAlexUIFromState();
         updateOpenAlexPreview();
 
@@ -3396,423 +2912,20 @@
         state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
     }
 
-    /* =========================================================
-       BUNDLE MANAGEMENT
-       ========================================================= */
-    // Helper functions for artifact format
-    function getBundlePages(bundle){
-      if (!bundle) return [];
-      
-      // Handle old format (for default bundle from reading.json)
-      if (bundle.years && Array.isArray(bundle.years)) {
-        return bundle.years;
-      }
-      
-      // Handle new artifact format
-      if (bundle.data && bundle.data.bundle && Array.isArray(bundle.data.bundle.pages)) {
-        return bundle.data.bundle.pages.map(pageId => {
-          const page = state.pages[pageId];
-          if (!page) return null;
-          
-          // Convert page artifact to old format for compatibility
-          return {
-            pageId: pageId,  // Include page ID for linking
-            year: page.data.page.pageNumber,
-            name: page.title,
-            readings: page.data.page.readings || []
-          };
-        }).filter(p => p !== null);
-      }
-      
-      return [];
-    }
-    
-    function getBundleTitle(bundle){
-      if (!bundle) return "";
-      return bundle.title || bundle.plan_name || "Unnamed Bundle";
-    }
-    
-    function updateBundleTitle(bundleId, newTitle){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-      
-      bundle.title = newTitle;
-      bundle.updatedAt = nowIso();
-      saveBundles(state.bundles);
-    }
-    
-    function getAllBundles(){
-      // Returns array of all bundles (default + user-created)
-      const bundles = [];
-      if (state.defaultBundle){
-        bundles.push(state.defaultBundle);
-      }
-      for (const b of state.bundles){
-        bundles.push(b);
-      }
-      return bundles;
-    }
-
-    function getBundleById(id){
-      if (id === "__default__") return state.defaultBundle;
-      return state.bundles.find(b => b.id === id) || null;
-    }
-
-    function getActiveBundle(){
-      // Return the active bundle for bundle view, excluding the default bundle
-      const bundle = getBundleById(state.activeBundleId);
-      // If the selected bundle is the default, return null for bundle view
-      if (bundle && bundle.isDefault) return null;
-      return bundle;
-    }
-
-    function buildBundleDropdowns(){
-      // User bundles only (exclude default Ten-Year Reading Plan from bundle view)
-      const userBundles = state.bundles || [];
-      
-      // Bundle view dropdown (user bundles only - Ten-Year Plan has its own tab)
-      const bundleSelect = $("#bundleSelect");
-      const bundleOptions = userBundles.map(b => 
-        `<option value="${escapeHtml(b.id)}">${escapeHtml(getBundleTitle(b))}</option>`
-      );
-      if (bundleOptions.length === 0) {
-        bundleOptions.push(`<option value="">— No Bundles Yet —</option>`);
-      }
-      bundleSelect.innerHTML = bundleOptions.join("");
-      // Set to first user bundle if current selection was default
-      if (state.activeBundleId === "__default__" && userBundles.length > 0) {
-        state.activeBundleId = userBundles[0].id;
-        saveActiveBundle(state.activeBundleId);
-      }
-      bundleSelect.value = state.activeBundleId;
-
-      // Library page bundle dropdown (user bundles only, not default)
-      const libBundleSelect = $("#libBundleSelect");
-      libBundleSelect.innerHTML = 
-        `<option value="">— Select Bundle —</option>` +
-        userBundles.map(b => 
-          `<option value="${escapeHtml(b.id)}">${escapeHtml(getBundleTitle(b))}</option>`
-        ).join("");
-
-      updateBundlePageDropdown();
-      updateLibBundlePageDropdown();
-    }
-
-    function updateBundlePageDropdown(){
-      const bundle = getActiveBundle();
-      if (!bundle) return;
-      
-      const years = getBundlePages(bundle);
-      const bundlePageDisplay = $("#bundlePageDisplay");
-      
-      if (years.length === 0){
-        state.filters.bundleYear = "1";
-        bundlePageDisplay.textContent = "Page 1";
-      } else {
-        const availablePages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
-        if (!availablePages.includes(Number(state.filters.bundleYear))){
-          state.filters.bundleYear = availablePages.length > 0 ? String(availablePages[0]) : "1";
-        }
-        // Show custom page name if available
-        const currentPage = Number(state.filters.bundleYear);
-        const yearObj = years.find(y => Number(y.year) === currentPage);
-        const pageName = yearObj?.name || `Page ${state.filters.bundleYear}`;
-        bundlePageDisplay.textContent = pageName;
-      }
-    }
-
-    function updateLibBundlePageDropdown(){
-      const libBundleSelect = $("#libBundleSelect");
-      const libBundlePageSelect = $("#libBundlePageSelect");
-      const selectedBundleId = libBundleSelect.value;
-
-      if (!selectedBundleId){
-        libBundlePageSelect.innerHTML = `<option value="1">Page 1</option>`;
-        return;
-      }
-
-      const bundle = getBundleById(selectedBundleId);
-      const years = getBundlePages(bundle);
-      if (years.length === 0){
-        libBundlePageSelect.innerHTML = `<option value="1">Page 1</option>`;
-        return;
-      }
-
-      const pages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
-      libBundlePageSelect.innerHTML = pages.map(p => 
-        `<option value="${p}">Page ${p}</option>`
-      ).join("");
-    }
-
-    function createNewBundle(name, pageName){
-      const bundle = {
-        id: bundleUid(),
-        plan_name: name || "New Bundle",
-        years: [{ year: pageName || "Page 1", readings: [] }],
-        isDefault: false
-      };
-      state.bundles.push(bundle);
-      saveBundles(state.bundles);
-      state.activeBundleId = bundle.id;
-      saveActiveBundle(state.activeBundleId);
-      buildBundleDropdowns();
-      return bundle;
-    }
-
-    function clonePlanToBundle(){
-      if (!state.defaultBundle) return;
-      
-      // Generate a unique name for the cloned bundle
-      const timestamp = new Date().toLocaleString('en-US', { 
-        month: 'short', 
-        day: 'numeric', 
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-      const name = `${state.defaultBundle.plan_name} (Clone ${timestamp})`;
-      
-      // Deep clone the default bundle structure
-      const clonedYears = typeof structuredClone === 'function' 
-        ? structuredClone(state.defaultBundle.years) 
-        : JSON.parse(JSON.stringify(state.defaultBundle.years));
-      
-      // Add page names to inherit "Year 1", "Year 2", etc.
-      for (const year of clonedYears) {
-        if (!year.name) {
-          year.name = `Year ${year.year}`;
-        }
-      }
-      
-      const bundle = {
-        id: bundleUid(),
-        plan_name: name,
-        years: clonedYears,
-        isDefault: false
-      };
-      
-      state.bundles.push(bundle);
-      saveBundles(state.bundles);
-      state.activeBundleId = bundle.id;
-      saveActiveBundle(state.activeBundleId);
-      buildBundleDropdowns();
-      
-      // Navigate to the bundles view to show the cloned bundle
-      setView("bundles");
-      renderBundles();
-      
-      return bundle;
-    }
-
-    function addPageToBundle(bundleId){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-
-      const years = getBundlePages(bundle);
-      const maxYear = years.reduce((m, y) => Math.max(m, Number(y.year) || 0), 0);
-      const newYear = maxYear + 1;
-      
-      // Create new page artifact
-      const newPage = createPageArtifact(bundle.id, newYear, `Page ${newYear}`);
-      state.pages[newPage.id] = newPage;
-      bundle.data.bundle.pages.push(newPage.id);
-      bundle.updatedAt = nowIso();
-      
-      saveBundles(state.bundles);
-      savePages(state.pages);
-      state.filters.bundleYear = String(newYear);
-      updateBundlePageDropdown();
-      renderBundles();
-    }
-
-    function deleteBundle(bundleId){
-      if (bundleId === "__default__") return; // Cannot delete default
-      
-      const bundle = getBundleById(bundleId);
-      if (bundle){
-        // Delete all pages associated with this bundle
-        const pageIds = bundle.data?.bundle?.pages || [];
-        for (const pageId of pageIds){
-          delete state.pages[pageId];
-        }
-        savePages(state.pages);
-      }
-      
-      const idx = state.bundles.findIndex(b => b.id === bundleId);
-      if (idx >= 0){
-        state.bundles.splice(idx, 1);
-        saveBundles(state.bundles);
-        state.activeBundleId = "__default__";
-        saveActiveBundle(state.activeBundleId);
-        buildBundleDropdowns();
-        renderBundles();
-      }
-    }
-
-    function renameBundle(bundleId, newName){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-      
-      bundle.title = newName;
-      bundle.updatedAt = nowIso();
-      saveBundles(state.bundles);
-      buildBundleDropdowns();
-    }
-
-    function renameBundlePage(bundleId, pageNum, newName){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-      
-      // Find the page artifact
-      const pageIds = bundle.data?.bundle?.pages || [];
-      for (const pageId of pageIds){
-        const page = state.pages[pageId];
-        if (page && page.data.page.pageNumber === pageNum){
-          page.title = newName;
-          page.updatedAt = nowIso();
-          savePages(state.pages);
-          // Update the page display
-          $("#bundlePageDisplay").textContent = newName;
-          renderBundles();
-          return;
-        }
-      }
-    }
-
-    function deletePageFromBundle(bundleId, pageNum){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-      
-      // Find and remove the page artifact
-      const pageIds = bundle.data?.bundle?.pages || [];
-      const pageIdx = pageIds.findIndex(pageId => {
-        const page = state.pages[pageId];
-        return page && page.data.page.pageNumber === pageNum;
-      });
-      
-      if (pageIdx >= 0){
-        const deletedPageId = pageIds[pageIdx];
-        delete state.pages[deletedPageId];
-        bundle.data.bundle.pages.splice(pageIdx, 1);
-        bundle.updatedAt = nowIso();
-        
-        saveBundles(state.bundles);
-        savePages(state.pages);
-        
-        // Navigate to a valid page after deletion
-        const years = getBundlePages(bundle);
-        const remainingPages = years.map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
-        if (remainingPages.length > 0){
-          // Try to navigate to a page close to the deleted one
-          // Find the first page that is less than the deleted page, or use the first page
-          const prevPage = remainingPages.filter(p => p < pageNum).pop();
-          state.filters.bundleYear = String(prevPage || remainingPages[0]);
-        } else {
-          // No pages left, default to page 1
-          state.filters.bundleYear = "1";
-        }
-        
-        updateBundlePageDropdown();
-        renderBundles();
-      }
-    }
-
-    function addBookToBundle(bundleId, pageNum, bookData){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return false;
-
-      // Find or create the page
-      const pageIds = bundle.data?.bundle?.pages || [];
-      let targetPage = null;
-      
-      for (const pageId of pageIds){
-        const page = state.pages[pageId];
-        if (page && page.data.page.pageNumber === pageNum){
-          targetPage = page;
-          break;
-        }
-      }
-      
-      if (!targetPage){
-        // Create new page
-        targetPage = createPageArtifact(bundle.id, pageNum, `Page ${pageNum}`);
-        state.pages[targetPage.id] = targetPage;
-        bundle.data.bundle.pages.push(targetPage.id);
-        bundle.data.bundle.pages.sort((a, b) => {
-          const pageA = state.pages[a];
-          const pageB = state.pages[b];
-          return (pageA?.data.page.pageNumber || 0) - (pageB?.data.page.pageNumber || 0);
-        });
-      }
-
-      // Find next order number
-      const readings = targetPage.data.page.readings;
-      const maxOrder = readings.reduce((m, r) => Math.max(m, Number(r.order) || 0), 0);
-      
-      readings.push({
-        order: maxOrder + 1,
-        tier: "core",
-        author: bookData.author || "Unknown",
-        works: [{
-          title: bookData.title || "Untitled",
-          sourceUrl: bookData.sourceUrl || ""
-        }]
-      });
-
-      targetPage.updatedAt = nowIso();
-      bundle.updatedAt = nowIso();
-      saveBundles(state.bundles);
-      savePages(state.pages);
-      return true;
-    }
-
-    function removeReadingFromBundle(bundleId, pageNum, order){
-      const bundle = getBundleById(bundleId);
-      if (!bundle || bundle.isDefault) return;
-
-      // Find the page
-      const pageIds = bundle.data?.bundle?.pages || [];
-      for (const pageId of pageIds){
-        const page = state.pages[pageId];
-        if (page && page.data.page.pageNumber === pageNum){
-          const readings = page.data.page.readings;
-          const idx = readings.findIndex(r => Number(r.order) === order);
-          if (idx >= 0){
-            readings.splice(idx, 1);
-            // Re-order remaining readings
-            readings.forEach((r, i) => r.order = i + 1);
-            page.updatedAt = nowIso();
-            bundle.updatedAt = nowIso();
-            saveBundles(state.bundles);
-            savePages(state.pages);
-            renderBundles();
-          }
-          return;
-        }
-      }
-    }
-
-    /* =========================================================
-       VIEW SWITCHING
        ========================================================= */
     function setView(view){
       state.view = view;
 
       $("#libraryView").classList.toggle("on", view === "library");
       $("#planView").classList.toggle("on", view === "plan");
-      $("#bundlesView").classList.toggle("on", view === "bundles");
 
       $("#tabLibrary").classList.toggle("tabOn", view === "library");
       $("#tabPlan").classList.toggle("tabOn", view === "plan");
-      $("#tabBundles").classList.toggle("tabOn", view === "bundles");
 
       if (view === "library"){
         $("#planName").textContent = "Library";
       } else if (view === "plan"){
         $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
-      } else if (view === "bundles"){
-        const bundle = getActiveBundle();
-        $("#planName").textContent = getBundleTitle(bundle) || "Reading Bundles";
       }
 
       renderAll();
@@ -3826,23 +2939,6 @@
       let done = 0;
       for (const w of state.flatWorks){
         if (state.checks[w.key]) done++;
-      }
-      const pct = total ? Math.round((done/total)*100) : 0;
-      return { total, done, pct };
-    }
-
-    function computeBundleProgress(bundle){
-      let total = 0;
-      let done = 0;
-      const years = getBundlePages(bundle);
-      for (const year of years){
-        for (const reading of (year.readings || [])){
-          for (const work of (reading.works || [])){
-            total++;
-            const bundleWorkKey = `bundle:${bundle.id}:${year.year}:${reading.order || 1}:${work.title || "Untitled"}`;
-            if (state.checks[bundleWorkKey]) done++;
-          }
-        }
       }
       const pct = total ? Math.round((done/total)*100) : 0;
       return { total, done, pct };
@@ -3870,23 +2966,6 @@
           <span class="progressPopupBar"><span style="width:${tenYearProgress.pct}%"></span></span>
         </div>
       `;
-      
-      // User bundles progress
-      const userBundles = state.bundles || [];
-      for (const bundle of userBundles){
-        const bp = computeBundleProgress(bundle);
-        html += `
-          <div class="progressPopupRow">
-            <span class="progressPopupName">${escapeHtml(getBundleTitle(bundle))}</span>
-            <span class="progressPopupScore">${bp.done}/${bp.total}</span>
-            <span class="progressPopupBar"><span style="width:${bp.pct}%"></span></span>
-          </div>
-        `;
-      }
-      
-      if (userBundles.length === 0){
-        html += `<div style="font-size:11px; color:var(--muted); padding:6px 0;">No user bundles yet.</div>`;
-      }
       
       popupContent.innerHTML = html;
     }
@@ -3990,11 +3069,9 @@
 
       if (state.view === "library") renderLibrary();
       else if (state.view === "plan") renderPlan();
-      else if (state.view === "bundles") renderBundles();
 
       // Keep OpenAlex preview live
       updateOpenAlexPreview();
-
       // Notes list refresh if open
       if (state.drawer.open && state.drawer.which === "notes"){
         renderNotesList();
@@ -4111,10 +3188,6 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 Go to plan
               </button>
-              <button class="btn" type="button" data-action="addToBundle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-                Add to Bundle
-              </button>
             </div>
           </div></div>
         </section>
@@ -4141,383 +3214,6 @@
 
       grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       wirePlanDelegation();
-    }
-
-    function renderBundles(){
-      const grid = $("#bundlesGrid");
-      const bundle = getActiveBundle();
-
-      if (!bundle){
-        grid.innerHTML = `
-          <div class="yearCard">
-            <div class="yearHeader">
-              <h2 class="yearTitle">No bundle selected</h2>
-              <div class="yearMeta"><span>Create a new bundle to get started</span></div>
-            </div>
-          </div>
-        `;
-        return;
-      }
-
-      // Update the header with bundle name
-      $("#planName").textContent = getBundleTitle(bundle);
-
-      const years = getBundlePages(bundle);
-      const currentPage = Number(state.filters.bundleYear) || 1;
-      const yearData = years.find(y => Number(y.year) === currentPage);
-
-      if (!yearData){
-        grid.innerHTML = `
-          <div class="yearCard">
-            <div class="yearHeader">
-              <h2 class="yearTitle">Page ${currentPage}</h2>
-              <div class="yearMeta"><span>No readings yet</span></div>
-            </div>
-            <div class="help">${bundle.isDefault ? 'This is a read-only bundle from reading.json.' : 'Add books from the Library to this bundle page.'}</div>
-          </div>
-        `;
-        return;
-      }
-
-      grid.innerHTML = bundlePageCardHtml(bundle, yearData);
-      wireBundlesDelegation();
-    }
-
-    function bundlePageCardHtml(bundle, yearData){
-      const pageNum = Number(yearData.year);
-      const pageId = yearData.pageId || null;  // Get page ID from yearData
-      const pageName = yearData.name || `Page ${pageNum}`;
-      const readings = yearData.readings || [];
-      const total = readings.reduce((acc, r) => acc + (r.works?.length || 0), 0);
-      
-      // Count completed works in this bundle page
-      let done = 0;
-      for (const r of readings) {
-        for (const w of (r.works || [])) {
-          const bundleWorkKey = `bundle:${bundle.id}:${pageNum}:${r.order || 1}:${w.title || "Untitled"}`;
-          if (state.checks[bundleWorkKey]) done++;
-        }
-      }
-      const pct = total ? Math.round((done/total)*100) : 0;
-      const barW = pct;
-
-      const readingsHtml = readings.map(r => bundleReadingBlockHtml(bundle, pageNum, pageId, r)).join("");
-
-      return `
-        <section class="yearCard" data-year="${pageNum}" data-bundleid="${escapeHtml(bundle.id)}"${pageId ? ` data-pageid="${escapeHtml(pageId)}"` : ""}>
-          <div class="yearHeader">
-            <h2 class="yearTitle">${escapeHtml(pageName)}</h2>
-            <div class="yearMeta">
-              <span>${escapeHtml(done)}/${escapeHtml(total)} done</span>
-              <span class="mono">•</span>
-              <span class="bar" aria-label="progress bar"><span style="width:${barW}%"></span></span>
-              ${bundle.isDefault ? '<span class="pill">Read-only</span>' : ''}
-            </div>
-          </div>
-          ${readingsHtml || '<div class="help">No readings on this page yet.</div>'}
-        </section>
-      `;
-    }
-
-    function bundleReadingBlockHtml(bundle, pageNum, pageId, reading){
-      const order = reading.order || 1;
-      const tier = reading.tier || "core";
-      const author = reading.author || "Unknown";
-      const works = reading.works || [];
-
-      const worksHtml = works.map(w => bundleWorkRowHtml(bundle, pageNum, pageId, order, w, author)).join("");
-
-      return `
-        <div class="readingBlock" data-year="${pageNum}" data-order="${order}" data-bundleid="${escapeHtml(bundle.id)}"${pageId ? ` data-pageid="${escapeHtml(pageId)}"` : ""}>
-          <div class="readingHead">
-            <div class="readingLeft">
-              <div class="order">#${escapeHtml(order)}</div>
-              <div class="author">${escapeHtml(author)}</div>
-              <span class="tier">${escapeHtml(tier)}</span>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn" type="button" data-action="markBundleBlockDone" title="Mark block done" aria-label="Mark block done">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span class="btn-text-mobile-hidden">Mark block done</span>
-              </button>
-              <button class="btn" type="button" data-action="markBundleBlockUndone" title="Mark block undone" aria-label="Mark block undone">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
-                <span class="btn-text-mobile-hidden">Mark block undone</span>
-              </button>
-              ${!bundle.isDefault ? `
-                <button class="btn" type="button" data-action="removeReading" data-bundleid="${escapeHtml(bundle.id)}" data-page="${pageNum}" data-order="${order}">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                  Remove
-                </button>
-              ` : ''}
-            </div>
-          </div>
-          <div class="worksList">
-            ${worksHtml}
-          </div>
-        </div>
-      `;
-    }
-
-    function bundleWorkRowHtml(bundle, pageNum, pageId, order, work, author){
-      const title = work.title || "Untitled";
-      const sourceUrl = work.sourceUrl || "";
-      const selection = work.selection || "";
-      const sel = selection ? `Selection: ${selection}` : "";
-      const sels = Array.isArray(work.selections) && work.selections.length ? `Selections: ${work.selections.join("; ")}` : "";
-      const subLines = [sel, sels].filter(Boolean);
-
-      // Generate workKey for checkbox state (similar to plan view)
-      const bundleWorkKey = `bundle:${bundle.id}:${pageNum}:${order}:${title}`;
-      const checked = !!state.checks[bundleWorkKey];
-      
-      // Count notes for this book
-      const noteCount = state.notes.filter(n => n.book_tag === title).length;
-
-      return `
-        <div class="workRow"
-             data-workkey="${escapeHtml(bundleWorkKey)}"
-             data-book="${escapeHtml(title)}"
-             data-author="${escapeHtml(author)}"
-             data-year="${escapeHtml(pageNum)}"
-             data-order="${escapeHtml(order)}"
-             data-selection="${escapeHtml(selection)}"
-             data-bundleid="${escapeHtml(bundle.id)}"
-             ${pageId ? `data-pageid="${escapeHtml(pageId)}"` : ""}
-             ${sourceUrl ? `data-sourceurl="${escapeHtml(sourceUrl)}"` : ""}
-        >
-          <div class="workCheck">
-            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleBundleComplete" />
-          </div>
-
-          <div class="workMain">
-            <p class="workTitle">${escapeHtml(title)}</p>
-            <div class="workSub">
-              <div class="tagRow">
-                <span class="pill">Page ${escapeHtml(pageNum)}</span>
-                <span class="pill">Order ${escapeHtml(order)}</span>
-                <span class="pill">Notes ${escapeHtml(noteCount)}</span>
-              </div>
-              ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
-            </div>
-          </div>
-
-          <div class="workDrawer"><div>
-            <div class="workActions">
-              <button class="btn" type="button" data-action="openOpenAlex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                OpenAlex
-              </button>
-              <button class="btn" type="button" data-action="openWikipedia">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
-                Wikipedia
-              </button>
-              <button class="btn" type="button" data-action="openWikiSearch">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                WikiSearch
-              </button>
-              ${renderLearningButtons()}
-              <button class="btn" type="button" data-action="openAudiobooks">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-                Audiobooks
-              </button>
-              <button class="btn" type="button" data-action="openSource">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                Source
-              </button>
-              <button class="btn" type="button" data-action="openOutlines">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
-                Outlines
-              </button>
-              <button class="btn" type="button" data-action="openLibraryForWork">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                View in library
-              </button>
-              <button class="btn" type="button" data-action="newNoteFromWork">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                New note
-              </button>
-              <button class="btn" type="button" data-action="openNotesForBook">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
-                Open notes
-              </button>
-            </div>
-          </div></div>
-        </div>
-      `;
-    }
-
-    function wireBundlesDelegation(){
-      const grid = $("#bundlesGrid");
-
-      grid.onclick = (e) => {
-        // Mobile: tap anywhere on work row (outside buttons/checkboxes) toggles work row expansion
-        if (!window.matchMedia("(hover:hover)").matches) {
-          if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
-            const row = e.target.closest(".workRow");
-            if (row) {
-              const was = row.classList.contains("active");
-              grid.querySelectorAll(".workRow.active").forEach(r => r.classList.remove("active"));
-              if (!was) row.classList.add("active");
-              return;
-            }
-          }
-        }
-
-        const btn = e.target.closest("[data-action]");
-        if (!btn) return;
-
-        const action = btn.dataset.action;
-
-        if (action === "removeReading"){
-          const bundleId = btn.dataset.bundleid;
-          const page = Number(btn.dataset.page);
-          const order = Number(btn.dataset.order);
-          showConfirm("Remove this reading from the bundle?").then(confirmed => {
-            if (confirmed){
-              removeReadingFromBundle(bundleId, page, order);
-            }
-          });
-          return;
-        }
-
-        // Mark bundle block done/undone
-        if (action === "markBundleBlockDone" || action === "markBundleBlockUndone"){
-          const block = btn.closest(".readingBlock");
-          if (!block) return;
-          const bundleId = block.dataset.bundleid;
-          const pageNum = Number(block.dataset.year);
-          const order = Number(block.dataset.order);
-          const workRows = block.querySelectorAll(".workRow[data-workkey]");
-          for (const r of workRows) {
-            const key = r.dataset.workkey;
-            state.checks[key] = (action === "markBundleBlockDone");
-          }
-          saveChecks(state.checks);
-          renderBundles();
-          return;
-        }
-
-        const row = btn.closest(".workRow");
-        if (!row) return;
-
-        if (action === "openOpenAlex"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openWikipedia"){
-          const title = row.dataset.book || "";
-          const wikiTitle = encodeURIComponent(title.replace(/\s+/g, "_"));
-          window.open(`https://en.wikipedia.org/wiki/${wikiTitle}`, "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openWikiSearch"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author}`.trim());
-          window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
-          return;
-        }
-        if (action === "toggleLearningGoals" || action === "toggleYouTubeGoals") {
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          const platform = btn.dataset.platform || (action === "toggleYouTubeGoals" ? "youtube" : "google");
-          
-          // Try to get works from the reading block
-          const readingBlock = row.closest(".readingBlock");
-          let works = [];
-          if (readingBlock) {
-            // Get all work rows in this reading block
-            const workRows = readingBlock.querySelectorAll(".workRow");
-            works = Array.from(workRows).map(wr => wr.dataset.book || "").filter(Boolean);
-          }
-          
-          closeLearningGoalDrawers();
-          showSearchSettingsModal({ title, author, platform, goal: "", works });
-          return;
-        }
-        if (action === "openLearningGoal") {
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          const platform = btn.dataset.platform || "youtube";
-          const goal = btn.dataset.goal || "";
-          closeLearningGoalDrawers();
-          window.open(buildLearningSearchUrl({ title, author, platform, goal }), "_blank", "noopener,noreferrer");
-          return;
-        }
-        if (action === "openGoogle") {
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          closeLearningGoalDrawers();
-          window.open(buildLearningSearchUrl({ title, author, platform: "google", goal: "" }), "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openYouTube") {
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
-          window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openAudiobooks") {
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          window.open(buildAudiobookSearchUrl(title, author), "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openSource"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openOutlines"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        if (action === "openLibraryForWork"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          gotoLibraryWork(author, title);
-          return;
-        }
-
-        if (action === "newNoteFromWork" || action === "openNotesForBook"){
-          const ctx = getWorkContextFromRow(row);
-
-          if (action === "newNoteFromWork"){
-            openDrawer("notes");
-            startNewNote(ctx);
-          } else {
-            openDrawer("notes");
-            state.notesUI.tag = ctx.book_tag;
-            $("#noteTagFilter").value = ctx.book_tag;
-            renderNotesList();
-          }
-          return;
-        }
-      };
-
-      grid.onchange = (e) => {
-        const cb = e.target.closest('input[type="checkbox"][data-action="toggleBundleComplete"]');
-        if (!cb) return;
-        const row = cb.closest(".workRow");
-        const key = row.dataset.workkey;
-        state.checks[key] = cb.checked;
-        saveChecks(state.checks);
-        renderBundles();
-      };
     }
 
     function yearCardHtml(year, items){
@@ -4599,7 +3295,6 @@
              data-order="${escapeHtml(w.order)}"
              data-tier="${escapeHtml(w.tier)}"
              data-selection="${escapeHtml(w.work.selection || "")}"
-             data-bundleid="__default__"
              ${w.sourceUrl ? `data-sourceurl="${escapeHtml(w.sourceUrl)}"` : ""}
              id="wk_${escapeHtml(hash32(w.key))}"
         >
@@ -4778,41 +3473,6 @@
           return;
         }
 
-        if (btn.dataset.action === "addToBundle"){
-          const selectedBundleId = $("#libBundleSelect").value;
-          const selectedPage = Number($("#libBundlePageSelect").value) || 1;
-          const sourceUrl = card.dataset.sourceurl || "";
-
-          if (!selectedBundleId){
-            showAlert("Please select a bundle from the dropdown first.");
-            return;
-          }
-
-          const bundle = getBundleById(selectedBundleId);
-          if (!bundle){
-            showAlert("Bundle not found. Please select a valid bundle.");
-            return;
-          }
-
-          if (bundle.isDefault){
-            showAlert("Cannot add to the default Ten-Year Reading Plan. Please create or select a user bundle.");
-            return;
-          }
-
-          const success = addBookToBundle(selectedBundleId, selectedPage, {
-            title,
-            author,
-            sourceUrl
-          });
-
-          if (success){
-            showAlert(`Added "${title}" to "${bundle.plan_name}" (Page ${selectedPage})`);
-            updateLibBundlePageDropdown();
-          } else {
-            showAlert("Failed to add book to bundle.");
-          }
-          return;
-        }
       };
     }
 
@@ -5028,9 +3688,7 @@
       const author = row.dataset.author || "";
       const year = Number(row.dataset.year) || "";
       const selection = row.dataset.selection || "";
-      const bundle_id = row.dataset.bundleid || null;
-      const page_id = row.dataset.pageid || null;
-      return { book_tag: book, author, year, selection, bundle_id, page_id };
+      return { book_tag: book, author, year, selection };
     }
 
     /* =========================================================
@@ -5078,25 +3736,6 @@
     /* =========================================================
        MODAL
        ========================================================= */
-    function openModal(){
-      $("#overlay").classList.add("open");
-      $("#overlay").setAttribute("aria-hidden", "false");
-      $("#newBundleModal").classList.add("open");
-      $("#newBundleModal").setAttribute("aria-hidden", "false");
-      
-      // Clear and focus on the first input
-      $("#bundleNameInput").value = "";
-      $("#defaultPageNameInput").value = "";
-      setTimeout(() => $("#bundleNameInput").focus(), 100);
-    }
-
-    function closeModal(){
-      $("#overlay").classList.remove("open");
-      $("#overlay").setAttribute("aria-hidden", "true");
-      $("#newBundleModal").classList.remove("open");
-      $("#newBundleModal").setAttribute("aria-hidden", "true");
-    }
-
     // Generic modal helpers for alert, confirm, and prompt
     function showAlert(message, title = "Alert"){
       return new Promise((resolve) => {
@@ -5278,26 +3917,10 @@
       const updated = n.updated_at ? new Date(n.updated_at).toLocaleString() : "";
       const preview = (n.body || "").slice(0, 220);
 
-      // Get bundle and page names from IDs
-      let bundleInfo = "";
-      let pageInfo = "";
-      if (n.bundle_id) {
-        const bundle = getBundleById(n.bundle_id);
-        if (bundle) {
-          bundleInfo = escapeHtml(getBundleTitle(bundle));
-        }
-      }
-      if (n.page_id && state.pages[n.page_id]) {
-        const page = state.pages[n.page_id];
-        pageInfo = `Page: ${escapeHtml(page.title || `Page ${page.data.page.pageNumber}`)}`;
-      }
-
       const pills = [
         `<span class="pill">${book}</span>`,
         `<span class="pill">${year}</span>`,
-        n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : "",
-        bundleInfo ? `<span class="pill">${bundleInfo}</span>` : "",
-        pageInfo ? `<span class="pill">${pageInfo}</span>` : ""
+        n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : ""
       ].filter(Boolean).join("");
 
       return `
@@ -5324,36 +3947,9 @@
       state.notesUI.editingId = null;
     }
 
-    function updateBundlePageDisplay(){
-      const bundleId = state.notesUI.editingBundleId;
-      const pageId = state.notesUI.editingPageId;
-      const display = $("#editBundlePageMeta");
-      
-      if (!bundleId) {
-        display.textContent = "";
-        return;
-      }
-      
-      const bundle = getBundleById(bundleId);
-      const bundleName = bundle ? getBundleTitle(bundle) : "Unknown Bundle";
-      
-      let pageName = "";
-      if (pageId && state.pages[pageId]) {
-        pageName = state.pages[pageId].title || `Page ${state.pages[pageId].data.page.pageNumber}`;
-      }
-      
-      if (pageName) {
-        display.textContent = `${bundleName} • Page: ${pageName}`;
-      } else {
-        display.textContent = `${bundleName}`;
-      }
-    }
-
     function startNewNote(ctx){
       const id = uid();
       state.notesUI.editingId = id;
-      state.notesUI.editingBundleId = ctx.bundle_id || null;
-      state.notesUI.editingPageId = ctx.page_id || null;
 
       $("#editTitle").value = ctx.book_tag ? `${ctx.book_tag} — ` : "";
       $("#editBookTag").value = ctx.book_tag && state.tagsUniverse.includes(ctx.book_tag) ? ctx.book_tag : (state.tagsUniverse[0] || "");
@@ -5363,7 +3959,6 @@
       $("#editBody").value = "";
 
       $("#editMeta").textContent = "New note — not saved yet.";
-      updateBundlePageDisplay();
       showEditor();
       $("#editTitle").focus();
     }
@@ -5373,8 +3968,6 @@
       if (!n) return;
 
       state.notesUI.editingId = id;
-      state.notesUI.editingBundleId = n.bundle_id || null;
-      state.notesUI.editingPageId = n.page_id || null;
 
       $("#editTitle").value = n.title || "";
       $("#editBookTag").value = n.book_tag && state.tagsUniverse.includes(n.book_tag) ? n.book_tag : (state.tagsUniverse[0] || "");
@@ -5385,7 +3978,6 @@
 
       const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
       $("#editMeta").textContent = meta;
-      updateBundlePageDisplay();
 
       showEditor();
       $("#editBody").focus();
@@ -5401,8 +3993,6 @@
       const author = $("#editAuthor").value.trim();
       const selection = $("#editSelection").value.trim();
       const body = $("#editBody").value;
-      const bundle_id = state.notesUI.editingBundleId || null;
-      const page_id = state.notesUI.editingPageId || null;
 
       const existingIdx = state.notes.findIndex(n => n.id === id);
 
@@ -5415,8 +4005,6 @@
           author,
           selection,
           body,
-          bundle_id,
-          page_id,
           created_at: nowIso(),
           updated_at: nowIso()
         };
@@ -5429,8 +4017,6 @@
         n.author = author;
         n.selection = selection;
         n.body = body;
-        n.bundle_id = bundle_id;
-        n.page_id = page_id;
         n.updated_at = nowIso();
       }
 
@@ -5550,8 +4136,6 @@
       // Tabs
       $("#tabLibrary").addEventListener("click", ()=> setView("library"));
       $("#tabPlan").addEventListener("click", ()=> setView("plan"));
-      $("#tabBundles").addEventListener("click", ()=> setView("bundles"));
-
       // Global drawer buttons
       $("#openNotesBtn").addEventListener("click", () => openDrawer("notes"));
       $("#openOpenAlexBtn").addEventListener("click", () => openDrawer("openalex"));
@@ -5559,28 +4143,7 @@
       $("#closeNotesBtn").addEventListener("click", closeDrawer);
       $("#oaCloseBtn").addEventListener("click", closeDrawer);
       $("#overlay").addEventListener("click", () => {
-        if ($("#newBundleModal").classList.contains("open")) {
-          closeModal();
-        } else {
-          closeDrawer();
-        }
-      });
-
-      // Modal buttons
-      $("#closeModalBtn").addEventListener("click", closeModal);
-      $("#cancelModalBtn").addEventListener("click", closeModal);
-      $("#createBundleBtn").addEventListener("click", () => {
-        const bundleName = $("#bundleNameInput").value.trim();
-        const pageName = $("#defaultPageNameInput").value.trim();
-        
-        if (!bundleName) {
-          showAlert("Please enter a bundle name.");
-          return;
-        }
-        
-        createNewBundle(bundleName, pageName || "Page 1");
-        closeModal();
-        setView("bundles");
+        closeDrawer();
       });
 
       // Authentication button - handles both login and logout
@@ -5662,7 +4225,6 @@
 
       document.addEventListener("keydown", (e)=>{
         if (e.key === "Escape" && state.drawer.open) closeDrawer();
-        if (e.key === "Escape" && $("#newBundleModal").classList.contains("open")) closeModal();
         if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
         if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
         if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
@@ -5714,7 +4276,6 @@
       $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; renderLibrary(); });
       $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; renderLibrary(); });
       $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; renderLibrary(); });
-      $("#libBundleSelect").addEventListener("change", e => { updateLibBundlePageDropdown(); });
       $("#libResetBtn").addEventListener("click", ()=> {
         state.filters.libQ = "";
         state.filters.libSort = "author";
@@ -5750,143 +4311,6 @@
         });
       });
 
-      $("#clonePlanBtn").addEventListener("click", () => {
-        clonePlanToBundle();
-      });
-
-      // Bundle controls
-      $("#bundleSelect").addEventListener("change", e => {
-        state.activeBundleId = e.target.value;
-        saveActiveBundle(state.activeBundleId);
-        state.filters.bundleYear = "1";
-        updateBundlePageDropdown();
-        renderBundles();
-      });
-
-      $("#bundlePagePrev").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle) return;
-        const years = (bundle.years || []).map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
-        const idx = years.indexOf(Number(state.filters.bundleYear));
-        if (idx > 0){
-          state.filters.bundleYear = String(years[idx - 1]);
-          updateBundlePageDropdown();
-          renderBundles();
-        }
-      });
-
-      $("#bundlePageNext").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle) return;
-        const years = (bundle.years || []).map(y => Number(y.year)).filter(n => Number.isFinite(n)).sort((a,b) => a - b);
-        const idx = years.indexOf(Number(state.filters.bundleYear));
-        if (idx < years.length - 1){
-          state.filters.bundleYear = String(years[idx + 1]);
-          updateBundlePageDropdown();
-          renderBundles();
-        }
-      });
-
-      $("#newBundleBtn").addEventListener("click", () => {
-        openModal();
-      });
-
-      $("#addBundlePageBtn").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle){
-          showAlert("Please select a bundle first.");
-          return;
-        }
-        if (bundle.isDefault){
-          showAlert("Cannot add pages to the default Ten-Year Reading Plan. Please create or select a user bundle.");
-          return;
-        }
-        addPageToBundle(bundle.id);
-      });
-
-      $("#deletePageBtn").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle){
-          showAlert("Please select a bundle first.");
-          return;
-        }
-        if (bundle.isDefault){
-          showAlert("Cannot delete pages from the default Ten-Year Reading Plan. Please create or select a user bundle.");
-          return;
-        }
-        const currentPage = Number(state.filters.bundleYear) || 1;
-        const yearObj = bundle.years?.find(y => Number(y.year) === currentPage);
-        
-        // Check if the page exists
-        if (!yearObj){
-          showAlert("This page does not exist in the bundle.");
-          return;
-        }
-        
-        const pageName = yearObj.name || `Page ${currentPage}`;
-        showConfirm(`Delete "${pageName}"? This cannot be undone.`).then(confirmed => {
-          if (confirmed){
-            deletePageFromBundle(bundle.id, currentPage);
-          }
-        });
-      });
-
-      $("#renamePageBtn").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle){
-          showAlert("Please select a bundle first.");
-          return;
-        }
-        if (bundle.isDefault){
-          showAlert("Cannot rename pages in the default Ten-Year Reading Plan.");
-          return;
-        }
-        const currentPage = Number(state.filters.bundleYear) || 1;
-        const yearObj = bundle.years?.find(y => Number(y.year) === currentPage);
-        const currentName = yearObj?.name || `Page ${currentPage}`;
-        showPrompt("Enter a new name for this page:", currentName, "Rename Page").then(newName => {
-          if (newName && newName.trim()){
-            renameBundlePage(bundle.id, currentPage, newName.trim());
-          }
-        });
-      });
-
-      $("#renameBundleBtn").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle){
-          showAlert("Please select a bundle first.");
-          return;
-        }
-        if (bundle.isDefault){
-          showAlert("Cannot rename the default Ten-Year Reading Plan.");
-          return;
-        }
-        showPrompt("Enter a new name for this bundle:", bundle.plan_name, "Rename Bundle").then(newName => {
-          if (newName && newName.trim()){
-            renameBundle(bundle.id, newName.trim());
-            $("#planName").textContent = newName.trim();
-          }
-        });
-      });
-
-      $("#deleteBundleBtn").addEventListener("click", () => {
-        const bundle = getActiveBundle();
-        if (!bundle){
-          showAlert("Please select a bundle first.");
-          return;
-        }
-        if (bundle.isDefault){
-          showAlert("Cannot delete the default Ten-Year Reading Plan.");
-          return;
-        }
-        showConfirm(`Delete bundle "${bundle.plan_name}"? This cannot be undone.`).then(confirmed => {
-          if (confirmed){
-            deleteBundle(bundle.id);
-          }
-        });
-      });
-
-      // Notes
       $("#noteSearch").addEventListener("input", (e)=>{ state.notesUI.search = e.target.value; renderNotesList(); });
       $("#noteTagFilter").addEventListener("change", (e)=>{ state.notesUI.tag = e.target.value; renderNotesList(); });
 

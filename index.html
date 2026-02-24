@@ -1312,7 +1312,8 @@
 
       <div id="planGrid" class="grid" aria-live="polite"></div>
     </section>
- style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+
+    <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
       <div>Data files: <span class="mono">./project.json</span> (catalog + sources), <span class="mono">./reading.json</span> (reading plan)</div>
       <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (when signed in)</div>
       <div id="syncStatus" style="font-weight:600;">Sign in to sync</div>
@@ -2436,8 +2437,9 @@
       localStorage.setItem(LS_OA, JSON.stringify(s));
     }
 
+    /* =========================================================
+       FIRESTORE SYNC FUNCTIONS
        ========================================================= */
-    
     async function syncChecksToFirestore(userId) {
       if (!userId || !window.firebaseDB) return;
       
@@ -2912,6 +2914,8 @@
         state.tagsUniverse.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
     }
 
+    /* =========================================================
+       VIEW SWITCHING
        ========================================================= */
     function setView(view){
       state.view = view;

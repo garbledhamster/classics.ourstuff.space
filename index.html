@@ -507,6 +507,10 @@
       gap:6px;
       white-space:nowrap;
     }
+    .pillArchived{
+      background:#f5f5dc;
+      color:#666;
+    }
     .tagRow{
       display:flex;
       gap:6px;
@@ -994,15 +998,17 @@
       box-shadow:var(--shadowSm);
       background:#fff;
       min-width:0;
+      display:grid;
+      gap:6px;
+      padding:6px;
     }
     .noteItem{
-      border-top:var(--borderThin);
+      border:var(--borderThin);
       padding:10px;
       display:grid;
       gap:6px;
       min-width:0;
     }
-    .noteItem:first-child{ border-top:none; }
     .noteItemHead{
       display:flex;
       align-items:baseline;
@@ -1695,6 +1701,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             Import JSON
           </button>
+          <button class="btn" id="toggleArchivedBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+            <span id="toggleArchivedBtnText">Show Archived</span>
+          </button>
           <input id="importFile" type="file" accept="application/json" style="display:none;" />
         </div>
       </section>
@@ -1742,6 +1752,10 @@
           <button class="btn" id="deleteNoteBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             Delete
+          </button>
+          <button class="btn" id="archiveNoteBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+            <span id="archiveNoteBtnText">Archive</span>
           </button>
           <button class="btn" id="cancelEditBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -3186,7 +3200,7 @@
       },
       ui: {},
       drawer: { open:false, which:null }, // notes | openalex
-      notesUI: { search:"", tag:"all", editingId:null },
+      notesUI: { search:"", tag:"all", editingId:null, showArchived: false },
       tagsUniverse: [], // note tags (titles)
       sync: {
         enabled: false,
@@ -5226,8 +5240,16 @@
     function filteredNotes(){
       const q = normalizeText(state.notesUI.search);
       const tag = state.notesUI.tag;
+      const showArchived = state.notesUI.showArchived;
 
       let notes = state.notes.slice();
+
+      // Filter by archived status
+      if (showArchived) {
+        notes = notes.filter(n => n.archived === true);
+      } else {
+        notes = notes.filter(n => !n.archived);
+      }
 
       if (tag !== "all"){
         notes = notes.filter(n => n.book_tag === tag);
@@ -5245,6 +5267,18 @@
     function renderNotesList(){
       const tagSel = $("#noteTagFilter");
       if (tagSel && tagSel.value !== state.notesUI.tag) tagSel.value = state.notesUI.tag;
+
+      // Update toggle button appearance
+      const toggleBtn = $("#toggleArchivedBtn");
+      if (toggleBtn) {
+        if (state.notesUI.showArchived) {
+          toggleBtn.classList.add("tabOn");
+          $("#toggleArchivedBtnText").textContent = "Show Active";
+        } else {
+          toggleBtn.classList.remove("tabOn");
+          $("#toggleArchivedBtnText").textContent = "Show Archived";
+        }
+      }
 
       const list = $("#noteList");
       const notes = filteredNotes();
@@ -5297,7 +5331,8 @@
         `<span class="pill">${year}</span>`,
         n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : "",
         bundleInfo ? `<span class="pill">${bundleInfo}</span>` : "",
-        pageInfo ? `<span class="pill">${pageInfo}</span>` : ""
+        pageInfo ? `<span class="pill">${pageInfo}</span>` : "",
+        n.archived ? `<span class="pill pillArchived">Archived</span>` : ""
       ].filter(Boolean).join("");
 
       return `
@@ -5364,6 +5399,9 @@
 
       $("#editMeta").textContent = "New note — not saved yet.";
       updateBundlePageDisplay();
+      // New notes are not archived
+      const archiveBtnText = $("#archiveNoteBtnText");
+      if (archiveBtnText) archiveBtnText.textContent = "Archive";
       showEditor();
       $("#editTitle").focus();
     }
@@ -5386,6 +5424,10 @@
       const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
       $("#editMeta").textContent = meta;
       updateBundlePageDisplay();
+
+      // Update archive button label based on note's archived state
+      const archiveBtnText = $("#archiveNoteBtnText");
+      if (archiveBtnText) archiveBtnText.textContent = n.archived ? "Unarchive" : "Archive";
 
       showEditor();
       $("#editBody").focus();
@@ -5459,6 +5501,23 @@
         hideEditor();
         renderAll();
       });
+    }
+
+    function archiveEditorNote(){
+      const id = state.notesUI.editingId;
+      if (!id) return;
+
+      const existingIdx = state.notes.findIndex(n => n.id === id);
+      if (existingIdx === -1) return;
+
+      const note = state.notes[existingIdx];
+      note.archived = !note.archived;
+      note.updated_at = nowIso();
+
+      saveNotes(state.notes);
+      renderNotesList();
+      hideEditor();
+      renderAll();
     }
 
     function exportNotes(){
@@ -5897,7 +5956,14 @@
 
       $("#saveNoteBtn").addEventListener("click", saveEditorNote);
       $("#deleteNoteBtn").addEventListener("click", deleteEditorNote);
+      $("#archiveNoteBtn").addEventListener("click", archiveEditorNote);
       $("#cancelEditBtn").addEventListener("click", hideEditor);
+
+      // Toggle archived/active notes view
+      $("#toggleArchivedBtn").addEventListener("click", () => {
+        state.notesUI.showArchived = !state.notesUI.showArchived;
+        renderNotesList();
+      });
 
       // OpenAlex options
       $("#oaResetBtn").addEventListener("click", () => {

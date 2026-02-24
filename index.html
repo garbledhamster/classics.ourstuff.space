@@ -2845,10 +2845,13 @@
         state.checks = { ...state.checks, ...remoteChecks }; // Remote wins on conflict
         localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
         
-        // Notes: Merge by ID (Map.set overwrites local with remote for same ID)
+        // Notes: Merge by ID (most recently updated version wins on conflict)
         const noteMap = new Map(state.notes.map(n => [n.id, n]));
         for (const remoteNote of remoteNotes) {
-          noteMap.set(remoteNote.id, remoteNote); // Remote wins on conflict
+          const localNote = noteMap.get(remoteNote.id);
+          if (!localNote || (remoteNote.updated_at || "") > (localNote.updated_at || "")) {
+            noteMap.set(remoteNote.id, remoteNote);
+          }
         }
         state.notes = Array.from(noteMap.values());
         localStorage.setItem(LS_NOTES, JSON.stringify(state.notes));

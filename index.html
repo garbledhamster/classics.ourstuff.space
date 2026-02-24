@@ -1786,9 +1786,8 @@
       return `https://www.google.com/search?q=${q}`;
     }
     function buildOutlinesSearchUrl(title, author) {
-      const types = `(outline OR "chapter outline" OR "reading guide")`;
-      const sources = `(filetype:pdf OR site:.edu OR site:sparknotes.com OR site:cliffsnotes.com OR site:litcharts.com)`;
-      const q = encodeURIComponent(`"${title}" ${author} ${types} ${sources}`.trim());
+      const sites = `site:sparknotes.com OR site:litcharts.com OR site:gradesaver.com OR site:cliffsnotes.com OR site:shmoop.com OR site:wikipedia.org OR site:britannica.com OR site:plato.stanford.edu`;
+      const q = encodeURIComponent(`"${title}" ${author} (${sites})`.trim());
       return `https://www.google.com/search?q=${q}`;
     }
     function buildLearningSearchUrl({ title, author, platform, goal }) {

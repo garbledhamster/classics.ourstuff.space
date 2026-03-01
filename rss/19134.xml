@@ -1,8 +1,8 @@
-<?xml version="1.0" ?><rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
 <channel>
   <title><![CDATA[Short Nonfiction Collection, Vol. 097 by Various]]></title>
   <link><![CDATA[https://librivox.org/short-nonfiction-collection-vol-097-by-various/]]></link>
-  <atom:link rel="self" href="https://librivox.org/rss/19134" />
+  <atom:link rel="self" type="application/rss+xml" href="https://classics.ourstuff.space/rss/19134.xml"/>
   <description><![CDATA["One does not care to walk over a rug or carpet that displays a scene in perspective, neither does one wish to gaze into a landscape wrought upon the cover of a book." Harry Lyman Koopman's opinionated comments on the "clothing" of books are among the reader-selected topics in vol. 097. Selections with an artistic, intellectual, or humanistic focus include Diderot; Mark Sennett; Why I am a Pagan; President Coolidge's Address to the Boy Scouts; Memoirs of Jacob Ritter; Crito; Hospitality; Cubist Art; and Bedside Books. Historical and political readings include Italian Ultimatum to the Ottoman Government; The United States and Japan; President George Bush's Inaugural Address; and histories of the Astoria and Northern Pacific railroads. Scientific topics are addressed in Weather and Health of London; Coldward Course of Progress; The Aurora Borealis and Telegraph Cables; and two first-hand descriptions of the sun's Coronal Mass Ejection in 1859. - Summary by Sue Anderson]]></description>
   <!--<genre>project element=Genre</genre>-->
   <language><![CDATA[en]]></language>
@@ -23,7 +23,7 @@
     <!--<reader>file element=reader</reader> -->
     <link><![CDATA[https://librivox.org/short-nonfiction-collection-vol-097-by-various/]]></link>
             <enclosure url="https://www.archive.org/download/snf097_2305_librivox/snf097_addressboyscouts_coolidge_dac_64kb.mp3" length="0" type="audio/mpeg" />
-  <itunes:explicit>No</itunes:explicit>
+  <itunes:explicit>no</itunes:explicit>
   <itunes:block>No</itunes:block>
   <itunes:duration>
     <![CDATA[00:19:30]]>

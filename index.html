@@ -1887,6 +1887,14 @@
       const q = encodeURIComponent(`"${title}" ${author} (${sites})`.trim());
       return `https://www.google.com/search?q=${q}`;
     }
+    function buildBiographySearchUrl(author) {
+      const q = encodeURIComponent(`"${author}" biography life history documentary lecture video`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
+    function buildContextSearchUrl(author) {
+      const q = encodeURIComponent(`"${author}" historical context era time period contemporaries influences philosophy culture`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
     function buildLearningSearchUrl({ title, author, platform, goal }) {
       const goalText = String(goal || "").trim();
       const q = encodeURIComponent(`${title} ${author}${platform === "youtube" ? YOUTUBE_SEARCH_SUFFIX : ""} ${goalText}`.trim());
@@ -3297,6 +3305,14 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
                 Outlines
               </button>
+              <button class="btn" type="button" data-action="openBiographyLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Biography
+              </button>
+              <button class="btn" type="button" data-action="openContextLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                Context
+              </button>
               <button class="btn" type="button" data-action="newNoteLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 New note
@@ -3590,6 +3606,14 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
                 Outlines
               </button>
+              <button class="btn" type="button" data-action="openBiography">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Biography
+              </button>
+              <button class="btn" type="button" data-action="openContext">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                Context
+              </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 View in library
@@ -3692,6 +3716,16 @@
 
         if (btn.dataset.action === "openOutlinesLib"){
           window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openBiographyLib"){
+          window.open(buildBiographySearchUrl(author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openContextLib"){
+          window.open(buildContextSearchUrl(author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3844,6 +3878,18 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           window.open(buildOutlinesSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openBiography") {
+          const author = row.dataset.author || "";
+          window.open(buildBiographySearchUrl(author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openContext") {
+          const author = row.dataset.author || "";
+          window.open(buildContextSearchUrl(author), "_blank", "noopener,noreferrer");
           return;
         }
 

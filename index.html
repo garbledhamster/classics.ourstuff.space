@@ -2644,11 +2644,13 @@
         ]);
         
         // Merge remote data with local data
-        // Conflict resolution: When same ID exists locally and remotely, remote version wins
-        // Always merge to preserve local-only data created while offline
+        // Conflict resolution: When same ID exists locally and remotely, local version wins.
+        // This preserves checkbox changes made between the user's last push and the current
+        // pull (e.g. a check saved to localStorage whose 2-second debounce hasn't fired yet).
+        // Remote-only keys are still imported so data from other devices is picked up.
         
-        // Checks: Merge by key (spread operator, remote values overwrite local on conflict)
-        state.checks = { ...state.checks, ...remoteChecks }; // Remote wins on conflict
+        // Checks: Merge by key (spread operator, local values overwrite remote on conflict)
+        state.checks = { ...remoteChecks, ...state.checks }; // Local wins on conflict
         localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
         
         // Notes: Merge by ID (most recently updated version wins on conflict)

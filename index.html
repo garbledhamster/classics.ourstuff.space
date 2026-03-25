@@ -17,7 +17,7 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
     
     // Firebase configuration
     const firebaseConfig = {
@@ -47,6 +47,7 @@
     window.firestoreSetDoc = setDoc;
     window.firestoreGetDoc = getDoc;
     window.firestoreGetDocs = getDocs;
+    window.firestoreDeleteDoc = deleteDoc;
     window.firestoreServerTimestamp = serverTimestamp;
     
     // Signal that Firebase is ready
@@ -1155,6 +1156,9 @@
           <span class="mono">•</span>
           <span id="today">Loading…</span>
         </div>
+        <button id="resetProfileBtn" class="btn" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site" style="padding:8px; line-height:0; align-self:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
+        </button>
         <button id="darkModeBtn" class="btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" style="padding:8px; line-height:0; align-self:center;">
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -4369,6 +4373,40 @@
           state.checks = {};
           saveChecks(state.checks);
           renderAll();
+        });
+      });
+
+      $("#resetProfileBtn").addEventListener("click", () => {
+        showConfirm("Reset your Classics profile? This will permanently delete all reading progress, notes, and settings for this site. This cannot be undone.", "Reset Classics Profile").then(async confirmed => {
+          if (!confirmed) return;
+          // Clear all site-specific localStorage keys
+          try {
+            localStorage.removeItem(LS_CHECKS);
+            localStorage.removeItem(LS_NOTES);
+            localStorage.removeItem(LS_OA);
+          } catch(e) {
+            console.error('Error clearing localStorage during profile reset:', e);
+          }
+          // If signed in, delete the Firestore document for this user
+          if (state.currentUser && window.firebaseDB && window.firestoreDeleteDoc) {
+            try {
+              const db = window.firebaseDB;
+              const userRef = window.firestoreDoc(db, 'userPrivate', state.currentUser.uid);
+              await window.firestoreDeleteDoc(userRef);
+            } catch(e) {
+              console.error('Error deleting Firestore profile:', e);
+            }
+          }
+          // Reset in-memory state
+          state.checks = {};
+          state.notes = [];
+          state.openalex = defaultOpenAlexSettings();
+          state.sync.lastSync = null;
+          state.sync.syncing = false;
+          state.sync.error = null;
+          syncOpenAlexUIFromState();
+          renderAll();
+          showAlert("Classics profile has been reset.");
         });
       });
 

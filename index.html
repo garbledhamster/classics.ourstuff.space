@@ -1172,13 +1172,33 @@
     /* Condensed: hide the tag-pill row, keep title + checkbox */
     #planGrid.view-condensed .tagRow{ display:none; }
     #planGrid.view-condensed .workSub > div:empty{ display:none; }
-    /* Condensed: buttons cascade left-to-right in the title area, icon-only */
-    #planGrid.view-condensed .workRow{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+    /* Condensed: row becomes a flex container; buttons slide in from right on hover, icon-only */
+    #planGrid.view-condensed .workRow{ display:flex; flex-wrap:nowrap; align-items:center; gap:8px; }
     #planGrid.view-condensed .workCheck{ flex:0 0 auto; }
     #planGrid.view-condensed .workMain{ flex:1 1 auto; min-width:0; }
-    #planGrid.view-condensed .workDrawer{ flex:0 0 auto; grid-template-rows:1fr; }
+    /* Drawer hidden by default; overrides grid animation with a max-width slide-in */
+    #planGrid.view-condensed .workDrawer{
+      flex:0 0 auto;
+      display:block;
+      overflow:hidden;
+      max-width:0;
+      opacity:0;
+      transition:max-width .35s cubic-bezier(0,0,.2,1), opacity .2s;
+    }
     #planGrid.view-condensed .workDrawer > div{ overflow:visible; }
-    #planGrid.view-condensed .workActions{ border-top:none; padding:0; background:transparent; }
+    /* Reveal on hover or active (touch fallback).
+       max-width transitions require a concrete length; 600px covers all buttons. */
+    @media(hover:hover){
+      #planGrid.view-condensed .workRow:hover .workDrawer{
+        max-width:600px;
+        opacity:1;
+      }
+    }
+    #planGrid.view-condensed .workRow.active .workDrawer{
+      max-width:600px;
+      opacity:1;
+    }
+    #planGrid.view-condensed .workActions{ border-top:none; padding:0; background:transparent; white-space:nowrap; }
     #planGrid.view-condensed .workActions .btn-label{ display:none; }
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
 
@@ -3652,13 +3672,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
                 <span class="btn-label">Outlines</span>
               </button>
-              <button class="btn" type="button" data-action="openBiography">
+              <button class="btn" type="button" data-action="openBiography" aria-label="Biography" title="Biography">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                Biography
+                <span class="btn-label">Biography</span>
               </button>
-              <button class="btn" type="button" data-action="openContext">
+              <button class="btn" type="button" data-action="openContext" aria-label="Context" title="Context">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                Context
+                <span class="btn-label">Context</span>
               </button>
               <button class="btn" type="button" data-action="openLibraryForWork">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>

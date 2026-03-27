@@ -1913,10 +1913,14 @@
       return `https://www.google.com/search?q=${q}`;
     }
 
-    function buildSourceSearchUrl(title, author) {
+    function buildFreeBookSearchUrl(title, author) {
       const freeSites = `site:gutenberg.org OR site:gutenberg.net.au OR site:gutenberg.ca OR site:archive.org OR site:wikisource.org OR site:fadedpage.com OR site:standardebooks.org OR site:freeread.de`;
+      const q = encodeURIComponent(`"${title}" ${author} (${freeSites})`.trim());
+      return `https://www.google.com/search?q=${q}`;
+    }
+    function buildBuyBookSearchUrl(title, author) {
       const buySites = `site:amazon.com OR site:ebay.com OR site:abebooks.com OR site:barnesandnoble.com OR site:thriftbooks.com OR site:bookshop.org`;
-      const q = encodeURIComponent(`"${title}" ${author} (${freeSites} OR ${buySites})`.trim());
+      const q = encodeURIComponent(`"${title}" ${author} (${buySites})`.trim());
       return `https://www.google.com/search?q=${q}`;
     }
     function buildOutlinesSearchUrl(title, author) {
@@ -3334,9 +3338,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
               </button>
-              <button class="btn" type="button" data-action="openSourceLib">
+              <button class="btn" type="button" data-action="openFreeBookLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                Find Book
+                Free Online
+              </button>
+              <button class="btn" type="button" data-action="openBuyBookLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                Buy Book
               </button>
               <button class="btn" type="button" data-action="openOutlinesLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
@@ -3644,9 +3652,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 <span class="btn-label">Audiobooks</span>
               </button>
-              <button class="btn" type="button" data-action="openSource" aria-label="Find Book" title="Find Book">
+              <button class="btn" type="button" data-action="openFreeBook" aria-label="Free Online" title="Free Online">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                <span class="btn-label">Find Book</span>
+                <span class="btn-label">Free Online</span>
+              </button>
+              <button class="btn" type="button" data-action="openBuyBook" aria-label="Buy Book" title="Buy Book">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                <span class="btn-label">Buy Book</span>
               </button>
               <button class="btn" type="button" data-action="openOutlines" aria-label="Outlines" title="Outlines">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
@@ -3755,8 +3767,13 @@
           return;
         }
 
-        if (btn.dataset.action === "openSourceLib"){
-          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
+        if (btn.dataset.action === "openFreeBookLib"){
+          window.open(buildFreeBookSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (btn.dataset.action === "openBuyBookLib"){
+          window.open(buildBuyBookSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -3913,10 +3930,17 @@
           return;
         }
 
-        if (action === "openSource"){
+        if (action === "openFreeBook"){
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          window.open(buildSourceSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          window.open(buildFreeBookSearchUrl(title, author), "_blank", "noopener,noreferrer");
+          return;
+        }
+
+        if (action === "openBuyBook"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          window.open(buildBuyBookSearchUrl(title, author), "_blank", "noopener,noreferrer");
           return;
         }
 

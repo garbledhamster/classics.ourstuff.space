@@ -3406,15 +3406,6 @@
 
       if (vm === "table") {
         grid.innerHTML = grouped.map(g => yearCardTableHtml(g.year, g.items)).join("");
-      } else if (cols > 1) {
-        const cards = grouped.map(g => yearCardHtml(g.year, g.items));
-        const colSize = Math.ceil(cards.length / cols);
-        const colDivs = [];
-        for (let i = 0; i < cols; i++) {
-          const slice = cards.slice(i * colSize, (i + 1) * colSize);
-          if (slice.length) colDivs.push(`<div class="planCol">${slice.join("")}</div>`);
-        }
-        grid.innerHTML = colDivs.join("");
       } else {
         grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       }

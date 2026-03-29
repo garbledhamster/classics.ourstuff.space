@@ -1,0 +1,2711 @@
+{
+  "plan_name": "Ten-Year Reading Plan (Definitive Revised Edition)",
+  "original_source": "https://greatconversation.com/ten-year-reading-list/",
+  "notes": [
+    "This edition integrates the core ten-year plan with missing works from the 1952 and 1990 Great Books lists.",
+    "Readings are ordered for first-pass intelligibility while preserving the broad historical arc.",
+    "Selections are kept concise and practical rather than tied to a specific volume pagination."
+  ],
+  "years": [
+    {
+      "year": 1,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Apology"
+            },
+            {
+              "title": "Crito"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Aristophanes",
+          "works": [
+            {
+              "title": "Clouds"
+            },
+            {
+              "title": "Lysistrata"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Republic",
+              "selection": "Book I-II"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Nicomachean Ethics",
+              "selection": "Book I"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Politics",
+              "selection": "Book I"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Plutarch",
+          "works": [
+            {
+              "title": "Lives",
+              "selection": "Lycurgus; Numa Pompilius; Lycurgus and Numa Compared; Alexander; Caesar"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "New Testament",
+          "works": [
+            {
+              "title": "The Gospel According to Saint Matthew",
+              "selection": "Matthew 1-28"
+            },
+            {
+              "title": "The Acts of the Apostles",
+              "selection": "Acts 1-28"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Augustine",
+          "works": [
+            {
+              "title": "Confessions",
+              "selection": "Book I-VIII"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Machiavelli",
+          "works": [
+            {
+              "title": "The Prince"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Erasmus",
+          "works": [
+            {
+              "title": "The Praise of Folly",
+              "selection": "Preface and sections 1-30"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Rabelais",
+          "works": [
+            {
+              "title": "Gargantua and Pantagruel",
+              "selection": "Book I-II"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Montaigne",
+          "works": [
+            {
+              "title": "Essays",
+              "selection": "Of Custom; Of Pedantry; Of the Education of Children; That It Is Folly to Measure Truth and Error by Our Own Capacity; Of Cannibals; That the Relish of Good and Evil Depends in Great Measure upon the Opinion We Have of Them; Upon Some Verses of Virgil"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "Hamlet"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Locke",
+          "works": [
+            {
+              "title": "Concerning Civil Government",
+              "selection": "Second Essay"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Rousseau",
+          "works": [
+            {
+              "title": "The Social Contract",
+              "selection": "Book I-II"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "American State Papers",
+          "works": [
+            {
+              "title": "Declaration of Independence"
+            },
+            {
+              "title": "Constitution of the United States"
+            },
+            {
+              "title": "The Federalist Papers",
+              "selection": "Numbers 1-10, 15, 31, 47, 51, 68-71"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Adam Smith",
+          "works": [
+            {
+              "title": "The Wealth of Nations",
+              "selection": "Introduction through Book I, ch. 9"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Tocqueville",
+          "works": [
+            {
+              "title": "Democracy in America",
+              "selection": "Introduction; Vol. I, Part 1, ch. 1-8; Vol. II, Part 2, ch. 1-5"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Marx and Engels",
+          "works": [
+            {
+              "title": "Manifesto of the Communist Party"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Veblen",
+          "works": [
+            {
+              "title": "The Theory of the Leisure Class",
+              "selection": "ch. 1-4, 7"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Orwell",
+          "works": [
+            {
+              "title": "Animal Farm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Homer",
+          "works": [
+            {
+              "title": "The Iliad"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Aeschylus",
+          "works": [
+            {
+              "title": "Agamemnon"
+            },
+            {
+              "title": "Choephoroe"
+            },
+            {
+              "title": "Eumenides"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Sophocles",
+          "works": [
+            {
+              "title": "Oedipus the King"
+            },
+            {
+              "title": "Antigone"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Herodotus",
+          "works": [
+            {
+              "title": "The History",
+              "selection": "Book I-II"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Meno"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Poetics"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Nicomachean Ethics",
+              "selection": "Book II; Book III, ch. 5-12; Book VI, ch. 8-13"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Nicomachus",
+          "works": [
+            {
+              "title": "Introduction to Arithmetic"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Lucretius",
+          "works": [
+            {
+              "title": "On the Nature of Things",
+              "selection": "Book I-IV"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Marcus Aurelius",
+          "works": [
+            {
+              "title": "Meditations"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Hobbes",
+          "works": [
+            {
+              "title": "Leviathan",
+              "selection": "Part I"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Milton",
+          "works": [
+            {
+              "title": "Areopagitica"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Pascal",
+          "works": [
+            {
+              "title": "Pensées",
+              "selection": "Selected numbers from the standard ten-year plan"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Pascal",
+          "works": [
+            {
+              "title": "Treatise on the Arithmetical Triangle"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Swift",
+          "works": [
+            {
+              "title": "Gulliver's Travels"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Rousseau",
+          "works": [
+            {
+              "title": "Discourse on the Origin of Inequality"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Fundamental Principles of the Metaphysic of Morals"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Mill",
+          "works": [
+            {
+              "title": "On Liberty"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Racine",
+          "works": [
+            {
+              "title": "Bérénice"
+            },
+            {
+              "title": "Phèdre"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Molière",
+          "works": [
+            {
+              "title": "Tartuffe"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Voltaire",
+          "works": [
+            {
+              "title": "Candide"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Ibsen",
+          "works": [
+            {
+              "title": "A Doll's House"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Austen",
+          "works": [
+            {
+              "title": "Emma"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Twain",
+          "works": [
+            {
+              "title": "Adventures of Huckleberry Finn",
+              "selection": "ch. 1-31, 42-43"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 3,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Aeschylus",
+          "works": [
+            {
+              "title": "Prometheus Bound"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Herodotus",
+          "works": [
+            {
+              "title": "The History",
+              "selection": "Book VII-IX"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Thucydides",
+          "works": [
+            {
+              "title": "The History of the Peloponnesian War",
+              "selection": "Book I-II, V"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Statesman"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "On Interpretation",
+              "selection": "ch. 1-10"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Politics",
+              "selection": "Book III-V"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Euclid",
+          "works": [
+            {
+              "title": "Elements",
+              "selection": "Book I"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Tacitus",
+          "works": [
+            {
+              "title": "The Annals"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I-II, QQ 90-97"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Chaucer",
+          "works": [
+            {
+              "title": "Troilus and Criseyde"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "Macbeth"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Milton",
+          "works": [
+            {
+              "title": "Paradise Lost"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Locke",
+          "works": [
+            {
+              "title": "An Essay Concerning Human Understanding",
+              "selection": "Book III, ch. 1-3, 9-11"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "The Science of Right"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Mill",
+          "works": [
+            {
+              "title": "Considerations on Representative Government",
+              "selection": "ch. 1-6"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Lavoisier",
+          "works": [
+            {
+              "title": "Elements of Chemistry",
+              "selection": "Part I"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Dostoevsky",
+          "works": [
+            {
+              "title": "The Brothers Karamazov",
+              "selection": "Part I-II"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Freud",
+          "works": [
+            {
+              "title": "The Origin and Development of Psychoanalysis"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Balzac",
+          "works": [
+            {
+              "title": "Cousin Bette",
+              "selection": "Parts I-III"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Dickens",
+          "works": [
+            {
+              "title": "Little Dorrit",
+              "selection": "Book I, ch. 1-22; Book II, ch. 1-10, 30-34"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "George Eliot",
+          "works": [
+            {
+              "title": "Middlemarch",
+              "selection": "Prelude; Books I-IV; Finale"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Frazer",
+          "works": [
+            {
+              "title": "The Golden Bough",
+              "selection": "Preface; ch. 1-4, 24, 28, 37"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Max Weber",
+          "works": [
+            {
+              "title": "Essays in Sociology",
+              "selection": "Bureaucracy; Class, Status, Party; Science as a Vocation"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Huizinga",
+          "works": [
+            {
+              "title": "The Autumn of the Middle Ages",
+              "selection": "Introduction; ch. 1-5, 12, 20"
+            }
+          ]
+        },
+        {
+          "order": 25,
+          "tier": "core",
+          "author": "Tawney",
+          "works": [
+            {
+              "title": "The Acquisitive Society",
+              "selection": "ch. 1-3, 5"
+            }
+          ]
+        },
+        {
+          "order": 26,
+          "tier": "core",
+          "author": "Keynes",
+          "works": [
+            {
+              "title": "The General Theory of Employment, Interest, and Money",
+              "selection": "Book I, ch. 1-3; Book II, ch. 4-7; Book VI, ch. 22-24"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 4,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Euripides",
+          "works": [
+            {
+              "title": "Medea"
+            },
+            {
+              "title": "Hippolytus"
+            },
+            {
+              "title": "The Trojan Women"
+            },
+            {
+              "title": "The Bacchae"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Republic",
+              "selection": "Book VI-VII"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Theaetetus"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Physics",
+              "selection": "Book IV, ch. 1-5, 10-14"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Metaphysics",
+              "selection": "Book I, ch. 1-2; Book IV; Book VI, ch. 1; Book XI, ch. 1-4"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Augustine",
+          "works": [
+            {
+              "title": "Confessions",
+              "selection": "Book IX-XIII"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I, QQ 16-17, 84-88"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Montaigne",
+          "works": [
+            {
+              "title": "Apology for Raymond de Sebonde"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Bacon",
+          "works": [
+            {
+              "title": "Novum Organum",
+              "selection": "Preface; Book I"
+            },
+            {
+              "title": "New Atlantis"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Galileo",
+          "works": [
+            {
+              "title": "Two New Sciences",
+              "selection": "Third Day through Scholium of Theorem II"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Descartes",
+          "works": [
+            {
+              "title": "Discourse on the Method"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Newton",
+          "works": [
+            {
+              "title": "Mathematical Principles of Natural Philosophy",
+              "selection": "Prefaces; Definitions; Axioms; General Scholium"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Locke",
+          "works": [
+            {
+              "title": "An Essay Concerning Human Understanding",
+              "selection": "Book II"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Hume",
+          "works": [
+            {
+              "title": "An Enquiry Concerning Human Understanding"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Critique of Pure Reason",
+              "selection": "Prefaces; Introduction; Transcendental Aesthetic"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Melville",
+          "works": [
+            {
+              "title": "Moby-Dick"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Dostoevsky",
+          "works": [
+            {
+              "title": "The Brothers Karamazov",
+              "selection": "Part III-IV"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "William James",
+          "works": [
+            {
+              "title": "The Principles of Psychology",
+              "selection": "ch. XV, XX"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Bergson",
+          "works": [
+            {
+              "title": "An Introduction to Metaphysics"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Dewey",
+          "works": [
+            {
+              "title": "Experience and Education"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Whitehead",
+          "works": [
+            {
+              "title": "Science and the Modern World",
+              "selection": "ch. 1-4, 10"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Russell",
+          "works": [
+            {
+              "title": "The Problems of Philosophy",
+              "selection": "ch. 1-8, 12, 15"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Lévi-Strauss",
+          "works": [
+            {
+              "title": "Structural Anthropology",
+              "selection": "Introduction; The Structural Study of Myth; Social Structure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 5,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Phaedo"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Categories"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "On the Soul",
+              "selection": "Book II, ch. 1-3; Book III"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Hippocrates",
+          "works": [
+            {
+              "title": "The Oath"
+            },
+            {
+              "title": "On Ancient Medicine"
+            },
+            {
+              "title": "On Airs, Waters, and Places"
+            },
+            {
+              "title": "The Book of Prognostics"
+            },
+            {
+              "title": "Of the Epidemics"
+            },
+            {
+              "title": "The Law"
+            },
+            {
+              "title": "On the Sacred Disease"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Galen",
+          "works": [
+            {
+              "title": "On the Natural Faculties"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Virgil",
+          "works": [
+            {
+              "title": "The Aeneid"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Ptolemy",
+          "works": [
+            {
+              "title": "Almagest",
+              "selection": "Book I, ch. 1-8"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Copernicus",
+          "works": [
+            {
+              "title": "On the Revolutions of Heavenly Spheres",
+              "selection": "Introduction through Book I, ch. 11"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Kepler",
+          "works": [
+            {
+              "title": "Epitome of Copernican Astronomy",
+              "selection": "Book IV, Part II, ch. 1-2"
+            },
+            {
+              "title": "The Harmonies of the World",
+              "selection": "Book V, ch. 1-7"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Plotinus",
+          "works": [
+            {
+              "title": "Sixth Ennead"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I, QQ 75-76, 78-79"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Dante",
+          "works": [
+            {
+              "title": "The Divine Comedy",
+              "selection": "Inferno"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Harvey",
+          "works": [
+            {
+              "title": "On the Motion of the Heart and Blood in Animals"
+            },
+            {
+              "title": "On the Circulation of Blood"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Cervantes",
+          "works": [
+            {
+              "title": "Don Quixote",
+              "selection": "Part I"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Spinoza",
+          "works": [
+            {
+              "title": "Ethics",
+              "selection": "Part II"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Berkeley",
+          "works": [
+            {
+              "title": "The Principles of Human Knowledge"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Critique of Pure Reason",
+              "selection": "Transcendental Analytic"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Darwin",
+          "works": [
+            {
+              "title": "On the Origin of Species",
+              "selection": "Introduction through ch. 6; ch. 15"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Tolstoy",
+          "works": [
+            {
+              "title": "War and Peace",
+              "selection": "Book I-VIII"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "William James",
+          "works": [
+            {
+              "title": "The Principles of Psychology",
+              "selection": "ch. XXVIII"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Poincaré",
+          "works": [
+            {
+              "title": "Science and Hypothesis",
+              "selection": "ch. 1-3, 6, 9-10"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Planck",
+          "works": [
+            {
+              "title": "Scientific Autobiography and Other Papers",
+              "selection": "Scientific Autobiography; The Meaning and Limits of Exact Science"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Whitehead",
+          "works": [
+            {
+              "title": "An Introduction to Mathematics",
+              "selection": "ch. 1-6, 10-13"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Einstein",
+          "works": [
+            {
+              "title": "Relativity: The Special and the General Theory",
+              "selection": "Parts I-II"
+            }
+          ]
+        },
+        {
+          "order": 25,
+          "tier": "core",
+          "author": "Hardy",
+          "works": [
+            {
+              "title": "A Mathematician's Apology"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 6,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Old Testament",
+          "works": [
+            {
+              "title": "Genesis"
+            },
+            {
+              "title": "Exodus"
+            },
+            {
+              "title": "Deuteronomy"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Homer",
+          "works": [
+            {
+              "title": "The Odyssey"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Laws",
+              "selection": "Book X"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Metaphysics",
+              "selection": "Book XII"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Tacitus",
+          "works": [
+            {
+              "title": "The Histories"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Plotinus",
+          "works": [
+            {
+              "title": "Fifth Ennead"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Augustine",
+          "works": [
+            {
+              "title": "The City of God",
+              "selection": "Book XV-XVIII"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I, QQ 1-13"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Calvin",
+          "works": [
+            {
+              "title": "Institutes of the Christian Religion",
+              "selection": "Book I, ch. 1-8; Book II, ch. 1-6; Book III, ch. 6-10; Book IV, ch. 1"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Barth",
+          "works": [
+            {
+              "title": "The Word of God and the Word of Man",
+              "selection": "The Strange New World within the Bible; The Word of God as the Task of Theology"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Dante",
+          "works": [
+            {
+              "title": "The Divine Comedy",
+              "selection": "Purgatorio"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "The Comedy of Errors"
+            },
+            {
+              "title": "The Taming of the Shrew"
+            },
+            {
+              "title": "As You Like It"
+            },
+            {
+              "title": "Twelfth Night"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Spinoza",
+          "works": [
+            {
+              "title": "Ethics",
+              "selection": "Part I"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Milton",
+          "works": [
+            {
+              "title": "Samson Agonistes"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Pascal",
+          "works": [
+            {
+              "title": "The Provincial Letters"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Locke",
+          "works": [
+            {
+              "title": "An Essay Concerning Human Understanding",
+              "selection": "Book IV"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Gibbon",
+          "works": [
+            {
+              "title": "The Decline and Fall of the Roman Empire",
+              "selection": "ch. 1-5; General Observations on the Fall of the Roman Empire in the West"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Critique of Pure Reason",
+              "selection": "Transcendental Dialectic"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Hegel",
+          "works": [
+            {
+              "title": "The Philosophy of History",
+              "selection": "Introduction"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Tolstoy",
+          "works": [
+            {
+              "title": "War and Peace",
+              "selection": "Book IX-XV; Epilogues"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Kierkegaard",
+          "works": [
+            {
+              "title": "Fear and Trembling",
+              "selection": "Preface; Exordium; Problema I-III; Epilogue"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Nietzsche",
+          "works": [
+            {
+              "title": "Beyond Good and Evil",
+              "selection": "Preface; Parts 1, 3, 6, 9"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Heidegger",
+          "works": [
+            {
+              "title": "What Is Metaphysics?"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Wittgenstein",
+          "works": [
+            {
+              "title": "Philosophical Investigations",
+              "selection": "Preface and §§1-133, 243-315"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 7,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Old Testament",
+          "works": [
+            {
+              "title": "Job"
+            },
+            {
+              "title": "Isaiah"
+            },
+            {
+              "title": "Amos"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Symposium"
+            },
+            {
+              "title": "Philebus"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Nicomachean Ethics",
+              "selection": "Book VIII-X"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Archimedes",
+          "works": [
+            {
+              "title": "Measurement of a Circle"
+            },
+            {
+              "title": "The Equilibrium of Planes, Book I"
+            },
+            {
+              "title": "The Sand-Reckoner"
+            },
+            {
+              "title": "On Floating Bodies, Book I"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Epictetus",
+          "works": [
+            {
+              "title": "Discourses"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Plotinus",
+          "works": [
+            {
+              "title": "First Ennead"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I-II, QQ 1-5"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Dante",
+          "works": [
+            {
+              "title": "The Divine Comedy",
+              "selection": "Paradiso"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Rabelais",
+          "works": [
+            {
+              "title": "Gargantua and Pantagruel",
+              "selection": "Book III-IV"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "Julius Caesar"
+            },
+            {
+              "title": "Antony and Cleopatra"
+            },
+            {
+              "title": "Coriolanus"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Galileo",
+          "works": [
+            {
+              "title": "Two New Sciences",
+              "selection": "First Day"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Spinoza",
+          "works": [
+            {
+              "title": "Ethics",
+              "selection": "Part IV-V"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Newton",
+          "works": [
+            {
+              "title": "Mathematical Principles of Natural Philosophy",
+              "selection": "Book III, Rules"
+            },
+            {
+              "title": "Opticks",
+              "selection": "Book I, Part I; Book III, Queries"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Huygens",
+          "works": [
+            {
+              "title": "Treatise on Light"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Eddington",
+          "works": [
+            {
+              "title": "The Expanding Universe",
+              "selection": "ch. 1-5, 8-9"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Bohr",
+          "works": [
+            {
+              "title": "Atomic Theory and the Description of Nature",
+              "selection": "Title essay and Light and Life"
+            },
+            {
+              "title": "Discussion with Einstein on Epistemological Problems in Atomic Physics"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Heisenberg",
+          "works": [
+            {
+              "title": "Physics and Philosophy",
+              "selection": "ch. 1-5, 10"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Schrödinger",
+          "works": [
+            {
+              "title": "What Is Life?"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Critique of Practical Reason"
+            },
+            {
+              "title": "Critique of Judgment",
+              "selection": "Critique of Aesthetic Judgment"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Mill",
+          "works": [
+            {
+              "title": "Utilitarianism"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 8,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Aristophanes",
+          "works": [
+            {
+              "title": "Thesmophoriazusae"
+            },
+            {
+              "title": "Ecclesiazusae"
+            },
+            {
+              "title": "Plutus"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Gorgias"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Nicomachean Ethics",
+              "selection": "Book V"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Rhetoric",
+              "selection": "Book I through Book II, ch. 1; Book II, ch. 20 through Book III, ch. 1; Book III, ch. 13-19"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Augustine",
+          "works": [
+            {
+              "title": "On Christian Doctrine"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Hobbes",
+          "works": [
+            {
+              "title": "Leviathan",
+              "selection": "Part II"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "Othello"
+            },
+            {
+              "title": "King Lear"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Bacon",
+          "works": [
+            {
+              "title": "The Advancement of Learning",
+              "selection": "Book I through Book II, ch. 11"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Descartes",
+          "works": [
+            {
+              "title": "Meditations on First Philosophy"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Spinoza",
+          "works": [
+            {
+              "title": "Ethics",
+              "selection": "Part III"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Locke",
+          "works": [
+            {
+              "title": "A Letter Concerning Toleration"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Sterne",
+          "works": [
+            {
+              "title": "Tristram Shandy"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Rousseau",
+          "works": [
+            {
+              "title": "Discourse on Political Economy"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Adam Smith",
+          "works": [
+            {
+              "title": "The Wealth of Nations",
+              "selection": "Book II"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Boswell",
+          "works": [
+            {
+              "title": "The Life of Samuel Johnson",
+              "selection": "Core excerpts from the ten-year plan"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Marx",
+          "works": [
+            {
+              "title": "Capital",
+              "selection": "Prefaces; Part I-II"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Goethe",
+          "works": [
+            {
+              "title": "Faust",
+              "selection": "Part I"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "William James",
+          "works": [
+            {
+              "title": "The Principles of Psychology",
+              "selection": "ch. VIII-X"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Dobzhansky",
+          "works": [
+            {
+              "title": "Genetics and the Origin of Species",
+              "selection": "ch. 1, 2, 7, 10"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Waddington",
+          "works": [
+            {
+              "title": "The Nature of Life",
+              "selection": "ch. 1-4, 8"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Henry James",
+          "works": [
+            {
+              "title": "The Beast in the Jungle"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Conrad",
+          "works": [
+            {
+              "title": "Heart of Darkness"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Chekhov",
+          "works": [
+            {
+              "title": "Uncle Vanya"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Pirandello",
+          "works": [
+            {
+              "title": "Six Characters in Search of an Author"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 9,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Sophist"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Thucydides",
+          "works": [
+            {
+              "title": "The History of the Peloponnesian War",
+              "selection": "Book VII-VIII"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "Politics",
+              "selection": "Book VII-VIII"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Apollonius",
+          "works": [
+            {
+              "title": "On Conic Sections",
+              "selection": "Book I, Prop. 1-15; Book III, Prop. 42-55"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "New Testament",
+          "works": [
+            {
+              "title": "The Gospel According to Saint John",
+              "selection": "John 1-21"
+            },
+            {
+              "title": "Romans"
+            },
+            {
+              "title": "First Corinthians"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Augustine",
+          "works": [
+            {
+              "title": "The City of God",
+              "selection": "Book V, XIX"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part II-II, QQ 1-7"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Gilbert",
+          "works": [
+            {
+              "title": "On the Loadstone and Magnetic Bodies"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Descartes",
+          "works": [
+            {
+              "title": "Rules for the Direction of the Mind"
+            },
+            {
+              "title": "Geometry"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Pascal",
+          "works": [
+            {
+              "title": "The Great Experiment Concerning the Equilibrium of Fluids"
+            },
+            {
+              "title": "On Geometrical Demonstration"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Fielding",
+          "works": [
+            {
+              "title": "Tom Jones"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Montesquieu",
+          "works": [
+            {
+              "title": "The Spirit of Laws",
+              "selection": "Book I-V, VIII, XI-XII"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Fourier",
+          "works": [
+            {
+              "title": "Analytical Theory of Heat",
+              "selection": "Preliminary Discourse; ch. 1-2"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Faraday",
+          "works": [
+            {
+              "title": "Experimental Researches in Electricity",
+              "selection": "Series I-II; A Speculation Touching Electric Conduction and the Nature of Matter"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Hegel",
+          "works": [
+            {
+              "title": "Philosophy of Right",
+              "selection": "Part III"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "Marx",
+          "works": [
+            {
+              "title": "Capital",
+              "selection": "Part III-IV"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Freud",
+          "works": [
+            {
+              "title": "Civilization and Its Discontents"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "Proust",
+          "works": [
+            {
+              "title": "Swann in Love"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Willa Cather",
+          "works": [
+            {
+              "title": "A Lost Lady"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "Thomas Mann",
+          "works": [
+            {
+              "title": "Death in Venice"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Joyce",
+          "works": [
+            {
+              "title": "A Portrait of the Artist as a Young Man"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Woolf",
+          "works": [
+            {
+              "title": "To the Lighthouse"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Kafka",
+          "works": [
+            {
+              "title": "The Metamorphosis"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "D. H. Lawrence",
+          "works": [
+            {
+              "title": "The Prussian Officer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "year": 10,
+      "readings": [
+        {
+          "order": 1,
+          "tier": "core",
+          "author": "Sophocles",
+          "works": [
+            {
+              "title": "Ajax"
+            },
+            {
+              "title": "Electra"
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "tier": "core",
+          "author": "Plato",
+          "works": [
+            {
+              "title": "Timaeus"
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "tier": "core",
+          "author": "Aristotle",
+          "works": [
+            {
+              "title": "On the Parts of Animals",
+              "selection": "Book I, ch. 1 through Book II, ch. 1"
+            },
+            {
+              "title": "On the Generation of Animals",
+              "selection": "Book I, ch. 1, 17-18, 20-23"
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "tier": "core",
+          "author": "Lucretius",
+          "works": [
+            {
+              "title": "On the Nature of Things",
+              "selection": "Book V-VI"
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "tier": "core",
+          "author": "Virgil",
+          "works": [
+            {
+              "title": "Eclogues"
+            },
+            {
+              "title": "Georgics"
+            }
+          ]
+        },
+        {
+          "order": 6,
+          "tier": "core",
+          "author": "Thomas Aquinas",
+          "works": [
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I, QQ 65-74"
+            },
+            {
+              "title": "Summa Theologica",
+              "selection": "Part I, QQ 90-102"
+            }
+          ]
+        },
+        {
+          "order": 7,
+          "tier": "core",
+          "author": "Chaucer",
+          "works": [
+            {
+              "title": "The Canterbury Tales",
+              "selection": "Prologue; Knight's Tale; Miller's Prologue and Tale; Reeve's Prologue and Tale; Wife of Bath's Prologue and Tale; Friar's Prologue and Tale; Summoner's Prologue and Tale; Pardoner's Prologue and Tale"
+            }
+          ]
+        },
+        {
+          "order": 8,
+          "tier": "core",
+          "author": "Shakespeare",
+          "works": [
+            {
+              "title": "Richard II"
+            },
+            {
+              "title": "Henry IV, Part 1"
+            },
+            {
+              "title": "Henry IV, Part 2"
+            },
+            {
+              "title": "Henry V"
+            }
+          ]
+        },
+        {
+          "order": 9,
+          "tier": "core",
+          "author": "Harvey",
+          "works": [
+            {
+              "title": "On the Generation of Animals",
+              "selection": "Introduction through Exercise 62"
+            }
+          ]
+        },
+        {
+          "order": 10,
+          "tier": "core",
+          "author": "Cervantes",
+          "works": [
+            {
+              "title": "Don Quixote",
+              "selection": "Part II"
+            }
+          ]
+        },
+        {
+          "order": 11,
+          "tier": "core",
+          "author": "Kant",
+          "works": [
+            {
+              "title": "Critique of Judgment",
+              "selection": "Critique of Teleological Judgment"
+            }
+          ]
+        },
+        {
+          "order": 12,
+          "tier": "core",
+          "author": "Boswell",
+          "works": [
+            {
+              "title": "The Life of Samuel Johnson",
+              "selection": "Later assigned excerpts from the ten-year plan"
+            }
+          ]
+        },
+        {
+          "order": 13,
+          "tier": "core",
+          "author": "Goethe",
+          "works": [
+            {
+              "title": "Faust",
+              "selection": "Part II"
+            }
+          ]
+        },
+        {
+          "order": 14,
+          "tier": "core",
+          "author": "Darwin",
+          "works": [
+            {
+              "title": "The Descent of Man",
+              "selection": "Part I; Part III, ch. 21"
+            }
+          ]
+        },
+        {
+          "order": 15,
+          "tier": "core",
+          "author": "Marx",
+          "works": [
+            {
+              "title": "Capital",
+              "selection": "Part VII-VIII"
+            }
+          ]
+        },
+        {
+          "order": 16,
+          "tier": "core",
+          "author": "William James",
+          "works": [
+            {
+              "title": "The Principles of Psychology",
+              "selection": "ch. I, V-VII"
+            }
+          ]
+        },
+        {
+          "order": 17,
+          "tier": "core",
+          "author": "Freud",
+          "works": [
+            {
+              "title": "A General Introduction to Psycho-Analysis"
+            }
+          ]
+        },
+        {
+          "order": 18,
+          "tier": "core",
+          "author": "T. S. Eliot",
+          "works": [
+            {
+              "title": "The Waste Land"
+            }
+          ]
+        },
+        {
+          "order": 19,
+          "tier": "core",
+          "author": "Shaw",
+          "works": [
+            {
+              "title": "Saint Joan"
+            }
+          ]
+        },
+        {
+          "order": 20,
+          "tier": "core",
+          "author": "O'Neill",
+          "works": [
+            {
+              "title": "Mourning Becomes Electra"
+            }
+          ]
+        },
+        {
+          "order": 21,
+          "tier": "core",
+          "author": "Fitzgerald",
+          "works": [
+            {
+              "title": "The Great Gatsby"
+            }
+          ]
+        },
+        {
+          "order": 22,
+          "tier": "core",
+          "author": "Faulkner",
+          "works": [
+            {
+              "title": "A Rose for Emily"
+            }
+          ]
+        },
+        {
+          "order": 23,
+          "tier": "core",
+          "author": "Hemingway",
+          "works": [
+            {
+              "title": "The Short Happy Life of Francis Macomber"
+            }
+          ]
+        },
+        {
+          "order": 24,
+          "tier": "core",
+          "author": "Brecht",
+          "works": [
+            {
+              "title": "Mother Courage and Her Children"
+            }
+          ]
+        },
+        {
+          "order": 25,
+          "tier": "core",
+          "author": "Beckett",
+          "works": [
+            {
+              "title": "Waiting for Godot"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

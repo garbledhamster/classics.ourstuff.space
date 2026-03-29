@@ -1511,7 +1511,7 @@
     </section>
 
     <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
-      <div>Data files: <span class="mono">./project.json</span> (catalog + sources), <span class="mono">./reading.json</span> (reading plan)</div>
+      <div>Data files: <span class="mono">./library.json</span> (catalog + sources), <span class="mono">./10year.json</span> (reading plan)</div>
       <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (when signed in)</div>
       <div id="syncStatus" style="font-weight:600;">Sign in to sync</div>
     </footer>
@@ -3161,7 +3161,7 @@
        ========================================================= */
     const state = {
       plan: null,
-      projectCatalog: [],  // book catalog from project.json with sourceUrls
+      projectCatalog: [],  // book catalog from library.json with sourceUrls
       flatWorks: [],     // plan entries (can include duplicates across years)
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
@@ -3215,17 +3215,17 @@
       clearError();
       try{
         // Load project catalog for sourceUrls
-        const projRes = await fetch("./project.json", { cache:"no-store" });
-        if (!projRes.ok) throw new Error(`Could not load project.json (${projRes.status})`);
+        const projRes = await fetch("./library.json", { cache:"no-store" });
+        if (!projRes.ok) throw new Error(`Could not load library.json (${projRes.status})`);
         const projectData = await projRes.json();
-        if (!Array.isArray(projectData)) throw new Error("project.json must be an array");
+        if (!Array.isArray(projectData)) throw new Error("library.json must be an array");
         state.projectCatalog = projectData;
 
         // Load reading plan
-        const res = await fetch("./reading.json", { cache:"no-store" });
-        if (!res.ok) throw new Error(`Could not load reading.json (${res.status})`);
+        const res = await fetch("./10year.json", { cache:"no-store" });
+        if (!res.ok) throw new Error(`Could not load 10year.json (${res.status})`);
         const data = await res.json();
-        if (!data || !Array.isArray(data.years)) throw new Error("reading.json must include { plan_name, years: [...] }");
+        if (!data || !Array.isArray(data.years)) throw new Error("10year.json must include { plan_name, years: [...] }");
 
         state.plan = data;
 
@@ -3247,7 +3247,7 @@
     }
 
     function normalizeForMatch(text){
-      // Normalize text for matching between reading.json and project.json
+      // Normalize text for matching between 10year.json and library.json
       return String(text || "").toLowerCase().trim()
         .replace(/^the\s+/i, '')
         .replace(/^a\s+/i, '')
@@ -3301,7 +3301,7 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
-            // Look up sourceUrl from project catalog instead of reading.json
+            // Look up sourceUrl from project catalog instead of 10year.json
             const sourceUrl = findSourceUrlInCatalog(author, title);
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});

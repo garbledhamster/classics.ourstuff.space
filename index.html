@@ -220,77 +220,6 @@
       display:inline;
     }
 
-    /* Progress badge popup wrapper */
-    .progressBadgeWrap{
-      position:relative;
-      display:inline-block;
-    }
-    .progressBadgeWrap .badge{
-      cursor:pointer;
-    }
-    .progressPopup{
-      display:none;
-      position:absolute;
-      top:100%;
-      right:0;
-      margin-top:8px;
-      background:#fff;
-      border:var(--border);
-      box-shadow:var(--shadow);
-      padding:12px;
-      min-width:260px;
-      max-width:360px;
-      z-index:1000;
-    }
-    .progressPopup.show{
-      display:block;
-    }
-    .progressPopupTitle{
-      font-weight:900;
-      font-size:13px;
-      letter-spacing:0.06em;
-      text-transform:uppercase;
-      margin-bottom:10px;
-      border-bottom:var(--borderThin);
-      padding-bottom:8px;
-    }
-    .progressPopupRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:6px 0;
-      border-bottom:var(--borderThin);
-    }
-    .progressPopupRow:last-child{
-      border-bottom:none;
-    }
-    .progressPopupName{
-      font-weight:600;
-      font-size:12px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-      flex:1;
-    }
-    .progressPopupScore{
-      font-weight:900;
-      font-size:12px;
-      white-space:nowrap;
-    }
-    .progressPopupBar{
-      width:60px;
-      height:8px;
-      border:var(--borderThin);
-      background:#fff;
-      position:relative;
-    }
-    .progressPopupBar > span{
-      display:block;
-      height:100%;
-      background:#000;
-    }
-
     /* Buttons / inputs */
     .btn{
       border:var(--border);
@@ -1152,15 +1081,12 @@
     html.dark .oaPreview,
     html.dark .codebox,
     html.dark .ytGoalDrawer,
-    html.dark .progressPopup,
     html.dark .error{ background:#1a1a1a; color:var(--ink); }
     html.dark .libActions,
     html.dark .workActions{ background:#222; }
-    html.dark .bar,
-    html.dark .progressPopupBar{ background:#222; }
+    html.dark .bar{ background:#222; }
     html.dark .tabOn{ background:var(--ink); color:var(--paper); }
-    html.dark .bar > span,
-    html.dark .progressPopupBar > span{ background:var(--ink); }
+    html.dark .bar > span{ background:var(--ink); }
     html.dark .noteItemPreview{ color:var(--ink2); }
     html.dark .flash{ outline-color:var(--ink); }
     html.dark .input:focus,
@@ -1431,14 +1357,6 @@
             </svg>
             <span id="authBtnText">Sign In</span>
           </button>
-          <div class="badge" id="countBadge">0</div>
-          <div class="progressBadgeWrap" id="progressBadgeWrap">
-            <div class="badge" id="progressBadge">Progress: 0%</div>
-            <div class="progressPopup" id="progressPopup" aria-hidden="true">
-              <div class="progressPopupTitle">Reading Scores</div>
-              <div id="progressPopupContent"></div>
-            </div>
-          </div>
         </div>
       </div>
     </header>
@@ -3479,45 +3397,6 @@
     }
 
     /* =========================================================
-       PROGRESS
-       ========================================================= */
-    function computeProgress(){
-      const total = state.flatWorks.length;
-      let done = 0;
-      for (const w of state.flatWorks){
-        if (state.checks[w.key]) done++;
-      }
-      const pct = total ? Math.round((done/total)*100) : 0;
-      return { total, done, pct };
-    }
-
-    function updateProgressBadge(){
-      const { total, done, pct } = computeProgress();
-      $("#progressBadge").textContent = `Progress: ${pct}%`;
-      $("#countBadge").textContent = `${done}/${total} done`;
-      
-      // Update popup content
-      updateProgressPopup();
-    }
-
-    function updateProgressPopup(){
-      const popupContent = $("#progressPopupContent");
-      let html = '';
-      
-      // Ten-Year Reading Plan progress
-      const tenYearProgress = computeProgress();
-      html += `
-        <div class="progressPopupRow">
-          <span class="progressPopupName">Ten-Year Reading Plan</span>
-          <span class="progressPopupScore">${tenYearProgress.done}/${tenYearProgress.total}</span>
-          <span class="progressPopupBar"><span style="width:${tenYearProgress.pct}%"></span></span>
-        </div>
-      `;
-      
-      popupContent.innerHTML = html;
-    }
-
-    /* =========================================================
        FILTERING
        ========================================================= */
     function filteredLibrary(){
@@ -3612,8 +3491,6 @@
        RENDER
        ========================================================= */
     function renderAll(){
-      updateProgressBadge();
-
       if (state.view === "library") renderLibrary();
       else if (state.view === "plan") renderPlan();
       else if (state.view === "authors") renderAuthors();
@@ -5336,42 +5213,8 @@
         if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
       });
 
-      // Progress popup hover/click handling
-      const progressWrap = $("#progressBadgeWrap");
-      const progressPopup = $("#progressPopup");
-      const hoverMediaQuery = window.matchMedia("(hover:hover)");
-      
-      // Desktop: show on hover
-      progressWrap.addEventListener("mouseenter", () => {
-        if (hoverMediaQuery.matches) {
-          updateProgressPopup();
-          progressPopup.classList.add("show");
-          progressPopup.setAttribute("aria-hidden", "false");
-        }
-      });
-      progressWrap.addEventListener("mouseleave", () => {
-        if (hoverMediaQuery.matches) {
-          progressPopup.classList.remove("show");
-          progressPopup.setAttribute("aria-hidden", "true");
-        }
-      });
-      
-      // Mobile: toggle on click
-      $("#progressBadge").addEventListener("click", (e) => {
-        if (!hoverMediaQuery.matches) {
-          e.stopPropagation();
-          updateProgressPopup();
-          progressPopup.classList.toggle("show");
-          progressPopup.setAttribute("aria-hidden", progressPopup.classList.contains("show") ? "false" : "true");
-        }
-      });
-      
-      // Close popup when clicking outside
+      // Close learning goal drawers when clicking outside
       document.addEventListener("click", (e) => {
-        if (!progressWrap.contains(e.target)) {
-          progressPopup.classList.remove("show");
-          progressPopup.setAttribute("aria-hidden", "true");
-        }
         if (!e.target.closest(".ytGoalWrap")) {
           closeLearningGoalDrawers(document, { restoreFocus: false });
         }
@@ -5403,7 +5246,7 @@
       });
 
       // Plan filters
-      $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); updateProgressBadge(); });
+      $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); });
       $("#yearPrev").addEventListener("click", () => {
         const idx = state.availableYears.indexOf(Number(state.filters.year));
         if (idx > 0){ state.filters.year = String(state.availableYears[idx - 1]); updateYearStepper(); renderPlan(); }

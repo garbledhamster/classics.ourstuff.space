@@ -169,6 +169,7 @@
           "works": [
             {
               "title": "The Gospel According to Saint Matthew",
+              "selection": "Matthew 1-28", 
               "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
               "great_ideas": [
                 "God",
@@ -183,20 +184,7 @@
             },
             {
               "title": "The Acts of the Apostles",
-              "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
-              "great_ideas": [
-                "God",
-                "Duty",
-                "Justice",
-                "Law",
-                "Life and Death",
-                "Love",
-                "Religion",
-                "Sin"
-              ]
-            },
-            {
-              "title": "Gospel of Matthew",
+             "selection": "Acts 1-28", 
               "themes": "God; Religion; Sin; Duty; Justice; Law; Life and Death; Love",
               "great_ideas": [
                 "God",

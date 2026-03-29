@@ -425,7 +425,7 @@
             },
             {
               "title": "The Federalist Papers",
-              "selection": "Numbers 1–10, 15, 31, 47, 51, 68–71",
+              "selection": "Numbers 1\u201310, 15, 31, 47, 51, 68\u201371",
               "themes": "Citizen; Constitution; Democracy; Government; Law; Liberty; State; Justice",
               "great_ideas": [
                 "Citizen",
@@ -493,73 +493,6 @@
                 "State",
                 "Wealth",
                 "Progress"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Tocqueville",
-          "works": [
-            {
-              "title": "Democracy in America",
-              "selection": "Vol. 1, Part II, Ch. 6-8",
-              "themes": "Government; Citizen; Democracy; Law; State; Constitution; Custom and Convention; Liberty",
-              "great_ideas": [
-                "Government",
-                "Citizen",
-                "Democracy",
-                "Law",
-                "Constitution",
-                "Custom and Convention",
-                "Liberty",
-                "State"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Ibsen",
-          "works": [
-            {
-              "title": "The Master Builder",
-              "themes": "Desire; Duty; Family; Good and Evil; Truth; Will; God; Religion",
-              "great_ideas": [
-                "Desire",
-                "Duty",
-                "Family",
-                "Good and Evil",
-                "God",
-                "Truth",
-                "Will",
-                "Religion"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Schrödinger",
-          "works": [
-            {
-              "title": "What Is Life?",
-              "themes": "Cause; Evolution; Life and Death; Nature; Science; God; Religion; Sin",
-              "great_ideas": [
-                "Cause",
-                "Evolution",
-                "Life and Death",
-                "God",
-                "Nature",
-                "Science",
-                "Religion",
-                "Sin"
               ]
             }
           ]
@@ -881,7 +814,7 @@
           "author": "Pascal",
           "works": [
             {
-              "title": "Pensées",
+              "title": "Pens\u00e9es",
               "selection": "Selected numbers (as listed)",
               "themes": "Chance; God; Infinity; Reasoning; Religion; Theology; Truth; Will",
               "great_ideas": [
@@ -995,67 +928,6 @@
                 "Democracy",
                 "Happiness",
                 "Opinion"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Voltaire",
-          "works": [
-            {
-              "title": "Candide",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Nietzsche",
-          "works": [
-            {
-              "title": "Beyond Good and Evil",
-              "themes": "Good and Evil; Reasoning; Truth; Virtue and Vice; Will; Wisdom",
-              "great_ideas": [
-                "Good and Evil",
-                "Reasoning",
-                "Truth",
-                "Virtue and Vice",
-                "Will",
-                "Wisdom"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Whitehead",
-          "works": [
-            {
-              "title": "Science and the Modern World",
-              "selection": "Ch. I-VI",
-              "themes": "Science; Mathematics; Nature; Philosophy; Progress; Reasoning; Hypothesis; Induction",
-              "great_ideas": [
-                "Hypothesis",
-                "Induction",
-                "Science",
-                "Mathematics",
-                "Nature",
-                "Philosophy",
-                "Progress",
-                "Reasoning"
               ]
             }
           ]
@@ -1451,65 +1323,6 @@
                 "Mind",
                 "Truth",
                 "Will"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Twain",
-          "works": [
-            {
-              "title": "Adventures of Huckleberry Finn",
-              "themes": "God; Religion; Sin; Truth",
-              "great_ideas": [
-                "God",
-                "Religion",
-                "Sin",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Lévi-Strauss",
-          "works": [
-            {
-              "title": "Structural Anthropology",
-              "selection": "Selections",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Poincaré",
-          "works": [
-            {
-              "title": "Science and Hypothesis",
-              "selection": "Part I-II",
-              "themes": "Science; Hypothesis; Art; Beauty; Form; Induction; Physics",
-              "great_ideas": [
-                "Hypothesis",
-                "Art",
-                "Beauty",
-                "Form",
-                "Induction",
-                "Science",
-                "Physics"
               ]
             }
           ]
@@ -1966,67 +1779,6 @@
               ]
             }
           ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Calvin",
-          "works": [
-            {
-              "title": "Institutes of the Christian Religion",
-              "selection": "Book III",
-              "themes": "God; Religion; Theology; Truth",
-              "great_ideas": [
-                "God",
-                "Religion",
-                "Theology",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Frazer",
-          "works": [
-            {
-              "title": "The Golden Bough",
-              "selection": "Selections",
-              "themes": "Custom and Convention; God; Religion; Sin",
-              "great_ideas": [
-                "Custom and Convention",
-                "God",
-                "Religion",
-                "Sin"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Heisenberg",
-          "works": [
-            {
-              "title": "Physics and Philosophy",
-              "selection": "Ch. 1-6",
-              "themes": "Science; Physics; Knowledge; Truth; Hypothesis; Cause; Mechanics; Philosophy",
-              "great_ideas": [
-                "Knowledge",
-                "Hypothesis",
-                "Cause",
-                "Science",
-                "Physics",
-                "Truth",
-                "Mechanics",
-                "Philosophy"
-              ]
-            }
-          ]
         }
       ]
     },
@@ -2237,7 +1989,7 @@
           "works": [
             {
               "title": "On the Revolutions of Heavenly Spheres",
-              "selection": "Introduction—Book I, Ch. 11",
+              "selection": "Introduction\u2014Book I, Ch. 11",
               "themes": "Government; Science; State; Evolution; Law; Nature; Revolution; Hypothesis",
               "great_ideas": [
                 "Government",
@@ -2530,70 +2282,6 @@
                 "Reasoning",
                 "Truth",
                 "Will"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Dewey",
-          "works": [
-            {
-              "title": "Experience and Education",
-              "themes": "Education; Experience; God; Knowledge; Religion; Sin",
-              "great_ideas": [
-                "Education",
-                "Experience",
-                "God",
-                "Knowledge",
-                "Religion",
-                "Sin"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 22,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Waddington",
-          "works": [
-            {
-              "title": "The Nature of Life",
-              "themes": "Nature; Science; Cause; Evolution; Life and Death; God; Physics; Religion",
-              "great_ideas": [
-                "Cause",
-                "Evolution",
-                "Life and Death",
-                "God",
-                "Nature",
-                "Science",
-                "Physics",
-                "Religion"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 23,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Orwell",
-          "works": [
-            {
-              "title": "Animal Farm",
-              "themes": "Government; Law; Revolution; Justice; Truth; Tyranny and Despotism; Science; State",
-              "great_ideas": [
-                "Government",
-                "Law",
-                "Justice",
-                "Revolution",
-                "Truth",
-                "Tyranny and Despotism",
-                "Science",
-                "State"
               ]
             }
           ]
@@ -3070,69 +2758,12 @@
           ]
         },
         {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Kierkegaard",
-          "works": [
-            {
-              "title": "Fear and Trembling",
-              "themes": "Duty; God; Love; Truth; Will",
-              "great_ideas": [
-                "Duty",
-                "God",
-                "Love",
-                "Truth",
-                "Will"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Huizinga",
-          "works": [
-            {
-              "title": "The Waning of the Middle Ages",
-              "selection": "I-X",
-              "themes": "Art; Custom and Convention; History; Religion; World",
-              "great_ideas": [
-                "Art",
-                "Custom and Convention",
-                "History",
-                "Religion",
-                "World"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Shaw",
-          "works": [
-            {
-              "title": "Saint Joan",
-              "themes": "Science; Hypothesis; Induction; Physics",
-              "great_ideas": [
-                "Hypothesis",
-                "Induction",
-                "Science",
-                "Physics"
-              ]
-            }
-          ]
-        },
-        {
           "order": 27,
           "tier": "core",
           "author": "Racine",
           "works": [
             {
-              "title": "Bérénice",
+              "title": "B\u00e9r\u00e9nice",
               "selection": "Focus: Acts I-II (conflict stated); Act IV (decision); Act V (resolution)",
               "themes": "Government; Law; State; Truth",
               "great_ideas": [
@@ -3143,7 +2774,7 @@
               ]
             },
             {
-              "title": "Phèdre",
+              "title": "Ph\u00e8dre",
               "selection": "Focus: Acts I-II (desire/confession); Act III (crisis); Act V (catastrophe)",
               "themes": "Desire; Love; Pleasure and Pain; Truth",
               "great_ideas": [
@@ -3625,73 +3256,6 @@
               ]
             }
           ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Weber",
-          "works": [
-            {
-              "title": "Essays in Sociology",
-              "selection": "Part III",
-              "themes": "Custom and Convention; Government; Law; Religion; State; Art; Beauty; Form",
-              "great_ideas": [
-                "Custom and Convention",
-                "Government",
-                "Law",
-                "Art",
-                "Beauty",
-                "Form",
-                "Religion",
-                "State"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Proust",
-          "works": [
-            {
-              "title": "Swann in Love",
-              "themes": "Desire; Love; Memory and Imagination; Mind; Time; Truth; Beauty; Experience",
-              "great_ideas": [
-                "Desire",
-                "Love",
-                "Beauty",
-                "Experience",
-                "Memory and Imagination",
-                "Mind",
-                "Time",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Brecht",
-          "works": [
-            {
-              "title": "Mother Courage and Her Children",
-              "themes": "War and Peace; Courage; Government; Honor; Justice; Labor; Tyranny and Despotism; Wealth",
-              "great_ideas": [
-                "Courage",
-                "Government",
-                "Honor",
-                "Justice",
-                "Labor",
-                "War and Peace",
-                "Tyranny and Despotism",
-                "Wealth"
-              ]
-            }
-          ]
         }
       ]
     },
@@ -4112,105 +3676,6 @@
           ]
         },
         {
-          "order": 18,
-          "tier": "supplemental",
-          "marker": "*",
-          "author": "Sterne",
-          "works": [
-            {
-              "title": "Tristram Shandy",
-              "themes": "Knowledge; Philosophy; Truth; Reasoning",
-              "great_ideas": [
-                "Knowledge",
-                "Philosophy",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Barth",
-          "works": [
-            {
-              "title": "The Word of God and the Word of Man",
-              "selection": "I-IV",
-              "themes": "God; Religion; Theology; Sin; Truth; Will; Art; Beauty",
-              "great_ideas": [
-                "God",
-                "Art",
-                "Beauty",
-                "Religion",
-                "Theology",
-                "Sin",
-                "Truth",
-                "Will"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Bergson",
-          "works": [
-            {
-              "title": "An Introduction to Metaphysics",
-              "themes": "Metaphysics; Time; Experience; Knowledge; Mind; Science; Truth; Physics",
-              "great_ideas": [
-                "Experience",
-                "Knowledge",
-                "Metaphysics",
-                "Time",
-                "Mind",
-                "Science",
-                "Truth",
-                "Physics"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Hardy",
-          "works": [
-            {
-              "title": "A Mathematician's Apology",
-              "themes": "Art; Beauty; Form; Truth",
-              "great_ideas": [
-                "Art",
-                "Beauty",
-                "Form",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 22,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Kafka",
-          "works": [
-            {
-              "title": "The Metamorphosis",
-              "themes": "Custom and Convention; Family; Love; Truth",
-              "great_ideas": [
-                "Custom and Convention",
-                "Family",
-                "Love",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
           "order": 26,
           "tier": "core",
           "author": "Whitehead",
@@ -4578,7 +4043,7 @@
           "works": [
             {
               "title": "The Spirit of the Laws",
-              "selection": "Book I–V, VIII, XI–XII",
+              "selection": "Book I\u2013V, VIII, XI\u2013XII",
               "themes": "Law; Constitution; Government; Justice; State; Democracy; Liberty; Monarchy",
               "great_ideas": [
                 "Law",
@@ -4682,178 +4147,6 @@
                 "Sin",
                 "Mind",
                 "Pleasure and Pain"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 16,
-          "tier": "supplemental",
-          "marker": "*",
-          "author": "Apollonius",
-          "works": [
-            {
-              "title": "On Conic Sections",
-              "selection": "Book I, Prop. 1-15; Book III, Prop. 42-55",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 17,
-          "tier": "supplemental",
-          "marker": "*",
-          "author": "Fielding",
-          "works": [
-            {
-              "title": "Tom Jones",
-              "themes": "God; Religion; Sin; Truth",
-              "great_ideas": [
-                "God",
-                "Religion",
-                "Sin",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 18,
-          "tier": "supplemental",
-          "marker": "*",
-          "author": "Fourier",
-          "works": [
-            {
-              "title": "Analytical Theory of Heat",
-              "selection": "Preliminary Discourse; Ch. 1-2",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Molière",
-          "works": [
-            {
-              "title": "Tartuffe",
-              "themes": "Science; Physics; Art; Beauty; Form; Mechanics; Hypothesis",
-              "great_ideas": [
-                "Art",
-                "Beauty",
-                "Form",
-                "Hypothesis",
-                "Science",
-                "Physics",
-                "Mechanics"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Austen",
-          "works": [
-            {
-              "title": "Emma",
-              "themes": "Education; Experience; Knowledge; Truth",
-              "great_ideas": [
-                "Education",
-                "Experience",
-                "Knowledge",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Planck",
-          "works": [
-            {
-              "title": "Scientific Autobiography",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 22,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Veblen",
-          "works": [
-            {
-              "title": "The Theory of the Leisure Class",
-              "themes": "Custom and Convention; Government; Labor; Progress; Wealth",
-              "great_ideas": [
-                "Custom and Convention",
-                "Government",
-                "Labor",
-                "Progress",
-                "Wealth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 23,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Joyce",
-          "works": [
-            {
-              "title": "A Portrait of the Artist as a Young Man",
-              "themes": "Form; Art; Beauty; Being; Language; Metaphysics; Rhetoric; Sign and Symbol",
-              "great_ideas": [
-                "Form",
-                "Art",
-                "Beauty",
-                "Being",
-                "Language",
-                "Metaphysics",
-                "Rhetoric",
-                "Sign and Symbol"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 24,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Hemingway",
-          "works": [
-            {
-              "title": "The Short Happy Life of Francis Macomber",
-              "themes": "Courage; Honor; War and Peace; Truth",
-              "great_ideas": [
-                "Courage",
-                "Honor",
-                "War and Peace",
-                "Truth"
               ]
             }
           ]
@@ -5093,13 +4386,13 @@
               "title": "The Canterbury Tales",
               "selections": [
                 "Prologue",
-                "Knight’s Tale",
-                "Miller’s Prologue and Tale",
-                "Reeve’s Prologue and Tale",
-                "Wife of Bath’s Prologue and Tale",
-                "Friar’s Prologue and Tale",
-                "Summoner’s Prologue and Tale",
-                "Pardoner’s Prologue and Tale"
+                "Knight\u2019s Tale",
+                "Miller\u2019s Prologue and Tale",
+                "Reeve\u2019s Prologue and Tale",
+                "Wife of Bath\u2019s Prologue and Tale",
+                "Friar\u2019s Prologue and Tale",
+                "Summoner\u2019s Prologue and Tale",
+                "Pardoner\u2019s Prologue and Tale"
               ],
               "selection": "Prologue; Knight's Tale; Miller's ...; Reeve's ...; Wife of Bath's ...; Friar's ...; Summoner's ...; Pardoner's ...",
               "themes": "Truth; Knowledge; Reasoning; Justice",
@@ -5371,102 +4664,6 @@
           ]
         },
         {
-          "order": 18,
-          "tier": "supplemental",
-          "marker": "*",
-          "author": "Boswell",
-          "works": [
-            {
-              "title": "The Life of Samuel Johnson",
-              "themes": "God; Religion; Sin; Truth",
-              "great_ideas": [
-                "God",
-                "Religion",
-                "Sin",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 19,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Erasmus",
-          "works": [
-            {
-              "title": "In Praise of Folly",
-              "themes": "Knowledge; Reasoning; Truth; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Reasoning",
-                "Truth"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 20,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Huizinga",
-          "works": [
-            {
-              "title": "The Waning of the Middle Ages",
-              "selection": "XI-XXIII",
-              "themes": "Art; Custom and Convention; History; Religion; World",
-              "great_ideas": [
-                "Art",
-                "Custom and Convention",
-                "History",
-                "Religion",
-                "World"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 21,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "Eddington",
-          "works": [
-            {
-              "title": "The Expanding Universe",
-              "themes": "Astronomy; Cause; Hypothesis; Science; Space; Time; Language; Logic",
-              "great_ideas": [
-                "Astronomy",
-                "Cause",
-                "Hypothesis",
-                "Language",
-                "Logic",
-                "Science",
-                "Space",
-                "Time"
-              ]
-            }
-          ]
-        },
-        {
-          "order": 22,
-          "tier": "supplemental",
-          "marker": "**",
-          "author": "T. S. Eliot",
-          "works": [
-            {
-              "title": "The Waste Land",
-              "themes": "Truth; Knowledge; Reasoning; Justice",
-              "great_ideas": [
-                "Knowledge",
-                "Justice",
-                "Truth",
-                "Reasoning"
-              ]
-            }
-          ]
-        },
-        {
           "order": 27,
           "tier": "core",
           "author": "Cather",
@@ -5636,7 +4833,7 @@
           "works": [
             {
               "title": "Philosophical Investigations",
-              "selection": "§§1-43; 65-88; 243-315 (meaning, family resemblance, private language)",
+              "selection": "\u00a7\u00a71-43; 65-88; 243-315 (meaning, family resemblance, private language)",
               "themes": "Language; Sign and Symbol; Logic; Mind; Philosophy; Truth; Custom and Convention; Family",
               "great_ideas": [
                 "Language",

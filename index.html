@@ -44,7 +44,7 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, deleteDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, query, where, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
     
     // Firebase configuration
     const firebaseConfig = {
@@ -75,6 +75,10 @@
     window.firestoreGetDoc = getDoc;
     window.firestoreGetDocs = getDocs;
     window.firestoreDeleteDoc = deleteDoc;
+    window.firestoreAddDoc = addDoc;
+    window.firestoreQuery = query;
+    window.firestoreWhere = where;
+    window.firestoreOrderBy = orderBy;
     window.firestoreServerTimestamp = serverTimestamp;
     
     // Signal that Firebase is ready
@@ -1255,6 +1259,120 @@
       align-items:center;
       flex-wrap:wrap;
     }
+
+    /* ===== Great Conversation Comments Drawer ===== */
+    .commentsDrawer{ right:0; left:auto; width:min(520px, 100vw); }
+    .commentRules{
+      background:#f5f5f0;
+      border:2px solid var(--ink);
+      padding:14px 16px;
+      margin-bottom:16px;
+      font-size:13px;
+      line-height:1.6;
+    }
+    .commentRules h3{
+      font-family:'Newsreader',serif;
+      font-size:15px;
+      font-weight:800;
+      margin:0 0 8px 0;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .commentRules ol{
+      margin:0;
+      padding-left:20px;
+    }
+    .commentRules li{ margin-bottom:4px; }
+    .commentTypeRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin:8px 0;
+    }
+    .commentTypePill{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:3px 10px;
+      border:2px solid var(--ink);
+      background:transparent;
+      font-size:12px;
+      font-weight:600;
+      cursor:pointer;
+      font-family:inherit;
+      letter-spacing:.02em;
+    }
+    .commentTypePill.selected,
+    .commentTypePill:hover{ background:var(--ink); color:var(--paper); }
+    .commentItem{
+      border:2px solid var(--ink);
+      padding:12px 14px;
+      margin-bottom:10px;
+      background:var(--paper);
+    }
+    .commentItemHeader{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:6px;
+      flex-wrap:wrap;
+    }
+    .commentAuthorName{
+      font-weight:700;
+      font-size:13px;
+    }
+    .commentDate{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .commentTypeBadge{
+      font-size:11px;
+      font-weight:700;
+      padding:2px 7px;
+      border:1.5px solid var(--ink);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .commentBody{
+      font-size:14px;
+      line-height:1.65;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    }
+    .commentDeleteBtn{
+      margin-top:8px;
+      font-size:12px;
+      padding:3px 8px;
+    }
+    .commentForm{
+      border-top:2px solid var(--ink);
+      padding-top:14px;
+      margin-top:6px;
+    }
+    .commentForm .label{ font-size:13px; font-weight:700; margin-bottom:4px; }
+    .commentSignInNote{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .commentsLoading{
+      text-align:center;
+      padding:20px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .commentsEmpty{
+      text-align:center;
+      padding:20px;
+      font-size:13px;
+      color:var(--muted);
+      border:2px dashed var(--ink);
+    }
+    html.dark .commentRules{ background:#1a1a1a; }
+    html.dark .commentItem{ background:#1a1a1a; }
+    html.dark .commentTypePill{ background:transparent; color:var(--ink); }
+    html.dark .commentTypePill.selected,
+    html.dark .commentTypePill:hover{ background:var(--ink); color:var(--paper); }
   </style>
 </head>
 
@@ -1777,6 +1895,61 @@
 
         <div class="help" id="editMeta"></div>
       </section>
+    </div>
+  </aside>
+
+  <!-- Great Conversation Comments Drawer (right) -->
+  <aside id="commentsDrawer" class="drawer commentsDrawer" aria-label="Great Conversation comments" aria-hidden="true">
+    <div class="drawerHeader">
+      <h2 class="drawerTitle">Great Conversation</h2>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" id="closeCommentsBtn" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div class="drawerBody">
+      <div class="commentRules">
+        <h3>📜 The Rules of the Conversation</h3>
+        <ol>
+          <li><strong>Contribute your own ideas.</strong> Add arguments, counter-arguments, and original thoughts inspired by the text.</li>
+          <li><strong>Engage the material directly.</strong> Agree, disagree, or extend the author's claims with your own reasoning.</li>
+          <li><strong>Build bridges across cultures.</strong> Connect ideas to Eastern philosophy, African wisdom traditions, Indian thought, Indigenous knowledge, or any tradition that illuminates the conversation.</li>
+          <li><strong>Seek the ideal life.</strong> This is ultimately a philosophical exercise — we are asking: <em>how should one live?</em></li>
+          <li><strong>Be charitable.</strong> Assume the best interpretation of others' contributions before critiquing them.</li>
+        </ol>
+      </div>
+
+      <div id="commentsBookTitle" style="font-family:'Newsreader',serif; font-size:18px; font-weight:800; margin-bottom:14px;"></div>
+
+      <div id="commentsList" aria-live="polite"></div>
+
+      <div class="commentForm" id="commentForm">
+        <div id="commentSignInNote" class="commentSignInNote" style="display:none;">
+          Sign in to join the Great Conversation.
+        </div>
+        <div id="commentFormFields">
+          <div class="control" style="margin-bottom:10px;">
+            <div class="label">Type of contribution</div>
+            <div class="commentTypeRow" id="commentTypeRow">
+              <button class="commentTypePill selected" data-type="argument" type="button">💡 Argument</button>
+              <button class="commentTypePill" data-type="counterArgument" type="button">↩️ Counter-Argument</button>
+              <button class="commentTypePill" data-type="culturalConnection" type="button">🌏 Cultural Connection</button>
+              <button class="commentTypePill" data-type="reflection" type="button">🤔 Reflection</button>
+            </div>
+          </div>
+          <div class="control" style="margin-bottom:10px;">
+            <div class="label">Your contribution</div>
+            <textarea id="commentBody" class="textarea" placeholder="Add your voice to the Great Conversation…" rows="5"></textarea>
+          </div>
+          <button class="btn" id="submitCommentBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            Join the Conversation
+          </button>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -2795,6 +2968,177 @@
       }
     }
     
+    /* =========================================================
+       GREAT CONVERSATION — BOOK COMMENTS
+       ========================================================= */
+
+    // Build a stable key for a book (used as Firestore field filter)
+    function bookCommentKey(title, author) {
+      return `${(author || "").toLowerCase().replace(/\s+/g, "_")}||${(title || "").toLowerCase().replace(/\s+/g, "_")}`;
+    }
+
+    // Load comments for a book from Firestore
+    async function loadBookComments(bookKey) {
+      if (!window.firebaseDB) return [];
+      try {
+        const db = window.firebaseDB;
+        const col = window.firestoreCollection(db, "bookComments");
+        const q = window.firestoreQuery(
+          col,
+          window.firestoreWhere("bookKey", "==", bookKey),
+          window.firestoreOrderBy("createdAt", "asc")
+        );
+        const snap = await window.firestoreGetDocs(q);
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (err) {
+        console.error("Error loading comments:", err);
+        return [];
+      }
+    }
+
+    // Submit a new comment to Firestore
+    async function submitBookComment() {
+      const body = ($("#commentBody").value || "").trim();
+      if (!body) { await showAlert("Please write something before joining the conversation.", "Empty Comment"); return; }
+      if (!state.currentUser) { await showAlert("Please sign in to join the Great Conversation.", "Sign In Required"); return; }
+
+      const { bookTitle, bookAuthor, bookKey, selectedType } = state.commentsUI;
+      const db = window.firebaseDB;
+      if (!db) return;
+
+      state.commentsUI.submitting = true;
+      const submitBtn = $("#submitCommentBtn");
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Posting…"; }
+
+      try {
+        const col = window.firestoreCollection(db, "bookComments");
+        const email = state.currentUser.email || "";
+        const displayName = email.split("@")[0] || "Anonymous";
+        await window.firestoreAddDoc(col, {
+          bookKey,
+          bookTitle,
+          bookAuthor,
+          userId: state.currentUser.uid,
+          userDisplayName: displayName,
+          body,
+          commentType: selectedType,
+          createdAt: window.firestoreServerTimestamp()
+        });
+        $("#commentBody").value = "";
+        // Reload and re-render
+        const comments = await loadBookComments(bookKey);
+        state.commentsCache[bookKey] = comments;
+        renderBookCommentsList(comments);
+      } catch (err) {
+        console.error("Error submitting comment:", err);
+        await showAlert("Could not post your comment. Please try again.", "Error");
+      } finally {
+        state.commentsUI.submitting = false;
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> Join the Conversation`; }
+      }
+    }
+
+    // Delete a comment (only the owner can delete their own)
+    async function deleteBookComment(commentId) {
+      const confirmed = await showConfirm("Delete this comment? This cannot be undone.", "Delete Comment");
+      if (!confirmed) return;
+      try {
+        const db = window.firebaseDB;
+        const docRef = window.firestoreDoc(db, "bookComments", commentId);
+        await window.firestoreDeleteDoc(docRef);
+        const { bookKey } = state.commentsUI;
+        const comments = await loadBookComments(bookKey);
+        state.commentsCache[bookKey] = comments;
+        renderBookCommentsList(comments);
+      } catch (err) {
+        console.error("Error deleting comment:", err);
+        await showAlert("Could not delete the comment. Please try again.", "Error");
+      }
+    }
+
+    const COMMENT_TYPE_LABELS = {
+      argument: "💡 Argument",
+      counterArgument: "↩️ Counter-Argument",
+      culturalConnection: "🌏 Cultural Connection",
+      reflection: "🤔 Reflection"
+    };
+
+    function renderBookCommentsList(comments) {
+      const el = $("#commentsList");
+      if (!el) return;
+      if (!comments || !comments.length) {
+        el.innerHTML = `<div class="commentsEmpty">No contributions yet — be the first to join this conversation!</div>`;
+        return;
+      }
+      const uid = state.currentUser ? state.currentUser.uid : null;
+      el.innerHTML = comments.map(comment => {
+        const typeLabel = COMMENT_TYPE_LABELS[comment.commentType] || comment.commentType || "Comment";
+        let date = "";
+        if (comment.createdAt && comment.createdAt.toDate) {
+          date = comment.createdAt.toDate().toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+        }
+        const canDelete = uid && comment.userId === uid;
+        return `
+          <div class="commentItem" data-commentid="${escapeHtml(comment.id)}">
+            <div class="commentItemHeader">
+              <span class="commentAuthorName">${escapeHtml(comment.userDisplayName || "Anonymous")}</span>
+              <span class="commentTypeBadge">${escapeHtml(typeLabel)}</span>
+              ${date ? `<span class="commentDate">${escapeHtml(date)}</span>` : ""}
+            </div>
+            <div class="commentBody">${escapeHtml(comment.body)}</div>
+            ${canDelete ? `<button class="btn commentDeleteBtn" type="button" data-action="deleteComment" data-commentid="${escapeHtml(comment.id)}">Delete</button>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function openCommentsDrawer(bookTitle, bookAuthor) {
+      const bookKey = bookCommentKey(bookTitle, bookAuthor);
+      state.commentsUI.bookTitle = bookTitle;
+      state.commentsUI.bookAuthor = bookAuthor;
+      state.commentsUI.bookKey = bookKey;
+      state.commentsUI.selectedType = "argument";
+
+      const titleEl = $("#commentsBookTitle");
+      if (titleEl) titleEl.textContent = `${bookTitle} — ${bookAuthor}`;
+
+      // Reset type pills
+      $("#commentTypeRow").querySelectorAll(".commentTypePill").forEach(p => {
+        p.classList.toggle("selected", p.dataset.type === "argument");
+      });
+
+      // Reset form
+      const bodyEl = $("#commentBody");
+      if (bodyEl) bodyEl.value = "";
+
+      // Show/hide form based on login state
+      const signInNote = $("#commentSignInNote");
+      const formFields = $("#commentFormFields");
+      if (state.currentUser) {
+        if (signInNote) signInNote.style.display = "none";
+        if (formFields) formFields.style.display = "";
+      } else {
+        if (signInNote) signInNote.style.display = "";
+        if (formFields) formFields.style.display = "none";
+      }
+
+      // Show loading state
+      const listEl = $("#commentsList");
+      if (listEl) listEl.innerHTML = `<div class="commentsLoading">Loading conversation…</div>`;
+
+      openDrawer("comments");
+
+      // Load from cache or Firestore
+      const cached = state.commentsCache[bookKey];
+      if (cached) {
+        renderBookCommentsList(cached);
+      } else {
+        const comments = await loadBookComments(bookKey);
+        state.commentsCache[bookKey] = comments;
+        renderBookCommentsList(comments);
+      }
+    }
+
     // Simple stable hash for DOM ids (no crypto needed)
     function hash32(str){
       let h = 2166136261;
@@ -2906,6 +3250,14 @@
       drawer: { open:false, which:null }, // notes | openalex
       notesUI: { search:"", tag:"all", editingId:null, showArchived: false },
       tagsUniverse: [], // note tags (titles)
+      commentsUI: {
+        bookTitle: "",
+        bookAuthor: "",
+        bookKey: "",
+        selectedType: "argument",
+        submitting: false
+      },
+      commentsCache: {}, // bookKey -> array of comment objects
       sync: {
         enabled: false,
         lastSync: null,
@@ -3426,6 +3778,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 Open notes
               </button>
+              <button class="btn" type="button" data-action="openDiscussAuthor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Discuss
+              </button>
             </div>
           </div></div>
         </section>
@@ -3561,6 +3917,12 @@
           renderNotesList();
           return;
         }
+
+        if (btn.dataset.action === "openDiscussAuthor"){
+          // Use author name as book title to discuss the author's body of work
+          openCommentsDrawer(author, author);
+          return;
+        }
       };
     }
 
@@ -3658,6 +4020,10 @@
               <button class="btn" type="button" data-action="openNotesLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 Open notes
+              </button>
+              <button class="btn" type="button" data-action="openDiscussLib">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Discuss
               </button>
               <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
@@ -3968,6 +4334,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 <span class="btn-label">Open notes</span>
               </button>
+              <button class="btn" type="button" data-action="openDiscussWork" aria-label="Discuss" title="Discuss">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span class="btn-label">Discuss</span>
+              </button>
             </div>
           </div></div>
         </div>
@@ -4099,6 +4469,11 @@
           state.notesUI.tag = title;
           $("#noteTagFilter").value = title;
           renderNotesList();
+          return;
+        }
+
+        if (btn.dataset.action === "openDiscussLib"){
+          openCommentsDrawer(title, author);
           return;
         }
 
@@ -4268,6 +4643,13 @@
           }
           return;
         }
+
+        if (action === "openDiscussWork"){
+          const title = row.dataset.book || "";
+          const author = row.dataset.author || "";
+          openCommentsDrawer(title, author);
+          return;
+        }
       };
 
       grid.onchange = (e) => {
@@ -4354,12 +4736,24 @@
         $("#notesDrawer").setAttribute("aria-hidden", "false");
         $("#oaDrawer").classList.remove("open");
         $("#oaDrawer").setAttribute("aria-hidden", "true");
+        $("#commentsDrawer").classList.remove("open");
+        $("#commentsDrawer").setAttribute("aria-hidden", "true");
         renderNotesList();
+      } else if (which === "comments") {
+        $("#commentsDrawer").classList.add("open");
+        $("#commentsDrawer").setAttribute("aria-hidden", "false");
+        $("#notesDrawer").classList.remove("open");
+        $("#notesDrawer").setAttribute("aria-hidden", "true");
+        $("#oaDrawer").classList.remove("open");
+        $("#oaDrawer").setAttribute("aria-hidden", "true");
+        hideEditor();
       } else {
         $("#oaDrawer").classList.add("open");
         $("#oaDrawer").setAttribute("aria-hidden", "false");
         $("#notesDrawer").classList.remove("open");
         $("#notesDrawer").setAttribute("aria-hidden", "true");
+        $("#commentsDrawer").classList.remove("open");
+        $("#commentsDrawer").setAttribute("aria-hidden", "true");
         hideEditor();
         updateOpenAlexPreview();
       }
@@ -4377,6 +4771,9 @@
 
       $("#oaDrawer").classList.remove("open");
       $("#oaDrawer").setAttribute("aria-hidden", "true");
+
+      $("#commentsDrawer").classList.remove("open");
+      $("#commentsDrawer").setAttribute("aria-hidden", "true");
 
       hideEditor();
     }
@@ -4832,6 +5229,28 @@
 
       $("#closeNotesBtn").addEventListener("click", closeDrawer);
       $("#oaCloseBtn").addEventListener("click", closeDrawer);
+      $("#closeCommentsBtn").addEventListener("click", closeDrawer);
+
+      // Great Conversation — comment type pills
+      $("#commentTypeRow").addEventListener("click", (e) => {
+        const pill = e.target.closest(".commentTypePill");
+        if (!pill) return;
+        $("#commentTypeRow").querySelectorAll(".commentTypePill").forEach(p => p.classList.remove("selected"));
+        pill.classList.add("selected");
+        state.commentsUI.selectedType = pill.dataset.type;
+      });
+
+      // Great Conversation — submit comment
+      $("#submitCommentBtn").addEventListener("click", submitBookComment);
+
+      // Great Conversation — delete comment (event delegation on comments list)
+      $("#commentsList").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-action='deleteComment']");
+        if (!btn) return;
+        const commentId = btn.dataset.commentid;
+        if (commentId) deleteBookComment(commentId);
+      });
+
       $("#overlay").addEventListener("click", () => {
         closeDrawer();
       });

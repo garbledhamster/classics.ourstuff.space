@@ -2002,9 +2002,10 @@
     /* =========================================================
        STORAGE KEYS
        ========================================================= */
-    const LS_CHECKS = "greatworks.reading.checks.v2";
-    const LS_NOTES  = "greatworks.reading.notes.v1";
-    const LS_OA     = "greatworks.openalex.settings.v1";
+    const LS_CHECKS        = "greatworks.reading.checks.v2";
+    const LS_NOTES         = "greatworks.reading.notes.v1";
+    const LS_OA            = "greatworks.openalex.settings.v1";
+    const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
     
     const YOUTUBE_SEARCH_SUFFIX = " summary analysis explained"; // Educational terms for better learning results
     const LEARNING_GOAL_OPTIONS = [
@@ -2691,6 +2692,13 @@
       triggerAutoSync();
     }
 
+    function loadDeletedNoteIds(){
+      return new Set(safeJsonParse(localStorage.getItem(LS_DELETED_NOTES) || "[]", []));
+    }
+    function saveDeletedNoteIds(idSet){
+      localStorage.setItem(LS_DELETED_NOTES, JSON.stringify(Array.from(idSet)));
+    }
+
     function defaultOpenAlexSettings(){
       return {
         target: "title_and_abstract.search",
@@ -2820,9 +2828,12 @@
         state.checks = { ...remoteChecks, ...state.checks }; // Local wins on conflict
         localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
         
-        // Notes: Merge by ID (most recently updated version wins on conflict)
+        // Notes: Merge by ID (most recently updated version wins on conflict).
+        // Remote notes whose IDs are in deletedNoteIds are skipped so that
+        // locally-deleted notes are never restored from Firestore.
         const noteMap = new Map(state.notes.map(n => [n.id, n]));
         for (const remoteNote of remoteNotes) {
+          if (state.deletedNoteIds.has(remoteNote.id)) continue; // honor local deletion
           const localNote = noteMap.get(remoteNote.id);
           if (!localNote || (remoteNote.updated_at || "") > (localNote.updated_at || "")) {
             noteMap.set(remoteNote.id, remoteNote);
@@ -2836,6 +2847,12 @@
           syncChecksToFirestore(userId),
           syncNotesToFirestore(userId)
         ]);
+        
+        // Tombstones fulfilled: deleted notes are no longer in Firestore, safe to clear.
+        // This runs only on the success path; if the push above threw, we stay in catch
+        // and the tombstones remain so the next sync attempt re-applies the deletions.
+        state.deletedNoteIds.clear();
+        saveDeletedNoteIds(state.deletedNoteIds);
         
         state.sync.lastSync = new Date().toISOString();
         state.sync.enabled = true;
@@ -3149,6 +3166,7 @@
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
       notes: loadNotes(),
+      deletedNoteIds: loadDeletedNoteIds(),
       openalex: loadOpenAlexSettings(),
       view: "library",   // "library" | "plan" | "authors"
       availableYears: [],
@@ -5021,6 +5039,8 @@
 
         state.notes = state.notes.filter(n => n.id !== id);
         saveNotes(state.notes);
+        state.deletedNoteIds.add(id);
+        saveDeletedNoteIds(state.deletedNoteIds);
 
         renderNotesList();
         hideEditor();

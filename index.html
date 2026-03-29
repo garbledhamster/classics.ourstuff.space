@@ -3288,6 +3288,7 @@
             flat.push({
               year: yearNum,
               order,
+              flatIndex: flat.length,
               tier,
               marker,
               author,
@@ -3469,10 +3470,10 @@
       }
 
       if (f.sort === "plan"){
-        items.sort((a,b)=> a.year-b.year || a.order-b.order || a.work.title.localeCompare(b.work.title));
+        items.sort((a,b)=> a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex);
       } else if (f.sort === "author"){
         items.sort((a,b)=> a.author.localeCompare(b.author, undefined, { sensitivity:"base" })
-          || a.year-b.year || a.order-b.order || a.work.title.localeCompare(b.work.title));
+          || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex);
       } else if (f.sort === "title"){
         items.sort((a,b)=> a.work.title.localeCompare(b.work.title, undefined, { sensitivity:"base" })
           || a.year-b.year || a.order-b.order);

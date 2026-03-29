@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script to update reading.json with data from Great Books of the Western World.csv
+Script to update 10year.json with data from Great Books of the Western World.csv
 Adds missing works, plan_selection, themes, and great_ideas fields.
 """
 
@@ -96,13 +96,13 @@ def find_matching_work(json_works: List[Dict], csv_work_title: str, csv_author: 
     return None
 
 def update_reading_json(reading_data: Dict, csv_map: Dict) -> Dict:
-    """Update reading.json with data from CSV"""
+    """Update 10year.json with data from CSV"""
     
     for year_num in range(1, 11):
         if year_num not in csv_map:
             continue
         
-        # Find the year in reading.json
+        # Find the year in 10year.json
         json_year = None
         for y in reading_data['years']:
             if y['year'] == year_num:
@@ -110,7 +110,7 @@ def update_reading_json(reading_data: Dict, csv_map: Dict) -> Dict:
                 break
         
         if not json_year:
-            print(f"Warning: Year {year_num} not found in reading.json")
+            print(f"Warning: Year {year_num} not found in 10year.json")
             continue
         
         # Process each reading entry
@@ -230,24 +230,24 @@ def update_reading_json(reading_data: Dict, csv_map: Dict) -> Dict:
 
 def main():
     csv_path = '/home/runner/work/classics.ourstuff.space/classics.ourstuff.space/Great Books of the Western World.csv'
-    json_path = '/home/runner/work/classics.ourstuff.space/classics.ourstuff.space/reading.json'
-    output_path = '/home/runner/work/classics.ourstuff.space/classics.ourstuff.space/reading.json'
+    json_path = '/home/runner/work/classics.ourstuff.space/classics.ourstuff.space/10year.json'
+    output_path = '/home/runner/work/classics.ourstuff.space/classics.ourstuff.space/10year.json'
     
     print("Loading CSV data...")
     csv_map = load_csv_data(csv_path)
     
-    print("Loading reading.json...")
+    print("Loading 10year.json...")
     with open(json_path, 'r') as f:
         reading_data = json.load(f)
     
-    print("\nUpdating reading.json with CSV data...")
+    print("\nUpdating 10year.json with CSV data...")
     updated_data = update_reading_json(reading_data, csv_map)
     
-    print("\nSaving updated reading.json...")
+    print("\nSaving updated 10year.json...")
     with open(output_path, 'w') as f:
         json.dump(updated_data, f, indent=2, ensure_ascii=False)
     
-    print(f"\nDone! Updated reading.json saved to {output_path}")
+    print(f"\nDone! Updated 10year.json saved to {output_path}")
     
     # Print summary statistics
     total_works = 0

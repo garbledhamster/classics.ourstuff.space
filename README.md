@@ -11,11 +11,11 @@ This repository tracks sources for a collection of classic books, with a focus o
 
 ## Files
 
-- **`project.json`**: Master list of 398 classic books with metadata (title, author, volume, date, item number, sourceUrl)
-- **`reading.json`**: Ten-year reading plan organizing the classics (references books in project.json)
+- **`library.json`**: Master list of 398 classic books with metadata (title, author, volume, date, item number, sourceUrl)
+- **`10year.json`**: Ten-year reading plan organizing the classics (references books in library.json)
 - **`index.html`**: Web application for browsing the library and reading plan
 - **`GUTENBERG_SOURCES.md`**: Auto-generated reference showing which books have Project Gutenberg sources
-- **`generate_gutenberg_sources.py`**: Script to generate GUTENBERG_SOURCES.md from project.json
+- **`generate_gutenberg_sources.py`**: Script to generate GUTENBERG_SOURCES.md from library.json
 
 ## Generating the Sources Reference
 
@@ -28,7 +28,7 @@ python3 generate_gutenberg_sources.py
 ```
 
 This will:
-1. Read all 398 books from `project.json` (including their sourceUrl fields)
+1. Read all 398 books from `library.json` (including their sourceUrl fields)
 2. Generate `GUTENBERG_SOURCES.md` with a complete table showing:
    - ✅ Books with confirmed sources (with links)
    - ⚠️ Books that need verification
@@ -38,11 +38,11 @@ This will:
 
 To add or update sources from any supported Project Gutenberg site or partner library:
 
-1. Edit `project.json` and add/update the `sourceUrl` field for books
+1. Edit `library.json` and add/update the `sourceUrl` field for books
 2. Run `python3 generate_gutenberg_sources.py` to regenerate the markdown file
 3. Commit both files
 
-Example of a book with source in `project.json`:
+Example of a book with source in `library.json`:
 ```json
 {
   "title": "Apology",
@@ -66,7 +66,7 @@ The generated markdown file includes:
 - Statistics (total books, books with sources, books needing verification)
 - Complete table of all 398 books with:
   - Status indicator
-  - Item number from project.json
+  - Item number from library.json
   - Title and author
   - Volume and date
   - Project Gutenberg ebook number
@@ -82,8 +82,8 @@ The generated markdown file includes:
 
 ```
 .
-├── project.json                    # Master list of all books with sources
-├── reading.json                    # Ten-year reading plan (references project.json)
+├── library.json                    # Master list of all books with sources
+├── 10year.json                    # Ten-year reading plan (references library.json)
 ├── index.html                      # Web application
 ├── generate_gutenberg_sources.py  # Generator script
 ├── GUTENBERG_SOURCES.md           # Generated reference (do not edit manually)
@@ -93,12 +93,12 @@ The generated markdown file includes:
 ## Contributing
 
 When adding new books or sources:
-1. Add book metadata to `project.json` (including sourceUrl if available)
-2. If adding a book to the reading plan, reference it in `reading.json` by author and title
+1. Add book metadata to `library.json` (including sourceUrl if available)
+2. If adding a book to the reading plan, reference it in `10year.json` by author and title
 3. Run the generator script to update `GUTENBERG_SOURCES.md`
 4. Commit all changed files
 
-**Note**: The `reading.json` file should only contain the reading plan structure. Book sources are stored in `project.json` and looked up by the web application.
+**Note**: The `10year.json` file should only contain the reading plan structure. Book sources are stored in `library.json` and looked up by the web application.
 
 ## License
 

@@ -3983,6 +3983,12 @@
 
       if (vm === "table") {
         grid.innerHTML = grouped.map(g => yearCardTableHtml(g.year, g.items)).join("");
+      } else if (cols > 1) {
+        const colSize = Math.ceil(grouped.length / cols);
+        const columnGroups = Array.from({length: cols}, (_, i) => grouped.slice(i * colSize, (i + 1) * colSize));
+        grid.innerHTML = columnGroups
+          .map(group => `<div class="planCol">${group.map(g => yearCardHtml(g.year, g.items)).join("")}</div>`)
+          .join("");
       } else {
         grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       }

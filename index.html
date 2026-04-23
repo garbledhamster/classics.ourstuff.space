@@ -99,6 +99,18 @@
     img, svg { display: block; max-width: 100%; }
     button, input, select, textarea { font: inherit; }
     a { color: inherit; }
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0, 0, 0, 0);
+      clip-path:inset(50%);
+      white-space:nowrap;
+      border:0;
+    }
 
     /* ===== Neo-brutal newspaper theme (B/W, hard edges) ===== */
     :root{
@@ -725,6 +737,35 @@
     .statusSelect:hover{ transform: translate(-1px,-1px); }
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
+    .taskTracker{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      min-width:0;
+      flex:1 1 320px;
+    }
+    .taskSelect{
+      min-width:220px;
+      flex:1 1 220px;
+    }
+    .taskCompleteSelect{
+      min-width:160px;
+      flex:0 0 auto;
+    }
+    @media (max-width:560px){
+      .libActions .statusSelect,
+      .workActions .statusSelect{
+        width:100%;
+        min-width:0;
+      }
+      .taskTracker{
+        width:100%;
+      }
+      .taskCompleteSelect{
+        flex:1 1 auto;
+      }
+    }
     .cardDateFields{
       display:flex;
       align-items:stretch;
@@ -2069,13 +2110,54 @@
     const LS_OA            = "greatworks.openalex.settings.v1";
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
     const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
+    const LS_CARD_TASKS    = "greatworks.reading.cardTasks.v1";
     const LS_CARD_DATES    = "greatworks.reading.cardDates.v1";
     const DEFAULT_CARD_STATUS = "not_started";
+    const DEFAULT_CARD_TASK = "no_task";
+    const DEFAULT_CARD_TASK_COMPLETION = "not_complete";
     const CARD_STATUS_OPTIONS = [
       { value: DEFAULT_CARD_STATUS, label: "Not Started" },
       { value: "in_progress", label: "In Progress" },
       { value: "complete", label: "Complete" },
       { value: "skipped", label: "Skipped" }
+    ];
+    const CARD_TASK_GROUPS = [
+      {
+        label: "Start a Book",
+        options: [
+          { value: "audiobook_listen_1", label: "Audiobook Listen 1" },
+          { value: "biography_on_author", label: "Biography on Author" },
+          { value: "documentary_on_author", label: "Documentary on Author" },
+          { value: "period_documentary", label: "Period Documentary" },
+          { value: "lecture_on_book_or_works", label: "Lecture on Book or Works" },
+          { value: "summary_of_book_or_works", label: "Summary of Book or Works" },
+          { value: "audiobook_listen_2", label: "Audiobook Listen 2" }
+        ]
+      },
+      {
+        label: "Reading",
+        options: [
+          { value: "inspectional_read", label: "Inspectional Read" },
+          { value: "analytical_read", label: "Analytical Read" },
+          { value: "casual_read", label: "Casual Read" }
+        ]
+      },
+      {
+        label: "After Reading",
+        options: [
+          { value: "review", label: "Review" },
+          { value: "critique", label: "Critique" },
+          { value: "analysis", label: "Analysis" }
+        ]
+      }
+    ];
+    const CARD_TASK_OPTIONS = [
+      { value: DEFAULT_CARD_TASK, label: "No Task" },
+      ...CARD_TASK_GROUPS.flatMap(group => group.options)
+    ];
+    const CARD_TASK_COMPLETION_OPTIONS = [
+      { value: DEFAULT_CARD_TASK_COMPLETION, label: "Task Not Complete" },
+      { value: "complete", label: "Task Complete" }
     ];
     
     const YOUTUBE_SEARCH_SUFFIX = ""; // No default suffix; extra terms are only added when learning goals or custom search are selected
@@ -2174,6 +2256,18 @@
       const value = state.cardStatuses[statusKey] || DEFAULT_CARD_STATUS;
       return CARD_STATUS_OPTIONS.some(opt => opt.value === value) ? value : DEFAULT_CARD_STATUS;
     }
+    function isValidCardTask(taskValue){
+      return CARD_TASK_OPTIONS.some(opt => opt.value === taskValue);
+    }
+    function getCardTask(statusKey){
+      const raw = state.cardTasks[statusKey] || {};
+      const task = isValidCardTask(raw.task) ? raw.task : DEFAULT_CARD_TASK;
+      const completion = raw.completed ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
+      return {
+        task,
+        completion: task === DEFAULT_CARD_TASK ? DEFAULT_CARD_TASK_COMPLETION : completion
+      };
+    }
     function renderStatusSelector(author, title){
       const statusKey = getCardStatusKey(author, title);
       const current = getCardStatus(statusKey);
@@ -2182,6 +2276,32 @@
         <select class="statusSelect" data-action="setCardStatus" data-statuskey="${escapeHtml(statusKey)}" aria-label="Reading status for ${escapeHtml(title)} by ${escapeHtml(author)}">
           ${options}
         </select>
+      `;
+    }
+    function renderTaskTracker(author, title){
+      const statusKey = getCardStatusKey(author, title);
+      const current = getCardTask(statusKey);
+      const helpId = `taskHelp_${hash32(statusKey)}`;
+      const taskOptions = [
+        `<option value="${escapeHtml(DEFAULT_CARD_TASK)}"${current.task === DEFAULT_CARD_TASK ? " selected" : ""}>No Task</option>`,
+        ...CARD_TASK_GROUPS.map(group => `
+          <optgroup label="${escapeHtml(group.label)}">
+            ${group.options.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.task ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("")}
+          </optgroup>
+        `)
+      ].join("");
+      const completionOptions = CARD_TASK_COMPLETION_OPTIONS.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.completion ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("");
+      const taskIsUnset = current.task === DEFAULT_CARD_TASK;
+      return `
+        <div class="taskTracker">
+          <select class="statusSelect taskSelect" data-action="setCardTask" data-statuskey="${escapeHtml(statusKey)}" aria-label="Current task for ${escapeHtml(title)} by ${escapeHtml(author)}">
+            ${taskOptions}
+          </select>
+          <select class="statusSelect taskCompleteSelect" data-action="setCardTaskComplete" data-statuskey="${escapeHtml(statusKey)}" aria-label="Task completion for ${escapeHtml(title)} by ${escapeHtml(author)}" aria-describedby="${helpId}"${taskIsUnset ? " disabled" : ""}>
+            ${completionOptions}
+          </select>
+          <span id="${helpId}" class="sr-only">Choose a task first to enable task completion.</span>
+        </div>
       `;
     }
     function normalizeCardDateValue(value){
@@ -2831,6 +2951,13 @@
       localStorage.setItem(LS_CARD_STATUS, JSON.stringify(obj));
       triggerAutoSync();
     }
+    function loadCardTasks(){
+      return safeJsonParse(localStorage.getItem(LS_CARD_TASKS) || "{}", {});
+    }
+    function saveCardTasks(obj){
+      localStorage.setItem(LS_CARD_TASKS, JSON.stringify(obj));
+      triggerAutoSync();
+    }
     function loadCardDates(){
       return safeJsonParse(localStorage.getItem(LS_CARD_DATES) || "{}", {});
     }
@@ -2845,6 +2972,31 @@
       }
       state.cardStatuses[statusKey] = statusValue;
       saveCardStatuses(state.cardStatuses);
+    }
+    function applyCardTaskChange(statusKey, updates){
+      if (!statusKey) {
+        console.warn("Invalid card task update ignored.", { statusKey, updates });
+        return;
+      }
+      const current = getCardTask(statusKey);
+      let nextTask = current.task;
+      if (updates && "task" in updates && isValidCardTask(updates.task)) {
+        nextTask = updates.task;
+      }
+      let nextCompletion = current.completion;
+      if (updates && "completion" in updates) {
+        nextCompletion = updates.completion === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
+      }
+      if (nextTask === DEFAULT_CARD_TASK) nextCompletion = DEFAULT_CARD_TASK_COMPLETION;
+      if (nextTask === DEFAULT_CARD_TASK && nextCompletion === DEFAULT_CARD_TASK_COMPLETION) {
+        delete state.cardTasks[statusKey];
+      } else {
+        state.cardTasks[statusKey] = {
+          task: nextTask,
+          completed: nextCompletion === "complete"
+        };
+      }
+      saveCardTasks(state.cardTasks);
     }
     function applyCardDateChange(dateKey, dateField, dateValue){
       if (!dateKey || !["started", "finished"].includes(dateField)) {
@@ -2871,6 +3023,30 @@
       const statusValue = statusSelect.value || DEFAULT_CARD_STATUS;
       applyCardStatusChange(statusKey, statusValue);
       return true;
+    }
+    function handleCardTaskControlChangeEvent(e){
+      const taskSelect = e.target.closest('select[data-action="setCardTask"]');
+      if (taskSelect) {
+        const statusKey = taskSelect.dataset.statuskey || "";
+        const taskValue = taskSelect.value || DEFAULT_CARD_TASK;
+        applyCardTaskChange(statusKey, { task: taskValue });
+        const tracker = taskSelect.closest(".taskTracker");
+        const completionSelect = tracker ? $('[data-action="setCardTaskComplete"]', tracker) : null;
+        if (completionSelect) {
+          const taskIsUnset = taskValue === DEFAULT_CARD_TASK;
+          completionSelect.disabled = taskIsUnset;
+          if (taskIsUnset) completionSelect.value = DEFAULT_CARD_TASK_COMPLETION;
+        }
+        return true;
+      }
+      const taskCompletionSelect = e.target.closest('select[data-action="setCardTaskComplete"]');
+      if (taskCompletionSelect) {
+        const statusKey = taskCompletionSelect.dataset.statuskey || "";
+        const completionValue = taskCompletionSelect.value === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
+        applyCardTaskChange(statusKey, { completion: completionValue });
+        return true;
+      }
+      return false;
     }
     function handleCardDateInputChangeEvent(e){
       const dateInput = e.target.closest('input[data-action="setCardDate"]');
@@ -2953,6 +3129,20 @@
         state.sync.error = error.message;
       }
     }
+    async function syncCardTasksToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          cardTasks: state.cardTasks,
+          cardTasksSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing card tasks to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
     
     // Sync notes to Firestore
     async function syncNotesToFirestore(userId) {
@@ -3024,6 +3214,22 @@
         return {};
       }
     }
+    async function loadCardTasksFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return {};
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
+        if (docSnap.exists()) {
+          return docSnap.data().cardTasks || {};
+        }
+        return {};
+      } catch (error) {
+        console.error('Error loading card tasks from Firestore:', error);
+        state.sync.error = error.message;
+        return {};
+      }
+    }
     
     // Load notes from Firestore
     async function loadNotesFromFirestore(userId) {
@@ -3055,11 +3261,12 @@
       
       try {
         // First, load data from Firestore
-        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates] = await Promise.all([
+        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates, remoteCardTasks] = await Promise.all([
           loadChecksFromFirestore(userId),
           loadNotesFromFirestore(userId),
           loadCardStatusesFromFirestore(userId),
-          loadCardDatesFromFirestore(userId)
+          loadCardDatesFromFirestore(userId),
+          loadCardTasksFromFirestore(userId)
         ]);
         
         // Merge remote data with local data
@@ -3089,13 +3296,16 @@
         localStorage.setItem(LS_CARD_STATUS, JSON.stringify(state.cardStatuses));
         state.cardDates = { ...remoteCardDates, ...state.cardDates };
         localStorage.setItem(LS_CARD_DATES, JSON.stringify(state.cardDates));
+        state.cardTasks = { ...remoteCardTasks, ...state.cardTasks };
+        localStorage.setItem(LS_CARD_TASKS, JSON.stringify(state.cardTasks));
         
         // Push all merged data back to Firestore (includes local-only items)
         await Promise.all([
           syncChecksToFirestore(userId),
           syncNotesToFirestore(userId),
           syncCardStatusesToFirestore(userId),
-          syncCardDatesToFirestore(userId)
+          syncCardDatesToFirestore(userId),
+          syncCardTasksToFirestore(userId)
         ]);
         
         // Tombstones fulfilled: deleted notes are no longer in Firestore, safe to clear.
@@ -3417,6 +3627,7 @@
       checks: loadChecks(),
       cardStatuses: loadCardStatuses(),
       cardDates: loadCardDates(),
+      cardTasks: loadCardTasks(),
       notes: loadNotes(),
       deletedNoteIds: loadDeletedNoteIds(),
       openalex: loadOpenAlexSettings(),
@@ -4139,6 +4350,7 @@
             <div class="libActions">
               ${renderStatusSelector(it.author, it.title)}
               ${renderCardDateFields(it.author, it.title)}
+              ${renderTaskTracker(it.author, it.title)}
               <button class="btn" type="button" data-action="openOpenAlexLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
@@ -4435,6 +4647,7 @@
             <div class="workActions">
               ${renderStatusSelector(w.author, title)}
               ${renderCardDateFields(w.author, title)}
+              ${renderTaskTracker(w.author, title)}
               <button class="btn" type="button" data-action="openOpenAlex" aria-label="OpenAlex" title="OpenAlex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 <span class="btn-label">OpenAlex</span>
@@ -4645,6 +4858,9 @@
         if (handleCardDateInputChangeEvent(e)){
           return;
         }
+        if (handleCardTaskControlChangeEvent(e)){
+          return;
+        }
       };
     }
 
@@ -4829,6 +5045,9 @@
 
       grid.onchange = (e) => {
         if (handleCardStatusSelectChangeEvent(e)){
+          return;
+        }
+        if (handleCardTaskControlChangeEvent(e)){
           return;
         }
         if (handleCardDateInputChangeEvent(e)){
@@ -5595,6 +5814,7 @@
             localStorage.removeItem(LS_OA);
             localStorage.removeItem(LS_CARD_STATUS);
             localStorage.removeItem(LS_CARD_DATES);
+            localStorage.removeItem(LS_CARD_TASKS);
           } catch(e) {
             console.error('Error clearing localStorage during profile reset:', e);
           }
@@ -5612,6 +5832,7 @@
           state.checks = {};
           state.cardStatuses = {};
           state.cardDates = {};
+          state.cardTasks = {};
           state.notes = [];
           state.openalex = defaultOpenAlexSettings();
           state.sync.lastSync = null;

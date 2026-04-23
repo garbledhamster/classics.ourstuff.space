@@ -514,11 +514,21 @@
     .cardMetaControls{
       display:grid;
       grid-template-columns:minmax(180px, 1fr) minmax(260px, 1.1fr) minmax(300px, 1.4fr);
-      gap:8px;
-      align-items:stretch;
+      gap:10px;
+      align-items:center;
+      justify-items:center;
       border-top:var(--borderThin);
       padding:10px 0 8px;
       background:#f3f3f3;
+    }
+    .cardMetaControls > .statusSelect,
+    .cardMetaControls > .taskTracker{
+      max-width:340px;
+      width:100%;
+    }
+    .cardMetaControls > .cardDateFields{
+      max-width:420px;
+      width:100%;
     }
     .libDrawer .cardMetaControls + .libActions,
     .workDrawer .cardMetaControls + .workActions{
@@ -808,8 +818,8 @@
     .cardDateFields{
       display:grid;
       grid-template-columns:repeat(2, minmax(140px, 1fr));
-      gap:8px;
-      align-items:stretch;
+      gap:10px;
+      align-items:center;
     }
     .cardDateField{
       border:var(--border);

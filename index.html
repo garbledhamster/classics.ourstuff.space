@@ -2037,8 +2037,9 @@
     const LS_OA            = "greatworks.openalex.settings.v1";
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
     const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
+    const DEFAULT_CARD_STATUS = "not_started";
     const CARD_STATUS_OPTIONS = [
-      { value: "not_started", label: "Not Started" },
+      { value: DEFAULT_CARD_STATUS, label: "Not Started" },
       { value: "in_progress", label: "In Progress" },
       { value: "complete", label: "Complete" },
       { value: "skipped", label: "Skipped" }
@@ -2132,11 +2133,13 @@
       `;
     }
     function getCardStatusKey(author, title){
-      return `${author || ""}||${title || ""}`.toLowerCase();
+      const a = String(author || "").toLowerCase();
+      const t = String(title || "").toLowerCase();
+      return JSON.stringify([a, t]);
     }
     function getCardStatus(statusKey){
-      const value = state.cardStatuses[statusKey] || "not_started";
-      return CARD_STATUS_OPTIONS.some(opt => opt.value === value) ? value : "not_started";
+      const value = state.cardStatuses[statusKey] || DEFAULT_CARD_STATUS;
+      return CARD_STATUS_OPTIONS.some(opt => opt.value === value) ? value : DEFAULT_CARD_STATUS;
     }
     function renderStatusSelector(author, title){
       const statusKey = getCardStatusKey(author, title);
@@ -2758,6 +2761,22 @@
     function saveCardStatuses(obj){
       localStorage.setItem(LS_CARD_STATUS, JSON.stringify(obj));
       triggerAutoSync();
+    }
+    function applyCardStatusChange(statusKey, statusValue){
+      if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {
+        console.warn("Invalid card status update ignored.", { statusKey, statusValue });
+        return;
+      }
+      state.cardStatuses[statusKey] = statusValue;
+      saveCardStatuses(state.cardStatuses);
+    }
+    function handleCardStatusSelectChangeEvent(e){
+      const statusSelect = e.target.closest('select[data-action="setCardStatus"]');
+      if (!statusSelect) return false;
+      const statusKey = statusSelect.dataset.statuskey || "";
+      const statusValue = statusSelect.value || DEFAULT_CARD_STATUS;
+      applyCardStatusChange(statusKey, statusValue);
+      return true;
     }
 
     function defaultOpenAlexSettings(){
@@ -4505,14 +4524,7 @@
       };
 
       grid.onchange = (e) => {
-        const statusSelect = e.target.closest('select[data-action="setCardStatus"]');
-        if (!statusSelect) return;
-        const statusKey = statusSelect.dataset.statuskey || "";
-        const statusValue = statusSelect.value || "not_started";
-        if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) return;
-        if (statusValue === "not_started") delete state.cardStatuses[statusKey];
-        else state.cardStatuses[statusKey] = statusValue;
-        saveCardStatuses(state.cardStatuses);
+        if (!handleCardStatusSelectChangeEvent(e)) return;
       };
     }
 
@@ -4696,14 +4708,7 @@
       };
 
       grid.onchange = (e) => {
-        const statusSelect = e.target.closest('select[data-action="setCardStatus"]');
-        if (statusSelect){
-          const statusKey = statusSelect.dataset.statuskey || "";
-          const statusValue = statusSelect.value || "not_started";
-          if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) return;
-          if (statusValue === "not_started") delete state.cardStatuses[statusKey];
-          else state.cardStatuses[statusKey] = statusValue;
-          saveCardStatuses(state.cardStatuses);
+        if (handleCardStatusSelectChangeEvent(e)){
           return;
         }
         const cb = e.target.closest('input[type="checkbox"][data-action="toggleComplete"]');

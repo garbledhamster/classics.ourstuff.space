@@ -5867,10 +5867,13 @@
           if (state.filters.year !== "all") state.ui.lastPlanYear = state.filters.year;
           state.filters.year = "all";
         } else {
-          const hasAvailableYears = state.availableYears.length > 0;
-          const fallbackYear = state.ui.lastPlanYear && state.availableYears.includes(Number(state.ui.lastPlanYear))
-            ? state.ui.lastPlanYear
-            : (hasAvailableYears ? String(state.availableYears[0]) : "all");
+          const hasSavedYear = !!state.ui.lastPlanYear && state.availableYears.includes(Number(state.ui.lastPlanYear));
+          let fallbackYear = "all";
+          if (hasSavedYear) {
+            fallbackYear = state.ui.lastPlanYear;
+          } else if (state.availableYears.length > 0) {
+            fallbackYear = String(state.availableYears[0]);
+          }
           state.filters.year = fallbackYear;
         }
         updateYearStepper();

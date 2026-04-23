@@ -514,11 +514,17 @@
     .cardMetaControls{
       display:grid;
       grid-template-columns:minmax(180px, 1fr) minmax(260px, 1.1fr) minmax(300px, 1.4fr);
-      gap:8px;
-      align-items:stretch;
+      gap:10px;
+      align-items:center;
+      justify-items:center;
       border-top:var(--borderThin);
       padding:10px 0 8px;
       background:#f3f3f3;
+    }
+    .cardMetaControls > .statusSelect,
+    .cardMetaControls > .cardDateFields,
+    .cardMetaControls > .taskTracker{
+      width:100%;
     }
     .libDrawer .cardMetaControls + .libActions,
     .workDrawer .cardMetaControls + .workActions{
@@ -768,10 +774,9 @@
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
     .taskTracker{
-      display:grid;
-      grid-template-columns:minmax(180px, 1fr) minmax(160px, auto);
-      gap:8px;
+      display:flex;
       align-items:center;
+      justify-content:center;
       min-width:0;
     }
     .taskSelect{
@@ -808,8 +813,8 @@
     .cardDateFields{
       display:grid;
       grid-template-columns:repeat(2, minmax(140px, 1fr));
-      gap:8px;
-      align-items:stretch;
+      gap:10px;
+      align-items:center;
     }
     .cardDateField{
       border:var(--border);

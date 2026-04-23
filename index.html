@@ -701,6 +701,30 @@
       padding:8px 0 2px;
       background:#fafafa;
     }
+    .statusSelect{
+      border:var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadowXs);
+      padding:8px 28px 8px 10px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      line-height:1;
+      cursor:pointer;
+      appearance:none;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat:no-repeat;
+      background-position:right 8px center;
+      min-width:160px;
+      max-width:100%;
+    }
+    .statusSelect:hover{ transform: translate(-1px,-1px); }
+    .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
+    .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
     @media(hover:hover){
       .workRow:hover .workDrawer{
         grid-template-rows:1fr;
@@ -2001,6 +2025,14 @@
     const LS_NOTES         = "greatworks.reading.notes.v1";
     const LS_OA            = "greatworks.openalex.settings.v1";
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
+    const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
+    const DEFAULT_CARD_STATUS = "not_started";
+    const CARD_STATUS_OPTIONS = [
+      { value: DEFAULT_CARD_STATUS, label: "Not Started" },
+      { value: "in_progress", label: "In Progress" },
+      { value: "complete", label: "Complete" },
+      { value: "skipped", label: "Skipped" }
+    ];
     
     const YOUTUBE_SEARCH_SUFFIX = ""; // No default suffix; extra terms are only added when learning goals or custom search are selected
     const LEARNING_GOAL_OPTIONS = [
@@ -2087,6 +2119,25 @@
             </div>
           </div>
         </div>
+      `;
+    }
+    function getCardStatusKey(author, title){
+      const a = String(author || "").toLowerCase();
+      const t = String(title || "").toLowerCase();
+      return JSON.stringify([a, t]);
+    }
+    function getCardStatus(statusKey){
+      const value = state.cardStatuses[statusKey] || DEFAULT_CARD_STATUS;
+      return CARD_STATUS_OPTIONS.some(opt => opt.value === value) ? value : DEFAULT_CARD_STATUS;
+    }
+    function renderStatusSelector(author, title){
+      const statusKey = getCardStatusKey(author, title);
+      const current = getCardStatus(statusKey);
+      const options = CARD_STATUS_OPTIONS.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("");
+      return `
+        <select class="statusSelect" data-action="setCardStatus" data-statuskey="${escapeHtml(statusKey)}" aria-label="Reading status for ${escapeHtml(title)} by ${escapeHtml(author)}">
+          ${options}
+        </select>
       `;
     }
     let lastLearningGoalToggleBtn = null;
@@ -2693,6 +2744,29 @@
     function saveDeletedNoteIds(idSet){
       localStorage.setItem(LS_DELETED_NOTES, JSON.stringify(Array.from(idSet)));
     }
+    function loadCardStatuses(){
+      return safeJsonParse(localStorage.getItem(LS_CARD_STATUS) || "{}", {});
+    }
+    function saveCardStatuses(obj){
+      localStorage.setItem(LS_CARD_STATUS, JSON.stringify(obj));
+      triggerAutoSync();
+    }
+    function applyCardStatusChange(statusKey, statusValue){
+      if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {
+        console.warn("Invalid card status update ignored.", { statusKey, statusValue });
+        return;
+      }
+      state.cardStatuses[statusKey] = statusValue;
+      saveCardStatuses(state.cardStatuses);
+    }
+    function handleCardStatusSelectChangeEvent(e){
+      const statusSelect = e.target.closest('select[data-action="setCardStatus"]');
+      if (!statusSelect) return false;
+      const statusKey = statusSelect.dataset.statuskey || "";
+      const statusValue = statusSelect.value || DEFAULT_CARD_STATUS;
+      applyCardStatusChange(statusKey, statusValue);
+      return true;
+    }
 
     function defaultOpenAlexSettings(){
       return {
@@ -2738,6 +2812,20 @@
         state.sync.error = error.message;
       }
     }
+    async function syncCardStatusesToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          cardStatuses: state.cardStatuses,
+          cardStatusesSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing card statuses to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
     
     // Sync notes to Firestore
     async function syncNotesToFirestore(userId) {
@@ -2777,6 +2865,22 @@
         return {};
       }
     }
+    async function loadCardStatusesFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return {};
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
+        if (docSnap.exists()) {
+          return docSnap.data().cardStatuses || {};
+        }
+        return {};
+      } catch (error) {
+        console.error('Error loading card statuses from Firestore:', error);
+        state.sync.error = error.message;
+        return {};
+      }
+    }
     
     // Load notes from Firestore
     async function loadNotesFromFirestore(userId) {
@@ -2808,9 +2912,10 @@
       
       try {
         // First, load data from Firestore
-        const [remoteChecks, remoteNotes] = await Promise.all([
+        const [remoteChecks, remoteNotes, remoteCardStatuses] = await Promise.all([
           loadChecksFromFirestore(userId),
-          loadNotesFromFirestore(userId)
+          loadNotesFromFirestore(userId),
+          loadCardStatusesFromFirestore(userId)
         ]);
         
         // Merge remote data with local data
@@ -2836,11 +2941,14 @@
         }
         state.notes = Array.from(noteMap.values());
         localStorage.setItem(LS_NOTES, JSON.stringify(state.notes));
+        state.cardStatuses = { ...remoteCardStatuses, ...state.cardStatuses };
+        localStorage.setItem(LS_CARD_STATUS, JSON.stringify(state.cardStatuses));
         
         // Push all merged data back to Firestore (includes local-only items)
         await Promise.all([
           syncChecksToFirestore(userId),
-          syncNotesToFirestore(userId)
+          syncNotesToFirestore(userId),
+          syncCardStatusesToFirestore(userId)
         ]);
         
         // Tombstones fulfilled: deleted notes are no longer in Firestore, safe to clear.
@@ -3160,6 +3268,7 @@
       flatWorks: [],     // plan entries (can include duplicates across years)
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
+      cardStatuses: loadCardStatuses(),
       notes: loadNotes(),
       deletedNoteIds: loadDeletedNoteIds(),
       openalex: loadOpenAlexSettings(),
@@ -3880,6 +3989,7 @@
 
           <div class="libDrawer"><div>
             <div class="libActions">
+              ${renderStatusSelector(it.author, it.title)}
               <button class="btn" type="button" data-action="openOpenAlexLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
@@ -4174,6 +4284,7 @@
 
           <div class="workDrawer"><div>
             <div class="workActions">
+              ${renderStatusSelector(w.author, title)}
               <button class="btn" type="button" data-action="openOpenAlex" aria-label="OpenAlex" title="OpenAlex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 <span class="btn-label">OpenAlex</span>
@@ -4376,6 +4487,10 @@
         }
 
       };
+
+      grid.onchange = (e) => {
+        if (!handleCardStatusSelectChangeEvent(e)) return;
+      };
     }
 
     function wirePlanDelegation(){
@@ -4558,6 +4673,9 @@
       };
 
       grid.onchange = (e) => {
+        if (handleCardStatusSelectChangeEvent(e)){
+          return;
+        }
         const cb = e.target.closest('input[type="checkbox"][data-action="toggleComplete"]');
         if (!cb) return;
         const row = cb.closest(".workRow");
@@ -5317,6 +5435,7 @@
             localStorage.removeItem(LS_CHECKS);
             localStorage.removeItem(LS_NOTES);
             localStorage.removeItem(LS_OA);
+            localStorage.removeItem(LS_CARD_STATUS);
           } catch(e) {
             console.error('Error clearing localStorage during profile reset:', e);
           }
@@ -5332,6 +5451,7 @@
           }
           // Reset in-memory state
           state.checks = {};
+          state.cardStatuses = {};
           state.notes = [];
           state.openalex = defaultOpenAlexSettings();
           state.sync.lastSync = null;

@@ -2187,7 +2187,14 @@
     function normalizeCardDateValue(value){
       const v = String(value || "").trim();
       if (!v) return "";
-      return /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return "";
+      const [yyyyNum, monthNum, dayNum] = v.split("-").map(Number);
+      const parsed = new Date(Date.UTC(yyyyNum, monthNum - 1, dayNum));
+      if (Number.isNaN(parsed.getTime())) return "";
+      const yyyy = String(parsed.getUTCFullYear()).padStart(4, "0");
+      const mm = String(parsed.getUTCMonth() + 1).padStart(2, "0");
+      const dd = String(parsed.getUTCDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}` === v ? v : "";
     }
     function getCardDates(dateKey){
       const entry = state.cardDates[dateKey];
@@ -2201,14 +2208,14 @@
       const dateKey = getCardStatusKey(author, title);
       const dates = getCardDates(dateKey);
       return `
-        <div class="cardDateFields" role="group" aria-label="Reading dates for ${escapeHtml(title)} by ${escapeHtml(author)}">
+        <div class="cardDateFields">
           <label class="cardDateField">
-            <span class="cardDateLabel">Date started</span>
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="started" value="${escapeHtml(dates.started)}" aria-label="Date started for ${escapeHtml(title)} by ${escapeHtml(author)}" />
+            <span class="cardDateLabel">Date Started</span>
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="started" value="${escapeHtml(dates.started)}" aria-label="Date Started" />
           </label>
           <label class="cardDateField">
-            <span class="cardDateLabel">Date finished</span>
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="finished" value="${escapeHtml(dates.finished)}" aria-label="Date finished for ${escapeHtml(title)} by ${escapeHtml(author)}" />
+            <span class="cardDateLabel">Date Finished</span>
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="finished" value="${escapeHtml(dates.finished)}" aria-label="Date Finished" />
           </label>
         </div>
       `;
@@ -2849,8 +2856,10 @@
         console.warn("Invalid card date value ignored.", { dateKey, dateField, dateValue });
         return;
       }
-      const current = (state.cardDates[dateKey] && typeof state.cardDates[dateKey] === "object") ? state.cardDates[dateKey] : {};
-      const next = { ...current, [dateField]: normalized };
+      const current = getCardDates(dateKey);
+      const next = { ...current };
+      if (!normalized) delete next[dateField];
+      else next[dateField] = normalized;
       if (!next.started && !next.finished) delete state.cardDates[dateKey];
       else state.cardDates[dateKey] = next;
       saveCardDates(state.cardDates);
@@ -4630,8 +4639,12 @@
       };
 
       grid.onchange = (e) => {
-        if (handleCardStatusSelectChangeEvent(e)) return;
-        if (handleCardDateInputChangeEvent(e)) return;
+        if (handleCardStatusSelectChangeEvent(e)){
+          return;
+        }
+        if (handleCardDateInputChangeEvent(e)){
+          return;
+        }
       };
     }
 

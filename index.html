@@ -504,18 +504,18 @@
     .libDrawer > div{ overflow:hidden; }
     .libCard.learningGoalsHostOpen .libDrawer > div{ overflow:visible; }
     .libActions{
-      display:flex;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
       gap:8px;
-      flex-wrap:wrap;
       border-top:var(--borderThin);
       padding:10px 0 4px;
       background:#fafafa;
     }
     .cardMetaControls{
-      display:flex;
+      display:grid;
+      grid-template-columns:minmax(180px, 1fr) minmax(260px, 1.1fr) minmax(300px, 1.4fr);
       gap:8px;
-      flex-wrap:wrap;
-      align-items:flex-start;
+      align-items:stretch;
       border-top:var(--borderThin);
       padding:10px 0 8px;
       background:#f3f3f3;
@@ -528,6 +528,8 @@
     .libActions .btn,
     .workActions .btn{
       min-height:38px;
+      width:100%;
+      justify-content:flex-start;
     }
     /* open: snappier ease-out */
     @media(hover:hover){
@@ -558,7 +560,9 @@
       background:#fff;
       box-shadow:var(--shadow);
       margin:0;
-      padding:12px;
+      padding:14px;
+      display:grid;
+      gap:10px;
       min-width:0;
     }
     .yearHeader{
@@ -612,21 +616,27 @@
 
     .readingBlock{
       border:var(--borderThin);
-      padding:10px;
+      padding:12px;
       margin-top:10px;
-      background:#fff;
+      background:#fcfcfc;
       min-width:0;
     }
     .readingHead{
       display:flex;
-      align-items:baseline;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
       border-bottom:var(--borderThin);
-      padding-bottom:8px;
+      padding-bottom:10px;
       margin-bottom:8px;
       min-width:0;
+    }
+    .readingHead > div:last-child{
+      display:grid !important;
+      grid-auto-flow:column;
+      gap:8px !important;
+      align-items:center;
     }
     .readingLeft{
       display:flex;
@@ -678,6 +688,7 @@
       border:var(--borderThin);
       padding:10px;
       background:#fff;
+      box-shadow:inset 0 0 0 1px #00000008;
       min-width:0;
       position:relative;
     }
@@ -724,9 +735,9 @@
     .workDrawer > div{ overflow:hidden; }
     .workRow.learningGoalsHostOpen .workDrawer > div{ overflow:visible; }
     .workActions{
-      display:flex;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
       gap:8px;
-      flex-wrap:wrap;
       border-top:var(--borderThin);
       padding:8px 0 2px;
       background:#fafafa;
@@ -751,25 +762,23 @@
       background-position:right 8px center;
       min-width:160px;
       max-width:100%;
+      width:100%;
     }
     .statusSelect:hover{ transform: translate(-1px,-1px); }
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
     .taskTracker{
-      display:flex;
+      display:grid;
+      grid-template-columns:minmax(180px, 1fr) minmax(160px, auto);
       gap:8px;
-      flex-wrap:wrap;
       align-items:center;
       min-width:0;
-      flex:1 1 320px;
     }
     .taskSelect{
-      min-width:220px;
-      flex:1 1 220px;
+      min-width:0;
     }
     .taskCompleteSelect{
-      min-width:160px;
-      flex:0 0 auto;
+      min-width:0;
     }
     @media (max-width:560px){
       .libActions .statusSelect,
@@ -777,18 +786,33 @@
         width:100%;
         min-width:0;
       }
+      .cardMetaControls{
+        grid-template-columns:1fr;
+      }
+      .cardDateFields{
+        grid-template-columns:1fr;
+      }
       .taskTracker{
+        grid-template-columns:1fr;
         width:100%;
       }
       .taskCompleteSelect{
-        flex:1 1 auto;
+        width:100%;
+      }
+    }
+    @media (max-width:980px){
+      .cardMetaControls{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+      .cardMetaControls > :last-child{
+        grid-column:1 / -1;
       }
     }
     .cardDateFields{
-      display:flex;
-      align-items:stretch;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(140px, 1fr));
       gap:8px;
-      flex-wrap:wrap;
+      align-items:stretch;
     }
     .cardDateField{
       border:var(--border);
@@ -1235,7 +1259,7 @@
     #planGrid.view-condensed .workMain{ flex:1 1 auto; min-width:0; }
     #planGrid.view-condensed .workDrawer{ flex:0 0 auto; grid-template-rows:1fr; }
     #planGrid.view-condensed .workDrawer > div{ overflow:visible; }
-    #planGrid.view-condensed .workActions{ border-top:none; padding:0; background:transparent; }
+    #planGrid.view-condensed .workActions{ display:flex; border-top:none; padding:0; background:transparent; }
     #planGrid.view-condensed .workActions .btn-label{ display:none; }
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
 

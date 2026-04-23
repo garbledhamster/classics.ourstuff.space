@@ -511,6 +511,24 @@
       padding:10px 0 4px;
       background:#fafafa;
     }
+    .cardMetaControls{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+      border-top:var(--borderThin);
+      padding:10px 0 8px;
+      background:#f3f3f3;
+    }
+    .libDrawer .cardMetaControls + .libActions,
+    .workDrawer .cardMetaControls + .workActions{
+      border-top:none;
+      padding-top:0;
+    }
+    .libActions .btn,
+    .workActions .btn{
+      min-height:38px;
+    }
     /* open: snappier ease-out */
     @media(hover:hover){
       .libCard:hover .libDrawer{
@@ -1190,6 +1208,7 @@
     html.dark .error{ background:#1a1a1a; color:var(--ink); }
     html.dark .libActions,
     html.dark .workActions{ background:#222; }
+    html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
     html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
     html.dark .bar{ background:#222; }
@@ -1480,6 +1499,8 @@
             <option value="author">Author A→Z</option>
             <option value="title">Title A→Z</option>
             <option value="occ">Most occurrences</option>
+            <option value="status">Status</option>
+            <option value="task">Task</option>
           </select>
         </div>
 
@@ -1532,6 +1553,10 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </div>
+          <label class="toggle" style="margin-top:8px; justify-content:flex-start;">
+            <input id="showAllYears" type="checkbox" />
+            All years
+          </label>
         </div>
 
         <div class="control">
@@ -1549,6 +1574,8 @@
             <option value="plan">Plan order</option>
             <option value="author">Author A→Z</option>
             <option value="title">Title A→Z</option>
+            <option value="status">Status</option>
+            <option value="task">Task</option>
           </select>
         </div>
 
@@ -2159,6 +2186,8 @@
       { value: DEFAULT_CARD_TASK_COMPLETION, label: "Task Not Complete" },
       { value: "complete", label: "Task Complete" }
     ];
+    const CARD_STATUS_SORT_RANK = Object.fromEntries(CARD_STATUS_OPTIONS.map((opt, idx) => [opt.value, idx]));
+    const CARD_TASK_SORT_RANK = Object.fromEntries(CARD_TASK_OPTIONS.map((opt, idx) => [opt.value, idx]));
     
     const YOUTUBE_SEARCH_SUFFIX = ""; // No default suffix; extra terms are only added when learning goals or custom search are selected
     const LEARNING_GOAL_OPTIONS = [
@@ -2301,6 +2330,15 @@
             ${completionOptions}
           </select>
           <span id="${helpId}" class="sr-only">Choose a task first to enable task completion.</span>
+        </div>
+      `;
+    }
+    function renderCardMetaControls(author, title){
+      return `
+        <div class="cardMetaControls">
+          ${renderStatusSelector(author, title)}
+          ${renderCardDateFields(author, title)}
+          ${renderTaskTracker(author, title)}
         </div>
       `;
     }
@@ -3841,7 +3879,14 @@
     }
 
     function updateYearStepper(){
-      $("#yearDisplay").textContent = `Year ${state.filters.year}`;
+      const isAllYears = state.filters.year === "all";
+      $("#yearDisplay").textContent = isAllYears ? "All Books Displayed" : `Year ${state.filters.year}`;
+      $("#yearPrev").disabled = isAllYears;
+      $("#yearNext").disabled = isAllYears;
+      $("#yearPrev").setAttribute("aria-disabled", String(isAllYears));
+      $("#yearNext").setAttribute("aria-disabled", String(isAllYears));
+      const allYearsCheckbox = $("#showAllYears");
+      if (allYearsCheckbox) allYearsCheckbox.checked = isAllYears;
     }
 
     function buildTagsUniverse(){
@@ -3928,6 +3973,26 @@
         items.sort((a,b)=> a.title.localeCompare(b.title, undefined, { sensitivity:"base" }) || a.author.localeCompare(b.author, undefined, { sensitivity:"base" }));
       } else if (sort === "occ"){
         items.sort((a,b)=> b.occurrences.length - a.occurrences.length || a.author.localeCompare(b.author) || a.title.localeCompare(b.title));
+      } else if (sort === "status"){
+        items.sort((a,b)=> {
+          const statusKeyA = getCardStatusKey(a.author, a.title);
+          const statusKeyB = getCardStatusKey(b.author, b.title);
+          const rankA = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyA)] ?? Number.MAX_SAFE_INTEGER;
+          const rankB = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyB)] ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB
+            || a.author.localeCompare(b.author, undefined, { sensitivity:"base" })
+            || a.title.localeCompare(b.title, undefined, { sensitivity:"base" });
+        });
+      } else if (sort === "task"){
+        items.sort((a,b)=> {
+          const statusKeyA = getCardStatusKey(a.author, a.title);
+          const statusKeyB = getCardStatusKey(b.author, b.title);
+          const rankA = CARD_TASK_SORT_RANK[getCardTask(statusKeyA).task] ?? Number.MAX_SAFE_INTEGER;
+          const rankB = CARD_TASK_SORT_RANK[getCardTask(statusKeyB).task] ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB
+            || a.author.localeCompare(b.author, undefined, { sensitivity:"base" })
+            || a.title.localeCompare(b.title, undefined, { sensitivity:"base" });
+        });
       }
 
       return items;
@@ -3961,6 +4026,24 @@
       } else if (f.sort === "title"){
         items.sort((a,b)=> a.work.title.localeCompare(b.work.title, undefined, { sensitivity:"base" })
           || a.year-b.year || a.order-b.order);
+      } else if (f.sort === "status"){
+        items.sort((a,b)=> {
+          const statusKeyA = getCardStatusKey(a.author, a.work.title);
+          const statusKeyB = getCardStatusKey(b.author, b.work.title);
+          const rankA = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyA)] ?? Number.MAX_SAFE_INTEGER;
+          const rankB = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyB)] ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB
+            || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex;
+        });
+      } else if (f.sort === "task"){
+        items.sort((a,b)=> {
+          const statusKeyA = getCardStatusKey(a.author, a.work.title);
+          const statusKeyB = getCardStatusKey(b.author, b.work.title);
+          const rankA = CARD_TASK_SORT_RANK[getCardTask(statusKeyA).task] ?? Number.MAX_SAFE_INTEGER;
+          const rankB = CARD_TASK_SORT_RANK[getCardTask(statusKeyB).task] ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB
+            || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex;
+        });
       }
 
       return items;
@@ -4347,10 +4430,8 @@
           </div>
 
           <div class="libDrawer"><div>
+            ${renderCardMetaControls(it.author, it.title)}
             <div class="libActions">
-              ${renderStatusSelector(it.author, it.title)}
-              ${renderCardDateFields(it.author, it.title)}
-              ${renderTaskTracker(it.author, it.title)}
               <button class="btn" type="button" data-action="openOpenAlexLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
@@ -4644,10 +4725,8 @@
           </div>
 
           <div class="workDrawer"><div>
+            ${renderCardMetaControls(w.author, title)}
             <div class="workActions">
-              ${renderStatusSelector(w.author, title)}
-              ${renderCardDateFields(w.author, title)}
-              ${renderTaskTracker(w.author, title)}
               <button class="btn" type="button" data-action="openOpenAlex" aria-label="OpenAlex" title="OpenAlex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 <span class="btn-label">OpenAlex</span>
@@ -5782,6 +5861,19 @@
       $("#yearNext").addEventListener("click", () => {
         const idx = state.availableYears.indexOf(Number(state.filters.year));
         if (idx < state.availableYears.length - 1){ state.filters.year = String(state.availableYears[idx + 1]); updateYearStepper(); renderPlan(); }
+      });
+      $("#showAllYears").addEventListener("change", (e) => {
+        if (e.target.checked){
+          if (state.filters.year !== "all") state.ui.lastPlanYear = state.filters.year;
+          state.filters.year = "all";
+        } else {
+          const fallbackYear = state.ui.lastPlanYear && state.availableYears.includes(Number(state.ui.lastPlanYear))
+            ? state.ui.lastPlanYear
+            : String(state.availableYears[0] || "1");
+          state.filters.year = fallbackYear;
+        }
+        updateYearStepper();
+        renderPlan();
       });
       $("#tierSel").addEventListener("change", e => { state.filters.tier = e.target.value; renderPlan(); });
       $("#sortSel").addEventListener("change", e => { state.filters.sort = e.target.value; renderPlan(); });

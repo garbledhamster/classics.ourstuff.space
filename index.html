@@ -522,8 +522,12 @@
       background:#f3f3f3;
     }
     .cardMetaControls > .statusSelect,
-    .cardMetaControls > .cardDateFields,
     .cardMetaControls > .taskTracker{
+      max-width:340px;
+      width:100%;
+    }
+    .cardMetaControls > .cardDateFields{
+      max-width:420px;
       width:100%;
     }
     .libDrawer .cardMetaControls + .libActions,
@@ -774,9 +778,10 @@
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
     .taskTracker{
-      display:flex;
+      display:grid;
+      grid-template-columns:minmax(180px, 1fr);
+      gap:8px;
       align-items:center;
-      justify-content:center;
       min-width:0;
     }
     .taskSelect{

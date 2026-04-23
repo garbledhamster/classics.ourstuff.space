@@ -529,7 +529,6 @@
     .workActions .btn{
       min-height:38px;
       width:100%;
-      justify-content:flex-start;
     }
     /* open: snappier ease-out */
     @media(hover:hover){
@@ -803,10 +802,7 @@
     }
     @media (max-width:980px){
       .cardMetaControls{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-      }
-      .cardMetaControls .taskTracker{
-        grid-column:1 / -1;
+        grid-template-columns:1fr;
       }
     }
     .cardDateFields{

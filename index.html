@@ -1309,12 +1309,35 @@
       font-weight:900;
       font-size:15px;
     }
-    .planTable .td-tags .tagRow{ margin-top:0; }
+    .planTable .td-notes,
+    .planTable .td-number,
+    .planTable .td-year,
+    .planTable .td-published{ white-space:nowrap; }
+    .planTable .td-type{ text-transform:capitalize; white-space:nowrap; }
+    .planTable .td-status .statusSelect,
+    .planTable .td-action .statusSelect{
+      min-width:0;
+      width:100%;
+      font-size:11px;
+      padding:7px 24px 7px 8px;
+    }
+    .planTable .td-date input[type="date"]{
+      width:100%;
+      min-width:120px;
+      font-size:11px;
+      font-weight:800;
+      padding:5px 7px;
+      border:var(--borderThin);
+      border-radius:6px;
+      background:#fff;
+      color:var(--ink);
+    }
 
     /* Dark mode for plan table */
     html.dark .planTable th{ background:var(--ink); color:var(--paper); }
     html.dark .planTable td{ background:#1a1a1a; color:var(--ink); }
     html.dark .planTable tbody tr:hover td{ background:#222; }
+    html.dark .planTable .td-date input[type="date"]{ background:#1a1a1a; color:var(--ink); }
 
     /* Override .workRow display:grid for <tr> elements inside .planTable */
     .planTable tr.workRow{
@@ -1521,7 +1544,7 @@
             <option value="title">Title A→Z</option>
             <option value="occ">Most occurrences</option>
             <option value="status">Status</option>
-            <option value="task">Task</option>
+            <option value="task">Current Action</option>
           </select>
         </div>
 
@@ -1590,22 +1613,32 @@
         </div>
 
         <div class="control">
-          <div class="label">Sort</div>
+          <div class="label">Filter &amp; Sort</div>
           <select id="sortSel" class="select">
-            <option value="plan">Plan order</option>
-            <option value="author">Author A→Z</option>
-            <option value="title">Title A→Z</option>
-            <option value="status">Status</option>
-            <option value="task">Task</option>
+            <optgroup label="Tracker Filter">
+              <option value="tracker_in_progress">Book → In-Progress</option>
+              <option value="tracker_complete">Book → Complete</option>
+              <option value="tracker_not_started">Book → Not Started</option>
+              <option value="tracker_skipped">Book → Skipped</option>
+            </optgroup>
+            <optgroup label="Sorters">
+              <option value="sort_check">Check</option>
+              <option value="sort_year">Year</option>
+              <option value="sort_published_year">Published Year</option>
+              <option value="sort_number">Number</option>
+              <option value="sort_work">Work</option>
+              <option value="sort_author">Author</option>
+              <option value="sort_type">Type (Core,Supplement)</option>
+              <option value="sort_notes">Notes</option>
+              <option value="sort_status">Status</option>
+              <option value="sort_action">Current Action</option>
+              <option value="sort_start_date">Start Date</option>
+              <option value="sort_end_date">End Date</option>
+            </optgroup>
           </select>
         </div>
 
         <div class="rowWide">
-          <label class="toggle">
-            <input id="onlyIncomplete" type="checkbox" />
-            Only incomplete
-          </label>
-
           <!-- View-mode button (cycles default → table) -->
           <button class="btn" id="planViewModeBtn" type="button" title="Switch list view style" aria-label="Switch view mode">
             <!-- icon swapped by JS -->
@@ -1615,7 +1648,7 @@
 
           <button class="btn" id="resetChecksBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
-            Reset checks
+            Reset Filter &amp; Sorter
           </button>
 
           <a class="btn" href="https://thinkingwest.com/10-year-reading-plan/" target="_blank" rel="noopener noreferrer">
@@ -2162,7 +2195,6 @@
     const LS_CARD_DATES    = "greatworks.reading.cardDates.v1";
     const DEFAULT_CARD_STATUS = "not_started";
     const DEFAULT_CARD_TASK = "no_task";
-    const DEFAULT_CARD_TASK_COMPLETION = "not_complete";
     const CARD_STATUS_OPTIONS = [
       { value: DEFAULT_CARD_STATUS, label: "Not Started" },
       { value: "in_progress", label: "In Progress" },
@@ -2200,12 +2232,8 @@
       }
     ];
     const CARD_TASK_OPTIONS = [
-      { value: DEFAULT_CARD_TASK, label: "No Task" },
+      { value: DEFAULT_CARD_TASK, label: "No Action" },
       ...CARD_TASK_GROUPS.flatMap(group => group.options)
-    ];
-    const CARD_TASK_COMPLETION_OPTIONS = [
-      { value: DEFAULT_CARD_TASK_COMPLETION, label: "Task Not Complete" },
-      { value: "complete", label: "Task Complete" }
     ];
     const CARD_STATUS_SORT_RANK = Object.fromEntries(CARD_STATUS_OPTIONS.map((opt, idx) => [opt.value, idx]));
     const CARD_TASK_SORT_RANK = Object.fromEntries(CARD_TASK_OPTIONS.map((opt, idx) => [opt.value, idx]));
@@ -2312,11 +2340,7 @@
     function getCardTask(statusKey){
       const raw = state.cardTasks[statusKey] || {};
       const task = isValidCardTask(raw.task) ? raw.task : DEFAULT_CARD_TASK;
-      const completion = raw.completed ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
-      return {
-        task,
-        completion: task === DEFAULT_CARD_TASK ? DEFAULT_CARD_TASK_COMPLETION : completion
-      };
+      return { task };
     }
     function renderStatusSelector(author, title){
       const statusKey = getCardStatusKey(author, title);
@@ -2331,26 +2355,19 @@
     function renderTaskTracker(author, title){
       const statusKey = getCardStatusKey(author, title);
       const current = getCardTask(statusKey);
-      const helpId = `taskHelp_${hash32(statusKey)}`;
       const taskOptions = [
-        `<option value="${escapeHtml(DEFAULT_CARD_TASK)}"${current.task === DEFAULT_CARD_TASK ? " selected" : ""}>No Task</option>`,
+        `<option value="${escapeHtml(DEFAULT_CARD_TASK)}"${current.task === DEFAULT_CARD_TASK ? " selected" : ""}>No Action</option>`,
         ...CARD_TASK_GROUPS.map(group => `
           <optgroup label="${escapeHtml(group.label)}">
             ${group.options.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.task ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("")}
           </optgroup>
         `)
       ].join("");
-      const completionOptions = CARD_TASK_COMPLETION_OPTIONS.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.completion ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("");
-      const taskIsUnset = current.task === DEFAULT_CARD_TASK;
       return `
         <div class="taskTracker">
-          <select class="statusSelect taskSelect" data-action="setCardTask" data-statuskey="${escapeHtml(statusKey)}" aria-label="Current task for ${escapeHtml(title)} by ${escapeHtml(author)}">
+          <select class="statusSelect taskSelect" data-action="setCardTask" data-statuskey="${escapeHtml(statusKey)}" aria-label="Current action for ${escapeHtml(title)} by ${escapeHtml(author)}">
             ${taskOptions}
           </select>
-          <select class="statusSelect taskCompleteSelect" data-action="setCardTaskComplete" data-statuskey="${escapeHtml(statusKey)}" aria-label="Task completion for ${escapeHtml(title)} by ${escapeHtml(author)}" aria-describedby="${helpId}"${taskIsUnset ? " disabled" : ""}>
-            ${completionOptions}
-          </select>
-          <span id="${helpId}" class="sr-only">Choose a task first to enable task completion.</span>
         </div>
       `;
     }
@@ -3042,17 +3059,11 @@
       if (updates && "task" in updates && isValidCardTask(updates.task)) {
         nextTask = updates.task;
       }
-      let nextCompletion = current.completion;
-      if (updates && "completion" in updates) {
-        nextCompletion = updates.completion === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
-      }
-      if (nextTask === DEFAULT_CARD_TASK) nextCompletion = DEFAULT_CARD_TASK_COMPLETION;
-      if (nextTask === DEFAULT_CARD_TASK && nextCompletion === DEFAULT_CARD_TASK_COMPLETION) {
+      if (nextTask === DEFAULT_CARD_TASK) {
         delete state.cardTasks[statusKey];
       } else {
         state.cardTasks[statusKey] = {
-          task: nextTask,
-          completed: nextCompletion === "complete"
+          task: nextTask
         };
       }
       saveCardTasks(state.cardTasks);
@@ -3089,20 +3100,6 @@
         const statusKey = taskSelect.dataset.statuskey || "";
         const taskValue = taskSelect.value || DEFAULT_CARD_TASK;
         applyCardTaskChange(statusKey, { task: taskValue });
-        const tracker = taskSelect.closest(".taskTracker");
-        const completionSelect = tracker ? $('[data-action="setCardTaskComplete"]', tracker) : null;
-        if (completionSelect) {
-          const taskIsUnset = taskValue === DEFAULT_CARD_TASK;
-          completionSelect.disabled = taskIsUnset;
-          if (taskIsUnset) completionSelect.value = DEFAULT_CARD_TASK_COMPLETION;
-        }
-        return true;
-      }
-      const taskCompletionSelect = e.target.closest('select[data-action="setCardTaskComplete"]');
-      if (taskCompletionSelect) {
-        const statusKey = taskCompletionSelect.dataset.statuskey || "";
-        const completionValue = taskCompletionSelect.value === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
-        applyCardTaskChange(statusKey, { completion: completionValue });
         return true;
       }
       return false;
@@ -3697,8 +3694,7 @@
         q: "",
         year: "1",
         tier: "all",
-        sort: "plan",
-        onlyIncomplete: false,
+        sort: "sort_check",
         planViewMode: "default", // "default" | "table"
         // library view
         libQ: "",
@@ -3775,9 +3771,9 @@
         .replace(/^an\s+/i, '');
     }
 
-    function findSourceUrlInCatalog(author, title){
-      // Look up sourceUrl from project catalog
-      if (!state.projectCatalog || !state.projectCatalog.length) return "";
+    function findCatalogMeta(author, title){
+      // Look up sourceUrl and publication date from project catalog
+      if (!state.projectCatalog || !state.projectCatalog.length) return { sourceUrl: "", publishedYear: null };
       
       const normalizedTitle = normalizeForMatch(title);
       const normalizedAuthor = normalizeForMatch(author);
@@ -3791,18 +3787,24 @@
         if (normalizedAuthor && bookAuthor && 
             normalizedAuthor === bookAuthor && 
             normalizedTitle === bookTitle){
-          return book.sourceUrl || "";
+          return {
+            sourceUrl: String(book.sourceUrl || ""),
+            publishedYear: Number.isFinite(Number(book.date)) ? Number(book.date) : null
+          };
         }
         
         // Match by title only if no author or author matches
         if (normalizedTitle === bookTitle){
           if (!normalizedAuthor || !bookAuthor || normalizedAuthor === bookAuthor){
-            return book.sourceUrl || "";
+            return {
+              sourceUrl: String(book.sourceUrl || ""),
+              publishedYear: Number.isFinite(Number(book.date)) ? Number(book.date) : null
+            };
           }
         }
       }
       
-      return "";
+      return { sourceUrl: "", publishedYear: null };
     }
 
     function flattenPlan(){
@@ -3822,8 +3824,8 @@
             const title = String(w.title || "").trim();
             const selection = w.selection ? String(w.selection).trim() : "";
             const selections = Array.isArray(w.selections) ? w.selections.map(s=>String(s).trim()).filter(Boolean) : null;
-            // Look up sourceUrl from project catalog instead of bookclub.json
-            const sourceUrl = findSourceUrlInCatalog(author, title);
+            // Look up sourceUrl and publication year from project catalog instead of bookclub.json
+            const catalogMeta = findCatalogMeta(author, title);
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
             const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")}`);
@@ -3838,7 +3840,8 @@
               work: { title, selection, selections },
               key,
               search,
-              sourceUrl
+              sourceUrl: catalogMeta.sourceUrl,
+              publishedYear: catalogMeta.publishedYear
             });
           }
         }
@@ -4022,6 +4025,10 @@
     function applyPlanFilters(){
       const f = state.filters;
       const q = normalizeText(f.q);
+      const noteCountMap = new Map();
+      for (const n of state.notes){
+        if (n.book_tag) noteCountMap.set(n.book_tag, (noteCountMap.get(n.book_tag) || 0) + 1);
+      }
 
       let items = state.flatWorks.slice();
 
@@ -4035,35 +4042,73 @@
       if (q){
         items = items.filter(x => x.search.includes(q));
       }
-      if (f.onlyIncomplete){
-        items = items.filter(x => !state.checks[x.key]);
+
+      if (f.sort === "tracker_in_progress"){
+        items = items.filter(x => getCardStatus(getCardStatusKey(x.author, x.work.title)) === "in_progress");
+      } else if (f.sort === "tracker_complete"){
+        items = items.filter(x => getCardStatus(getCardStatusKey(x.author, x.work.title)) === "complete");
+      } else if (f.sort === "tracker_not_started"){
+        items = items.filter(x => getCardStatus(getCardStatusKey(x.author, x.work.title)) === "not_started");
+      } else if (f.sort === "tracker_skipped"){
+        items = items.filter(x => getCardStatus(getCardStatusKey(x.author, x.work.title)) === "skipped");
       }
 
-      if (f.sort === "plan"){
-        items.sort((a,b)=> a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex);
-      } else if (f.sort === "author"){
-        items.sort((a,b)=> a.author.localeCompare(b.author, undefined, { sensitivity:"base" })
-          || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex);
-      } else if (f.sort === "title"){
-        items.sort((a,b)=> a.work.title.localeCompare(b.work.title, undefined, { sensitivity:"base" })
-          || a.year-b.year || a.order-b.order);
-      } else if (f.sort === "status"){
+      const tieBreak = (a,b) => a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex;
+      if (f.sort === "sort_year"){
+        items.sort((a,b)=> a.year-b.year || tieBreak(a,b));
+      } else if (f.sort === "sort_published_year"){
+        items.sort((a,b)=> {
+          const yearA = Number.isFinite(a.publishedYear) ? a.publishedYear : Number.MAX_SAFE_INTEGER;
+          const yearB = Number.isFinite(b.publishedYear) ? b.publishedYear : Number.MAX_SAFE_INTEGER;
+          return yearA - yearB || tieBreak(a,b);
+        });
+      } else if (f.sort === "sort_number"){
+        items.sort((a,b)=> a.order-b.order || tieBreak(a,b));
+      } else if (f.sort === "sort_work"){
+        items.sort((a,b)=> a.work.title.localeCompare(b.work.title, undefined, { sensitivity:"base" }) || tieBreak(a,b));
+      } else if (f.sort === "sort_author"){
+        items.sort((a,b)=> a.author.localeCompare(b.author, undefined, { sensitivity:"base" }) || tieBreak(a,b));
+      } else if (f.sort === "sort_type"){
+        items.sort((a,b)=> a.tier.localeCompare(b.tier, undefined, { sensitivity:"base" }) || tieBreak(a,b));
+      } else if (f.sort === "sort_notes"){
+        items.sort((a,b)=> {
+          const notesA = noteCountMap.get(a.work.title) || 0;
+          const notesB = noteCountMap.get(b.work.title) || 0;
+          return notesA - notesB || tieBreak(a,b);
+        });
+      } else if (f.sort === "sort_status"){
         items.sort((a,b)=> {
           const statusKeyA = getCardStatusKey(a.author, a.work.title);
           const statusKeyB = getCardStatusKey(b.author, b.work.title);
           const rankA = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyA)] ?? Number.MAX_SAFE_INTEGER;
           const rankB = CARD_STATUS_SORT_RANK[getCardStatus(statusKeyB)] ?? Number.MAX_SAFE_INTEGER;
-          return rankA - rankB
-            || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex;
+          return rankA - rankB || tieBreak(a,b);
         });
-      } else if (f.sort === "task"){
+      } else if (f.sort === "sort_action"){
         items.sort((a,b)=> {
           const statusKeyA = getCardStatusKey(a.author, a.work.title);
           const statusKeyB = getCardStatusKey(b.author, b.work.title);
           const rankA = CARD_TASK_SORT_RANK[getCardTask(statusKeyA).task] ?? Number.MAX_SAFE_INTEGER;
           const rankB = CARD_TASK_SORT_RANK[getCardTask(statusKeyB).task] ?? Number.MAX_SAFE_INTEGER;
-          return rankA - rankB
-            || a.year-b.year || a.order-b.order || a.flatIndex-b.flatIndex;
+          return rankA - rankB || tieBreak(a,b);
+        });
+      } else if (f.sort === "sort_start_date"){
+        items.sort((a,b)=> {
+          const dateA = getCardDates(getCardStatusKey(a.author, a.work.title)).started || "9999-12-31";
+          const dateB = getCardDates(getCardStatusKey(b.author, b.work.title)).started || "9999-12-31";
+          return dateA.localeCompare(dateB) || tieBreak(a,b);
+        });
+      } else if (f.sort === "sort_end_date"){
+        items.sort((a,b)=> {
+          const dateA = getCardDates(getCardStatusKey(a.author, a.work.title)).finished || "9999-12-31";
+          const dateB = getCardDates(getCardStatusKey(b.author, b.work.title)).finished || "9999-12-31";
+          return dateA.localeCompare(dateB) || tieBreak(a,b);
+        });
+      } else {
+        items.sort((a,b)=> {
+          const checkA = state.checks[a.key] ? 1 : 0;
+          const checkB = state.checks[b.key] ? 1 : 0;
+          return checkA - checkB || tieBreak(a,b);
         });
       }
 
@@ -4535,7 +4580,7 @@
               <h2 class="yearTitle">No matches</h2>
               <div class="yearMeta"><span>Try different filters</span></div>
             </div>
-            <div class="help">Nothing matched your plan search/tier/year/incomplete filter.</div>
+            <div class="help">Nothing matched your plan search/tier/year filter &amp; sorter.</div>
           </div>
         `;
         return;
@@ -4604,10 +4649,16 @@
                 <th class="td-check">
                   <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 </th>
-                <th>#</th>
-                <th>Author</th>
+                <th>Year</th>
+                <th>Number</th>
                 <th>Work</th>
-                <th>Tags</th>
+                <th>Author</th>
+                <th>Type</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Current Action</th>
+                <th>Start Date</th>
+                <th>End Date</th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>
@@ -4620,10 +4671,8 @@
       const checked   = !!state.checks[w.key];
       const title     = w.work.title || "Untitled";
       const noteCount = noteCountMap ? (noteCountMap.get(title) || 0) : state.notes.filter(n => n.book_tag === title).length;
-      const pills = `
-        <span class="pill">${escapeHtml(w.tier)}</span>
-        <span class="pill">Notes ${escapeHtml(noteCount)}</span>
-      `;
+      const statusKey = getCardStatusKey(w.author, title);
+      const dateEntry = getCardDates(statusKey);
       return `
         <tr class="workRow"
           data-workkey="${escapeHtml(w.key)}"
@@ -4639,10 +4688,20 @@
           <td class="td-check">
             <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" />
           </td>
-          <td class="td-num">#${escapeHtml(block.order)}</td>
-          <td class="td-author">${escapeHtml(block.author || "Unknown")}</td>
+          <td class="td-year">${escapeHtml(w.year)}</td>
+          <td class="td-number">${escapeHtml(block.order)}</td>
           <td class="td-work">${escapeHtml(title)}</td>
-          <td class="td-tags"><div class="tagRow">${pills}</div></td>
+          <td class="td-author">${escapeHtml(block.author || "Unknown")}</td>
+          <td class="td-type">${escapeHtml(w.tier)}</td>
+          <td class="td-notes">${escapeHtml(noteCount)}</td>
+          <td class="td-status">${renderStatusSelector(w.author, title)}</td>
+          <td class="td-action">${renderTaskTracker(w.author, title)}</td>
+          <td class="td-date">
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="started" value="${escapeHtml(dateEntry.started)}" aria-label="Start date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" />
+          </td>
+          <td class="td-date">
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" />
+          </td>
         </tr>
       `;
     }
@@ -5874,6 +5933,9 @@
       });
 
       // Plan filters
+      $("#q").value = state.filters.q;
+      $("#tierSel").value = state.filters.tier;
+      $("#sortSel").value = state.filters.sort;
       $("#q").addEventListener("input", e => { state.filters.q = e.target.value; renderPlan(); });
       $("#yearPrev").addEventListener("click", () => {
         const idx = state.availableYears.indexOf(Number(state.filters.year));
@@ -5902,7 +5964,6 @@
       });
       $("#tierSel").addEventListener("change", e => { state.filters.tier = e.target.value; renderPlan(); });
       $("#sortSel").addEventListener("change", e => { state.filters.sort = e.target.value; renderPlan(); });
-      $("#onlyIncomplete").addEventListener("change", e => { state.filters.onlyIncomplete = e.target.checked; renderPlan(); });
 
       // View-mode cycle: default → table → default
       $("#planViewModeBtn").addEventListener("click", () => {
@@ -5913,12 +5974,22 @@
       });
 
       $("#resetChecksBtn").addEventListener("click", () => {
-        showConfirm("Reset all checkboxes? This cannot be undone.").then(confirmed => {
-          if (!confirmed) return;
-          state.checks = {};
-          saveChecks(state.checks);
-          renderAll();
-        });
+        state.filters.q = "";
+        state.filters.tier = "all";
+        state.filters.sort = "sort_check";
+        const fallbackYear = state.availableYears.length ? String(state.availableYears[0]) : "all";
+        state.filters.year = fallbackYear;
+        state.ui.lastPlanYear = fallbackYear;
+        const qInput = $("#q");
+        const tierSel = $("#tierSel");
+        const sortSel = $("#sortSel");
+        const showAllYears = $("#showAllYears");
+        if (qInput) qInput.value = "";
+        if (tierSel) tierSel.value = "all";
+        if (sortSel) sortSel.value = "sort_check";
+        if (showAllYears) showAllYears.checked = false;
+        updateYearStepper();
+        renderPlan();
       });
 
       $("#resetProfileBtn").addEventListener("click", () => {

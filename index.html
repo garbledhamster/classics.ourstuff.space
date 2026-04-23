@@ -766,6 +766,47 @@
         flex:1 1 auto;
       }
     }
+    .cardDateFields{
+      display:flex;
+      align-items:stretch;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .cardDateField{
+      border:var(--border);
+      border-radius:var(--radius);
+      background:#fff;
+      box-shadow:var(--shadowXs);
+      padding:6px 8px;
+      display:grid;
+      gap:4px;
+      min-width:170px;
+    }
+    .cardDateLabel{
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      color:var(--muted);
+      line-height:1;
+    }
+    .cardDateInput{
+      border:var(--borderThin);
+      border-radius:6px;
+      background:#fff;
+      color:var(--ink);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:0.02em;
+      line-height:1.1;
+      padding:6px 8px;
+      min-height:30px;
+      min-width:0;
+    }
+    .cardDateInput:focus{
+      outline:none;
+      box-shadow:0 0 0 3px #00000022;
+    }
     @media(hover:hover){
       .workRow:hover .workDrawer{
         grid-template-rows:1fr;
@@ -1149,6 +1190,8 @@
     html.dark .error{ background:#1a1a1a; color:var(--ink); }
     html.dark .libActions,
     html.dark .workActions{ background:#222; }
+    html.dark .cardDateField,
+    html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
     html.dark .bar{ background:#222; }
     html.dark .tabOn{ background:var(--ink); color:var(--paper); }
     html.dark .bar > span{ background:var(--ink); }
@@ -2068,6 +2111,7 @@
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
     const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
     const LS_CARD_TASKS    = "greatworks.reading.cardTasks.v1";
+    const LS_CARD_DATES    = "greatworks.reading.cardDates.v1";
     const DEFAULT_CARD_STATUS = "not_started";
     const DEFAULT_CARD_TASK = "no_task";
     const DEFAULT_CARD_TASK_COMPLETION = "not_complete";
@@ -2257,6 +2301,42 @@
             ${completionOptions}
           </select>
           <span id="${helpId}" class="sr-only">Choose a task first to enable task completion.</span>
+        </div>
+      `;
+    }
+    function normalizeCardDateValue(value){
+      const v = String(value || "").trim();
+      if (!v) return "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return "";
+      const [yyyyNum, monthNum, dayNum] = v.split("-").map(Number);
+      const parsed = new Date(Date.UTC(yyyyNum, monthNum - 1, dayNum));
+      if (Number.isNaN(parsed.getTime())) return "";
+      const yyyy = String(parsed.getUTCFullYear()).padStart(4, "0");
+      const mm = String(parsed.getUTCMonth() + 1).padStart(2, "0");
+      const dd = String(parsed.getUTCDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}` === v ? v : "";
+    }
+    function getCardDates(dateKey){
+      const entry = state.cardDates[dateKey];
+      if (!entry || typeof entry !== "object") return { started: "", finished: "" };
+      return {
+        started: normalizeCardDateValue(entry.started),
+        finished: normalizeCardDateValue(entry.finished)
+      };
+    }
+    function renderCardDateFields(author, title){
+      const dateKey = getCardStatusKey(author, title);
+      const dates = getCardDates(dateKey);
+      return `
+        <div class="cardDateFields">
+          <label class="cardDateField">
+            <span class="cardDateLabel">Date Started</span>
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="started" value="${escapeHtml(dates.started)}" aria-label="Date Started" />
+          </label>
+          <label class="cardDateField">
+            <span class="cardDateLabel">Date Finished</span>
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="finished" value="${escapeHtml(dates.finished)}" aria-label="Date Finished" />
+          </label>
         </div>
       `;
     }
@@ -2878,6 +2958,13 @@
       localStorage.setItem(LS_CARD_TASKS, JSON.stringify(obj));
       triggerAutoSync();
     }
+    function loadCardDates(){
+      return safeJsonParse(localStorage.getItem(LS_CARD_DATES) || "{}", {});
+    }
+    function saveCardDates(obj){
+      localStorage.setItem(LS_CARD_DATES, JSON.stringify(obj));
+      triggerAutoSync();
+    }
     function applyCardStatusChange(statusKey, statusValue){
       if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {
         console.warn("Invalid card status update ignored.", { statusKey, statusValue });
@@ -2911,6 +2998,24 @@
       }
       saveCardTasks(state.cardTasks);
     }
+    function applyCardDateChange(dateKey, dateField, dateValue){
+      if (!dateKey || !["started", "finished"].includes(dateField)) {
+        console.warn("Invalid card date update ignored.", { dateKey, dateField, dateValue });
+        return;
+      }
+      const normalized = normalizeCardDateValue(dateValue);
+      if (dateValue && !normalized) {
+        console.warn("Invalid card date value ignored.", { dateKey, dateField, dateValue });
+        return;
+      }
+      const current = getCardDates(dateKey);
+      const next = { ...current };
+      if (!normalized) delete next[dateField];
+      else next[dateField] = normalized;
+      if (!next.started && !next.finished) delete state.cardDates[dateKey];
+      else state.cardDates[dateKey] = next;
+      saveCardDates(state.cardDates);
+    }
     function handleCardStatusSelectChangeEvent(e){
       const statusSelect = e.target.closest('select[data-action="setCardStatus"]');
       if (!statusSelect) return false;
@@ -2942,6 +3047,14 @@
         return true;
       }
       return false;
+    }
+    function handleCardDateInputChangeEvent(e){
+      const dateInput = e.target.closest('input[data-action="setCardDate"]');
+      if (!dateInput) return false;
+      const dateKey = dateInput.dataset.datekey || "";
+      const dateField = dateInput.dataset.datefield || "";
+      applyCardDateChange(dateKey, dateField, dateInput.value || "");
+      return true;
     }
 
     function defaultOpenAlexSettings(){
@@ -2999,6 +3112,20 @@
         }, { merge: true });
       } catch (error) {
         console.error('Error syncing card statuses to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+    async function syncCardDatesToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          cardDates: state.cardDates,
+          cardDatesSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing card dates to Firestore:', error);
         state.sync.error = error.message;
       }
     }
@@ -3071,6 +3198,22 @@
         return {};
       }
     }
+    async function loadCardDatesFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return {};
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
+        if (docSnap.exists()) {
+          return docSnap.data().cardDates || {};
+        }
+        return {};
+      } catch (error) {
+        console.error('Error loading card dates from Firestore:', error);
+        state.sync.error = error.message;
+        return {};
+      }
+    }
     async function loadCardTasksFromFirestore(userId) {
       if (!userId || !window.firebaseDB) return {};
       try {
@@ -3118,10 +3261,11 @@
       
       try {
         // First, load data from Firestore
-        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardTasks] = await Promise.all([
+        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates, remoteCardTasks] = await Promise.all([
           loadChecksFromFirestore(userId),
           loadNotesFromFirestore(userId),
           loadCardStatusesFromFirestore(userId),
+          loadCardDatesFromFirestore(userId),
           loadCardTasksFromFirestore(userId)
         ]);
         
@@ -3150,6 +3294,8 @@
         localStorage.setItem(LS_NOTES, JSON.stringify(state.notes));
         state.cardStatuses = { ...remoteCardStatuses, ...state.cardStatuses };
         localStorage.setItem(LS_CARD_STATUS, JSON.stringify(state.cardStatuses));
+        state.cardDates = { ...remoteCardDates, ...state.cardDates };
+        localStorage.setItem(LS_CARD_DATES, JSON.stringify(state.cardDates));
         state.cardTasks = { ...remoteCardTasks, ...state.cardTasks };
         localStorage.setItem(LS_CARD_TASKS, JSON.stringify(state.cardTasks));
         
@@ -3158,6 +3304,7 @@
           syncChecksToFirestore(userId),
           syncNotesToFirestore(userId),
           syncCardStatusesToFirestore(userId),
+          syncCardDatesToFirestore(userId),
           syncCardTasksToFirestore(userId)
         ]);
         
@@ -3479,6 +3626,7 @@
       libraryWorks: [],  // aggregated unique works for default browsing
       checks: loadChecks(),
       cardStatuses: loadCardStatuses(),
+      cardDates: loadCardDates(),
       cardTasks: loadCardTasks(),
       notes: loadNotes(),
       deletedNoteIds: loadDeletedNoteIds(),
@@ -4201,6 +4349,7 @@
           <div class="libDrawer"><div>
             <div class="libActions">
               ${renderStatusSelector(it.author, it.title)}
+              ${renderCardDateFields(it.author, it.title)}
               ${renderTaskTracker(it.author, it.title)}
               <button class="btn" type="button" data-action="openOpenAlexLib">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
@@ -4497,6 +4646,7 @@
           <div class="workDrawer"><div>
             <div class="workActions">
               ${renderStatusSelector(w.author, title)}
+              ${renderCardDateFields(w.author, title)}
               ${renderTaskTracker(w.author, title)}
               <button class="btn" type="button" data-action="openOpenAlex" aria-label="OpenAlex" title="OpenAlex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
@@ -4702,8 +4852,15 @@
       };
 
       grid.onchange = (e) => {
-        if (handleCardStatusSelectChangeEvent(e)) return;
-        if (handleCardTaskControlChangeEvent(e)) return;
+        if (handleCardStatusSelectChangeEvent(e)){
+          return;
+        }
+        if (handleCardDateInputChangeEvent(e)){
+          return;
+        }
+        if (handleCardTaskControlChangeEvent(e)){
+          return;
+        }
       };
     }
 
@@ -4891,6 +5048,9 @@
           return;
         }
         if (handleCardTaskControlChangeEvent(e)){
+          return;
+        }
+        if (handleCardDateInputChangeEvent(e)){
           return;
         }
         const cb = e.target.closest('input[type="checkbox"][data-action="toggleComplete"]');
@@ -5653,6 +5813,7 @@
             localStorage.removeItem(LS_NOTES);
             localStorage.removeItem(LS_OA);
             localStorage.removeItem(LS_CARD_STATUS);
+            localStorage.removeItem(LS_CARD_DATES);
             localStorage.removeItem(LS_CARD_TASKS);
           } catch(e) {
             console.error('Error clearing localStorage during profile reset:', e);
@@ -5670,6 +5831,7 @@
           // Reset in-memory state
           state.checks = {};
           state.cardStatuses = {};
+          state.cardDates = {};
           state.cardTasks = {};
           state.notes = [];
           state.openalex = defaultOpenAlexSettings();

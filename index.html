@@ -99,6 +99,18 @@
     img, svg { display: block; max-width: 100%; }
     button, input, select, textarea { font: inherit; }
     a { color: inherit; }
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0, 0, 0, 0);
+      clip-path:inset(50%);
+      white-space:nowrap;
+      border:0;
+    }
 
     /* ===== Neo-brutal newspaper theme (B/W, hard edges) ===== */
     :root{
@@ -2065,24 +2077,39 @@
       { value: "complete", label: "Complete" },
       { value: "skipped", label: "Skipped" }
     ];
+    const CARD_TASK_GROUPS = [
+      {
+        label: "Start a Book",
+        options: [
+          { value: "audiobook_listen_1", label: "Audiobook Listen 1" },
+          { value: "biography_on_author", label: "Biography on Author" },
+          { value: "documentary_on_author", label: "Documentary on Author" },
+          { value: "period_documentary", label: "Period Documentary" },
+          { value: "lecture_on_book_or_works", label: "Lecture on Book or Works" },
+          { value: "summary_of_book_or_works", label: "Summary of Book or Works" },
+          { value: "audiobook_listen_2", label: "Audiobook Listen 2" }
+        ]
+      },
+      {
+        label: "Reading",
+        options: [
+          { value: "inspectional_read", label: "Inspectional Read" },
+          { value: "analytical_read", label: "Analytical Read" },
+          { value: "casual_read", label: "Casual Read" }
+        ]
+      },
+      {
+        label: "After Reading",
+        options: [
+          { value: "review", label: "Review" },
+          { value: "critique", label: "Critique" },
+          { value: "analysis", label: "Analysis" }
+        ]
+      }
+    ];
     const CARD_TASK_OPTIONS = [
       { value: DEFAULT_CARD_TASK, label: "No Task" },
-      { divider: true },
-      { value: "audiobook_listen_1", label: "Audiobook Listen 1" },
-      { value: "biography_on_author", label: "Biography on Author" },
-      { value: "documentary_on_author", label: "Documentary on Author" },
-      { value: "period_documentary", label: "Period Documentary" },
-      { value: "lecture_on_book_or_works", label: "Lecture on Book or Works" },
-      { value: "summary_of_book_or_works", label: "Summary of Book or Works" },
-      { value: "audiobook_listen_2", label: "Audiobook Listen 2" },
-      { divider: true },
-      { value: "inspectional_read", label: "Inspectional Read" },
-      { value: "analytical_read", label: "Analytical Read" },
-      { value: "casual_read", label: "Casual Read" },
-      { divider: true },
-      { value: "review", label: "Review" },
-      { value: "critique", label: "Critique" },
-      { value: "analysis", label: "Analysis" }
+      ...CARD_TASK_GROUPS.flatMap(group => group.options)
     ];
     const CARD_TASK_COMPLETION_OPTIONS = [
       { value: DEFAULT_CARD_TASK_COMPLETION, label: "Task Not Complete" },
@@ -2186,7 +2213,7 @@
       return CARD_STATUS_OPTIONS.some(opt => opt.value === value) ? value : DEFAULT_CARD_STATUS;
     }
     function isValidCardTask(taskValue){
-      return CARD_TASK_OPTIONS.some(opt => !opt.divider && opt.value === taskValue);
+      return CARD_TASK_OPTIONS.some(opt => opt.value === taskValue);
     }
     function getCardTask(statusKey){
       const raw = state.cardTasks[statusKey] || {};
@@ -2210,12 +2237,15 @@
     function renderTaskTracker(author, title){
       const statusKey = getCardStatusKey(author, title);
       const current = getCardTask(statusKey);
-      const taskOptions = CARD_TASK_OPTIONS.map(opt => {
-        if (opt.divider) {
-          return `<option value="" disabled>────────</option>`;
-        }
-        return `<option value="${escapeHtml(opt.value)}"${opt.value === current.task ? " selected" : ""}>${escapeHtml(opt.label)}</option>`;
-      }).join("");
+      const helpId = `taskHelp_${hash32(statusKey)}`;
+      const taskOptions = [
+        `<option value="${escapeHtml(DEFAULT_CARD_TASK)}"${current.task === DEFAULT_CARD_TASK ? " selected" : ""}>No Task</option>`,
+        ...CARD_TASK_GROUPS.map(group => `
+          <optgroup label="${escapeHtml(group.label)}">
+            ${group.options.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.task ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("")}
+          </optgroup>
+        `)
+      ].join("");
       const completionOptions = CARD_TASK_COMPLETION_OPTIONS.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.completion ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("");
       const taskIsUnset = current.task === DEFAULT_CARD_TASK;
       return `
@@ -2223,9 +2253,10 @@
           <select class="statusSelect taskSelect" data-action="setCardTask" data-statuskey="${escapeHtml(statusKey)}" aria-label="Current task for ${escapeHtml(title)} by ${escapeHtml(author)}">
             ${taskOptions}
           </select>
-          <select class="statusSelect taskCompleteSelect" data-action="setCardTaskComplete" data-statuskey="${escapeHtml(statusKey)}" aria-label="Task completion for ${escapeHtml(title)} by ${escapeHtml(author)}"${taskIsUnset ? " disabled" : ""}>
+          <select class="statusSelect taskCompleteSelect" data-action="setCardTaskComplete" data-statuskey="${escapeHtml(statusKey)}" aria-label="Task completion for ${escapeHtml(title)} by ${escapeHtml(author)}" aria-describedby="${helpId}"${taskIsUnset ? " disabled" : ""}>
             ${completionOptions}
           </select>
+          <span id="${helpId}" class="sr-only">Choose a task first to enable task completion.</span>
         </div>
       `;
     }
@@ -2861,8 +2892,14 @@
         return;
       }
       const current = getCardTask(statusKey);
-      const nextTask = (updates && "task" in updates && isValidCardTask(updates.task)) ? updates.task : current.task;
-      let nextCompletion = (updates && "completion" in updates && updates.completion === "complete") ? "complete" : current.completion;
+      let nextTask = current.task;
+      if (updates && "task" in updates && isValidCardTask(updates.task)) {
+        nextTask = updates.task;
+      }
+      let nextCompletion = current.completion;
+      if (updates && "completion" in updates) {
+        nextCompletion = updates.completion === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
+      }
       if (nextTask === DEFAULT_CARD_TASK) nextCompletion = DEFAULT_CARD_TASK_COMPLETION;
       if (nextTask === DEFAULT_CARD_TASK && nextCompletion === DEFAULT_CARD_TASK_COMPLETION) {
         delete state.cardTasks[statusKey];
@@ -2888,7 +2925,13 @@
         const statusKey = taskSelect.dataset.statuskey || "";
         const taskValue = taskSelect.value || DEFAULT_CARD_TASK;
         applyCardTaskChange(statusKey, { task: taskValue });
-        renderAll();
+        const tracker = taskSelect.closest(".taskTracker");
+        const completionSelect = tracker ? $('[data-action="setCardTaskComplete"]', tracker) : null;
+        if (completionSelect) {
+          const taskIsUnset = taskValue === DEFAULT_CARD_TASK;
+          completionSelect.disabled = taskIsUnset;
+          if (taskIsUnset) completionSelect.value = DEFAULT_CARD_TASK_COMPLETION;
+        }
         return true;
       }
       const taskCompletionSelect = e.target.closest('select[data-action="setCardTaskComplete"]');
@@ -2896,7 +2939,6 @@
         const statusKey = taskCompletionSelect.dataset.statuskey || "";
         const completionValue = taskCompletionSelect.value === "complete" ? "complete" : DEFAULT_CARD_TASK_COMPLETION;
         applyCardTaskChange(statusKey, { completion: completionValue });
-        renderAll();
         return true;
       }
       return false;
@@ -4660,8 +4702,8 @@
       };
 
       grid.onchange = (e) => {
+        if (handleCardStatusSelectChangeEvent(e)) return;
         if (handleCardTaskControlChangeEvent(e)) return;
-        if (!handleCardStatusSelectChangeEvent(e)) return;
       };
     }
 
@@ -4845,10 +4887,10 @@
       };
 
       grid.onchange = (e) => {
-        if (handleCardTaskControlChangeEvent(e)){
+        if (handleCardStatusSelectChangeEvent(e)){
           return;
         }
-        if (handleCardStatusSelectChangeEvent(e)){
+        if (handleCardTaskControlChangeEvent(e)){
           return;
         }
         const cb = e.target.closest('input[type="checkbox"][data-action="toggleComplete"]');

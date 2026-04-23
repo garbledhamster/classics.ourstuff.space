@@ -632,11 +632,12 @@
       margin-bottom:8px;
       min-width:0;
     }
-    .readingHead > div:last-child{
-      display:grid !important;
+    .readingBlockActions{
+      display:grid;
       grid-auto-flow:column;
-      gap:8px !important;
+      gap:8px;
       align-items:center;
+      justify-content:flex-end;
     }
     .readingLeft{
       display:flex;
@@ -4692,7 +4693,7 @@
               <span class="tier">${escapeHtml(tierLabel)}</span>
               ${marker}
             </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <div class="readingBlockActions">
               <button class="btn" type="button" data-action="markBlockDone" title="Mark block done" aria-label="Mark block done">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 <span class="btn-text-mobile-hidden">Mark block done</span>

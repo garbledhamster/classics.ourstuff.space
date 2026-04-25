@@ -1368,10 +1368,15 @@
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
 
     /* Plan table view */
+    .planTableWrap{
+      width:100%;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+    }
     .planTable{
       width:100%;
       border-collapse:collapse;
-      min-width:0;
+      min-width:700px;
       font-size:13px;
     }
     .planTable th{
@@ -4809,26 +4814,28 @@
               <span class="bar" aria-label="progress bar"><span style="width:${pct}%"></span></span>
             </div>
           </div>
-          <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
-            <thead>
-              <tr>
-                <th class="td-check">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </th>
-                <th>Year</th>
-                <th>Number</th>
-                <th>Work</th>
-                <th>Author</th>
-                <th>Type</th>
-                <th>Notes</th>
-                <th>Status</th>
-                <th>Current Action</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
+          <div class="planTableWrap">
+            <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
+              <thead>
+                <tr>
+                  <th class="td-check">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </th>
+                  <th>Year</th>
+                  <th>Number</th>
+                  <th>Work</th>
+                  <th>Author</th>
+                  <th>Type</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                  <th>Current Action</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
         </section>
       `;
     }
@@ -6265,6 +6272,17 @@
     if (window.firebaseReady) {
       boot();
     }
+
+    /* =========================================================
+       TABLE HORIZONTAL SCROLL — shift+wheel on desktop
+       ========================================================= */
+    document.addEventListener("wheel", function(e){
+      if (!e.shiftKey) return;
+      const wrap = e.target.closest(".planTableWrap");
+      if (!wrap) return;
+      e.preventDefault();
+      wrap.scrollLeft += e.deltaY || e.deltaX;
+    }, { passive: false });
 
     /* =========================================================
        DARK MODE

@@ -5132,7 +5132,7 @@
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
           const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
-          const q = encodeURIComponent(`${title} ${author} ${taskTerms}`.trim());
+          const q = encodeURIComponent([title, author, taskTerms].filter(Boolean).join(" "));
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -5308,7 +5308,7 @@
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
           const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
-          const q = encodeURIComponent(`${title} ${author} ${taskTerms}`.trim());
+          const q = encodeURIComponent([title, author, taskTerms].filter(Boolean).join(" "));
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }

@@ -2246,13 +2246,12 @@
       {
         label: "Reading Sequence",
         options: [
-          { value: "period_documentary",        label: "Period Documentary",                description: "Establishes the \u201cpastness of the past\u201d and social context to prime your mind before engaging the text." },
-          { value: "biography_on_author",        label: "Biography on Author",               description: "Provides human \u201canchor points\u201d and serves as an intellectual \u201con-ramp\u201d for difficult classics." },
-          { value: "documentary_on_author",      label: "Documentary on Author",             description: "Further humanizes the author\u2019s personal transaction and reinforces story-based memory." },
-          { value: "audiobook_listen_1",         label: "Audiobook Listen 1 \u2014 Inspectional", description: "A \u201csuperficial reading\u201d where you race through the text to find its basic pulsebeat without stopping for difficult parts." },
-          { value: "lecture_on_book_or_works",   label: "Lecture on Book or Works",          description: "Functions as \u201caided discovery\u201d where an expert helps you bridge the gap to higher levels of understanding." },
-          { value: "audiobook_listen_2",         label: "Audiobook Listen 2 \u2014 Analytical",  description: "The \u201cdeep dive\u201d for \u201cchewing and digesting\u201d the author\u2019s specific arguments and propositions." },
-          { value: "summary_of_book_or_works",   label: "Summary of Book or Works",          description: "Used only as a final refinement and memory jog to ensure you are not at the \u201cmercy\u201d of a commentator\u2019s interpretation before possessing the book yourself." }
+          { value: "period_documentary",            label: "Period Documentary",                    description: "Establishes the \u201cpastness of the past\u201d and social context to prime your mind before engaging the text." },
+          { value: "author_documentary_biography",  label: "Author Documentary/Biography",          description: "Provides human \u201canchor points\u201d and serves as an intellectual \u201con-ramp\u201d for difficult classics, while humanizing the author\u2019s personal transaction and reinforcing story-based memory." },
+          { value: "audiobook_listen_1",             label: "Audiobook Listen 1 \u2014 Inspectional", description: "A \u201csuperficial reading\u201d where you race through the text to find its basic pulsebeat without stopping for difficult parts." },
+          { value: "summary_of_book_or_works",       label: "Summary of Book or Works",              description: "Used only as a final refinement and memory jog to ensure you are not at the \u201cmercy\u201d of a commentator\u2019s interpretation before possessing the book yourself." },
+          { value: "lecture_on_book_or_works",       label: "Lecture on Book or Works",              description: "Functions as \u201caided discovery\u201d where an expert helps you bridge the gap to higher levels of understanding." },
+          { value: "audiobook_listen_2",             label: "Audiobook Listen 2 \u2014 Analytical",   description: "The \u201cdeep dive\u201d for \u201cchewing and digesting\u201d the author\u2019s specific arguments and propositions." }
         ]
       }
     ];
@@ -2265,24 +2264,22 @@
 
     // Which button groups to show for each task (all groups shown when no task selected)
     const TASK_VISIBLE_GROUPS = {
-      period_documentary:       ["context", "biography", "wikipedia", "wikisearch", "google", "youtube"],
-      biography_on_author:      ["biography", "wikipedia", "google", "youtube"],
-      documentary_on_author:    ["biography", "google", "youtube"],
-      audiobook_listen_1:       ["audiobooks", "freebook", "buybook", "wikipedia"],
-      lecture_on_book_or_works: ["google", "youtube", "outlines", "wikipedia", "wikisearch"],
-      audiobook_listen_2:       ["audiobooks", "freebook", "outlines", "goodreads", "google", "youtube"],
-      summary_of_book_or_works: ["outlines", "wikisearch", "goodreads", "google"],
+      period_documentary:              ["context", "biography", "wikipedia", "wikisearch", "google", "youtube"],
+      author_documentary_biography:    ["biography", "wikipedia", "google", "youtube"],
+      audiobook_listen_1:              ["audiobooks", "freebook", "buybook", "wikipedia"],
+      summary_of_book_or_works:        ["outlines", "wikisearch", "goodreads", "google"],
+      lecture_on_book_or_works:        ["google", "youtube", "outlines", "wikipedia", "wikisearch"],
+      audiobook_listen_2:              ["audiobooks", "freebook", "outlines", "goodreads", "google", "youtube"],
     };
 
     // Task-specific search terms appended to search queries (per platform)
     const TASK_SEARCH_TERMS = {
-      period_documentary:       { google: "historical context documentary time period", youtube: "documentary history period", wikisearch: "historical context era period" },
-      biography_on_author:      { google: "biography life history",                    youtube: "biography documentary life" },
-      documentary_on_author:    { google: "documentary",                               youtube: "documentary" },
-      audiobook_listen_1:       { google: "audiobook public domain",                  youtube: "audiobook" },
-      lecture_on_book_or_works: { google: "lecture course university analysis",        youtube: "lecture course",           wikisearch: "analysis interpretation themes" },
-      audiobook_listen_2:       { google: "analysis critical themes",                 youtube: "audiobook deep dive" },
-      summary_of_book_or_works: { google: "summary analysis overview themes",         youtube: "summary analysis",         wikisearch: "summary analysis themes" },
+      period_documentary:              { google: "historical context documentary time period", youtube: "documentary history period", wikisearch: "historical context era period" },
+      author_documentary_biography:    { google: "biography documentary life history",         youtube: "biography documentary life" },
+      audiobook_listen_1:              { google: "audiobook public domain",                    youtube: "audiobook" },
+      summary_of_book_or_works:        { google: "summary analysis overview themes",           youtube: "summary analysis",         wikisearch: "summary analysis themes" },
+      lecture_on_book_or_works:        { google: "lecture course university analysis",          youtube: "lecture course",           wikisearch: "analysis interpretation themes" },
+      audiobook_listen_2:              { google: "analysis critical themes",                   youtube: "audiobook deep dive" },
     };
     
     const YOUTUBE_SEARCH_SUFFIX = ""; // No default suffix; extra terms are only added when learning goals or custom search are selected

@@ -1,39 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="light" />
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <meta name="color-scheme" content="light" >
   <!-- Apply saved dark mode immediately to prevent flash of light theme -->
   <script>try{if(localStorage.getItem("classicsDarkMode")==="true")document.documentElement.classList.add("dark");}catch(e){}</script>
   <title>The Classics — Library + Ten-Year Plan</title>
 
   <!-- Favicon & App Icons -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
-  <link rel="icon" href="/icon-512.png" sizes="512x512" type="image/png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" >
+  <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" >
+  <link rel="icon" href="/icon-512.png" sizes="512x512" type="image/png" >
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" >
 
   <!-- PWA / Web App Manifest -->
-  <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <link rel="manifest" href="/manifest.json" >
+  <meta name="theme-color" content="#000000" >
+  <meta name="mobile-web-app-capable" content="yes" >
 
   <!-- iOS Safari standalone / installable -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="The Classics" />
+  <meta name="apple-mobile-web-app-capable" content="yes" >
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" >
+  <meta name="apple-mobile-web-app-title" content="The Classics" >
 
   <!-- Microsoft Tiles -->
-  <meta name="msapplication-TileImage" content="/icon-192.png" />
-  <meta name="msapplication-TileColor" content="#000000" />
-  <meta name="msapplication-config" content="none" />
+  <meta name="msapplication-TileImage" content="/icon-192.png" >
+  <meta name="msapplication-TileColor" content="#000000" >
+  <meta name="msapplication-config" content="none" >
 
   <!-- Open Graph / Social -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="The Classics — Library + Ten-Year Plan" />
-  <meta property="og:description" content="A curated library of the great books of the Western World with a personal ten-year reading plan." />
-  <meta property="og:image" content="https://classics.ourstuff.space/icon-512.png" />
+  <meta property="og:type" content="website" >
+  <meta property="og:title" content="The Classics — Library + Ten-Year Plan" >
+  <meta property="og:description" content="A curated library of the great books of the Western World with a personal ten-year reading plan." >
+  <meta property="og:image" content="https://classics.ourstuff.space/icon-512.png" >
 
   <!-- Neo-brutal newspaper fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,8 +43,9 @@
   <!-- Firebase SDK (v9 modular) -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, query, where, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
     
     // Firebase configuration
     const firebaseConfig = {
@@ -747,6 +748,7 @@
     .workDrawer > div{ overflow:hidden; }
     .workRow.learningGoalsHostOpen .workDrawer > div{ overflow:visible; }
     .workRow.taskDropOpen .workDrawer > div{ overflow:visible; }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .workActions{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
@@ -755,6 +757,7 @@
       padding:8px 0 2px;
       background:#fafafa;
     }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .statusSelect{
       border:var(--border);
       border-radius:var(--radius);
@@ -780,6 +783,7 @@
     .statusSelect:hover{ transform: translate(-1px,-1px); }
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .taskTracker{
       min-width:0;
       width:100%;
@@ -876,6 +880,7 @@
       gap:3px;
       min-width:0;
     }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .taskOptLabel{
       font-size:12px;
       font-weight:900;
@@ -894,6 +899,7 @@
       letter-spacing:0;
       white-space:normal;
     }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .taskDropOptNone .taskOptLabel{
       color:var(--muted);
       font-style:italic;
@@ -910,9 +916,11 @@
       .cardMetaControls{
         grid-template-columns:1fr;
       }
+      /* biome-ignore lint/style/noDescendingSpecificity: intentional media-query narrowing pattern */
       .cardDateFields{
         grid-template-columns:1fr;
       }
+      /* biome-ignore lint/style/noDescendingSpecificity: intentional media-query narrowing pattern */
       .taskTracker{
         width:100%;
       }
@@ -928,6 +936,7 @@
         grid-template-columns:1fr;
       }
     }
+    /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .cardDateFields{
       display:grid;
       grid-template-columns:repeat(2, minmax(140px, 1fr));
@@ -1323,6 +1332,7 @@
     html.dark .ytGoalDrawer,
     html.dark .error{ background:#1a1a1a; color:var(--ink); }
     html.dark .libActions,
+    /* biome-ignore lint/style/noDescendingSpecificity: dark-mode override of base class intentionally lower specificity */
     html.dark .workActions{ background:#222; }
     html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
@@ -1339,7 +1349,7 @@
     html.dark .input:focus,
     html.dark .select:focus,
     html.dark .textarea:focus{ box-shadow:0 0 0 3px #ffffff22; }
-    html.dark footer{ border-top-color:var(--ink) !important; color:var(--muted) !important; }
+    html.dark footer{ border-top-color:var(--ink); color:var(--muted); }
     #darkModeBtn .icon-moon{ display:inline; }
     #darkModeBtn .icon-sun{ display:none; }
     html.dark #darkModeBtn .icon-moon{ display:none; }
@@ -1569,13 +1579,71 @@
     html.dark .commentTypePill{ background:transparent; color:var(--ink); }
     html.dark .commentTypePill.selected,
     html.dark .commentTypePill:hover{ background:var(--ink); color:var(--paper); }
+
+    /* ===== Inline-style replacements ===== */
+    .btnIconOnly{ padding:8px; line-height:0; align-self:center; }
+    .toggleFlexStart{ margin-top:8px; justify-content:flex-start; }
+    .siteFooter{
+      margin-top:16px;
+      border-top:3px solid var(--ink);
+      padding-top:12px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .syncStatus{ font-weight:600; }
+    .errorForm{ margin-bottom:12px; }
+    .helpMt{ margin-top:8px; }
+    .linkUnderline{ text-decoration:underline; }
+    .searchBanner{
+      margin-bottom:16px;
+      padding:12px;
+      background:#e8f4fd;
+      border-radius:4px;
+      border-left:4px solid #2196F3;
+    }
+    .searchBannerRow{ display:flex; align-items:center; gap:8px; }
+    .searchBannerLabel{ font-weight:600; font-size:14px; }
+    .searchBannerName{ font-size:13px; color:#555; }
+    .labelBold{ font-weight:600; margin-bottom:8px; }
+    .searchPreviewBox{
+      padding:12px;
+      word-break:break-word;
+      background:#f5f5f5;
+      font-size:13px;
+      line-height:1.4;
+    }
+    .settingsSection{ border-top:var(--borderThin); padding-top:16px; margin-top:8px; }
+    .settingsSectionTitle{ font-weight:600; margin-bottom:12px; }
+    .controlMb{ margin-bottom:8px; }
+    .controlMbSm{ margin-bottom:10px; }
+    .controlMtMb{ margin-top:16px; margin-bottom:16px; }
+    .controlMt{ margin-top:16px; }
+    .checkboxLabel{ display:flex; align-items:center; gap:8px; cursor:pointer; }
+    .checkboxInput{ cursor:pointer; }
+    .selectedWorksPanel{ margin-top:8px; margin-left:26px; }
+    .selectedWorksSelect{ width:100%; max-width:300px; }
+    .helpSm{ margin-top:4px; font-size:12px; color:#666; }
+    .helpSmMb{ margin-top:4px; margin-bottom:8px; font-size:12px; color:#666; }
+    .bloomsBtnRow{ display:flex; flex-wrap:wrap; gap:8px; }
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btnRowCompact{ display:flex; gap:10px; }
+    .commentsBookTitle{
+      font-family:Newsreader,'Times New Roman',serif;
+      font-size:18px;
+      font-weight:800;
+      margin-bottom:14px;
+    }
   </style>
 </head>
 
 <body>
   <!-- Modal backdrop -->
   <div id="modalBackdrop" class="modalBackdrop"></div>
-  
+
   <div class="wrap">
     <header class="masthead">
       <div class="mast-top">
@@ -1585,10 +1653,10 @@
           <span class="mono">•</span>
           <span id="today">Loading…</span>
         </div>
-        <button id="resetProfileBtn" class="btn" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site" style="padding:8px; line-height:0; align-self:center;">
+        <button id="resetProfileBtn" class="btn btnIconOnly" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
         </button>
-        <button id="darkModeBtn" class="btn" type="button" aria-label="Toggle dark mode" title="Toggle dark mode" style="padding:8px; line-height:0; align-self:center;">
+        <button id="darkModeBtn" class="btn btnIconOnly" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
           <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         </button>
@@ -1634,7 +1702,7 @@
       <section class="controls" aria-label="library filters">
         <div class="control">
           <div class="label">Search (title/author)</div>
-          <input id="libQ" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" />
+          <input id="libQ" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" >
         </div>
 
         <div class="control">
@@ -1683,22 +1751,22 @@
       <section class="controls" aria-label="plan filters">
         <div class="control">
           <div class="label">Search (title/author)</div>
-          <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" />
+          <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" >
         </div>
 
         <div class="control">
           <div class="label">Year</div>
           <div class="yearStepper">
-            <button class="btn" id="yearPrev" type="button">
+            <button class="btn" id="yearPrev" type="button" aria-label="Previous year">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
             <span id="yearDisplay" class="yearNum">Year 1</span>
-            <button class="btn" id="yearNext" type="button">
+            <button class="btn" id="yearNext" type="button" aria-label="Next year">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </div>
-          <label class="toggle" style="margin-top:8px; justify-content:flex-start;">
-            <input id="showAllYears" type="checkbox" />
+          <label class="toggle toggleFlexStart">
+            <input id="showAllYears" type="checkbox" >
             All years
           </label>
         </div>
@@ -1781,7 +1849,7 @@
       <section class="controls" aria-label="authors filters">
         <div class="control">
           <div class="label">Search (author)</div>
-          <input id="authorsQ" class="input" type="search" placeholder="e.g., Plato, Aristotle, Homer…" autocomplete="off" aria-label="Search authors by name" />
+          <input id="authorsQ" class="input" type="search" placeholder="e.g., Plato, Aristotle, Homer…" autocomplete="off" aria-label="Search authors by name" >
         </div>
         <div class="rowWide">
           <div class="help">Browse all authors here. Click a card to reveal research, notes and search actions.</div>
@@ -1794,17 +1862,17 @@
       <div id="authorsGrid" class="grid" aria-live="polite"></div>
     </section>
 
-    <footer style="margin-top:16px; border-top:3px solid #000; padding-top:12px; color:#444; font-size:12px; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+    <footer class="siteFooter">
       <div>Data files: <span class="mono">./library.json</span> (catalog + sources), <span class="mono">./bookclub.json</span> (reading plan)</div>
       <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (when signed in)</div>
-      <div id="syncStatus" style="font-weight:600;">Sign in to sync</div>
+      <div id="syncStatus" class="syncStatus">Sign in to sync</div>
     </footer>
   </div>
 
   <!-- Shared overlay (used for either drawer) -->
   <div id="overlay" class="overlay" aria-hidden="true"></div>
 
-  <div id="alertModal" class="modal" aria-hidden="true" role="alertdialog" aria-labelledby="alertModalTitle">
+  <div id="alertModal" class="modal" role="alertdialog" aria-labelledby="alertModalTitle">
     <div class="modalHeader">
       <h2 id="alertModalTitle" class="modalTitle">Alert</h2>
     </div>
@@ -1817,7 +1885,7 @@
   </div>
 
   <!-- Confirm Modal -->
-  <div id="confirmModal" class="modal" aria-hidden="true" role="alertdialog" aria-labelledby="confirmModalTitle">
+  <div id="confirmModal" class="modal" role="alertdialog" aria-labelledby="confirmModalTitle">
     <div class="modalHeader">
       <h2 id="confirmModalTitle" class="modalTitle">Confirm</h2>
     </div>
@@ -1831,14 +1899,14 @@
   </div>
 
   <!-- Prompt Modal -->
-  <div id="promptModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="promptModalTitle">
+  <div id="promptModal" class="modal" role="dialog" aria-labelledby="promptModalTitle">
     <div class="modalHeader">
       <h2 id="promptModalTitle" class="modalTitle">Input Required</h2>
     </div>
     <div class="modalBody">
       <p id="promptModalMessage"></p>
       <div class="control">
-        <input id="promptModalInput" class="input" type="text" autocomplete="off" />
+        <input id="promptModalInput" class="input" type="text" autocomplete="off" >
       </div>
     </div>
     <div class="modalFooter">
@@ -1848,7 +1916,7 @@
   </div>
 
   <!-- Login/Sign-up Modal -->
-  <div id="loginModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="loginModalTitle">
+  <div id="loginModal" class="modal" role="dialog" aria-labelledby="loginModalTitle">
     <div class="modalHeader">
       <h2 id="loginModalTitle" class="modalTitle">Sign In</h2>
       <button class="btn btnGhost" id="closeLoginModalBtn" type="button" aria-label="Close modal">
@@ -1856,17 +1924,17 @@
       </button>
     </div>
     <div class="modalBody">
-      <div id="loginError" class="error" style="display:none; margin-bottom: 12px;"></div>
+      <div id="loginError" class="error errorForm" style="display:none;"></div>
       <div class="control">
         <label for="loginEmail" class="label">Email</label>
-        <input id="loginEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" />
+        <input id="loginEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" >
       </div>
       <div class="control">
         <label for="loginPassword" class="label">Password</label>
-        <input id="loginPassword" class="input" type="password" placeholder="Enter password" autocomplete="current-password" />
+        <input id="loginPassword" class="input" type="password" placeholder="Enter password" autocomplete="current-password" >
       </div>
-      <div class="help" style="margin-top: 8px;">
-        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="text-decoration: underline;">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="text-decoration: underline;">Terms</a>
+      <div class="help helpMt">
+        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="linkUnderline">Terms</a>
       </div>
     </div>
     <div class="modalFooter">
@@ -1876,7 +1944,7 @@
   </div>
 
   <!-- Sign-up Modal -->
-  <div id="signupModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="signupModalTitle">
+  <div id="signupModal" class="modal" role="dialog" aria-labelledby="signupModalTitle">
     <div class="modalHeader">
       <h2 id="signupModalTitle" class="modalTitle">Create Account</h2>
       <button class="btn btnGhost" id="closeSignupModalBtn" type="button" aria-label="Close modal">
@@ -1884,21 +1952,21 @@
       </button>
     </div>
     <div class="modalBody">
-      <div id="signupError" class="error" style="display:none; margin-bottom: 12px;"></div>
+      <div id="signupError" class="error errorForm" style="display:none;"></div>
       <div class="control">
         <label for="signupEmail" class="label">Email</label>
-        <input id="signupEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" />
+        <input id="signupEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" >
       </div>
       <div class="control">
         <label for="signupPassword" class="label">Password</label>
-        <input id="signupPassword" class="input" type="password" placeholder="Create password (min 6 characters)" autocomplete="new-password" />
+        <input id="signupPassword" class="input" type="password" placeholder="Create password (min 6 characters)" autocomplete="new-password" >
       </div>
       <div class="control">
         <label for="signupPasswordConfirm" class="label">Confirm Password</label>
-        <input id="signupPasswordConfirm" class="input" type="password" placeholder="Confirm password" autocomplete="new-password" />
+        <input id="signupPasswordConfirm" class="input" type="password" placeholder="Confirm password" autocomplete="new-password" >
       </div>
-      <div class="help" style="margin-top: 8px;">
-        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="text-decoration: underline;">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" style="text-decoration: underline;">Terms</a>
+      <div class="help helpMt">
+        Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="linkUnderline">Terms</a>
       </div>
     </div>
     <div class="modalFooter">
@@ -1908,7 +1976,7 @@
   </div>
 
   <!-- Search Settings Modal -->
-  <div id="searchSettingsModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="searchSettingsModalTitle">
+  <div id="searchSettingsModal" class="modal" role="dialog" aria-labelledby="searchSettingsModalTitle">
     <div class="modalHeader">
       <h2 id="searchSettingsModalTitle" class="modalTitle">Search Settings</h2>
       <button class="btn btnGhost" id="closeSearchSettingsModalBtn" type="button" aria-label="Close modal">
@@ -1917,71 +1985,71 @@
     </div>
     <div class="modalBody">
       <!-- Platform Indicator -->
-      <div id="searchPlatformIndicator" class="control" style="margin-bottom: 16px; padding: 12px; background: #e8f4fd; border-radius: 4px; border-left: 4px solid #2196F3;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <svg id="searchPlatformIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div id="searchPlatformIndicator" class="control searchBanner">
+        <div class="searchBannerRow">
+          <svg id="searchPlatformIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>
           </svg>
           <div>
-            <div style="font-weight: 600; font-size: 14px;">Search Platform</div>
-            <div id="searchPlatformName" style="font-size: 13px; color: #555;">Google</div>
+            <div class="searchBannerLabel">Search Platform</div>
+            <div id="searchPlatformName" class="searchBannerName">Google</div>
           </div>
         </div>
       </div>
 
       <!-- Live Search Preview -->
       <div class="control">
-        <label class="label" style="font-weight: 600; margin-bottom: 8px;">Search Preview</label>
-        <div id="searchPreview" class="codebox" style="padding: 12px; word-break: break-word; background: #f5f5f5; font-size: 13px; line-height: 1.4;"></div>
+        <label class="label labelBold">Search Preview</label>
+        <div id="searchPreview" class="codebox searchPreviewBox"></div>
       </div>
 
       <!-- Settings Section -->
-      <div style="border-top: var(--borderThin); padding-top: 16px; margin-top: 8px;">
-        <div style="font-weight: 600; margin-bottom: 12px;">Search Components</div>
-        
+      <div class="settingsSection">
+        <div class="settingsSectionTitle">Search Components</div>
+
         <!-- Include Title Checkbox -->
-        <div class="control" style="margin-bottom: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeTitle" checked style="cursor: pointer;">
+        <div class="control controlMb">
+          <label class="checkboxLabel">
+            <input type="checkbox" id="includeTitle" checked class="checkboxInput">
             <span>Include Title</span>
           </label>
         </div>
 
         <!-- Include Author Checkbox -->
-        <div class="control" style="margin-bottom: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeAuthor" checked style="cursor: pointer;">
+        <div class="control controlMb">
+          <label class="checkboxLabel">
+            <input type="checkbox" id="includeAuthor" checked class="checkboxInput">
             <span>Include Author</span>
           </label>
         </div>
 
         <!-- Selected Works Checkbox with Conditional Dropdown -->
-        <div class="control" style="margin-bottom: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="includeSelectedWorks" style="cursor: pointer;">
+        <div class="control controlMb">
+          <label class="checkboxLabel">
+            <input type="checkbox" id="includeSelectedWorks" class="checkboxInput">
             <span>Include Selected Work</span>
           </label>
-          <div id="selectedWorksContainer" style="display: none; margin-top: 8px; margin-left: 26px;">
-            <select id="selectedWorksDropdown" class="input" style="width: 100%; max-width: 300px;">
+          <div id="selectedWorksContainer" class="selectedWorksPanel" style="display:none;">
+            <select id="selectedWorksDropdown" class="input selectedWorksSelect">
               <option value="">-- Select a work --</option>
             </select>
           </div>
         </div>
 
         <!-- Bloom's Taxonomy Level -->
-        <div class="control" style="margin-top: 16px; margin-bottom: 16px;">
+        <div class="control controlMtMb">
           <label class="label">Bloom's Taxonomy Level</label>
-          <div class="help" style="margin-top: 4px; margin-bottom: 8px; font-size: 12px; color: #666;">Select a learning level to optimize search results (click again to deselect)</div>
-          <div id="bloomsButtonsContainer" style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <div class="help helpSmMb">Select a learning level to optimize search results (click again to deselect)</div>
+          <div id="bloomsButtonsContainer" class="bloomsBtnRow">
             <!-- Buttons will be dynamically inserted here -->
           </div>
         </div>
 
         <!-- Custom Search Textbox -->
-        <div class="control" style="margin-top: 16px;">
+        <div class="control controlMt">
           <label for="customSearch" class="label">Custom Search Addition</label>
-          <input type="text" id="customSearch" class="input" placeholder="Add custom text to the end of search..." autocomplete="off" />
-          <div class="help" style="margin-top: 4px; font-size: 12px; color: #666;">This text will be appended to the end of the search query</div>
+          <input type="text" id="customSearch" class="input" placeholder="Add custom text to the end of search..." autocomplete="off" >
+          <div class="help helpSm">This text will be appended to the end of the search query</div>
         </div>
       </div>
     </div>
@@ -1992,10 +2060,10 @@
   </div>
 
   <!-- Notes Drawer (right) -->
-  <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true">
+  <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true" inert>
     <div class="drawerHeader">
       <h2 class="drawerTitle">Notes</h2>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div class="btnRow">
         <button class="btn" id="newNoteBtn" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           New note
@@ -2014,7 +2082,7 @@
         <div class="noteToolsRow">
           <div class="control">
             <div class="label">Search (title/body)</div>
-            <input id="noteSearch" class="input" type="search" placeholder="e.g., justice, virtue, war…" autocomplete="off" />
+            <input id="noteSearch" class="input" type="search" placeholder="e.g., justice, virtue, war…" autocomplete="off" >
           </div>
 
           <div class="control">
@@ -2025,7 +2093,7 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div class="btnRow">
           <button class="btn" id="exportNotesBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Export JSON
@@ -2038,7 +2106,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
             <span id="toggleArchivedBtnText">Show Archived</span>
           </button>
-          <input id="importFile" type="file" accept="application/json" style="display:none;" />
+          <input id="importFile" type="file" accept="application/json" style="display:none;" >
         </div>
       </section>
 
@@ -2048,7 +2116,7 @@
         <div class="noteToolsRow">
           <div class="control">
             <div class="label">Note title</div>
-            <input id="editTitle" class="input" type="text" placeholder="e.g., Republic — justice and the soul" autocomplete="off" />
+            <input id="editTitle" class="input" type="text" placeholder="e.g., Republic — justice and the soul" autocomplete="off" >
           </div>
           <div class="control">
             <div class="label">Book tag</div>
@@ -2059,17 +2127,17 @@
         <div class="noteToolsRow">
           <div class="control">
             <div class="label">Year</div>
-            <input id="editYear" class="input" type="number" min="1" max="10" placeholder="1" autocomplete="off" />
+            <input id="editYear" class="input" type="number" min="1" max="10" placeholder="1" autocomplete="off" >
           </div>
           <div class="control">
             <div class="label">Author</div>
-            <input id="editAuthor" class="input" type="text" placeholder="e.g., Plato" autocomplete="off" />
+            <input id="editAuthor" class="input" type="text" placeholder="e.g., Plato" autocomplete="off" >
           </div>
         </div>
 
         <div class="control">
           <div class="label">Selections / reference</div>
-          <input id="editSelection" class="input" type="text" placeholder="e.g., Book I–II; Ch. 1–5" autocomplete="off" />
+          <input id="editSelection" class="input" type="text" placeholder="e.g., Book I–II; Ch. 1–5" autocomplete="off" >
         </div>
 
         <div class="control">
@@ -2077,7 +2145,7 @@
           <textarea id="editBody" class="textarea" placeholder="Write your note…"></textarea>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <div class="btnRow">
           <button class="btn" id="saveNoteBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
             Save
@@ -2102,10 +2170,10 @@
   </aside>
 
   <!-- Great Conversation Comments Drawer (right) -->
-  <aside id="commentsDrawer" class="drawer commentsDrawer" aria-label="Great Conversation comments" aria-hidden="true">
+  <aside id="commentsDrawer" class="drawer commentsDrawer" aria-label="Great Conversation comments" aria-hidden="true" inert>
     <div class="drawerHeader">
       <h2 class="drawerTitle">Great Conversation</h2>
-      <div style="display:flex; gap:10px;">
+      <div class="btnRowCompact">
         <button class="btn" id="closeCommentsBtn" type="button">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           Close
@@ -2125,7 +2193,7 @@
         </ol>
       </div>
 
-      <div id="commentsBookTitle" style="font-family:'Newsreader',serif; font-size:18px; font-weight:800; margin-bottom:14px;"></div>
+      <div id="commentsBookTitle" class="commentsBookTitle"></div>
 
       <div id="commentsList" aria-live="polite"></div>
 
@@ -2134,7 +2202,7 @@
           Sign in to join the Great Conversation.
         </div>
         <div id="commentFormFields">
-          <div class="control" style="margin-bottom:10px;">
+          <div class="control controlMbSm">
             <div class="label">Type of contribution</div>
             <div class="commentTypeRow" id="commentTypeRow">
               <button class="commentTypePill selected" data-type="argument" type="button">💡 Argument</button>
@@ -2143,7 +2211,7 @@
               <button class="commentTypePill" data-type="reflection" type="button">🤔 Reflection</button>
             </div>
           </div>
-          <div class="control" style="margin-bottom:10px;">
+          <div class="control controlMbSm">
             <div class="label">Your contribution</div>
             <textarea id="commentBody" class="textarea" placeholder="Add your voice to the Great Conversation…" rows="5"></textarea>
           </div>
@@ -2409,11 +2477,11 @@
         <div class="cardDateFields">
           <label class="cardDateField">
             <span class="cardDateLabel">Date Started</span>
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="started" value="${escapeHtml(dates.started)}" aria-label="Date Started" />
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="started" value="${escapeHtml(dates.started)}" aria-label="Date Started" >
           </label>
           <label class="cardDateField">
             <span class="cardDateLabel">Date Finished</span>
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="finished" value="${escapeHtml(dates.finished)}" aria-label="Date Finished" />
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(dateKey)}" data-datefield="finished" value="${escapeHtml(dates.finished)}" aria-label="Date Finished" >
           </label>
         </div>
       `;
@@ -2426,12 +2494,12 @@
         const btn = $("[data-action='toggleLearningGoals'], [data-action='toggleYouTubeGoals']", wrap);
         if (btn) btn.setAttribute("aria-expanded", "false");
       });
-      root.querySelectorAll(".learningGoalsHostOpen").forEach(host => host.classList.remove("learningGoalsHostOpen"));
+      root.querySelectorAll(".learningGoalsHostOpen").forEach(host => { host.classList.remove("learningGoalsHostOpen"); });
       if (restoreFocus && lastLearningGoalToggleBtn && document.contains(lastLearningGoalToggleBtn)) {
         lastLearningGoalToggleBtn.focus();
       }
     }
-    function toggleLearningGoalDrawer(btn) {
+    function _toggleLearningGoalDrawer(btn) {
       const wrap = btn.closest(".ytGoalWrap");
       if (!wrap) return;
       const host = btn.closest(".workRow, .libCard");
@@ -2505,7 +2573,7 @@
     }
 
     function uid(){
-      return "n_" + Math.random().toString(16).slice(2) + "_" + Date.now().toString(16);
+      return `n_${Math.random().toString(16).slice(2)}_${Date.now().toString(16)}`;
     }
 
     /* =========================================================
@@ -2593,7 +2661,7 @@
         authBtn.style.display = "inline-flex";
         authBtn.classList.add("signed-in");
         authBtnText.textContent = userEmail;
-        authBtn.setAttribute("aria-label", "Signed in as " + userEmail + ". Click to sign out.");
+        authBtn.setAttribute("aria-label", `Signed in as ${userEmail}. Click to sign out.`);
         authBtn.dataset.userEmail = userEmail; // Store email in data attribute for event handlers
         
         // Update SVG to logout icon using safe DOM methods
@@ -2921,7 +2989,7 @@
       const selectedWork = $("#selectedWorksDropdown").value;
       const customSearch = $("#customSearch").value.trim();
       
-      let searchParts = [];
+      const searchParts = [];
       
       if (includeTitle) {
         searchParts.push(title);
@@ -2970,7 +3038,7 @@
       const selectedWork = $("#selectedWorksDropdown").value;
       const customSearch = $("#customSearch").value.trim();
       
-      let searchParts = [];
+      const searchParts = [];
       
       if (includeTitle) {
         searchParts.push(title);
@@ -3023,7 +3091,7 @@
       try{ return JSON.parse(str); } catch { return fallback; }
     }
 
-    function isValidUrl(str){
+    function _isValidUrl(str){
       try{
         const url = new URL(str);
         return url.protocol === "http:" || url.protocol === "https:";
@@ -3146,7 +3214,7 @@
         panel.style.right = '';
         panel.style.transform = '';
         const drop = panel.closest('.taskDrop');
-        const trigger = drop && drop.querySelector('.taskDropTrigger');
+        const trigger = drop?.querySelector('.taskDropTrigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
         const host = drop && (drop.closest('.libCard') || drop.closest('.workRow'));
         if (host) host.classList.remove('taskDropOpen');
@@ -3484,7 +3552,7 @@
     // For production optimization, consider implementing incremental sync that only pushes changed items.
     let syncTimeout = null;
     // Reassign the triggerAutoSync function with actual implementation
-    triggerAutoSync = function() {
+    triggerAutoSync = () => {
       // Skip if already syncing to prevent loops
       if (!state.currentUser || !state.sync.enabled || state.sync.syncing) return;
       
@@ -3618,7 +3686,7 @@
     function renderBookCommentsList(comments) {
       const el = $("#commentsList");
       if (!el) return;
-      if (!comments || !comments.length) {
+      if (!comments?.length) {
         el.innerHTML = `<div class="commentsEmpty">No contributions yet — be the first to join this conversation!</div>`;
         return;
       }
@@ -3626,7 +3694,7 @@
       el.innerHTML = comments.map(comment => {
         const typeLabel = COMMENT_TYPE_LABELS[comment.commentType] || comment.commentType || "Comment";
         let date = "";
-        if (comment.createdAt && comment.createdAt.toDate) {
+        if (comment.createdAt?.toDate) {
           date = comment.createdAt.toDate().toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
         }
         const canDelete = uid && comment.userId === uid;
@@ -3813,7 +3881,7 @@
 
     function findCatalogMeta(author, title){
       // Look up sourceUrl and publication date from project catalog
-      if (!state.projectCatalog || !state.projectCatalog.length) return { sourceUrl: "", publishedYear: null };
+      if (!state.projectCatalog?.length) return { sourceUrl: "", publishedYear: null };
       
       const normalizedTitle = normalizeForMatch(title);
       const normalizedAuthor = normalizeForMatch(author);
@@ -4371,7 +4439,7 @@
           const card = e.target.closest(".libCard");
           if (card) {
             const was = card.classList.contains("active");
-            grid.querySelectorAll(".libCard.active").forEach(c => c.classList.remove("active"));
+            grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
             if (!was) card.classList.add("active");
             return;
           }
@@ -4489,7 +4557,7 @@
 
       // Per-occurrence pills (click to jump to that exact place in the plan)
       const occPills = occ.slice(0, 10).map(o => {
-        const label = `Y${o.year} #${o.order}${o.marker ? " " + o.marker : ""}`;
+        const label = `Y${o.year} #${o.order}${o.marker ? ` ${o.marker}` : ""}`;
         return `<button class="btn btnGhost" type="button"
                   data-action="gotoPlanOcc"
                   data-workkey="${escapeHtml(o.key)}"
@@ -4713,7 +4781,7 @@
           id="wk_${escapeHtml(hash32(w.key))}"
         >
           <td class="td-check">
-            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" />
+            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" >
           </td>
           <td class="td-year">${escapeHtml(w.year)}</td>
           <td class="td-number">${escapeHtml(block.order)}</td>
@@ -4724,10 +4792,10 @@
           <td class="td-status">${renderStatusSelector(w.author, title)}</td>
           <td class="td-action">${renderTaskTracker(w.author, title)}</td>
           <td class="td-date">
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="started" value="${escapeHtml(dateEntry.started)}" aria-label="Start date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" />
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="started" value="${escapeHtml(dateEntry.started)}" aria-label="Start date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
           <td class="td-date">
-            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" />
+            <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
         </tr>
       `;
@@ -4806,7 +4874,7 @@
              id="wk_${escapeHtml(hash32(w.key))}"
         >
           <div class="workCheck">
-            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" />
+            <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" >
           </div>
 
           <div class="workMain">
@@ -4896,7 +4964,7 @@
           const card = e.target.closest(".libCard");
           if (card) {
             const was = card.classList.contains("active");
-            grid.querySelectorAll(".libCard.active").forEach(c => c.classList.remove("active"));
+            grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
             if (!was) card.classList.add("active");
             return;
           }
@@ -4926,7 +4994,7 @@
         if (btn.dataset.action === "openWikiSearchLib"){
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
-          const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
+          const taskTerms = TASK_SEARCH_TERMS[currentTask]?.wikisearch || "";
           const q = encodeURIComponent([title, author, taskTerms].filter(Boolean).join(" "));
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
@@ -4935,7 +5003,7 @@
           const platform = btn.dataset.platform || (btn.dataset.action === "toggleYouTubeGoals" ? "youtube" : "google");
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
-          const taskHint = (TASK_SEARCH_TERMS[currentTask] || {})[platform] || "";
+          const taskHint = TASK_SEARCH_TERMS[currentTask]?.[platform] || "";
           // In library view, no works are grouped so works array is empty
           closeLearningGoalDrawers();
           showSearchSettingsModal({ title, author, platform, goal: "", works: [], taskHint });
@@ -5050,7 +5118,7 @@
           const row = e.target.closest(".workRow");
           if (row) {
             const was = row.classList.contains("active");
-            grid.querySelectorAll(".workRow.active").forEach(r => r.classList.remove("active"));
+            grid.querySelectorAll(".workRow.active").forEach(r => { r.classList.remove("active"); });
             if (!was) row.classList.add("active");
             return;
           }
@@ -5095,7 +5163,7 @@
           const author = row.dataset.author || "";
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
-          const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
+          const taskTerms = TASK_SEARCH_TERMS[currentTask]?.wikisearch || "";
           const q = encodeURIComponent([title, author, taskTerms].filter(Boolean).join(" "));
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
@@ -5106,7 +5174,7 @@
           const platform = btn.dataset.platform || (action === "toggleYouTubeGoals" ? "youtube" : "google");
           const statusKey = getCardStatusKey(author, title);
           const currentTask = getCardTask(statusKey).task;
-          const taskHint = (TASK_SEARCH_TERMS[currentTask] || {})[platform] || "";
+          const taskHint = TASK_SEARCH_TERMS[currentTask]?.[platform] || "";
           
           // Try to get works from the reading block
           const readingBlock = row.closest(".readingBlock");
@@ -5262,7 +5330,7 @@
       }
 
       requestAnimationFrame(() => {
-        const id = "wk_" + hash32(workkey);
+        const id = `wk_${hash32(workkey)}`;
         const el = document.getElementById(id);
         if (el){
           el.scrollIntoView({ behavior:"smooth", block:"start" });
@@ -5277,7 +5345,7 @@
 
       requestAnimationFrame(() => {
         const libKey = `${author}||${title}`.toLowerCase();
-        const id = "lib_" + hash32(libKey);
+        const id = `lib_${hash32(libKey)}`;
         const el = document.getElementById(id);
         if (el){
           el.scrollIntoView({ behavior:"smooth", block:"start" });
@@ -5314,14 +5382,18 @@
       if (which === "notes"){
         $("#notesDrawer").classList.add("open");
         $("#notesDrawer").setAttribute("aria-hidden", "false");
+        $("#notesDrawer").removeAttribute("inert");
         $("#commentsDrawer").classList.remove("open");
         $("#commentsDrawer").setAttribute("aria-hidden", "true");
+        $("#commentsDrawer").setAttribute("inert", "");
         renderNotesList();
       } else if (which === "comments") {
         $("#commentsDrawer").classList.add("open");
         $("#commentsDrawer").setAttribute("aria-hidden", "false");
+        $("#commentsDrawer").removeAttribute("inert");
         $("#notesDrawer").classList.remove("open");
         $("#notesDrawer").setAttribute("aria-hidden", "true");
+        $("#notesDrawer").setAttribute("inert", "");
         hideEditor();
       }
     }
@@ -5335,9 +5407,11 @@
 
       $("#notesDrawer").classList.remove("open");
       $("#notesDrawer").setAttribute("aria-hidden", "true");
+      $("#notesDrawer").setAttribute("inert", "");
 
       $("#commentsDrawer").classList.remove("open");
       $("#commentsDrawer").setAttribute("aria-hidden", "true");
+      $("#commentsDrawer").setAttribute("inert", "");
 
       hideEditor();
     }
@@ -5416,7 +5490,7 @@
       });
     }
 
-    function showPrompt(message, defaultValue = "", title = "Input Required"){
+    function _showPrompt(message, defaultValue = "", title = "Input Required"){
       return new Promise((resolve) => {
         const modal = $("#promptModal");
         const overlay = $("#overlay");
@@ -5715,7 +5789,7 @@
     }
 
     async function importNotesFile(e){
-      const file = e.target.files && e.target.files[0];
+      const file = e.target.files?.[0];
       if (!file) return;
 
       try{
@@ -5729,7 +5803,7 @@
 
         const existing = new Map(state.notes.map(n => [n.id, n]));
         for (const n of notesIn){
-          if (!n || !n.id) continue;
+          if (!n?.id) continue;
           existing.set(n.id, {
             id: String(n.id),
             title: String(n.title || "").trim() || `Note — ${String(n.book_tag || "Unknown")}`,
@@ -5772,7 +5846,7 @@
       $("#commentTypeRow").addEventListener("click", (e) => {
         const pill = e.target.closest(".commentTypePill");
         if (!pill) return;
-        $("#commentTypeRow").querySelectorAll(".commentTypePill").forEach(p => p.classList.remove("selected"));
+        $("#commentTypeRow").querySelectorAll(".commentTypePill").forEach(p => { p.classList.remove("selected"); });
         pill.classList.add("selected");
         state.commentsUI.selectedType = pill.dataset.type;
       });
@@ -5845,7 +5919,7 @@
           btn.classList.remove("active");
         } else {
           // Deselect all other buttons
-          $("#bloomsButtonsContainer").querySelectorAll(".btnBloom").forEach(b => b.classList.remove("active"));
+          $("#bloomsButtonsContainer").querySelectorAll(".btnBloom").forEach(b => { b.classList.remove("active"); });
           // Select this button
           searchSettingsModalContext.bloomsLevel = level;
           btn.classList.add("active");
@@ -6052,7 +6126,7 @@
     /* =========================================================
        TABLE HORIZONTAL SCROLL — shift+wheel on desktop
        ========================================================= */
-    document.addEventListener("wheel", function(e){
+    document.addEventListener("wheel", (e)=> {
       if (!e.shiftKey) return;
       const wrap = e.target.closest(".planTableWrap");
       if (!wrap) return;
@@ -6063,7 +6137,7 @@
     /* =========================================================
        DARK MODE
        ========================================================= */
-    (function(){
+    (()=> {
       const DARK_KEY = "classicsDarkMode";
       const html = document.documentElement;
       const metaColorScheme = document.querySelector('meta[name="color-scheme"]');
@@ -6083,7 +6157,7 @@
       try{ applyTheme(localStorage.getItem(DARK_KEY) === "true"); }catch(e){}
 
       const btn = document.getElementById("darkModeBtn");
-      if(btn) btn.addEventListener("click", function(){
+      if(btn) btn.addEventListener("click", ()=> {
         const isDark = html.classList.contains("dark");
         applyTheme(!isDark);
         try{ localStorage.setItem(DARK_KEY, String(!isDark)); }catch(e){}

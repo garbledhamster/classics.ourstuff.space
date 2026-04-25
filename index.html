@@ -2326,6 +2326,28 @@
     ];
     const CARD_STATUS_SORT_RANK = Object.fromEntries(CARD_STATUS_OPTIONS.map((opt, idx) => [opt.value, idx]));
     const CARD_TASK_SORT_RANK = Object.fromEntries(CARD_TASK_OPTIONS.map((opt, idx) => [opt.value, idx]));
+
+    // Which button groups to show for each task (all groups shown when no task selected)
+    const TASK_VISIBLE_GROUPS = {
+      period_documentary:       ["context", "biography", "wikipedia", "wikisearch", "google", "youtube"],
+      biography_on_author:      ["biography", "wikipedia", "openalex", "google", "youtube"],
+      documentary_on_author:    ["biography", "google", "youtube"],
+      audiobook_listen_1:       ["audiobooks", "freebook", "buybook", "wikipedia"],
+      lecture_on_book_or_works: ["google", "youtube", "outlines", "openalex", "wikipedia", "wikisearch"],
+      audiobook_listen_2:       ["audiobooks", "freebook", "outlines", "goodreads", "google", "youtube"],
+      summary_of_book_or_works: ["outlines", "wikisearch", "goodreads", "google"],
+    };
+
+    // Task-specific search terms appended to search queries (per platform)
+    const TASK_SEARCH_TERMS = {
+      period_documentary:       { google: "historical context documentary time period", youtube: "documentary history period", wikisearch: "historical context era period" },
+      biography_on_author:      { google: "biography life history",                    youtube: "biography documentary life" },
+      documentary_on_author:    { google: "documentary",                               youtube: "documentary" },
+      audiobook_listen_1:       { google: "audiobook public domain",                  youtube: "audiobook" },
+      lecture_on_book_or_works: { google: "lecture course university analysis",        youtube: "lecture course",           wikisearch: "analysis interpretation themes" },
+      audiobook_listen_2:       { google: "analysis critical themes",                 youtube: "audiobook deep dive" },
+      summary_of_book_or_works: { google: "summary analysis overview themes",         youtube: "summary analysis",         wikisearch: "summary analysis themes" },
+    };
     
     const YOUTUBE_SEARCH_SUFFIX = ""; // No default suffix; extra terms are only added when learning goals or custom search are selected
     const LEARNING_GOAL_OPTIONS = [
@@ -2388,7 +2410,7 @@
         <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="${platform}" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)}</button>
       `).join("");
       return `
-        <div class="ytGoalWrap">
+        <div class="ytGoalWrap" data-btn-group="google">
           <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="google" aria-expanded="false" aria-label="Open Google learning goals menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
             Google
@@ -2400,7 +2422,7 @@
             </div>
           </div>
         </div>
-        <div class="ytGoalWrap">
+        <div class="ytGoalWrap" data-btn-group="youtube">
           <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="youtube" aria-expanded="false" aria-label="Open YouTube learning goals menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             YouTube
@@ -2568,6 +2590,39 @@
 
     function normalizeText(s){
       return String(s ?? "").toLowerCase().replace(/\s+/g," ").trim();
+    }
+
+    // Show/hide action buttons in a .workActions or .libActions container based on the current task.
+    // Buttons with data-btn-group="always" are never hidden.
+    // When taskValue is DEFAULT_CARD_TASK (no action), all buttons are shown.
+    function applyTaskVisibility(actionsEl, taskValue) {
+      if (!actionsEl) return;
+      const visibleGroups = TASK_VISIBLE_GROUPS[taskValue]; // undefined = show all
+      actionsEl.querySelectorAll("[data-btn-group]").forEach(el => {
+        const group = el.dataset.btnGroup;
+        const show = !visibleGroups || group === "always" || visibleGroups.includes(group);
+        el.style.display = show ? "" : "none";
+      });
+    }
+
+    // Apply task visibility to every .workActions/.libActions inside containerEl after a render.
+    function applyAllTaskVisibilities(containerEl) {
+      if (!containerEl) return;
+      containerEl.querySelectorAll(".workActions, .libActions").forEach(actionsEl => {
+        const row  = actionsEl.closest(".workRow");
+        const card = actionsEl.closest(".libCard");
+        let taskValue = DEFAULT_CARD_TASK;
+        if (row) {
+          const author = row.dataset.author || "";
+          const title  = row.dataset.book   || "";
+          taskValue = getCardTask(getCardStatusKey(author, title)).task;
+        } else if (card) {
+          const author = card.dataset.author || "";
+          const title  = card.dataset.title  || "";
+          taskValue = getCardTask(getCardStatusKey(author, title)).task;
+        }
+        applyTaskVisibility(actionsEl, taskValue);
+      });
     }
 
     function setError(msg){
@@ -2914,7 +2969,7 @@
       bloomsLevel: null
     };
 
-    function showSearchSettingsModal({ title, author, platform, goal = "", works = [] }) {
+    function showSearchSettingsModal({ title, author, platform, goal = "", works = [], taskHint = "" }) {
       const modal = $("#searchSettingsModal");
       const backdrop = $("#modalBackdrop");
       
@@ -2943,11 +2998,11 @@
       // Update "Open Search" button text
       $("#searchSettingsOpenBtn").textContent = `Open in ${platformName}`;
       
-      // Reset form to default state
+      // Reset form to default state; pre-fill custom search with task hint if provided
       $("#includeTitle").checked = true;
       $("#includeAuthor").checked = true;
       $("#includeSelectedWorks").checked = false;
-      $("#customSearch").value = "";
+      $("#customSearch").value = taskHint;
       $("#selectedWorksContainer").style.display = "none";
       
       // Populate works dropdown
@@ -3262,6 +3317,12 @@
         // Return focus to trigger
         const triggerBtn = drop.querySelector('.taskDropTrigger');
         if (triggerBtn) triggerBtn.focus();
+        // Update button visibility for the task that was just selected
+        const hostEl = drop.closest('.workRow, .libCard');
+        if (hostEl) {
+          const actionsEl = hostEl.querySelector('.workActions, .libActions');
+          applyTaskVisibility(actionsEl, taskValue);
+        }
         return true;
       }
       return false;
@@ -4324,6 +4385,7 @@
 
       grid.innerHTML = items.map(libCardHtml).join("");
       wireLibraryDelegation();
+      applyAllTaskVisibilities(grid);
     }
 
     /* =========================================================
@@ -4658,60 +4720,60 @@
           <div class="libDrawer"><div>
             ${renderCardMetaControls(it.author, it.title)}
             <div class="libActions">
-              <button class="btn" type="button" data-action="openOpenAlexLib">
+              <button class="btn" type="button" data-action="openOpenAlexLib" data-btn-group="openalex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 OpenAlex
               </button>
-              <button class="btn" type="button" data-action="openWikipediaLib">
+              <button class="btn" type="button" data-action="openWikipediaLib" data-btn-group="wikipedia">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="7 8 9.5 16 12 11 14.5 16 17 8"></polyline></svg>
                 Wikipedia
               </button>
-              <button class="btn" type="button" data-action="openWikiSearchLib">
+              <button class="btn" type="button" data-action="openWikiSearchLib" data-btn-group="wikisearch">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><path d="M11 3.5a10 10 0 0 1 2.5 7.5 10 10 0 0 1-2.5 7.5 10 10 0 0 1-2.5-7.5 10 10 0 0 1 2.5-7.5z"></path><line x1="3.5" y1="11" x2="18.5" y2="11"></line><path d="m21 21-4-4"></path></svg>
                 WikiSearch
               </button>
               ${renderLearningButtons()}
-              <button class="btn" type="button" data-action="openAudiobooksLib">
+              <button class="btn" type="button" data-action="openAudiobooksLib" data-btn-group="audiobooks">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 Audiobooks
               </button>
-              <button class="btn" type="button" data-action="openFreeBookLib">
+              <button class="btn" type="button" data-action="openFreeBookLib" data-btn-group="freebook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 Free Online
               </button>
-              <button class="btn" type="button" data-action="openBuyBookLib">
+              <button class="btn" type="button" data-action="openBuyBookLib" data-btn-group="buybook">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 Buy Book
               </button>
-              <button class="btn" type="button" data-action="openGoodreadsLib">
+              <button class="btn" type="button" data-action="openGoodreadsLib" data-btn-group="goodreads">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                 Goodreads
               </button>
-              <button class="btn" type="button" data-action="openOutlinesLib">
+              <button class="btn" type="button" data-action="openOutlinesLib" data-btn-group="outlines">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
                 Outlines
               </button>
-              <button class="btn" type="button" data-action="openBiographyLib">
+              <button class="btn" type="button" data-action="openBiographyLib" data-btn-group="biography">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 Biography
               </button>
-              <button class="btn" type="button" data-action="openContextLib">
+              <button class="btn" type="button" data-action="openContextLib" data-btn-group="context">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 Context
               </button>
-              <button class="btn" type="button" data-action="newNoteLib">
+              <button class="btn" type="button" data-action="newNoteLib" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 New note
               </button>
-              <button class="btn" type="button" data-action="openNotesLib">
+              <button class="btn" type="button" data-action="openNotesLib" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 Open notes
               </button>
-              <button class="btn" type="button" data-action="openDiscussLib">
+              <button class="btn" type="button" data-action="openDiscussLib" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Discuss
               </button>
-              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}">
+              <button class="btn" type="button" data-action="gotoPlanFirst" data-workkey="${escapeHtml(firstKey)}" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 Go to plan
               </button>
@@ -4752,6 +4814,7 @@
         grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       }
       wirePlanDelegation();
+      applyAllTaskVisibilities(grid);
     }
 
     /* ---- View button label sync ---- */
@@ -4958,60 +5021,60 @@
           <div class="workDrawer"><div>
             ${renderCardMetaControls(w.author, title)}
             <div class="workActions">
-              <button class="btn" type="button" data-action="openOpenAlex" aria-label="OpenAlex" title="OpenAlex">
+              <button class="btn" type="button" data-action="openOpenAlex" data-btn-group="openalex" aria-label="OpenAlex" title="OpenAlex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
                 <span class="btn-label">OpenAlex</span>
               </button>
-              <button class="btn" type="button" data-action="openWikipedia" aria-label="Wikipedia" title="Wikipedia">
+              <button class="btn" type="button" data-action="openWikipedia" data-btn-group="wikipedia" aria-label="Wikipedia" title="Wikipedia">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="7 8 9.5 16 12 11 14.5 16 17 8"></polyline></svg>
                 <span class="btn-label">Wikipedia</span>
               </button>
-              <button class="btn" type="button" data-action="openWikiSearch" aria-label="WikiSearch" title="WikiSearch">
+              <button class="btn" type="button" data-action="openWikiSearch" data-btn-group="wikisearch" aria-label="WikiSearch" title="WikiSearch">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><path d="M11 3.5a10 10 0 0 1 2.5 7.5 10 10 0 0 1-2.5 7.5 10 10 0 0 1-2.5-7.5 10 10 0 0 1 2.5-7.5z"></path><line x1="3.5" y1="11" x2="18.5" y2="11"></line><path d="m21 21-4-4"></path></svg>
                 <span class="btn-label">WikiSearch</span>
               </button>
               ${renderLearningButtons()}
-              <button class="btn" type="button" data-action="openAudiobooks" aria-label="Audiobooks" title="Audiobooks">
+              <button class="btn" type="button" data-action="openAudiobooks" data-btn-group="audiobooks" aria-label="Audiobooks" title="Audiobooks">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                 <span class="btn-label">Audiobooks</span>
               </button>
-              <button class="btn" type="button" data-action="openFreeBook" aria-label="Free Online" title="Free Online">
+              <button class="btn" type="button" data-action="openFreeBook" data-btn-group="freebook" aria-label="Free Online" title="Free Online">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 <span class="btn-label">Free Online</span>
               </button>
-              <button class="btn" type="button" data-action="openBuyBook" aria-label="Buy Book" title="Buy Book">
+              <button class="btn" type="button" data-action="openBuyBook" data-btn-group="buybook" aria-label="Buy Book" title="Buy Book">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                 <span class="btn-label">Buy Book</span>
               </button>
-              <button class="btn" type="button" data-action="openGoodreads" aria-label="Goodreads" title="Goodreads">
+              <button class="btn" type="button" data-action="openGoodreads" data-btn-group="goodreads" aria-label="Goodreads" title="Goodreads">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                 <span class="btn-label">Goodreads</span>
               </button>
-              <button class="btn" type="button" data-action="openOutlines" aria-label="Outlines" title="Outlines">
+              <button class="btn" type="button" data-action="openOutlines" data-btn-group="outlines" aria-label="Outlines" title="Outlines">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" y1="10" x2="7" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>
                 <span class="btn-label">Outlines</span>
               </button>
-              <button class="btn" type="button" data-action="openBiography">
+              <button class="btn" type="button" data-action="openBiography" data-btn-group="biography">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 Biography
               </button>
-              <button class="btn" type="button" data-action="openContext">
+              <button class="btn" type="button" data-action="openContext" data-btn-group="context">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                 Context
               </button>
-              <button class="btn" type="button" data-action="openLibraryForWork">
+              <button class="btn" type="button" data-action="openLibraryForWork" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                 <span class="btn-label">View in library</span>
               </button>
-              <button class="btn" type="button" data-action="newNoteFromWork" aria-label="New note" title="New note">
+              <button class="btn" type="button" data-action="newNoteFromWork" data-btn-group="always" aria-label="New note" title="New note">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span class="btn-label">New note</span>
               </button>
-              <button class="btn" type="button" data-action="openNotesForBook" aria-label="Open notes" title="Open notes">
+              <button class="btn" type="button" data-action="openNotesForBook" data-btn-group="always" aria-label="Open notes" title="Open notes">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
                 <span class="btn-label">Open notes</span>
               </button>
-              <button class="btn" type="button" data-action="openDiscussWork" aria-label="Discuss" title="Discuss">
+              <button class="btn" type="button" data-action="openDiscussWork" data-btn-group="always" aria-label="Discuss" title="Discuss">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 <span class="btn-label">Discuss</span>
               </button>
@@ -5066,16 +5129,21 @@
         }
 
         if (btn.dataset.action === "openWikiSearchLib"){
-          const q = encodeURIComponent(`${title} ${author}`.trim());
+          const statusKey = getCardStatusKey(author, title);
+          const currentTask = getCardTask(statusKey).task;
+          const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
+          const q = encodeURIComponent(`${title} ${author} ${taskTerms}`.trim());
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
         if (btn.dataset.action === "toggleLearningGoals" || btn.dataset.action === "toggleYouTubeGoals") {
           const platform = btn.dataset.platform || (btn.dataset.action === "toggleYouTubeGoals" ? "youtube" : "google");
-          
+          const statusKey = getCardStatusKey(author, title);
+          const currentTask = getCardTask(statusKey).task;
+          const taskHint = (TASK_SEARCH_TERMS[currentTask] || {})[platform] || "";
           // In library view, no works are grouped so works array is empty
           closeLearningGoalDrawers();
-          showSearchSettingsModal({ title, author, platform, goal: "", works: [] });
+          showSearchSettingsModal({ title, author, platform, goal: "", works: [], taskHint });
           return;
         }
         if (btn.dataset.action === "openLearningGoal") {
@@ -5237,7 +5305,10 @@
         if (action === "openWikiSearch"){
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
-          const q = encodeURIComponent(`${title} ${author}`.trim());
+          const statusKey = getCardStatusKey(author, title);
+          const currentTask = getCardTask(statusKey).task;
+          const taskTerms = (TASK_SEARCH_TERMS[currentTask] || {}).wikisearch || "";
+          const q = encodeURIComponent(`${title} ${author} ${taskTerms}`.trim());
           window.open(`https://en.wikipedia.org/wiki/Special:Search?search=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
@@ -5245,6 +5316,9 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           const platform = btn.dataset.platform || (action === "toggleYouTubeGoals" ? "youtube" : "google");
+          const statusKey = getCardStatusKey(author, title);
+          const currentTask = getCardTask(statusKey).task;
+          const taskHint = (TASK_SEARCH_TERMS[currentTask] || {})[platform] || "";
           
           // Try to get works from the reading block
           const readingBlock = row.closest(".readingBlock");
@@ -5256,7 +5330,7 @@
           }
           
           closeLearningGoalDrawers();
-          showSearchSettingsModal({ title, author, platform, goal: "", works });
+          showSearchSettingsModal({ title, author, platform, goal: "", works, taskHint });
           return;
         }
         if (action === "openLearningGoal") {

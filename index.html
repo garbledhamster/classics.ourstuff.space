@@ -750,6 +750,8 @@
     .workRow.taskDropOpen .workDrawer > div{ overflow:visible; }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .workActions{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
       gap:8px;
       border-top:var(--borderThin);
       padding:8px 0 2px;
@@ -757,6 +759,7 @@
     }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .statusSelect{
+      border:var(--border);
       border-radius:var(--radius);
       background:#fff;
       box-shadow:var(--shadowXs);
@@ -879,6 +882,7 @@
     }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .taskOptLabel{
+      font-size:12px;
       font-weight:900;
       letter-spacing:0.06em;
       text-transform:uppercase;
@@ -934,6 +938,7 @@
     }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .cardDateFields{
+      display:grid;
       grid-template-columns:repeat(2, minmax(140px, 1fr));
       gap:10px;
       align-items:center;

@@ -778,17 +778,125 @@
     .statusSelect:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
     .statusSelect:focus{ outline:none; box-shadow:0 0 0 3px #00000022, var(--shadowXs); }
     .taskTracker{
-      display:grid;
-      grid-template-columns:minmax(180px, 1fr) minmax(160px, auto);
-      gap:8px;
-      align-items:center;
       min-width:0;
+      width:100%;
     }
     .taskSelect{
       min-width:0;
     }
     .taskCompleteSelect{
       min-width:0;
+    }
+    .taskDrop{
+      position:relative;
+      width:100%;
+    }
+    .taskDropTrigger{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px;
+      width:100%;
+      text-align:left;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .taskDropLabel{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      min-width:0;
+      flex:1;
+    }
+    .taskDropArrow{
+      flex-shrink:0;
+      transition:transform 0.15s;
+    }
+    .taskDropTrigger[aria-expanded="true"] .taskDropArrow{
+      transform:rotate(180deg);
+    }
+    .taskDropPanel{
+      position:absolute;
+      top:calc(100% + 4px);
+      left:0;
+      z-index:300;
+      background:#fff;
+      border:var(--border);
+      border-radius:var(--radius);
+      box-shadow:2px 4px 16px #00000018, var(--shadowXs);
+      min-width:280px;
+      max-width:460px;
+      width:max-content;
+      padding:4px 0;
+      overflow:hidden;
+    }
+    .taskDropPanel[hidden]{ display:none; }
+    .taskDropOpt{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      width:100%;
+      background:none;
+      border:none;
+      border-radius:0;
+      padding:8px 12px;
+      cursor:pointer;
+      text-align:left;
+      font-family:inherit;
+      line-height:1.4;
+      transition:background 0.1s;
+    }
+    .taskDropOpt:hover,
+    .taskDropOpt:focus{
+      background:#f0f0f0;
+      outline:none;
+    }
+    .taskDropOpt[aria-selected="true"]{
+      background:#f5f5f5;
+    }
+    .taskDropOpt[aria-selected="true"] .taskOptLabel{
+      text-decoration:underline;
+    }
+    .taskOptStep{
+      flex-shrink:0;
+      width:16px;
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:0.04em;
+      color:var(--muted);
+      padding-top:1px;
+    }
+    .taskOptBody{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      min-width:0;
+    }
+    .taskOptLabel{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      line-height:1;
+      color:inherit;
+    }
+    .taskOptDesc{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.4;
+      font-style:italic;
+      font-weight:400;
+      text-transform:none;
+      letter-spacing:0;
+      white-space:normal;
+    }
+    .taskDropOptNone .taskOptLabel{
+      color:var(--muted);
+      font-style:italic;
+      font-weight:400;
+      text-transform:none;
+      letter-spacing:0;
     }
     @media (max-width:560px){
       .libActions .statusSelect,
@@ -803,7 +911,6 @@
         grid-template-columns:1fr;
       }
       .taskTracker{
-        grid-template-columns:1fr;
         width:100%;
       }
       .taskCompleteSelect{
@@ -1242,6 +1349,10 @@
     html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
     html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
+    html.dark .taskDropPanel{ background:#222; border-color:#444; }
+    html.dark .taskDropOpt:hover,
+    html.dark .taskDropOpt:focus{ background:#2e2e2e; }
+    html.dark .taskDropOpt[aria-selected="true"]{ background:#2a2a2a; }
     html.dark .bar{ background:#222; }
     html.dark .tabOn{ background:var(--ink); color:var(--paper); }
     html.dark .bar > span{ background:var(--ink); }
@@ -2213,31 +2324,15 @@
     ];
     const CARD_TASK_GROUPS = [
       {
-        label: "Start a Book",
+        label: "Reading Sequence",
         options: [
-          { value: "audiobook_listen_1", label: "Audiobook Listen 1" },
-          { value: "biography_on_author", label: "Biography on Author" },
-          { value: "documentary_on_author", label: "Documentary on Author" },
-          { value: "period_documentary", label: "Period Documentary" },
-          { value: "lecture_on_book_or_works", label: "Lecture on Book or Works" },
-          { value: "summary_of_book_or_works", label: "Summary of Book or Works" },
-          { value: "audiobook_listen_2", label: "Audiobook Listen 2" }
-        ]
-      },
-      {
-        label: "Reading",
-        options: [
-          { value: "inspectional_read", label: "Inspectional Read" },
-          { value: "analytical_read", label: "Analytical Read" },
-          { value: "casual_read", label: "Casual Read" }
-        ]
-      },
-      {
-        label: "After Reading",
-        options: [
-          { value: "review", label: "Review" },
-          { value: "critique", label: "Critique" },
-          { value: "analysis", label: "Analysis" }
+          { value: "period_documentary",        label: "Period Documentary",                description: "Establishes the \u201cpastness of the past\u201d and social context to prime your mind before engaging the text." },
+          { value: "biography_on_author",        label: "Biography on Author",               description: "Provides human \u201canchor points\u201d and serves as an intellectual \u201con-ramp\u201d for difficult classics." },
+          { value: "documentary_on_author",      label: "Documentary on Author",             description: "Further humanizes the author\u2019s personal transaction and reinforces story-based memory." },
+          { value: "audiobook_listen_1",         label: "Audiobook Listen 1 \u2014 Inspectional", description: "A \u201csuperficial reading\u201d where you race through the text to find its basic pulsebeat without stopping for difficult parts." },
+          { value: "lecture_on_book_or_works",   label: "Lecture on Book or Works",          description: "Functions as \u201caided discovery\u201d where an expert helps you bridge the gap to higher levels of understanding." },
+          { value: "audiobook_listen_2",         label: "Audiobook Listen 2 \u2014 Analytical",  description: "The \u201cdeep dive\u201d for \u201cchewing and digesting\u201d the author\u2019s specific arguments and propositions." },
+          { value: "summary_of_book_or_works",   label: "Summary of Book or Works",          description: "Used only as a final refinement and memory jog to ensure you are not at the \u201cmercy\u201d of a commentator\u2019s interpretation before possessing the book yourself." }
         ]
       }
     ];
@@ -2365,19 +2460,42 @@
     function renderTaskTracker(author, title){
       const statusKey = getCardStatusKey(author, title);
       const current = getCardTask(statusKey);
-      const taskOptions = [
-        `<option value="${escapeHtml(DEFAULT_CARD_TASK)}"${current.task === DEFAULT_CARD_TASK ? " selected" : ""}>No Action</option>`,
-        ...CARD_TASK_GROUPS.map(group => `
-          <optgroup label="${escapeHtml(group.label)}">
-            ${group.options.map(opt => `<option value="${escapeHtml(opt.value)}"${opt.value === current.task ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("")}
-          </optgroup>
-        `)
+      const currentOpt = CARD_TASK_OPTIONS.find(o => o.value === current.task);
+      const triggerLabel = currentOpt ? currentOpt.label : "No Action";
+      const allOpts = CARD_TASK_GROUPS.flatMap(g => g.options);
+      const optButtons = [
+        `<button class="taskDropOpt taskDropOptNone" role="option" type="button"
+            data-action="selectTaskOption" data-task="${escapeHtml(DEFAULT_CARD_TASK)}"
+            aria-selected="${current.task === DEFAULT_CARD_TASK ? "true" : "false"}">
+          <span class="taskOptStep"></span>
+          <div class="taskOptBody"><span class="taskOptLabel">No Action</span></div>
+        </button>`,
+        ...allOpts.map((opt, idx) => `
+          <button class="taskDropOpt" role="option" type="button"
+              data-action="selectTaskOption" data-task="${escapeHtml(opt.value)}"
+              aria-selected="${opt.value === current.task ? "true" : "false"}"
+              title="${escapeHtml(opt.description || "")}">
+            <span class="taskOptStep">${idx + 1}</span>
+            <div class="taskOptBody">
+              <span class="taskOptLabel">${escapeHtml(opt.label)}</span>
+              <span class="taskOptDesc">${escapeHtml(opt.description || "")}</span>
+            </div>
+          </button>`)
       ].join("");
       return `
         <div class="taskTracker">
-          <select class="statusSelect taskSelect" data-action="setCardTask" data-statuskey="${escapeHtml(statusKey)}" aria-label="Current action for ${escapeHtml(title)} by ${escapeHtml(author)}">
-            ${taskOptions}
-          </select>
+          <div class="taskDrop" data-statuskey="${escapeHtml(statusKey)}">
+            <button class="statusSelect taskDropTrigger" type="button"
+                data-action="toggleTaskDropdown"
+                aria-haspopup="listbox" aria-expanded="false"
+                aria-label="Current reading action for ${escapeHtml(title)} by ${escapeHtml(author)}">
+              <span class="taskDropLabel">${escapeHtml(triggerLabel)}</span>
+              <svg class="taskDropArrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="taskDropPanel" role="listbox" aria-label="Reading action options" hidden>
+              ${optButtons}
+            </div>
+          </div>
         </div>
       `;
     }
@@ -3110,6 +3228,55 @@
         const statusKey = taskSelect.dataset.statuskey || "";
         const taskValue = taskSelect.value || DEFAULT_CARD_TASK;
         applyCardTaskChange(statusKey, { task: taskValue });
+        return true;
+      }
+      return false;
+    }
+    function closeAllTaskDropdowns(){
+      document.querySelectorAll('.taskDropPanel:not([hidden])').forEach(panel => {
+        panel.hidden = true;
+        const trigger = panel.closest('.taskDrop') && panel.closest('.taskDrop').querySelector('.taskDropTrigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      });
+    }
+    function handleTaskDropdownClickEvent(e){
+      const trigger = e.target.closest('[data-action="toggleTaskDropdown"]');
+      if (trigger) {
+        const drop = trigger.closest('.taskDrop');
+        if (!drop) return false;
+        const panel = drop.querySelector('.taskDropPanel');
+        if (!panel) return false;
+        const isOpen = !panel.hidden;
+        closeAllTaskDropdowns();
+        if (!isOpen) {
+          panel.hidden = false;
+          trigger.setAttribute('aria-expanded', 'true');
+          // Focus the selected option or first option for keyboard nav
+          const selected = panel.querySelector('.taskDropOpt[aria-selected="true"]') || panel.querySelector('.taskDropOpt');
+          if (selected) selected.focus();
+        }
+        return true;
+      }
+      const opt = e.target.closest('[data-action="selectTaskOption"]');
+      if (opt) {
+        const taskValue = opt.dataset.task || DEFAULT_CARD_TASK;
+        const drop = opt.closest('.taskDrop');
+        if (!drop) return false;
+        const statusKey = drop.dataset.statuskey || "";
+        applyCardTaskChange(statusKey, { task: taskValue });
+        // Update trigger label
+        const taskOpt = CARD_TASK_OPTIONS.find(o => o.value === taskValue);
+        const labelText = taskOpt ? taskOpt.label : "No Action";
+        const labelEl = drop.querySelector('.taskDropLabel');
+        if (labelEl) labelEl.textContent = labelText;
+        // Update aria-selected on all options in this drop
+        drop.querySelectorAll('.taskDropOpt').forEach(o => {
+          o.setAttribute('aria-selected', o.dataset.task === taskValue ? 'true' : 'false');
+        });
+        closeAllTaskDropdowns();
+        // Return focus to trigger
+        const triggerBtn = drop.querySelector('.taskDropTrigger');
+        if (triggerBtn) triggerBtn.focus();
         return true;
       }
       return false;
@@ -4903,6 +5070,12 @@
         const btn = e.target.closest("[data-action]");
         if (!btn) return;
 
+        // Handle task dropdown actions (work inside .libCard but no card context needed)
+        if (btn.dataset.action === "toggleTaskDropdown" || btn.dataset.action === "selectTaskOption") {
+          handleTaskDropdownClickEvent(e);
+          return;
+        }
+
         const card = btn.closest(".libCard");
         if (!card) return;
 
@@ -5054,6 +5227,12 @@
         if (!btn) return;
 
         const action = btn.dataset.action;
+
+        // Handle task dropdown actions
+        if (action === "toggleTaskDropdown" || action === "selectTaskOption") {
+          handleTaskDropdownClickEvent(e);
+          return;
+        }
 
         if (action === "markBlockDone" || action === "markBlockUndone"){
           const block = btn.closest(".readingBlock");
@@ -5908,12 +6087,16 @@
         if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
         if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
         if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
+        if (e.key === "Escape") closeAllTaskDropdowns();
       });
 
       // Close learning goal drawers when clicking outside
       document.addEventListener("click", (e) => {
         if (!e.target.closest(".ytGoalWrap")) {
           closeLearningGoalDrawers(document, { restoreFocus: false });
+        }
+        if (!e.target.closest(".taskDrop")) {
+          closeAllTaskDropdowns();
         }
       });
 

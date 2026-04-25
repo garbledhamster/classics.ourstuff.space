@@ -503,6 +503,7 @@
     }
     .libDrawer > div{ overflow:hidden; }
     .libCard.learningGoalsHostOpen .libDrawer > div{ overflow:visible; }
+    .libCard.taskDropOpen .libDrawer > div{ overflow:visible; }
     .libActions{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
@@ -734,6 +735,7 @@
     }
     .workDrawer > div{ overflow:hidden; }
     .workRow.learningGoalsHostOpen .workDrawer > div{ overflow:visible; }
+    .workRow.taskDropOpen .workDrawer > div{ overflow:visible; }
     .workActions{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
@@ -3222,6 +3224,8 @@
         const drop = panel.closest('.taskDrop');
         const trigger = drop && drop.querySelector('.taskDropTrigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        const host = drop && (drop.closest('.libCard') || drop.closest('.workRow'));
+        if (host) host.classList.remove('taskDropOpen');
       });
     }
     function handleTaskDropdownClickEvent(e){
@@ -3236,6 +3240,8 @@
         if (!isOpen) {
           panel.hidden = false;
           trigger.setAttribute('aria-expanded', 'true');
+          const host = drop.closest('.libCard') || drop.closest('.workRow');
+          if (host) host.classList.add('taskDropOpen');
           // Focus the selected option or first option for keyboard nav
           const selected = panel.querySelector('.taskDropOpt[aria-selected="true"]') || panel.querySelector('.taskDropOpt');
           if (selected) selected.focus();

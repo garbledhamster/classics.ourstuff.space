@@ -417,6 +417,17 @@
       flex-wrap:wrap;
       min-width:0;
     }
+    .planBtnRow{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:6px;
+      align-items:stretch;
+    }
+    .planBtnRow .btn{
+      justify-content:center;
+      width:100%;
+    }
+
     .rowWide .btnText{
       position: absolute;
       width: 1px;
@@ -1727,7 +1738,7 @@
           </select>
         </div>
 
-        <div class="rowWide">
+        <div class="rowWide planBtnRow">
           <!-- View-mode button (cycles default → table) -->
           <button class="btn" id="planViewModeBtn" type="button" title="Switch list view style" aria-label="Switch view mode">
             <!-- icon swapped by JS -->

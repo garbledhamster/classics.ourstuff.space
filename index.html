@@ -3235,7 +3235,8 @@
     function closeAllTaskDropdowns(){
       document.querySelectorAll('.taskDropPanel:not([hidden])').forEach(panel => {
         panel.hidden = true;
-        const trigger = panel.closest('.taskDrop') && panel.closest('.taskDrop').querySelector('.taskDropTrigger');
+        const drop = panel.closest('.taskDrop');
+        const trigger = drop && drop.querySelector('.taskDropTrigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
       });
     }

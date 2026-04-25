@@ -818,7 +818,7 @@
       border-radius:var(--radius);
       box-shadow:2px 4px 16px #00000018, var(--shadowXs);
       min-width:280px;
-      max-width:460px;
+      max-width:min(460px, calc(100vw - 16px));
       width:max-content;
       padding:4px 0;
       overflow:hidden;
@@ -907,6 +907,9 @@
       }
       .taskCompleteSelect{
         width:100%;
+      }
+      .taskDropPanel{
+        min-width:0;
       }
     }
     @media (max-width:980px){
@@ -3221,12 +3224,35 @@
     function closeAllTaskDropdowns(){
       document.querySelectorAll('.taskDropPanel:not([hidden])').forEach(panel => {
         panel.hidden = true;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.transform = '';
         const drop = panel.closest('.taskDrop');
         const trigger = drop && drop.querySelector('.taskDropTrigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
         const host = drop && (drop.closest('.libCard') || drop.closest('.workRow'));
         if (host) host.classList.remove('taskDropOpen');
       });
+    }
+    function repositionTaskDropPanel(panel){
+      // Reset to default left-aligned position
+      panel.style.left = '0';
+      panel.style.right = '';
+      panel.style.transform = '';
+      const rect = panel.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      if (rect.right > vw - 8) {
+        // Flip to right-aligned
+        panel.style.left = 'auto';
+        panel.style.right = '0';
+        const rect2 = panel.getBoundingClientRect();
+        if (rect2.left < 8) {
+          // Panel is wider than viewport — center it
+          panel.style.left = '50%';
+          panel.style.right = 'auto';
+          panel.style.transform = 'translateX(-50%)';
+        }
+      }
     }
     function handleTaskDropdownClickEvent(e){
       const trigger = e.target.closest('[data-action="toggleTaskDropdown"]');
@@ -3242,6 +3268,7 @@
           trigger.setAttribute('aria-expanded', 'true');
           const host = drop.closest('.libCard') || drop.closest('.workRow');
           if (host) host.classList.add('taskDropOpen');
+          repositionTaskDropPanel(panel);
           // Focus the selected option or first option for keyboard nav
           const selected = panel.querySelector('.taskDropOpt[aria-selected="true"]') || panel.querySelector('.taskDropOpt');
           if (selected) selected.focus();

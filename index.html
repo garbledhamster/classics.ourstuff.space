@@ -43,8 +43,9 @@
   <!-- Firebase SDK (v9 modular) -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
-    import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, query, where, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
     
     // Firebase configuration
     const firebaseConfig = {
@@ -2921,7 +2922,7 @@
       const selectedWork = $("#selectedWorksDropdown").value;
       const customSearch = $("#customSearch").value.trim();
       
-      let searchParts = [];
+      const searchParts = [];
       
       if (includeTitle) {
         searchParts.push(title);
@@ -2970,7 +2971,7 @@
       const selectedWork = $("#selectedWorksDropdown").value;
       const customSearch = $("#customSearch").value.trim();
       
-      let searchParts = [];
+      const searchParts = [];
       
       if (includeTitle) {
         searchParts.push(title);
@@ -3484,7 +3485,7 @@
     // For production optimization, consider implementing incremental sync that only pushes changed items.
     let syncTimeout = null;
     // Reassign the triggerAutoSync function with actual implementation
-    triggerAutoSync = function() {
+    triggerAutoSync = () => {
       // Skip if already syncing to prevent loops
       if (!state.currentUser || !state.sync.enabled || state.sync.syncing) return;
       
@@ -6052,7 +6053,7 @@
     /* =========================================================
        TABLE HORIZONTAL SCROLL — shift+wheel on desktop
        ========================================================= */
-    document.addEventListener("wheel", function(e){
+    document.addEventListener("wheel", (e)=> {
       if (!e.shiftKey) return;
       const wrap = e.target.closest(".planTableWrap");
       if (!wrap) return;
@@ -6063,7 +6064,7 @@
     /* =========================================================
        DARK MODE
        ========================================================= */
-    (function(){
+    (()=> {
       const DARK_KEY = "classicsDarkMode";
       const html = document.documentElement;
       const metaColorScheme = document.querySelector('meta[name="color-scheme"]');
@@ -6083,7 +6084,7 @@
       try{ applyTheme(localStorage.getItem(DARK_KEY) === "true"); }catch(e){}
 
       const btn = document.getElementById("darkModeBtn");
-      if(btn) btn.addEventListener("click", function(){
+      if(btn) btn.addEventListener("click", ()=> {
         const isDark = html.classList.contains("dark");
         applyTheme(!isDark);
         try{ localStorage.setItem(DARK_KEY, String(!isDark)); }catch(e){}

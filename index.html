@@ -417,6 +417,17 @@
       flex-wrap:wrap;
       min-width:0;
     }
+    .planBtnRow{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:6px;
+      align-items:stretch;
+    }
+    .planBtnRow .btn{
+      justify-content:center;
+      width:100%;
+    }
+
     .rowWide .btnText{
       position: absolute;
       width: 1px;
@@ -503,6 +514,7 @@
     }
     .libDrawer > div{ overflow:hidden; }
     .libCard.learningGoalsHostOpen .libDrawer > div{ overflow:visible; }
+    .libCard.taskDropOpen .libDrawer > div{ overflow:visible; }
     .libActions{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
@@ -734,6 +746,7 @@
     }
     .workDrawer > div{ overflow:hidden; }
     .workRow.learningGoalsHostOpen .workDrawer > div{ overflow:visible; }
+    .workRow.taskDropOpen .workDrawer > div{ overflow:visible; }
     .workActions{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
@@ -816,7 +829,7 @@
       border-radius:var(--radius);
       box-shadow:2px 4px 16px #00000018, var(--shadowXs);
       min-width:280px;
-      max-width:460px;
+      max-width:min(460px, calc(100vw - 16px));
       width:max-content;
       padding:4px 0;
       overflow:hidden;
@@ -905,6 +918,9 @@
       }
       .taskCompleteSelect{
         width:100%;
+      }
+      .taskDropPanel{
+        min-width:0;
       }
     }
     @media (max-width:980px){
@@ -1254,28 +1270,7 @@
       overflow-wrap:anywhere;
     }
 
-    /* OpenAlex drawer (left) */
-    .oaDrawer{
-      left:0;
-      right:auto;
-      border-left:none;
-      border-right:var(--border);
-      box-shadow: 10px 0 0 #000;
-      transform: translateX(-105%);
-    }
-    .oaDrawer.open{ transform: translateX(0); }
 
-    .oaPreview{
-      border:var(--border);
-      box-shadow:var(--shadowSm);
-      background:#fff;
-      padding:10px;
-      display:grid;
-      gap:8px;
-      word-break: break-word;
-      overflow-wrap:anywhere;
-      min-width:0;
-    }
     .tiny{
       font-size:11px;
       font-weight:900;
@@ -1324,7 +1319,6 @@
     html.dark .noteTools,
     html.dark .noteList,
     html.dark .editor,
-    html.dark .oaPreview,
     html.dark .codebox,
     html.dark .ytGoalDrawer,
     html.dark .error{ background:#1a1a1a; color:var(--ink); }
@@ -1366,10 +1360,15 @@
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
 
     /* Plan table view */
+    .planTableWrap{
+      width:100%;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+    }
     .planTable{
       width:100%;
       border-collapse:collapse;
-      min-width:0;
+      min-width:700px;
       font-size:13px;
     }
     .planTable th{
@@ -1611,10 +1610,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             Great Authors
           </button>
-          <button class="btn" id="openOpenAlexBtn" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-            OpenAlex Options
-          </button>
           <button class="btn" id="openNotesBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
             Notes Drawer
@@ -1743,7 +1738,7 @@
           </select>
         </div>
 
-        <div class="rowWide">
+        <div class="rowWide planBtnRow">
           <!-- View-mode button (cycles default → table) -->
           <button class="btn" id="planViewModeBtn" type="button" title="Switch list view style" aria-label="Switch view mode">
             <!-- icon swapped by JS -->
@@ -2161,139 +2156,12 @@
     </div>
   </aside>
 
-  <!-- OpenAlex Options Popout (left) -->
-  <aside id="oaDrawer" class="drawer oaDrawer" aria-label="OpenAlex options" aria-hidden="true">
-    <div class="drawerHeader">
-      <h2 class="drawerTitle">OpenAlex Options</h2>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn" id="oaResetBtn" type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
-          Reset
-        </button>
-        <button class="btn" id="oaCloseBtn" type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          Close
-        </button>
-      </div>
-    </div>
-
-    <div class="drawerBody">
-      <section class="noteTools">
-        <div class="help">These settings apply when you click “OpenAlex” on any work card.</div>
-
-        <div class="noteToolsRow">
-          <div class="control">
-            <div class="label">Filter target</div>
-            <select id="oaTarget" class="select">
-              <option value="title_and_abstract.search">Title + Abstract</option>
-              <option value="title.search">Title only</option>
-            </select>
-          </div>
-
-          <div class="control">
-            <div class="label">Work type</div>
-            <select id="oaType" class="select">
-              <option value="all">All</option>
-              <option value="journal-article">Journal article</option>
-              <option value="book">Book</option>
-              <option value="book-chapter">Book chapter</option>
-              <option value="proceedings-article">Proceedings article</option>
-              <option value="preprint">Preprint</option>
-              <option value="dissertation">Dissertation</option>
-              <option value="report">Report</option>
-              <option value="dataset">Dataset</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="noteToolsRow">
-          <label class="toggle" style="justify-content:flex-start;">
-            <input id="oaIsOa" type="checkbox" />
-            Open access only
-          </label>
-
-          <div class="control">
-            <div class="label">Language</div>
-            <select id="oaLang" class="select">
-              <option value="all">Any</option>
-              <option value="en">English</option>
-              <option value="fr">French</option>
-              <option value="de">German</option>
-              <option value="es">Spanish</option>
-              <option value="it">Italian</option>
-              <option value="la">Latin</option>
-              <option value="grc">Ancient Greek</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="noteToolsRow">
-          <div class="control">
-            <div class="label">From year</div>
-            <input id="oaFromYear" class="input" type="number" min="1000" max="2100" placeholder="e.g., 1950" autocomplete="off" />
-          </div>
-          <div class="control">
-            <div class="label">To year</div>
-            <input id="oaToYear" class="input" type="number" min="1000" max="2100" placeholder="e.g., 2026" autocomplete="off" />
-          </div>
-        </div>
-
-        <div class="noteToolsRow">
-          <div class="control">
-            <div class="label">Min citations</div>
-            <input id="oaMinCites" class="input" type="number" min="0" max="1000000" placeholder="e.g., 10" autocomplete="off" />
-          </div>
-          <div class="control">
-            <div class="label">Sort</div>
-            <select id="oaSort" class="select">
-              <option value="relevance">Relevance</option>
-              <option value="cited_by_count:desc">Citations ↓</option>
-              <option value="publication_date:desc">Newest ↓</option>
-              <option value="publication_date:asc">Oldest ↑</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="noteToolsRow">
-          <div class="control">
-            <div class="label">Per page</div>
-            <select id="oaPerPage" class="select">
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-              <option value="200">200</option>
-            </select>
-          </div>
-          <div class="control">
-            <div class="label">Test query</div>
-            <input id="oaTestQ" class="input" type="text" placeholder="e.g., Candide" autocomplete="off" />
-          </div>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn" id="oaTestBtn" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-            Test OpenAlex
-          </button>
-        </div>
-      </section>
-
-      <section class="oaPreview">
-        <div class="tiny">Preview URL (using test query)</div>
-        <div id="oaPreview" class="codebox"></div>
-        <div class="tiny">Format baseline:</div>
-        <div class="codebox">https://openalex.org/works?search=Candide&page=1&amp;filter=title_and_abstract.search:Candide</div>
-      </section>
-    </div>
-  </aside>
-
   <script>
     /* =========================================================
        STORAGE KEYS
        ========================================================= */
     const LS_CHECKS        = "greatworks.reading.checks.v2";
     const LS_NOTES         = "greatworks.reading.notes.v1";
-    const LS_OA            = "greatworks.openalex.settings.v1";
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
     const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
     const LS_CARD_TASKS    = "greatworks.reading.cardTasks.v1";
@@ -2330,10 +2198,10 @@
     // Which button groups to show for each task (all groups shown when no task selected)
     const TASK_VISIBLE_GROUPS = {
       period_documentary:       ["context", "biography", "wikipedia", "wikisearch", "google", "youtube"],
-      biography_on_author:      ["biography", "wikipedia", "openalex", "google", "youtube"],
+      biography_on_author:      ["biography", "wikipedia", "google", "youtube"],
       documentary_on_author:    ["biography", "google", "youtube"],
       audiobook_listen_1:       ["audiobooks", "freebook", "buybook", "wikipedia"],
-      lecture_on_book_or_works: ["google", "youtube", "outlines", "openalex", "wikipedia", "wikisearch"],
+      lecture_on_book_or_works: ["google", "youtube", "outlines", "wikipedia", "wikisearch"],
       audiobook_listen_2:       ["audiobooks", "freebook", "outlines", "goodreads", "google", "youtube"],
       summary_of_book_or_works: ["outlines", "wikisearch", "goodreads", "google"],
     };
@@ -2508,8 +2376,8 @@
     function renderCardMetaControls(author, title){
       return `
         <div class="cardMetaControls">
-          ${renderStatusSelector(author, title)}
           ${renderCardDateFields(author, title)}
+          ${renderStatusSelector(author, title)}
           ${renderTaskTracker(author, title)}
         </div>
       `;
@@ -3274,10 +3142,35 @@
     function closeAllTaskDropdowns(){
       document.querySelectorAll('.taskDropPanel:not([hidden])').forEach(panel => {
         panel.hidden = true;
+        panel.style.left = '';
+        panel.style.right = '';
+        panel.style.transform = '';
         const drop = panel.closest('.taskDrop');
         const trigger = drop && drop.querySelector('.taskDropTrigger');
         if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        const host = drop && (drop.closest('.libCard') || drop.closest('.workRow'));
+        if (host) host.classList.remove('taskDropOpen');
       });
+    }
+    function repositionTaskDropPanel(panel){
+      // Reset to default left-aligned position
+      panel.style.left = '0';
+      panel.style.right = '';
+      panel.style.transform = '';
+      const rect = panel.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth;
+      if (rect.right > vw - 8) {
+        // Flip to right-aligned
+        panel.style.left = 'auto';
+        panel.style.right = '0';
+        const rect2 = panel.getBoundingClientRect();
+        if (rect2.left < 8) {
+          // Panel is wider than viewport — center it
+          panel.style.left = '50%';
+          panel.style.right = 'auto';
+          panel.style.transform = 'translateX(-50%)';
+        }
+      }
     }
     function handleTaskDropdownClickEvent(e){
       const trigger = e.target.closest('[data-action="toggleTaskDropdown"]');
@@ -3291,6 +3184,9 @@
         if (!isOpen) {
           panel.hidden = false;
           trigger.setAttribute('aria-expanded', 'true');
+          const host = drop.closest('.libCard') || drop.closest('.workRow');
+          if (host) host.classList.add('taskDropOpen');
+          repositionTaskDropPanel(panel);
           // Focus the selected option or first option for keyboard nav
           const selected = panel.querySelector('.taskDropOpt[aria-selected="true"]') || panel.querySelector('.taskDropOpt');
           if (selected) selected.focus();
@@ -3334,29 +3230,6 @@
       const dateField = dateInput.dataset.datefield || "";
       applyCardDateChange(dateKey, dateField, dateInput.value || "");
       return true;
-    }
-
-    function defaultOpenAlexSettings(){
-      return {
-        target: "title_and_abstract.search",
-        type: "all",
-        is_oa: false,
-        lang: "all",
-        from_year: "",
-        to_year: "",
-        min_cites: "",
-        sort: "relevance",
-        per_page: 25,
-        test_q: "Candide"
-      };
-    }
-
-    function loadOpenAlexSettings(){
-      const s = safeJsonParse(localStorage.getItem(LS_OA) || "null", null);
-      return { ...defaultOpenAlexSettings(), ...(s || {}) };
-    }
-    function saveOpenAlexSettings(s){
-      localStorage.setItem(LS_OA, JSON.stringify(s));
     }
 
     /* =========================================================
@@ -3844,58 +3717,6 @@
     }
 
     /* =========================================================
-       OPENALEX URL BUILDER
-       ========================================================= */
-    function buildOpenAlexUrl({ title, author }){
-      const s = state.openalex;
-      const q = `${title} ${author}`.trim();
-      const page = 1;
-
-      const filterParts = [];
-      filterParts.push(`${s.target}:${encodeURIComponent(title)}`);
-
-      if (s.type && s.type !== "all"){
-        filterParts.push(`type:${encodeURIComponent(s.type)}`);
-      }
-      if (s.is_oa){
-        filterParts.push(`is_oa:true`);
-      }
-      if (s.lang && s.lang !== "all"){
-        filterParts.push(`language:${encodeURIComponent(s.lang)}`);
-      }
-      const fromY = String(s.from_year || "").trim();
-      const toY = String(s.to_year || "").trim();
-      if (fromY){
-        filterParts.push(`from_publication_date:${encodeURIComponent(fromY)}-01-01`);
-      }
-      if (toY){
-        filterParts.push(`to_publication_date:${encodeURIComponent(toY)}-12-31`);
-      }
-      const minC = String(s.min_cites || "").trim();
-      if (minC){
-        filterParts.push(`cited_by_count:${encodeURIComponent(">" + minC)}`);
-      }
-
-      const params = new URLSearchParams();
-      params.set("search", q);
-      params.set("page", String(page));
-      params.set("per_page", String(s.per_page || 25));
-      if (s.sort && s.sort !== "relevance"){
-        params.set("sort", s.sort);
-      }
-      if (filterParts.length){
-        params.set("filter", filterParts.join(","));
-      }
-
-      return `https://openalex.org/works?${params.toString()}`;
-    }
-
-    function buildOpenAlexPreviewUrl(){
-      const t = String(state.openalex.test_q || "Candide").trim() || "Candide";
-      return buildOpenAlexUrl({ title: t, author: "" });
-    }
-
-    /* =========================================================
        APP STATE
        ========================================================= */
     const state = {
@@ -3909,7 +3730,6 @@
       cardTasks: loadCardTasks(),
       notes: loadNotes(),
       deletedNoteIds: loadDeletedNoteIds(),
-      openalex: loadOpenAlexSettings(),
       view: "library",   // "library" | "plan" | "authors"
       availableYears: [],
       filters: {
@@ -3928,7 +3748,7 @@
         authorsQ: "",
       },
       ui: {},
-      drawer: { open:false, which:null }, // notes | openalex
+      drawer: { open:false, which:null }, // notes
       notesUI: { search:"", tag:"all", editingId:null, showArchived: false },
       tagsUniverse: [], // note tags (titles)
       commentsUI: {
@@ -3976,9 +3796,6 @@
         buildLibraryWorks();
         fillYearOptions();
         buildTagsUniverse();
-        syncOpenAlexUIFromState();
-        updateOpenAlexPreview();
-
         wireUI();
         renderAll();
       } catch(err){
@@ -4356,8 +4173,6 @@
       else if (state.view === "plan") renderPlan();
       else if (state.view === "authors") renderAuthors();
 
-      // Keep OpenAlex preview live
-      updateOpenAlexPreview();
       // Notes list refresh if open
       if (state.drawer.open && state.drawer.which === "notes"){
         renderNotesList();
@@ -4470,10 +4285,6 @@
 
           <div class="libDrawer"><div>
             <div class="libActions">
-              <button class="btn" type="button" data-action="openOpenAlexAuthor">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                OpenAlex
-              </button>
               <button class="btn" type="button" data-action="openWikipediaAuthor">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="7 8 9.5 16 12 11 14.5 16 17 8"></polyline></svg>
                 Wikipedia
@@ -4588,11 +4399,6 @@
               setTimeout(() => el.classList.remove("flash"), 1200);
             }
           }, 100);
-          return;
-        }
-
-        if (btn.dataset.action === "openOpenAlexAuthor"){
-          window.open(buildOpenAlexUrl({ title: "", author }), "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4720,10 +4526,6 @@
           <div class="libDrawer"><div>
             ${renderCardMetaControls(it.author, it.title)}
             <div class="libActions">
-              <button class="btn" type="button" data-action="openOpenAlexLib" data-btn-group="openalex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                OpenAlex
-              </button>
               <button class="btn" type="button" data-action="openWikipediaLib" data-btn-group="wikipedia">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="7 8 9.5 16 12 11 14.5 16 17 8"></polyline></svg>
                 Wikipedia
@@ -4866,26 +4668,28 @@
               <span class="bar" aria-label="progress bar"><span style="width:${pct}%"></span></span>
             </div>
           </div>
-          <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
-            <thead>
-              <tr>
-                <th class="td-check">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                </th>
-                <th>Year</th>
-                <th>Number</th>
-                <th>Work</th>
-                <th>Author</th>
-                <th>Type</th>
-                <th>Notes</th>
-                <th>Status</th>
-                <th>Current Action</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
+          <div class="planTableWrap">
+            <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
+              <thead>
+                <tr>
+                  <th class="td-check">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </th>
+                  <th>Year</th>
+                  <th>Number</th>
+                  <th>Work</th>
+                  <th>Author</th>
+                  <th>Type</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                  <th>Current Action</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
         </section>
       `;
     }
@@ -5021,10 +4825,6 @@
           <div class="workDrawer"><div>
             ${renderCardMetaControls(w.author, title)}
             <div class="workActions">
-              <button class="btn" type="button" data-action="openOpenAlex" data-btn-group="openalex" aria-label="OpenAlex" title="OpenAlex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                <span class="btn-label">OpenAlex</span>
-              </button>
               <button class="btn" type="button" data-action="openWikipedia" data-btn-group="wikipedia" aria-label="Wikipedia" title="Wikipedia">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="7 8 9.5 16 12 11 14.5 16 17 8"></polyline></svg>
                 <span class="btn-label">Wikipedia</span>
@@ -5116,11 +4916,6 @@
 
         const title = card.dataset.title || "";
         const author = card.dataset.author || "";
-
-        if (btn.dataset.action === "openOpenAlexLib"){
-          window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
-          return;
-        }
 
         if (btn.dataset.action === "openWikipediaLib"){
           const wikiTitle = encodeURIComponent(title.replace(/\s+/g, "_"));
@@ -5287,13 +5082,6 @@
 
         const row = btn.closest(".workRow");
         if (!row) return;
-
-        if (action === "openOpenAlex"){
-          const title = row.dataset.book || "";
-          const author = row.dataset.author || "";
-          window.open(buildOpenAlexUrl({ title, author }), "_blank", "noopener,noreferrer");
-          return;
-        }
 
         if (action === "openWikipedia"){
           const title = row.dataset.book || "";
@@ -5526,8 +5314,6 @@
       if (which === "notes"){
         $("#notesDrawer").classList.add("open");
         $("#notesDrawer").setAttribute("aria-hidden", "false");
-        $("#oaDrawer").classList.remove("open");
-        $("#oaDrawer").setAttribute("aria-hidden", "true");
         $("#commentsDrawer").classList.remove("open");
         $("#commentsDrawer").setAttribute("aria-hidden", "true");
         renderNotesList();
@@ -5536,18 +5322,7 @@
         $("#commentsDrawer").setAttribute("aria-hidden", "false");
         $("#notesDrawer").classList.remove("open");
         $("#notesDrawer").setAttribute("aria-hidden", "true");
-        $("#oaDrawer").classList.remove("open");
-        $("#oaDrawer").setAttribute("aria-hidden", "true");
         hideEditor();
-      } else {
-        $("#oaDrawer").classList.add("open");
-        $("#oaDrawer").setAttribute("aria-hidden", "false");
-        $("#notesDrawer").classList.remove("open");
-        $("#notesDrawer").setAttribute("aria-hidden", "true");
-        $("#commentsDrawer").classList.remove("open");
-        $("#commentsDrawer").setAttribute("aria-hidden", "true");
-        hideEditor();
-        updateOpenAlexPreview();
       }
     }
 
@@ -5560,9 +5335,6 @@
 
       $("#notesDrawer").classList.remove("open");
       $("#notesDrawer").setAttribute("aria-hidden", "true");
-
-      $("#oaDrawer").classList.remove("open");
-      $("#oaDrawer").setAttribute("aria-hidden", "true");
 
       $("#commentsDrawer").classList.remove("open");
       $("#commentsDrawer").setAttribute("aria-hidden", "true");
@@ -5984,32 +5756,6 @@
     }
 
     /* =========================================================
-       OPENALEX UI
-       ========================================================= */
-    function syncOpenAlexUIFromState(){
-      $("#oaTarget").value = state.openalex.target;
-      $("#oaType").value = state.openalex.type;
-      $("#oaIsOa").checked = !!state.openalex.is_oa;
-      $("#oaLang").value = state.openalex.lang;
-      $("#oaFromYear").value = state.openalex.from_year || "";
-      $("#oaToYear").value = state.openalex.to_year || "";
-      $("#oaMinCites").value = state.openalex.min_cites || "";
-      $("#oaSort").value = state.openalex.sort;
-      $("#oaPerPage").value = String(state.openalex.per_page || 25);
-      $("#oaTestQ").value = state.openalex.test_q || "Candide";
-    }
-
-    function updateOpenAlexPreview(){
-      $("#oaPreview").textContent = buildOpenAlexPreviewUrl();
-    }
-
-    function persistOA(updatePreview=true){
-      saveOpenAlexSettings(state.openalex);
-      if (updatePreview) updateOpenAlexPreview();
-      else $("#oaPreview").textContent = buildOpenAlexPreviewUrl();
-    }
-
-    /* =========================================================
        WIRE UI
        ========================================================= */
     function wireUI(){
@@ -6019,10 +5765,7 @@
       $("#tabAuthors").addEventListener("click", ()=> setView("authors"));
       // Global drawer buttons
       $("#openNotesBtn").addEventListener("click", () => openDrawer("notes"));
-      $("#openOpenAlexBtn").addEventListener("click", () => openDrawer("openalex"));
-
       $("#closeNotesBtn").addEventListener("click", closeDrawer);
-      $("#oaCloseBtn").addEventListener("click", closeDrawer);
       $("#closeCommentsBtn").addEventListener("click", closeDrawer);
 
       // Great Conversation — comment type pills
@@ -6236,7 +5979,6 @@
           try {
             localStorage.removeItem(LS_CHECKS);
             localStorage.removeItem(LS_NOTES);
-            localStorage.removeItem(LS_OA);
             localStorage.removeItem(LS_CARD_STATUS);
             localStorage.removeItem(LS_CARD_DATES);
             localStorage.removeItem(LS_CARD_TASKS);
@@ -6259,11 +6001,9 @@
           state.cardDates = {};
           state.cardTasks = {};
           state.notes = [];
-          state.openalex = defaultOpenAlexSettings();
           state.sync.lastSync = null;
           state.sync.syncing = false;
           state.sync.error = null;
-          syncOpenAlexUIFromState();
           renderAll();
           showAlert("Classics profile has been reset.");
         });
@@ -6288,31 +6028,6 @@
         renderNotesList();
       });
 
-      // OpenAlex options
-      $("#oaResetBtn").addEventListener("click", () => {
-        showConfirm("Reset OpenAlex options to defaults?").then(confirmed => {
-          if (!confirmed) return;
-          state.openalex = defaultOpenAlexSettings();
-          saveOpenAlexSettings(state.openalex);
-          syncOpenAlexUIFromState();
-          updateOpenAlexPreview();
-        });
-      });
-
-      $("#oaTarget").addEventListener("change", (e)=>{ state.openalex.target = e.target.value; persistOA(); });
-      $("#oaType").addEventListener("change", (e)=>{ state.openalex.type = e.target.value; persistOA(); });
-      $("#oaIsOa").addEventListener("change", (e)=>{ state.openalex.is_oa = e.target.checked; persistOA(); });
-      $("#oaLang").addEventListener("change", (e)=>{ state.openalex.lang = e.target.value; persistOA(); });
-      $("#oaFromYear").addEventListener("input", (e)=>{ state.openalex.from_year = e.target.value; persistOA(false); });
-      $("#oaToYear").addEventListener("input", (e)=>{ state.openalex.to_year = e.target.value; persistOA(false); });
-      $("#oaMinCites").addEventListener("input", (e)=>{ state.openalex.min_cites = e.target.value; persistOA(false); });
-      $("#oaSort").addEventListener("change", (e)=>{ state.openalex.sort = e.target.value; persistOA(); });
-      $("#oaPerPage").addEventListener("change", (e)=>{ state.openalex.per_page = Number(e.target.value); persistOA(); });
-      $("#oaTestQ").addEventListener("input", (e)=>{ state.openalex.test_q = e.target.value; persistOA(false); });
-
-      $("#oaTestBtn").addEventListener("click", () => {
-        window.open(buildOpenAlexPreviewUrl(), "_blank", "noopener,noreferrer");
-      });
     }
 
     /* =========================================================
@@ -6333,6 +6048,17 @@
     if (window.firebaseReady) {
       boot();
     }
+
+    /* =========================================================
+       TABLE HORIZONTAL SCROLL — shift+wheel on desktop
+       ========================================================= */
+    document.addEventListener("wheel", function(e){
+      if (!e.shiftKey) return;
+      const wrap = e.target.closest(".planTableWrap");
+      if (!wrap) return;
+      e.preventDefault();
+      wrap.scrollLeft += e.deltaY || e.deltaX;
+    }, { passive: false });
 
     /* =========================================================
        DARK MODE

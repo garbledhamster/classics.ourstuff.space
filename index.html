@@ -1583,10 +1583,11 @@
     .planTable .td-status .statusSelect,
     .planTable .td-action .statusSelect{
       min-width:0;
-      width:100%;
+      width:auto;
       font-size:11px;
       padding:7px 24px 7px 8px;
     }
+    .planTable .td-status{ white-space:nowrap; }
     .planTable .td-date input[type="date"]{
       width:100%;
       min-width:120px;
@@ -1617,6 +1618,37 @@
       align-items:center;
       flex-wrap:wrap;
     }
+
+    /* Column picker */
+    .colPickerWrap{
+      position:relative;
+      display:inline-block;
+    }
+    .colPickerPanel{
+      position:absolute;
+      top:calc(100% + 4px);
+      left:0;
+      z-index:200;
+      background:#fff;
+      border:var(--borderThin);
+      padding:8px 0;
+      min-width:160px;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    html.dark .colPickerPanel{ background:#1a1a1a; color:var(--ink); }
+    .colPickerPanel label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:5px 14px;
+      font-size:12px;
+      font-weight:600;
+      cursor:pointer;
+      user-select:none;
+    }
+    .colPickerPanel label:hover{ background:#f5f5f0; }
+    html.dark .colPickerPanel label:hover{ background:#222; }
+    .colPickerPanel input[type="checkbox"]{ accent-color:var(--ink); width:14px; height:14px; cursor:pointer; }
 
     /* ===== Great Conversation Comments Drawer ===== */
     .commentsDrawer{ right:0; left:auto; width:min(520px, 100vw); }
@@ -1946,6 +1978,15 @@
             <svg id="planViewModeIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="4" height="4"></rect><rect x="3" y="12" width="4" height="4"></rect><rect x="3" y="19" width="4" height="2"></rect><line x1="10" y1="7" x2="21" y2="7"></line><line x1="10" y1="14" x2="21" y2="14"></line><line x1="10" y1="21" x2="21" y2="21"></line></svg>
             <span id="planViewModeBtnLabel">View: Full</span>
           </button>
+
+          <!-- Column selector (table mode only) -->
+          <div class="colPickerWrap" id="colPickerWrap" style="display:none">
+            <button class="btn" id="colPickerBtn" type="button" aria-haspopup="true" aria-expanded="false" title="Show or hide table columns">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              Columns
+            </button>
+            <div class="colPickerPanel" id="colPickerPanel" role="menu" aria-label="Column visibility" hidden></div>
+          </div>
 
           <button class="btn" id="resetChecksBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
@@ -2399,9 +2440,10 @@
     const LS_CHECKS        = "greatworks.reading.checks.v2";
     const LS_NOTES         = "greatworks.reading.notes.v1";
     const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
-    const LS_CARD_STATUS   = "greatworks.reading.cardStatus.v1";
-    const LS_CARD_TASKS    = "greatworks.reading.cardTasks.v1";
-    const LS_CARD_DATES    = "greatworks.reading.cardDates.v1";
+    const LS_CARD_STATUS       = "greatworks.reading.cardStatus.v1";
+    const LS_CARD_TASKS        = "greatworks.reading.cardTasks.v1";
+    const LS_CARD_DATES        = "greatworks.reading.cardDates.v1";
+    const LS_TABLE_HIDDEN_COLS = "greatworks.reading.tableHiddenCols.v1";
     const DEFAULT_CARD_STATUS = "not_started";
     const DEFAULT_CARD_TASK = "no_task";
     const CARD_STATUS_OPTIONS = [
@@ -2646,7 +2688,7 @@
       inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
       try {
-        const fields = "key,title,author_name,first_publish_year,subject,cover_i,number_of_pages_median,edition_count";
+        const fields = "key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count";
         const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
@@ -2684,6 +2726,10 @@
       }
       if (doc.first_publish_year){
         rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">First published: </span>${escapeHtml(String(doc.first_publish_year))}</div>`);
+      }
+      const timePeriods = (doc.subject_time_period || []).slice(0, 4);
+      if (timePeriods.length){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Time period: </span>${escapeHtml(timePeriods.join(", "))}</div>`);
       }
       if (doc.number_of_pages_median){
         rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Pages (median): </span>${escapeHtml(String(doc.number_of_pages_median))}</div>`);
@@ -3411,6 +3457,27 @@
       localStorage.setItem(LS_CARD_DATES, JSON.stringify(obj));
       triggerAutoSync();
     }
+
+    // Table column visibility (localStorage only; not synced)
+    const TABLE_COLUMNS = [
+      { id: "check",      label: "Done" },
+      { id: "year",       label: "Year" },
+      { id: "number",     label: "Number" },
+      { id: "work",       label: "Work" },
+      { id: "author",     label: "Author" },
+      { id: "type",       label: "Type" },
+      { id: "notes",      label: "Notes" },
+      { id: "status",     label: "Status" },
+      { id: "action",     label: "Current Action" },
+      { id: "date-start", label: "Start Date" },
+      { id: "date-end",   label: "End Date" },
+    ];
+    function loadTableHiddenCols(){
+      try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ console.error("Failed to load table column preferences:", e); return new Set(); }
+    }
+    function saveTableHiddenCols(set){
+      try { localStorage.setItem(LS_TABLE_HIDDEN_COLS, JSON.stringify(Array.from(set))); } catch(e){ console.error("Failed to save table column preferences:", e); }
+    }
     function applyCardStatusChange(statusKey, statusValue){
       if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {
         console.warn("Invalid card status update ignored.", { statusKey, statusValue });
@@ -4082,7 +4149,7 @@
         // authors view
         authorsQ: "",
       },
-      ui: {},
+      ui: { tableHiddenCols: loadTableHiddenCols() },
       drawer: { open:false, which:null }, // notes
       notesUI: { search:"", tag:"all", editingId:null, showArchived: false },
       tagsUniverse: [], // note tags (titles)
@@ -4972,6 +5039,35 @@
 
       if (vmIcon)  vmIcon.innerHTML  = PLAN_VIEW_ICONS[vm]  || PLAN_VIEW_ICONS.default;
       if (vmLabel) vmLabel.textContent = PLAN_VIEW_LABELS[vm] || "View: Full";
+
+      const colPickerWrap = $("#colPickerWrap");
+      if (colPickerWrap) colPickerWrap.style.display = vm === "table" ? "" : "none";
+    }
+
+    function renderColPickerPanel(){
+      const panel = $("#colPickerPanel");
+      if (!panel) return;
+      const hidden = state.ui.tableHiddenCols;
+      panel.innerHTML = TABLE_COLUMNS.map(col => `
+        <label>
+          <input type="checkbox" data-action="toggleTableCol" data-col-id="${escapeHtml(col.id)}" ${hidden.has(col.id) ? "" : "checked"}>
+          ${escapeHtml(col.label)}
+        </label>`).join("");
+    }
+
+    function toggleColPickerPanel(open){
+      const panel = $("#colPickerPanel");
+      const btn   = $("#colPickerBtn");
+      if (!panel || !btn) return;
+      if (open === undefined) open = panel.hasAttribute("hidden");
+      if (open){
+        renderColPickerPanel();
+        panel.removeAttribute("hidden");
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", "false");
+      }
     }
 
     /* ---- Table-view renderers ---- */
@@ -4995,6 +5091,8 @@
       const blockArr = Array.from(blocks.values()).sort((a,b)=>a.order-b.order);
 
       const rows = blockArr.flatMap(b => b.works.map(w => workRowTableHtml(b, w, noteCountMap))).join("");
+      const h = state.ui.tableHiddenCols;
+      const hiddenColStyle = (id) => h.has(id) ? ' style="display:none"' : '';
 
       return `
         <section class="yearCard" data-year="${year}">
@@ -5010,19 +5108,19 @@
             <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
               <thead>
                 <tr>
-                  <th class="td-check">
+                  <th class="td-check" data-col="check"${hiddenColStyle("check")}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </th>
-                  <th>Year</th>
-                  <th>Number</th>
-                  <th>Work</th>
-                  <th>Author</th>
-                  <th>Type</th>
-                  <th>Notes</th>
-                  <th>Status</th>
-                  <th>Current Action</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
+                  <th data-col="year"${hiddenColStyle("year")}>Year</th>
+                  <th data-col="number"${hiddenColStyle("number")}>Number</th>
+                  <th data-col="work"${hiddenColStyle("work")}>Work</th>
+                  <th data-col="author"${hiddenColStyle("author")}>Author</th>
+                  <th data-col="type"${hiddenColStyle("type")}>Type</th>
+                  <th data-col="notes"${hiddenColStyle("notes")}>Notes</th>
+                  <th data-col="status"${hiddenColStyle("status")}>Status</th>
+                  <th data-col="action"${hiddenColStyle("action")}>Current Action</th>
+                  <th data-col="date-start"${hiddenColStyle("date-start")}>Start Date</th>
+                  <th data-col="date-end"${hiddenColStyle("date-end")}>End Date</th>
                 </tr>
               </thead>
               <tbody>${rows}</tbody>
@@ -5038,6 +5136,8 @@
       const noteCount = noteCountMap ? (noteCountMap.get(title) || 0) : state.notes.filter(n => n.book_tag === title).length;
       const statusKey = getCardStatusKey(w.author, title);
       const dateEntry = getCardDates(statusKey);
+      const h = state.ui.tableHiddenCols;
+      const hiddenColStyle = (id) => h.has(id) ? ' style="display:none"' : '';
       return `
         <tr class="workRow"
           data-workkey="${escapeHtml(w.key)}"
@@ -5050,21 +5150,21 @@
           ${w.sourceUrl ? `data-sourceurl="${escapeHtml(w.sourceUrl)}"` : ""}
           id="wk_${escapeHtml(hash32(w.key))}"
         >
-          <td class="td-check">
+          <td class="td-check" data-col="check"${hiddenColStyle("check")}>
             <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" >
           </td>
-          <td class="td-year">${escapeHtml(w.year)}</td>
-          <td class="td-number">${escapeHtml(block.order)}</td>
-          <td class="td-work">${escapeHtml(title)}</td>
-          <td class="td-author">${escapeHtml(block.author || "Unknown")}</td>
-          <td class="td-type">${escapeHtml(w.tier)}</td>
-          <td class="td-notes">${escapeHtml(noteCount)}</td>
-          <td class="td-status">${renderStatusSelector(w.author, title)}</td>
-          <td class="td-action">${renderTaskTracker(w.author, title)}</td>
-          <td class="td-date">
+          <td class="td-year" data-col="year"${hiddenColStyle("year")}>${escapeHtml(w.year)}</td>
+          <td class="td-number" data-col="number"${hiddenColStyle("number")}>${escapeHtml(block.order)}</td>
+          <td class="td-work" data-col="work"${hiddenColStyle("work")}>${escapeHtml(title)}</td>
+          <td class="td-author" data-col="author"${hiddenColStyle("author")}>${escapeHtml(block.author || "Unknown")}</td>
+          <td class="td-type" data-col="type"${hiddenColStyle("type")}>${escapeHtml(w.tier)}</td>
+          <td class="td-notes" data-col="notes"${hiddenColStyle("notes")}>${escapeHtml(noteCount)}</td>
+          <td class="td-status" data-col="status"${hiddenColStyle("status")}>${renderStatusSelector(w.author, title)}</td>
+          <td class="td-action" data-col="action"${hiddenColStyle("action")}>${renderTaskTracker(w.author, title)}</td>
+          <td class="td-date" data-col="date-start"${hiddenColStyle("date-start")}>
             <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="started" value="${escapeHtml(dateEntry.started)}" aria-label="Start date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
-          <td class="td-date">
+          <td class="td-date" data-col="date-end"${hiddenColStyle("date-end")}>
             <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
         </tr>
@@ -6305,6 +6405,33 @@
         const modes = ["default", "table"];
         const cur = state.filters.planViewMode || "default";
         state.filters.planViewMode = modes[(modes.indexOf(cur) + 1) % modes.length];
+        renderPlan();
+      });
+
+      // Column picker toggle button
+      $("#colPickerBtn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleColPickerPanel();
+      });
+
+      // Close column picker when clicking outside
+      document.addEventListener("click", (e) => {
+        const wrap = $("#colPickerWrap");
+        if (wrap && !wrap.contains(e.target)) toggleColPickerPanel(false);
+      });
+
+      // Handle column visibility checkboxes (delegated on the panel)
+      $("#colPickerPanel").addEventListener("change", (e) => {
+        const cb = e.target.closest('[data-action="toggleTableCol"]');
+        if (!cb) return;
+        const colId = cb.dataset.colId;
+        if (!colId) return;
+        if (cb.checked){
+          state.ui.tableHiddenCols.delete(colId);
+        } else {
+          state.ui.tableHiddenCols.add(colId);
+        }
+        saveTableHiddenCols(state.ui.tableHiddenCols);
         renderPlan();
       });
 

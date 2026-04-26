@@ -611,8 +611,8 @@
     .libCard.learningGoalsHostOpen .libDrawer > div{ overflow:visible; }
     .libCard.taskDropOpen .libDrawer > div{ overflow:visible; }
     .libActions{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+      display:flex;
+      flex-wrap:wrap;
       gap:8px;
       border-top:var(--borderThin);
       padding:10px 0 4px;
@@ -667,7 +667,8 @@
     .libActions .btn,
     .workActions .btn{
       min-height:38px;
-      width:100%;
+      flex:1 1 130px;
+      min-width:0;
     }
     /* open: snappier ease-out */
     .libCard.active .libDrawer{
@@ -917,8 +918,8 @@
     .workRow.taskDropOpen .workDrawer > div{ overflow:visible; }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
     .workActions{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+      display:flex;
+      flex-wrap:wrap;
       gap:8px;
       border-top:var(--borderThin);
       padding:8px 0 2px;
@@ -1554,11 +1555,11 @@
     #planGrid.view-condensed .workMain{ flex:1 1 auto; min-width:0; }
     #planGrid.view-condensed .workDrawer{ flex:0 0 auto; grid-template-rows:1fr; }
     #planGrid.view-condensed .workDrawer > div{ overflow:visible; }
-    #planGrid.view-condensed .workActions{ display:flex; border-top:none; padding:0; background:transparent; }
+    #planGrid.view-condensed .workActions{ display:flex; flex-wrap:wrap; border-top:none; padding:0; background:transparent; }
     #planGrid.view-condensed .workDrawerBody{ border-top:none; background:transparent; }
     #planGrid.view-condensed .workDrawerBody > .cardMetaControls{ display:none; }
     #planGrid.view-condensed .workActions .btn-label{ display:none; }
-    #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
+    #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; flex:0 0 auto; min-width:0; }
     #planGrid.view-condensed .bookDetailsSection{ display:none; }
 
     /* Plan table view */

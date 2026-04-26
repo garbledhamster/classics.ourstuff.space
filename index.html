@@ -2515,23 +2515,23 @@
 
     function buildAudiobookSearchUrl(title, author) {
       const q = encodeURIComponent(`"${title}" ${author} public domain audiobook site:librivox.org OR site:archive.org OR site:gutenberg.org`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
 
     function buildFreeBookSearchUrl(title, author) {
       const freeSites = `site:gutenberg.org OR site:gutenberg.net.au OR site:gutenberg.ca OR site:archive.org OR site:wikisource.org OR site:fadedpage.com OR site:standardebooks.org OR site:freeread.de`;
       const q = encodeURIComponent(`"${title}" ${author} (${freeSites})`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function buildBuyBookSearchUrl(title, author) {
       const buySites = `site:amazon.com OR site:ebay.com OR site:abebooks.com OR site:barnesandnoble.com OR site:thriftbooks.com OR site:bookshop.org`;
       const q = encodeURIComponent(`"${title}" ${author} (${buySites})`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function buildOutlinesSearchUrl(title, author) {
       const sites = `site:sparknotes.com OR site:litcharts.com OR site:gradesaver.com OR site:cliffsnotes.com OR site:shmoop.com OR site:wikipedia.org OR site:britannica.com OR site:plato.stanford.edu`;
       const q = encodeURIComponent(`"${title}" ${author} (${sites})`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function buildGoodreadsSearchUrl(title, author) {
       const q = encodeURIComponent(`${title} ${author}`.trim());
@@ -2539,19 +2539,19 @@
     }
     function buildBiographySearchUrl(author) {
       const q = encodeURIComponent(`"${author}" biography life history documentary lecture video`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function buildContextSearchUrl(author) {
       const q = encodeURIComponent(`"${author}" historical context era time period contemporaries influences philosophy culture`.trim());
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function buildLearningSearchUrl({ title, author, platform, goal }) {
       const goalText = String(goal || "").trim();
       const q = encodeURIComponent(`${title} ${author}${platform === "youtube" ? YOUTUBE_SEARCH_SUFFIX : ""} ${goalText}`.trim());
       if (platform === "youtube") {
-        return `https://www.youtube.com/results?search_query=${q}`;
+        return `https://duckduckgo.com/?q=${q}&iax=videos&ia=videos`;
       }
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
     function renderLearningButtons() {
       const buildPlatformGoalButtons = (platform) => LEARNING_GOAL_OPTIONS.map(goal => `
@@ -3396,12 +3396,10 @@
       const q = encodeURIComponent(searchParts.filter(p => p).join(" "));
       
       if (platform === "youtube") {
-        return `https://www.youtube.com/results?search_query=${q}`;
+        return `https://duckduckgo.com/?q=${q}&iax=videos&ia=videos`;
       }
-      return `https://www.google.com/search?q=${q}`;
+      return `https://duckduckgo.com/?q=${q}`;
     }
-
-    function nowIso(){
       return new Date().toISOString();
     }
 
@@ -4826,13 +4824,13 @@
 
         if (btn.dataset.action === "openGoogleAuthor"){
           const q = encodeURIComponent(author);
-          window.open(`https://www.google.com/search?q=${q}`, "_blank", "noopener,noreferrer");
+          window.open(`https://duckduckgo.com/?q=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
 
         if (btn.dataset.action === "openYouTubeAuthor"){
           const q = encodeURIComponent(`${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
-          window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
+          window.open(`https://duckduckgo.com/?q=${q}&iax=videos&ia=videos`, "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -4844,7 +4842,7 @@
         if (btn.dataset.action === "openBuyBookAuthor"){
           const buySites = `site:amazon.com OR site:ebay.com OR site:abebooks.com OR site:barnesandnoble.com OR site:thriftbooks.com OR site:bookshop.org`;
           const q = encodeURIComponent(`${author} (${buySites})`.trim());
-          window.open(`https://www.google.com/search?q=${q}`, "_blank", "noopener,noreferrer");
+          window.open(`https://duckduckgo.com/?q=${q}`, "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -5412,7 +5410,7 @@
 
         if (btn.dataset.action === "openYouTubeLib"){
           const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
-          window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
+          window.open(`https://duckduckgo.com/?q=${q}&iax=videos&ia=videos`, "_blank", "noopener,noreferrer");
           return;
         }
 
@@ -5605,7 +5603,7 @@
           const title = row.dataset.book || "";
           const author = row.dataset.author || "";
           const q = encodeURIComponent(`${title} ${author}${YOUTUBE_SEARCH_SUFFIX}`.trim());
-          window.open(`https://www.youtube.com/results?search_query=${q}`, "_blank", "noopener,noreferrer");
+          window.open(`https://duckduckgo.com/?q=${q}&iax=videos&ia=videos`, "_blank", "noopener,noreferrer");
           return;
         }
 

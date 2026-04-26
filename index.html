@@ -4680,7 +4680,8 @@
       const availLetters = new Set(baseItems.map(getKey));
       bar.innerHTML = [
         `<button class="btn abcBtn${!activeLetter ? " active" : ""}" data-letter="" type="button">All</button>`,
-        ...LETTERS.map(l => `<button class="btn abcBtn${activeLetter === l ? " active" : ""}" data-letter="${l}" type="button"${!availLetters.has(l) ? " disabled" : ""}>${l}</button>`)
+        ...LETTERS.map(l => `<button class="btn abcBtn${activeLetter === l ? " active" : ""}" data-letter="${l}" type="button"${!availLetters.has(l) ? " disabled" : ""}>${l}</button>`),
+        `<button class="btn abcBtn${activeLetter === "#" ? " active" : ""}" data-letter="#" type="button"${!availLetters.has("#") ? " disabled" : ""}>#</button>`
       ].join("");
     }
 

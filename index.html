@@ -592,24 +592,21 @@
       border-bottom:var(--borderThin);
       background:#fafafa;
     }
-    .bookDetailsToggle{
+    .bookDetailsHeader{
       display:flex;
       align-items:center;
       gap:6px;
       width:100%;
-      text-align:left;
-      padding:7px 12px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      font-size:0.82rem;
-      font-weight:600;
-      color:var(--ink);
+      padding:7px 12px 6px;
+      font-size:0.75rem;
+      font-weight:700;
+      color:#555;
       line-height:1.4;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      border-bottom:var(--borderThin);
+      background:#f0f0f0;
     }
-    .bookDetailsToggle:hover{ background:#efefef; }
-    .bookDetailsChevron{ margin-left:auto; transition:transform 0.2s; }
-    .bookDetailsSection.open .bookDetailsChevron{ transform:rotate(180deg); }
     .bookDetailsPanel{
       display:grid;
       grid-template-rows:0fr;
@@ -631,7 +628,7 @@
     .bookDetailsInfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:5px; }
     .bookDetailsRow{ font-size:0.8rem; color:var(--ink); line-height:1.5; }
     .bookDetailsLabel{ font-weight:600; }
-    .bookDetailsSubjects{ display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+    .bookDetailsSubjectList{ margin:3px 0 0 0; padding:0 0 0 1.2em; font-size:0.8rem; line-height:1.7; }
     .bookDetailsLink{ color:var(--ink); text-underline-offset:2px; font-size:0.8rem; }
     .bookDetailsLoading,
     .bookDetailsError{ padding:8px 12px 10px; font-size:0.82rem; color:#888; }
@@ -1432,7 +1429,7 @@
     html.dark .workDrawerBody{ background:#222; }
     html.dark .workDrawerBody > .cardMetaControls{ background:transparent; border-right-color:#444; }
     html.dark .bookDetailsSection{ background:#222; border-bottom-color:#444; }
-    html.dark .bookDetailsToggle:hover{ background:#2a2a2a; }
+    html.dark .bookDetailsHeader{ background:#2a2a2a; border-bottom-color:#444; color:#888; }
     html.dark .bookDetailsLoading{ color:#888; }
     html.dark .bookDetailsLink{ color:var(--ink); }
     html.dark .cardMetaControls{ background:#1f1f1f; }
@@ -2557,12 +2554,11 @@
     /* ===== Book Details Section ===== */
     function renderBookDetailsSection(author, title){
       return `
-        <div class="bookDetailsSection" data-author="${escapeHtml(author)}" data-title="${escapeHtml(title)}">
-          <button type="button" class="bookDetailsToggle" data-action="toggleBookDetails" aria-expanded="false">
+        <div class="bookDetailsSection open" data-author="${escapeHtml(author)}" data-title="${escapeHtml(title)}">
+          <div class="bookDetailsHeader">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             Book Details
-            <svg class="bookDetailsChevron" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
+          </div>
           <div class="bookDetailsPanel"><div></div></div>
         </div>
       `;
@@ -2632,8 +2628,8 @@
       }
       const subjects = (doc.subject || []).slice(0, 6);
       if (subjects.length){
-        const pills = subjects.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
-        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Subjects:</span><div class="bookDetailsSubjects">${pills}</div></div>`);
+        const items = subjects.map(s => `<li>${escapeHtml(s)}</li>`).join("");
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Subjects:</span><ul class="bookDetailsSubjectList">${items}</ul></div>`);
       }
       // Only build an OL link when the key looks like a valid works path
       if (doc.key && /^\/works\/OL\w+W$/.test(doc.key)){
@@ -5177,7 +5173,11 @@
           if (card) {
             const was = card.classList.contains("active");
             grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
-            if (!was) card.classList.add("active");
+            if (!was) {
+              card.classList.add("active");
+              const section = card.querySelector(".bookDetailsSection");
+              if (section) loadBookDetails(section);
+            }
             return;
           }
         }
@@ -5188,11 +5188,6 @@
         // Handle task dropdown actions (work inside .libCard but no card context needed)
         if (btn.dataset.action === "toggleTaskDropdown" || btn.dataset.action === "selectTaskOption") {
           handleTaskDropdownClickEvent(e);
-          return;
-        }
-
-        if (btn.dataset.action === "toggleBookDetails"){
-          handleBookDetailsToggle(btn);
           return;
         }
 
@@ -5336,7 +5331,11 @@
           if (row) {
             const was = row.classList.contains("active");
             grid.querySelectorAll(".workRow.active").forEach(r => { r.classList.remove("active"); });
-            if (!was) row.classList.add("active");
+            if (!was) {
+              row.classList.add("active");
+              const section = row.querySelector(".bookDetailsSection");
+              if (section) loadBookDetails(section);
+            }
             return;
           }
         }
@@ -5349,11 +5348,6 @@
         // Handle task dropdown actions
         if (action === "toggleTaskDropdown" || action === "selectTaskOption") {
           handleTaskDropdownClickEvent(e);
-          return;
-        }
-
-        if (action === "toggleBookDetails"){
-          handleBookDetailsToggle(btn);
           return;
         }
 

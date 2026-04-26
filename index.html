@@ -587,6 +587,56 @@
       transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
     }
 
+    /* ===== Book Details Section ===== */
+    .bookDetailsSection{
+      border-bottom:var(--borderThin);
+      background:#fafafa;
+    }
+    .bookDetailsToggle{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      width:100%;
+      text-align:left;
+      padding:7px 12px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      font-size:0.82rem;
+      font-weight:600;
+      color:var(--ink);
+      line-height:1.4;
+    }
+    .bookDetailsToggle:hover{ background:#efefef; }
+    .bookDetailsChevron{ margin-left:auto; transition:transform 0.2s; }
+    .bookDetailsSection.open .bookDetailsChevron{ transform:rotate(180deg); }
+    .bookDetailsPanel{
+      display:grid;
+      grid-template-rows:0fr;
+      transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+    }
+    .bookDetailsPanel > div{ overflow:hidden; }
+    .bookDetailsSection.open .bookDetailsPanel{
+      grid-template-rows:1fr;
+      transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+    }
+    .bookDetailsContent{
+      display:flex;
+      gap:12px;
+      padding:8px 12px 12px;
+      align-items:flex-start;
+    }
+    .bookDetailsCover{ flex-shrink:0; width:64px; }
+    .bookDetailsCover img{ width:64px; height:auto; display:block; border-radius:3px; box-shadow:0 1px 4px #0002; }
+    .bookDetailsInfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:5px; }
+    .bookDetailsRow{ font-size:0.8rem; color:var(--ink); line-height:1.5; }
+    .bookDetailsLabel{ font-weight:600; }
+    .bookDetailsSubjects{ display:flex; flex-wrap:wrap; gap:4px; margin-top:3px; }
+    .bookDetailsLink{ color:var(--ink); text-underline-offset:2px; font-size:0.8rem; }
+    .bookDetailsLoading,
+    .bookDetailsError{ padding:8px 12px 10px; font-size:0.82rem; color:#888; }
+    .bookDetailsError{ color:#b00; }
+
     .occList{
       display:flex;
       gap:6px;
@@ -1381,6 +1431,10 @@
     html.dark .workActions{ background:#222; }
     html.dark .workDrawerBody{ background:#222; }
     html.dark .workDrawerBody > .cardMetaControls{ background:transparent; border-right-color:#444; }
+    html.dark .bookDetailsSection{ background:#222; border-bottom-color:#444; }
+    html.dark .bookDetailsToggle:hover{ background:#2a2a2a; }
+    html.dark .bookDetailsLoading{ color:#888; }
+    html.dark .bookDetailsLink{ color:var(--ink); }
     html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
     html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
@@ -1417,6 +1471,7 @@
     #planGrid.view-condensed .workDrawerBody > .cardMetaControls{ display:none; }
     #planGrid.view-condensed .workActions .btn-label{ display:none; }
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
+    #planGrid.view-condensed .bookDetailsSection{ display:none; }
 
     /* Plan table view */
     .planTableWrap{
@@ -2497,6 +2552,109 @@
           ${renderTaskTracker(author, title)}
         </div>
       `;
+    }
+
+    /* ===== Book Details Section ===== */
+    function renderBookDetailsSection(author, title){
+      return `
+        <div class="bookDetailsSection" data-author="${escapeHtml(author)}" data-title="${escapeHtml(title)}">
+          <button type="button" class="bookDetailsToggle" data-action="toggleBookDetails" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Book Details
+            <svg class="bookDetailsChevron" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div class="bookDetailsPanel"><div></div></div>
+        </div>
+      `;
+    }
+
+    const _bookDetailsCache = new Map();
+
+    async function loadBookDetails(section){
+      const author = section.dataset.author || "";
+      const title  = section.dataset.title  || "";
+      const inner  = section.querySelector(".bookDetailsPanel > div");
+      if (!inner) return;
+
+      const cacheKey = `${author}|||${title}`;
+      if (_bookDetailsCache.has(cacheKey)){
+        inner.innerHTML = _bookDetailsCache.get(cacheKey);
+        return;
+      }
+
+      inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
+
+      try {
+        const fields = "key,title,author_name,first_publish_year,subject,cover_i,number_of_pages_median,edition_count";
+        const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        const data = await res.json();
+
+        // Pick the best match: prefer an exact (case-insensitive) title match first
+        const docs = data.docs || [];
+        const normTitle = normalizeText(title);
+        const best = docs.find(d => normalizeText(d.title || "") === normTitle) || docs[0] || null;
+
+        if (!best){
+          const html = `<div class="bookDetailsError">No results found on Open Library.</div>`;
+          _bookDetailsCache.set(cacheKey, html);
+          inner.innerHTML = html;
+          return;
+        }
+
+        const html = _renderBookDetailsResult(best);
+        _bookDetailsCache.set(cacheKey, html);
+        inner.innerHTML = html;
+      } catch(err){
+        inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
+      }
+    }
+
+    function _renderBookDetailsResult(doc){
+      const coverId = typeof doc.cover_i === "number" ? doc.cover_i : null;
+      const coverHtml = coverId
+        ? `<div class="bookDetailsCover"><img src="https://covers.openlibrary.org/b/id/${coverId}-M.jpg" alt="Book cover" loading="lazy"></div>`
+        : "";
+
+      const rows = [];
+      if (doc.author_name?.length){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Author: </span>${escapeHtml(doc.author_name.join(", "))}</div>`);
+      }
+      if (doc.first_publish_year){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">First published: </span>${escapeHtml(String(doc.first_publish_year))}</div>`);
+      }
+      if (doc.number_of_pages_median){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Pages (median): </span>${escapeHtml(String(doc.number_of_pages_median))}</div>`);
+      }
+      if (doc.edition_count){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Editions: </span>${escapeHtml(String(doc.edition_count))}</div>`);
+      }
+      const subjects = (doc.subject || []).slice(0, 6);
+      if (subjects.length){
+        const pills = subjects.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Subjects:</span><div class="bookDetailsSubjects">${pills}</div></div>`);
+      }
+      // Only build an OL link when the key looks like a valid works path
+      if (doc.key && /^\/works\/OL\w+W$/.test(doc.key)){
+        rows.push(`<div class="bookDetailsRow"><a class="bookDetailsLink" href="${escapeHtml(`https://openlibrary.org${doc.key}`)}" target="_blank" rel="noopener noreferrer">View on Open Library →</a></div>`);
+      }
+
+      return `<div class="bookDetailsContent">${coverHtml}<div class="bookDetailsInfo">${rows.join("")}</div></div>`;
+    }
+
+    function handleBookDetailsToggle(btn){
+      const section = btn.closest(".bookDetailsSection");
+      if (!section) return;
+      const isOpen = section.classList.contains("open");
+      if (isOpen){
+        section.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      } else {
+        section.classList.add("open");
+        btn.setAttribute("aria-expanded", "true");
+        loadBookDetails(section);
+      }
     }
     function normalizeCardDateValue(value){
       const v = String(value || "").trim();
@@ -4640,6 +4798,7 @@
           </div>
 
           <div class="libDrawer"><div>
+            ${renderBookDetailsSection(it.author, it.title)}
             <div class="workDrawerBody">
             ${renderCardMetaControls(it.author, it.title)}
             <div class="libActions">
@@ -4941,6 +5100,7 @@
           </div>
 
           <div class="workDrawer"><div>
+            ${renderBookDetailsSection(w.author, title)}
             <div class="workDrawerBody">
             ${renderCardMetaControls(w.author, title)}
             <div class="workActions">
@@ -5028,6 +5188,11 @@
         // Handle task dropdown actions (work inside .libCard but no card context needed)
         if (btn.dataset.action === "toggleTaskDropdown" || btn.dataset.action === "selectTaskOption") {
           handleTaskDropdownClickEvent(e);
+          return;
+        }
+
+        if (btn.dataset.action === "toggleBookDetails"){
+          handleBookDetailsToggle(btn);
           return;
         }
 
@@ -5184,6 +5349,11 @@
         // Handle task dropdown actions
         if (action === "toggleTaskDropdown" || action === "selectTaskOption") {
           handleTaskDropdownClickEvent(e);
+          return;
+        }
+
+        if (action === "toggleBookDetails"){
+          handleBookDetailsToggle(btn);
           return;
         }
 

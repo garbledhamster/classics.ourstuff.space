@@ -476,11 +476,11 @@
       margin-bottom:10px;
     }
 
-    /* Year / Tier / Filter row — 3 equal columns */
+    /* Year / All years / Tier / Filter row — 4 equal columns */
     .planFilterControls{
-      grid-template-columns: 1fr 1fr 1fr !important;
+      grid-template-columns: 1fr 1fr 1fr 1fr !important;
     }
-    @media (max-width:700px){ .planFilterControls{ grid-template-columns: 1fr 1fr !important; } }
+    @media (max-width:800px){ .planFilterControls{ grid-template-columns: 1fr 1fr !important; } }
     @media (max-width:460px){ .planFilterControls{ grid-template-columns: 1fr !important; } }
 
     .rowWide .btnText{
@@ -2008,6 +2008,10 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           </div>
+        </div>
+
+        <div class="control">
+          <div class="label">All Years</div>
           <label class="toggle toggleFlexStart">
             <input id="showAllYears" type="checkbox" >
             All years

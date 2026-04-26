@@ -2738,9 +2738,10 @@
         const cacheKey = `${section.dataset.author || ""}|||${section.dataset.title || ""}`;
         if (!_bookDetailsCache.has(cacheKey) && !_bookDetailsInFlight.has(cacheKey)) {
           await loadBookDetails(section);
+          if (abortObj.cancelled) break;
+          // Rate-limit: pause between actual API requests only
+          await new Promise(r => setTimeout(r, 300));
         }
-        if (abortObj.cancelled) break;
-        await new Promise(r => setTimeout(r, 300));
       }
     }
 

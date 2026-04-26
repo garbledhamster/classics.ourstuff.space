@@ -2453,6 +2453,7 @@
     const CARD_STATUS_OPTIONS = [
       { value: DEFAULT_CARD_STATUS, label: "Not Started" },
       { value: "in_progress", label: "In Progress" },
+      { value: "on_hold", label: "On Hold" },
       { value: "complete", label: "Complete" },
       { value: "skipped", label: "Skipped" }
     ];
@@ -4772,14 +4773,17 @@
       const grid = $("#authorsGrid");
 
       grid.onclick = (e) => {
-        // Tap anywhere on card (outside buttons) toggles drawer
+        // Tap on the card header (libHead) toggles drawer
         if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
-          const card = e.target.closest(".libCard");
-          if (card) {
-            const was = card.classList.contains("active");
-            grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
-            if (!was) card.classList.add("active");
-            return;
+          const head = e.target.closest(".libHead");
+          if (head) {
+            const card = head.closest(".libCard");
+            if (card) {
+              const was = card.classList.contains("active");
+              grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
+              if (!was) card.classList.add("active");
+              return;
+            }
           }
         }
 
@@ -5336,18 +5340,21 @@
       const grid = $("#libraryGrid");
 
       grid.onclick = (e) => {
-        // Tap anywhere on card (outside buttons) toggles drawer
+        // Tap on the card header (libHead) toggles the drawer
         if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
-          const card = e.target.closest(".libCard");
-          if (card) {
-            const was = card.classList.contains("active");
-            grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
-            if (!was) {
-              card.classList.add("active");
-              const section = card.querySelector(".bookDetailsSection");
-              if (section) loadBookDetails(section);
+          const head = e.target.closest(".libHead");
+          if (head) {
+            const card = head.closest(".libCard");
+            if (card) {
+              const was = card.classList.contains("active");
+              grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
+              if (!was) {
+                card.classList.add("active");
+                const section = card.querySelector(".bookDetailsSection");
+                if (section) loadBookDetails(section);
+              }
+              return;
             }
-            return;
           }
         }
 
@@ -5494,18 +5501,21 @@
       const grid = $("#planGrid");
 
       grid.onclick = (e) => {
-        // Tap anywhere on work row (outside buttons/checkboxes) toggles drawer
+        // Tap on the work title area (workMain) toggles drawer
         if (!e.target.closest("[data-action]") && !e.target.closest("input")) {
-          const row = e.target.closest(".workRow");
-          if (row) {
-            const was = row.classList.contains("active");
-            grid.querySelectorAll(".workRow.active").forEach(r => { r.classList.remove("active"); });
-            if (!was) {
-              row.classList.add("active");
-              const section = row.querySelector(".bookDetailsSection");
-              if (section) loadBookDetails(section);
+          const main = e.target.closest(".workMain");
+          if (main) {
+            const row = main.closest(".workRow");
+            if (row) {
+              const was = row.classList.contains("active");
+              grid.querySelectorAll(".workRow.active").forEach(r => { r.classList.remove("active"); });
+              if (!was) {
+                row.classList.add("active");
+                const section = row.querySelector(".bookDetailsSection");
+                if (section) loadBookDetails(section);
+              }
+              return;
             }
-            return;
           }
         }
 

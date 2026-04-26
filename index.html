@@ -3478,6 +3478,8 @@
       }
       return `https://duckduckgo.com/?q=${q}`;
     }
+
+    function nowIso(){
       return new Date().toISOString();
     }
 
@@ -5522,7 +5524,11 @@
             const card = head.closest(".libCard");
             if (card) {
               const was = card.classList.contains("active");
-              grid.querySelectorAll(".libCard.active").forEach(c => { c.classList.remove("active"); });
+              grid.querySelectorAll(".libCard.active").forEach(c => {
+                c.classList.remove("active");
+                const prevInner = c.querySelector(".bookDetailsPanel > div");
+                if (prevInner) prevInner.innerHTML = "";
+              });
               if (!was) {
                 card.classList.add("active");
                 const section = card.querySelector(".bookDetailsSection");
@@ -5683,7 +5689,11 @@
             const row = main.closest(".workRow");
             if (row) {
               const was = row.classList.contains("active");
-              grid.querySelectorAll(".workRow.active").forEach(r => { r.classList.remove("active"); });
+              grid.querySelectorAll(".workRow.active").forEach(r => {
+                r.classList.remove("active");
+                const prevInner = r.querySelector(".bookDetailsPanel > div");
+                if (prevInner) prevInner.innerHTML = "";
+              });
               if (!was) {
                 row.classList.add("active");
                 const section = row.querySelector(".bookDetailsSection");

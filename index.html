@@ -324,6 +324,7 @@
     .yearStepper .btn:first-child{ border-right:var(--borderThin); }
     .yearStepper .btn:last-child{ border-left:var(--borderThin); }
     .yearNum{
+      flex:1;
       font-weight:900;
       font-size:13px;
       letter-spacing:0.06em;
@@ -431,9 +432,56 @@
       gap:8px;
       align-items:center;
       justify-content:flex-start;
-      border-top:var(--borderThin);
-      padding-top:8px;
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      background:#fff;
+      padding:10px 12px;
+      margin-bottom:10px;
     }
+
+    /* Newspaper-style masthead for the 10-year plan */
+    .planMasthead{
+      border:var(--border);
+      box-shadow:var(--shadowSm);
+      background:#fff;
+      padding:14px 20px 16px;
+      margin-bottom:10px;
+      text-align:center;
+    }
+    .planMastheadRule{
+      border:none;
+      border-top:3px double #000;
+      margin:8px 0;
+    }
+    .planMastheadTitle{
+      font-size:20px;
+      font-weight:900;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      margin:8px 0 6px;
+      line-height:1.2;
+    }
+    .planMastheadDesc{
+      font-size:12px;
+      color:var(--muted);
+      margin:0 auto;
+      max-width:680px;
+      line-height:1.6;
+      letter-spacing:0.02em;
+    }
+
+    /* Search + action buttons row */
+    .planSearchControls{
+      grid-template-columns: 1fr !important;
+      margin-bottom:10px;
+    }
+
+    /* Year / Tier / Filter row — 3 equal columns */
+    .planFilterControls{
+      grid-template-columns: 1fr 1fr 1fr !important;
+    }
+    @media (max-width:700px){ .planFilterControls{ grid-template-columns: 1fr 1fr !important; } }
+    @media (max-width:460px){ .planFilterControls{ grid-template-columns: 1fr !important; } }
 
     .rowWide .btnText{
       position: absolute;
@@ -1411,6 +1459,8 @@
     html.dark .toggle,
     html.dark .yearStepper,
     html.dark .controls,
+    html.dark .planRefRow,
+    html.dark .planMasthead,
     html.dark .libCard,
     html.dark .yearCard,
     html.dark .readingBlock,
@@ -1451,6 +1501,7 @@
     html.dark .select:focus,
     html.dark .textarea:focus{ box-shadow:0 0 0 3px #ffffff22; }
     html.dark footer{ border-top-color:var(--ink); color:var(--muted); }
+    html.dark .planMastheadRule{ border-top-color:var(--ink); }
     #darkModeBtn .icon-moon{ display:inline; }
     #darkModeBtn .icon-sun{ display:none; }
     html.dark #darkModeBtn .icon-moon{ display:none; }
@@ -1852,12 +1903,62 @@
 
     <!-- ===== PLAN VIEW ===== -->
     <section id="planView" class="view" aria-label="Ten-year plan view">
-      <section class="controls" aria-label="plan filters">
+
+      <!-- 10-year reference shortcuts -->
+      <div class="planRefRow" aria-label="10-year plan references">
+        <a class="btn" href="https://thinkingwest.com/10-year-reading-plan/" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          10 Year (thinkwest.com)
+        </a>
+
+        <a class="btn" href="https://greatconversation.com/ten-year-reading-list/" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          10 year (greatconversation.com)
+        </a>
+
+        <a class="btn" href="https://www.theworldsclassics.org/p/the-ten-year-reading-plan-10yp.html" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          10 Year (theworldclassics.org)
+        </a>
+
+        <a class="btn" href="https://thinkingwest.com/encyclopedia-britannicas-great-books-of-the-western-world/" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          Britannica's Great Books
+        </a>
+      </div>
+
+      <!-- Newspaper-style masthead -->
+      <div class="planMasthead">
+        <div class="planMastheadRule"></div>
+        <div class="planMastheadTitle">The 10-Year Great Conversation</div>
+        <div class="planMastheadDesc">Follow the Great Books reading plan crafted by Mortimer Adler &amp; Robert Hutchins — ten years of guided selections spanning philosophy, literature, history, and science. Use the search below to find works, then filter by year, tier, or reading status to navigate your progress and engage the Western tradition at your own pace.</div>
+        <div class="planMastheadRule"></div>
+      </div>
+
+      <!-- Search + action buttons -->
+      <section class="controls planSearchControls" aria-label="plan search">
         <div class="control">
           <div class="label">Search (title/author)</div>
           <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="off" >
         </div>
 
+        <div class="rowWide planBtnRow">
+          <!-- View-mode button (cycles default → table) -->
+          <button class="btn" id="planViewModeBtn" type="button" title="Switch list view style" aria-label="Switch view mode">
+            <!-- icon swapped by JS -->
+            <svg id="planViewModeIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="4" height="4"></rect><rect x="3" y="12" width="4" height="4"></rect><rect x="3" y="19" width="4" height="2"></rect><line x1="10" y1="7" x2="21" y2="7"></line><line x1="10" y1="14" x2="21" y2="14"></line><line x1="10" y1="21" x2="21" y2="21"></line></svg>
+            <span id="planViewModeBtnLabel">View: Full</span>
+          </button>
+
+          <button class="btn" id="resetChecksBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+            Reset Filter &amp; Sorter
+          </button>
+        </div>
+      </section>
+
+      <!-- Year / All years / Tier / Filter & Sort -->
+      <section class="controls planFilterControls" aria-label="plan year and filters">
         <div class="control">
           <div class="label">Year</div>
           <div class="yearStepper">
@@ -1908,42 +2009,6 @@
               <option value="sort_end_date">End Date</option>
             </optgroup>
           </select>
-        </div>
-
-        <div class="rowWide planBtnRow">
-          <!-- View-mode button (cycles default → table) -->
-          <button class="btn" id="planViewModeBtn" type="button" title="Switch list view style" aria-label="Switch view mode">
-            <!-- icon swapped by JS -->
-            <svg id="planViewModeIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="4" height="4"></rect><rect x="3" y="12" width="4" height="4"></rect><rect x="3" y="19" width="4" height="2"></rect><line x1="10" y1="7" x2="21" y2="7"></line><line x1="10" y1="14" x2="21" y2="14"></line><line x1="10" y1="21" x2="21" y2="21"></line></svg>
-            <span id="planViewModeBtnLabel">View: Full</span>
-          </button>
-
-          <button class="btn" id="resetChecksBtn" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
-            Reset Filter &amp; Sorter
-          </button>
-        </div>
-
-        <div class="rowWide planRefRow">
-          <a class="btn" href="https://thinkingwest.com/10-year-reading-plan/" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            10 Year (thinkwest.com)
-          </a>
-
-          <a class="btn" href="https://greatconversation.com/ten-year-reading-list/" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            10 year (greatconversation.com)
-          </a>
-
-          <a class="btn" href="https://www.theworldsclassics.org/p/the-ten-year-reading-plan-10yp.html" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            10 Year (theworldclassics.org)
-          </a>
-
-          <a class="btn" href="https://thinkingwest.com/encyclopedia-britannicas-great-books-of-the-western-world/" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-            Britannica's Great Books
-          </a>
         </div>
       </section>
 

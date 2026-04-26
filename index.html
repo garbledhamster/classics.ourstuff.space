@@ -4893,6 +4893,12 @@
 
       const notesCount = state.notes.filter(n => n.book_tag === it.title).length;
 
+      const libStatusKey = getCardStatusKey(it.author, it.title);
+      const libStatusVal = getCardStatus(libStatusKey);
+      const libStatusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === libStatusVal) || {}).label || libStatusVal;
+      const libTaskVal = getCardTask(libStatusKey).task;
+      const libTaskOpt = libTaskVal !== DEFAULT_CARD_TASK ? CARD_TASK_OPTIONS.find(o => o.value === libTaskVal) : null;
+
       // Per-occurrence pills (click to jump to that exact place in the plan)
       const occPills = occ.slice(0, 10).map(o => {
         const label = `Y${o.year} #${o.order}${o.marker ? ` ${o.marker}` : ""}`;
@@ -4918,6 +4924,8 @@
                 <span class="pill">${allDone ? "Complete" : "Incomplete"}</span>
                 <span class="pill">Notes ${escapeHtml(notesCount)}</span>
                 ${tierPills}
+                <span class="pill">${escapeHtml(libStatusLabel)}</span>
+                ${libTaskOpt ? `<span class="pill">${escapeHtml(libTaskOpt.label)}</span>` : ""}
               </div>
             </div>
 
@@ -5235,6 +5243,12 @@
 
       const noteCount = state.notes.filter(n => n.book_tag === title).length;
 
+      const wrStatusKey = getCardStatusKey(w.author, title);
+      const wrStatusVal = getCardStatus(wrStatusKey);
+      const wrStatusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === wrStatusVal) || {}).label || wrStatusVal;
+      const wrTaskVal = getCardTask(wrStatusKey).task;
+      const wrTaskOpt = wrTaskVal !== DEFAULT_CARD_TASK ? CARD_TASK_OPTIONS.find(o => o.value === wrTaskVal) : null;
+
       return `
         <div class="workRow"
              data-workkey="${escapeHtml(w.key)}"
@@ -5259,6 +5273,8 @@
                 <span class="pill">Order ${escapeHtml(w.order)}</span>
                 <span class="pill">${escapeHtml(w.tier)}</span>
                 <span class="pill">Notes ${escapeHtml(noteCount)}</span>
+                <span class="pill">${escapeHtml(wrStatusLabel)}</span>
+                ${wrTaskOpt ? `<span class="pill">${escapeHtml(wrTaskOpt.label)}</span>` : ""}
               </div>
               ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
             </div>

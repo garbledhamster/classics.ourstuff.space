@@ -296,9 +296,10 @@
       margin-bottom:12px;
     }
     .abcBtn{
+      display:inline-flex;
+      justify-content:center;
       padding:5px 7px;
       min-width:30px;
-      justify-content:center;
       font-size:11px;
     }
     .abcBtn.active{
@@ -4683,6 +4684,16 @@
       ].join("");
     }
 
+    function libLetterKey(it){
+      const s = (state.filters.libSort === "title" ? it.title : it.author).trim().toUpperCase();
+      return /^[A-Z]/.test(s) ? s[0] : "#";
+    }
+
+    function authLetterKey(it){
+      const s = it.author.trim().toUpperCase();
+      return /^[A-Z]/.test(s) ? s[0] : "#";
+    }
+
     function renderAll(){
       if (state.view === "library") renderLibrary();
       else if (state.view === "plan") renderPlan();
@@ -4701,18 +4712,12 @@
       // Get all filtered items (without letter filter)
       const baseItems = filteredLibrary();
 
-      // Letter key: use author for all sorts except title sort
-      const getLibLetterKey = it => {
-        const s = (state.filters.libSort === "title" ? it.title : it.author).trim().toUpperCase();
-        return /^[A-Z]/.test(s) ? s[0] : "#";
-      };
-
       // Render ABC bar
-      renderAbcBar("libAbcBar", baseItems, getLibLetterKey, state.filters.libLetterFilter);
+      renderAbcBar("libAbcBar", baseItems, libLetterKey, state.filters.libLetterFilter);
 
       // Apply letter filter
       const letter = state.filters.libLetterFilter;
-      const items = letter ? baseItems.filter(it => getLibLetterKey(it) === letter) : baseItems;
+      const items = letter ? baseItems.filter(it => libLetterKey(it) === letter) : baseItems;
 
       // Pagination
       const pageSize = state.filters.libPageSize;
@@ -4747,32 +4752,6 @@
         startBgBookDetailsLoad(bgSections, _bookDetailsBgAbort);
 
         pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
-      }
-
-      // Wire ABC bar interactions
-      $("#libAbcBar").onclick = (e) => {
-        const btn = e.target.closest(".abcBtn");
-        if (!btn) return;
-        state.filters.libLetterFilter = btn.dataset.letter;
-        state.filters.libPage = 1;
-        renderLibrary();
-      };
-
-      // Wire pagination interactions
-      pagination.onclick = (e) => {
-        const btn = e.target.closest("[data-paction]");
-        if (!btn) return;
-        if (btn.dataset.paction === "prev") state.filters.libPage = Math.max(1, page - 1);
-        if (btn.dataset.paction === "next") state.filters.libPage = Math.min(totalPages, page + 1);
-        renderLibrary();
-      };
-      const pageSizeSel = pagination.querySelector(".pageSizeSel");
-      if (pageSizeSel){
-        pageSizeSel.onchange = (e) => {
-          state.filters.libPageSize = Number(e.target.value);
-          state.filters.libPage = 1;
-          renderLibrary();
-        };
       }
     }
 
@@ -4919,17 +4898,12 @@
       // Get all filtered authors (without letter filter)
       const baseItems = filteredAuthors();
 
-      const getAuthLetterKey = it => {
-        const s = it.author.trim().toUpperCase();
-        return /^[A-Z]/.test(s) ? s[0] : "#";
-      };
-
       // Render ABC bar
-      renderAbcBar("authorsAbcBar", baseItems, getAuthLetterKey, state.filters.authorsLetterFilter);
+      renderAbcBar("authorsAbcBar", baseItems, authLetterKey, state.filters.authorsLetterFilter);
 
       // Apply letter filter
       const letter = state.filters.authorsLetterFilter;
-      const items = letter ? baseItems.filter(it => getAuthLetterKey(it) === letter) : baseItems;
+      const items = letter ? baseItems.filter(it => authLetterKey(it) === letter) : baseItems;
 
       // Pagination
       const pageSize = state.filters.authorsPageSize;
@@ -4956,32 +4930,6 @@
         grid.innerHTML = pageItems.map(authorCardHtml).join("");
         wireAuthorsDelegation();
         pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
-      }
-
-      // Wire ABC bar interactions
-      $("#authorsAbcBar").onclick = (e) => {
-        const btn = e.target.closest(".abcBtn");
-        if (!btn) return;
-        state.filters.authorsLetterFilter = btn.dataset.letter;
-        state.filters.authorsPage = 1;
-        renderAuthors();
-      };
-
-      // Wire pagination interactions
-      pagination.onclick = (e) => {
-        const btn = e.target.closest("[data-paction]");
-        if (!btn) return;
-        if (btn.dataset.paction === "prev") state.filters.authorsPage = Math.max(1, page - 1);
-        if (btn.dataset.paction === "next") state.filters.authorsPage = Math.min(totalPages, page + 1);
-        renderAuthors();
-      };
-      const pageSizeSel = pagination.querySelector(".pageSizeSel");
-      if (pageSizeSel){
-        pageSizeSel.onchange = (e) => {
-          state.filters.authorsPageSize = Number(e.target.value);
-          state.filters.authorsPage = 1;
-          renderAuthors();
-        };
       }
     }
 
@@ -6612,6 +6560,50 @@
         $("#authorsQ").value = "";
         renderAuthors();
       });
+
+      // Library ABC bar + pagination (wired once; content is replaced by renderLibrary)
+      $("#libAbcBar").onclick = (e) => {
+        const btn = e.target.closest(".abcBtn");
+        if (!btn || btn.disabled) return;
+        state.filters.libLetterFilter = btn.dataset.letter;
+        state.filters.libPage = 1;
+        renderLibrary();
+      };
+      $("#libPagination").onclick = (e) => {
+        const btn = e.target.closest("[data-paction]");
+        if (!btn || btn.disabled) return;
+        if (btn.dataset.paction === "prev") state.filters.libPage = Math.max(1, state.filters.libPage - 1);
+        if (btn.dataset.paction === "next") state.filters.libPage += 1;
+        renderLibrary();
+      };
+      $("#libPagination").onchange = (e) => {
+        if (!e.target.closest(".pageSizeSel")) return;
+        state.filters.libPageSize = Number(e.target.value);
+        state.filters.libPage = 1;
+        renderLibrary();
+      };
+
+      // Authors ABC bar + pagination (wired once; content is replaced by renderAuthors)
+      $("#authorsAbcBar").onclick = (e) => {
+        const btn = e.target.closest(".abcBtn");
+        if (!btn || btn.disabled) return;
+        state.filters.authorsLetterFilter = btn.dataset.letter;
+        state.filters.authorsPage = 1;
+        renderAuthors();
+      };
+      $("#authorsPagination").onclick = (e) => {
+        const btn = e.target.closest("[data-paction]");
+        if (!btn || btn.disabled) return;
+        if (btn.dataset.paction === "prev") state.filters.authorsPage = Math.max(1, state.filters.authorsPage - 1);
+        if (btn.dataset.paction === "next") state.filters.authorsPage += 1;
+        renderAuthors();
+      };
+      $("#authorsPagination").onchange = (e) => {
+        if (!e.target.closest(".pageSizeSel")) return;
+        state.filters.authorsPageSize = Number(e.target.value);
+        state.filters.authorsPage = 1;
+        renderAuthors();
+      };
 
       // Plan filters
       $("#q").value = state.filters.q;

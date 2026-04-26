@@ -2677,6 +2677,8 @@
     }
 
     const _bookDetailsCache = new Map();
+    const _bookDetailsInFlight = new Set();
+    let _bookDetailsBgAbort = null;
 
     async function loadBookDetails(section){
       const author = section.dataset.author || "";
@@ -2689,6 +2691,10 @@
         inner.innerHTML = _bookDetailsCache.get(cacheKey);
         return;
       }
+
+      // Already being fetched — the in-flight request will update this inner when done
+      if (_bookDetailsInFlight.has(cacheKey)) return;
+      _bookDetailsInFlight.add(cacheKey);
 
       inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
@@ -2716,6 +2722,25 @@
         inner.innerHTML = html;
       } catch(err){
         inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
+      } finally {
+        _bookDetailsInFlight.delete(cacheKey);
+      }
+    }
+
+    async function startBgBookDetailsLoad(sections, abortObj) {
+      // Brief initial delay so the page settles before background requests begin
+      await new Promise(r => setTimeout(r, 500));
+      if (abortObj.cancelled) return;
+      for (const section of sections) {
+        if (abortObj.cancelled) break;
+        // Stop if the section has been removed from the DOM (e.g. filters changed)
+        if (!document.contains(section)) break;
+        const cacheKey = `${section.dataset.author || ""}|||${section.dataset.title || ""}`;
+        if (!_bookDetailsCache.has(cacheKey) && !_bookDetailsInFlight.has(cacheKey)) {
+          await loadBookDetails(section);
+        }
+        if (abortObj.cancelled) break;
+        await new Promise(r => setTimeout(r, 300));
       }
     }
 
@@ -4608,6 +4633,12 @@
       grid.innerHTML = items.map(libCardHtml).join("");
       wireLibraryDelegation();
       applyAllTaskVisibilities(grid);
+
+      // Cancel any prior background load and start a fresh one for the new card set
+      if (_bookDetailsBgAbort) _bookDetailsBgAbort.cancelled = true;
+      _bookDetailsBgAbort = { cancelled: false };
+      const bgSections = Array.from(grid.querySelectorAll(".bookDetailsSection"));
+      startBgBookDetailsLoad(bgSections, _bookDetailsBgAbort);
     }
 
     /* =========================================================

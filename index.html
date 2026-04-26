@@ -2576,7 +2576,7 @@
       const inner  = section.querySelector(".bookDetailsPanel > div");
       if (!inner) return;
 
-      const cacheKey = `${author}\x00${title}`;
+      const cacheKey = `${author}|||${title}`;
       if (_bookDetailsCache.has(cacheKey)){
         inner.innerHTML = _bookDetailsCache.get(cacheKey);
         return;
@@ -2588,7 +2588,7 @@
         const fields = "key,title,author_name,first_publish_year,subject,cover_i,number_of_pages_median,edition_count";
         const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
         const data = await res.json();
 
         // Pick the best match: prefer an exact (case-insensitive) title match first
@@ -2607,13 +2607,14 @@
         _bookDetailsCache.set(cacheKey, html);
         inner.innerHTML = html;
       } catch(err){
-        inner.innerHTML = `<div class="bookDetailsError">Could not load details: ${escapeHtml(err.message)}</div>`;
+        inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
       }
     }
 
     function _renderBookDetailsResult(doc){
-      const coverHtml = doc.cover_i
-        ? `<div class="bookDetailsCover"><img src="https://covers.openlibrary.org/b/id/${encodeURIComponent(doc.cover_i)}-M.jpg" alt="Book cover" loading="lazy"></div>`
+      const coverId = typeof doc.cover_i === "number" ? doc.cover_i : null;
+      const coverHtml = coverId
+        ? `<div class="bookDetailsCover"><img src="https://covers.openlibrary.org/b/id/${coverId}-M.jpg" alt="Book cover" loading="lazy"></div>`
         : "";
 
       const rows = [];
@@ -2634,7 +2635,8 @@
         const pills = subjects.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join("");
         rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Subjects:</span><div class="bookDetailsSubjects">${pills}</div></div>`);
       }
-      if (doc.key){
+      // Only build an OL link when the key looks like a valid works path
+      if (doc.key && /^\/works\/OL\w+W$/.test(doc.key)){
         rows.push(`<div class="bookDetailsRow"><a class="bookDetailsLink" href="${escapeHtml(`https://openlibrary.org${doc.key}`)}" target="_blank" rel="noopener noreferrer">View on Open Library →</a></div>`);
       }
 

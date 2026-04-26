@@ -1584,7 +1584,6 @@
     .planTable .td-action .statusSelect{
       min-width:0;
       width:auto;
-      white-space:nowrap;
       font-size:11px;
       padding:7px 24px 7px 8px;
     }
@@ -3474,10 +3473,10 @@
       { id: "date-end",   label: "End Date" },
     ];
     function loadTableHiddenCols(){
-      try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ return new Set(); }
+      try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ console.error("Failed to load table column preferences:", e); return new Set(); }
     }
     function saveTableHiddenCols(set){
-      try { localStorage.setItem(LS_TABLE_HIDDEN_COLS, JSON.stringify(Array.from(set))); } catch(e){}
+      try { localStorage.setItem(LS_TABLE_HIDDEN_COLS, JSON.stringify(Array.from(set))); } catch(e){ console.error("Failed to save table column preferences:", e); }
     }
     function applyCardStatusChange(statusKey, statusValue){
       if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {
@@ -5093,7 +5092,7 @@
 
       const rows = blockArr.flatMap(b => b.works.map(w => workRowTableHtml(b, w, noteCountMap))).join("");
       const h = state.ui.tableHiddenCols;
-      const thStyle = (id) => h.has(id) ? ' style="display:none"' : '';
+      const hiddenColStyle = (id) => h.has(id) ? ' style="display:none"' : '';
 
       return `
         <section class="yearCard" data-year="${year}">
@@ -5109,19 +5108,19 @@
             <table class="planTable" aria-label="Year ${escapeHtml(year)} reading list">
               <thead>
                 <tr>
-                  <th class="td-check" data-col="check"${thStyle("check")}>
+                  <th class="td-check" data-col="check"${hiddenColStyle("check")}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                   </th>
-                  <th data-col="year"${thStyle("year")}>Year</th>
-                  <th data-col="number"${thStyle("number")}>Number</th>
-                  <th data-col="work"${thStyle("work")}>Work</th>
-                  <th data-col="author"${thStyle("author")}>Author</th>
-                  <th data-col="type"${thStyle("type")}>Type</th>
-                  <th data-col="notes"${thStyle("notes")}>Notes</th>
-                  <th data-col="status"${thStyle("status")}>Status</th>
-                  <th data-col="action"${thStyle("action")}>Current Action</th>
-                  <th data-col="date-start"${thStyle("date-start")}>Start Date</th>
-                  <th data-col="date-end"${thStyle("date-end")}>End Date</th>
+                  <th data-col="year"${hiddenColStyle("year")}>Year</th>
+                  <th data-col="number"${hiddenColStyle("number")}>Number</th>
+                  <th data-col="work"${hiddenColStyle("work")}>Work</th>
+                  <th data-col="author"${hiddenColStyle("author")}>Author</th>
+                  <th data-col="type"${hiddenColStyle("type")}>Type</th>
+                  <th data-col="notes"${hiddenColStyle("notes")}>Notes</th>
+                  <th data-col="status"${hiddenColStyle("status")}>Status</th>
+                  <th data-col="action"${hiddenColStyle("action")}>Current Action</th>
+                  <th data-col="date-start"${hiddenColStyle("date-start")}>Start Date</th>
+                  <th data-col="date-end"${hiddenColStyle("date-end")}>End Date</th>
                 </tr>
               </thead>
               <tbody>${rows}</tbody>
@@ -5138,7 +5137,7 @@
       const statusKey = getCardStatusKey(w.author, title);
       const dateEntry = getCardDates(statusKey);
       const h = state.ui.tableHiddenCols;
-      const tdStyle = (id) => h.has(id) ? ' style="display:none"' : '';
+      const hiddenColStyle = (id) => h.has(id) ? ' style="display:none"' : '';
       return `
         <tr class="workRow"
           data-workkey="${escapeHtml(w.key)}"
@@ -5151,21 +5150,21 @@
           ${w.sourceUrl ? `data-sourceurl="${escapeHtml(w.sourceUrl)}"` : ""}
           id="wk_${escapeHtml(hash32(w.key))}"
         >
-          <td class="td-check" data-col="check"${tdStyle("check")}>
+          <td class="td-check" data-col="check"${hiddenColStyle("check")}>
             <input type="checkbox" ${checked ? "checked" : ""} aria-label="complete checkbox" data-action="toggleComplete" >
           </td>
-          <td class="td-year" data-col="year"${tdStyle("year")}>${escapeHtml(w.year)}</td>
-          <td class="td-number" data-col="number"${tdStyle("number")}>${escapeHtml(block.order)}</td>
-          <td class="td-work" data-col="work"${tdStyle("work")}>${escapeHtml(title)}</td>
-          <td class="td-author" data-col="author"${tdStyle("author")}>${escapeHtml(block.author || "Unknown")}</td>
-          <td class="td-type" data-col="type"${tdStyle("type")}>${escapeHtml(w.tier)}</td>
-          <td class="td-notes" data-col="notes"${tdStyle("notes")}>${escapeHtml(noteCount)}</td>
-          <td class="td-status" data-col="status"${tdStyle("status")}>${renderStatusSelector(w.author, title)}</td>
-          <td class="td-action" data-col="action"${tdStyle("action")}>${renderTaskTracker(w.author, title)}</td>
-          <td class="td-date" data-col="date-start"${tdStyle("date-start")}>
+          <td class="td-year" data-col="year"${hiddenColStyle("year")}>${escapeHtml(w.year)}</td>
+          <td class="td-number" data-col="number"${hiddenColStyle("number")}>${escapeHtml(block.order)}</td>
+          <td class="td-work" data-col="work"${hiddenColStyle("work")}>${escapeHtml(title)}</td>
+          <td class="td-author" data-col="author"${hiddenColStyle("author")}>${escapeHtml(block.author || "Unknown")}</td>
+          <td class="td-type" data-col="type"${hiddenColStyle("type")}>${escapeHtml(w.tier)}</td>
+          <td class="td-notes" data-col="notes"${hiddenColStyle("notes")}>${escapeHtml(noteCount)}</td>
+          <td class="td-status" data-col="status"${hiddenColStyle("status")}>${renderStatusSelector(w.author, title)}</td>
+          <td class="td-action" data-col="action"${hiddenColStyle("action")}>${renderTaskTracker(w.author, title)}</td>
+          <td class="td-date" data-col="date-start"${hiddenColStyle("date-start")}>
             <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="started" value="${escapeHtml(dateEntry.started)}" aria-label="Start date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
-          <td class="td-date" data-col="date-end"${tdStyle("date-end")}>
+          <td class="td-date" data-col="date-end"${hiddenColStyle("date-end")}>
             <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
         </tr>

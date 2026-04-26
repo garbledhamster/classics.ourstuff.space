@@ -288,6 +288,45 @@
       border-color: var(--ink);
     }
 
+    /* ABC selector bar */
+    .abcBar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:4px;
+      margin-bottom:12px;
+    }
+    .abcBtn{
+      padding:5px 7px;
+      min-width:30px;
+      justify-content:center;
+      font-size:11px;
+    }
+    .abcBtn.active{
+      background:var(--ink);
+      color:var(--page);
+    }
+    .abcBtn:disabled{
+      opacity:0.35;
+      cursor:default;
+      pointer-events:none;
+    }
+
+    /* Pagination bar */
+    .paginationBar{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .pageInfo{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:0.06em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
     .control{ display:grid; gap:6px; min-width:0; }
     .label{
       font-size:12px;
@@ -1927,7 +1966,9 @@
         </div>
       </section>
 
+      <div id="libAbcBar" class="abcBar" aria-label="Filter by letter"></div>
       <div id="libraryGrid" class="grid" aria-live="polite"></div>
+      <div id="libPagination" class="paginationBar"></div>
     </section>
 
     <!-- ===== PLAN VIEW ===== -->
@@ -2072,7 +2113,9 @@
           </button>
         </div>
       </section>
+      <div id="authorsAbcBar" class="abcBar" aria-label="Filter by letter"></div>
       <div id="authorsGrid" class="grid" aria-live="polite"></div>
+      <div id="authorsPagination" class="paginationBar"></div>
     </section>
 
     <footer class="siteFooter">
@@ -4185,6 +4228,13 @@
         libShow: "all",
         // authors view
         authorsQ: "",
+        authorsLetterFilter: "",
+        authorsPage: 1,
+        authorsPageSize: 10,
+        // library view pagination/letter
+        libLetterFilter: "",
+        libPage: 1,
+        libPageSize: 10,
       },
       ui: { tableHiddenCols: loadTableHiddenCols() },
       drawer: { open:false, which:null }, // notes
@@ -4607,6 +4657,32 @@
     /* =========================================================
        RENDER
        ========================================================= */
+
+    function paginationHtml(page, totalPages, pageSize, totalCount){
+      const start = (page - 1) * pageSize + 1;
+      const end = Math.min(page * pageSize, totalCount);
+      return `
+        <button class="btn" data-paction="prev" type="button"${page <= 1 ? " disabled" : ""}>◀ Prev</button>
+        <span class="pageInfo">${start}–${end} of ${totalCount}</span>
+        <button class="btn" data-paction="next" type="button"${page >= totalPages ? " disabled" : ""}>Next ▶</button>
+        <select class="select pageSizeSel" aria-label="Items per page">
+          <option value="10"${pageSize === 10 ? " selected" : ""}>10 per page</option>
+          <option value="50"${pageSize === 50 ? " selected" : ""}>50 per page</option>
+        </select>
+      `;
+    }
+
+    function renderAbcBar(elId, baseItems, getKey, activeLetter){
+      const bar = $("#" + elId);
+      if (!bar) return;
+      const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      const availLetters = new Set(baseItems.map(getKey));
+      bar.innerHTML = [
+        `<button class="btn abcBtn${!activeLetter ? " active" : ""}" data-letter="" type="button">All</button>`,
+        ...LETTERS.map(l => `<button class="btn abcBtn${activeLetter === l ? " active" : ""}" data-letter="${l}" type="button"${!availLetters.has(l) ? " disabled" : ""}>${l}</button>`)
+      ].join("");
+    }
+
     function renderAll(){
       if (state.view === "library") renderLibrary();
       else if (state.view === "plan") renderPlan();
@@ -4620,7 +4696,31 @@
 
     function renderLibrary(){
       const grid = $("#libraryGrid");
-      const items = filteredLibrary();
+      const pagination = $("#libPagination");
+
+      // Get all filtered items (without letter filter)
+      const baseItems = filteredLibrary();
+
+      // Letter key: use author for all sorts except title sort
+      const getLibLetterKey = it => {
+        const s = (state.filters.libSort === "title" ? it.title : it.author).trim().toUpperCase();
+        return /^[A-Z]/.test(s) ? s[0] : "#";
+      };
+
+      // Render ABC bar
+      renderAbcBar("libAbcBar", baseItems, getLibLetterKey, state.filters.libLetterFilter);
+
+      // Apply letter filter
+      const letter = state.filters.libLetterFilter;
+      const items = letter ? baseItems.filter(it => getLibLetterKey(it) === letter) : baseItems;
+
+      // Pagination
+      const pageSize = state.filters.libPageSize;
+      const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+      if (state.filters.libPage > totalPages) state.filters.libPage = 1;
+      const page = state.filters.libPage;
+      const start = (page - 1) * pageSize;
+      const pageItems = items.slice(start, start + pageSize);
 
       if (!items.length){
         grid.innerHTML = `
@@ -4634,18 +4734,46 @@
             <div class="help">Nothing matched your library filters.</div>
           </section>
         `;
-        return;
+        pagination.innerHTML = "";
+      } else {
+        grid.innerHTML = pageItems.map(libCardHtml).join("");
+        wireLibraryDelegation();
+        applyAllTaskVisibilities(grid);
+
+        // Cancel any prior background load and start a fresh one for the new card set
+        if (_bookDetailsBgAbort) _bookDetailsBgAbort.cancelled = true;
+        _bookDetailsBgAbort = { cancelled: false };
+        const bgSections = Array.from(grid.querySelectorAll(".bookDetailsSection"));
+        startBgBookDetailsLoad(bgSections, _bookDetailsBgAbort);
+
+        pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
       }
 
-      grid.innerHTML = items.map(libCardHtml).join("");
-      wireLibraryDelegation();
-      applyAllTaskVisibilities(grid);
+      // Wire ABC bar interactions
+      $("#libAbcBar").onclick = (e) => {
+        const btn = e.target.closest(".abcBtn");
+        if (!btn) return;
+        state.filters.libLetterFilter = btn.dataset.letter;
+        state.filters.libPage = 1;
+        renderLibrary();
+      };
 
-      // Cancel any prior background load and start a fresh one for the new card set
-      if (_bookDetailsBgAbort) _bookDetailsBgAbort.cancelled = true;
-      _bookDetailsBgAbort = { cancelled: false };
-      const bgSections = Array.from(grid.querySelectorAll(".bookDetailsSection"));
-      startBgBookDetailsLoad(bgSections, _bookDetailsBgAbort);
+      // Wire pagination interactions
+      pagination.onclick = (e) => {
+        const btn = e.target.closest("[data-paction]");
+        if (!btn) return;
+        if (btn.dataset.paction === "prev") state.filters.libPage = Math.max(1, page - 1);
+        if (btn.dataset.paction === "next") state.filters.libPage = Math.min(totalPages, page + 1);
+        renderLibrary();
+      };
+      const pageSizeSel = pagination.querySelector(".pageSizeSel");
+      if (pageSizeSel){
+        pageSizeSel.onchange = (e) => {
+          state.filters.libPageSize = Number(e.target.value);
+          state.filters.libPage = 1;
+          renderLibrary();
+        };
+      }
     }
 
     /* =========================================================
@@ -4786,7 +4914,30 @@
 
     function renderAuthors(){
       const grid = $("#authorsGrid");
-      const items = filteredAuthors();
+      const pagination = $("#authorsPagination");
+
+      // Get all filtered authors (without letter filter)
+      const baseItems = filteredAuthors();
+
+      const getAuthLetterKey = it => {
+        const s = it.author.trim().toUpperCase();
+        return /^[A-Z]/.test(s) ? s[0] : "#";
+      };
+
+      // Render ABC bar
+      renderAbcBar("authorsAbcBar", baseItems, getAuthLetterKey, state.filters.authorsLetterFilter);
+
+      // Apply letter filter
+      const letter = state.filters.authorsLetterFilter;
+      const items = letter ? baseItems.filter(it => getAuthLetterKey(it) === letter) : baseItems;
+
+      // Pagination
+      const pageSize = state.filters.authorsPageSize;
+      const totalPages = Math.max(1, Math.ceil(items.length / pageSize));
+      if (state.filters.authorsPage > totalPages) state.filters.authorsPage = 1;
+      const page = state.filters.authorsPage;
+      const start = (page - 1) * pageSize;
+      const pageItems = items.slice(start, start + pageSize);
 
       if (!items.length){
         grid.innerHTML = `
@@ -4800,11 +4951,38 @@
             <div class="help">Nothing matched your author search.</div>
           </section>
         `;
-        return;
+        pagination.innerHTML = "";
+      } else {
+        grid.innerHTML = pageItems.map(authorCardHtml).join("");
+        wireAuthorsDelegation();
+        pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
       }
 
-      grid.innerHTML = items.map(authorCardHtml).join("");
-      wireAuthorsDelegation();
+      // Wire ABC bar interactions
+      $("#authorsAbcBar").onclick = (e) => {
+        const btn = e.target.closest(".abcBtn");
+        if (!btn) return;
+        state.filters.authorsLetterFilter = btn.dataset.letter;
+        state.filters.authorsPage = 1;
+        renderAuthors();
+      };
+
+      // Wire pagination interactions
+      pagination.onclick = (e) => {
+        const btn = e.target.closest("[data-paction]");
+        if (!btn) return;
+        if (btn.dataset.paction === "prev") state.filters.authorsPage = Math.max(1, page - 1);
+        if (btn.dataset.paction === "next") state.filters.authorsPage = Math.min(totalPages, page + 1);
+        renderAuthors();
+      };
+      const pageSizeSel = pagination.querySelector(".pageSizeSel");
+      if (pageSizeSel){
+        pageSizeSel.onchange = (e) => {
+          state.filters.authorsPageSize = Number(e.target.value);
+          state.filters.authorsPage = 1;
+          renderAuthors();
+        };
+      }
     }
 
     function wireAuthorsDelegation(){
@@ -4837,6 +5015,8 @@
           const libKey = btn.dataset.libkey || "";
           // Switch to library view and filter by this author
           state.filters.libQ = author;
+          state.filters.libLetterFilter = "";
+          state.filters.libPage = 1;
           setView("library");
           // Try to scroll to the specific work card
           setTimeout(() => {
@@ -6403,15 +6583,18 @@
       });
 
       // Library filters
-      $("#libQ").addEventListener("input", e => { state.filters.libQ = e.target.value; renderLibrary(); });
-      $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; renderLibrary(); });
-      $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; renderLibrary(); });
-      $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; renderLibrary(); });
+      $("#libQ").addEventListener("input", e => { state.filters.libQ = e.target.value; state.filters.libPage = 1; renderLibrary(); });
+      $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; state.filters.libPage = 1; state.filters.libLetterFilter = ""; renderLibrary(); });
+      $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; state.filters.libPage = 1; renderLibrary(); });
+      $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; state.filters.libPage = 1; renderLibrary(); });
       $("#libResetBtn").addEventListener("click", ()=> {
         state.filters.libQ = "";
         state.filters.libSort = "author";
         state.filters.libTierPresence = "all";
         state.filters.libShow = "all";
+        state.filters.libLetterFilter = "";
+        state.filters.libPage = 1;
+        state.filters.libPageSize = 10;
         $("#libQ").value = "";
         $("#libSort").value = "author";
         $("#libTierPresence").value = "all";
@@ -6420,9 +6603,12 @@
       });
 
       // Authors filters
-      $("#authorsQ").addEventListener("input", e => { state.filters.authorsQ = e.target.value; renderAuthors(); });
+      $("#authorsQ").addEventListener("input", e => { state.filters.authorsQ = e.target.value; state.filters.authorsPage = 1; renderAuthors(); });
       $("#authorsResetBtn").addEventListener("click", ()=> {
         state.filters.authorsQ = "";
+        state.filters.authorsLetterFilter = "";
+        state.filters.authorsPage = 1;
+        state.filters.authorsPageSize = 10;
         $("#authorsQ").value = "";
         renderAuthors();
       });

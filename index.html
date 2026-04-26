@@ -2600,6 +2600,14 @@
       const task = isValidCardTask(raw.task) ? raw.task : DEFAULT_CARD_TASK;
       return { task };
     }
+    function getCardPillData(author, title){
+      const key = getCardStatusKey(author, title);
+      const statusVal = getCardStatus(key);
+      const statusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === statusVal) || {}).label || statusVal;
+      const taskVal = getCardTask(key).task;
+      const taskOpt = taskVal !== DEFAULT_CARD_TASK ? CARD_TASK_OPTIONS.find(o => o.value === taskVal) : null;
+      return { statusLabel, taskOpt };
+    }
     function renderStatusSelector(author, title){
       const statusKey = getCardStatusKey(author, title);
       const current = getCardStatus(statusKey);
@@ -4893,11 +4901,7 @@
 
       const notesCount = state.notes.filter(n => n.book_tag === it.title).length;
 
-      const libStatusKey = getCardStatusKey(it.author, it.title);
-      const libStatusVal = getCardStatus(libStatusKey);
-      const libStatusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === libStatusVal) || {}).label || libStatusVal;
-      const libTaskVal = getCardTask(libStatusKey).task;
-      const libTaskOpt = libTaskVal !== DEFAULT_CARD_TASK ? CARD_TASK_OPTIONS.find(o => o.value === libTaskVal) : null;
+      const { statusLabel: libStatusLabel, taskOpt: libTaskOpt } = getCardPillData(it.author, it.title);
 
       // Per-occurrence pills (click to jump to that exact place in the plan)
       const occPills = occ.slice(0, 10).map(o => {
@@ -5243,11 +5247,7 @@
 
       const noteCount = state.notes.filter(n => n.book_tag === title).length;
 
-      const wrStatusKey = getCardStatusKey(w.author, title);
-      const wrStatusVal = getCardStatus(wrStatusKey);
-      const wrStatusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === wrStatusVal) || {}).label || wrStatusVal;
-      const wrTaskVal = getCardTask(wrStatusKey).task;
-      const wrTaskOpt = wrTaskVal !== DEFAULT_CARD_TASK ? CARD_TASK_OPTIONS.find(o => o.value === wrTaskVal) : null;
+      const { statusLabel: wrStatusLabel, taskOpt: wrTaskOpt } = getCardPillData(w.author, title);
 
       return `
         <div class="workRow"

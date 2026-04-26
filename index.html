@@ -545,10 +545,36 @@
     .cardMetaControls > .cardDateFields{
       width:100%;
     }
-    .libDrawer .cardMetaControls + .libActions,
-    .workDrawer .cardMetaControls + .workActions{
+    /* Side-by-side layout: meta panel on left, action buttons on right */
+    .workDrawerBody{
+      display:flex;
+      flex-direction:row;
+      align-items:stretch;
+      border-top:var(--borderThin);
+      background:#fafafa;
+    }
+    .workDrawerBody > .cardMetaControls{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      flex-shrink:0;
       border-top:none;
-      padding-top:0;
+      border-right:var(--borderThin);
+      background:transparent;
+      padding:10px 12px 8px 0;
+      min-width:200px;
+      max-width:300px;
+    }
+    .workDrawerBody .cardDateFields{
+      grid-template-columns:1fr;
+    }
+    .workDrawerBody > .workActions,
+    .workDrawerBody > .libActions{
+      flex:1;
+      min-width:0;
+      border-top:none;
+      padding:10px 0 2px 12px;
+      background:transparent;
     }
     .libActions .btn,
     .workActions .btn{
@@ -940,6 +966,19 @@
     @media (max-width:980px){
       .cardMetaControls{
         grid-template-columns:1fr;
+      }
+      .workDrawerBody{
+        flex-direction:column;
+      }
+      .workDrawerBody > .cardMetaControls{
+        border-right:none;
+        border-bottom:var(--borderThin);
+        max-width:100%;
+        padding:10px 0 10px;
+      }
+      .workDrawerBody > .workActions,
+      .workDrawerBody > .libActions{
+        padding:10px 0 2px;
       }
     }
     /* biome-ignore lint/style/noDescendingSpecificity: intentional base-then-context-override pattern */
@@ -1340,6 +1379,8 @@
     html.dark .libActions,
     /* biome-ignore lint/style/noDescendingSpecificity: dark-mode override of base class intentionally lower specificity */
     html.dark .workActions{ background:#222; }
+    html.dark .workDrawerBody{ background:#222; }
+    html.dark .workDrawerBody > .cardMetaControls{ background:transparent; border-right-color:#444; }
     html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
     html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
@@ -1372,6 +1413,8 @@
     #planGrid.view-condensed .workDrawer{ flex:0 0 auto; grid-template-rows:1fr; }
     #planGrid.view-condensed .workDrawer > div{ overflow:visible; }
     #planGrid.view-condensed .workActions{ display:flex; border-top:none; padding:0; background:transparent; }
+    #planGrid.view-condensed .workDrawerBody{ border-top:none; background:transparent; }
+    #planGrid.view-condensed .workDrawerBody > .cardMetaControls{ display:none; }
     #planGrid.view-condensed .workActions .btn-label{ display:none; }
     #planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; }
 
@@ -4597,6 +4640,7 @@
           </div>
 
           <div class="libDrawer"><div>
+            <div class="workDrawerBody">
             ${renderCardMetaControls(it.author, it.title)}
             <div class="libActions">
               <button class="btn" type="button" data-action="openWikipediaLib" data-btn-group="wikipedia">
@@ -4652,6 +4696,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 Go to plan
               </button>
+             </div>
             </div>
           </div></div>
         </section>
@@ -4896,6 +4941,7 @@
           </div>
 
           <div class="workDrawer"><div>
+            <div class="workDrawerBody">
             ${renderCardMetaControls(w.author, title)}
             <div class="workActions">
               <button class="btn" type="button" data-action="openWikipedia" data-btn-group="wikipedia" aria-label="Wikipedia" title="Wikipedia">
@@ -4951,6 +4997,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 <span class="btn-label">Discuss</span>
               </button>
+             </div>
             </div>
           </div></div>
         </div>

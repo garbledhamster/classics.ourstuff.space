@@ -284,7 +284,7 @@
     }
     .btnBloom.active{
       background: var(--ink);
-      color: var(--page);
+      color: var(--paper);
       border-color: var(--ink);
     }
 
@@ -294,6 +294,7 @@
       flex-wrap:wrap;
       gap:4px;
       margin-bottom:12px;
+      justify-content:center;
     }
     .abcBtn{
       display:inline-flex;
@@ -304,7 +305,7 @@
     }
     .abcBtn.active{
       background:var(--ink);
-      color:var(--page);
+      color:var(--paper);
     }
     .abcBtn:disabled{
       opacity:0.35;
@@ -319,6 +320,7 @@
       gap:8px;
       margin-top:16px;
       flex-wrap:wrap;
+      justify-content:center;
     }
     .pageInfo{
       font-size:12px;
@@ -1309,6 +1311,49 @@
       opacity:1;
     }
 
+    /* Timer modal */
+    .timerDisplay{
+      font-family: Newsreader, Georgia, "Times New Roman", serif;
+      font-size:clamp(52px,12vw,80px);
+      font-weight:900;
+      text-align:center;
+      letter-spacing:0.04em;
+      line-height:1;
+      padding:16px 0;
+      border:var(--border);
+      background:var(--paper);
+      user-select:none;
+    }
+    .timerDisplay.running{
+      background:var(--ink);
+      color:var(--paper);
+    }
+    .timerPresets{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:center;
+    }
+    .timerControls{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .timerCustomRow{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .timerCustomRow .input{
+      width:60px;
+      text-align:center;
+    }
+    html.dark .timerDisplay{ background:var(--paper); color:var(--ink); }
+    html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }
+
     .drawer{
       position:fixed;
       top:0;
@@ -1904,13 +1949,18 @@
           <span class="mono">•</span>
           <span id="today">Loading…</span>
         </div>
-        <button id="resetProfileBtn" class="btn btnIconOnly" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
-        </button>
-        <button id="darkModeBtn" class="btn btnIconOnly" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        </button>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button id="timerBtn" class="btn btnIconOnly" type="button" aria-label="Open timer" title="Timer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg>
+          </button>
+          <button id="resetProfileBtn" class="btn btnIconOnly" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
+          </button>
+          <button id="darkModeBtn" class="btn btnIconOnly" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </div>
       </div>
 
       <div class="rule"></div>
@@ -1964,16 +2014,6 @@
             <option value="occ">Most occurrences</option>
             <option value="status">Status</option>
             <option value="task">Current Action</option>
-          </select>
-        </div>
-
-        <div class="control">
-          <div class="label">Tier presence</div>
-          <select id="libTierPresence" class="select">
-            <option value="all">All</option>
-            <option value="core">Has core</option>
-            <option value="supplemental">Has supplemental</option>
-            <option value="both">Has both</option>
           </select>
         </div>
 
@@ -2335,6 +2375,37 @@
     <div class="modalFooter">
       <button class="btn btnGhost" id="searchSettingsCancelBtn" type="button">Cancel</button>
       <button class="btn" id="searchSettingsOpenBtn" type="button">Open Search</button>
+    </div>
+  </div>
+
+  <!-- Timer Modal -->
+  <div id="timerModal" class="modal" role="dialog" aria-labelledby="timerModalTitle" aria-hidden="true">
+    <div class="modalHeader">
+      <h2 id="timerModalTitle" class="modalTitle">Timer</h2>
+      <button class="btn btnGhost" id="closeTimerModalBtn" type="button" aria-label="Close timer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div id="timerDisplay" class="timerDisplay">25:00</div>
+      <div class="timerPresets">
+        <button class="btn btnGhost" type="button" data-timerpreset="1500">25 min</button>
+        <button class="btn btnGhost" type="button" data-timerpreset="600">10 min</button>
+        <button class="btn btnGhost" type="button" data-timerpreset="300">5 min</button>
+        <button class="btn btnGhost" type="button" data-timerpreset="60">1 min</button>
+      </div>
+      <div class="timerCustomRow">
+        <label class="label" for="timerCustomMins">Custom:</label>
+        <input id="timerCustomMins" class="input" type="number" min="0" max="99" value="25" aria-label="Minutes">
+        <span class="label">min</span>
+        <input id="timerCustomSecs" class="input" type="number" min="0" max="59" value="0" aria-label="Seconds">
+        <span class="label">sec</span>
+        <button class="btn btnGhost" type="button" id="timerSetCustomBtn">Set</button>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn" id="timerStartBtn" type="button">Start</button>
+      <button class="btn btnGhost" id="timerResetBtn" type="button">Reset</button>
     </div>
   </div>
 
@@ -4266,7 +4337,6 @@
         // library view
         libQ: "",
         libSort: "author",
-        libTierPresence: "all",
         libShow: "all",
         // authors view
         authorsQ: "",
@@ -4530,24 +4600,12 @@
        ========================================================= */
     function filteredLibrary(){
       const q = normalizeText(state.filters.libQ);
-      const tierPresence = state.filters.libTierPresence;
       const show = state.filters.libShow;
 
       let items = state.libraryWorks.slice();
 
       if (q){
         items = items.filter(it => normalizeText(`${it.author} ${it.title}`).includes(q));
-      }
-
-      if (tierPresence !== "all"){
-        const hasC = it => it.hasCore;
-        const hasS = it => it.hasSupplemental;
-        items = items.filter(it => {
-          if (tierPresence === "core") return hasC(it);
-          if (tierPresence === "supplemental") return hasS(it);
-          if (tierPresence === "both") return hasC(it) && hasS(it);
-          return true;
-        });
       }
 
       if (show !== "all"){
@@ -4843,7 +4901,6 @@
       const allDone = it.totalOccurrences > 0 && it.doneOccurrences === it.totalOccurrences;
 
       const tierPills = [
-        it.hasCore ? `<span class="pill">Has core</span>` : "",
         it.hasSupplemental ? `<span class="pill">Has supplemental</span>` : ""
       ].filter(Boolean).join("");
 
@@ -5099,7 +5156,6 @@
       const allDone = doneCount === occ.length;
 
       const tierPills = [
-        it.hasCore ? `<span class="pill">Has core</span>` : "",
         it.hasSupplemental ? `<span class="pill">Has supplemental</span>` : ""
       ].filter(Boolean).join("");
 
@@ -6649,12 +6705,14 @@
         hideLoginModal();
         hideSignupModal();
         hideSearchSettingsModal();
+        if (window._closeTimerModal) window._closeTimerModal();
       });
 
       document.addEventListener("keydown", (e)=>{
         if (e.key === "Escape" && state.drawer.open) closeDrawer();
         if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
         if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
+        if (e.key === "Escape" && $("#timerModal").classList.contains("open") && window._closeTimerModal) window._closeTimerModal();
         if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
         if (e.key === "Escape") closeAllTaskDropdowns();
       });
@@ -6672,19 +6730,16 @@
       // Library filters
       $("#libQ").addEventListener("input", e => { state.filters.libQ = e.target.value; state.filters.libPage = 1; renderLibrary(); });
       $("#libSort").addEventListener("change", e => { state.filters.libSort = e.target.value; state.filters.libPage = 1; state.filters.libLetterFilter = ""; renderLibrary(); });
-      $("#libTierPresence").addEventListener("change", e => { state.filters.libTierPresence = e.target.value; state.filters.libPage = 1; renderLibrary(); });
       $("#libShow").addEventListener("change", e => { state.filters.libShow = e.target.value; state.filters.libPage = 1; renderLibrary(); });
       $("#libResetBtn").addEventListener("click", ()=> {
         state.filters.libQ = "";
         state.filters.libSort = "author";
-        state.filters.libTierPresence = "all";
         state.filters.libShow = "all";
         state.filters.libLetterFilter = "";
         state.filters.libPage = 1;
         state.filters.libPageSize = 10;
         $("#libQ").value = "";
         $("#libSort").value = "author";
-        $("#libTierPresence").value = "all";
         $("#libShow").value = "all";
         renderLibrary();
       });
@@ -6916,6 +6971,127 @@
       e.preventDefault();
       wrap.scrollLeft += e.deltaY || e.deltaX;
     }, { passive: false });
+
+    /* =========================================================
+       TIMER
+       ========================================================= */
+    (()=> {
+      let _timerInterval = null;
+      let _timerRemaining = 25 * 60; // seconds
+      let _timerRunning = false;
+      let _timerOriginal = 25 * 60;
+
+      const display = document.getElementById("timerDisplay");
+      const startBtn = document.getElementById("timerStartBtn");
+      const resetBtn = document.getElementById("timerResetBtn");
+      const setCustomBtn = document.getElementById("timerSetCustomBtn");
+
+      function pad(n){ return String(n).padStart(2, "0"); }
+
+      function updateDisplay(){
+        const m = Math.floor(_timerRemaining / 60);
+        const s = _timerRemaining % 60;
+        display.textContent = `${pad(m)}:${pad(s)}`;
+        if (_timerRunning){
+          display.classList.add("running");
+          startBtn.textContent = "Pause";
+        } else {
+          display.classList.remove("running");
+          startBtn.textContent = _timerRemaining < _timerOriginal && _timerRemaining > 0 ? "Resume" : "Start";
+        }
+      }
+
+      function tick(){
+        if (_timerRemaining <= 0){
+          clearInterval(_timerInterval);
+          _timerInterval = null;
+          _timerRunning = false;
+          _timerRemaining = 0;
+          updateDisplay();
+          // Notify when done (request permission once on first tick-end if not granted)
+          if (typeof Notification !== "undefined"){
+            if (Notification.permission === "granted"){
+              try { new Notification("Timer done! ⏰"); } catch(e){}
+            } else if (Notification.permission !== "denied"){
+              Notification.requestPermission().then(p => {
+                if (p === "granted") try { new Notification("Timer done! ⏰"); } catch(e){}
+              });
+            }
+          }
+          startBtn.textContent = "Start";
+          display.classList.remove("running");
+          return;
+        }
+        _timerRemaining--;
+        updateDisplay();
+      }
+
+      function setTimer(seconds){
+        clearInterval(_timerInterval);
+        _timerInterval = null;
+        _timerRunning = false;
+        _timerRemaining = seconds;
+        _timerOriginal = seconds;
+        updateDisplay();
+      }
+
+      function openTimerModal(){
+        const modal = $("#timerModal");
+        const backdrop = $("#modalBackdrop");
+        modal.classList.add("open");
+        backdrop.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeTimerModal(){
+        const modal = $("#timerModal");
+        const backdrop = $("#modalBackdrop");
+        modal.classList.remove("open");
+        backdrop.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      // Expose so backdrop/escape handler can close it
+      window._closeTimerModal = closeTimerModal;
+
+      document.getElementById("timerBtn").addEventListener("click", openTimerModal);
+      document.getElementById("closeTimerModalBtn").addEventListener("click", closeTimerModal);
+
+      startBtn.addEventListener("click", ()=> {
+        if (_timerRemaining <= 0) return;
+        if (_timerRunning){
+          clearInterval(_timerInterval);
+          _timerInterval = null;
+          _timerRunning = false;
+        } else {
+          _timerRunning = true;
+          _timerInterval = setInterval(tick, 1000);
+        }
+        updateDisplay();
+      });
+
+      resetBtn.addEventListener("click", ()=> {
+        setTimer(_timerOriginal);
+      });
+
+      // Preset buttons
+      document.getElementById("timerModal").addEventListener("click", (e)=> {
+        const btn = e.target.closest("[data-timerpreset]");
+        if (!btn) return;
+        setTimer(Number(btn.dataset.timerpreset));
+      });
+
+      // Custom set
+      setCustomBtn.addEventListener("click", ()=> {
+        const mins = Math.max(0, Math.min(99, parseInt(document.getElementById("timerCustomMins").value, 10) || 0));
+        const secs = Math.max(0, Math.min(59, parseInt(document.getElementById("timerCustomSecs").value, 10) || 0));
+        const total = mins * 60 + secs;
+        if (total <= 0) return;
+        setTimer(total);
+      });
+
+      updateDisplay();
+    })();
 
     /* =========================================================
        DARK MODE

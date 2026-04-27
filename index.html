@@ -7086,7 +7086,7 @@
           osc.frequency.value = 1000;
           const t = when + offset;
           gain.gain.setValueAtTime(vol * 0.3, t);
-          gain.gain.setValueAtTime(0.001, t + 0.18);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
           osc.start(t);
           osc.stop(t + 0.2);
         });

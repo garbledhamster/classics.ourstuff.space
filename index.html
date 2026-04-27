@@ -5425,7 +5425,8 @@
       const panels = [
         document.querySelector("#planGrid .colPickerPanel"),
         document.getElementById("planColPickerPanel"),
-      ];
+      ].filter(Boolean);
+      if (!panels.length) return;
       const hidden = state.ui.tableHiddenCols;
       const html = TABLE_COLUMNS.map(col => `
         <label>
@@ -5433,7 +5434,7 @@
           ${escapeHtml(col.label)}
         </label>`).join("");
       for (const panel of panels) {
-        if (panel) panel.innerHTML = html;
+        panel.innerHTML = html;
       }
     }
 
@@ -7153,10 +7154,13 @@
       });
 
       // Standalone column picker button
-      document.getElementById("planColPickerBtn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleStandaloneColPicker();
-      });
+      const planColPickerBtn = document.getElementById("planColPickerBtn");
+      if (planColPickerBtn) {
+        planColPickerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleStandaloneColPicker();
+        });
+      }
 
       // Handle column visibility checkboxes (delegated on #planGrid and standalone panel)
       function applyColToggle(colId, checked){
@@ -7167,12 +7171,13 @@
         }
         saveTableHiddenCols(state.ui.tableHiddenCols);
         // Update column visibility directly without re-rendering (keeps panel open)
+        const escapedColId = CSS.escape(colId);
         const grid = $("#planGrid");
-        grid.querySelectorAll(`[data-col="${colId}"]`).forEach(el => {
+        grid.querySelectorAll(`[data-col="${escapedColId}"]`).forEach(el => {
           el.style.display = state.ui.tableHiddenCols.has(colId) ? "none" : "";
         });
         // Sync checkboxes across all col picker panels
-        document.querySelectorAll(`[data-action="toggleTableCol"][data-col-id="${colId}"]`).forEach(cb => {
+        document.querySelectorAll(`[data-action="toggleTableCol"][data-col-id="${escapedColId}"]`).forEach(cb => {
           cb.checked = checked;
         });
       }
@@ -7183,13 +7188,16 @@
         if (!colId) return;
         applyColToggle(colId, cb.checked);
       });
-      document.getElementById("planColPickerPanel").addEventListener("change", (e) => {
-        const cb = e.target.closest('[data-action="toggleTableCol"]');
-        if (!cb) return;
-        const colId = cb.dataset.colId;
-        if (!colId) return;
-        applyColToggle(colId, cb.checked);
-      });
+      const planColPickerPanel = document.getElementById("planColPickerPanel");
+      if (planColPickerPanel) {
+        planColPickerPanel.addEventListener("change", (e) => {
+          const cb = e.target.closest('[data-action="toggleTableCol"]');
+          if (!cb) return;
+          const colId = cb.dataset.colId;
+          if (!colId) return;
+          applyColToggle(colId, cb.checked);
+        });
+      }
 
       $("#resetChecksBtn").addEventListener("click", () => {
         state.filters.q = "";

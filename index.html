@@ -339,6 +339,11 @@
     }
 
     .control{ display:grid; gap:6px; min-width:0; }
+    .searchControl{
+      grid-column: 1 / -1;
+      text-align: center;
+    }
+    .searchControl .input{ text-align:center; width:100%; box-sizing:border-box; }
     .label{
       font-size:12px;
       font-weight:900;
@@ -2068,7 +2073,7 @@
     <!-- ===== LIBRARY VIEW ===== -->
     <section id="libraryView" class="view on" aria-label="All works view">
       <section class="controls" aria-label="library filters">
-        <div class="control">
+        <div class="control searchControl">
           <div class="label">Search (title/author)</div>
           <input id="libQ" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="search" >
         </div>
@@ -2119,7 +2124,7 @@
 
       <!-- Search + action buttons -->
       <section class="controls planSearchControls" aria-label="plan search">
-        <div class="control">
+        <div class="control searchControl">
           <div class="label">Search (title/author)</div>
           <input id="q" class="input" type="search" placeholder="e.g., Plato, Republic, Aristotle…" autocomplete="search" >
         </div>
@@ -2213,12 +2218,12 @@
     <!-- ===== GREAT AUTHORS VIEW ===== -->
     <section id="authorsView" class="view" aria-label="Great authors view">
       <section class="controls" aria-label="authors filters">
-        <div class="control">
+        <div class="control searchControl">
           <div class="label">Search (author)</div>
           <input id="authorsQ" class="input" type="search" placeholder="e.g., Plato, Aristotle, Homer…" autocomplete="search" aria-label="Search authors by name" >
         </div>
-        <div class="rowWide">
-          <div class="help">Browse all authors here. Click a card to reveal research, notes and search actions.</div>
+        <div class="rowWide" style="justify-content:center">
+          <div class="help" style="text-align:center">Browse all authors here. Click a card to reveal research, notes and search actions.</div>
           <button class="btn" id="authorsResetBtn" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
             Reset filters

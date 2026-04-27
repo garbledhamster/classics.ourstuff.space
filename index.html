@@ -2025,9 +2025,6 @@
           <button id="timerBtn" class="btn btnIconOnly" type="button" aria-label="Open timer" title="Timer">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg>
           </button>
-          <button id="resetProfileBtn" class="btn btnIconOnly" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
-          </button>
           <button id="darkModeBtn" class="btn btnIconOnly" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
             <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -2063,6 +2060,12 @@
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line>
             </svg>
             <span id="authBtnText">Sign In</span>
+          </button>
+          <button id="manualSyncBtn" class="btn btnIconOnly" type="button" style="display:none;" aria-label="Sync now" title="Sync now — manually sync all data to the cloud">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M8 16H3v5"></path><path d="M21 3v5h-5"></path></svg>
+          </button>
+          <button id="resetProfileBtn" class="btn btnIconOnly" type="button" aria-label="Reset Classics profile" title="Reset Classics profile — clears all reading progress, notes, and settings for this site">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
           </button>
         </div>
       </div>
@@ -3246,6 +3249,7 @@
       const authBtn = $("#authBtn");
       const authBtnText = $("#authBtnText");
       const authBtnIcon = $("#authBtnIcon");
+      const manualSyncBtn = $("#manualSyncBtn");
 
       if (currentUser) {
         // Signed in: show email, on hover/focus show "Sign Out"
@@ -3255,6 +3259,7 @@
         authBtnText.textContent = userEmail;
         authBtn.setAttribute("aria-label", `Signed in as ${userEmail}. Click to sign out.`);
         authBtn.dataset.userEmail = userEmail; // Store email in data attribute for event handlers
+        if (manualSyncBtn) manualSyncBtn.style.display = "inline-flex";
         
         // Update SVG to logout icon using safe DOM methods
         setSVGIcon(authBtnIcon, true);
@@ -3265,6 +3270,7 @@
         authBtnText.textContent = "Sign In";
         authBtn.setAttribute("aria-label", "Sign in");
         delete authBtn.dataset.userEmail; // Remove email from data attribute
+        if (manualSyncBtn) manualSyncBtn.style.display = "none";
         
         // Update SVG to login icon using safe DOM methods
         setSVGIcon(authBtnIcon, false);
@@ -7019,6 +7025,20 @@
           handleLogout();
         } else {
           showLoginModal();
+        }
+      });
+
+      // Manual sync button
+      $("#manualSyncBtn").addEventListener("click", async () => {
+        if (state.currentUser && !state.sync.syncing) {
+          const btn = $("#manualSyncBtn");
+          btn.disabled = true;
+          try {
+            await performFullSync(state.currentUser.uid);
+            renderAll();
+          } finally {
+            btn.disabled = false;
+          }
         }
       });
       

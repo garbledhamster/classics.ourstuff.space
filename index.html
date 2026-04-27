@@ -2393,9 +2393,9 @@
       </div>
       <div class="timerCustomRow">
         <label class="label" for="timerCustomMins">Custom:</label>
-        <input id="timerCustomMins" class="input" type="number" min="0" max="99" value="25" style="width:60px;text-align:center;" aria-label="Minutes">
+        <input id="timerCustomMins" class="input" type="number" min="0" max="99" value="25" aria-label="Minutes">
         <span class="label">min</span>
-        <input id="timerCustomSecs" class="input" type="number" min="0" max="59" value="0" style="width:60px;text-align:center;" aria-label="Seconds">
+        <input id="timerCustomSecs" class="input" type="number" min="0" max="59" value="0" aria-label="Seconds">
         <span class="label">sec</span>
         <button class="btn btnGhost" type="button" id="timerSetCustomBtn">Set</button>
       </div>
@@ -7005,8 +7005,16 @@
           _timerRunning = false;
           _timerRemaining = 0;
           updateDisplay();
-          // Notify when done
-          try { new Notification("Timer done!"); } catch(e){}
+          // Notify when done (request permission once on first tick-end if not granted)
+          if (typeof Notification !== "undefined"){
+            if (Notification.permission === "granted"){
+              try { new Notification("Timer done! ⏰"); } catch(e){}
+            } else if (Notification.permission !== "denied"){
+              Notification.requestPermission().then(p => {
+                if (p === "granted") try { new Notification("Timer done! ⏰"); } catch(e){}
+              });
+            }
+          }
           startBtn.textContent = "Start";
           display.classList.remove("running");
           return;
@@ -7074,7 +7082,9 @@
       setCustomBtn.addEventListener("click", ()=> {
         const mins = Math.max(0, Math.min(99, parseInt(document.getElementById("timerCustomMins").value, 10) || 0));
         const secs = Math.max(0, Math.min(59, parseInt(document.getElementById("timerCustomSecs").value, 10) || 0));
-        setTimer(mins * 60 + secs);
+        const total = mins * 60 + secs;
+        if (total <= 0) return;
+        setTimer(total);
       });
 
       updateDisplay();

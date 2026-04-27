@@ -1351,6 +1351,33 @@
       width:60px;
       text-align:center;
     }
+    .timerSoundRow{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .timerVolumeRow{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .timerVolumeRow input[type="range"]{
+      width:120px;
+      accent-color:var(--ink);
+      cursor:pointer;
+    }
+    .timerSoundRow select.input{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      padding:6px 8px;
+      cursor:pointer;
+    }
     html.dark .timerDisplay{ background:var(--paper); color:var(--ink); }
     html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }
 
@@ -2401,6 +2428,21 @@
         <input id="timerCustomSecs" class="input" type="number" min="0" max="59" value="0" aria-label="Seconds">
         <span class="label">sec</span>
         <button class="btn btnGhost" type="button" id="timerSetCustomBtn">Set</button>
+      </div>
+      <div class="timerSoundRow">
+        <label class="label" for="timerAlarmSelect">Alarm:</label>
+        <select id="timerAlarmSelect" class="input" aria-label="Alarm sound">
+          <option value="bell">Bell</option>
+          <option value="chime">Chime</option>
+          <option value="beep">Beep</option>
+          <option value="ding">Ding</option>
+        </select>
+        <button class="btn btnGhost" type="button" id="timerTestSoundBtn" title="Test alarm sound">Test Sound</button>
+      </div>
+      <div class="timerVolumeRow">
+        <label class="label" for="timerVolumeSlider">Volume:</label>
+        <input id="timerVolumeSlider" type="range" min="0" max="100" value="70" aria-label="Alarm volume">
+        <span id="timerVolumeLabel" class="label">70%</span>
       </div>
     </div>
     <div class="modalFooter">
@@ -6985,6 +7027,97 @@
       const startBtn = document.getElementById("timerStartBtn");
       const resetBtn = document.getElementById("timerResetBtn");
       const setCustomBtn = document.getElementById("timerSetCustomBtn");
+      const alarmSelect = document.getElementById("timerAlarmSelect");
+      const testSoundBtn = document.getElementById("timerTestSoundBtn");
+      const volumeSlider = document.getElementById("timerVolumeSlider");
+      const volumeLabel = document.getElementById("timerVolumeLabel");
+
+      // ── Audio helpers ──────────────────────────────────────────────
+      function getAudioCtx(){
+        if (!window._timerAudioCtx){
+          window._timerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        // Resume if suspended (autoplay policy)
+        if (window._timerAudioCtx.state === "suspended") window._timerAudioCtx.resume();
+        return window._timerAudioCtx;
+      }
+
+      function getVolume(){
+        return Math.max(0, Math.min(1, (parseInt(volumeSlider.value, 10) || 0) / 100));
+      }
+
+      function playBell(ctx, vol, when){
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(880, when);
+        osc.frequency.exponentialRampToValueAtTime(440, when + 1.2);
+        gain.gain.setValueAtTime(vol, when);
+        gain.gain.exponentialRampToValueAtTime(0.001, when + 1.8);
+        osc.start(when);
+        osc.stop(when + 1.8);
+      }
+
+      function playChime(ctx, vol, when){
+        [[523, 0], [659, 0.25], [784, 0.5], [1047, 0.75]].forEach(([freq, offset]) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = "triangle";
+          osc.frequency.value = freq;
+          const t = when + offset;
+          gain.gain.setValueAtTime(vol, t);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
+          osc.start(t);
+          osc.stop(t + 0.8);
+        });
+      }
+
+      function playBeep(ctx, vol, when){
+        [0, 0.35, 0.7].forEach(offset => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = "square";
+          osc.frequency.value = 1000;
+          const t = when + offset;
+          gain.gain.setValueAtTime(vol * 0.3, t);
+          gain.gain.setValueAtTime(0.001, t + 0.18);
+          osc.start(t);
+          osc.stop(t + 0.2);
+        });
+      }
+
+      function playDing(ctx, vol, when){
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(1318, when);
+        gain.gain.setValueAtTime(vol, when);
+        gain.gain.exponentialRampToValueAtTime(0.001, when + 1.4);
+        osc.start(when);
+        osc.stop(when + 1.4);
+      }
+
+      function playAlarm(){
+        try {
+          const ctx = getAudioCtx();
+          const vol = getVolume();
+          const when = ctx.currentTime + 0.05;
+          const type = alarmSelect.value;
+          if (type === "bell")  playBell(ctx, vol, when);
+          else if (type === "chime") playChime(ctx, vol, when);
+          else if (type === "beep")  playBeep(ctx, vol, when);
+          else if (type === "ding")  playDing(ctx, vol, when);
+        } catch(e) { /* audio not supported */ }
+      }
+      // ── End audio helpers ──────────────────────────────────────────
 
       function pad(n){ return String(n).padStart(2, "0"); }
 
@@ -7008,6 +7141,7 @@
           _timerRunning = false;
           _timerRemaining = 0;
           updateDisplay();
+          playAlarm();
           // Notify when done (request permission once on first tick-end if not granted)
           if (typeof Notification !== "undefined"){
             if (Notification.permission === "granted"){
@@ -7072,6 +7206,14 @@
 
       resetBtn.addEventListener("click", ()=> {
         setTimer(_timerOriginal);
+      });
+
+      testSoundBtn.addEventListener("click", ()=> {
+        playAlarm();
+      });
+
+      volumeSlider.addEventListener("input", ()=> {
+        volumeLabel.textContent = `${volumeSlider.value}%`;
       });
 
       // Preset buttons

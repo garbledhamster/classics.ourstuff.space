@@ -669,6 +669,9 @@
       min-height:38px;
       flex:1 1 130px;
       min-width:0;
+      white-space:normal;
+      text-align:center;
+      justify-content:center;
     }
     /* open: snappier ease-out */
     .libCard.active .libDrawer{
@@ -2331,7 +2334,7 @@
     </div>
     <div class="modalFooter">
       <button class="btn btnGhost" id="searchSettingsCancelBtn" type="button">Cancel</button>
-      <button class="btn" id="searchSettingsOpenBtn" type="button">Open in Google</button>
+      <button class="btn" id="searchSettingsOpenBtn" type="button">Open Search</button>
     </div>
   </div>
 
@@ -2622,9 +2625,9 @@
       `).join("");
       return `
         <div class="ytGoalWrap" data-btn-group="google">
-          <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="google" aria-expanded="false" aria-label="Open Google learning goals menu">
+          <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="google" aria-expanded="false" aria-label="Open Search learning goals menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-            Google
+            Search
           </button>
           <div class="ytGoalDrawer">
             <div class="ytGoalHint">Choose a Bloom-style learning goal</div>
@@ -2634,9 +2637,9 @@
           </div>
         </div>
         <div class="ytGoalWrap" data-btn-group="youtube">
-          <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="youtube" aria-expanded="false" aria-label="Open YouTube learning goals menu">
+          <button class="btn" type="button" data-action="toggleLearningGoals" data-platform="youtube" aria-expanded="false" aria-label="Open Videos learning goals menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            YouTube
+            Videos
           </button>
           <div class="ytGoalDrawer">
             <div class="ytGoalHint">Choose a Bloom-style learning goal</div>
@@ -3347,7 +3350,7 @@
       }
       
       // Update "Open Search" button text
-      $("#searchSettingsOpenBtn").textContent = `Open in ${platformName}`;
+      $("#searchSettingsOpenBtn").textContent = platform === "youtube" ? "Open Videos" : "Open Search";
       
       // Reset form to default state; pre-fill custom search with task hint if provided
       $("#includeTitle").checked = true;
@@ -4885,12 +4888,12 @@
                 WikiSearch
               </button>
               <button class="btn" type="button" data-action="openGoogleAuthor">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg>
-                Google
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                Search
               </button>
               <button class="btn" type="button" data-action="openYouTubeAuthor">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                YouTube
+                Videos
               </button>
               <button class="btn" type="button" data-action="openAudiobooksAuthor">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
@@ -5603,7 +5606,7 @@
               </button>
               <button class="btn" type="button" data-action="openLibraryForWork" data-btn-group="always">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                <span class="btn-label">View in library</span>
+                <span class="btn-label">View Library</span>
               </button>
               <button class="btn" type="button" data-action="newNoteFromWork" data-btn-group="always" aria-label="New note" title="New note">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>

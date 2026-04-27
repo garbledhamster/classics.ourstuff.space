@@ -2675,6 +2675,7 @@
     const LS_CARD_TASKS        = "greatworks.reading.cardTasks.v1";
     const LS_CARD_DATES        = "greatworks.reading.cardDates.v1";
     const LS_TABLE_HIDDEN_COLS = "greatworks.reading.tableHiddenCols.v1";
+    const LS_TIMER_SETTINGS    = "greatworks.reading.timerSettings.v1";
     const DEFAULT_CARD_STATUS = "not_started";
     const DEFAULT_CARD_TASK = "no_task";
     const CARD_STATUS_OPTIONS = [
@@ -4088,6 +4089,40 @@
       }
     }
     
+    async function syncTimerSettingsToFirestore(userId) {
+      if (!userId || !window.firebaseDB) return;
+      try {
+        const settings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
+        if (!settings) return;
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        await window.firestoreSetDoc(userRef, {
+          timerSettings: settings,
+          timerSettingsSyncedAt: window.firestoreServerTimestamp()
+        }, { merge: true });
+      } catch (error) {
+        console.error('Error syncing timer settings to Firestore:', error);
+        state.sync.error = error.message;
+      }
+    }
+
+    async function loadTimerSettingsFromFirestore(userId) {
+      if (!userId || !window.firebaseDB) return null;
+      try {
+        const db = window.firebaseDB;
+        const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+        const docSnap = await window.firestoreGetDoc(userRef);
+        if (docSnap.exists()) {
+          return docSnap.data().timerSettings || null;
+        }
+        return null;
+      } catch (error) {
+        console.error('Error loading timer settings from Firestore:', error);
+        state.sync.error = error.message;
+        return null;
+      }
+    }
+
     // Full sync: push local data to Firestore and pull remote data
     async function performFullSync(userId) {
       if (!userId || !window.firebaseDB) return;
@@ -4098,12 +4133,13 @@
       
       try {
         // First, load data from Firestore
-        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates, remoteCardTasks] = await Promise.all([
+        const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings] = await Promise.all([
           loadChecksFromFirestore(userId),
           loadNotesFromFirestore(userId),
           loadCardStatusesFromFirestore(userId),
           loadCardDatesFromFirestore(userId),
-          loadCardTasksFromFirestore(userId)
+          loadCardTasksFromFirestore(userId),
+          loadTimerSettingsFromFirestore(userId)
         ]);
         
         // Merge remote data with local data
@@ -4135,6 +4171,14 @@
         localStorage.setItem(LS_CARD_DATES, JSON.stringify(state.cardDates));
         state.cardTasks = { ...remoteCardTasks, ...state.cardTasks };
         localStorage.setItem(LS_CARD_TASKS, JSON.stringify(state.cardTasks));
+
+        // Timer settings: remote fills in what local hasn't set; local wins on conflict
+        if (remoteTimerSettings) {
+          const localTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
+          const merged = { ...remoteTimerSettings, ...(localTimerSettings || {}) };
+          localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(merged));
+          if (window._applyTimerSettings) window._applyTimerSettings(merged);
+        }
         
         // Push all merged data back to Firestore (includes local-only items)
         await Promise.all([
@@ -4142,7 +4186,8 @@
           syncNotesToFirestore(userId),
           syncCardStatusesToFirestore(userId),
           syncCardDatesToFirestore(userId),
-          syncCardTasksToFirestore(userId)
+          syncCardTasksToFirestore(userId),
+          syncTimerSettingsToFirestore(userId)
         ]);
         
         // Tombstones fulfilled: deleted notes are no longer in Firestore, safe to clear.
@@ -7283,6 +7328,29 @@
       const volumeSlider = document.getElementById("timerVolumeSlider");
       const volumeLabel = document.getElementById("timerVolumeLabel");
 
+      // ── Persist alarm/volume settings ─────────────────────────────
+      function applyTimerSettings(settings) {
+        if (!settings) return;
+        if (settings.alarm && alarmSelect) alarmSelect.value = settings.alarm;
+        if (typeof settings.volume === "number" && volumeSlider) {
+          volumeSlider.value = settings.volume;
+          if (volumeLabel) volumeLabel.textContent = `${settings.volume}%`;
+        }
+      }
+
+      function saveTimerSettings() {
+        const settings = { alarm: alarmSelect.value, volume: parseInt(volumeSlider.value, 10) };
+        localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(settings));
+        triggerAutoSync();
+      }
+
+      // Expose so Firestore sync can push loaded remote settings into the UI
+      window._applyTimerSettings = applyTimerSettings;
+
+      // Load saved settings on startup
+      const _savedTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
+      applyTimerSettings(_savedTimerSettings);
+
       // ── Audio helpers ──────────────────────────────────────────────
       function getAudioCtx(){
         if (!window._timerAudioCtx){
@@ -7466,6 +7534,9 @@
       volumeSlider.addEventListener("input", ()=> {
         volumeLabel.textContent = `${volumeSlider.value}%`;
       });
+
+      volumeSlider.addEventListener("change", saveTimerSettings);
+      alarmSelect.addEventListener("change", saveTimerSettings);
 
       // Preset buttons
       document.getElementById("timerModal").addEventListener("click", (e)=> {

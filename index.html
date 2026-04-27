@@ -3718,8 +3718,25 @@
       if (!dateInput) return false;
       const dateKey = dateInput.dataset.datekey || "";
       const dateField = dateInput.dataset.datefield || "";
+      // User picked a real date — remove the prefill marker so blur won't clear it
+      if (dateField === "finished") delete dateInput.dataset.prefilled;
       applyCardDateChange(dateKey, dateField, dateInput.value || "");
       return true;
+    }
+    function handleFinishedDateFocusEvent(e){
+      const dateInput = e.target.closest('input[data-action="setCardDate"][data-datefield="finished"]');
+      if (!dateInput || dateInput.value) return;
+      const dateKey = dateInput.dataset.datekey || "";
+      const dates = getCardDates(dateKey);
+      if (!dates.started) return;
+      dateInput.value = dates.started;
+      dateInput.dataset.prefilled = "1";
+    }
+    function handleFinishedDateBlurEvent(e){
+      const dateInput = e.target.closest('input[data-action="setCardDate"][data-datefield="finished"]');
+      if (!dateInput || !dateInput.dataset.prefilled) return;
+      delete dateInput.dataset.prefilled;
+      dateInput.value = "";
     }
 
     /* =========================================================
@@ -5681,6 +5698,8 @@
           return;
         }
       };
+      grid.addEventListener("focus", handleFinishedDateFocusEvent, true);
+      grid.addEventListener("blur",  handleFinishedDateBlurEvent,  true);
     }
 
     function wirePlanDelegation(){
@@ -5894,6 +5913,8 @@
         saveChecks(state.checks);
         renderAll();
       };
+      grid.addEventListener("focus", handleFinishedDateFocusEvent, true);
+      grid.addEventListener("blur",  handleFinishedDateBlurEvent,  true);
 
       // (year expand/collapse removed — single year view)
     }

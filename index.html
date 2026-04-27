@@ -276,6 +276,14 @@
       padding:7px 10px;
     }
 
+    .btnDanger{
+      color:#b91c1c;
+      border-color:#fca5a5;
+    }
+    .btnDanger:hover{ background:#fff5f5; }
+    html.dark .btnDanger{ color:#fca5a5; border-color:#7f1d1d; }
+    html.dark .btnDanger:hover{ background:#3b1111; }
+
     .btnBloom{
       border:var(--borderThin);
       box-shadow:none;
@@ -1473,6 +1481,38 @@
       min-width:0;
     }
 
+    /* Multi-select mode */
+    .noteMultiBar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      align-items:center;
+      padding:4px 0;
+    }
+    .noteSelectCount{
+      font-size:11px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      color:var(--muted);
+      flex:1;
+    }
+    .noteItem.noteSelected{
+      outline:2px solid var(--accent,#3b82f6);
+      background:#eff6ff;
+    }
+    html.dark .noteItem.noteSelected{ background:#1e2a3a; }
+    .noteSelectMode .noteItem{ cursor:default; }
+    .noteSelectMode .noteItem:hover{ background:#f5f5f5; }
+    html.dark .noteSelectMode .noteItem:hover{ background:#2a2a2a; }
+    .noteItemCheckWrap{
+      display:none;
+      align-items:center;
+      padding-right:8px;
+      flex-shrink:0;
+    }
+    .noteSelectMode .noteItemCheckWrap{ display:flex; }
+
     .editor{
       border:var(--border);
       box-shadow:var(--shadowSm);
@@ -2474,7 +2514,20 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
             <span id="toggleArchivedBtnText">Show Archived</span>
           </button>
+          <button class="btn" id="toggleNoteSelectBtn" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="9 12 11 14 15 10"/></svg>
+            <span id="toggleNoteSelectBtnText">Select</span>
+          </button>
           <input id="importFile" type="file" accept="application/json" style="display:none;" >
+        </div>
+        <div id="noteMultiBar" class="noteMultiBar" style="display:none;">
+          <button class="btn" id="selectAllNotesBtn" type="button">Select All</button>
+          <button class="btn" id="deselectAllNotesBtn" type="button">Deselect All</button>
+          <span id="noteSelectCount" class="noteSelectCount">0 selected</span>
+          <button class="btn btnDanger" id="deleteSelectedNotesBtn" type="button">Delete Selected</button>
+          <button class="btn" id="archiveSelectedNotesBtn" type="button">
+            <span id="archiveSelectedBtnText">Archive Selected</span>
+          </button>
         </div>
       </section>
 
@@ -4368,7 +4421,7 @@
       },
       ui: { tableHiddenCols: loadTableHiddenCols() },
       drawer: { open:false, which:null }, // notes
-      notesUI: { search:"", tag:"all", editingId:null, showArchived: false },
+      notesUI: { search:"", tag:"all", editingId:null, showArchived: false, selectMode: false, selectedIds: new Set() },
       tagsUniverse: [], // note tags (titles)
       commentsUI: {
         bookTitle: "",
@@ -6435,6 +6488,51 @@
     /* =========================================================
        NOTES (kept same behavior)
        ========================================================= */
+    function toggleNoteSelectMode(){
+      state.notesUI.selectMode = !state.notesUI.selectMode;
+      if (!state.notesUI.selectMode) {
+        state.notesUI.selectedIds = new Set();
+      }
+      renderNotesList();
+    }
+
+    function deleteSelectedNotes(){
+      const ids = state.notesUI.selectedIds;
+      if (!ids.size) return;
+      showConfirm(`Delete ${ids.size} note${ids.size > 1 ? "s" : ""}?`).then(confirmed => {
+        if (!confirmed) return;
+        // Tombstone each deleted ID so the next sync removes them from Firestore
+        // instead of re-importing them.
+        for (const id of ids) {
+          state.deletedNoteIds.add(id);
+        }
+        state.notes = state.notes.filter(n => !ids.has(n.id));
+        saveNotes(state.notes);
+        saveDeletedNoteIds(state.deletedNoteIds);
+        state.notesUI.selectedIds = new Set();
+        state.notesUI.selectMode = false;
+        renderNotesList();
+        renderAll();
+      });
+    }
+
+    function archiveSelectedNotes(){
+      const ids = state.notesUI.selectedIds;
+      if (!ids.size) return;
+      // In "Show Archived" view archive→unarchive; in active view archive
+      const targetArchived = !state.notesUI.showArchived;
+      const now = nowIso();
+      state.notes.filter(n => ids.has(n.id)).forEach(n => {
+        n.archived = targetArchived;
+        n.updated_at = now;
+      });
+      saveNotes(state.notes);
+      state.notesUI.selectedIds = new Set();
+      state.notesUI.selectMode = false;
+      renderNotesList();
+      renderAll();
+    }
+
     function filteredNotes(){
       const q = normalizeText(state.notesUI.search);
       const tag = state.notesUI.tag;
@@ -6478,8 +6576,31 @@
         }
       }
 
+      // Update multi-select mode UI
+      const selectBtn = $("#toggleNoteSelectBtn");
+      const selectBtnText = $("#toggleNoteSelectBtnText");
+      const multiBar = $("#noteMultiBar");
+      const selectCountEl = $("#noteSelectCount");
+      const archiveSelBtnText = $("#archiveSelectedBtnText");
+      if (selectBtn) selectBtn.classList.toggle("tabOn", state.notesUI.selectMode);
+      if (selectBtnText) selectBtnText.textContent = state.notesUI.selectMode ? "Cancel Select" : "Select";
+      if (multiBar) multiBar.style.display = state.notesUI.selectMode ? "flex" : "none";
+      if (selectCountEl) {
+        const cnt = state.notesUI.selectedIds.size;
+        selectCountEl.textContent = `${cnt} selected`;
+      }
+      if (archiveSelBtnText) {
+        archiveSelBtnText.textContent = state.notesUI.showArchived ? "Unarchive Selected" : "Archive Selected";
+      }
+
       const list = $("#noteList");
       const notes = filteredNotes();
+
+      if (state.notesUI.selectMode) {
+        list.classList.add("noteSelectMode");
+      } else {
+        list.classList.remove("noteSelectMode");
+      }
 
       if (!notes.length){
         list.innerHTML = `
@@ -6499,7 +6620,23 @@
         const item = e.target.closest("[data-noteid]");
         if (!item) return;
         const id = item.dataset.noteid;
-        startEditNote(id);
+        if (state.notesUI.selectMode) {
+          // Toggle selection
+          if (state.notesUI.selectedIds.has(id)) {
+            state.notesUI.selectedIds.delete(id);
+            item.classList.remove("noteSelected");
+          } else {
+            state.notesUI.selectedIds.add(id);
+            item.classList.add("noteSelected");
+          }
+          // Update count live
+          if (selectCountEl) {
+            const cnt = state.notesUI.selectedIds.size;
+            selectCountEl.textContent = `${cnt} selected`;
+          }
+        } else {
+          startEditNote(id);
+        }
       };
     }
 
@@ -6509,6 +6646,9 @@
       const year = n.year ? `Year ${escapeHtml(n.year)}` : "—";
       const updated = n.updated_at ? new Date(n.updated_at).toLocaleString() : "";
       const preview = (n.body || "").slice(0, 220);
+      const isSelected = state.notesUI.selectedIds.has(n.id);
+      const selectedCls = isSelected ? " noteSelected" : "";
+      const checked = isSelected ? " checked" : "";
 
       const pills = [
         `<span class="pill">${book}</span>`,
@@ -6517,8 +6657,11 @@
       ].filter(Boolean).join("");
 
       return `
-        <div class="noteItem" data-noteid="${escapeHtml(n.id)}">
+        <div class="noteItem${selectedCls}" data-noteid="${escapeHtml(n.id)}">
           <div class="noteItemHead">
+            <label class="noteItemCheckWrap" aria-hidden="true">
+              <input type="checkbox" class="noteItemCheck"${checked} tabindex="-1" aria-hidden="true">
+            </label>
             <p class="noteItemTitle">${title}</p>
             <div class="noteItemMeta">
               <span>${escapeHtml(updated)}</span>
@@ -7065,8 +7208,25 @@
       // Toggle archived/active notes view
       $("#toggleArchivedBtn").addEventListener("click", () => {
         state.notesUI.showArchived = !state.notesUI.showArchived;
+        // Clear selection when switching views
+        state.notesUI.selectedIds = new Set();
+        state.notesUI.selectMode = false;
         renderNotesList();
       });
+
+      // Multi-select controls
+      $("#toggleNoteSelectBtn").addEventListener("click", toggleNoteSelectMode);
+      $("#selectAllNotesBtn").addEventListener("click", () => {
+        const notes = filteredNotes();
+        state.notesUI.selectedIds = new Set(notes.map(n => n.id));
+        renderNotesList();
+      });
+      $("#deselectAllNotesBtn").addEventListener("click", () => {
+        state.notesUI.selectedIds = new Set();
+        renderNotesList();
+      });
+      $("#deleteSelectedNotesBtn").addEventListener("click", deleteSelectedNotes);
+      $("#archiveSelectedNotesBtn").addEventListener("click", archiveSelectedNotes);
 
     }
 

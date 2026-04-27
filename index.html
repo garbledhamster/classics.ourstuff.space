@@ -2208,6 +2208,13 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
               Export
             </button>
+
+            <div class="colPickerWrap" id="planColPickerWrap" style="display:none">
+              <button class="btn btnIconOnly" id="planColPickerBtn" type="button" title="Column settings" aria-label="Column settings" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"></path></svg>
+              </button>
+              <div class="colPickerPanel" id="planColPickerPanel" role="menu" aria-label="Column visibility" hidden></div>
+            </div>
           </div>
         </div>
       </section>
@@ -5459,22 +5466,46 @@
 
       if (vmIcon)  vmIcon.innerHTML  = PLAN_VIEW_ICONS[vm]  || PLAN_VIEW_ICONS.default;
       if (vmLabel) vmLabel.textContent = PLAN_VIEW_LABELS[vm] || "View: Full";
+
+      const colPickerWrap = $("#planColPickerWrap");
+      if (colPickerWrap) colPickerWrap.style.display = vm === "table" ? "" : "none";
     }
 
     function renderColPickerPanel(){
-      const panel = document.querySelector("#planGrid .colPickerPanel");
-      if (!panel) return;
+      const panels = [
+        document.querySelector("#planGrid .colPickerPanel"),
+        document.getElementById("planColPickerPanel"),
+      ].filter(Boolean);
+      if (!panels.length) return;
       const hidden = state.ui.tableHiddenCols;
-      panel.innerHTML = TABLE_COLUMNS.map(col => `
+      const html = TABLE_COLUMNS.map(col => `
         <label>
           <input type="checkbox" data-action="toggleTableCol" data-col-id="${escapeHtml(col.id)}" ${hidden.has(col.id) ? "" : "checked"}>
           ${escapeHtml(col.label)}
         </label>`).join("");
+      for (const panel of panels) {
+        panel.innerHTML = html;
+      }
     }
 
     function toggleColPickerPanel(open){
       const panel = document.querySelector("#planGrid .colPickerPanel");
       const btn   = document.querySelector("#planGrid [data-action='toggleColPicker']");
+      if (!panel || !btn) return;
+      if (open === undefined) open = panel.hasAttribute("hidden");
+      if (open){
+        renderColPickerPanel();
+        panel.removeAttribute("hidden");
+        btn.setAttribute("aria-expanded", "true");
+      } else {
+        panel.setAttribute("hidden", "");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    function toggleStandaloneColPicker(open){
+      const panel = document.getElementById("planColPickerPanel");
+      const btn   = document.getElementById("planColPickerBtn");
       if (!panel || !btn) return;
       if (open === undefined) open = panel.hasAttribute("hidden");
       if (open){
@@ -7168,26 +7199,55 @@
       document.addEventListener("click", (e) => {
         const panel = document.querySelector("#planGrid .colPickerPanel");
         if (panel && !panel.hasAttribute("hidden") && !e.target.closest(".th-colpicker")) toggleColPickerPanel(false);
+        const standalonePanel = document.getElementById("planColPickerPanel");
+        if (standalonePanel && !standalonePanel.hasAttribute("hidden") && !e.target.closest("#planColPickerWrap")) toggleStandaloneColPicker(false);
       });
 
-      // Handle column visibility checkboxes (delegated on #planGrid)
-      $("#planGrid").addEventListener("change", (e) => {
-        const cb = e.target.closest('[data-action="toggleTableCol"]');
-        if (!cb) return;
-        const colId = cb.dataset.colId;
-        if (!colId) return;
-        if (cb.checked){
+      // Standalone column picker button
+      const planColPickerBtn = document.getElementById("planColPickerBtn");
+      if (planColPickerBtn) {
+        planColPickerBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleStandaloneColPicker();
+        });
+      }
+
+      // Handle column visibility checkboxes (delegated on #planGrid and standalone panel)
+      function applyColToggle(colId, checked){
+        if (checked){
           state.ui.tableHiddenCols.delete(colId);
         } else {
           state.ui.tableHiddenCols.add(colId);
         }
         saveTableHiddenCols(state.ui.tableHiddenCols);
         // Update column visibility directly without re-rendering (keeps panel open)
+        const escapedColId = CSS.escape(colId);
         const grid = $("#planGrid");
-        grid.querySelectorAll(`[data-col="${colId}"]`).forEach(el => {
+        grid.querySelectorAll(`[data-col="${escapedColId}"]`).forEach(el => {
           el.style.display = state.ui.tableHiddenCols.has(colId) ? "none" : "";
         });
+        // Sync checkboxes across all col picker panels
+        document.querySelectorAll(`[data-action="toggleTableCol"][data-col-id="${escapedColId}"]`).forEach(cb => {
+          cb.checked = checked;
+        });
+      }
+      $("#planGrid").addEventListener("change", (e) => {
+        const cb = e.target.closest('[data-action="toggleTableCol"]');
+        if (!cb) return;
+        const colId = cb.dataset.colId;
+        if (!colId) return;
+        applyColToggle(colId, cb.checked);
       });
+      const planColPickerPanel = document.getElementById("planColPickerPanel");
+      if (planColPickerPanel) {
+        planColPickerPanel.addEventListener("change", (e) => {
+          const cb = e.target.closest('[data-action="toggleTableCol"]');
+          if (!cb) return;
+          const colId = cb.dataset.colId;
+          if (!colId) return;
+          applyColToggle(colId, cb.checked);
+        });
+      }
 
       $("#resetChecksBtn").addEventListener("click", () => {
         state.filters.q = "";

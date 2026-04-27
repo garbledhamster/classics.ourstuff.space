@@ -4441,7 +4441,7 @@
 
     function updateYearStepper(){
       const isAllYears = state.filters.year === "all";
-      $("#yearDisplay").textContent = isAllYears ? "All Books Displayed" : `Year ${state.filters.year}`;
+      $("#yearDisplay").textContent = isAllYears ? "ALL" : `Year ${state.filters.year}`;
       $("#yearPrev").disabled = isAllYears;
       $("#yearNext").disabled = isAllYears;
       $("#yearPrev").setAttribute("aria-disabled", String(isAllYears));

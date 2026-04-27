@@ -4177,7 +4177,7 @@
           const localTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
           const merged = { ...remoteTimerSettings, ...(localTimerSettings || {}) };
           localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(merged));
-          if (window._applyTimerSettings) window._applyTimerSettings(merged);
+          if (window.applyTimerSettings) window.applyTimerSettings(merged);
         }
         
         // Push all merged data back to Firestore (includes local-only items)
@@ -7339,13 +7339,14 @@
       }
 
       function saveTimerSettings() {
+        if (!alarmSelect || !volumeSlider) return;
         const settings = { alarm: alarmSelect.value, volume: parseInt(volumeSlider.value, 10) };
         localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(settings));
         triggerAutoSync();
       }
 
       // Expose so Firestore sync can push loaded remote settings into the UI
-      window._applyTimerSettings = applyTimerSettings;
+      window.applyTimerSettings = applyTimerSettings;
 
       // Load saved settings on startup
       const _savedTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
@@ -7535,8 +7536,8 @@
         volumeLabel.textContent = `${volumeSlider.value}%`;
       });
 
-      volumeSlider.addEventListener("change", saveTimerSettings);
-      alarmSelect.addEventListener("change", saveTimerSettings);
+      if (volumeSlider) volumeSlider.addEventListener("change", saveTimerSettings);
+      if (alarmSelect) alarmSelect.addEventListener("change", saveTimerSettings);
 
       // Preset buttons
       document.getElementById("timerModal").addEventListener("click", (e)=> {

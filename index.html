@@ -1690,6 +1690,29 @@
     .colPickerPanel label:hover{ background:#f5f5f0; }
     html.dark .colPickerPanel label:hover{ background:#222; }
     .colPickerPanel input[type="checkbox"]{ accent-color:var(--ink); width:14px; height:14px; cursor:pointer; }
+    /* Column picker anchored inside the table th */
+    .planTable .th-colpicker{
+      width:28px;
+      padding:4px;
+      text-align:center;
+      position:relative;
+    }
+    .planTable .th-colpicker .colPickerPanel{
+      left:auto;
+      right:0;
+      min-width:160px;
+    }
+    .planTable .th-colpicker .btn-colpicker{
+      padding:2px 4px;
+      font-size:11px;
+      line-height:1;
+      background:transparent;
+      border:none;
+      color:inherit;
+      cursor:pointer;
+    }
+    .planTable .th-colpicker .btn-colpicker:hover{ opacity:0.7; }
+    .planTable .td-colpicker{ width:28px; padding:0; }
 
     /* ===== Great Conversation Comments Drawer ===== */
     .commentsDrawer{ right:0; left:auto; width:min(520px, 100vw); }
@@ -2083,15 +2106,6 @@
               <svg id="planViewModeIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="4" height="4"></rect><rect x="3" y="12" width="4" height="4"></rect><rect x="3" y="19" width="4" height="2"></rect><line x1="10" y1="7" x2="21" y2="7"></line><line x1="10" y1="14" x2="21" y2="14"></line><line x1="10" y1="21" x2="21" y2="21"></line></svg>
               <span id="planViewModeBtnLabel">View: Full</span>
             </button>
-
-            <!-- Column selector (table mode only) -->
-            <div class="colPickerWrap" id="colPickerWrap" style="display:none">
-              <button class="btn" id="colPickerBtn" type="button" aria-haspopup="true" aria-expanded="false" title="Show or hide table columns">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                Columns
-              </button>
-              <div class="colPickerPanel" id="colPickerPanel" role="menu" aria-label="Column visibility" hidden></div>
-            </div>
 
             <button class="btn" id="resetChecksBtn" type="button">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
@@ -5202,7 +5216,11 @@
       }
 
       if (vm === "table") {
-        grid.innerHTML = grouped.map(g => yearCardTableHtml(g.year, g.items)).join("");
+        if (state.filters.year === "all") {
+          grid.innerHTML = allYearsTableHtml(grouped);
+        } else {
+          grid.innerHTML = grouped.map(g => yearCardTableHtml(g.year, g.items)).join("");
+        }
       } else {
         grid.innerHTML = grouped.map(g => yearCardHtml(g.year, g.items)).join("");
       }
@@ -5225,13 +5243,10 @@
 
       if (vmIcon)  vmIcon.innerHTML  = PLAN_VIEW_ICONS[vm]  || PLAN_VIEW_ICONS.default;
       if (vmLabel) vmLabel.textContent = PLAN_VIEW_LABELS[vm] || "View: Full";
-
-      const colPickerWrap = $("#colPickerWrap");
-      if (colPickerWrap) colPickerWrap.style.display = vm === "table" ? "" : "none";
     }
 
     function renderColPickerPanel(){
-      const panel = $("#colPickerPanel");
+      const panel = document.querySelector("#planGrid .colPickerPanel");
       if (!panel) return;
       const hidden = state.ui.tableHiddenCols;
       panel.innerHTML = TABLE_COLUMNS.map(col => `
@@ -5242,8 +5257,8 @@
     }
 
     function toggleColPickerPanel(open){
-      const panel = $("#colPickerPanel");
-      const btn   = $("#colPickerBtn");
+      const panel = document.querySelector("#planGrid .colPickerPanel");
+      const btn   = document.querySelector("#planGrid [data-action='toggleColPicker']");
       if (!panel || !btn) return;
       if (open === undefined) open = panel.hasAttribute("hidden");
       if (open){
@@ -5307,8 +5322,84 @@
                   <th data-col="action"${hiddenColStyle("action")}>Current Action</th>
                   <th data-col="date-start"${hiddenColStyle("date-start")}>Start Date</th>
                   <th data-col="date-end"${hiddenColStyle("date-end")}>End Date</th>
+                  <th class="th-colpicker">
+                    <button class="btn-colpicker" data-action="toggleColPicker" type="button" title="Show or hide columns" aria-label="Show or hide columns" aria-haspopup="true" aria-expanded="false">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                    </button>
+                    <div class="colPickerPanel" role="menu" aria-label="Column visibility" hidden></div>
+                  </th>
                 </tr>
               </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </section>
+      `;
+    }
+
+    function tableHeaderHtml(hiddenColStyle){
+      return `
+        <tr>
+          <th class="td-check" data-col="check"${hiddenColStyle("check")}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </th>
+          <th data-col="year"${hiddenColStyle("year")}>Year</th>
+          <th data-col="number"${hiddenColStyle("number")}>Number</th>
+          <th data-col="work"${hiddenColStyle("work")}>Work</th>
+          <th data-col="author"${hiddenColStyle("author")}>Author</th>
+          <th data-col="type"${hiddenColStyle("type")}>Type</th>
+          <th data-col="notes"${hiddenColStyle("notes")}>Notes</th>
+          <th data-col="status"${hiddenColStyle("status")}>Status</th>
+          <th data-col="action"${hiddenColStyle("action")}>Current Action</th>
+          <th data-col="date-start"${hiddenColStyle("date-start")}>Start Date</th>
+          <th data-col="date-end"${hiddenColStyle("date-end")}>End Date</th>
+          <th class="th-colpicker">
+            <button class="btn-colpicker" data-action="toggleColPicker" type="button" title="Show or hide columns" aria-label="Show or hide columns" aria-haspopup="true" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+            </button>
+            <div class="colPickerPanel" role="menu" aria-label="Column visibility" hidden></div>
+          </th>
+        </tr>`;
+    }
+
+    function allYearsTableHtml(grouped){
+      const allItems = grouped.flatMap(group => group.items);
+      const total = allItems.length;
+      const done  = allItems.reduce((acc,x)=> acc + (state.checks[x.key] ? 1 : 0), 0);
+      const pct   = total ? Math.round((done/total)*100) : 0;
+
+      const noteCountMap = new Map();
+      for (const n of state.notes){
+        if (n.book_tag) noteCountMap.set(n.book_tag, (noteCountMap.get(n.book_tag) || 0) + 1);
+      }
+
+      const h = state.ui.tableHiddenCols;
+      const hiddenColStyle = (id) => h.has(id) ? ' style="display:none"' : '';
+
+      const rows = grouped.flatMap(group => {
+        const blocks = new Map();
+        for (const item of group.items){
+          const blockKey = `${item.order}|${item.tier}|${item.marker||""}|${item.author}`;
+          if (!blocks.has(blockKey)) blocks.set(blockKey, { order: item.order, tier: item.tier, marker: item.marker, author: item.author, works: [] });
+          blocks.get(blockKey).works.push(item);
+        }
+        return Array.from(blocks.values()).sort((a,b)=>a.order-b.order)
+          .flatMap(block => block.works.map(work => workRowTableHtml(block, work, noteCountMap)));
+      }).join("");
+
+      return `
+        <section class="yearCard" data-year="all">
+          <div class="yearHeader">
+            <h2 class="yearTitle">All Years</h2>
+            <div class="yearMeta">
+              <span>${escapeHtml(done)}/${escapeHtml(total)} done</span>
+              <span class="mono">•</span>
+              <span class="bar" aria-label="progress bar"><span style="width:${pct}%"></span></span>
+            </div>
+          </div>
+          <div class="planTableWrap">
+            <table class="planTable" aria-label="All years reading list">
+              <thead>${tableHeaderHtml(hiddenColStyle)}</thead>
               <tbody>${rows}</tbody>
             </table>
           </div>
@@ -5353,6 +5444,7 @@
           <td class="td-date" data-col="date-end"${hiddenColStyle("date-end")}>
             <input class="cardDateInput" type="date" data-action="setCardDate" data-datekey="${escapeHtml(statusKey)}" data-datefield="finished" value="${escapeHtml(dateEntry.finished)}" aria-label="End date for ${escapeHtml(title)} by ${escapeHtml(w.author)}" >
           </td>
+          <td class="td-colpicker" aria-hidden="true"></td>
         </tr>
       `;
     }
@@ -5713,6 +5805,13 @@
         if (!btn) return;
 
         const action = btn.dataset.action;
+
+        // Handle column picker toggle (table header button)
+        if (action === "toggleColPicker") {
+          e.stopPropagation();
+          toggleColPickerPanel();
+          return;
+        }
 
         // Handle task dropdown actions
         if (action === "toggleTaskDropdown" || action === "selectTaskOption") {
@@ -6662,20 +6761,14 @@
         renderPlan();
       });
 
-      // Column picker toggle button
-      $("#colPickerBtn").addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleColPickerPanel();
-      });
-
-      // Close column picker when clicking outside
+      // Close column picker when clicking outside the th-colpicker header cell
       document.addEventListener("click", (e) => {
-        const wrap = $("#colPickerWrap");
-        if (wrap && !wrap.contains(e.target)) toggleColPickerPanel(false);
+        const panel = document.querySelector("#planGrid .colPickerPanel");
+        if (panel && !panel.hasAttribute("hidden") && !e.target.closest(".th-colpicker")) toggleColPickerPanel(false);
       });
 
-      // Handle column visibility checkboxes (delegated on the panel)
-      $("#colPickerPanel").addEventListener("change", (e) => {
+      // Handle column visibility checkboxes (delegated on #planGrid)
+      $("#planGrid").addEventListener("change", (e) => {
         const cb = e.target.closest('[data-action="toggleTableCol"]');
         if (!cb) return;
         const colId = cb.dataset.colId;
@@ -6686,7 +6779,11 @@
           state.ui.tableHiddenCols.add(colId);
         }
         saveTableHiddenCols(state.ui.tableHiddenCols);
-        renderPlan();
+        // Update column visibility directly without re-rendering (keeps panel open)
+        const grid = $("#planGrid");
+        grid.querySelectorAll(`[data-col="${colId}"]`).forEach(el => {
+          el.style.display = state.ui.tableHiddenCols.has(colId) ? "none" : "";
+        });
       });
 
       $("#resetChecksBtn").addEventListener("click", () => {

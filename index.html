@@ -5203,17 +5203,20 @@
           // Switch to library view and filter by this author
           state.filters.libQ = author;
           state.filters.libLetterFilter = "";
-          state.filters.libPage = 1;
+          // Navigate to the page that contains this specific work
+          const filteredItems = filteredLibrary();
+          const pageSize = state.filters.libPageSize;
+          const idx = filteredItems.findIndex(it => it.libKey === libKey);
+          state.filters.libPage = idx !== -1 ? Math.floor(idx / pageSize) + 1 : 1;
           setView("library");
           // Try to scroll to the specific work card
-          setTimeout(() => {
+          requestAnimationFrame(() => {
             const el = document.querySelector(`.libCard[data-libkey="${CSS.escape(libKey)}"]`);
             if (el) {
               el.scrollIntoView({ behavior:"smooth", block:"center" });
-              el.classList.add("flash");
-              setTimeout(() => el.classList.remove("flash"), 1200);
+              flashEl(el);
             }
-          }, 100);
+          });
           return;
         }
 
@@ -6244,11 +6247,22 @@
     }
 
     function gotoLibraryWork(author, title){
+      // Clear letter filter so the target book is not hidden by it
+      state.filters.libLetterFilter = "";
+
+      // Determine which page the book is on and navigate there
+      const baseItems = filteredLibrary();
+      const pageSize = state.filters.libPageSize;
+      const libKey = `${author}||${title}`.toLowerCase();
+      const idx = baseItems.findIndex(it => it.libKey === libKey);
+      if (idx !== -1){
+        state.filters.libPage = Math.floor(idx / pageSize) + 1;
+      }
+
       setView("library");
       renderLibrary();
 
       requestAnimationFrame(() => {
-        const libKey = `${author}||${title}`.toLowerCase();
         const id = `lib_${hash32(libKey)}`;
         const el = document.getElementById(id);
         if (el){

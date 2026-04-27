@@ -6337,12 +6337,10 @@
       // In "Show Archived" view archive→unarchive; in active view archive
       const targetArchived = !state.notesUI.showArchived;
       const now = nowIso();
-      for (const n of state.notes) {
-        if (ids.has(n.id)) {
-          n.archived = targetArchived;
-          n.updated_at = now;
-        }
-      }
+      state.notes.filter(n => ids.has(n.id)).forEach(n => {
+        n.archived = targetArchived;
+        n.updated_at = now;
+      });
       saveNotes(state.notes);
       state.notesUI.selectedIds = new Set();
       state.notesUI.selectMode = false;
@@ -6476,7 +6474,7 @@
       return `
         <div class="noteItem${selectedCls}" data-noteid="${escapeHtml(n.id)}">
           <div class="noteItemHead">
-            <label class="noteItemCheckWrap" aria-label="Select note">
+            <label class="noteItemCheckWrap" aria-hidden="true">
               <input type="checkbox" class="noteItemCheck"${checked} tabindex="-1" aria-hidden="true">
             </label>
             <p class="noteItemTitle">${title}</p>

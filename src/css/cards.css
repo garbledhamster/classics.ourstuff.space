@@ -1,0 +1,125 @@
+/* ===== Library cards ===== */
+.libCard{
+  border:var(--border);
+  border-radius:var(--radius);
+  background:#fff;
+  box-shadow:var(--shadow);
+  padding:12px;
+  min-width:0;
+  position:relative;
+}
+.libHead{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:var(--borderThin);
+  padding-bottom:10px;
+  margin-bottom:10px;
+  min-width:0;
+}
+.libTitle{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:-0.01em;
+  margin:0;
+  overflow-wrap:anywhere;
+}
+.libAuthor{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-size:12px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+  margin-top:6px;
+}
+/* Library card button drawer – slides out from under card */
+.libDrawer{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+}
+.libDrawer > div{ overflow:hidden; }
+.libCard.learningGoalsHostOpen .libDrawer > div{ overflow:visible; }
+.libCard.taskDropOpen .libDrawer > div{ overflow:visible; }
+.libActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  border-top:var(--borderThin);
+  padding:10px 0 4px;
+  background:#fafafa;
+}
+.cardMetaControls{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+  align-items:stretch;
+  justify-items:stretch;
+  border-top:var(--borderThin);
+  padding:10px 0 4px;
+  background:#fafafa;
+}
+.cardMetaControls > .statusSelect,
+.cardMetaControls > .taskTracker,
+.cardMetaControls > .cardDateFields{
+  width:100%;
+}
+/* Side-by-side layout: meta panel on left, action buttons on right */
+.workDrawerBody{
+  display:flex;
+  flex-direction:row;
+  align-items:stretch;
+  border-top:var(--borderThin);
+  background:#fafafa;
+}
+.workDrawerBody > .cardMetaControls{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  flex-shrink:0;
+  border-top:none;
+  border-right:var(--borderThin);
+  background:transparent;
+  padding:10px 12px 8px 0;
+  min-width:200px;
+  max-width:300px;
+}
+.workDrawerBody .cardDateFields{
+  grid-template-columns:1fr;
+}
+.workDrawerBody > .workActions,
+.workDrawerBody > .libActions{
+  flex:1;
+  min-width:0;
+  border-top:none;
+  padding:10px 0 2px 12px;
+  background:transparent;
+}
+.libActions .btn,
+.workActions .btn{
+  min-height:38px;
+  flex:1 1 130px;
+  min-width:0;
+  white-space:normal;
+  text-align:center;
+  justify-content:center;
+}
+.libActions .ytGoalWrap,
+.workActions .ytGoalWrap{
+  flex:1 1 130px;
+  min-height:38px;
+}
+.libActions .ytGoalWrap > .btn,
+.workActions .ytGoalWrap > .btn{
+  width:100%;
+}
+/* open: snappier ease-out */
+.libCard.active .libDrawer{
+  grid-template-rows:1fr;
+  transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+}
+

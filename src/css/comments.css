@@ -1,0 +1,114 @@
+/* ===== Great Conversation Comments Drawer ===== */
+.commentsDrawer{ right:0; left:auto; width:min(520px, 100vw); }
+.commentRules{
+  background:#f5f5f0;
+  border:2px solid var(--ink);
+  padding:14px 16px;
+  margin-bottom:16px;
+  font-size:13px;
+  line-height:1.6;
+}
+.commentRules h3{
+  font-family:'Newsreader',serif;
+  font-size:15px;
+  font-weight:800;
+  margin:0 0 8px 0;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.commentRules ol{
+  margin:0;
+  padding-left:20px;
+}
+.commentRules li{ margin-bottom:4px; }
+.commentTypeRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin:8px 0;
+}
+.commentTypePill{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 10px;
+  border:2px solid var(--ink);
+  background:transparent;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:inherit;
+  letter-spacing:.02em;
+}
+.commentTypePill.selected,
+.commentTypePill:hover{ background:var(--ink); color:var(--paper); }
+.commentItem{
+  border:2px solid var(--ink);
+  padding:12px 14px;
+  margin-bottom:10px;
+  background:var(--paper);
+}
+.commentItemHeader{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
+  flex-wrap:wrap;
+}
+.commentAuthorName{
+  font-weight:700;
+  font-size:13px;
+}
+.commentDate{
+  font-size:11px;
+  color:var(--muted);
+}
+.commentTypeBadge{
+  font-size:11px;
+  font-weight:700;
+  padding:2px 7px;
+  border:1.5px solid var(--ink);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.commentBody{
+  font-size:14px;
+  line-height:1.65;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+.commentDeleteBtn{
+  margin-top:8px;
+  font-size:12px;
+  padding:3px 8px;
+}
+.commentForm{
+  border-top:2px solid var(--ink);
+  padding-top:14px;
+  margin-top:6px;
+}
+.commentForm .label{ font-size:13px; font-weight:700; margin-bottom:4px; }
+.commentSignInNote{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.commentsLoading{
+  text-align:center;
+  padding:20px;
+  font-size:13px;
+  color:var(--muted);
+}
+.commentsEmpty{
+  text-align:center;
+  padding:20px;
+  font-size:13px;
+  color:var(--muted);
+  border:2px dashed var(--ink);
+}
+html.dark .commentRules{ background:#1a1a1a; }
+html.dark .commentItem{ background:#1a1a1a; }
+html.dark .commentTypePill{ background:transparent; color:var(--ink); }
+html.dark .commentTypePill.selected,
+html.dark .commentTypePill:hover{ background:var(--ink); color:var(--paper); }
+

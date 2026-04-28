@@ -1,0 +1,65 @@
+/* ===== Dark mode ===== */
+html.dark{
+  --paper:#111;
+  --ink:#eee;
+  --ink2:#ddd;
+  --muted:#888;
+}
+html.dark body{ background:var(--paper); color:var(--ink); }
+html.dark .badge,
+html.dark .btn,
+html.dark .input,
+html.dark .select,
+html.dark .textarea,
+html.dark .toggle,
+html.dark .yearStepper,
+html.dark .controls,
+html.dark .planRefRow,
+html.dark .planMasthead,
+html.dark .libCard,
+html.dark .yearCard,
+html.dark .readingBlock,
+html.dark .tier,
+html.dark .marker,
+html.dark .workRow,
+html.dark .pill,
+html.dark .modal,
+html.dark .drawer,
+html.dark .noteTools,
+html.dark .noteList,
+html.dark .editor,
+html.dark .codebox,
+html.dark .ytGoalDrawer,
+html.dark .error{ background:#1a1a1a; color:var(--ink); }
+html.dark .libActions,
+/* biome-ignore lint/style/noDescendingSpecificity: dark-mode override of base class intentionally lower specificity */
+html.dark .workActions{ background:#222; }
+html.dark .workDrawerBody{ background:#222; }
+html.dark .workDrawerBody > .cardMetaControls{ background:transparent; border-right-color:#444; }
+html.dark .bookDetailsSection{ background:#222; border-bottom-color:#444; }
+html.dark .bookDetailsHeader{ background:#2a2a2a; border-bottom-color:#444; color:#888; }
+html.dark .bookDetailsLoading{ color:#888; }
+html.dark .bookDetailsSource{ color:#666; }
+html.dark .bookDetailsLink{ color:var(--ink); }
+html.dark .cardMetaControls{ background:#1f1f1f; }
+html.dark .cardDateField,
+html.dark .cardDateInput{ background:#1a1a1a; color:var(--ink); }
+html.dark .taskDropPanel{ background:#222; border-color:#444; }
+html.dark .taskDropOpt:hover,
+html.dark .taskDropOpt:focus{ background:#2e2e2e; }
+html.dark .taskDropOpt[aria-selected="true"]{ background:#2a2a2a; }
+html.dark .bar{ background:#222; }
+html.dark .tabOn{ background:var(--ink); color:var(--paper); }
+html.dark .bar > span{ background:var(--ink); }
+html.dark .noteItemPreview{ color:var(--ink2); }
+html.dark .flash{ outline-color:var(--ink); }
+html.dark .input:focus,
+html.dark .select:focus,
+html.dark .textarea:focus{ box-shadow:0 0 0 3px #ffffff22; }
+html.dark footer{ border-top-color:var(--ink); color:var(--muted); }
+html.dark .planMastheadRule{ border-top-color:var(--ink); }
+#darkModeBtn .icon-moon{ display:inline; }
+#darkModeBtn .icon-sun{ display:none; }
+html.dark #darkModeBtn .icon-moon{ display:none; }
+html.dark #darkModeBtn .icon-sun{ display:inline; }
+

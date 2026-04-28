@@ -1,0 +1,105 @@
+/* Buttons / inputs */
+.btn{
+  border:var(--border);
+  border-radius:var(--radius);
+  background:#fff;
+  box-shadow:var(--shadowXs);
+  padding:8px 10px;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  line-height:1;
+  user-select:none;
+  white-space:nowrap;
+  position:relative;
+}
+.btn:hover{ transform: translate(-1px,-1px); }
+.btn:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
+
+/* Visually hide text but keep it accessible for screen readers */
+.btn-text-mobile-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.btnGhost{
+  border:var(--borderThin);
+  box-shadow:none;
+  padding:7px 10px;
+}
+
+.btnDanger{
+  color:#b91c1c;
+  border-color:#fca5a5;
+}
+.btnDanger:hover{ background:#fff5f5; }
+html.dark .btnDanger{ color:#fca5a5; border-color:#7f1d1d; }
+html.dark .btnDanger:hover{ background:#3b1111; }
+
+.btnBloom{
+  border:var(--borderThin);
+  box-shadow:none;
+  padding:7px 10px;
+  transition: all 0.2s ease;
+}
+.btnBloom.active{
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* ABC selector bar */
+.abcBar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-bottom:12px;
+  justify-content:center;
+}
+.abcBtn{
+  display:inline-flex;
+  justify-content:center;
+  padding:5px 7px;
+  min-width:30px;
+  font-size:11px;
+}
+.abcBtn.active{
+  background:var(--ink);
+  color:var(--paper);
+}
+.abcBtn:disabled{
+  opacity:0.35;
+  cursor:default;
+  pointer-events:none;
+}
+
+/* Pagination bar */
+.paginationBar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:16px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.pageInfo{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+

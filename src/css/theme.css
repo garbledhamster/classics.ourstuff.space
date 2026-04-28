@@ -1,0 +1,29 @@
+/* ===== Neo-brutal newspaper theme (B/W, hard edges) ===== */
+:root{
+  --paper:#fff;
+  --ink:#000;
+  --ink2:#111;
+  --muted:#444;
+  --border:2px solid var(--ink);
+  --borderThin:1px solid var(--ink);
+  --shadow:8px 8px 0 var(--ink);
+  --shadowSm:5px 5px 0 var(--ink);
+  --shadowXs:3px 3px 0 var(--ink);
+  --gap:16px;
+  --max:1200px;
+  --radius:0px; /* HARD EDGES */
+}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.25;
+}
+
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:18px;
+  overflow-x: hidden;
+}

@@ -1,0 +1,169 @@
+/* ===== Plan view modes ===== */
+/* Condensed: hide the tag-pill row, keep title + checkbox */
+#planGrid.view-condensed .tagRow{ display:none; }
+#planGrid.view-condensed .workSub > div:empty{ display:none; }
+/* Condensed: buttons cascade left-to-right in the title area, icon-only */
+#planGrid.view-condensed .workRow{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+#planGrid.view-condensed .workCheck{ flex:0 0 auto; }
+#planGrid.view-condensed .workMain{ flex:1 1 auto; min-width:0; }
+#planGrid.view-condensed .workDrawer{ flex:0 0 auto; grid-template-rows:1fr; }
+#planGrid.view-condensed .workDrawer > div{ overflow:visible; }
+#planGrid.view-condensed .workActions{ display:flex; flex-wrap:wrap; border-top:none; padding:0; background:transparent; }
+#planGrid.view-condensed .workDrawerBody{ border-top:none; background:transparent; }
+#planGrid.view-condensed .workDrawerBody > .cardMetaControls{ display:none; }
+#planGrid.view-condensed .workActions .btn-label{ display:none; }
+#planGrid.view-condensed .workActions .btn{ padding:6px; line-height:0; flex:0 0 auto; min-width:0; }
+#planGrid.view-condensed .bookDetailsSection{ display:none; }
+
+/* Plan table view */
+.planTableWrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.planTable{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
+  font-size:13px;
+}
+.planTable th{
+  border:var(--borderThin);
+  padding:8px 10px;
+  font-weight:900;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  text-align:left;
+  background:#000;
+  color:#fff;
+  white-space:nowrap;
+}
+.planTable td{
+  border:var(--borderThin);
+  padding:8px 10px;
+  vertical-align:middle;
+  min-width:0;
+}
+.planTable tbody tr:hover td{ background:#f5f5f5; }
+.planTable .td-check{
+  width:32px;
+  text-align:center;
+  padding:6px;
+}
+.planTable .td-num{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:15px;
+  white-space:nowrap;
+}
+.planTable .td-author{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-size:11px;
+  white-space:nowrap;
+}
+.planTable .td-work{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:15px;
+}
+.planTable .td-notes,
+.planTable .td-number,
+.planTable .td-year,
+.planTable .td-published{ white-space:nowrap; }
+.planTable .td-type{ text-transform:capitalize; white-space:nowrap; }
+.planTable .td-status .statusSelect,
+.planTable .td-action .statusSelect{
+  min-width:0;
+  width:auto;
+  font-size:11px;
+  padding:7px 24px 7px 8px;
+}
+.planTable .td-status{ white-space:nowrap; }
+.planTable .td-date input[type="date"]{
+  width:100%;
+  min-width:120px;
+  font-size:11px;
+  font-weight:800;
+  padding:5px 7px;
+  border:var(--borderThin);
+  border-radius:6px;
+  background:#fff;
+  color:var(--ink);
+}
+
+/* Dark mode for plan table */
+html.dark .planTable th{ background:var(--ink); color:var(--paper); }
+html.dark .planTable td{ background:#1a1a1a; color:var(--ink); }
+html.dark .planTable tbody tr:hover td{ background:#222; }
+html.dark .planTable .td-date input[type="date"]{ background:#1a1a1a; color:var(--ink); }
+
+/* Override .workRow display:grid for <tr> elements inside .planTable */
+.planTable tr.workRow{
+  display:table-row;
+}
+
+/* Plan view button group */
+.planViewBtnGroup{
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+/* Column picker */
+.colPickerWrap{
+  position:relative;
+  display:inline-block;
+}
+.colPickerPanel{
+  position:absolute;
+  top:calc(100% + 4px);
+  left:0;
+  z-index:200;
+  background:#fff;
+  border:var(--borderThin);
+  padding:8px 0;
+  min-width:160px;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+html.dark .colPickerPanel{ background:#1a1a1a; color:var(--ink); }
+.colPickerPanel label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 14px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  user-select:none;
+}
+.colPickerPanel label:hover{ background:#f5f5f0; }
+html.dark .colPickerPanel label:hover{ background:#222; }
+.colPickerPanel input[type="checkbox"]{ accent-color:var(--ink); width:14px; height:14px; cursor:pointer; }
+/* Column picker anchored inside the table th */
+.planTable .th-colpicker{
+  width:28px;
+  padding:4px;
+  text-align:center;
+  position:relative;
+}
+.planTable .th-colpicker .colPickerPanel{
+  left:auto;
+  right:0;
+  min-width:160px;
+}
+.planTable .th-colpicker .btn-colpicker{
+  padding:2px 4px;
+  font-size:11px;
+  line-height:1;
+  background:transparent;
+  border:none;
+  color:inherit;
+  cursor:pointer;
+}
+.planTable .th-colpicker .btn-colpicker:hover{ opacity:0.7; }
+.planTable .td-colpicker{ width:28px; padding:0; }
+

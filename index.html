@@ -786,7 +786,7 @@
     }
 
     /* ===== Black Box Thinking Section ===== */
-    .blackBoxSection{ background:#fafafa; }
+    .blackBoxSection{}
     .bbPanel{ padding:10px 12px 12px; }
     .bbLayout{
       display:flex;
@@ -4878,7 +4878,7 @@
             const catalogMeta = findCatalogMeta(author, title);
 
             const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
-            const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")} ${greatIdeas.join(" ")} ${customTags.join(" ")}`);
+            const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")} ${(greatIdeas||[]).join(" ")} ${(customTags||[]).join(" ")}`);
 
             flat.push({
               year: yearNum,
@@ -4940,7 +4940,7 @@
         }
         if (!item.blackBox && fw.blackBox) item.blackBox = fw.blackBox;
         // Update search to include ideas and tags
-        item.search = normalizeText(`${author} ${title} ${item.greatIdeas.join(" ")} ${item.customTags.join(" ")}`);
+        item.search = normalizeText(`${author} ${title} ${(item.greatIdeas||[]).join(" ")} ${(item.customTags||[]).join(" ")}`);
 
         item.occurrences.push({
           year: fw.year,

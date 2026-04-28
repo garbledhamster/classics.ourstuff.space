@@ -47,4 +47,3 @@ if (window.firebaseReady) {
     try{ localStorage.setItem(DARK_KEY, String(!isDark)); }catch(e){}
   });
 })();
-  </script>

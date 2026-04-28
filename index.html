@@ -2213,7 +2213,7 @@
     <section id="libraryView" class="view on" aria-label="All works view">
       <section class="controls" aria-label="library filters">
         <div class="control searchControl">
-          <div class="label">Search (title/author/ideas)</div>
+          <div class="label">Search (title/author/ideas/tags)</div>
           <input id="libQ" class="input" type="search" placeholder="e.g., Plato, Republic, Justice…" autocomplete="search" >
         </div>
 
@@ -7594,7 +7594,6 @@
 
       $("#resetChecksBtn").addEventListener("click", () => {
         state.filters.q = "";
-        state.filters.tier = "all";
         state.filters.greatIdea = "all";
         state.filters.sort = "sort_check";
         const fallbackYear = state.availableYears.length ? String(state.availableYears[0]) : "all";

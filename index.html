@@ -688,6 +688,15 @@
       text-align:center;
       justify-content:center;
     }
+    .libActions .ytGoalWrap,
+    .workActions .ytGoalWrap{
+      flex:1 1 130px;
+      min-height:38px;
+    }
+    .libActions .ytGoalWrap > .btn,
+    .workActions .ytGoalWrap > .btn{
+      width:100%;
+    }
     /* open: snappier ease-out */
     .libCard.active .libDrawer{
       grid-template-rows:1fr;
@@ -2378,7 +2387,7 @@
           </svg>
           <div>
             <div class="searchBannerLabel">Search Platform</div>
-            <div id="searchPlatformName" class="searchBannerName">Google</div>
+            <div id="searchPlatformName" class="searchBannerName">Search</div>
           </div>
         </div>
       </div>
@@ -3588,8 +3597,8 @@
       searchSettingsModalContext = { title, author, platform, goal, works, bloomsLevel: null };
       
       // Update modal title based on platform
-      const platformName = platform === "youtube" ? "YouTube" : "Google";
-      $("#searchSettingsModalTitle").textContent = `${platformName} Search Settings`;
+      const platformName = platform === "youtube" ? "Videos" : "Search";
+      $("#searchSettingsModalTitle").textContent = platform === "youtube" ? "Videos Settings" : "Search Settings";
       
       // Update platform indicator
       $("#searchPlatformName").textContent = platformName;

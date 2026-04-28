@@ -155,12 +155,27 @@
               "title": "Republic",
               "selection": "Book I-II",
               "great_ideas": [
+                "Aristocracy",
+                "Art",
+                "Beauty",
+                "Dialectic",
+                "Form",
+                "Government",
+                "Hypothesis",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Logic",
+                "Oligarchy",
+                "One and Many",
                 "Philosophy",
+                "Principle",
+                "Sense",
+                "Slavery",
                 "Soul",
-                "Government"
+                "Temperance",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [
                 "cave allegory",
@@ -169,12 +184,27 @@
               "black_box": {
                 "box": "Republic (Book I-II)",
                 "inputs": [
+                  "Aristocracy",
+                  "Art",
+                  "Beauty",
+                  "Dialectic",
+                  "Form",
+                  "Government",
+                  "Hypothesis",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Logic",
+                  "Oligarchy",
+                  "One and Many",
                   "Philosophy",
+                  "Principle",
+                  "Sense",
+                  "Slavery",
                   "Soul",
-                  "Government"
+                  "Temperance",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -195,12 +225,18 @@
               "title": "Nicomachean Ethics",
               "selection": "Book I",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
+                "Beauty",
                 "Cause",
-                "Virtue and Vice",
-                "Happiness"
+                "Definition",
+                "Habit",
+                "Happiness",
+                "Nature",
+                "Principle",
+                "Reasoning",
+                "Sense",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "golden mean"
@@ -208,12 +244,18 @@
               "black_box": {
                 "box": "Nicomachean Ethics (Book I)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
+                  "Beauty",
                   "Cause",
-                  "Virtue and Vice",
-                  "Happiness"
+                  "Definition",
+                  "Habit",
+                  "Happiness",
+                  "Nature",
+                  "Principle",
+                  "Reasoning",
+                  "Sense",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -234,12 +276,18 @@
               "title": "Politics",
               "selection": "Book I",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Aristocracy",
+                "Art",
                 "Cause",
-                "Virtue and Vice",
-                "Government"
+                "Definition",
+                "Government",
+                "Habit",
+                "Nature",
+                "Oligarchy",
+                "Reasoning",
+                "Slavery",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "polis"
@@ -247,12 +295,18 @@
               "black_box": {
                 "box": "Politics (Book I)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Aristocracy",
+                  "Art",
                   "Cause",
-                  "Virtue and Vice",
-                  "Government"
+                  "Definition",
+                  "Government",
+                  "Habit",
+                  "Nature",
+                  "Oligarchy",
+                  "Reasoning",
+                  "Slavery",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -303,21 +357,23 @@
               "title": "The Gospel According to Saint Matthew",
               "selection": "Matthew 1-28",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
+                "Law",
                 "Love",
-                "Sin",
-                "Law"
+                "Religion",
+                "Sin"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Gospel According to Saint Matthew (Matthew 1-28)",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
+                  "Law",
                   "Love",
-                  "Sin",
-                  "Law"
+                  "Religion",
+                  "Sin"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -331,21 +387,23 @@
               "title": "The Acts of the Apostles",
               "selection": "Acts 1-28",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
+                "Law",
                 "Love",
-                "Sin",
-                "Law"
+                "Religion",
+                "Sin"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Acts of the Apostles (Acts 1-28)",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
+                  "Law",
                   "Love",
-                  "Sin",
-                  "Law"
+                  "Religion",
+                  "Sin"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -366,12 +424,17 @@
               "title": "Confessions",
               "selection": "Book I-VIII",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Sin",
-                "Will",
-                "Soul",
                 "Memory and Imagination",
-                "Time"
+                "Sin",
+                "Soul",
+                "Temperance",
+                "Time",
+                "Will"
               ],
               "custom_tags": [
                 "conversion",
@@ -380,12 +443,17 @@
               "black_box": {
                 "box": "Confessions (Book I-VIII)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Sin",
-                  "Will",
-                  "Soul",
                   "Memory and Imagination",
-                  "Time"
+                  "Sin",
+                  "Soul",
+                  "Temperance",
+                  "Time",
+                  "Will"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -405,11 +473,12 @@
             {
               "title": "The Prince",
               "great_ideas": [
+                "Aristocracy",
                 "Government",
                 "Prudence",
                 "Tyranny and Despotism",
-                "War and Peace",
-                "Virtue and Vice"
+                "Virtue and Vice",
+                "War and Peace"
               ],
               "custom_tags": [
                 "power",
@@ -418,11 +487,12 @@
               "black_box": {
                 "box": "The Prince",
                 "inputs": [
+                  "Aristocracy",
                   "Government",
                   "Prudence",
                   "Tyranny and Despotism",
-                  "War and Peace",
-                  "Virtue and Vice"
+                  "Virtue and Vice",
+                  "War and Peace"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -591,21 +661,25 @@
               "title": "Concerning Civil Government",
               "selection": "Second Essay",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Concerning Civil Government (Second Essay)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -626,12 +700,15 @@
               "title": "The Social Contract",
               "selection": "Book I-II",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Equality",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "Equality"
+                "Oligarchy",
+                "Slavery",
+                "State"
               ],
               "custom_tags": [
                 "general will"
@@ -639,12 +716,15 @@
               "black_box": {
                 "box": "The Social Contract (Book I-II)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
+                  "Equality",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "Equality"
+                  "Oligarchy",
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -664,23 +744,25 @@
             {
               "title": "Declaration of Independence",
               "great_ideas": [
+                "Citizen",
+                "Constitution",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "Constitution"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Declaration of Independence",
                 "inputs": [
+                  "Citizen",
+                  "Constitution",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "Constitution"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -693,23 +775,25 @@
             {
               "title": "Constitution of the United States",
               "great_ideas": [
+                "Citizen",
+                "Constitution",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "Constitution"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Constitution of the United States",
                 "inputs": [
+                  "Citizen",
+                  "Constitution",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "Constitution"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -723,23 +807,27 @@
               "title": "The Federalist Papers",
               "selection": "Numbers 1-10, 15, 31, 47, 51, 68-71",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Constitution",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "Constitution"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Federalist Papers (Numbers 1-10, 15, 31, 47, 51, 68-71)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
+                  "Constitution",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "Constitution"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -797,12 +885,14 @@
               "title": "Democracy in America",
               "selection": "Introduction; Vol. I, Part 1, ch. 1-8; Vol. II, Part 2, ch. 1-5",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "Democracy",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "Democracy"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [
                 "american habits"
@@ -810,12 +900,14 @@
               "black_box": {
                 "box": "Democracy in America (Introduction; Vol. I, Part 1, ch. 1-8; Vol. II, Part 2, ch. 1-5)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
+                  "Democracy",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "Democracy"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -835,23 +927,27 @@
             {
               "title": "Manifesto of the Communist Party",
               "great_ideas": [
-                "Labor",
-                "Wealth",
+                "Dialectic",
                 "Government",
                 "Justice",
+                "Labor",
+                "Opposition",
                 "Progress",
-                "Revolution"
+                "Revolution",
+                "Wealth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Manifesto of the Communist Party",
                 "inputs": [
-                  "Labor",
-                  "Wealth",
+                  "Dialectic",
                   "Government",
                   "Justice",
+                  "Labor",
+                  "Opposition",
                   "Progress",
-                  "Revolution"
+                  "Revolution",
+                  "Wealth"
                 ],
                 "outputs": [
                   "labor reveals social dependence",
@@ -1176,12 +1272,18 @@
             {
               "title": "Meno",
               "great_ideas": [
+                "Dialectic",
+                "Education",
+                "Form",
+                "Hypothesis",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
                 "Philosophy",
+                "Sense",
                 "Soul",
-                "Education"
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [
                 "learning paradox"
@@ -1189,12 +1291,18 @@
               "black_box": {
                 "box": "Meno",
                 "inputs": [
+                  "Dialectic",
+                  "Education",
+                  "Form",
+                  "Hypothesis",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
                   "Philosophy",
+                  "Sense",
                   "Soul",
-                  "Education"
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -1214,12 +1322,14 @@
             {
               "title": "Poetics",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
+                "Beauty",
                 "Cause",
-                "Virtue and Vice",
-                "Poetry"
+                "Definition",
+                "Nature",
+                "Poetry",
+                "Reasoning",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "tragedy"
@@ -1227,12 +1337,14 @@
               "black_box": {
                 "box": "Poetics",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
+                  "Beauty",
                   "Cause",
-                  "Virtue and Vice",
-                  "Poetry"
+                  "Definition",
+                  "Nature",
+                  "Poetry",
+                  "Reasoning",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -1253,12 +1365,18 @@
               "title": "Nicomachean Ethics",
               "selection": "Book II; Book III, ch. 5-12; Book VI, ch. 8-13",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
+                "Beauty",
                 "Cause",
-                "Virtue and Vice",
-                "Happiness"
+                "Definition",
+                "Habit",
+                "Happiness",
+                "Nature",
+                "Principle",
+                "Reasoning",
+                "Sense",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "golden mean"
@@ -1266,12 +1384,18 @@
               "black_box": {
                 "box": "Nicomachean Ethics (Book II; Book III, ch. 5-12; Book VI, ch. 8-13)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
+                  "Beauty",
                   "Cause",
-                  "Virtue and Vice",
-                  "Happiness"
+                  "Definition",
+                  "Habit",
+                  "Happiness",
+                  "Nature",
+                  "Principle",
+                  "Reasoning",
+                  "Sense",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -1291,9 +1415,12 @@
             {
               "title": "Introduction to Arithmetic",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Infinity",
+                "Mathematics",
+                "One and Many",
+                "Principle",
+                "Quantity",
                 "Reasoning",
                 "Science"
               ],
@@ -1301,9 +1428,12 @@
               "black_box": {
                 "box": "Introduction to Arithmetic",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Infinity",
+                  "Mathematics",
+                  "One and Many",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
                   "Science"
                 ],
@@ -1326,17 +1456,23 @@
               "title": "On the Nature of Things",
               "selection": "Book I-IV",
               "great_ideas": [
-                "Man",
+                "Change",
                 "Custom and Convention",
-                "Judgment"
+                "Infinity",
+                "Judgment",
+                "Man",
+                "Sense"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Nature of Things (Book I-IV)",
                 "inputs": [
-                  "Man",
+                  "Change",
                   "Custom and Convention",
-                  "Judgment"
+                  "Infinity",
+                  "Judgment",
+                  "Man",
+                  "Sense"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -1387,21 +1523,29 @@
               "title": "Leviathan",
               "selection": "Part I",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Logic",
+                "Oligarchy",
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Leviathan (Part I)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Logic",
+                  "Oligarchy",
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -1451,9 +1595,10 @@
               "title": "Pensées",
               "selection": "Selected numbers from the standard ten-year plan",
               "great_ideas": [
+                "Definition",
+                "Infinity",
                 "Mathematics",
                 "Quantity",
-                "Definition",
                 "Reasoning",
                 "Science"
               ],
@@ -1461,9 +1606,10 @@
               "black_box": {
                 "box": "Pensées (Selected numbers from the standard ten-year plan)",
                 "inputs": [
+                  "Definition",
+                  "Infinity",
                   "Mathematics",
                   "Quantity",
-                  "Definition",
                   "Reasoning",
                   "Science"
                 ],
@@ -1485,9 +1631,10 @@
             {
               "title": "Treatise on the Arithmetical Triangle",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Mathematics",
+                "Principle",
+                "Quantity",
                 "Reasoning",
                 "Science"
               ],
@@ -1495,9 +1642,10 @@
               "black_box": {
                 "box": "Treatise on the Arithmetical Triangle",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Mathematics",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
                   "Science"
                 ],
@@ -1555,21 +1703,25 @@
             {
               "title": "Discourse on the Origin of Inequality",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Discourse on the Origin of Inequality",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -1589,21 +1741,23 @@
             {
               "title": "Fundamental Principles of the Metaphysic of Morals",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Judgment",
+                "Knowledge",
+                "Principle",
+                "Reasoning",
+                "Will"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Fundamental Principles of the Metaphysic of Morals",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Judgment",
+                  "Knowledge",
+                  "Principle",
+                  "Reasoning",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -1623,19 +1777,21 @@
             {
               "title": "On Liberty",
               "great_ideas": [
-                "Liberty",
                 "Government",
+                "Happiness",
+                "Liberty",
                 "Opinion",
-                "Happiness"
+                "Slavery"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On Liberty",
                 "inputs": [
-                  "Liberty",
                   "Government",
+                  "Happiness",
+                  "Liberty",
                   "Opinion",
-                  "Happiness"
+                  "Slavery"
                 ],
                 "outputs": [
                   "liberty requires disciplined responsibility",
@@ -1989,23 +2145,29 @@
             {
               "title": "Statesman",
               "great_ideas": [
+                "Aristocracy",
+                "Dialectic",
+                "Government",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Oligarchy",
                 "Philosophy",
                 "Soul",
-                "Government"
+                "Truth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Statesman",
                 "inputs": [
+                  "Aristocracy",
+                  "Dialectic",
+                  "Government",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Oligarchy",
                   "Philosophy",
                   "Soul",
-                  "Government"
+                  "Truth"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -2026,23 +2188,39 @@
               "title": "On Interpretation",
               "selection": "ch. 1-10",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
-                "Virtue and Vice",
-                "Language"
+                "Change",
+                "Definition",
+                "Dialectic",
+                "Language",
+                "Logic",
+                "Nature",
+                "Necessity and Contingency",
+                "Opposition",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Universal and Particular",
+                "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On Interpretation (ch. 1-10)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
-                  "Virtue and Vice",
-                  "Language"
+                  "Change",
+                  "Definition",
+                  "Dialectic",
+                  "Language",
+                  "Logic",
+                  "Nature",
+                  "Necessity and Contingency",
+                  "Opposition",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Universal and Particular",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -2063,12 +2241,18 @@
               "title": "Politics",
               "selection": "Book III-V",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Aristocracy",
+                "Art",
                 "Cause",
-                "Virtue and Vice",
-                "Government"
+                "Definition",
+                "Government",
+                "Habit",
+                "Nature",
+                "Oligarchy",
+                "Reasoning",
+                "Slavery",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "polis"
@@ -2076,12 +2260,18 @@
               "black_box": {
                 "box": "Politics (Book III-V)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Aristocracy",
+                  "Art",
                   "Cause",
-                  "Virtue and Vice",
-                  "Government"
+                  "Definition",
+                  "Government",
+                  "Habit",
+                  "Nature",
+                  "Oligarchy",
+                  "Reasoning",
+                  "Slavery",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -2102,21 +2292,27 @@
               "title": "Elements",
               "selection": "Book I",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Infinity",
+                "Mathematics",
+                "Principle",
+                "Quantity",
                 "Reasoning",
-                "Science"
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Elements (Book I)",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Infinity",
+                  "Mathematics",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
-                  "Science"
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "mathematics disciplines abstract reason",
@@ -2166,21 +2362,47 @@
               "title": "Summa Theologica",
               "selection": "Part I-II, QQ 90-97",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I-II, QQ 90-97)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -2268,17 +2490,21 @@
             {
               "title": "Paradise Lost",
               "great_ideas": [
-                "Man",
+                "Angel",
+                "Beauty",
                 "Custom and Convention",
-                "Judgment"
+                "Judgment",
+                "Man"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Paradise Lost",
                 "inputs": [
-                  "Man",
+                  "Angel",
+                  "Beauty",
                   "Custom and Convention",
-                  "Judgment"
+                  "Judgment",
+                  "Man"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -2298,21 +2524,27 @@
               "title": "An Essay Concerning Human Understanding",
               "selection": "Book III, ch. 1-3, 9-11",
               "great_ideas": [
+                "Citizen",
                 "Government",
+                "Idea",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Relation",
+                "Sense",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "An Essay Concerning Human Understanding (Book III, ch. 1-3, 9-11)",
                 "inputs": [
+                  "Citizen",
                   "Government",
+                  "Idea",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Relation",
+                  "Sense",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -2332,21 +2564,23 @@
             {
               "title": "The Science of Right",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Judgment",
+                "Knowledge",
+                "Reasoning",
+                "Slavery",
+                "Will"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Science of Right",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Judgment",
+                  "Knowledge",
+                  "Reasoning",
+                  "Slavery",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -2367,17 +2601,21 @@
               "title": "Considerations on Representative Government",
               "selection": "ch. 1-6",
               "great_ideas": [
-                "Man",
+                "Aristocracy",
                 "Custom and Convention",
-                "Judgment"
+                "Judgment",
+                "Man",
+                "Slavery"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Considerations on Representative Government (ch. 1-6)",
                 "inputs": [
-                  "Man",
+                  "Aristocracy",
                   "Custom and Convention",
-                  "Judgment"
+                  "Judgment",
+                  "Man",
+                  "Slavery"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -2896,12 +3134,27 @@
               "title": "Republic",
               "selection": "Book VI-VII",
               "great_ideas": [
+                "Aristocracy",
+                "Art",
+                "Beauty",
+                "Dialectic",
+                "Form",
+                "Government",
+                "Hypothesis",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Logic",
+                "Oligarchy",
+                "One and Many",
                 "Philosophy",
+                "Principle",
+                "Sense",
+                "Slavery",
                 "Soul",
-                "Government"
+                "Temperance",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [
                 "cave allegory",
@@ -2910,12 +3163,27 @@
               "black_box": {
                 "box": "Republic (Book VI-VII)",
                 "inputs": [
+                  "Aristocracy",
+                  "Art",
+                  "Beauty",
+                  "Dialectic",
+                  "Form",
+                  "Government",
+                  "Hypothesis",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Logic",
+                  "Oligarchy",
+                  "One and Many",
                   "Philosophy",
+                  "Principle",
+                  "Sense",
+                  "Slavery",
                   "Soul",
-                  "Government"
+                  "Temperance",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -2935,23 +3203,39 @@
             {
               "title": "Theaetetus",
               "great_ideas": [
+                "Change",
+                "Dialectic",
+                "Form",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Opinion",
                 "Philosophy",
+                "Relation",
+                "Same and Other",
+                "Sense",
                 "Soul",
-                "Opinion"
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Theaetetus",
                 "inputs": [
+                  "Change",
+                  "Dialectic",
+                  "Form",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Opinion",
                   "Philosophy",
+                  "Relation",
+                  "Same and Other",
+                  "Sense",
                   "Soul",
-                  "Opinion"
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -2972,12 +3256,22 @@
               "title": "Physics",
               "selection": "Book IV, ch. 1-5, 10-14",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
-                "Virtue and Vice",
-                "Physics"
+                "Change",
+                "Definition",
+                "Eternity",
+                "Form",
+                "Hypothesis",
+                "Infinity",
+                "Nature",
+                "Necessity and Contingency",
+                "One and Many",
+                "Physics",
+                "Principle",
+                "Reasoning",
+                "Sense",
+                "Space",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -2985,12 +3279,22 @@
               "black_box": {
                 "box": "Physics (Book IV, ch. 1-5, 10-14)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
-                  "Virtue and Vice",
-                  "Physics"
+                  "Change",
+                  "Definition",
+                  "Eternity",
+                  "Form",
+                  "Hypothesis",
+                  "Infinity",
+                  "Nature",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Physics",
+                  "Principle",
+                  "Reasoning",
+                  "Sense",
+                  "Space",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -3011,12 +3315,26 @@
               "title": "Metaphysics",
               "selection": "Book I, ch. 1-2; Book IV; Book VI, ch. 1; Book XI, ch. 1-4",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
-                "Virtue and Vice",
-                "Physics"
+                "Change",
+                "Definition",
+                "Eternity",
+                "Form",
+                "Idea",
+                "Infinity",
+                "Nature",
+                "Necessity and Contingency",
+                "One and Many",
+                "Opposition",
+                "Physics",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Same and Other",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -3024,12 +3342,26 @@
               "black_box": {
                 "box": "Metaphysics (Book I, ch. 1-2; Book IV; Book VI, ch. 1; Book XI, ch. 1-4)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
-                  "Virtue and Vice",
-                  "Physics"
+                  "Change",
+                  "Definition",
+                  "Eternity",
+                  "Form",
+                  "Idea",
+                  "Infinity",
+                  "Nature",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Opposition",
+                  "Physics",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Same and Other",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -3050,12 +3382,17 @@
               "title": "Confessions",
               "selection": "Book IX-XIII",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Sin",
-                "Will",
-                "Soul",
                 "Memory and Imagination",
-                "Time"
+                "Sin",
+                "Soul",
+                "Temperance",
+                "Time",
+                "Will"
               ],
               "custom_tags": [
                 "conversion",
@@ -3064,12 +3401,17 @@
               "black_box": {
                 "box": "Confessions (Book IX-XIII)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Sin",
-                  "Will",
-                  "Soul",
                   "Memory and Imagination",
-                  "Time"
+                  "Sin",
+                  "Soul",
+                  "Temperance",
+                  "Time",
+                  "Will"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -3090,21 +3432,47 @@
               "title": "Summa Theologica",
               "selection": "Part I, QQ 16-17, 84-88",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I, QQ 16-17, 84-88)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -3160,11 +3528,15 @@
               "title": "Novum Organum",
               "selection": "Preface; Book I",
               "great_ideas": [
-                "Science",
+                "Art",
+                "Experience",
+                "Hypothesis",
                 "Induction",
                 "Knowledge",
+                "Logic",
+                "Principle",
                 "Progress",
-                "Experience"
+                "Science"
               ],
               "custom_tags": [
                 "new science"
@@ -3172,11 +3544,15 @@
               "black_box": {
                 "box": "Novum Organum (Preface; Book I)",
                 "inputs": [
-                  "Science",
+                  "Art",
+                  "Experience",
+                  "Hypothesis",
                   "Induction",
                   "Knowledge",
+                  "Logic",
+                  "Principle",
                   "Progress",
-                  "Experience"
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -3189,11 +3565,13 @@
             {
               "title": "New Atlantis",
               "great_ideas": [
-                "Science",
+                "Art",
+                "Experience",
+                "Hypothesis",
                 "Induction",
                 "Knowledge",
                 "Progress",
-                "Experience"
+                "Science"
               ],
               "custom_tags": [
                 "scientific utopia"
@@ -3201,11 +3579,13 @@
               "black_box": {
                 "box": "New Atlantis",
                 "inputs": [
-                  "Science",
+                  "Art",
+                  "Experience",
+                  "Hypothesis",
                   "Induction",
                   "Knowledge",
                   "Progress",
-                  "Experience"
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -3226,11 +3606,15 @@
               "title": "Two New Sciences",
               "selection": "Third Day through Scholium of Theorem II",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -3238,11 +3622,15 @@
               "black_box": {
                 "box": "Two New Sciences (Third Day through Scholium of Theorem II)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -3262,11 +3650,14 @@
             {
               "title": "Discourse on the Method",
               "great_ideas": [
-                "Reasoning",
+                "Hypothesis",
+                "Idea",
                 "Knowledge",
+                "Mathematics",
                 "Mind",
-                "Truth",
-                "Mathematics"
+                "Principle",
+                "Reasoning",
+                "Truth"
               ],
               "custom_tags": [
                 "methodic doubt"
@@ -3274,11 +3665,14 @@
               "black_box": {
                 "box": "Discourse on the Method",
                 "inputs": [
-                  "Reasoning",
+                  "Hypothesis",
+                  "Idea",
                   "Knowledge",
+                  "Mathematics",
                   "Mind",
-                  "Truth",
-                  "Mathematics"
+                  "Principle",
+                  "Reasoning",
+                  "Truth"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -3299,11 +3693,16 @@
               "title": "Mathematical Principles of Natural Philosophy",
               "selection": "Prefaces; Definitions; Axioms; General Scholium",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science",
+                "Space"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -3311,11 +3710,16 @@
               "black_box": {
                 "box": "Mathematical Principles of Natural Philosophy (Prefaces; Definitions; Axioms; General Scholium)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -3336,21 +3740,27 @@
               "title": "An Essay Concerning Human Understanding",
               "selection": "Book II",
               "great_ideas": [
+                "Citizen",
                 "Government",
+                "Idea",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Relation",
+                "Sense",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "An Essay Concerning Human Understanding (Book II)",
                 "inputs": [
+                  "Citizen",
                   "Government",
+                  "Idea",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Relation",
+                  "Sense",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -3371,10 +3781,15 @@
               "title": "An Enquiry Concerning Human Understanding",
               "great_ideas": [
                 "Cause",
-                "Experience",
-                "Knowledge",
+                "Chance",
                 "Custom and Convention",
-                "Chance"
+                "Experience",
+                "Habit",
+                "Idea",
+                "Knowledge",
+                "Necessity and Contingency",
+                "Relation",
+                "Sense"
               ],
               "custom_tags": [
                 "skepticism"
@@ -3383,10 +3798,15 @@
                 "box": "An Enquiry Concerning Human Understanding",
                 "inputs": [
                   "Cause",
-                  "Experience",
-                  "Knowledge",
+                  "Chance",
                   "Custom and Convention",
-                  "Chance"
+                  "Experience",
+                  "Habit",
+                  "Idea",
+                  "Knowledge",
+                  "Necessity and Contingency",
+                  "Relation",
+                  "Sense"
                 ],
                 "outputs": [
                   "causes explain visible change",
@@ -3407,11 +3827,21 @@
               "title": "Critique of Pure Reason",
               "selection": "Prefaces; Introduction; Transcendental Aesthetic",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
+                "Dialectic",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Idea",
+                "Infinity",
+                "Judgment",
+                "Knowledge",
+                "Logic",
+                "Necessity and Contingency",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Will"
               ],
               "custom_tags": [
                 "transcendental idealism"
@@ -3419,11 +3849,21 @@
               "black_box": {
                 "box": "Critique of Pure Reason (Prefaces; Introduction; Transcendental Aesthetic)",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
+                  "Dialectic",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Idea",
+                  "Infinity",
+                  "Judgment",
+                  "Knowledge",
+                  "Logic",
+                  "Necessity and Contingency",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -3515,11 +3955,13 @@
               "title": "The Principles of Psychology",
               "selection": "ch. XV, XX",
               "great_ideas": [
-                "Mind",
-                "Memory and Imagination",
                 "Desire",
+                "Experience",
+                "Habit",
+                "Memory and Imagination",
+                "Mind",
                 "Science",
-                "Experience"
+                "Sense"
               ],
               "custom_tags": [
                 "psychology"
@@ -3527,11 +3969,13 @@
               "black_box": {
                 "box": "The Principles of Psychology (ch. XV, XX)",
                 "inputs": [
-                  "Mind",
-                  "Memory and Imagination",
                   "Desire",
+                  "Experience",
+                  "Habit",
+                  "Memory and Imagination",
+                  "Mind",
                   "Science",
-                  "Experience"
+                  "Sense"
                 ],
                 "outputs": [
                   "mind wrestles with itself",
@@ -3552,10 +3996,12 @@
               "title": "An Introduction to Metaphysics",
               "great_ideas": [
                 "Being",
-                "Metaphysics",
-                "Mind",
+                "Change",
                 "God",
                 "Knowledge",
+                "Metaphysics",
+                "Mind",
+                "One and Many",
                 "Physics"
               ],
               "custom_tags": [
@@ -3565,10 +4011,12 @@
                 "box": "An Introduction to Metaphysics",
                 "inputs": [
                   "Being",
-                  "Metaphysics",
-                  "Mind",
+                  "Change",
                   "God",
                   "Knowledge",
+                  "Metaphysics",
+                  "Mind",
+                  "One and Many",
                   "Physics"
                 ],
                 "outputs": [
@@ -3589,17 +4037,19 @@
             {
               "title": "Experience and Education",
               "great_ideas": [
-                "Man",
                 "Custom and Convention",
-                "Judgment"
+                "Habit",
+                "Judgment",
+                "Man"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Experience and Education",
                 "inputs": [
-                  "Man",
                   "Custom and Convention",
-                  "Judgment"
+                  "Habit",
+                  "Judgment",
+                  "Man"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -3619,9 +4069,10 @@
               "title": "Science and the Modern World",
               "selection": "ch. 1-4, 10",
               "great_ideas": [
+                "Change",
+                "Definition",
                 "Mathematics",
                 "Quantity",
-                "Definition",
                 "Reasoning",
                 "Science"
               ],
@@ -3629,9 +4080,10 @@
               "black_box": {
                 "box": "Science and the Modern World (ch. 1-4, 10)",
                 "inputs": [
+                  "Change",
+                  "Definition",
                   "Mathematics",
                   "Quantity",
-                  "Definition",
                   "Reasoning",
                   "Science"
                 ],
@@ -3654,17 +4106,21 @@
               "title": "The Problems of Philosophy",
               "selection": "ch. 1-8, 12, 15",
               "great_ideas": [
-                "Man",
                 "Custom and Convention",
-                "Judgment"
+                "Judgment",
+                "Logic",
+                "Man",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Problems of Philosophy (ch. 1-8, 12, 15)",
                 "inputs": [
-                  "Man",
                   "Custom and Convention",
-                  "Judgment"
+                  "Judgment",
+                  "Logic",
+                  "Man",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -3718,12 +4174,18 @@
             {
               "title": "Phaedo",
               "great_ideas": [
+                "Eternity",
+                "Form",
+                "Hypothesis",
+                "Idea",
+                "Immortality",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Opposition",
                 "Philosophy",
                 "Soul",
-                "Immortality"
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [
                 "afterlife"
@@ -3731,12 +4193,18 @@
               "black_box": {
                 "box": "Phaedo",
                 "inputs": [
+                  "Eternity",
+                  "Form",
+                  "Hypothesis",
+                  "Idea",
+                  "Immortality",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Opposition",
                   "Philosophy",
                   "Soul",
-                  "Immortality"
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -3756,23 +4224,49 @@
             {
               "title": "Categories",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
-                "Virtue and Vice",
-                "Quality"
+                "Change",
+                "Definition",
+                "Dialectic",
+                "Form",
+                "Habit",
+                "Logic",
+                "Nature",
+                "One and Many",
+                "Opposition",
+                "Principle",
+                "Quality",
+                "Reasoning",
+                "Relation",
+                "Same and Other",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Categories",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
-                  "Virtue and Vice",
-                  "Quality"
+                  "Change",
+                  "Definition",
+                  "Dialectic",
+                  "Form",
+                  "Habit",
+                  "Logic",
+                  "Nature",
+                  "One and Many",
+                  "Opposition",
+                  "Principle",
+                  "Quality",
+                  "Reasoning",
+                  "Relation",
+                  "Same and Other",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -3793,20 +4287,28 @@
               "title": "On the Soul",
               "selection": "Book II, ch. 1-3; Book III",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
+                "Change",
+                "Definition",
+                "Form",
+                "Nature",
+                "Reasoning",
+                "Sense",
+                "Universal and Particular",
                 "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Soul (Book II, ch. 1-3; Book III)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
+                  "Change",
+                  "Definition",
+                  "Form",
+                  "Nature",
+                  "Reasoning",
+                  "Sense",
+                  "Universal and Particular",
                   "Virtue and Vice"
                 ],
                 "outputs": [
@@ -4087,21 +4589,25 @@
               "title": "Almagest",
               "selection": "Book I, ch. 1-8",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Almagest (Book I, ch. 1-8)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4122,21 +4628,25 @@
               "title": "On the Revolutions of Heavenly Spheres",
               "selection": "Introduction through Book I, ch. 11",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Revolutions of Heavenly Spheres (Introduction through Book I, ch. 11)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4157,21 +4667,23 @@
               "title": "Epitome of Copernican Astronomy",
               "selection": "Book IV, Part II, ch. 1-2",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Epitome of Copernican Astronomy (Book IV, Part II, ch. 1-2)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4185,21 +4697,23 @@
               "title": "The Harmonies of the World",
               "selection": "Book V, ch. 1-7",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Harmonies of the World (Book V, ch. 1-7)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4219,21 +4733,29 @@
             {
               "title": "Sixth Ennead",
               "great_ideas": [
+                "Beauty",
                 "Being",
+                "Eternity",
+                "God",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "One and Many",
+                "Same and Other"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Sixth Ennead",
                 "inputs": [
+                  "Beauty",
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "One and Many",
+                  "Same and Other"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -4254,21 +4776,47 @@
               "title": "Summa Theologica",
               "selection": "Part I, QQ 75-76, 78-79",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I, QQ 75-76, 78-79)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -4289,11 +4837,15 @@
               "title": "The Divine Comedy",
               "selection": "Inferno",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
                 "God",
+                "Love",
                 "Sin",
                 "Soul",
-                "Theology",
-                "Love"
+                "Temperance",
+                "Theology"
               ],
               "custom_tags": [
                 "afterlife journey",
@@ -4302,11 +4854,15 @@
               "black_box": {
                 "box": "The Divine Comedy (Inferno)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
                   "God",
+                  "Love",
                   "Sin",
                   "Soul",
-                  "Theology",
-                  "Love"
+                  "Temperance",
+                  "Theology"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -4419,20 +4975,28 @@
               "selection": "Part II",
               "great_ideas": [
                 "Being",
+                "Eternity",
+                "God",
+                "Infinity",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "Necessity and Contingency",
+                "One and Many"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Ethics (Part II)",
                 "inputs": [
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Infinity",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "Necessity and Contingency",
+                  "One and Many"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -4453,20 +5017,26 @@
               "title": "The Principles of Human Knowledge",
               "great_ideas": [
                 "Being",
+                "God",
+                "Idea",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "Relation",
+                "Sense"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Principles of Human Knowledge",
                 "inputs": [
                   "Being",
+                  "God",
+                  "Idea",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "Relation",
+                  "Sense"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -4487,11 +5057,21 @@
               "title": "Critique of Pure Reason",
               "selection": "Transcendental Analytic",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
+                "Dialectic",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Idea",
+                "Infinity",
+                "Judgment",
+                "Knowledge",
+                "Logic",
+                "Necessity and Contingency",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Will"
               ],
               "custom_tags": [
                 "transcendental idealism"
@@ -4499,11 +5079,21 @@
               "black_box": {
                 "box": "Critique of Pure Reason (Transcendental Analytic)",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
+                  "Dialectic",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Idea",
+                  "Infinity",
+                  "Judgment",
+                  "Knowledge",
+                  "Logic",
+                  "Necessity and Contingency",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -4524,11 +5114,12 @@
               "title": "On the Origin of Species",
               "selection": "Introduction through ch. 6; ch. 15",
               "great_ideas": [
+                "Animal",
+                "Cause",
+                "Change",
                 "Evolution",
                 "Nature",
-                "Animal",
-                "Science",
-                "Cause"
+                "Science"
               ],
               "custom_tags": [
                 "natural selection"
@@ -4536,11 +5127,12 @@
               "black_box": {
                 "box": "On the Origin of Species (Introduction through ch. 6; ch. 15)",
                 "inputs": [
+                  "Animal",
+                  "Cause",
+                  "Change",
                   "Evolution",
                   "Nature",
-                  "Animal",
-                  "Science",
-                  "Cause"
+                  "Science"
                 ],
                 "outputs": [
                   "change unfolds through living forms",
@@ -4600,11 +5192,13 @@
               "title": "The Principles of Psychology",
               "selection": "ch. XXVIII",
               "great_ideas": [
-                "Mind",
-                "Memory and Imagination",
                 "Desire",
+                "Experience",
+                "Habit",
+                "Memory and Imagination",
+                "Mind",
                 "Science",
-                "Experience"
+                "Sense"
               ],
               "custom_tags": [
                 "psychology"
@@ -4612,11 +5206,13 @@
               "black_box": {
                 "box": "The Principles of Psychology (ch. XXVIII)",
                 "inputs": [
-                  "Mind",
-                  "Memory and Imagination",
                   "Desire",
+                  "Experience",
+                  "Habit",
+                  "Memory and Imagination",
+                  "Mind",
                   "Science",
-                  "Experience"
+                  "Sense"
                 ],
                 "outputs": [
                   "mind wrestles with itself",
@@ -4637,17 +5233,19 @@
               "title": "Science and Hypothesis",
               "selection": "ch. 1-3, 6, 9-10",
               "great_ideas": [
-                "Man",
                 "Custom and Convention",
-                "Judgment"
+                "Hypothesis",
+                "Judgment",
+                "Man"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Science and Hypothesis (ch. 1-3, 6, 9-10)",
                 "inputs": [
-                  "Man",
                   "Custom and Convention",
-                  "Judgment"
+                  "Hypothesis",
+                  "Judgment",
+                  "Man"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -4667,21 +5265,23 @@
               "title": "Scientific Autobiography and Other Papers",
               "selection": "Scientific Autobiography; The Meaning and Limits of Exact Science",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Scientific Autobiography and Other Papers (Scientific Autobiography; The Meaning and Limits of Exact Science)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4702,9 +5302,11 @@
               "title": "An Introduction to Mathematics",
               "selection": "ch. 1-6, 10-13",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Infinity",
+                "Mathematics",
+                "Principle",
+                "Quantity",
                 "Reasoning",
                 "Science"
               ],
@@ -4712,9 +5314,11 @@
               "black_box": {
                 "box": "An Introduction to Mathematics (ch. 1-6, 10-13)",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Infinity",
+                  "Mathematics",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
                   "Science"
                 ],
@@ -4737,21 +5341,27 @@
               "title": "Relativity: The Special and the General Theory",
               "selection": "Parts I-II",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Relativity: The Special and the General Theory (Parts I-II)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -4815,21 +5425,23 @@
             {
               "title": "Genesis",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
-                "Law",
                 "Justice",
-                "Prophecy"
+                "Law",
+                "Prophecy",
+                "Religion"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Genesis",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
-                  "Law",
                   "Justice",
-                  "Prophecy"
+                  "Law",
+                  "Prophecy",
+                  "Religion"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -4842,21 +5454,23 @@
             {
               "title": "Exodus",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
-                "Law",
                 "Justice",
-                "Prophecy"
+                "Law",
+                "Prophecy",
+                "Religion"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Exodus",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
-                  "Law",
                   "Justice",
-                  "Prophecy"
+                  "Law",
+                  "Prophecy",
+                  "Religion"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -4869,21 +5483,23 @@
             {
               "title": "Deuteronomy",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
-                "Law",
                 "Justice",
-                "Prophecy"
+                "Law",
+                "Prophecy",
+                "Religion"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Deuteronomy",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
-                  "Law",
                   "Justice",
-                  "Prophecy"
+                  "Law",
+                  "Prophecy",
+                  "Religion"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -4940,23 +5556,33 @@
               "title": "Laws",
               "selection": "Book X",
               "great_ideas": [
+                "Aristocracy",
+                "Art",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Law",
+                "Oligarchy",
                 "Philosophy",
+                "Slavery",
                 "Soul",
-                "Law"
+                "Temperance",
+                "Truth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Laws (Book X)",
                 "inputs": [
+                  "Aristocracy",
+                  "Art",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Law",
+                  "Oligarchy",
                   "Philosophy",
+                  "Slavery",
                   "Soul",
-                  "Law"
+                  "Temperance",
+                  "Truth"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -4977,12 +5603,26 @@
               "title": "Metaphysics",
               "selection": "Book XII",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
-                "Virtue and Vice",
-                "Physics"
+                "Change",
+                "Definition",
+                "Eternity",
+                "Form",
+                "Idea",
+                "Infinity",
+                "Nature",
+                "Necessity and Contingency",
+                "One and Many",
+                "Opposition",
+                "Physics",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Same and Other",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -4990,12 +5630,26 @@
               "black_box": {
                 "box": "Metaphysics (Book XII)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
-                  "Virtue and Vice",
-                  "Physics"
+                  "Change",
+                  "Definition",
+                  "Eternity",
+                  "Form",
+                  "Idea",
+                  "Infinity",
+                  "Nature",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Opposition",
+                  "Physics",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Same and Other",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -5044,21 +5698,29 @@
             {
               "title": "Fifth Ennead",
               "great_ideas": [
+                "Beauty",
                 "Being",
+                "Eternity",
+                "God",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "One and Many",
+                "Same and Other"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Fifth Ennead",
                 "inputs": [
+                  "Beauty",
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "One and Many",
+                  "Same and Other"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -5079,12 +5741,17 @@
               "title": "The City of God",
               "selection": "Book XV-XVIII",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Sin",
-                "Will",
-                "Soul",
+                "History",
                 "Memory and Imagination",
-                "History"
+                "Sin",
+                "Soul",
+                "Temperance",
+                "Will"
               ],
               "custom_tags": [
                 "two cities"
@@ -5092,12 +5759,17 @@
               "black_box": {
                 "box": "The City of God (Book XV-XVIII)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Sin",
-                  "Will",
-                  "Soul",
+                  "History",
                   "Memory and Imagination",
-                  "History"
+                  "Sin",
+                  "Soul",
+                  "Temperance",
+                  "Will"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -5118,21 +5790,47 @@
               "title": "Summa Theologica",
               "selection": "Part I, QQ 1-13",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I, QQ 1-13)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -5153,17 +5851,19 @@
               "title": "Institutes of the Christian Religion",
               "selection": "Book I, ch. 1-8; Book II, ch. 1-6; Book III, ch. 6-10; Book IV, ch. 1",
               "great_ideas": [
-                "Man",
+                "Angel",
                 "Custom and Convention",
-                "Judgment"
+                "Judgment",
+                "Man"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Institutes of the Christian Religion (Book I, ch. 1-8; Book II, ch. 1-6; Book III, ch. 6-10; Book IV, ch. 1)",
                 "inputs": [
-                  "Man",
+                  "Angel",
                   "Custom and Convention",
-                  "Judgment"
+                  "Judgment",
+                  "Man"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -5183,17 +5883,19 @@
               "title": "The Word of God and the Word of Man",
               "selection": "The Strange New World within the Bible; The Word of God as the Task of Theology",
               "great_ideas": [
-                "Man",
+                "Angel",
                 "Custom and Convention",
-                "Judgment"
+                "Judgment",
+                "Man"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Word of God and the Word of Man (The Strange New World within the Bible; The Word of God as the Task of Theology)",
                 "inputs": [
-                  "Man",
+                  "Angel",
                   "Custom and Convention",
-                  "Judgment"
+                  "Judgment",
+                  "Man"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -5213,11 +5915,15 @@
               "title": "The Divine Comedy",
               "selection": "Purgatorio",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
                 "God",
+                "Love",
                 "Sin",
                 "Soul",
-                "Theology",
-                "Love"
+                "Temperance",
+                "Theology"
               ],
               "custom_tags": [
                 "afterlife journey",
@@ -5226,11 +5932,15 @@
               "black_box": {
                 "box": "The Divine Comedy (Purgatorio)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
                   "God",
+                  "Love",
                   "Sin",
                   "Soul",
-                  "Theology",
-                  "Love"
+                  "Temperance",
+                  "Theology"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -5367,20 +6077,28 @@
               "selection": "Part I",
               "great_ideas": [
                 "Being",
+                "Eternity",
+                "God",
+                "Infinity",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "Necessity and Contingency",
+                "One and Many"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Ethics (Part I)",
                 "inputs": [
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Infinity",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "Necessity and Contingency",
+                  "One and Many"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -5429,9 +6147,10 @@
             {
               "title": "The Provincial Letters",
               "great_ideas": [
+                "Definition",
+                "Logic",
                 "Mathematics",
                 "Quantity",
-                "Definition",
                 "Reasoning",
                 "Science"
               ],
@@ -5439,9 +6158,10 @@
               "black_box": {
                 "box": "The Provincial Letters",
                 "inputs": [
+                  "Definition",
+                  "Logic",
                   "Mathematics",
                   "Quantity",
-                  "Definition",
                   "Reasoning",
                   "Science"
                 ],
@@ -5464,21 +6184,27 @@
               "title": "An Essay Concerning Human Understanding",
               "selection": "Book IV",
               "great_ideas": [
+                "Citizen",
                 "Government",
+                "Idea",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Relation",
+                "Sense",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "An Essay Concerning Human Understanding (Book IV)",
                 "inputs": [
+                  "Citizen",
                   "Government",
+                  "Idea",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Relation",
+                  "Sense",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -5529,11 +6255,21 @@
               "title": "Critique of Pure Reason",
               "selection": "Transcendental Dialectic",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
+                "Dialectic",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Idea",
+                "Infinity",
+                "Judgment",
+                "Knowledge",
+                "Logic",
+                "Necessity and Contingency",
+                "Principle",
+                "Reasoning",
+                "Relation",
+                "Sense",
+                "Space",
+                "Universal and Particular",
+                "Will"
               ],
               "custom_tags": [
                 "transcendental idealism"
@@ -5541,11 +6277,21 @@
               "black_box": {
                 "box": "Critique of Pure Reason (Transcendental Dialectic)",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
+                  "Dialectic",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Idea",
+                  "Infinity",
+                  "Judgment",
+                  "Knowledge",
+                  "Logic",
+                  "Necessity and Contingency",
+                  "Principle",
+                  "Reasoning",
+                  "Relation",
+                  "Sense",
+                  "Space",
+                  "Universal and Particular",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -5566,17 +6312,23 @@
               "title": "The Philosophy of History",
               "selection": "Introduction",
               "great_ideas": [
-                "Man",
+                "Change",
                 "Custom and Convention",
-                "Judgment"
+                "Dialectic",
+                "Judgment",
+                "Man",
+                "Opposition"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Philosophy of History (Introduction)",
                 "inputs": [
-                  "Man",
+                  "Change",
                   "Custom and Convention",
-                  "Judgment"
+                  "Dialectic",
+                  "Judgment",
+                  "Man",
+                  "Opposition"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -5741,21 +6493,27 @@
               "title": "Philosophical Investigations",
               "selection": "Preface and §§1-133, 243-315",
               "great_ideas": [
+                "Definition",
                 "Language",
-                "Sign and Symbol",
+                "Logic",
                 "Mind",
                 "Philosophy",
-                "Definition"
+                "Relation",
+                "Sign and Symbol",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Philosophical Investigations (Preface and §§1-133, 243-315)",
                 "inputs": [
+                  "Definition",
                   "Language",
-                  "Sign and Symbol",
+                  "Logic",
                   "Mind",
                   "Philosophy",
-                  "Definition"
+                  "Relation",
+                  "Sign and Symbol",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "language shapes intelligible thought",
@@ -5780,21 +6538,23 @@
             {
               "title": "Job",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
-                "Law",
                 "Justice",
-                "Prophecy"
+                "Law",
+                "Prophecy",
+                "Religion"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Job",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
-                  "Law",
                   "Justice",
-                  "Prophecy"
+                  "Law",
+                  "Prophecy",
+                  "Religion"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -5807,21 +6567,23 @@
             {
               "title": "Isaiah",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
-                "Law",
                 "Justice",
-                "Prophecy"
+                "Law",
+                "Prophecy",
+                "Religion"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Isaiah",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
-                  "Law",
                   "Justice",
-                  "Prophecy"
+                  "Law",
+                  "Prophecy",
+                  "Religion"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -5868,12 +6630,17 @@
             {
               "title": "Symposium",
               "great_ideas": [
+                "Art",
+                "Beauty",
+                "Form",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Love",
                 "Philosophy",
                 "Soul",
-                "Love"
+                "Temperance",
+                "Truth"
               ],
               "custom_tags": [
                 "eros"
@@ -5881,12 +6648,17 @@
               "black_box": {
                 "box": "Symposium",
                 "inputs": [
+                  "Art",
+                  "Beauty",
+                  "Form",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Love",
                   "Philosophy",
                   "Soul",
-                  "Love"
+                  "Temperance",
+                  "Truth"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -5899,23 +6671,35 @@
             {
               "title": "Philebus",
               "great_ideas": [
+                "Beauty",
+                "Form",
+                "Idea",
+                "Infinity",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "One and Many",
                 "Philosophy",
+                "Pleasure and Pain",
                 "Soul",
-                "Pleasure and Pain"
+                "Temperance",
+                "Truth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Philebus",
                 "inputs": [
+                  "Beauty",
+                  "Form",
+                  "Idea",
+                  "Infinity",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "One and Many",
                   "Philosophy",
+                  "Pleasure and Pain",
                   "Soul",
-                  "Pleasure and Pain"
+                  "Temperance",
+                  "Truth"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -5936,12 +6720,18 @@
               "title": "Nicomachean Ethics",
               "selection": "Book VIII-X",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
+                "Beauty",
                 "Cause",
-                "Virtue and Vice",
-                "Happiness"
+                "Definition",
+                "Habit",
+                "Happiness",
+                "Nature",
+                "Principle",
+                "Reasoning",
+                "Sense",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "golden mean"
@@ -5949,12 +6739,18 @@
               "black_box": {
                 "box": "Nicomachean Ethics (Book VIII-X)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
+                  "Beauty",
                   "Cause",
-                  "Virtue and Vice",
-                  "Happiness"
+                  "Definition",
+                  "Habit",
+                  "Happiness",
+                  "Nature",
+                  "Principle",
+                  "Reasoning",
+                  "Sense",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -5974,21 +6770,25 @@
             {
               "title": "Measurement of a Circle",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Infinity",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Measurement of a Circle",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Infinity",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6001,21 +6801,25 @@
             {
               "title": "The Equilibrium of Planes, Book I",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Equilibrium of Planes, Book I",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6028,21 +6832,27 @@
             {
               "title": "The Sand-Reckoner",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Infinity",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Sand-Reckoner",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Infinity",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6055,21 +6865,25 @@
             {
               "title": "On Floating Bodies, Book I",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On Floating Bodies, Book I",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6118,21 +6932,29 @@
             {
               "title": "First Ennead",
               "great_ideas": [
+                "Beauty",
                 "Being",
+                "Eternity",
+                "God",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "One and Many",
+                "Same and Other"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "First Ennead",
                 "inputs": [
+                  "Beauty",
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "One and Many",
+                  "Same and Other"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -6153,21 +6975,47 @@
               "title": "Summa Theologica",
               "selection": "Part I-II, QQ 1-5",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I-II, QQ 1-5)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -6188,11 +7036,15 @@
               "title": "The Divine Comedy",
               "selection": "Paradiso",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
                 "God",
+                "Love",
                 "Sin",
                 "Soul",
-                "Theology",
-                "Love"
+                "Temperance",
+                "Theology"
               ],
               "custom_tags": [
                 "afterlife journey",
@@ -6201,11 +7053,15 @@
               "black_box": {
                 "box": "The Divine Comedy (Paradiso)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
                   "God",
+                  "Love",
                   "Sin",
                   "Soul",
-                  "Theology",
-                  "Love"
+                  "Temperance",
+                  "Theology"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -6357,11 +7213,15 @@
               "title": "Two New Sciences",
               "selection": "First Day",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -6369,11 +7229,15 @@
               "black_box": {
                 "box": "Two New Sciences (First Day)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6395,20 +7259,28 @@
               "selection": "Part IV-V",
               "great_ideas": [
                 "Being",
+                "Eternity",
+                "God",
+                "Infinity",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "Necessity and Contingency",
+                "One and Many"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Ethics (Part IV-V)",
                 "inputs": [
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Infinity",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "Necessity and Contingency",
+                  "One and Many"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -6429,11 +7301,16 @@
               "title": "Mathematical Principles of Natural Philosophy",
               "selection": "Book III, Rules",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Principle",
+                "Science",
+                "Space"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -6441,11 +7318,16 @@
               "black_box": {
                 "box": "Mathematical Principles of Natural Philosophy (Book III, Rules)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Principle",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6495,21 +7377,23 @@
             {
               "title": "Treatise on Light",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Mechanics",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Treatise on Light",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Mechanics",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6530,21 +7414,25 @@
               "title": "The Expanding Universe",
               "selection": "ch. 1-5, 8-9",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
+                "Astronomy",
                 "Cause",
-                "Matter"
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Expanding Universe (ch. 1-5, 8-9)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
+                  "Astronomy",
                   "Cause",
-                  "Matter"
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6565,21 +7453,23 @@
               "title": "Atomic Theory and the Description of Nature",
               "selection": "Title essay and Light and Life",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Atomic Theory and the Description of Nature (Title essay and Light and Life)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6592,12 +7482,13 @@
             {
               "title": "Discussion with Einstein on Epistemological Problems in Atomic Physics",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
+                "Hypothesis",
+                "Mathematics",
                 "Matter",
-                "Nature"
+                "Nature",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -6605,12 +7496,13 @@
               "black_box": {
                 "box": "Discussion with Einstein on Epistemological Problems in Atomic Physics",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
+                  "Hypothesis",
+                  "Mathematics",
                   "Matter",
-                  "Nature"
+                  "Nature",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6631,11 +7523,12 @@
               "title": "Physics and Philosophy",
               "selection": "ch. 1-5, 10",
               "great_ideas": [
-                "Science",
-                "Mathematics",
-                "Physics",
                 "Cause",
-                "Matter"
+                "Hypothesis",
+                "Mathematics",
+                "Matter",
+                "Physics",
+                "Science"
               ],
               "custom_tags": [
                 "natural philosophy"
@@ -6643,11 +7536,12 @@
               "black_box": {
                 "box": "Physics and Philosophy (ch. 1-5, 10)",
                 "inputs": [
-                  "Science",
-                  "Mathematics",
-                  "Physics",
                   "Cause",
-                  "Matter"
+                  "Hypothesis",
+                  "Mathematics",
+                  "Matter",
+                  "Physics",
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -6696,21 +7590,23 @@
             {
               "title": "Critique of Practical Reason",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Judgment",
+                "Knowledge",
+                "Necessity and Contingency",
+                "Reasoning",
+                "Will"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Critique of Practical Reason",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Judgment",
+                  "Knowledge",
+                  "Necessity and Contingency",
+                  "Reasoning",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -6724,11 +7620,15 @@
               "title": "Critique of Judgment",
               "selection": "Critique of Aesthetic Judgment",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
+                "Art",
+                "Beauty",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Judgment",
+                "Knowledge",
+                "Reasoning",
+                "Sense",
+                "Universal and Particular",
+                "Will"
               ],
               "custom_tags": [
                 "aesthetics"
@@ -6736,11 +7636,15 @@
               "black_box": {
                 "box": "Critique of Judgment (Critique of Aesthetic Judgment)",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
+                  "Art",
+                  "Beauty",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Judgment",
+                  "Knowledge",
+                  "Reasoning",
+                  "Sense",
+                  "Universal and Particular",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -6888,12 +7792,16 @@
             {
               "title": "Gorgias",
               "great_ideas": [
+                "Art",
+                "Dialectic",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Logic",
                 "Philosophy",
+                "Rhetoric",
                 "Soul",
-                "Rhetoric"
+                "Temperance",
+                "Truth"
               ],
               "custom_tags": [
                 "persuasion"
@@ -6901,12 +7809,16 @@
               "black_box": {
                 "box": "Gorgias",
                 "inputs": [
+                  "Art",
+                  "Dialectic",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Logic",
                   "Philosophy",
+                  "Rhetoric",
                   "Soul",
-                  "Rhetoric"
+                  "Temperance",
+                  "Truth"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -6927,12 +7839,18 @@
               "title": "Nicomachean Ethics",
               "selection": "Book V",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
+                "Beauty",
                 "Cause",
-                "Virtue and Vice",
-                "Happiness"
+                "Definition",
+                "Habit",
+                "Happiness",
+                "Nature",
+                "Principle",
+                "Reasoning",
+                "Sense",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "golden mean"
@@ -6940,12 +7858,18 @@
               "black_box": {
                 "box": "Nicomachean Ethics (Book V)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
+                  "Beauty",
                   "Cause",
-                  "Virtue and Vice",
-                  "Happiness"
+                  "Definition",
+                  "Habit",
+                  "Happiness",
+                  "Nature",
+                  "Principle",
+                  "Reasoning",
+                  "Sense",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -6966,20 +7890,30 @@
               "title": "Rhetoric",
               "selection": "Book I through Book II, ch. 1; Book II, ch. 20 through Book III, ch. 1; Book III, ch. 13-19",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Art",
                 "Cause",
+                "Definition",
+                "Dialectic",
+                "Habit",
+                "Logic",
+                "Nature",
+                "Reasoning",
+                "Temperance",
                 "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Rhetoric (Book I through Book II, ch. 1; Book II, ch. 20 through Book III, ch. 1; Book III, ch. 13-19)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Art",
                   "Cause",
+                  "Definition",
+                  "Dialectic",
+                  "Habit",
+                  "Logic",
+                  "Nature",
+                  "Reasoning",
+                  "Temperance",
                   "Virtue and Vice"
                 ],
                 "outputs": [
@@ -7000,21 +7934,25 @@
             {
               "title": "On Christian Doctrine",
               "great_ideas": [
+                "Angel",
+                "Art",
                 "God",
+                "Memory and Imagination",
                 "Sin",
-                "Will",
                 "Soul",
-                "Memory and Imagination"
+                "Will"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On Christian Doctrine",
                 "inputs": [
+                  "Angel",
+                  "Art",
                   "God",
+                  "Memory and Imagination",
                   "Sin",
-                  "Will",
                   "Soul",
-                  "Memory and Imagination"
+                  "Will"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -7035,21 +7973,29 @@
               "title": "Leviathan",
               "selection": "Part II",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen"
+                "Logic",
+                "Oligarchy",
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Leviathan (Part II)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen"
+                  "Logic",
+                  "Oligarchy",
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -7135,21 +8081,29 @@
               "title": "The Advancement of Learning",
               "selection": "Book I through Book II, ch. 11",
               "great_ideas": [
-                "Science",
+                "Art",
+                "Experience",
+                "Hypothesis",
                 "Induction",
                 "Knowledge",
+                "Logic",
+                "Principle",
                 "Progress",
-                "Experience"
+                "Science"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Advancement of Learning (Book I through Book II, ch. 11)",
                 "inputs": [
-                  "Science",
+                  "Art",
+                  "Experience",
+                  "Hypothesis",
                   "Induction",
                   "Knowledge",
+                  "Logic",
+                  "Principle",
                   "Progress",
-                  "Experience"
+                  "Science"
                 ],
                 "outputs": [
                   "science seeks causes through method",
@@ -7169,11 +8123,15 @@
             {
               "title": "Meditations on First Philosophy",
               "great_ideas": [
-                "Reasoning",
+                "Idea",
                 "Knowledge",
+                "Mathematics",
                 "Mind",
-                "Truth",
-                "Mathematics"
+                "Necessity and Contingency",
+                "Reasoning",
+                "Sense",
+                "Space",
+                "Truth"
               ],
               "custom_tags": [
                 "stoicism",
@@ -7182,11 +8140,15 @@
               "black_box": {
                 "box": "Meditations on First Philosophy",
                 "inputs": [
-                  "Reasoning",
+                  "Idea",
                   "Knowledge",
+                  "Mathematics",
                   "Mind",
-                  "Truth",
-                  "Mathematics"
+                  "Necessity and Contingency",
+                  "Reasoning",
+                  "Sense",
+                  "Space",
+                  "Truth"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -7208,20 +8170,28 @@
               "selection": "Part III",
               "great_ideas": [
                 "Being",
+                "Eternity",
+                "God",
+                "Infinity",
+                "Knowledge",
                 "Metaphysics",
                 "Mind",
-                "God",
-                "Knowledge"
+                "Necessity and Contingency",
+                "One and Many"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Ethics (Part III)",
                 "inputs": [
                   "Being",
+                  "Eternity",
+                  "God",
+                  "Infinity",
+                  "Knowledge",
                   "Metaphysics",
                   "Mind",
-                  "God",
-                  "Knowledge"
+                  "Necessity and Contingency",
+                  "One and Many"
                 ],
                 "outputs": [
                   "being precedes every question",
@@ -7406,12 +8376,14 @@
               "title": "Capital",
               "selection": "Prefaces; Part I-II",
               "great_ideas": [
-                "Labor",
-                "Wealth",
+                "Dialectic",
                 "Government",
                 "Justice",
+                "Labor",
+                "Opposition",
                 "Progress",
-                "Revolution"
+                "Revolution",
+                "Wealth"
               ],
               "custom_tags": [
                 "capitalism critique"
@@ -7419,12 +8391,14 @@
               "black_box": {
                 "box": "Capital (Prefaces; Part I-II)",
                 "inputs": [
-                  "Labor",
-                  "Wealth",
+                  "Dialectic",
                   "Government",
                   "Justice",
+                  "Labor",
+                  "Opposition",
                   "Progress",
-                  "Revolution"
+                  "Revolution",
+                  "Wealth"
                 ],
                 "outputs": [
                   "labor reveals social dependence",
@@ -7475,11 +8449,13 @@
               "title": "The Principles of Psychology",
               "selection": "ch. VIII-X",
               "great_ideas": [
-                "Mind",
-                "Memory and Imagination",
                 "Desire",
+                "Experience",
+                "Habit",
+                "Memory and Imagination",
+                "Mind",
                 "Science",
-                "Experience"
+                "Sense"
               ],
               "custom_tags": [
                 "psychology"
@@ -7487,11 +8463,13 @@
               "black_box": {
                 "box": "The Principles of Psychology (ch. VIII-X)",
                 "inputs": [
-                  "Mind",
-                  "Memory and Imagination",
                   "Desire",
+                  "Experience",
+                  "Habit",
+                  "Memory and Imagination",
+                  "Mind",
                   "Science",
-                  "Experience"
+                  "Sense"
                 ],
                 "outputs": [
                   "mind wrestles with itself",
@@ -7709,12 +8687,22 @@
             {
               "title": "Sophist",
               "great_ideas": [
+                "Being",
+                "Change",
+                "Dialectic",
+                "Form",
+                "Idea",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Logic",
+                "One and Many",
+                "Opposition",
                 "Philosophy",
+                "Relation",
+                "Same and Other",
                 "Soul",
-                "Being"
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [
                 "ontology"
@@ -7722,12 +8710,22 @@
               "black_box": {
                 "box": "Sophist",
                 "inputs": [
+                  "Being",
+                  "Change",
+                  "Dialectic",
+                  "Form",
+                  "Idea",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Logic",
+                  "One and Many",
+                  "Opposition",
                   "Philosophy",
+                  "Relation",
+                  "Same and Other",
                   "Soul",
-                  "Being"
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "justice demands ordered judgment",
@@ -7783,12 +8781,18 @@
               "title": "Politics",
               "selection": "Book VII-VIII",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
+                "Aristocracy",
+                "Art",
                 "Cause",
-                "Virtue and Vice",
-                "Government"
+                "Definition",
+                "Government",
+                "Habit",
+                "Nature",
+                "Oligarchy",
+                "Reasoning",
+                "Slavery",
+                "Temperance",
+                "Virtue and Vice"
               ],
               "custom_tags": [
                 "polis"
@@ -7796,12 +8800,18 @@
               "black_box": {
                 "box": "Politics (Book VII-VIII)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
+                  "Aristocracy",
+                  "Art",
                   "Cause",
-                  "Virtue and Vice",
-                  "Government"
+                  "Definition",
+                  "Government",
+                  "Habit",
+                  "Nature",
+                  "Oligarchy",
+                  "Reasoning",
+                  "Slavery",
+                  "Temperance",
+                  "Virtue and Vice"
                 ],
                 "outputs": [
                   "definition clarifies confused thought",
@@ -7822,21 +8832,25 @@
               "title": "On Conic Sections",
               "selection": "Book I, Prop. 1-15; Book III, Prop. 42-55",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Mathematics",
+                "Principle",
+                "Quantity",
                 "Reasoning",
-                "Science"
+                "Science",
+                "Space"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On Conic Sections (Book I, Prop. 1-15; Book III, Prop. 42-55)",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Mathematics",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
-                  "Science"
+                  "Science",
+                  "Space"
                 ],
                 "outputs": [
                   "mathematics disciplines abstract reason",
@@ -7857,21 +8871,23 @@
               "title": "The Gospel According to Saint John",
               "selection": "John 1-21",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
+                "Law",
                 "Love",
-                "Sin",
-                "Law"
+                "Religion",
+                "Sin"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Gospel According to Saint John (John 1-21)",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
+                  "Law",
                   "Love",
-                  "Sin",
-                  "Law"
+                  "Religion",
+                  "Sin"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -7911,21 +8927,23 @@
             {
               "title": "First Corinthians",
               "great_ideas": [
+                "Angel",
                 "God",
-                "Religion",
+                "Law",
                 "Love",
-                "Sin",
-                "Law"
+                "Religion",
+                "Sin"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "First Corinthians",
                 "inputs": [
+                  "Angel",
                   "God",
-                  "Religion",
+                  "Law",
                   "Love",
-                  "Sin",
-                  "Law"
+                  "Religion",
+                  "Sin"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -7946,12 +8964,17 @@
               "title": "The City of God",
               "selection": "Book V, XIX",
               "great_ideas": [
+                "Angel",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Sin",
-                "Will",
-                "Soul",
+                "History",
                 "Memory and Imagination",
-                "History"
+                "Sin",
+                "Soul",
+                "Temperance",
+                "Will"
               ],
               "custom_tags": [
                 "two cities"
@@ -7959,12 +8982,17 @@
               "black_box": {
                 "box": "The City of God (Book V, XIX)",
                 "inputs": [
+                  "Angel",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Sin",
-                  "Will",
-                  "Soul",
+                  "History",
                   "Memory and Imagination",
-                  "History"
+                  "Sin",
+                  "Soul",
+                  "Temperance",
+                  "Will"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -7985,21 +9013,47 @@
               "title": "Summa Theologica",
               "selection": "Part II-II, QQ 1-7",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part II-II, QQ 1-7)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -8053,21 +9107,25 @@
             {
               "title": "Rules for the Direction of the Mind",
               "great_ideas": [
-                "Reasoning",
+                "Idea",
                 "Knowledge",
+                "Mathematics",
                 "Mind",
-                "Truth",
-                "Mathematics"
+                "Principle",
+                "Reasoning",
+                "Truth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Rules for the Direction of the Mind",
                 "inputs": [
-                  "Reasoning",
+                  "Idea",
                   "Knowledge",
+                  "Mathematics",
                   "Mind",
-                  "Truth",
-                  "Mathematics"
+                  "Principle",
+                  "Reasoning",
+                  "Truth"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -8080,21 +9138,23 @@
             {
               "title": "Geometry",
               "great_ideas": [
-                "Reasoning",
                 "Knowledge",
+                "Mathematics",
                 "Mind",
-                "Truth",
-                "Mathematics"
+                "Principle",
+                "Reasoning",
+                "Truth"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Geometry",
                 "inputs": [
-                  "Reasoning",
                   "Knowledge",
+                  "Mathematics",
                   "Mind",
-                  "Truth",
-                  "Mathematics"
+                  "Principle",
+                  "Reasoning",
+                  "Truth"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -8114,9 +9174,10 @@
             {
               "title": "The Great Experiment Concerning the Equilibrium of Fluids",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Mathematics",
+                "Mechanics",
+                "Quantity",
                 "Reasoning",
                 "Science"
               ],
@@ -8124,9 +9185,10 @@
               "black_box": {
                 "box": "The Great Experiment Concerning the Equilibrium of Fluids",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Mathematics",
+                  "Mechanics",
+                  "Quantity",
                   "Reasoning",
                   "Science"
                 ],
@@ -8141,9 +9203,11 @@
             {
               "title": "On Geometrical Demonstration",
               "great_ideas": [
-                "Mathematics",
-                "Quantity",
                 "Definition",
+                "Logic",
+                "Mathematics",
+                "Principle",
+                "Quantity",
                 "Reasoning",
                 "Science"
               ],
@@ -8151,9 +9215,11 @@
               "black_box": {
                 "box": "On Geometrical Demonstration",
                 "inputs": [
-                  "Mathematics",
-                  "Quantity",
                   "Definition",
+                  "Logic",
+                  "Mathematics",
+                  "Principle",
+                  "Quantity",
                   "Reasoning",
                   "Science"
                 ],
@@ -8210,23 +9276,29 @@
               "title": "The Spirit of Laws",
               "selection": "Book I-V, VIII, XI-XII",
               "great_ideas": [
+                "Aristocracy",
+                "Citizen",
+                "God",
                 "Government",
                 "Law",
                 "Liberty",
-                "State",
-                "Citizen",
-                "God"
+                "Oligarchy",
+                "Slavery",
+                "State"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "The Spirit of Laws (Book I-V, VIII, XI-XII)",
                 "inputs": [
+                  "Aristocracy",
+                  "Citizen",
+                  "God",
                   "Government",
                   "Law",
                   "Liberty",
-                  "State",
-                  "Citizen",
-                  "God"
+                  "Oligarchy",
+                  "Slavery",
+                  "State"
                 ],
                 "outputs": [
                   "government exposes human ambition",
@@ -8317,17 +9389,23 @@
               "title": "Philosophy of Right",
               "selection": "Part III",
               "great_ideas": [
-                "Man",
+                "Art",
                 "Custom and Convention",
-                "Judgment"
+                "Dialectic",
+                "Judgment",
+                "Man",
+                "Opposition"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Philosophy of Right (Part III)",
                 "inputs": [
-                  "Man",
+                  "Art",
                   "Custom and Convention",
-                  "Judgment"
+                  "Dialectic",
+                  "Judgment",
+                  "Man",
+                  "Opposition"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -8347,12 +9425,14 @@
               "title": "Capital",
               "selection": "Part III-IV",
               "great_ideas": [
-                "Labor",
-                "Wealth",
+                "Dialectic",
                 "Government",
                 "Justice",
+                "Labor",
+                "Opposition",
                 "Progress",
-                "Revolution"
+                "Revolution",
+                "Wealth"
               ],
               "custom_tags": [
                 "capitalism critique"
@@ -8360,12 +9440,14 @@
               "black_box": {
                 "box": "Capital (Part III-IV)",
                 "inputs": [
-                  "Labor",
-                  "Wealth",
+                  "Dialectic",
                   "Government",
                   "Justice",
+                  "Labor",
+                  "Opposition",
                   "Progress",
-                  "Revolution"
+                  "Revolution",
+                  "Wealth"
                 ],
                 "outputs": [
                   "labor reveals social dependence",
@@ -8699,11 +9781,23 @@
             {
               "title": "Timaeus",
               "great_ideas": [
+                "Astronomy",
+                "Change",
+                "Eternity",
+                "Form",
+                "Idea",
+                "Infinity",
                 "Justice",
                 "Knowledge",
-                "Truth",
+                "Necessity and Contingency",
+                "One and Many",
+                "Opposition",
                 "Philosophy",
+                "Principle",
+                "Same and Other",
                 "Soul",
+                "Space",
+                "Truth",
                 "World"
               ],
               "custom_tags": [
@@ -8712,11 +9806,23 @@
               "black_box": {
                 "box": "Timaeus",
                 "inputs": [
+                  "Astronomy",
+                  "Change",
+                  "Eternity",
+                  "Form",
+                  "Idea",
+                  "Infinity",
                   "Justice",
                   "Knowledge",
-                  "Truth",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Opposition",
                   "Philosophy",
+                  "Principle",
+                  "Same and Other",
                   "Soul",
+                  "Space",
+                  "Truth",
                   "World"
                 ],
                 "outputs": [
@@ -8738,20 +9844,26 @@
               "title": "On the Parts of Animals",
               "selection": "Book I, ch. 1 through Book II, ch. 1",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
+                "Change",
+                "Definition",
+                "Form",
+                "Nature",
+                "Reasoning",
+                "Sense",
                 "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Parts of Animals (Book I, ch. 1 through Book II, ch. 1)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
+                  "Change",
+                  "Definition",
+                  "Form",
+                  "Nature",
+                  "Reasoning",
+                  "Sense",
                   "Virtue and Vice"
                 ],
                 "outputs": [
@@ -8766,20 +9878,24 @@
               "title": "On the Generation of Animals",
               "selection": "Book I, ch. 1, 17-18, 20-23",
               "great_ideas": [
-                "Definition",
-                "Reasoning",
-                "Nature",
                 "Cause",
+                "Change",
+                "Definition",
+                "Form",
+                "Nature",
+                "Reasoning",
                 "Virtue and Vice"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Generation of Animals (Book I, ch. 1, 17-18, 20-23)",
                 "inputs": [
-                  "Definition",
-                  "Reasoning",
-                  "Nature",
                   "Cause",
+                  "Change",
+                  "Definition",
+                  "Form",
+                  "Nature",
+                  "Reasoning",
                   "Virtue and Vice"
                 ],
                 "outputs": [
@@ -8801,17 +9917,23 @@
               "title": "On the Nature of Things",
               "selection": "Book V-VI",
               "great_ideas": [
-                "Man",
+                "Change",
                 "Custom and Convention",
-                "Judgment"
+                "Infinity",
+                "Judgment",
+                "Man",
+                "Sense"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "On the Nature of Things (Book V-VI)",
                 "inputs": [
-                  "Man",
+                  "Change",
                   "Custom and Convention",
-                  "Judgment"
+                  "Infinity",
+                  "Judgment",
+                  "Man",
+                  "Sense"
                 ],
                 "outputs": [
                   "man seeks meaning through action",
@@ -8882,21 +10004,47 @@
               "title": "Summa Theologica",
               "selection": "Part I, QQ 65-74",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I, QQ 65-74)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -8910,21 +10058,47 @@
               "title": "Summa Theologica",
               "selection": "Part I, QQ 90-102",
               "great_ideas": [
+                "Angel",
+                "Art",
+                "Beauty",
+                "Eternity",
+                "Form",
                 "God",
-                "Theology",
-                "Reasoning",
+                "Habit",
                 "Law",
-                "Truth"
+                "Logic",
+                "Necessity and Contingency",
+                "One and Many",
+                "Reasoning",
+                "Same and Other",
+                "Sense",
+                "Temperance",
+                "Theology",
+                "Truth",
+                "Universal and Particular"
               ],
               "custom_tags": [],
               "black_box": {
                 "box": "Summa Theologica (Part I, QQ 90-102)",
                 "inputs": [
+                  "Angel",
+                  "Art",
+                  "Beauty",
+                  "Eternity",
+                  "Form",
                   "God",
-                  "Theology",
-                  "Reasoning",
+                  "Habit",
                   "Law",
-                  "Truth"
+                  "Logic",
+                  "Necessity and Contingency",
+                  "One and Many",
+                  "Reasoning",
+                  "Same and Other",
+                  "Sense",
+                  "Temperance",
+                  "Theology",
+                  "Truth",
+                  "Universal and Particular"
                 ],
                 "outputs": [
                   "God orders ultimate meaning",
@@ -9163,11 +10337,15 @@
               "title": "Critique of Judgment",
               "selection": "Critique of Teleological Judgment",
               "great_ideas": [
-                "Reasoning",
-                "Judgment",
+                "Art",
+                "Beauty",
                 "Duty",
-                "Will",
-                "Knowledge"
+                "Judgment",
+                "Knowledge",
+                "Reasoning",
+                "Sense",
+                "Universal and Particular",
+                "Will"
               ],
               "custom_tags": [
                 "aesthetics"
@@ -9175,11 +10353,15 @@
               "black_box": {
                 "box": "Critique of Judgment (Critique of Teleological Judgment)",
                 "inputs": [
-                  "Reasoning",
-                  "Judgment",
+                  "Art",
+                  "Beauty",
                   "Duty",
-                  "Will",
-                  "Knowledge"
+                  "Judgment",
+                  "Knowledge",
+                  "Reasoning",
+                  "Sense",
+                  "Universal and Particular",
+                  "Will"
                 ],
                 "outputs": [
                   "reasoning orders the inquiry",
@@ -9260,12 +10442,13 @@
               "title": "The Descent of Man",
               "selection": "Part I; Part III, ch. 21",
               "great_ideas": [
-                "Evolution",
-                "Nature",
                 "Animal",
-                "Science",
                 "Cause",
-                "Man"
+                "Change",
+                "Evolution",
+                "Man",
+                "Nature",
+                "Science"
               ],
               "custom_tags": [
                 "human evolution"
@@ -9273,12 +10456,13 @@
               "black_box": {
                 "box": "The Descent of Man (Part I; Part III, ch. 21)",
                 "inputs": [
-                  "Evolution",
-                  "Nature",
                   "Animal",
-                  "Science",
                   "Cause",
-                  "Man"
+                  "Change",
+                  "Evolution",
+                  "Man",
+                  "Nature",
+                  "Science"
                 ],
                 "outputs": [
                   "change unfolds through living forms",
@@ -9299,12 +10483,14 @@
               "title": "Capital",
               "selection": "Part VII-VIII",
               "great_ideas": [
-                "Labor",
-                "Wealth",
+                "Dialectic",
                 "Government",
                 "Justice",
+                "Labor",
+                "Opposition",
                 "Progress",
-                "Revolution"
+                "Revolution",
+                "Wealth"
               ],
               "custom_tags": [
                 "capitalism critique"
@@ -9312,12 +10498,14 @@
               "black_box": {
                 "box": "Capital (Part VII-VIII)",
                 "inputs": [
-                  "Labor",
-                  "Wealth",
+                  "Dialectic",
                   "Government",
                   "Justice",
+                  "Labor",
+                  "Opposition",
                   "Progress",
-                  "Revolution"
+                  "Revolution",
+                  "Wealth"
                 ],
                 "outputs": [
                   "labor reveals social dependence",
@@ -9338,11 +10526,13 @@
               "title": "The Principles of Psychology",
               "selection": "ch. I, V-VII",
               "great_ideas": [
-                "Mind",
-                "Memory and Imagination",
                 "Desire",
+                "Experience",
+                "Habit",
+                "Memory and Imagination",
+                "Mind",
                 "Science",
-                "Experience"
+                "Sense"
               ],
               "custom_tags": [
                 "psychology"
@@ -9350,11 +10540,13 @@
               "black_box": {
                 "box": "The Principles of Psychology (ch. I, V-VII)",
                 "inputs": [
-                  "Mind",
-                  "Memory and Imagination",
                   "Desire",
+                  "Experience",
+                  "Habit",
+                  "Memory and Imagination",
+                  "Mind",
                   "Science",
-                  "Experience"
+                  "Sense"
                 ],
                 "outputs": [
                   "mind wrestles with itself",

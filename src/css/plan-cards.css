@@ -1,0 +1,174 @@
+/* ===== Plan year cards ===== */
+.yearCard{
+  border:var(--border);
+  border-radius:var(--radius);
+  background:#fff;
+  box-shadow:var(--shadow);
+  margin:0;
+  padding:14px;
+  display:grid;
+  gap:10px;
+  min-width:0;
+}
+.yearHeader{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  padding-bottom:10px;
+  border-bottom:var(--borderThin);
+  margin-bottom:10px;
+  flex-wrap:wrap;
+  min-width:0;
+}
+.yearTitle{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:-0.01em;
+  margin:0;
+  text-transform:uppercase;
+}
+.yearMeta{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-end;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  min-width:0;
+}
+
+.bar{
+  height:12px;
+  border:var(--borderThin);
+  background:#fff;
+  position:relative;
+  width: 180px;
+  max-width: 100%;
+  min-width:0;
+}
+.bar > span{
+  display:block;
+  height:100%;
+  background:#000;
+  width:0%;
+}
+
+.readingBlock{
+  border:var(--borderThin);
+  padding:12px;
+  margin-top:10px;
+  background:#fcfcfc;
+  min-width:0;
+}
+.readingHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:var(--borderThin);
+  padding-bottom:10px;
+  margin-bottom:8px;
+  min-width:0;
+}
+.readingBlockActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  justify-content:flex-end;
+}
+.readingLeft{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:baseline;
+  min-width:0;
+}
+.order{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:18px;
+  line-height:1;
+}
+.author{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  font-size:12px;
+  overflow-wrap:anywhere;
+}
+.tier{
+  border:var(--borderThin);
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#fff;
+  white-space:nowrap;
+}
+.marker{
+  border:var(--borderThin);
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#fff;
+  white-space:nowrap;
+}
+
+.worksList{ display:grid; gap:8px; min-width:0; }
+.workRow{
+  display:grid;
+  grid-template-columns: auto 1fr;
+  gap:10px;
+  align-items:start;
+  border:var(--borderThin);
+  padding:10px;
+  background:#fff;
+  box-shadow:inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+  min-width:0;
+  position:relative;
+}
+.libCard.learningGoalsHostOpen,
+.workRow.learningGoalsHostOpen{
+  z-index:119;
+}
+.workCheck{ display:flex; align-items:center; padding-top:2px; }
+.workCheck input{ width:18px; height:18px; accent-color:#000; }
+
+.workMain{
+  display:grid;
+  gap:6px;
+  min-width:0;
+}
+.workTitle{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:16px;
+  margin:0;
+  line-height:1.1;
+  overflow-wrap:anywhere;
+}
+.workSub{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  line-height:1.2;
+  display:grid;
+  gap:4px;
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+
+/* Work-row button drawer – slides out from under row */

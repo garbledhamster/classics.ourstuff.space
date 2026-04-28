@@ -1,0 +1,183 @@
+/* ===== Book Details Section ===== */
+.bookDetailsSection{
+  border-bottom:var(--borderThin);
+  background:#fafafa;
+}
+.bookDetailsHeader{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  width:100%;
+  padding:7px 12px 6px;
+  font-size:0.75rem;
+  font-weight:700;
+  color:#555;
+  line-height:1.4;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  border-bottom:var(--borderThin);
+  background:#f0f0f0;
+}
+.bookDetailsPanel{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+}
+.bookDetailsPanel > div{ overflow:hidden; }
+.bookDetailsSection.open .bookDetailsPanel{
+  grid-template-rows:1fr;
+  transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+}
+.bookDetailsContent{
+  display:flex;
+  gap:12px;
+  padding:8px 12px 12px;
+  align-items:flex-start;
+}
+.bookDetailsCover{ flex-shrink:0; width:64px; }
+.bookDetailsCover img{ width:64px; height:auto; display:block; border-radius:3px; box-shadow:0 1px 4px #0002; }
+.bookDetailsInfo{ flex:1; min-width:0; display:flex; flex-direction:column; gap:5px; }
+.bookDetailsRow{ font-size:0.8rem; color:var(--ink); line-height:1.5; }
+.bookDetailsLabel{ font-weight:600; }
+.bookDetailsSubjectList{ margin:3px 0 0 0; padding:0 0 0 1.2em; font-size:0.8rem; line-height:1.7; }
+.bookDetailsLink{ color:var(--ink); text-underline-offset:2px; font-size:0.8rem; }
+.bookDetailsSource{ font-size:0.73rem; color:#999; font-style:italic; }
+.bookDetailsExcerpt{ opacity:0.85; }
+.bookDetailsLoading,
+.bookDetailsError{ padding:8px 12px 10px; font-size:0.82rem; color:#888; }
+.bookDetailsError{ color:#b00; }
+
+/* ===== Great Idea / Custom Tag Pills ===== */
+.pillIdea{
+  background:#dbeafe;
+  color:#1e40af;
+  border-color:#3b82f6;
+}
+.pillTag{
+  background:#dcfce7;
+  color:#166534;
+  border-color:#22c55e;
+}
+html.dark .pillIdea{ background:#1e3a5f; color:#93c5fd; border-color:#3b82f6; }
+html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
+
+/* ===== Drawer panel row (Book Details + Black Box side by side) ===== */
+.drawerPanelRow{
+  display:flex;
+  flex-wrap:wrap;
+  border-bottom:var(--borderThin);
+}
+.drawerPanelRow > .bookDetailsSection{
+  flex:1;
+  min-width:220px;
+  border-bottom:none;
+  border-right:var(--borderThin);
+}
+.drawerPanelRow > .blackBoxSection{
+  flex:1;
+  min-width:280px;
+  border-bottom:none;
+  background:#fafafa;
+}
+
+/* ===== Black Box Thinking Section ===== */
+.blackBoxSection{}
+.bbPanel{ padding:10px 12px 12px; }
+.bbLayout{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.bbCol{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
+}
+.bbCenter{
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+.bbSvg{
+  width:90px;
+  height:60px;
+  display:block;
+}
+.bbRect{
+  stroke-dasharray:360;
+  stroke-dashoffset:360;
+}
+.bbLabel{
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  text-align:center;
+  color:var(--ink);
+  max-width:90px;
+  overflow-wrap:anywhere;
+  opacity:0;
+}
+.bbItem{
+  font-size:11px;
+  font-weight:600;
+  color:var(--ink);
+  padding:3px 6px;
+  border:1.5px solid var(--ink);
+  background:#fff;
+  line-height:1.4;
+  opacity:0;
+}
+.bbLeftCol .bbItem{ text-align:right; }
+.bbRightCol .bbItem{ text-align:left; }
+html.dark .bbItem{ background:#111; }
+
+/* Animations trigger when libCard or workRow is active/open */
+@keyframes bbDrawBox{
+  to{ stroke-dashoffset:0; }
+}
+@keyframes bbFadeIn{
+  from{ opacity:0; transform:translateX(0); }
+  to{ opacity:1; transform:translateX(0); }
+}
+@keyframes bbFadeInLeft{
+  from{ opacity:0; transform:translateX(10px); }
+  to{ opacity:1; transform:translateX(0); }
+}
+@keyframes bbFadeInRight{
+  from{ opacity:0; transform:translateX(-10px); }
+  to{ opacity:1; transform:translateX(0); }
+}
+.libCard.active .bbRect,
+.workRow.active .bbRect{
+  animation: bbDrawBox 0.9s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+.libCard.active .bbLabel,
+.workRow.active .bbLabel{
+  animation: bbFadeIn 0.4s ease-out forwards;
+  animation-delay: 1s;
+}
+.libCard.active .bbLeftCol .bbItem,
+.workRow.active .bbLeftCol .bbItem{
+  animation: bbFadeInLeft 0.4s ease-out forwards;
+}
+.libCard.active .bbRightCol .bbItem,
+.workRow.active .bbRightCol .bbItem{
+  animation: bbFadeInRight 0.4s ease-out forwards;
+}
+
+.occList{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  align-items:center;
+  min-width:0;
+  margin-top:8px;
+  margin-bottom:8px;
+}
+

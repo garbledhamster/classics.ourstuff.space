@@ -1,0 +1,148 @@
+/* ===== Drawer / Popout base ===== */
+.overlay{
+  position:fixed;
+  inset:0;
+  background: #00000055;
+  display:none;
+  z-index:50;
+}
+.overlay.open{ display:block; }
+
+/* ===== Modal base ===== */
+.modal{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background:#fff;
+  border:var(--border);
+  box-shadow: 12px 12px 0 #000;
+  padding:0;
+  z-index:70;
+  display:none;
+  width:min(480px, 90vw);
+  opacity:0;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.modal.open{ 
+  display:block; 
+  opacity:1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modalHeader{
+  padding:16px;
+  border-bottom:var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.modalTitle{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.01em;
+  font-size:20px;
+  margin:0;
+}
+.modalBody{
+  padding:16px;
+  display:grid;
+  gap:16px;
+}
+.modalFooter{
+  padding:16px;
+  border-top:var(--border);
+  display:flex;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+/* Modal backdrop */
+.modalBackdrop{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  z-index:60;
+  display:none;
+  opacity:0;
+  transition: opacity 160ms ease;
+}
+.modalBackdrop.show{
+  display:block;
+  opacity:1;
+}
+
+/* Timer modal */
+.timerDisplay{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-size:clamp(52px,12vw,80px);
+  font-weight:900;
+  text-align:center;
+  letter-spacing:0.04em;
+  line-height:1;
+  padding:16px 0;
+  border:var(--border);
+  background:var(--paper);
+  user-select:none;
+}
+.timerDisplay.running{
+  background:var(--ink);
+  color:var(--paper);
+}
+.timerPresets{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+}
+.timerControls{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.timerCustomRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.timerCustomRow .input{
+  width:60px;
+  text-align:center;
+}
+.timerSoundRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.timerVolumeRow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.timerVolumeRow input[type="range"]{
+  width:120px;
+  accent-color:var(--ink);
+  cursor:pointer;
+}
+.timerSoundRow select.input{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  padding:6px 8px;
+  cursor:pointer;
+}
+html.dark .timerDisplay{ background:var(--paper); color:var(--ink); }
+html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }

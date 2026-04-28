@@ -1,0 +1,170 @@
+/* Error */
+.error{
+  border:var(--border);
+  box-shadow:var(--shadowSm);
+  padding:12px;
+  background:#fff;
+  margin-bottom:16px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  overflow-wrap:anywhere;
+}
+
+/* Tabs / nav */
+.navRow{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.tabOn{
+  background:#000;
+  color:#fff;
+}
+
+/* Views */
+.view{ display:none; }
+.view.on{ display:block; }
+
+/* Cards grids: LEFT->RIGHT row-major */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap:16px;
+  align-items:start;
+  min-width:0;
+}
+@media (max-width:460px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+/* Controls blocks */
+.controls{
+  border:var(--border);
+  box-shadow:var(--shadowSm);
+  padding:12px;
+  background:#fff;
+  display:grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap:10px;
+  align-items:end;
+  margin-bottom:16px;
+  min-width:0;
+}
+@media (max-width:980px){ .controls{ grid-template-columns: 1fr 1fr; } }
+@media (max-width:560px){ .controls{ grid-template-columns: 1fr; } }
+
+.rowWide{
+  grid-column: 1 / -1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:5px;
+  flex-wrap:wrap;
+  min-width:0;
+}
+.planBtnRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  justify-content:flex-start;
+}
+.planRefRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  justify-content:flex-start;
+  border:var(--border);
+  box-shadow:var(--shadowSm);
+  background:#fff;
+  padding:10px 12px;
+  margin-bottom:10px;
+}
+
+/* Newspaper-style masthead for the 10-year plan */
+.planMasthead{
+  border:var(--border);
+  box-shadow:var(--shadowSm);
+  background:#fff;
+  padding:14px 20px 16px;
+  margin-bottom:10px;
+  text-align:center;
+}
+.planMastheadRule{
+  border:none;
+  border-top:3px double #000;
+  margin:8px 0;
+}
+.planMastheadTitle{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin:8px 0 6px;
+  line-height:1.2;
+}
+.planMastheadDesc{
+  font-size:12px;
+  color:var(--muted);
+  margin:0 auto;
+  max-width:680px;
+  line-height:1.6;
+  letter-spacing:0.02em;
+}
+
+/* Search + action buttons row */
+.planSearchControls{
+  grid-template-columns: 1fr !important;
+  margin-bottom:10px;
+}
+
+/* Year / All years / Tier / Filter row — 4 equal columns */
+.planFilterControls{
+  grid-template-columns: 1fr 1fr 1fr 1fr auto !important;
+}
+@media (max-width:800px){ .planFilterControls{ grid-template-columns: 1fr 1fr !important; } }
+@media (max-width:460px){ .planFilterControls{ grid-template-columns: 1fr !important; } }
+
+.rowWide .btnText{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Pills */
+.pill{
+  border:var(--borderThin);
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  color:var(--muted);
+  background:#fff;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+}
+.pillArchived{
+  background:#f5f5dc;
+  color:#666;
+}
+.tagRow{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:6px;
+  min-width:0;
+}
+
+.mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+

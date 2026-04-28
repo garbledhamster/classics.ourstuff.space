@@ -1,0 +1,45 @@
+.drawer{
+  position:fixed;
+  top:0;
+  height:100%;
+  width:min(520px, 92vw);
+  max-width:520px;              /* internal max width */
+  background:#fff;
+  border-left:var(--border);
+  box-shadow: -10px 0 0 #000;
+  transform: translateX(105%);
+  transition: transform 160ms ease;
+  z-index:60;
+  display:flex;
+  flex-direction:column;
+  right:0;
+  overflow-x:hidden;            /* prevent horizontal scroll */
+}
+.drawer.open{ transform: translateX(0); }
+
+.drawerHeader{
+  padding:12px;
+  border-bottom:var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.drawerTitle{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-0.01em;
+  font-size:20px;
+  margin:0;
+}
+.drawerBody{
+  padding:12px;
+  overflow:auto;
+  overflow-x:hidden;            /* prevent horizontal scroll */
+  display:grid;
+  gap:12px;
+  min-width:0;
+}
+

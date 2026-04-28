@@ -737,6 +737,8 @@
     .bookDetailsLabel{ font-weight:600; }
     .bookDetailsSubjectList{ margin:3px 0 0 0; padding:0 0 0 1.2em; font-size:0.8rem; line-height:1.7; }
     .bookDetailsLink{ color:var(--ink); text-underline-offset:2px; font-size:0.8rem; }
+    .bookDetailsSource{ font-size:0.73rem; color:#999; font-style:italic; }
+    .bookDetailsExcerpt{ opacity:0.85; }
     .bookDetailsLoading,
     .bookDetailsError{ padding:8px 12px 10px; font-size:0.82rem; color:#888; }
     .bookDetailsError{ color:#b00; }
@@ -1642,6 +1644,7 @@
     html.dark .bookDetailsSection{ background:#222; border-bottom-color:#444; }
     html.dark .bookDetailsHeader{ background:#2a2a2a; border-bottom-color:#444; color:#888; }
     html.dark .bookDetailsLoading{ color:#888; }
+    html.dark .bookDetailsSource{ color:#666; }
     html.dark .bookDetailsLink{ color:var(--ink); }
     html.dark .cardMetaControls{ background:#1f1f1f; }
     html.dark .cardDateField,
@@ -2937,25 +2940,41 @@
       inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
       try {
-        const fields = "key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count";
-        const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-        const data = await res.json();
+        let html = null;
 
-        // Pick the best match: prefer an exact (case-insensitive) title match first
-        const docs = data.docs || [];
-        const normTitle = normalizeText(title);
-        const best = docs.find(d => normalizeText(d.title || "") === normTitle) || docs[0] || null;
+        // Source 1: Open Library
+        try {
+          const fields = "key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count";
+          const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
+          const res = await fetch(url);
+          if (res.ok) {
+            const data = await res.json();
+            const docs = data.docs || [];
+            const normTitle = normalizeText(title);
+            const best = docs.find(d => normalizeText(d.title || "") === normTitle) || docs[0] || null;
+            if (best) html = _renderBookDetailsResult(best);
+          }
+        } catch(_) { /* fall through to next source */ }
 
-        if (!best){
-          const html = `<div class="bookDetailsError">No results found on Open Library.</div>`;
-          _bookDetailsCache.set(cacheKey, html);
-          inner.innerHTML = html;
-          return;
+        // Source 2: Project Gutenberg (Gutendex)
+        if (!html) {
+          try {
+            const gutBook = await _fetchGutendexDetails(title, author);
+            if (gutBook) html = _renderGutendexResult(gutBook);
+          } catch(_) { /* fall through to next source */ }
         }
 
-        const html = _renderBookDetailsResult(best);
+        // Source 3: Wikipedia
+        if (!html) {
+          try {
+            const wikiPage = await _fetchWikipediaDetails(title, author);
+            if (wikiPage) html = _renderWikipediaResult(wikiPage);
+          } catch(_) { /* fall through */ }
+        }
+
+        if (!html) {
+          html = `<div class="bookDetailsError">No details found for this title.</div>`;
+        }
         _bookDetailsCache.set(cacheKey, html);
         inner.innerHTML = html;
       } catch(err){
@@ -3017,6 +3036,77 @@
       }
 
       return `<div class="bookDetailsContent">${coverHtml}<div class="bookDetailsInfo">${rows.join("")}</div></div>`;
+    }
+
+    async function _fetchGutendexDetails(title, author){
+      const q = [title, author].filter(Boolean).join(" ");
+      const url = `https://gutendex.com/books/?search=${encodeURIComponent(q)}`;
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const data = await res.json();
+      const results = data.results || [];
+      if (!results.length) return null;
+      const normTitle = normalizeText(title);
+      return results.find(b => normalizeText(b.title || "") === normTitle) || results[0];
+    }
+
+    function _renderGutendexResult(book){
+      const rows = [];
+      const authors = (book.authors || []).map(a => a.name).filter(Boolean);
+      if (authors.length){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Author: </span>${escapeHtml(authors.join(", "))}</div>`);
+      }
+      const firstAuthor = book.authors?.[0];
+      if (firstAuthor?.birth_year || firstAuthor?.death_year){
+        const lifespan = [firstAuthor.birth_year, firstAuthor.death_year].filter(Boolean).join("\u2013");
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Author lifespan: </span>${escapeHtml(lifespan)}</div>`);
+      }
+      const subjects = (book.subjects || []).slice(0, 6);
+      if (subjects.length){
+        const items = subjects.map(s => `<li>${escapeHtml(s)}</li>`).join("");
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Subjects:</span><ul class="bookDetailsSubjectList">${items}</ul></div>`);
+      }
+      if (typeof book.download_count === "number"){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Downloads: </span>${escapeHtml(String(book.download_count))}</div>`);
+      }
+      if (book.id){
+        rows.push(`<div class="bookDetailsRow"><a class="bookDetailsLink" href="https://www.gutenberg.org/ebooks/${book.id}" target="_blank" rel="noopener noreferrer">Read on Project Gutenberg →</a></div>`);
+      }
+      rows.push(`<div class="bookDetailsRow bookDetailsSource">Source: Project Gutenberg</div>`);
+      return `<div class="bookDetailsContent"><div class="bookDetailsInfo">${rows.join("")}</div></div>`;
+    }
+
+    async function _fetchWikipediaDetails(title, author){
+      const q = [title, author].filter(Boolean).join(" ");
+      const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=3&format=json&origin=*`;
+      const searchRes = await fetch(searchUrl);
+      if (!searchRes.ok) return null;
+      const searchData = await searchRes.json();
+      const hits = searchData.query?.search || [];
+      if (!hits.length) return null;
+      const pageTitle = hits[0].title;
+      const summaryRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`);
+      if (!summaryRes.ok) return null;
+      return summaryRes.json();
+    }
+
+    function _renderWikipediaResult(page){
+      const rows = [];
+      if (page.description){
+        rows.push(`<div class="bookDetailsRow"><span class="bookDetailsLabel">Description: </span>${escapeHtml(page.description)}</div>`);
+      }
+      if (page.extract){
+        const excerpt = page.extract.length > 300 ? page.extract.slice(0, 300) + "…" : page.extract;
+        rows.push(`<div class="bookDetailsRow bookDetailsExcerpt">${escapeHtml(excerpt)}</div>`);
+      }
+      if (page.content_urls?.desktop?.page){
+        rows.push(`<div class="bookDetailsRow"><a class="bookDetailsLink" href="${escapeHtml(page.content_urls.desktop.page)}" target="_blank" rel="noopener noreferrer">View on Wikipedia →</a></div>`);
+      }
+      rows.push(`<div class="bookDetailsRow bookDetailsSource">Source: Wikipedia</div>`);
+      const thumbHtml = page.thumbnail?.source
+        ? `<div class="bookDetailsCover"><img src="${escapeHtml(page.thumbnail.source)}" alt="Illustration" loading="lazy"></div>`
+        : "";
+      return `<div class="bookDetailsContent">${thumbHtml}<div class="bookDetailsInfo">${rows.join("")}</div></div>`;
     }
 
     function handleBookDetailsToggle(btn){

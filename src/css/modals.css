@@ -146,5 +146,3 @@
 }
 html.dark .timerDisplay{ background:var(--paper); color:var(--ink); }
 html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }
-
-.drawer{

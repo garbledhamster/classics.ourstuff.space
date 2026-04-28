@@ -284,7 +284,7 @@ function wireAuthorsDelegation(){
     if (btn.dataset.action === "openNotesAuthor"){
       openDrawer("notes");
       state.notesUI.search = author;
-      $("#notesSearch").value = author;
+      $("#noteSearch").value = author;
       renderNotesList();
       return;
     }

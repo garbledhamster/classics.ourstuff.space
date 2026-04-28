@@ -51,3 +51,4 @@ function loadTableHiddenCols(){
 }
 function saveTableHiddenCols(set){
   try { localStorage.setItem(LS_TABLE_HIDDEN_COLS, JSON.stringify(Array.from(set))); } catch(e){ console.error("Failed to save table column preferences:", e); }
+}

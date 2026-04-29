@@ -36,11 +36,11 @@ function renderBlackBoxSection(bb){
   const boxTitle = escapeHtml(bb.box || "");
   const inputs = Array.isArray(bb.inputs) ? bb.inputs : [];
   const outputs = Array.isArray(bb.outputs) ? bb.outputs : [];
-  const inputsHtml = inputs.map(inp =>
-    `<div class="bbItem bbInput">${escapeHtml(inp)}</div>`
+  const inputsHtml = inputs.map((inp,i) =>
+    `<div class="bbItem bbInput" style="animation-delay:${0.9 + i * 0.08}s">${escapeHtml(inp)}</div>`
   ).join("");
-  const outputsHtml = outputs.map(out =>
-    `<div class="bbItem bbOutput">${escapeHtml(out)}</div>`
+  const outputsHtml = outputs.map((out,i) =>
+    `<div class="bbItem bbOutput" style="animation-delay:${1.5 + i * 0.1}s">${escapeHtml(out)}</div>`
   ).join("");
   return `
     <div class="blackBoxSection">

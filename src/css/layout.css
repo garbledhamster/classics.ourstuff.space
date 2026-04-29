@@ -18,10 +18,6 @@
   flex-wrap:wrap;
   align-items:center;
 }
-.btn.tabOn{
-  background:#000;
-  color:#fff;
-}
 
 /* Views */
 .view{ display:none; }

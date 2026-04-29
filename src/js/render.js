@@ -279,12 +279,6 @@ function renderLibrary(){
     wireLibraryDelegation();
     applyAllTaskVisibilities(grid);
 
-    // Cancel any prior background load and start a fresh one for the new card set
-    if (_bookDetailsBgAbort) _bookDetailsBgAbort.cancelled = true;
-    _bookDetailsBgAbort = { cancelled: false };
-    const bgSections = Array.from(grid.querySelectorAll(".bookDetailsSection"));
-    startBgBookDetailsLoad(bgSections, _bookDetailsBgAbort);
-
     pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
   }
 }

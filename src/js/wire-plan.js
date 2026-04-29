@@ -13,7 +13,7 @@ function wirePlanDelegation(){
           grid.querySelectorAll(".workRow.active").forEach(r => {
             r.classList.remove("active");
             const prevInner = r.querySelector(".bookDetailsPanel > div");
-            if (prevInner) prevInner.innerHTML = "";
+            if (prevInner) { prevInner.innerHTML = ""; prevInner._sources = null; prevInner._sourceIdx = 0; }
           });
           if (!was) {
             row.classList.add("active");
@@ -40,6 +40,15 @@ function wirePlanDelegation(){
     // Handle task dropdown actions
     if (action === "toggleTaskDropdown" || action === "selectTaskOption") {
       handleTaskDropdownClickEvent(e);
+      return;
+    }
+
+    if (action === "cycleBookDetails"){
+      const inner = btn.closest(".bookDetailsPanel > div");
+      if (inner && inner._sources && inner._sources.length > 1){
+        inner._sourceIdx = ((inner._sourceIdx || 0) + 1) % inner._sources.length;
+        _renderSourceView(inner);
+      }
       return;
     }
 

@@ -49,7 +49,7 @@ html.dark .taskDropOpt:hover,
 html.dark .taskDropOpt:focus{ background:#2e2e2e; }
 html.dark .taskDropOpt[aria-selected="true"]{ background:#2a2a2a; }
 html.dark .bar{ background:#222; }
-html.dark .tabOn{ background:var(--ink); color:var(--paper); }
+html.dark .btn.tabOn{ background:var(--ink); color:var(--paper); }
 html.dark .bar > span{ background:var(--ink); }
 html.dark .noteItemPreview{ color:var(--ink2); }
 html.dark .flash{ outline-color:var(--ink); }

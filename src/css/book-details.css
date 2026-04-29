@@ -139,6 +139,12 @@ html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
   height:60px;
   display:block;
 }
+.bbFill{
+  fill:var(--ink);
+  transform-box:fill-box;
+  transform-origin:left center;
+  transform:scaleX(0);
+}
 .bbRect{
   stroke-dasharray:360;
   stroke-dashoffset:360;
@@ -168,9 +174,13 @@ html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
 .bbRightCol .bbItem{ text-align:left; }
 html.dark .bbItem{ background:#111; }
 
-/* Animations trigger when libCard or workRow is active/open */
+/* Sequence: outline draws → label + items fade in → fill sweeps left-to-right */
 @keyframes bbDrawBox{
   to{ stroke-dashoffset:0; }
+}
+@keyframes bbFillLeft{
+  from{ transform:scaleX(0); }
+  to{ transform:scaleX(1); }
 }
 @keyframes bbFadeIn{
   from{ opacity:0; transform:translateX(0); }
@@ -200,6 +210,11 @@ html.dark .bbItem{ background:#111; }
 .libCard.active .bbRightCol .bbItem,
 .workRow.active .bbRightCol .bbItem{
   animation: bbFadeInRight 0.4s ease-out forwards;
+}
+.libCard.active .bbFill,
+.workRow.active .bbFill{
+  animation: bbFillLeft 0.6s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay: 2.2s;
 }
 
 .occList{

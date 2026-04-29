@@ -75,6 +75,7 @@ function renderBookDetailsSection(author, title){
         Book Details
       </div>
       <div class="bookDetailsPanel"><div></div></div>
+      <div class="bookDetailsCurtain" aria-hidden="true"></div>
     </div>
   `;
 }

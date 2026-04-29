@@ -2,6 +2,8 @@
 .bookDetailsSection{
   border-bottom:var(--borderThin);
   background:#fafafa;
+  position:relative;
+  overflow:hidden;
 }
 .bookDetailsHeader{
   display:flex;
@@ -46,6 +48,29 @@
 .bookDetailsLoading,
 .bookDetailsError{ padding:8px 12px 10px; font-size:0.82rem; color:#888; }
 .bookDetailsError{ color:#b00; }
+
+/* ===== Book Details Curtain (reveals after black box animation) ===== */
+.bookDetailsCurtain{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:#f0f0f0;
+  z-index:1;
+  pointer-events:none;
+}
+.drawerPanelRow:has(.blackBoxSection) .bookDetailsCurtain{
+  display:block;
+}
+@keyframes bookDetailsCurtainUp{
+  from{ transform:translateY(0); }
+  to  { transform:translateY(-100%); }
+}
+.libCard.active .drawerPanelRow:has(.blackBoxSection) .bookDetailsCurtain,
+.workRow.active  .drawerPanelRow:has(.blackBoxSection) .bookDetailsCurtain{
+  animation:bookDetailsCurtainUp 0.45s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay:2.8s;
+}
+html.dark .bookDetailsCurtain{ background:#1e1e1e; }
 
 /* ===== Source cycle bar ===== */
 .bookDetailsCycleBar{

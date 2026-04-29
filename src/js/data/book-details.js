@@ -36,15 +36,17 @@ function renderLinkedNotesSection(title){
   const notes = (state.notes || []).filter(n => !n.archived && n.book_tag === title);
   const count = notes.length;
   const headerLabel = count > 0 ? `Linked Notes (${count})` : "Linked Notes";
+  const PREVIEW_LEN = 80; // compact single-line preview; full note opens in editor
   let bodyHtml;
   if (count > 0){
+    // Show up to 10 most-recent notes; the full list is always accessible via Open notes
     bodyHtml = notes.slice(0, 10).map(n => {
       const noteTitle = escapeHtml(n.title || "Untitled");
-      const preview = escapeHtml((n.body || "").slice(0, 80));
+      const preview = escapeHtml((n.body || "").slice(0, PREVIEW_LEN));
       return `
         <button class="linkedNoteItem" type="button" data-action="openLinkedNote" data-noteid="${escapeHtml(n.id)}" title="${noteTitle}">
           <span class="linkedNoteTitle">${noteTitle}</span>
-          ${preview ? `<span class="linkedNotePreview">${preview}${(n.body || "").length > 80 ? "…" : ""}</span>` : ""}
+          ${preview ? `<span class="linkedNotePreview">${preview}${(n.body || "").length > PREVIEW_LEN ? "…" : ""}</span>` : ""}
         </button>
       `;
     }).join("");

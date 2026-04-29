@@ -112,7 +112,7 @@ function libCardHtml(it){
          </div>
         </div>
         <div class="drawerPanelRow">
-          ${it.blackBox ? renderBlackBoxSection(it.blackBox) : ""}
+          ${it.blackBox ? renderBlackBoxSection(it.blackBox, it.title) : ""}
           ${renderBookDetailsSection(it.author, it.title)}
         </div>
       </div></div>

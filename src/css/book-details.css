@@ -72,7 +72,7 @@
 }
 html.dark .bookDetailsCurtain{ background:#1e1e1e; }
 
-/* ===== Source cycle bar ===== */
+/* ===== Source cycle bar (now used as the book details section header) ===== */
 .bookDetailsCycleBar{
   display:flex;
   align-items:center;
@@ -80,6 +80,7 @@ html.dark .bookDetailsCurtain{ background:#1e1e1e; }
   padding:3px 8px 3px 12px;
   background:#ebebeb;
   border-bottom:var(--borderThin);
+  min-height:28px;
 }
 .bookDetailsSourceLabel{
   flex:1;
@@ -242,6 +243,79 @@ html.dark .bbItem{ background:#111; }
   animation-delay: 2.2s;
 }
 
+/* ===== Linked Notes Section (below black box) ===== */
+.linkedNotesSection{
+  border-top:var(--borderThin);
+}
+.linkedNotesHeader{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  width:100%;
+  padding:6px 12px 5px;
+  font-size:0.72rem;
+  font-weight:700;
+  color:#666;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  border-bottom:var(--borderThin);
+  background:#ebebeb;
+  cursor:pointer;
+  text-align:left;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.linkedNotesHeader:hover{ background:#e2e2e2; }
+.linkedNotesPanel{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .25s cubic-bezier(.4,0,1,1);
+}
+.linkedNotesPanel > div{ overflow:hidden; }
+.linkedNotesSection.open .linkedNotesPanel{
+  grid-template-rows:1fr;
+  transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
+}
+.linkedNoteItem{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:6px 12px;
+  border-bottom:var(--borderThin);
+  background:transparent;
+  border-left:none;
+  border-right:none;
+  border-top:none;
+  text-align:left;
+  cursor:pointer;
+  width:100%;
+}
+.linkedNoteItem:hover{ background:#f5f5f5; }
+.linkedNoteItem:last-child{ border-bottom:none; }
+.linkedNoteTitle{
+  font-size:0.78rem;
+  font-weight:700;
+  color:var(--ink);
+  overflow-wrap:anywhere;
+  line-height:1.4;
+}
+.linkedNotePreview{
+  font-size:0.73rem;
+  color:#777;
+  line-height:1.4;
+  overflow-wrap:anywhere;
+  white-space:pre-wrap;
+  max-height:3.6em;
+  overflow:hidden;
+}
+.linkedNoteEmpty{
+  padding:8px 12px;
+  font-size:0.78rem;
+  color:#999;
+  font-style:italic;
+}
+
 .occList{
   display:flex;
   gap:6px;
@@ -251,4 +325,3 @@ html.dark .bbItem{ background:#111; }
   margin-top:8px;
   margin-bottom:8px;
 }
-

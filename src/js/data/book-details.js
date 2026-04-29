@@ -31,7 +31,48 @@ function renderLearningButtons() {
   `;
 }
 
-function renderBlackBoxSection(bb){
+function renderLinkedNotesSection(title){
+  if (!title) return "";
+  const notes = (state.notes || []).filter(n => !n.archived && n.book_tag === title);
+  const count = notes.length;
+  const headerLabel = count > 0 ? `Linked Notes (${count})` : "Linked Notes";
+  let bodyHtml;
+  if (count > 0){
+    bodyHtml = notes.slice(0, 10).map(n => {
+      const noteTitle = escapeHtml(n.title || "Untitled");
+      const preview = escapeHtml((n.body || "").slice(0, 80));
+      return `
+        <button class="linkedNoteItem" type="button" data-action="openLinkedNote" data-noteid="${escapeHtml(n.id)}" title="${noteTitle}">
+          <span class="linkedNoteTitle">${noteTitle}</span>
+          ${preview ? `<span class="linkedNotePreview">${preview}${(n.body || "").length > 80 ? "…" : ""}</span>` : ""}
+        </button>
+      `;
+    }).join("");
+  } else {
+    bodyHtml = `<div class="linkedNoteEmpty">No notes active</div>`;
+  }
+  return `
+    <div class="linkedNotesSection open">
+      <button class="linkedNotesHeader" type="button" data-action="linkedNotesToggle" aria-expanded="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        ${escapeHtml(headerLabel)}
+      </button>
+      <div class="linkedNotesPanel">
+        <div>${bodyHtml}</div>
+      </div>
+    </div>
+  `;
+}
+
+function handleLinkedNotesToggle(btn){
+  const section = btn.closest(".linkedNotesSection");
+  if (!section) return;
+  const isOpen = section.classList.contains("open");
+  section.classList.toggle("open", !isOpen);
+  btn.setAttribute("aria-expanded", !isOpen ? "true" : "false");
+}
+
+function renderBlackBoxSection(bb, title){
   if (!bb) return "";
   const boxTitle = escapeHtml(bb.box || "");
   const inputs = Array.isArray(bb.inputs) ? bb.inputs : [];
@@ -61,6 +102,7 @@ function renderBlackBoxSection(bb){
           <div class="bbCol bbRightCol">${outputsHtml}</div>
         </div>
       </div>
+      ${renderLinkedNotesSection(title)}
     </div>
   `;
 }
@@ -70,10 +112,7 @@ function renderBlackBoxSection(bb){
 function renderBookDetailsSection(author, title){
   return `
     <div class="bookDetailsSection open" data-author="${escapeHtml(author)}" data-title="${escapeHtml(title)}">
-      <div class="bookDetailsHeader">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-        Book Details
-      </div>
+      <div class="bookDetailsCycleBar"></div>
       <div class="bookDetailsPanel"><div></div></div>
       <div class="bookDetailsCurtain" aria-hidden="true"></div>
     </div>
@@ -89,6 +128,10 @@ async function loadBookDetails(section){
   // Prevent duplicate in-flight fetches for the same section
   if (inner._loadingDetails) return;
   inner._loadingDetails = true;
+
+  // Show loading state in cycle bar header
+  const cycleBar = section.querySelector(".bookDetailsCycleBar");
+  if (cycleBar) cycleBar.innerHTML = `<span class="bookDetailsSourceLabel" style="opacity:0.55">Loading…</span>`;
 
   inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
@@ -112,6 +155,7 @@ async function loadBookDetails(section){
     }
 
     if (!sources.length){
+      if (cycleBar) cycleBar.innerHTML = "";
       inner.innerHTML = `<div class="bookDetailsError">No details found for this title.</div>`;
       return;
     }
@@ -121,6 +165,7 @@ async function loadBookDetails(section){
     inner._sourceIdx = 0;
     _renderSourceView(inner);
   } catch(err){
+    if (cycleBar) cycleBar.innerHTML = "";
     inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
   } finally {
     inner._loadingDetails = false;
@@ -134,20 +179,28 @@ function _renderSourceView(inner){
   const source = sources[idx];
   const hasMultiple = sources.length > 1;
   const nextLabel = hasMultiple ? sources[(idx + 1) % sources.length].label : "";
-  const cycleBtn = hasMultiple
-    ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
-    : "";
-  const counter = hasMultiple
-    ? `<span class="bookDetailsSourceCounter">${idx + 1}/${sources.length}</span>`
-    : "";
-  inner.innerHTML = `
-    <div class="bookDetailsCycleBar"><span class="bookDetailsSourceLabel">${escapeHtml(source.label)}</span>${counter}${cycleBtn}</div>
-    ${source.html}
-  `;
+
+  // Update the cycle bar header (outside the panel — always visible, no animation)
+  const section = inner.closest(".bookDetailsSection");
+  const cycleBar = section ? section.querySelector(".bookDetailsCycleBar") : null;
+  if (cycleBar){
+    const cycleBtn = hasMultiple
+      ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
+      : "";
+    const counter = hasMultiple
+      ? `<span class="bookDetailsSourceCounter">${idx + 1}/${sources.length}</span>`
+      : "";
+    cycleBar.innerHTML = `<span class="bookDetailsSourceLabel">${escapeHtml(source.label)}</span>${counter}${cycleBtn}`;
+  }
+
+  // Set panel content only (cycle bar no longer lives inside the panel)
+  inner.innerHTML = source.html;
 }
 
 function handleCycleBookDetails(btn){
-  const inner = btn.closest(".bookDetailsPanel > div");
+  const section = btn.closest(".bookDetailsSection");
+  if (!section) return;
+  const inner = section.querySelector(".bookDetailsPanel > div");
   if (inner && inner._sources && inner._sources.length > 1){
     inner._sourceIdx = ((inner._sourceIdx || 0) + 1) % inner._sources.length;
     _renderSourceView(inner);

@@ -437,8 +437,8 @@ function workRowHtml(w){
          </div>
         </div>
         <div class="drawerPanelRow">
-          ${renderBookDetailsSection(w.author, title)}
           ${w.blackBox ? renderBlackBoxSection(w.blackBox) : ""}
+          ${renderBookDetailsSection(w.author, title)}
         </div>
       </div></div>
     </div>

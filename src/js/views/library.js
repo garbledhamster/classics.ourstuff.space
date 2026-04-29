@@ -53,10 +53,6 @@ function libCardHtml(it){
       </div>
 
       <div class="libDrawer"><div>
-        <div class="drawerPanelRow">
-          ${renderBookDetailsSection(it.author, it.title)}
-          ${it.blackBox ? renderBlackBoxSection(it.blackBox) : ""}
-        </div>
         <div class="workDrawerBody">
         ${renderCardMetaControls(it.author, it.title)}
         <div class="libActions">
@@ -114,6 +110,10 @@ function libCardHtml(it){
             Go to plan
           </button>
          </div>
+        </div>
+        <div class="drawerPanelRow">
+          ${renderBookDetailsSection(it.author, it.title)}
+          ${it.blackBox ? renderBlackBoxSection(it.blackBox) : ""}
         </div>
       </div></div>
     </section>

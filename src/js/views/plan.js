@@ -378,10 +378,6 @@ function workRowHtml(w){
       </div>
 
       <div class="workDrawer"><div>
-        <div class="drawerPanelRow">
-          ${renderBookDetailsSection(w.author, title)}
-          ${w.blackBox ? renderBlackBoxSection(w.blackBox) : ""}
-        </div>
         <div class="workDrawerBody">
         ${renderCardMetaControls(w.author, title)}
         <div class="workActions">
@@ -439,6 +435,10 @@ function workRowHtml(w){
             <span class="btn-label">Discuss</span>
           </button>
          </div>
+        </div>
+        <div class="drawerPanelRow">
+          ${renderBookDetailsSection(w.author, title)}
+          ${w.blackBox ? renderBlackBoxSection(w.blackBox) : ""}
         </div>
       </div></div>
     </div>

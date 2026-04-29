@@ -1,4 +1,4 @@
-/* data/book-details.js — On-demand book detail lookup (Open Library → Gutendex → Wikipedia), Black Box section render */
+/* data/book-details.js — On-demand book detail lookup (Open Library + Gutendex + Wikipedia in parallel), Black Box section render */
 function renderLearningButtons() {
   const buildPlatformGoalButtons = (platform) => LEARNING_GOAL_OPTIONS.map(goal => `
     <button class="btn btnGhost" type="button" data-action="openLearningGoal" data-platform="${platform}" data-goal="${escapeHtml(goal.query)}">${escapeHtml(goal.label)}</button>
@@ -78,89 +78,90 @@ function renderBookDetailsSection(author, title){
   `;
 }
 
-const _bookDetailsCache = new Map();
-const _bookDetailsInFlight = new Set();
-let _bookDetailsBgAbort = null;
-
 async function loadBookDetails(section){
   const author = section.dataset.author || "";
   const title  = section.dataset.title  || "";
   const inner  = section.querySelector(".bookDetailsPanel > div");
   if (!inner) return;
 
-  const cacheKey = `${author}|||${title}`;
-  if (_bookDetailsCache.has(cacheKey)){
-    inner.innerHTML = _bookDetailsCache.get(cacheKey);
-    return;
-  }
-
-  // Already being fetched — the in-flight request will update this inner when done
-  if (_bookDetailsInFlight.has(cacheKey)) return;
-  _bookDetailsInFlight.add(cacheKey);
+  // Prevent duplicate in-flight fetches for the same section
+  if (inner._loadingDetails) return;
+  inner._loadingDetails = true;
 
   inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
   try {
-    let html = null;
+    // Fetch all three sources in parallel for faster load
+    const [olResult, gutResult, wikiResult] = await Promise.allSettled([
+      _fetchOpenLibrary(title, author),
+      _fetchGutendexDetails(title, author),
+      _fetchWikipediaDetails(title, author)
+    ]);
 
-    // Source 1: Open Library
-    try {
-      const fields = "key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count";
-      const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
-      const res = await fetch(url);
-      if (res.ok) {
-        const data = await res.json();
-        const docs = data.docs || [];
-        const normTitle = normalizeText(title);
-        const best = docs.find(d => normalizeText(d.title || "") === normTitle) || docs[0] || null;
-        if (best) html = _renderBookDetailsResult(best);
-      }
-    } catch(_) { /* fall through to next source */ }
-
-    // Source 2: Project Gutenberg (Gutendex)
-    if (!html) {
-      try {
-        const gutBook = await _fetchGutendexDetails(title, author);
-        if (gutBook) html = _renderGutendexResult(gutBook);
-      } catch(_) { /* fall through to next source */ }
+    const sources = [];
+    if (olResult.status === "fulfilled" && olResult.value){
+      sources.push({ label: "Open Library", html: _renderBookDetailsResult(olResult.value) });
+    }
+    if (gutResult.status === "fulfilled" && gutResult.value){
+      sources.push({ label: "Project Gutenberg", html: _renderGutendexResult(gutResult.value) });
+    }
+    if (wikiResult.status === "fulfilled" && wikiResult.value){
+      sources.push({ label: "Wikipedia", html: _renderWikipediaResult(wikiResult.value) });
     }
 
-    // Source 3: Wikipedia
-    if (!html) {
-      try {
-        const wikiPage = await _fetchWikipediaDetails(title, author);
-        if (wikiPage) html = _renderWikipediaResult(wikiPage);
-      } catch(_) { /* fall through */ }
+    if (!sources.length){
+      inner.innerHTML = `<div class="bookDetailsError">No details found for this title.</div>`;
+      return;
     }
 
-    if (!html) {
-      html = `<div class="bookDetailsError">No details found for this title.</div>`;
-    }
-    _bookDetailsCache.set(cacheKey, html);
-    inner.innerHTML = html;
+    // Store sources on the inner element (cleared when card is closed)
+    inner._sources = sources;
+    inner._sourceIdx = 0;
+    _renderSourceView(inner);
   } catch(err){
     inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
   } finally {
-    _bookDetailsInFlight.delete(cacheKey);
+    inner._loadingDetails = false;
   }
 }
 
-async function startBgBookDetailsLoad(sections, abortObj) {
-  // Brief initial delay so the page settles before background requests begin
-  await new Promise(r => setTimeout(r, 500));
-  if (abortObj.cancelled) return;
-  for (const section of sections) {
-    if (abortObj.cancelled) break;
-    // Stop if the section has been removed from the DOM (e.g. filters changed)
-    if (!document.contains(section)) break;
-    const cacheKey = `${section.dataset.author || ""}|||${section.dataset.title || ""}`;
-    if (!_bookDetailsCache.has(cacheKey) && !_bookDetailsInFlight.has(cacheKey)) {
-      await loadBookDetails(section);
-      if (abortObj.cancelled) break;
-      // Rate-limit: pause between actual API requests only
-      await new Promise(r => setTimeout(r, 300));
-    }
+function _renderSourceView(inner){
+  const sources = inner._sources || [];
+  const idx = inner._sourceIdx || 0;
+  if (!sources.length) return;
+  const source = sources[idx];
+  const hasMultiple = sources.length > 1;
+  const nextLabel = hasMultiple ? sources[(idx + 1) % sources.length].label : "";
+  const cycleBtn = hasMultiple
+    ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
+    : "";
+  const counter = hasMultiple
+    ? `<span class="bookDetailsSourceCounter">${idx + 1}/${sources.length}</span>`
+    : "";
+  inner.innerHTML = `
+    <div class="bookDetailsCycleBar"><span class="bookDetailsSourceLabel">${escapeHtml(source.label)}</span>${counter}${cycleBtn}</div>
+    ${source.html}
+  `;
+}
+
+function handleCycleBookDetails(btn){
+  const inner = btn.closest(".bookDetailsPanel > div");
+  if (inner && inner._sources && inner._sources.length > 1){
+    inner._sourceIdx = ((inner._sourceIdx || 0) + 1) % inner._sources.length;
+    _renderSourceView(inner);
   }
+}
+
+async function _fetchOpenLibrary(title, author){
+  const fields = "key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count";
+  const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  const docs = data.docs || [];
+  if (!docs.length) return null;
+  const normTitle = normalizeText(title);
+  return docs.find(d => normalizeText(d.title || "") === normTitle) || docs[0] || null;
 }
 
 function _renderBookDetailsResult(doc){

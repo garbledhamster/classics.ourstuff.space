@@ -13,7 +13,7 @@ function wireLibraryDelegation(){
           grid.querySelectorAll(".libCard.active").forEach(c => {
             c.classList.remove("active");
             const prevInner = c.querySelector(".bookDetailsPanel > div");
-            if (prevInner) prevInner.innerHTML = "";
+            if (prevInner) { prevInner.innerHTML = ""; prevInner._sources = null; prevInner._sourceIdx = 0; }
           });
           if (!was) {
             card.classList.add("active");
@@ -31,6 +31,11 @@ function wireLibraryDelegation(){
     // Handle task dropdown actions (work inside .libCard but no card context needed)
     if (btn.dataset.action === "toggleTaskDropdown" || btn.dataset.action === "selectTaskOption") {
       handleTaskDropdownClickEvent(e);
+      return;
+    }
+
+    if (btn.dataset.action === "cycleBookDetails"){
+      handleCycleBookDetails(btn);
       return;
     }
 

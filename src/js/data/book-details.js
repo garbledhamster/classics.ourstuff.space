@@ -53,6 +53,7 @@ function renderBlackBoxSection(bb){
           <div class="bbCol bbLeftCol">${inputsHtml}</div>
           <div class="bbCenter">
             <svg class="bbSvg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect class="bbFill" x="5" y="5" width="110" height="70" rx="3"/>
               <rect class="bbRect" x="5" y="5" width="110" height="70" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
             <div class="bbLabel">${boxTitle}</div>

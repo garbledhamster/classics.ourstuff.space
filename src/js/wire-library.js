@@ -39,6 +39,17 @@ function wireLibraryDelegation(){
       return;
     }
 
+    if (btn.dataset.action === "linkedNotesToggle"){
+      handleLinkedNotesToggle(btn);
+      return;
+    }
+
+    if (btn.dataset.action === "openLinkedNote"){
+      const noteId = btn.dataset.noteid;
+      if (noteId){ openDrawer("notes"); startEditNote(noteId); }
+      return;
+    }
+
     const card = btn.closest(".libCard");
     if (!card) return;
 

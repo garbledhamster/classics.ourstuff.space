@@ -48,6 +48,17 @@ function wirePlanDelegation(){
       return;
     }
 
+    if (action === "linkedNotesToggle"){
+      handleLinkedNotesToggle(btn);
+      return;
+    }
+
+    if (action === "openLinkedNote"){
+      const noteId = btn.dataset.noteid;
+      if (noteId){ openDrawer("notes"); startEditNote(noteId); }
+      return;
+    }
+
     if (action === "markBlockDone" || action === "markBlockUndone"){
       const block = btn.closest(".readingBlock");
       if (!block) return;

@@ -131,8 +131,9 @@ function _renderSourceView(inner){
   if (!sources.length) return;
   const source = sources[idx];
   const hasMultiple = sources.length > 1;
+  const nextLabel = hasMultiple ? sources[(idx + 1) % sources.length].label : "";
   const cycleBtn = hasMultiple
-    ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source (${((idx + 1) % sources.length) + 1} of ${sources.length})">›</button>`
+    ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
     : "";
   const counter = hasMultiple
     ? `<span class="bookDetailsSourceCounter">${idx + 1}/${sources.length}</span>`
@@ -141,6 +142,14 @@ function _renderSourceView(inner){
     <div class="bookDetailsCycleBar"><span class="bookDetailsSourceLabel">${escapeHtml(source.label)}</span>${counter}${cycleBtn}</div>
     ${source.html}
   `;
+}
+
+function handleCycleBookDetails(btn){
+  const inner = btn.closest(".bookDetailsPanel > div");
+  if (inner && inner._sources && inner._sources.length > 1){
+    inner._sourceIdx = ((inner._sourceIdx || 0) + 1) % inner._sources.length;
+    _renderSourceView(inner);
+  }
 }
 
 async function _fetchOpenLibrary(title, author){

@@ -35,11 +35,7 @@ function wireLibraryDelegation(){
     }
 
     if (btn.dataset.action === "cycleBookDetails"){
-      const inner = btn.closest(".bookDetailsPanel > div");
-      if (inner && inner._sources && inner._sources.length > 1){
-        inner._sourceIdx = ((inner._sourceIdx || 0) + 1) % inner._sources.length;
-        _renderSourceView(inner);
-      }
+      handleCycleBookDetails(btn);
       return;
     }
 

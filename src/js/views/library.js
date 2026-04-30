@@ -114,6 +114,7 @@ function libCardHtml(it){
         <div class="drawerPanelRow">
           ${it.blackBox ? renderBlackBoxSection(it.blackBox, it.title) : ""}
           ${renderBookDetailsSection(it.author, it.title)}
+          ${renderLinkedNotesSection(it.title)}
         </div>
       </div></div>
     </section>

@@ -104,7 +104,6 @@ function renderBlackBoxSection(bb, title){
           <div class="bbCol bbRightCol">${outputsHtml}</div>
         </div>
       </div>
-      ${renderLinkedNotesSection(title)}
     </div>
   `;
 }
@@ -114,6 +113,10 @@ function renderBlackBoxSection(bb, title){
 function renderBookDetailsSection(author, title){
   return `
     <div class="bookDetailsSection open" data-author="${escapeHtml(author)}" data-title="${escapeHtml(title)}">
+      <div class="bookDetailsHeader">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        BOOK INFORMATION
+      </div>
       <div class="bookDetailsCycleBar"></div>
       <div class="bookDetailsPanel"><div></div></div>
       <div class="bookDetailsCurtain" aria-hidden="true"></div>

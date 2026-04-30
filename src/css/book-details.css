@@ -8,6 +8,7 @@
 .bookDetailsHeader{
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:6px;
   width:100%;
   padding:7px 12px 6px;
@@ -118,23 +119,27 @@ html.dark .bookDetailsSourceLabel{ color:#aaa; }
 html.dark .pillIdea{ background:#1e3a5f; color:#93c5fd; border-color:#3b82f6; }
 html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
 
-/* ===== Drawer panel row (Book Details + Black Box side by side) ===== */
+/* ===== Drawer panel row (Black Box → Book Details → Linked Notes, stacked) ===== */
 .drawerPanelRow{
   display:flex;
-  flex-wrap:wrap;
+  flex-direction:column;
   border-bottom:var(--borderThin);
 }
 .drawerPanelRow > .bookDetailsSection{
-  flex:1;
-  min-width:220px;
-  border-bottom:none;
-  border-right:var(--borderThin);
+  flex:none;
+  min-width:unset;
+  border-bottom:var(--borderThin);
+  border-right:none;
 }
 .drawerPanelRow > .blackBoxSection{
-  flex:1;
-  min-width:280px;
-  border-bottom:none;
+  flex:none;
+  min-width:unset;
+  border-bottom:var(--borderThin);
   background:#fafafa;
+}
+.drawerPanelRow > .linkedNotesSection{
+  border-top:none;
+  border-bottom:none;
 }
 
 /* ===== Black Box Thinking Section ===== */
@@ -143,6 +148,7 @@ html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
 .bbLayout{
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:10px;
   min-width:0;
 }
@@ -250,6 +256,7 @@ html.dark .bbItem{ background:#111; }
 .linkedNotesHeader{
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:6px;
   width:100%;
   padding:6px 12px 5px;

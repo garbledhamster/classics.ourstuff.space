@@ -16,6 +16,7 @@
   const testSoundBtn = document.getElementById("timerTestSoundBtn");
   const volumeSlider = document.getElementById("timerVolumeSlider");
   const volumeLabel = document.getElementById("timerVolumeLabel");
+  const timerBtn = document.getElementById("timerBtn");
 
   // ── Persist alarm/volume settings ─────────────────────────────
   function applyTimerSettings(settings) {
@@ -40,6 +41,33 @@
   // Load saved settings on startup
   const _savedTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
   applyTimerSettings(_savedTimerSettings);
+
+  // ── Persist timer state across refreshes ──────────────────────
+  function saveTimerState() {
+    localStorage.setItem(LS_TIMER_STATE, JSON.stringify({
+      remaining: _timerRemaining,
+      original: _timerOriginal,
+      running: _timerRunning,
+      savedAt: _timerRunning ? Date.now() : null
+    }));
+  }
+
+  // Restore timer state on load
+  const _savedTimerState = safeJsonParse(localStorage.getItem(LS_TIMER_STATE) || "null", null);
+  if (_savedTimerState && typeof _savedTimerState.remaining === "number" && _savedTimerState.remaining > 0) {
+    let remaining = _savedTimerState.remaining;
+    if (_savedTimerState.running && _savedTimerState.savedAt) {
+      const elapsed = Math.floor((Date.now() - _savedTimerState.savedAt) / 1000);
+      remaining = Math.max(0, remaining - elapsed);
+    }
+    _timerRemaining = remaining;
+    _timerOriginal = typeof _savedTimerState.original === "number" ? _savedTimerState.original : remaining;
+    if (_savedTimerState.running && remaining > 0) {
+      _timerRunning = true;
+      _timerInterval = setInterval(tick, 1000);
+    }
+    updateDisplay();
+  }
 
   // ── Audio helpers ──────────────────────────────────────────────
   function getAudioCtx(){
@@ -137,9 +165,11 @@
     if (_timerRunning){
       display.classList.add("running");
       startBtn.textContent = "Pause";
+      timerBtn.classList.add("timerActive");
     } else {
       display.classList.remove("running");
       startBtn.textContent = _timerRemaining < _timerOriginal && _timerRemaining > 0 ? "Resume" : "Start";
+      timerBtn.classList.remove("timerActive");
     }
   }
 
@@ -150,6 +180,7 @@
       _timerRunning = false;
       _timerRemaining = 0;
       updateDisplay();
+      saveTimerState();
       playAlarm();
       // Notify when done (request permission once on first tick-end if not granted)
       if (typeof Notification !== "undefined"){
@@ -176,6 +207,7 @@
     _timerRemaining = seconds;
     _timerOriginal = seconds;
     updateDisplay();
+    saveTimerState();
   }
 
   function openTimerModal(){
@@ -211,6 +243,7 @@
       _timerInterval = setInterval(tick, 1000);
     }
     updateDisplay();
+    saveTimerState();
   });
 
   resetBtn.addEventListener("click", ()=> {

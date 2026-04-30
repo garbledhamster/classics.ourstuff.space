@@ -22,6 +22,7 @@
 .btn:hover{ transform: translate(-1px,-1px); }
 .btn:active{ transform: translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
 .btn.tabOn{ background:#000; color:#fff; }
+.btn.timerActive{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 
 /* Visually hide text but keep it accessible for screen readers */
 .btn-text-mobile-hidden{

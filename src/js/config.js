@@ -10,6 +10,7 @@ const LS_CARD_TASKS        = "greatworks.reading.cardTasks.v1";
 const LS_CARD_DATES        = "greatworks.reading.cardDates.v1";
 const LS_TABLE_HIDDEN_COLS = "greatworks.reading.tableHiddenCols.v1";
 const LS_TIMER_SETTINGS    = "greatworks.reading.timerSettings.v1";
+const LS_TIMER_STATE       = "greatworks.reading.timerState.v1";
 const DEFAULT_CARD_STATUS = "not_started";
 const DEFAULT_CARD_TASK = "no_task";
 const CARD_STATUS_OPTIONS = [

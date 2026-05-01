@@ -117,7 +117,6 @@ function renderBookDetailsSection(author, title){
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
         BOOK INFORMATION
       </div>
-      <div class="bookDetailsCycleBar"></div>
       <div class="bookDetailsPanel"><div></div></div>
       <div class="bookDetailsCurtain" aria-hidden="true"></div>
     </div>
@@ -133,10 +132,6 @@ async function loadBookDetails(section){
   // Prevent duplicate in-flight fetches for the same section
   if (inner._loadingDetails) return;
   inner._loadingDetails = true;
-
-  // Show loading state in cycle bar header
-  const cycleBar = section.querySelector(".bookDetailsCycleBar");
-  if (cycleBar) cycleBar.innerHTML = `<span class="bookDetailsSourceLabel" style="opacity:0.55">Loading…</span>`;
 
   inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
@@ -160,7 +155,6 @@ async function loadBookDetails(section){
     }
 
     if (!sources.length){
-      if (cycleBar) cycleBar.innerHTML = "";
       inner.innerHTML = `<div class="bookDetailsError">No details found for this title.</div>`;
       return;
     }
@@ -170,7 +164,6 @@ async function loadBookDetails(section){
     inner._sourceIdx = 0;
     _renderSourceView(inner);
   } catch(err){
-    if (cycleBar) cycleBar.innerHTML = "";
     inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
   } finally {
     inner._loadingDetails = false;
@@ -185,20 +178,17 @@ function _renderSourceView(inner){
   const hasMultiple = sources.length > 1;
   const nextLabel = hasMultiple ? sources[(idx + 1) % sources.length].label : "";
 
-  // Update the cycle bar header (outside the panel — always visible, no animation)
+  // Update the book details header to include cycle button when multiple sources are available
   const section = inner.closest(".bookDetailsSection");
-  const cycleBar = section ? section.querySelector(".bookDetailsCycleBar") : null;
-  if (cycleBar){
+  const header = section ? section.querySelector(".bookDetailsHeader") : null;
+  if (header){
     const cycleBtn = hasMultiple
       ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
       : "";
-    const counter = hasMultiple
-      ? `<span class="bookDetailsSourceCounter">${idx + 1}/${sources.length}</span>`
-      : "";
-    cycleBar.innerHTML = `<span class="bookDetailsSourceLabel">${escapeHtml(source.label)}</span>${counter}${cycleBtn}`;
+    header.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>BOOK INFORMATION${cycleBtn}`;
   }
 
-  // Set panel content only (cycle bar no longer lives inside the panel)
+  // Set panel content only
   inner.innerHTML = source.html;
 }
 

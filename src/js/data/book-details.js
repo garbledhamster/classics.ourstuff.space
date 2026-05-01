@@ -182,10 +182,21 @@ function _renderSourceView(inner){
   const section = inner.closest(".bookDetailsSection");
   const header = section ? section.querySelector(".bookDetailsHeader") : null;
   if (header){
-    const cycleBtn = hasMultiple
-      ? `<button class="btn btnGhost bookDetailsCycleBtn" type="button" data-action="cycleBookDetails" aria-label="Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})">›</button>`
-      : "";
-    header.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>BOOK INFORMATION${cycleBtn}`;
+    let cycleBtn = header.querySelector(".bookDetailsCycleBtn");
+    if (hasMultiple){
+      const ariaLabel = `Next source: ${escapeHtml(nextLabel)} (${idx + 2 > sources.length ? 1 : idx + 2} of ${sources.length})`;
+      if (!cycleBtn){
+        cycleBtn = document.createElement("button");
+        cycleBtn.className = "btn btnGhost bookDetailsCycleBtn";
+        cycleBtn.type = "button";
+        cycleBtn.dataset.action = "cycleBookDetails";
+        cycleBtn.textContent = "›";
+        header.appendChild(cycleBtn);
+      }
+      cycleBtn.setAttribute("aria-label", ariaLabel);
+    } else if (cycleBtn){
+      cycleBtn.remove();
+    }
   }
 
   // Set panel content only

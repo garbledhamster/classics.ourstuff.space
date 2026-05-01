@@ -8,7 +8,6 @@
 .bookDetailsHeader{
   display:flex;
   align-items:center;
-  justify-content:center;
   gap:6px;
   width:100%;
   padding:7px 12px 6px;
@@ -20,6 +19,9 @@
   text-transform:uppercase;
   border-bottom:var(--borderThin);
   background:#f0f0f0;
+}
+.bookDetailsHeader .bookDetailsCycleBtn{
+  margin-left:auto;
 }
 .bookDetailsPanel{
   display:grid;
@@ -73,28 +75,7 @@
 }
 html.dark .bookDetailsCurtain{ background:#1e1e1e; }
 
-/* ===== Source cycle bar (now used as the book details section header) ===== */
-.bookDetailsCycleBar{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:3px 8px 3px 12px;
-  background:#ebebeb;
-  border-bottom:var(--borderThin);
-  min-height:28px;
-}
-.bookDetailsSourceLabel{
-  flex:1;
-  font-size:0.72rem;
-  font-weight:700;
-  color:#666;
-  text-transform:uppercase;
-  letter-spacing:0.04em;
-}
-.bookDetailsSourceCounter{
-  font-size:0.7rem;
-  color:#999;
-}
+/* ===== Cycle button (in book details header) ===== */
 .bookDetailsCycleBtn{
   font-size:1.1rem;
   line-height:1;
@@ -102,8 +83,6 @@ html.dark .bookDetailsCurtain{ background:#1e1e1e; }
   min-width:26px;
   border-radius:3px;
 }
-html.dark .bookDetailsCycleBar{ background:#2a2a2a; }
-html.dark .bookDetailsSourceLabel{ color:#aaa; }
 
 /* ===== Great Idea / Custom Tag Pills ===== */
 .pillIdea{
@@ -119,7 +98,7 @@ html.dark .bookDetailsSourceLabel{ color:#aaa; }
 html.dark .pillIdea{ background:#1e3a5f; color:#93c5fd; border-color:#3b82f6; }
 html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
 
-/* ===== Drawer panel row (Black Box → Book Details → Linked Notes, stacked) ===== */
+/* ===== Drawer panel row (Black Box → Linked Notes → Book Details, stacked) ===== */
 .drawerPanelRow{
   display:flex;
   flex-direction:column;

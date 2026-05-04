@@ -370,9 +370,8 @@ function workRowHtml(w){
             <span class="pill">Notes ${escapeHtml(noteCount)}</span>
             <span class="pill">${escapeHtml(wrStatusLabel)}</span>
             ${wrTaskOpt ? `<span class="pill">${escapeHtml(wrTaskOpt.label)}</span>` : ""}
-            ${(w.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}
-            ${(w.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}
           </div>
+          ${(w.greatIdeas||[]).length || (w.customTags||[]).length ? `<div class="ideaTagRow">${(w.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}${(w.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
           ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
         </div>
       </div>

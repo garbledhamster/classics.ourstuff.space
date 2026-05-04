@@ -123,3 +123,40 @@
   transition:grid-template-rows .3s cubic-bezier(0,0,.2,1);
 }
 
+/* ===== Idea/Tag pill row — hidden until card is expanded ===== */
+/* Collapsed by default: zero height, pills invisible */
+.ideaTagRow{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  height:0;
+  overflow:hidden;
+  margin-top:0;
+}
+.ideaTagRow .pillIdea,
+.ideaTagRow .pillTag{
+  opacity:0;
+}
+/* Expanded: restore height and animate pills in */
+.libCard.active .ideaTagRow,
+.workRow.active .ideaTagRow{
+  height:auto;
+  overflow:visible;
+  margin-top:6px;
+}
+.libCard.active .ideaTagRow .pill,
+.workRow.active .ideaTagRow .pill{
+  animation:bbFadeIn 0.4s ease-out forwards;
+}
+/* Stagger each pill in sequence */
+.libCard.active .ideaTagRow .pill:nth-child(1),
+.workRow.active .ideaTagRow .pill:nth-child(1){ animation-delay:0.05s; }
+.libCard.active .ideaTagRow .pill:nth-child(2),
+.workRow.active .ideaTagRow .pill:nth-child(2){ animation-delay:0.12s; }
+.libCard.active .ideaTagRow .pill:nth-child(3),
+.workRow.active .ideaTagRow .pill:nth-child(3){ animation-delay:0.19s; }
+.libCard.active .ideaTagRow .pill:nth-child(4),
+.workRow.active .ideaTagRow .pill:nth-child(4){ animation-delay:0.26s; }
+.libCard.active .ideaTagRow .pill:nth-child(n+5),
+.workRow.active .ideaTagRow .pill:nth-child(n+5){ animation-delay:0.33s; }
+

@@ -85,18 +85,16 @@ html.dark .bookDetailsCurtain{ background:#1e1e1e; }
 }
 
 /* ===== Great Idea / Custom Tag Pills ===== */
-.pillIdea{
-  background:#dbeafe;
-  color:#1e40af;
-  border-color:#3b82f6;
-}
+.pillIdea,
 .pillTag{
-  background:#dcfce7;
-  color:#166534;
-  border-color:#22c55e;
+  font-family:Newsreader,Georgia,"Times New Roman",serif;
+  font-style:italic;
+  background:#fff;
+  color:var(--ink);
+  border-color:var(--ink);
 }
-html.dark .pillIdea{ background:#1e3a5f; color:#93c5fd; border-color:#3b82f6; }
-html.dark .pillTag{ background:#14532d; color:#86efac; border-color:#22c55e; }
+html.dark .pillIdea,
+html.dark .pillTag{ background:#1a1a1a; color:var(--ink); border-color:var(--ink); }
 
 /* ===== Drawer panel row (Black Box → Linked Notes → Book Details, stacked) ===== */
 .drawerPanelRow{

@@ -39,9 +39,8 @@ function libCardHtml(it){
             ${tierPills}
             <span class="pill">${escapeHtml(libStatusLabel)}</span>
             ${libTaskOpt ? `<span class="pill">${escapeHtml(libTaskOpt.label)}</span>` : ""}
-            ${(it.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}
-            ${(it.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}
           </div>
+          ${(it.greatIdeas||[]).length || (it.customTags||[]).length ? `<div class="ideaTagRow">${(it.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}${(it.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
         </div>
 
       </div>

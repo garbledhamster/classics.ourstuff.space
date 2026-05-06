@@ -70,5 +70,6 @@ if (window.firebaseReady) {
 
   addStylesheet("src/css/black-box.css");
   addStylesheet("src/css/glossary.css");
+  addStylesheet("src/css/glossary-overrides.css");
   addScript("src/js/views/glossary.js");
 })();

@@ -30,7 +30,7 @@ function libCardHtml(it){
     <section class="libCard" id="${escapeHtml(it.id)}" data-libkey="${escapeHtml(it.libKey)}" data-author="${escapeHtml(it.author)}" data-title="${escapeHtml(it.title)}"${it.sourceUrl ? ` data-sourceurl="${escapeHtml(it.sourceUrl)}"` : ""}>
       <div class="libHead">
         <div style="min-width:0;">
-          <p class="libTitle">${escapeHtml(it.title)}</p>
+          <p class="libTitle">${escapeHtml(it.title)}${it.publishedYear !== null && Number.isFinite(it.publishedYear) ? ` <span class="workYear">(${escapeHtml(formatWorkYear(it.publishedYear))})</span>` : ""}</p>
           <div class="libAuthor">${escapeHtml(it.author)}</div>
           <div class="tagRow">
             <span class="pill">${escapeHtml(doneCount)}/${escapeHtml(occ.length)} done</span>

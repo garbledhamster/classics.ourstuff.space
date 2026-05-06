@@ -265,7 +265,7 @@ function workRowTableHtml(block, w, noteCountMap){
       </td>
       <td class="td-year" data-col="year"${hiddenColStyle("year")}>${escapeHtml(w.year)}</td>
       <td class="td-number" data-col="number"${hiddenColStyle("number")}>${escapeHtml(block.order)}</td>
-      <td class="td-work" data-col="work"${hiddenColStyle("work")}>${escapeHtml(title)}</td>
+      <td class="td-work" data-col="work"${hiddenColStyle("work")}>${escapeHtml(title)}${Number.isFinite(w.publishedYear) ? ` <span class="workYear">(${escapeHtml(formatWorkYear(w.publishedYear))})</span>` : ""}</td>
       <td class="td-author" data-col="author"${hiddenColStyle("author")}>${escapeHtml(block.author || "Unknown")}</td>
       <td class="td-type" data-col="type"${hiddenColStyle("type")}>${escapeHtml(w.tier)}</td>
       <td class="td-notes" data-col="notes"${hiddenColStyle("notes")}>${escapeHtml(noteCount)}</td>
@@ -361,7 +361,7 @@ function workRowHtml(w){
       </div>
 
       <div class="workMain">
-        <p class="workTitle">${escapeHtml(title)}</p>
+        <p class="workTitle">${escapeHtml(title)}${Number.isFinite(w.publishedYear) ? ` <span class="workYear">(${escapeHtml(formatWorkYear(w.publishedYear))})</span>` : ""}</p>
         <div class="workSub">
           <div class="tagRow">
             <span class="pill">Year ${escapeHtml(w.year)}</span>

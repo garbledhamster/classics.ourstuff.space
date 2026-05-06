@@ -42,6 +42,11 @@ function buildLearningSearchUrl({ title, author, platform, goal }) {
   return `https://duckduckgo.com/?q=${q}`;
 }
 
+function formatWorkYear(year){
+  if (!Number.isFinite(year)) return "";
+  return year < 1 ? `${Math.abs(year) || 1} BCE` : `${year}`;
+}
+
 function escapeHtml(str){
   return String(str ?? "")
     .replaceAll("&","&amp;")

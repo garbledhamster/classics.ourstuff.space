@@ -26,6 +26,7 @@ const CARD_TASK_GROUPS = [
     options: [
       { value: "period_documentary",            label: "Period Documentary",                    description: "Establishes the \u201cpastness of the past\u201d and social context to prime your mind before engaging the text." },
       { value: "author_documentary_biography",  label: "Author Documentary/Biography",          description: "Provides human \u201canchor points\u201d and serves as an intellectual \u201con-ramp\u201d for difficult classics, while humanizing the author\u2019s personal transaction and reinforcing story-based memory." },
+      { value: "pre_reading_breakdown",         label: "Pre-reading Breakdown",                 description: "A chapter-by-chapter or part-by-part structural roadmap of the work before the inspectional read. Reveals the book\u2019s architecture, major movements, recurring questions, and likely points of difficulty so the first reading has context without replacing direct engagement with the text." },
       { value: "audiobook_listen_1",             label: "Reading 1 \u2014 Inspectional", description: "A \u201csuperficial reading\u201d where you race through the text \u2014 via audiobook, digital, or physical book \u2014 to find its basic pulsebeat without stopping for difficult parts." },
       { value: "summary_of_book_or_works",       label: "Summary of Book or Works",              description: "Used only as a final refinement and memory jog to ensure you are not at the \u201cmercy\u201d of a commentator\u2019s interpretation before possessing the book yourself." },
       { value: "lecture_on_book_or_works",       label: "Lecture/Discussion",                    description: "Functions as \u201caided discovery\u201d where an expert helps you bridge the gap to higher levels of understanding. Using AI is a great option here \u2014 have a discussion, ask questions, and fill in gaps of knowledge before moving on to the analytical reading." },
@@ -44,6 +45,7 @@ const CARD_TASK_SORT_RANK = Object.fromEntries(CARD_TASK_OPTIONS.map((opt, idx) 
 const TASK_VISIBLE_GROUPS = {
   period_documentary:              ["context", "biography", "wikipedia", "wikisearch", "google", "youtube"],
   author_documentary_biography:    ["biography", "wikipedia", "google", "youtube"],
+  pre_reading_breakdown:           ["outlines", "wikipedia", "wikisearch", "google", "youtube"],
   audiobook_listen_1:              ["audiobooks", "freebook", "buybook", "wikipedia"],
   summary_of_book_or_works:        ["outlines", "wikisearch", "goodreads", "google"],
   lecture_on_book_or_works:        ["google", "youtube", "outlines", "wikipedia", "wikisearch"],
@@ -54,6 +56,7 @@ const TASK_VISIBLE_GROUPS = {
 const TASK_SEARCH_TERMS = {
   period_documentary:              { google: "historical context documentary time period", youtube: "documentary history period", wikisearch: "historical context era period" },
   author_documentary_biography:    { google: "biography documentary life history",         youtube: "biography documentary life" },
+  pre_reading_breakdown:           { google: "chapter breakdown structure outline table of contents guide", youtube: "chapter breakdown book structure overview", wikisearch: "structure outline summary contents" },
   audiobook_listen_1:              { google: "audiobook public domain",                    youtube: "audiobook" },
   summary_of_book_or_works:        { google: "summary analysis overview themes",           youtube: "summary analysis",         wikisearch: "summary analysis themes" },
   lecture_on_book_or_works:        { google: "lecture course university analysis",          youtube: "lecture course",           wikisearch: "analysis interpretation themes" },

@@ -1,0 +1,5 @@
+/* glossary-overrides.css — small corrective overrides for the Syntopicon glossary. */
+
+.glossaryModal .glossaryCard {
+  display: none;
+}

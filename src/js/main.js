@@ -49,7 +49,7 @@ if (window.firebaseReady) {
 })();
 
 /* =========================================================
-   SYNTOPICON GLOSSARY FEATURE LOADER
+   FEATURE LOADERS
    ========================================================= */
 (()=> {
   function addStylesheet(href){
@@ -68,6 +68,7 @@ if (window.firebaseReady) {
     document.body.appendChild(script);
   }
 
+  addStylesheet("src/css/black-box.css");
   addStylesheet("src/css/glossary.css");
   addScript("src/js/views/glossary.js");
 })();

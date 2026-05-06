@@ -1,10 +1,10 @@
-/* glossary.js — Syntopicon glossary page, modal, dictionary lookup, Wikipedia summary, related book matching. */
+/* glossary.js — Syntopicon glossary page, modal, idea map, dictionary lookup, Wikipedia summary, related book matching. */
 (()=> {
   const TERMS_URL = "syntopicon_terms.json";
   const DICT_CACHE_KEY = "classicsDictionaryCacheV2";
   const WIKI_CACHE_KEY = "classicsWikipediaGlossaryCacheV1";
-  const PAGES = ["syntopicon", "dictionary", "wikipedia", "library"];
-  const PAGE_LABELS = { syntopicon:"Syntopicon", dictionary:"Dictionary", wikipedia:"Wikipedia", library:"Related Library" };
+  const PAGES = ["syntopicon", "ideas", "dictionary", "wikipedia", "library"];
+  const PAGE_LABELS = { syntopicon:"Syntopicon", ideas:"Idea Map", dictionary:"Dictionary", wikipedia:"Wikipedia", library:"Related Library" };
   const glossaryState = {
     initialized:false, loading:false, error:"", terms:[], filteredTerms:[], activeLetter:"", query:"",
     selectedTerm:null, pageIndex:0, dictionaryCache:loadCache(DICT_CACHE_KEY), wikipediaCache:loadCache(WIKI_CACHE_KEY)
@@ -112,7 +112,7 @@
       section.innerHTML = `
         <div class="glossaryMasthead">
           <h1 class="glossaryTitle">Syntopicon Glossary</h1>
-          <div class="glossaryDesc">A recreated Syntopicon index. Click a term to view its Syntopicon references, dictionary definitions, Wikipedia summary, and related works from the local library/bookclub data.</div>
+          <div class="glossaryDesc">A recreated Syntopicon index. Click a term to move from term → Great Idea → books in the Great Conversation, with dictionary and Wikipedia support.</div>
         </div>
         <section class="glossaryControls" aria-label="glossary filters">
           <div class="control"><div class="label">Search terms, references, and ideas</div><input id="glossaryQ" class="input" type="search" placeholder="e.g., Justice, Soul, Matter…" autocomplete="search"></div>
@@ -227,10 +227,63 @@
     if (PAGES[next] === "wikipedia") loadWikipediaForSelectedTerm();
   }
 
-  function renderGlossaryCard(term){
-    const relatedCount = relatedLibraryItems(term).length;
-    return `<article class="glossaryCard"><div class="glossaryCardKicker">Glossary Card</div><div class="glossaryCardTitle">${escapeHtml(term.displayTerm)}</div><div class="glossaryCardMeta"><span>Letter ${escapeHtml(term.letter)}</span>${term.qualifier ? `<span>${escapeHtml(term.qualifier)}</span>` : ""}<span>${relatedCount} related work${relatedCount === 1 ? "" : "s"}</span></div><div class="glossaryCardText">${escapeHtml(term.see || term.entry || "No Syntopicon references listed.")}</div></article>`;
+  function knownGreatIdeas(){
+    const ideas = new Map();
+    for (const idea of (window.state?.greatIdeasUniverse || [])) ideas.set(normalizeText(idea), idea);
+    for (const work of (window.state?.libraryWorks || [])) for (const idea of (work.greatIdeas || [])) ideas.set(normalizeText(idea), idea);
+    return ideas;
   }
+
+  function extractIdeaCandidates(text){
+    return String(text || "")
+      .replace(/\/\s*see also\s+/gi, "; ")
+      .split(";")
+      .map(part => part.trim())
+      .map(part => part.replace(/^see\s+/i, "").replace(/^and\s+/i, "").trim())
+      .filter(part => part && !/^CH\s+\d+/i.test(part))
+      .map(part => {
+        const match = part.match(/^(.+?)\s+\d/);
+        return (match ? match[1] : part).replace(/[,/]+$/g, "").trim();
+      })
+      .filter(Boolean);
+  }
+
+  function mappedIdeas(term){
+    const known = knownGreatIdeas();
+    const seen = new Set();
+    const out = [];
+    for (const candidate of extractIdeaCandidates([term.see, term.seeAlso].filter(Boolean).join("; "))) {
+      const key = normalizeText(candidate);
+      const canonical = known.get(key);
+      if (!canonical || seen.has(normalizeText(canonical))) continue;
+      seen.add(normalizeText(canonical));
+      out.push(canonical);
+    }
+    return out;
+  }
+
+  function relatedLibraryItems(term){
+    const works = (window.state?.libraryWorks || []);
+    const ideas = mappedIdeas(term);
+    const ideaKeys = new Set(ideas.map(normalizeText));
+    const termNorm = normalizeText(term.term);
+
+    return works.map(work => {
+      const greatIdeas = work.greatIdeas || [];
+      const matchedIdeas = greatIdeas.filter(idea => ideaKeys.has(normalizeText(idea)));
+      let score = matchedIdeas.length * 100;
+
+      if (!matchedIdeas.length) {
+        const haystack = normalizeText([work.title, work.author, greatIdeas.join(" "), work.search].filter(Boolean).join(" "));
+        if (termNorm && haystack.includes(termNorm)) score += 10;
+      }
+
+      return { work, score, matchedIdeas };
+    }).filter(x => x.score > 0).sort((a,b) =>
+      b.score - a.score || b.matchedIdeas.length - a.matchedIdeas.length || a.work.author.localeCompare(b.work.author)
+    ).slice(0, 18);
+  }
+
   function renderTermModal(){
     const term = glossaryState.selectedTerm;
     if (!term) return;
@@ -240,18 +293,41 @@
     $("#glossaryPrevBtn").disabled = glossaryState.pageIndex === 0;
     $("#glossaryNextBtn").disabled = glossaryState.pageIndex === PAGES.length - 1;
     if (page === "syntopicon") renderSyntopiconPage(term);
+    if (page === "ideas") renderIdeaMapPage(term);
     if (page === "dictionary") renderDictionaryPage(term);
     if (page === "wikipedia") renderWikipediaPage(term);
     if (page === "library") renderRelatedLibraryPage(term);
   }
   function renderPageShell(term, label, contentHtml){
-    $("#glossaryModalBody").innerHTML = `${renderGlossaryCard(term)}<div class="glossaryPagerLabel">${escapeHtml(label)}</div>${contentHtml}`;
+    $("#glossaryModalBody").innerHTML = `<div class="glossaryPagerLabel">${escapeHtml(label)}</div>${contentHtml}`;
   }
 
   function renderSyntopiconPage(term){
     renderPageShell(term, "Syntopicon References", `
       <div class="glossaryBlock"><div class="glossaryBlockTitle">See</div><div class="glossaryRefText">${escapeHtml(term.see || "No primary references listed.")}</div></div>
       <div class="glossaryBlock"><div class="glossaryBlockTitle">See Also</div><div class="glossaryRefText">${escapeHtml(term.seeAlso || "No secondary references listed.")}</div></div>
+    `);
+  }
+
+  function renderIdeaMapPage(term){
+    const ideas = mappedIdeas(term);
+    const related = relatedLibraryItems(term);
+    renderPageShell(term, "Idea Map", `
+      <div class="glossaryFlow">
+        <div class="glossaryFlowNode"><div class="glossaryBlockTitle">Term</div><div>${escapeHtml(term.displayTerm)}</div></div>
+        <div class="glossaryFlowArrow">→</div>
+        <div class="glossaryFlowNode"><div class="glossaryBlockTitle">Great Ideas</div><div>${ideas.length ? `${ideas.length} mapped idea${ideas.length === 1 ? "" : "s"}` : "No mapped ideas found"}</div></div>
+        <div class="glossaryFlowArrow">→</div>
+        <div class="glossaryFlowNode"><div class="glossaryBlockTitle">Books</div><div>${related.length} related work${related.length === 1 ? "" : "s"}</div></div>
+      </div>
+      <div class="glossaryBlock">
+        <div class="glossaryBlockTitle">Mapped Great Ideas</div>
+        ${ideas.length ? `<div class="glossaryIdeaPillRow">${ideas.map(idea => `<button class="glossaryIdeaPill" type="button" data-glossary-idea="${escapeHtml(idea)}">${escapeHtml(idea)}</button>`).join("")}</div>` : `<div class="glossaryRefText">No matching Great Ideas found in the local library tags. This usually means the term references need normalization or the books need Great Ideas tags.</div>`}
+      </div>
+      <div class="glossaryBlock">
+        <div class="glossaryBlockTitle">Mapping Rule</div>
+        <div class="glossaryRefText">This page maps the glossary term through its Syntopicon references, then finds books whose Great Ideas tags match those references.</div>
+      </div>
     `);
   }
 
@@ -339,26 +415,15 @@
     renderTermModal();
   }
 
-  function relatedLibraryItems(term){
-    const works = (window.state?.libraryWorks || []);
-    const termNorm = normalizeText(term.term);
-    const refNorm = normalizeText([term.see, term.seeAlso].filter(Boolean).join(" "));
-    const ideas = [term.term].concat((term.see || "").split(/[;,]/).map(x => x.trim().replace(/\s+\d.*$/, ""))).filter(Boolean);
-    const ideaNorms = ideas.map(normalizeText).filter(Boolean);
-    return works.map(work => {
-      const greatIdeas = work.greatIdeas || [];
-      const haystack = normalizeText([work.title, work.author, greatIdeas.join(" "), work.search].filter(Boolean).join(" "));
-      let score = 0;
-      if (greatIdeas.some(idea => normalizeText(idea) === termNorm)) score += 100;
-      if (haystack.includes(termNorm)) score += 35;
-      for (const idea of ideaNorms){ if (idea && haystack.includes(idea)) score += 10; }
-      if (refNorm && greatIdeas.some(idea => refNorm.includes(normalizeText(idea)))) score += 20;
-      return { work, score };
-    }).filter(x => x.score > 0).sort((a,b) => b.score - a.score || a.work.author.localeCompare(b.work.author)).slice(0, 12);
+  function formatDate(date){
+    const n = Number(date);
+    if (!Number.isFinite(n)) return "";
+    return n < 0 ? `${Math.abs(n)} BCE` : String(n);
   }
+
   function renderRelatedLibraryPage(term){
     const related = relatedLibraryItems(term);
-    renderPageShell(term, "Related Library", related.length ? `<div class="glossaryRelatedList">${related.map(({ work }) => `<div class="glossaryRelatedItem"><div class="glossaryRelatedTitle">${escapeHtml(work.title)}</div><div class="glossaryRelatedMeta">${escapeHtml(work.author || "Unknown author")}${work.greatIdeas?.length ? ` • ${escapeHtml(work.greatIdeas.slice(0, 6).join(", "))}` : ""}</div></div>`).join("")}</div>` : `<div class="glossaryBlock"><div class="glossaryRefText">No related books found yet. Add matching Great Ideas or syntopicon terms to library data to improve this page.</div></div>`);
+    renderPageShell(term, "Related Library", related.length ? `<div class="glossaryRelatedList">${related.map(({ work, matchedIdeas }) => `<div class="glossaryRelatedItem"><div class="glossaryRelatedTitle">${escapeHtml(work.author ? `${work.author} — ${work.title}` : work.title)}${work.date ? ` (${escapeHtml(formatDate(work.date))})` : ""}</div><div class="glossaryRelatedMeta">Matched by: ${escapeHtml(matchedIdeas.length ? matchedIdeas.join(", ") : term.term)}</div></div>`).join("")}</div>` : `<div class="glossaryBlock"><div class="glossaryRefText">No related books found yet. Add matching Great Ideas tags to library data or normalize the Syntopicon references.</div></div>`);
   }
 
   function installSetViewPatch(){

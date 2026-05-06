@@ -232,6 +232,54 @@
   padding: 16px;
 }
 
+.glossaryCard {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.glossaryCardKicker {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  padding: 4px 7px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  margin-bottom: 10px;
+}
+
+.glossaryCardTitle {
+  font-family: "Newsreader", serif;
+  font-size: clamp(1.5rem, 4vw, 2.35rem);
+  line-height: .95;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.glossaryCardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.glossaryCardMeta span {
+  border: 1px solid var(--ink);
+  padding: 3px 6px;
+  font-size: .76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.glossaryCardText {
+  line-height: 1.42;
+  font-size: .94rem;
+}
+
 .glossaryPagerLabel {
   display: inline-flex;
   border: 2px solid var(--ink);
@@ -262,6 +310,44 @@
   line-height: 1.48;
 }
 
+.glossaryDefinitionList {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 10px;
+}
+
+.glossaryDefinitionList li::marker {
+  font-weight: 900;
+}
+
+.glossaryDefinitionExample,
+.glossaryDefinitionTags {
+  margin-top: 5px;
+  font-size: .88rem;
+  opacity: .8;
+}
+
+.glossaryWikipediaBlock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.glossaryWikipediaThumb {
+  width: 96px;
+  max-height: 132px;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.glossaryExternalLink {
+  margin-top: 12px;
+  display: inline-flex;
+}
+
 .glossaryRelatedList {
   display: grid;
   gap: 10px;
@@ -290,6 +376,8 @@ html.dark .glossaryEmpty,
 html.dark .glossaryModal,
 html.dark .glossaryModalNav,
 html.dark .glossaryCloseBtn,
+html.dark .glossaryCard,
+html.dark .glossaryWikipediaThumb,
 html.dark .glossaryRelatedItem {
   background: var(--paper);
   color: var(--ink);
@@ -315,5 +403,9 @@ html.dark .glossaryRelatedItem {
 
   .glossaryModalNav {
     min-height: 360px;
+  }
+
+  .glossaryWikipediaBlock {
+    grid-template-columns: 1fr;
   }
 }

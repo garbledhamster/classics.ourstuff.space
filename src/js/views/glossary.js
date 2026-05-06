@@ -1,11 +1,13 @@
-/* glossary.js — Syntopicon glossary page, modal, dictionary lookup, related book matching. */
+/* glossary.js — Syntopicon glossary page, modal, dictionary lookup, Wikipedia summary, related book matching. */
 (()=> {
   const TERMS_URL = "syntopicon_terms.json";
-  const DICT_CACHE_KEY = "classicsDictionaryCacheV1";
-  const PAGES = ["syntopicon", "dictionary", "library"];
+  const DICT_CACHE_KEY = "classicsDictionaryCacheV2";
+  const WIKI_CACHE_KEY = "classicsWikipediaGlossaryCacheV1";
+  const PAGES = ["syntopicon", "dictionary", "wikipedia", "library"];
   const PAGE_LABELS = {
     syntopicon: "Syntopicon",
     dictionary: "Dictionary",
+    wikipedia: "Wikipedia",
     library: "Related Library"
   };
 
@@ -19,7 +21,8 @@
     query: "",
     selectedTerm: null,
     pageIndex: 0,
-    dictionaryCache: loadDictionaryCache()
+    dictionaryCache: loadCache(DICT_CACHE_KEY),
+    wikipediaCache: loadCache(WIKI_CACHE_KEY)
   };
 
   function $(selector, root = document){ return root.querySelector(selector); }
@@ -34,15 +37,18 @@
   function normalizeText(value){ return String(value ?? "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim(); }
   function slugify(value){ return normalizeText(value).replace(/\s+/g, "-") || "term"; }
 
-  function loadDictionaryCache(){
-    try { return JSON.parse(localStorage.getItem(DICT_CACHE_KEY) || "{}"); }
+  function loadCache(key){
+    try { return JSON.parse(localStorage.getItem(key) || "{}"); }
     catch(e){ return {}; }
   }
 
-  function saveDictionaryCache(){
-    try { localStorage.setItem(DICT_CACHE_KEY, JSON.stringify(glossaryState.dictionaryCache)); }
+  function saveCache(key, value){
+    try { localStorage.setItem(key, JSON.stringify(value)); }
     catch(e){}
   }
+
+  function saveDictionaryCache(){ saveCache(DICT_CACHE_KEY, glossaryState.dictionaryCache); }
+  function saveWikipediaCache(){ saveCache(WIKI_CACHE_KEY, glossaryState.wikipediaCache); }
 
   function normalizeTerm(raw){
     const baseTerm = raw.term || raw.title || "Untitled Term";
@@ -139,7 +145,7 @@
       section.innerHTML = `
         <div class="glossaryMasthead">
           <h1 class="glossaryTitle">Syntopicon Glossary</h1>
-          <div class="glossaryDesc">A recreated Syntopicon index. Click a term to view its Syntopicon references, dictionary definition, and related works from the local library/bookclub data.</div>
+          <div class="glossaryDesc">A recreated Syntopicon index. Click a term to view its Syntopicon references, dictionary definitions, Wikipedia summary, and related works from the local library/bookclub data.</div>
         </div>
         <section class="glossaryControls" aria-label="glossary filters">
           <div class="control">
@@ -318,6 +324,23 @@
     glossaryState.pageIndex = next;
     renderTermModal();
     if (PAGES[next] === "dictionary") loadDictionaryForSelectedTerm();
+    if (PAGES[next] === "wikipedia") loadWikipediaForSelectedTerm();
+  }
+
+  function renderGlossaryCard(term){
+    const relatedCount = relatedLibraryItems(term).length;
+    return `
+      <article class="glossaryCard">
+        <div class="glossaryCardKicker">Glossary Card</div>
+        <div class="glossaryCardTitle">${escapeHtml(term.displayTerm)}</div>
+        <div class="glossaryCardMeta">
+          <span>Letter ${escapeHtml(term.letter)}</span>
+          ${term.qualifier ? `<span>${escapeHtml(term.qualifier)}</span>` : ""}
+          <span>${relatedCount} related work${relatedCount === 1 ? "" : "s"}</span>
+        </div>
+        <div class="glossaryCardText">${escapeHtml(term.see || term.entry || "No Syntopicon references listed.")}</div>
+      </article>
+    `;
   }
 
   function renderTermModal(){
@@ -331,12 +354,20 @@
 
     if (page === "syntopicon") renderSyntopiconPage(term);
     if (page === "dictionary") renderDictionaryPage(term);
+    if (page === "wikipedia") renderWikipediaPage(term);
     if (page === "library") renderRelatedLibraryPage(term);
   }
 
-  function renderSyntopiconPage(term){
+  function renderPageShell(term, label, contentHtml){
     $("#glossaryModalBody").innerHTML = `
-      <div class="glossaryPagerLabel">Syntopicon References</div>
+      ${renderGlossaryCard(term)}
+      <div class="glossaryPagerLabel">${escapeHtml(label)}</div>
+      ${contentHtml}
+    `;
+  }
+
+  function renderSyntopiconPage(term){
+    renderPageShell(term, "Syntopicon References", `
       <div class="glossaryBlock">
         <div class="glossaryBlockTitle">Full Entry</div>
         <div class="glossaryRefText">${escapeHtml(term.entry)}</div>
@@ -349,7 +380,7 @@
         <div class="glossaryBlockTitle">See Also</div>
         <div class="glossaryRefText">${escapeHtml(term.seeAlso || "No secondary references listed.")}</div>
       </div>
-    `;
+    `);
   }
 
   function dictionaryLookupKeys(term){
@@ -358,34 +389,49 @@
     return Array.from(new Set([phrase, words[0]].filter(Boolean)));
   }
 
+  function renderDictionaryDefinitions(hit){
+    const entries = Array.isArray(hit.entries) ? hit.entries : [];
+    const blocks = [];
+
+    for (const entry of entries) {
+      for (const meaning of (entry.meanings || [])) {
+        const defs = (meaning.definitions || []).filter(d => d.definition).slice(0, 8);
+        if (!defs.length) continue;
+        blocks.push(`
+          <div class="glossaryBlock">
+            <div class="glossaryBlockTitle">${escapeHtml(entry.word || hit.word || "Dictionary")} ${meaning.partOfSpeech ? `• ${escapeHtml(meaning.partOfSpeech)}` : ""}</div>
+            <ol class="glossaryDefinitionList">
+              ${defs.map(def => `
+                <li>
+                  <div class="glossaryRefText">${escapeHtml(def.definition)}</div>
+                  ${def.example ? `<div class="glossaryDefinitionExample">Example: ${escapeHtml(def.example)}</div>` : ""}
+                  ${Array.isArray(def.synonyms) && def.synonyms.length ? `<div class="glossaryDefinitionTags">Synonyms: ${escapeHtml(def.synonyms.slice(0, 8).join(", "))}</div>` : ""}
+                </li>
+              `).join("")}
+            </ol>
+          </div>
+        `);
+      }
+    }
+
+    return blocks.join("") || `<div class="glossaryBlock"><div class="glossaryRefText">No definition text found.</div></div>`;
+  }
+
   function renderDictionaryPage(term){
     const keys = dictionaryLookupKeys(term);
     const hit = keys.map(k => glossaryState.dictionaryCache[k.toLowerCase()]).find(Boolean);
     if (!hit) {
-      $("#glossaryModalBody").innerHTML = `
-        <div class="glossaryPagerLabel">Dictionary</div>
-        <div class="glossaryBlock"><div class="glossaryRefText">Loading dictionary definition…</div></div>
-      `;
+      renderPageShell(term, "Dictionary", `<div class="glossaryBlock"><div class="glossaryRefText">Loading dictionary definitions…</div></div>`);
       loadDictionaryForSelectedTerm();
       return;
     }
 
     if (hit.error) {
-      $("#glossaryModalBody").innerHTML = `
-        <div class="glossaryPagerLabel">Dictionary</div>
-        <div class="glossaryBlock"><div class="glossaryRefText">No dictionary definition found for this term.</div></div>
-      `;
+      renderPageShell(term, "Dictionary", `<div class="glossaryBlock"><div class="glossaryRefText">No dictionary definition found for this term.</div></div>`);
       return;
     }
 
-    $("#glossaryModalBody").innerHTML = `
-      <div class="glossaryPagerLabel">Dictionary</div>
-      <div class="glossaryBlock">
-        <div class="glossaryBlockTitle">${escapeHtml(hit.word || term.term)}${hit.partOfSpeech ? ` • ${escapeHtml(hit.partOfSpeech)}` : ""}</div>
-        <div class="glossaryRefText">${escapeHtml(hit.definition || "No definition text found.")}</div>
-        ${hit.example ? `<div class="glossaryRefText" style="margin-top:10px;"><strong>Example:</strong> ${escapeHtml(hit.example)}</div>` : ""}
-      </div>
-    `;
+    renderPageShell(term, "Dictionary", renderDictionaryDefinitions(hit));
   }
 
   async function loadDictionaryForSelectedTerm(){
@@ -400,15 +446,23 @@
         const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}`);
         if (!response.ok) continue;
         const data = await response.json();
-        const first = data?.[0];
-        const meaning = first?.meanings?.[0];
-        const def = meaning?.definitions?.[0];
-        if (def?.definition) {
+        const entries = Array.isArray(data) ? data : [];
+        const hasDefinitions = entries.some(entry => (entry.meanings || []).some(meaning => (meaning.definitions || []).some(def => def.definition)));
+        if (hasDefinitions) {
           glossaryState.dictionaryCache[cacheKey] = {
-            word: first.word || key,
-            partOfSpeech: meaning.partOfSpeech || "",
-            definition: def.definition,
-            example: def.example || ""
+            word: entries[0]?.word || key,
+            entries: entries.map(entry => ({
+              word: entry.word || key,
+              phonetic: entry.phonetic || "",
+              meanings: (entry.meanings || []).map(meaning => ({
+                partOfSpeech: meaning.partOfSpeech || "",
+                definitions: (meaning.definitions || []).map(def => ({
+                  definition: def.definition || "",
+                  example: def.example || "",
+                  synonyms: Array.isArray(def.synonyms) ? def.synonyms : []
+                }))
+              }))
+            }))
           };
           saveDictionaryCache();
           renderTermModal();
@@ -419,6 +473,69 @@
 
     glossaryState.dictionaryCache[keys[0].toLowerCase()] = { error: true };
     saveDictionaryCache();
+    renderTermModal();
+  }
+
+  function wikipediaLookupKeys(term){
+    const phrase = term.term.replace(/\s+/g, " ").trim();
+    const words = phrase.split(/\s+/).filter(w => !/^(and|or|of|the|a|an|to|in)$/i.test(w));
+    return Array.from(new Set([phrase, words[0]].filter(Boolean)));
+  }
+
+  function renderWikipediaPage(term){
+    const keys = wikipediaLookupKeys(term);
+    const hit = keys.map(k => glossaryState.wikipediaCache[k.toLowerCase()]).find(Boolean);
+    if (!hit) {
+      renderPageShell(term, "Wikipedia Summary", `<div class="glossaryBlock"><div class="glossaryRefText">Loading Wikipedia summary…</div></div>`);
+      loadWikipediaForSelectedTerm();
+      return;
+    }
+
+    if (hit.error) {
+      renderPageShell(term, "Wikipedia Summary", `<div class="glossaryBlock"><div class="glossaryRefText">No Wikipedia summary found for this term.</div></div>`);
+      return;
+    }
+
+    renderPageShell(term, "Wikipedia Summary", `
+      <div class="glossaryBlock glossaryWikipediaBlock">
+        ${hit.thumbnail ? `<img class="glossaryWikipediaThumb" src="${escapeHtml(hit.thumbnail)}" alt="" loading="lazy">` : ""}
+        <div>
+          <div class="glossaryBlockTitle">${escapeHtml(hit.title || term.term)}</div>
+          <div class="glossaryRefText">${escapeHtml(hit.extract || "No summary text found.")}</div>
+          ${hit.url ? `<a class="btn glossaryExternalLink" href="${escapeHtml(hit.url)}" target="_blank" rel="noopener noreferrer">Open Wikipedia</a>` : ""}
+        </div>
+      </div>
+    `);
+  }
+
+  async function loadWikipediaForSelectedTerm(){
+    const term = glossaryState.selectedTerm;
+    if (!term || PAGES[glossaryState.pageIndex] !== "wikipedia") return;
+    const keys = wikipediaLookupKeys(term);
+    if (keys.some(k => glossaryState.wikipediaCache[k.toLowerCase()])) return;
+
+    for (const key of keys){
+      const cacheKey = key.toLowerCase();
+      try {
+        const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(key)}`);
+        if (!response.ok) continue;
+        const data = await response.json();
+        if (data?.extract) {
+          glossaryState.wikipediaCache[cacheKey] = {
+            title: data.title || key,
+            extract: data.extract,
+            url: data.content_urls?.desktop?.page || data.content_urls?.mobile?.page || "",
+            thumbnail: data.thumbnail?.source || ""
+          };
+          saveWikipediaCache();
+          renderTermModal();
+          return;
+        }
+      } catch(e){}
+    }
+
+    glossaryState.wikipediaCache[keys[0].toLowerCase()] = { error: true };
+    saveWikipediaCache();
     renderTermModal();
   }
 
@@ -445,8 +562,7 @@
 
   function renderRelatedLibraryPage(term){
     const related = relatedLibraryItems(term);
-    $("#glossaryModalBody").innerHTML = `
-      <div class="glossaryPagerLabel">Related Library</div>
+    renderPageShell(term, "Related Library", `
       ${related.length ? `<div class="glossaryRelatedList">
         ${related.map(({ work }) => `
           <div class="glossaryRelatedItem">
@@ -455,7 +571,7 @@
           </div>
         `).join("")}
       </div>` : `<div class="glossaryBlock"><div class="glossaryRefText">No related books found yet. Add matching Great Ideas or syntopicon terms to library data to improve this page.</div></div>`}
-    `;
+    `);
   }
 
   function installSetViewPatch(){

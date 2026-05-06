@@ -1,0 +1,319 @@
+/* glossary.css — Syntopicon glossary page, term modal, dictionary panel */
+
+.glossaryMasthead {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.glossaryTitle {
+  font-family: "Newsreader", serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: -.04em;
+  margin: 0 0 8px;
+}
+
+.glossaryDesc {
+  max-width: 78ch;
+  font-size: .96rem;
+  line-height: 1.45;
+}
+
+.glossaryControls {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(160px, 220px);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.glossaryLayout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 14px;
+}
+
+.glossaryLetters {
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 10px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.glossaryLettersTitle {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.glossaryLetterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.glossaryLetterBtn {
+  min-height: 32px;
+  justify-content: center;
+  padding: 6px;
+}
+
+.glossaryLetterBtn.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.glossarySection {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  margin-bottom: 14px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.glossarySectionHeader {
+  border-bottom: 2px solid var(--ink);
+  padding: 10px 12px;
+  font-family: "Newsreader", serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.glossaryTermList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0;
+}
+
+.glossaryTermBtn {
+  border: 0;
+  border-right: 1px solid var(--line, var(--ink));
+  border-bottom: 1px solid var(--line, var(--ink));
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  padding: 9px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.glossaryTermBtn:hover,
+.glossaryTermBtn:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
+.glossaryTermQualifier {
+  opacity: .7;
+  font-size: .88em;
+}
+
+.glossaryEmpty {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 18px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.glossaryModal {
+  position: fixed;
+  z-index: 1000;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: min(920px, calc(100vw - 28px));
+  max-height: min(760px, calc(100vh - 28px));
+  display: none;
+  grid-template-columns: 58px minmax(0, 1fr) 58px;
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.glossaryModal.open {
+  display: grid;
+}
+
+.glossaryModalNav {
+  border: 0;
+  background: var(--paper);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-height: 420px;
+}
+
+.glossaryModalNav:hover,
+.glossaryModalNav:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
+.glossaryModalNav[disabled] {
+  opacity: .22;
+  cursor: not-allowed;
+}
+
+.glossaryModalNav[disabled]:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.glossaryModalPrev {
+  border-right: 2px solid var(--ink);
+}
+
+.glossaryModalNext {
+  border-left: 2px solid var(--ink);
+}
+
+.glossaryModalMain {
+  min-width: 0;
+  max-height: inherit;
+  overflow: auto;
+}
+
+.glossaryModalHeader {
+  border-bottom: 2px solid var(--ink);
+  padding: 14px 16px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.glossaryModalTitle {
+  margin: 0;
+  font-family: "Newsreader", serif;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  line-height: .95;
+  font-weight: 900;
+}
+
+.glossaryModalSub {
+  margin-top: 6px;
+  font-size: .84rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 900;
+  opacity: .72;
+}
+
+.glossaryCloseBtn {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 900;
+  min-width: 36px;
+  min-height: 32px;
+}
+
+.glossaryCloseBtn:hover,
+.glossaryCloseBtn:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
+.glossaryModalBody {
+  padding: 16px;
+}
+
+.glossaryPagerLabel {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  padding: 5px 8px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+}
+
+.glossaryBlock {
+  border: 2px solid var(--ink);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: color-mix(in srgb, var(--paper) 88%, var(--ink) 12%);
+}
+
+.glossaryBlockTitle {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+
+.glossaryRefText {
+  line-height: 1.48;
+}
+
+.glossaryRelatedList {
+  display: grid;
+  gap: 10px;
+}
+
+.glossaryRelatedItem {
+  border: 2px solid var(--ink);
+  padding: 10px;
+  background: var(--paper);
+}
+
+.glossaryRelatedTitle {
+  font-weight: 900;
+}
+
+.glossaryRelatedMeta {
+  font-size: .9rem;
+  opacity: .78;
+  margin-top: 4px;
+}
+
+html.dark .glossaryMasthead,
+html.dark .glossaryLetters,
+html.dark .glossarySection,
+html.dark .glossaryEmpty,
+html.dark .glossaryModal,
+html.dark .glossaryModalNav,
+html.dark .glossaryCloseBtn,
+html.dark .glossaryRelatedItem {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .glossaryControls,
+  .glossaryLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .glossaryLetters {
+    position: static;
+  }
+
+  .glossaryLetterGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .glossaryModal {
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+  }
+
+  .glossaryModalNav {
+    min-height: 360px;
+  }
+}

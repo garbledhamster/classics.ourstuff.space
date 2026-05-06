@@ -3,3 +3,67 @@
 .glossaryModal .glossaryCard {
   display: none;
 }
+
+.glossaryFlow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  margin-bottom: 12px;
+}
+
+.glossaryFlowNode {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 10px;
+  min-width: 0;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.glossaryFlowArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.glossaryIdeaPillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.glossaryIdeaPill {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 6px 9px;
+  font: inherit;
+  font-weight: 900;
+  cursor: default;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.glossaryRelatedMeta strong {
+  font-weight: 900;
+}
+
+html.dark .glossaryFlowNode,
+html.dark .glossaryIdeaPill {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .glossaryFlow {
+    grid-template-columns: 1fr;
+  }
+
+  .glossaryFlowArrow {
+    transform: rotate(90deg);
+    font-size: 1.6rem;
+  }
+}

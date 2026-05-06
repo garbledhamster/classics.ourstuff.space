@@ -47,3 +47,27 @@ if (window.firebaseReady) {
     try{ localStorage.setItem(DARK_KEY, String(!isDark)); }catch(e){}
   });
 })();
+
+/* =========================================================
+   SYNTOPICON GLOSSARY FEATURE LOADER
+   ========================================================= */
+(()=> {
+  function addStylesheet(href){
+    if (document.querySelector(`link[href="${href}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    document.head.appendChild(link);
+  }
+
+  function addScript(src){
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const script = document.createElement("script");
+    script.src = src;
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+
+  addStylesheet("src/css/glossary.css");
+  addScript("src/js/views/glossary.js");
+})();

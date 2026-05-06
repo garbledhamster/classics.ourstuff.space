@@ -146,6 +146,7 @@ function buildLibraryWorks(){
         occurrences: [], // { year, order, tier, marker, key, selection, selections }
         search: normalizeText(`${author} ${title}`),
         sourceUrl: "",
+        publishedYear: null,
         greatIdeas: [],
         customTags: [],
         blackBox: null
@@ -154,8 +155,9 @@ function buildLibraryWorks(){
     const item = map.get(libKey);
     if (fw.tier === "core") item.hasCore = true;
     if (fw.tier === "supplemental") item.hasSupplemental = true;
-    // Pick up sourceUrl from any occurrence (prefer first non-empty)
+    // Pick up sourceUrl and publishedYear from any occurrence (prefer first non-empty)
     if (!item.sourceUrl && fw.sourceUrl) item.sourceUrl = fw.sourceUrl;
+    if (item.publishedYear === null && Number.isFinite(fw.publishedYear)) item.publishedYear = fw.publishedYear;
     // Merge greatIdeas, customTags, blackBox
     for (const idea of (fw.greatIdeas || [])) {
       if (!item.greatIdeas.includes(idea)) item.greatIdeas.push(idea);

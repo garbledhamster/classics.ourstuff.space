@@ -419,6 +419,12 @@ function wireUI(){
   $("#deleteSelectedNotesBtn").addEventListener("click", deleteSelectedNotes);
   $("#archiveSelectedNotesBtn").addEventListener("click", archiveSelectedNotes);
 
+  // Filter by Bookclub toggle
+  $("#filterBookclubBtn").addEventListener("click", () => {
+    state.notesUI.bookclubFilter = !state.notesUI.bookclubFilter;
+    renderNotesList();
+  });
+
 }
 
 /* =========================================================

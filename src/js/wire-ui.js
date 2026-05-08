@@ -377,12 +377,14 @@ function wireUI(){
 
   $("#noteSearch").addEventListener("input", (e)=>{ state.notesUI.search = e.target.value; renderNotesList(); });
   $("#noteTagFilter").addEventListener("change", (e)=>{ state.notesUI.tag = e.target.value; renderNotesList(); });
-  $("#noteTypeFilter").addEventListener("change", (e)=>{ state.notesUI.noteTypeFilter = e.target.value; renderNotesList(); });
+  $("#noteTypeFilter").addEventListener("change", ()=>{ state.notesUI.noteTypeFilter = getCheckGroupValues("noteTypeFilter"); renderNotesList(); });
 
-  // Populate note type options from NOTE_TYPE_OPTIONS constant
-  const noteTypeOpts = NOTE_TYPE_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
-  $("#noteTypeFilter").insertAdjacentHTML("beforeend", noteTypeOpts);
-  $("#editNoteType").innerHTML = noteTypeOpts;
+  // Populate note type checkboxes from NOTE_TYPE_OPTIONS constant
+  const noteTypeCheckboxHtml = (prefix) => NOTE_TYPE_OPTIONS.map(o =>
+    `<label for="${prefix}-${escapeHtml(o.value)}"><input type="checkbox" id="${prefix}-${escapeHtml(o.value)}" name="${prefix}" value="${escapeHtml(o.value)}"> ${escapeHtml(o.label)}</label>`
+  ).join("");
+  $("#noteTypeFilter").innerHTML = noteTypeCheckboxHtml("ntf");
+  $("#editNoteType").innerHTML = noteTypeCheckboxHtml("ent");
 
   $("#newNoteBtn").addEventListener("click", () => startNewNote({}));
   $("#exportNotesBtn").addEventListener("click", exportNotes);

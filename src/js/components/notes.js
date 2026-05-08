@@ -399,9 +399,13 @@ async function importNotesFile(e){
         author: String(n.author || "").trim(),
         selection: String(n.selection || "").trim(),
         body: String(n.body || ""),
-        note_type: Array.isArray(n.note_type)
-            ? (n.note_type.filter(t => NOTE_TYPE_OPTIONS.some(o => o.value === t)).length ? n.note_type.filter(t => NOTE_TYPE_OPTIONS.some(o => o.value === t)) : [DEFAULT_NOTE_TYPE])
-            : (NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? [n.note_type] : [DEFAULT_NOTE_TYPE]),
+        note_type: (() => {
+            if (Array.isArray(n.note_type)) {
+              const valid = n.note_type.filter(t => NOTE_TYPE_OPTIONS.some(o => o.value === t));
+              return valid.length ? valid : [DEFAULT_NOTE_TYPE];
+            }
+            return NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? [n.note_type] : [DEFAULT_NOTE_TYPE];
+          })(),
         created_at: n.created_at ? String(n.created_at) : nowIso(),
         updated_at: n.updated_at ? String(n.updated_at) : nowIso()
       });

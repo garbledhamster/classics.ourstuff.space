@@ -381,7 +381,7 @@ function wireUI(){
 
   // Populate note type checkboxes from NOTE_TYPE_OPTIONS constant
   const noteTypeCheckboxHtml = (prefix) => NOTE_TYPE_OPTIONS.map(o =>
-    `<label><input type="checkbox" name="${prefix}" value="${escapeHtml(o.value)}"> ${escapeHtml(o.label)}</label>`
+    `<label for="${prefix}-${escapeHtml(o.value)}"><input type="checkbox" id="${prefix}-${escapeHtml(o.value)}" name="${prefix}" value="${escapeHtml(o.value)}"> ${escapeHtml(o.label)}</label>`
   ).join("");
   $("#noteTypeFilter").innerHTML = noteTypeCheckboxHtml("ntf");
   $("#editNoteType").innerHTML = noteTypeCheckboxHtml("ent");

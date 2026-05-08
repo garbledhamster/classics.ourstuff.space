@@ -256,6 +256,7 @@
 /* ── Callout box (sidebar / aside) ───────────────────────── */
 .gsCallout {
   border: 3px solid var(--ink);
+  background: #f0f0f0;
   background: color-mix(in srgb, var(--paper) 88%, var(--ink) 12%);
   padding: 16px;
   box-shadow: 4px 4px 0 var(--ink);
@@ -473,6 +474,7 @@
   text-transform: uppercase;
   letter-spacing: .07em;
   font-size: .76rem;
+  background: #f0f0f0;
   background: color-mix(in srgb, var(--paper) 88%, var(--ink) 12%);
 }
 

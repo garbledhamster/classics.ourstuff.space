@@ -74,9 +74,7 @@
         <div class="gsReadingAuthor">${escHtml(b.author)}</div>
         <div class="gsReadingNote">${escHtml(b.note)}</div>
       </div>
-    `).join("");
-
-    return `
+    `).join("");    return `
 <!-- ═══════════════════════════════════════════════════
      MASTHEAD
 ═══════════════════════════════════════════════════ -->
@@ -380,14 +378,7 @@
       vocabulary for everything that follows.
     </p>
     <div class="gsReadingList">
-      ${YEAR_ONE.map(b => `
-        <div class="gsReadingCard">
-          <div class="gsReadingNum">Year 1 · Book ${escHtml(b.num)}</div>
-          <div class="gsReadingTitle">${escHtml(b.title)}</div>
-          <div class="gsReadingAuthor">${escHtml(b.author)}</div>
-          <div class="gsReadingNote">${escHtml(b.note)}</div>
-        </div>
-      `).join("")}
+      ${year1Html}
     </div>
     <div class="gsPullQuote" style="margin-top:18px;">
       <p class="gsPullQuoteText">"Wonder is the beginning of wisdom."</p>

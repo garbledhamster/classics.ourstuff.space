@@ -148,6 +148,32 @@ function hideLoginModal() {
   $("#loginPassword").value = "";
 }
 
+function showEulaModal() {
+  const modal = $("#eulaModal");
+  const backdrop = $("#modalBackdrop");
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  backdrop.classList.add("show");
+  // Reset checkbox and disable accept button each time modal opens
+  const checkbox = $("#eulaAcceptCheck");
+  if (checkbox) checkbox.checked = false;
+  const acceptBtn = $("#eulaAcceptBtn");
+  if (acceptBtn) acceptBtn.disabled = true;
+  // Focus the scrollable region for keyboard/screen-reader users
+  setTimeout(() => { const t = $("#eulaText"); if (t) t.focus(); }, 100);
+}
+
+function hideEulaModal() {
+  const modal = $("#eulaModal");
+  const backdrop = $("#modalBackdrop");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  // Only remove backdrop if no other modal is open
+  if (!document.querySelector(".modal.open")) {
+    backdrop.classList.remove("show");
+  }
+}
+
 function showSignupModal() {
   hideLoginModal();
   const modal = $("#signupModal");
@@ -274,9 +300,18 @@ async function handleSignup() {
     return;
   }
 
+  // Validation passed — show EULA before creating the account
+  hideSignupModal();
+  showEulaModal();
+}
+
+async function handleEulaAccept() {
+  // Read credentials from the (now hidden) signup form
+  const email = $("#signupEmail").value.trim();
+  const password = $("#signupPassword").value;
+
   try {
-    clearSignupError();
-    const btn = $("#signupSubmitBtn");
+    const btn = $("#eulaAcceptBtn");
     btn.disabled = true;
     btn.textContent = "Creating account...";
 
@@ -286,13 +321,17 @@ async function handleSignup() {
 
     // Create user with Firebase
     await window.firebaseSignUp(window.firebaseAuth, email, password);
-    
-    hideSignupModal();
+
+    hideEulaModal();
+    // Clear signup form fields
+    $("#signupEmail").value = "";
+    $("#signupPassword").value = "";
+    $("#signupPasswordConfirm").value = "";
     showAlert("Account created successfully! You are now signed in.");
   } catch (error) {
     console.error("Signup error:", error);
     let errorMsg = "Failed to create account. Please try again.";
-    
+
     if (error.code === "auth/email-already-in-use") {
       errorMsg = "An account with this email already exists.";
     } else if (error.code === "auth/invalid-email") {
@@ -300,12 +339,17 @@ async function handleSignup() {
     } else if (error.code === "auth/weak-password") {
       errorMsg = "Password is too weak. Use at least 6 characters.";
     }
-    
+
+    // Return to signup modal to show the error
+    hideEulaModal();
+    showSignupModal();
     setSignupError(errorMsg);
   } finally {
-    const btn = $("#signupSubmitBtn");
-    btn.disabled = false;
-    btn.textContent = "Create Account";
+    const btn = $("#eulaAcceptBtn");
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Accept & Create Account";
+    }
   }
 }
 

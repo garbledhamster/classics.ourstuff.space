@@ -77,6 +77,60 @@
   opacity:1;
 }
 
+/* Large modal variant */
+.modalLg{
+  width:min(640px, 94vw);
+}
+
+/* EULA modal */
+.eulaText{
+  max-height:52vh;
+  overflow-y:auto;
+  border:var(--border);
+  padding:16px;
+  background:var(--paper);
+  font-size:13px;
+  line-height:1.6;
+  scroll-behavior:smooth;
+}
+.eulaSection{
+  font-family: Newsreader, Georgia, "Times New Roman", serif;
+  font-weight:900;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  margin:16px 0 6px;
+}
+.eulaSection:first-child{ margin-top:0; }
+.eulaList{
+  margin:6px 0 6px 18px;
+  padding:0;
+}
+.eulaList li{ margin-bottom:6px; }
+.eulaEffective{
+  margin-top:16px;
+  font-size:11px;
+  opacity:0.6;
+}
+.eulaAcceptRow{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.eulaCheckbox{
+  margin-top:3px;
+  flex-shrink:0;
+  accent-color:var(--ink);
+  cursor:pointer;
+  width:16px;
+  height:16px;
+}
+.eulaCheckLabel{
+  font-size:13px;
+  line-height:1.5;
+  cursor:pointer;
+}
+
 /* Timer modal */
 .timerDisplay{
   font-family: Newsreader, Georgia, "Times New Roman", serif;

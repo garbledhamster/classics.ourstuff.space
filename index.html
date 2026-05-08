@@ -468,6 +468,69 @@
     </div>
   </div>
 
+  <!-- EULA Modal -->
+  <div id="eulaModal" class="modal modalLg" role="dialog" aria-labelledby="eulaModalTitle" aria-hidden="true">
+    <div class="modalHeader">
+      <h2 id="eulaModalTitle" class="modalTitle">Terms of Use &amp; Privacy Notice</h2>
+      <button class="btn btnGhost" id="closeEulaModalBtn" type="button" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div class="eulaText" id="eulaText" tabindex="0" role="region" aria-label="Terms of Use and Privacy Notice — scroll to read">
+
+        <h3 class="eulaSection">1. About This Application</h3>
+        <p>Classics Reading Tracker (&ldquo;the App&rdquo;) is a free, personal reading-plan tool built around the <em>Great Books of the Western World</em> curriculum. It is provided for personal, non-commercial use only.</p>
+
+        <h3 class="eulaSection">2. What We Collect &amp; Store</h3>
+        <p>We collect the absolute minimum required to provide the service:</p>
+        <ul class="eulaList">
+          <li><strong>Email address &amp; password</strong> — stored securely by <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="linkUnderline">Google Firebase Authentication</a>. Your password is hashed by Firebase and is never readable by us.</li>
+          <li><strong>Reading progress &amp; settings</strong> — stored <em>locally</em> in your browser (localStorage) by default. This data never leaves your device unless you choose to enable cloud sync.</li>
+          <li><strong>Notes &amp; synced data (optional)</strong> — if you use the cloud sync feature, your notes, reading progress, task status, and dates are stored in <a href="https://firebase.google.com/products/firestore" target="_blank" rel="noopener" class="linkUnderline">Google Firebase Firestore</a>, a cloud database managed by Google. Each record is associated with your unique user ID and is not shared with other users.</li>
+        </ul>
+
+        <h3 class="eulaSection">3. Cloud Sync &amp; Your Notes — Important Notice</h3>
+        <p>The cloud sync feature is <strong>experimental</strong>. By using it, you acknowledge the following:</p>
+        <ul class="eulaList">
+          <li>Your notes and reading data are stored in a Firestore database hosted on Google Cloud infrastructure.</li>
+          <li>While access is protected by Firebase security rules scoped to your user ID, this is an <strong>experimental personal project</strong> and does not carry the security guarantees of a commercial service.</li>
+          <li><strong>Do not store sensitive personal information</strong> in your notes — this includes passwords, financial data, medical information, government IDs, or any other data you would not want stored in a third-party cloud database.</li>
+          <li>Notes are stored as plain text associated with your account. The site administrator may access Firestore data via the Firebase console for debugging or maintenance purposes.</li>
+        </ul>
+
+        <h3 class="eulaSection">4. What We Do Not Collect</h3>
+        <p>We do <strong>not</strong> sell, rent, or share your personal information with any third parties for marketing or commercial purposes. We do not use third-party analytics beyond Firebase's built-in authentication logging.</p>
+
+        <h3 class="eulaSection">5. Third-Party Services</h3>
+        <p>This App relies on the following third-party services, each with their own privacy policies:</p>
+        <ul class="eulaList">
+          <li><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="linkUnderline">Google Firebase</a> (Authentication &amp; Firestore cloud database)</li>
+          <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Google reCAPTCHA v3</a> (bot protection on sign-in and sign-up)</li>
+        </ul>
+
+        <h3 class="eulaSection">6. Your Rights &amp; Data Deletion</h3>
+        <p>You may delete your account and all associated cloud data at any time using the &ldquo;Reset Profile&rdquo; option in the App. For complete account deletion from Firebase Authentication, contact the site administrator. We will process deletion requests promptly.</p>
+
+        <h3 class="eulaSection">7. No Warranty</h3>
+        <p>The App is provided <strong>&ldquo;as is&rdquo;</strong> without warranties of any kind, express or implied. Your use of this App is entirely at your own risk. We are not liable for any data loss, service interruption, or unauthorized access.</p>
+
+        <h3 class="eulaSection">8. Changes to These Terms</h3>
+        <p>These terms may be updated from time to time. Significant changes will be noted in the app. Continued use of the App after changes constitutes your acceptance of the revised terms.</p>
+
+        <p class="eulaEffective">Last updated: May 2025</p>
+      </div>
+      <div class="eulaAcceptRow">
+        <input type="checkbox" id="eulaAcceptCheck" class="eulaCheckbox">
+        <label for="eulaAcceptCheck" class="eulaCheckLabel">I have read and agree to the Terms of Use and Privacy Notice above, including the notice about cloud-stored notes.</label>
+      </div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="eulaDeclineBtn" type="button">Cancel</button>
+      <button class="btn" id="eulaAcceptBtn" type="button" disabled>Accept &amp; Create Account</button>
+    </div>
+  </div>
+
   <!-- Search Settings Modal -->
   <div id="searchSettingsModal" class="modal" role="dialog" aria-labelledby="searchSettingsModalTitle">
     <div class="modalHeader">

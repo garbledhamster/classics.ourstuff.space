@@ -71,6 +71,20 @@ function wireUI(){
     showLoginModal();
   });
 
+  // EULA Modal
+  $("#closeEulaModalBtn").addEventListener("click", () => {
+    hideEulaModal();
+    showSignupModal();
+  });
+  $("#eulaDeclineBtn").addEventListener("click", () => {
+    hideEulaModal();
+    showSignupModal();
+  });
+  $("#eulaAcceptCheck").addEventListener("change", (e) => {
+    $("#eulaAcceptBtn").disabled = !e.target.checked;
+  });
+  $("#eulaAcceptBtn").addEventListener("click", handleEulaAccept);
+
   // Search Settings Modal
   $("#closeSearchSettingsModalBtn").addEventListener("click", hideSearchSettingsModal);
   $("#searchSettingsCancelBtn").addEventListener("click", hideSearchSettingsModal);
@@ -125,6 +139,7 @@ function wireUI(){
   $("#modalBackdrop").addEventListener("click", () => {
     hideLoginModal();
     hideSignupModal();
+    hideEulaModal();
     hideSearchSettingsModal();
     if (window._closeTimerModal) window._closeTimerModal();
   });
@@ -133,6 +148,7 @@ function wireUI(){
     if (e.key === "Escape" && state.drawer.open) closeDrawer();
     if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
     if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
+    if (e.key === "Escape" && $("#eulaModal").classList.contains("open")) { hideEulaModal(); showSignupModal(); }
     if (e.key === "Escape" && $("#timerModal").classList.contains("open") && window._closeTimerModal) window._closeTimerModal();
     if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
     if (e.key === "Escape") closeAllTaskDropdowns();

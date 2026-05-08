@@ -68,13 +68,15 @@ async function syncNotesToFirestore(userId) {
   if (!userId || !window.firebaseDB) return;
   
   try {
-    const notes = state.notes;
     const db = window.firebaseDB;
     
-    // Store notes in userPrivate/{userId} document
+    // Store notes and deletedNoteIds in userPrivate/{userId} document.
+    // Persisting deletedNoteIds in Firestore lets other devices learn about
+    // note deletions and remove locally-cached copies on their next sync.
     const userRef = window.firestoreDoc(db, 'userPrivate', userId);
     await window.firestoreSetDoc(userRef, {
-      notes: notes,
+      notes: state.notes,
+      deletedNoteIds: Array.from(state.deletedNoteIds),
       notesSyncedAt: window.firestoreServerTimestamp()
     }, { merge: true });
   } catch (error) {
@@ -150,9 +152,10 @@ async function loadCardTasksFromFirestore(userId) {
   }
 }
 
-// Load notes from Firestore
+// Load notes from Firestore.
+// Returns { notes, deletedNoteIds } so the caller can merge tombstones across devices.
 async function loadNotesFromFirestore(userId) {
-  if (!userId || !window.firebaseDB) return [];
+  if (!userId || !window.firebaseDB) return { notes: [], deletedNoteIds: [] };
   
   try {
     const db = window.firebaseDB;
@@ -160,13 +163,16 @@ async function loadNotesFromFirestore(userId) {
     const docSnap = await window.firestoreGetDoc(userRef);
     
     if (docSnap.exists()) {
-      return docSnap.data().notes || [];
+      return {
+        notes: docSnap.data().notes || [],
+        deletedNoteIds: docSnap.data().deletedNoteIds || []
+      };
     }
-    return [];
+    return { notes: [], deletedNoteIds: [] };
   } catch (error) {
     console.error('Error loading notes from Firestore:', error);
     state.sync.error = error.message;
-    return [];
+    return { notes: [], deletedNoteIds: [] };
   }
 }
 
@@ -214,7 +220,7 @@ async function performFullSync(userId) {
   
   try {
     // First, load data from Firestore
-    const [remoteChecks, remoteNotes, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings] = await Promise.all([
+    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings] = await Promise.all([
       loadChecksFromFirestore(userId),
       loadNotesFromFirestore(userId),
       loadCardStatusesFromFirestore(userId),
@@ -233,12 +239,20 @@ async function performFullSync(userId) {
     state.checks = { ...remoteChecks, ...state.checks }; // Local wins on conflict
     localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
     
-    // Notes: Merge by ID (most recently updated version wins on conflict).
-    // Remote notes whose IDs are in deletedNoteIds are skipped so that
-    // locally-deleted notes are never restored from Firestore.
-    const noteMap = new Map(state.notes.map(n => [n.id, n]));
-    for (const remoteNote of remoteNotes) {
-      if (state.deletedNoteIds.has(remoteNote.id)) continue; // honor local deletion
+    // Notes: Merge deletedNoteIds first (union of local + remote tombstones) so that
+    // deletions made on any device propagate everywhere.  A note deleted on device A
+    // is stored in Firestore's deletedNoteIds; device B picks it up here and removes
+    // its local copy before pushing — preventing the "ghost note" re-sync bug.
+    const mergedDeletedIds = new Set([...state.deletedNoteIds, ...(remoteNotesData.deletedNoteIds || [])]);
+    state.deletedNoteIds = mergedDeletedIds;
+    saveDeletedNoteIds(state.deletedNoteIds);
+
+    // Build note map from local notes, removing any already tombstoned.
+    const noteMap = new Map(
+      state.notes.filter(n => !mergedDeletedIds.has(n.id)).map(n => [n.id, n])
+    );
+    for (const remoteNote of (remoteNotesData.notes || [])) {
+      if (mergedDeletedIds.has(remoteNote.id)) continue; // honor deletion
       const localNote = noteMap.get(remoteNote.id);
       if (!localNote || (remoteNote.updated_at || "") > (localNote.updated_at || "")) {
         noteMap.set(remoteNote.id, remoteNote);
@@ -271,11 +285,9 @@ async function performFullSync(userId) {
       syncTimerSettingsToFirestore(userId)
     ]);
     
-    // Tombstones fulfilled: deleted notes are no longer in Firestore, safe to clear.
-    // This runs only on the success path; if the push above threw, we stay in catch
-    // and the tombstones remain so the next sync attempt re-applies the deletions.
-    state.deletedNoteIds.clear();
-    saveDeletedNoteIds(state.deletedNoteIds);
+    // Tombstones are intentionally kept in Firestore and localStorage so that devices
+    // which haven't synced yet still learn about the deletions on their next sync.
+    // They are NOT cleared here.
     
     state.sync.lastSync = new Date().toISOString();
     state.sync.enabled = true;

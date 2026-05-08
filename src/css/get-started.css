@@ -1,0 +1,577 @@
+/* get-started.css — "GET STARTED" newspaper-style onboarding page */
+
+/* ── Masthead ─────────────────────────────────────────────── */
+.gsMasthead {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 28px 24px 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.gsEditionBug {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  padding: 4px 10px;
+  font-size: .72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+}
+
+.gsHeadline {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: .9;
+  letter-spacing: -.03em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.gsDeck {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  max-width: 66ch;
+  margin: 0 auto 14px;
+  color: var(--ink2);
+}
+
+.gsMastheadRule {
+  border: none;
+  border-top: 4px double var(--ink);
+  margin: 14px 0 10px;
+}
+
+.gsByline {
+  font-size: .78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+
+/* ── Quick-start action row ───────────────────────────────── */
+.gsActionRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* ── Three-column lead ────────────────────────────────────── */
+.gsLead {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  margin-bottom: 20px;
+}
+
+.gsLeadCol {
+  padding: 18px 16px;
+  min-width: 0;
+}
+
+.gsLeadCol + .gsLeadCol {
+  border-left: 2px solid var(--ink);
+}
+
+.gsKicker {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  padding: 4px 8px;
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 10px;
+}
+
+.gsColTitle {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 10px;
+}
+
+.gsColText {
+  font-size: .92rem;
+  line-height: 1.55;
+  color: var(--ink2);
+}
+
+.gsColText + .gsColText {
+  margin-top: 8px;
+}
+
+/* ── Pull quote ───────────────────────────────────────────── */
+.gsPullQuote {
+  border-top: 4px solid var(--ink);
+  border-bottom: 4px solid var(--ink);
+  padding: 14px 0;
+  margin: 16px 0;
+  text-align: center;
+}
+
+.gsPullQuoteText {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+
+.gsPullQuoteSource {
+  font-size: .78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+}
+
+/* ── Section wrapper ──────────────────────────────────────── */
+.gsSection {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  margin-bottom: 20px;
+}
+
+.gsSectionHeader {
+  border-bottom: 2px solid var(--ink);
+  padding: 12px 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gsSectionNumber {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: .18;
+  user-select: none;
+}
+
+.gsSectionTitle {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+}
+
+.gsSectionBody {
+  padding: 16px;
+}
+
+/* ── Two-column body ──────────────────────────────────────── */
+.gsBodyCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.gsBodyText {
+  font-size: .93rem;
+  line-height: 1.6;
+  color: var(--ink2);
+}
+
+.gsBodyText p {
+  margin: 0 0 10px;
+}
+
+.gsBodyText p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Drop cap ─────────────────────────────────────────────── */
+.gsDropcap::first-letter {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 3.8em;
+  font-weight: 900;
+  float: left;
+  line-height: .82;
+  padding-right: 6px;
+  margin-top: 4px;
+}
+
+/* ── Step list (how to read / app guide) ─────────────────── */
+.gsStepList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.gsStep {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  border: 2px solid var(--ink);
+  padding: 12px;
+  align-items: start;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.gsStepNum {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  opacity: .55;
+}
+
+.gsStepTitle {
+  font-weight: 900;
+  font-size: .88rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 4px;
+}
+
+.gsStepText {
+  font-size: .88rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ── Callout box (sidebar / aside) ───────────────────────── */
+.gsCallout {
+  border: 3px solid var(--ink);
+  background: color-mix(in srgb, var(--paper) 88%, var(--ink) 12%);
+  padding: 16px;
+  box-shadow: 4px 4px 0 var(--ink);
+  margin-bottom: 16px;
+}
+
+.gsCalloutTitle {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .1em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gsCalloutTitle::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--ink);
+  opacity: .3;
+}
+
+/* ── Idea pills grid ──────────────────────────────────────── */
+.gsIdeaGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gsIdeaPill {
+  border: 2px solid var(--ink);
+  padding: 5px 9px;
+  font-size: .78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  cursor: default;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: background .1s, color .1s;
+}
+
+.gsIdeaPill:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ── Year 1 reading list ──────────────────────────────────── */
+.gsReadingList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.gsReadingCard {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 12px;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.gsReadingNum {
+  font-weight: 900;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  opacity: .5;
+  margin-bottom: 4px;
+}
+
+.gsReadingTitle {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.gsReadingAuthor {
+  font-size: .82rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+}
+
+.gsReadingNote {
+  font-size: .84rem;
+  line-height: 1.45;
+  color: var(--ink2);
+}
+
+/* ── Feature grid (4-up) ──────────────────────────────────── */
+.gsFeatureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0;
+  border-top: 2px solid var(--ink);
+}
+
+.gsFeature {
+  padding: 16px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+.gsFeature:last-child {
+  border-right: none;
+}
+
+.gsFeatureIcon {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.gsFeatureTitle {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .82rem;
+  margin-bottom: 6px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 4px;
+}
+
+.gsFeatureText {
+  font-size: .86rem;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+/* ── Adler method four-stage diagram ─────────────────────── */
+.gsAdlerStages {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.gsAdlerStage {
+  border: 2px solid var(--ink);
+  padding: 14px 12px;
+  text-align: center;
+  position: relative;
+}
+
+.gsAdlerStage + .gsAdlerStage {
+  border-left: none;
+}
+
+.gsAdlerStageNum {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  opacity: .2;
+}
+
+.gsAdlerStageName {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: .8rem;
+  margin: 6px 0 4px;
+}
+
+.gsAdlerStageDesc {
+  font-size: .82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* ── Horizontal divider with label ───────────────────────── */
+.gsRuleDivider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: .7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--muted);
+}
+
+.gsRuleDivider::before,
+.gsRuleDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  opacity: .4;
+}
+
+/* ── Navigation cheat-sheet table ─────────────────────────── */
+.gsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+
+.gsTable th,
+.gsTable td {
+  border: 2px solid var(--ink);
+  padding: 9px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.gsTable th {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-size: .76rem;
+  background: color-mix(in srgb, var(--paper) 88%, var(--ink) 12%);
+}
+
+.gsTable tr:hover td {
+  background: color-mix(in srgb, var(--paper) 94%, var(--ink) 6%);
+}
+
+/* ── Colophon footer ──────────────────────────────────────── */
+.gsColophon {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  padding: 14px 16px;
+  box-shadow: 4px 4px 0 var(--ink);
+  margin-bottom: 20px;
+  font-size: .82rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
+}
+
+.gsColophon strong {
+  color: var(--ink);
+}
+
+/* ── Dark mode ────────────────────────────────────────────── */
+html.dark .gsMasthead,
+html.dark .gsSection,
+html.dark .gsReadingCard,
+html.dark .gsStep,
+html.dark .gsCallout,
+html.dark .gsFeature,
+html.dark .gsLeadCol,
+html.dark .gsAdlerStage,
+html.dark .gsColophon {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+html.dark .gsIdeaPill {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+html.dark .gsTable th {
+  background: color-mix(in srgb, var(--paper) 80%, var(--ink) 20%);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .gsLead {
+    grid-template-columns: 1fr;
+  }
+
+  .gsLeadCol + .gsLeadCol {
+    border-left: none;
+    border-top: 2px solid var(--ink);
+  }
+
+  .gsBodyCols {
+    grid-template-columns: 1fr;
+  }
+
+  .gsAdlerStages {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .gsAdlerStage + .gsAdlerStage {
+    border-left: 2px solid var(--ink);
+  }
+
+  .gsAdlerStage:nth-child(odd) + .gsAdlerStage {
+    border-left: none;
+  }
+
+  .gsAdlerStage:nth-child(3),
+  .gsAdlerStage:nth-child(4) {
+    border-top: none;
+  }
+
+  .gsFeature {
+    border-right: 2px solid var(--ink);
+  }
+}
+
+@media (max-width: 560px) {
+  .gsAdlerStages {
+    grid-template-columns: 1fr;
+  }
+
+  .gsAdlerStage + .gsAdlerStage {
+    border-left: 2px solid var(--ink);
+    border-top: none;
+  }
+
+  .gsFeatureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .gsFeature {
+    border-right: none;
+  }
+}

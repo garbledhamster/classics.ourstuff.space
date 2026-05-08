@@ -246,7 +246,7 @@
       .map(part => part.trim())
       .map(part => part.replace(/^see\s+/i, "").replace(/^and\s+/i, "").trim())
       .flatMap(part => {
-        const chMatch = part.match(/^CH\s+\d+[:\s]+(.+)/i);
+        const chMatch = part.match(/^CH\s+\d+:\s*(.+)/i);
         if (chMatch) return [chMatch[1].replace(/[,/]+$/g, "").trim()];
         if (/^CH\s+\d+/i.test(part)) return [];
         const match = part.match(/^(.+?)\s+\d/);

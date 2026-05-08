@@ -138,9 +138,9 @@
       <div class="gsTwoCol">
         <div class="gsTwoColMain">
           <div class="gsSectionLabel">The Plan — Page 2</div>
-          <h2 class="gsHeadline">A Decade to Engage the Western Mind</h2>
-          <p class="gsBodyText">The ten-year reading plan is not a race. It is a structure — a scaffolding for a lifetime of thinking. Adler and Hutchins designed the progression deliberately: begin with the Greeks, whose questions set the agenda; move through the Romans, the medievals, and the Enlightenment; arrive at the nineteenth and twentieth centuries with the conceptual tools to read them well.</p>
-          <p class="gsBodyText">Each year has a focus and a set of assigned readings — short enough to be manageable, deep enough to be transformative. The works range from two-page dialogues to 800-page novels. Some weeks you will finish a reading in an evening; others will occupy a month.</p>
+          <h2 class="gsHeadline">A Decade to Stretch the Mind</h2>
+          <p class="gsBodyText">The ten-year reading plan is not designed to be "got through" as quickly as possible. It is a guide for lifelong mental growth: a disciplined way of reading works that are often over most people's heads, and therefore worth growing into. The aim is not merely to finish the list, but to read well enough that the books change you.</p>
+          <p class="gsBodyText">Each year gathers works around a governing idea, while the readings inside that year move broadly in chronological order so you can feel the historical development of the conversation. Across the full decade, the plan ranges through law, politics, theology, epic, tragedy, science, psychology, rhetoric, and poetry so that no one discipline becomes the whole of your education.</p>
           <div class="gsPullQuote">
             "Not to know the great works of the past is to be a cultural orphan, adrift in time."
             <div class="gsAttrib">— Clifton Fadiman</div>
@@ -151,11 +151,16 @@
           <div class="gsSectionLabel">Year by Year</div>
           <div style="display:flex;flex-direction:column;gap:0;">
             ${[
-              ["Year 1–2","The Greeks","Plato, Aristotle, Homer, Aeschylus — the foundations of Western thought in philosophy, drama, and epic poetry."],
-              ["Year 3–4","Rome &amp; the Middle Ages","Cicero, Virgil, Augustine, Aquinas — stoic ethics, Christian theology, and the synthesis of faith and reason."],
-              ["Year 5–6","The Renaissance &amp; Enlightenment","Machiavelli, Shakespeare, Descartes, Locke, Hume, Rousseau — politics, science, and the birth of modernity."],
-              ["Year 7–8","18th–19th Century","Kant, Hegel, Mill, Marx, Darwin — the great systems and the age of revolution."],
-              ["Year 9–10","Modern Masters","Tolstoy, Dostoevsky, Freud, William James — psychology, the novel, and the examined modern life."]
+              ["Year 1","Foundations of Law &amp; Morality","Political and moral life begin with Plato, Aristotle, Augustine, Machiavelli, and modern founding texts on liberty, revolution, and democracy."],
+              ["Year 2","Ancient Epics &amp; Modern Liberty","Epic, tragedy, history, atomism, stoicism, and Mill's defense of liberty place literature and ethics side by side."],
+              ["Year 3","History, Theology &amp; the Human Condition","War, law, faith, and freedom meet in Thucydides, Aquinas, Milton, Kant, and Dostoevsky."],
+              ["Year 4","Scientific Revolution &amp; Psychological Depth","Questions of knowledge and method lead into Galileo, Bacon, Descartes, Newton, Euripides, and Melville."],
+              ["Year 5","Nature, Being &amp; Narrative Synthesis","Soul, species, substance, empire, and long-form narrative converge in Aristotle, Virgil, Spinoza, Darwin, and Tolstoy."],
+              ["Year 6","Origins, Scriptural Roots &amp; Modernity","Biblical beginnings, Homeric wandering, Shakespearean comedy, Hegelian history, and Kierkegaardian inwardness reshape first principles."],
+              ["Year 7","Wisdom, Mathematics &amp; Aesthetic Judgment","Job, Symposium, Archimedes, Epictetus, Dante, and Kant test how truth, beauty, and goodness are judged."],
+              ["Year 8","Rhetoric, Psychology &amp; the Power of Habit","Persuasion, teaching, sovereignty, inner life, and spiritual struggle animate Aristotle, Augustine, Hobbes, James, and Goethe."],
+              ["Year 9","Social Systems &amp; Modern Disillusionment","Law, electricity, civilization, manners, and artistic self-consciousness define the move into modern scientific and literary life."],
+              ["Year 10","The Order of Nature &amp; the Modern Wasteland","Cosmos, corruption, pilgrimage, kingship, and cultural exhaustion bring the decade to its final reckoning."]
             ].map(([y,t,d]) => `
               <div style="padding:10px 0;border-bottom:1px solid var(--ink);">
                 <div style="font-size:0.7rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">${y}</div>

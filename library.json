@@ -160,7 +160,7 @@
     "title": "Agamemnon",
     "author": "Aeschylus",
     "vol": 5,
-    "date": -450,
+    "date": -458,
     "item": 21,
     "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
   },
@@ -168,7 +168,7 @@
     "title": "Choephoroe",
     "author": "Aeschylus",
     "vol": 5,
-    "date": -450,
+    "date": -458,
     "item": 22,
     "sourceUrl": "https://www.gutenberg.org/ebooks/14417"
   },
@@ -200,7 +200,7 @@
     "title": "Antigone",
     "author": "Sophocles",
     "vol": 5,
-    "date": -450,
+    "date": -441,
     "item": 26,
     "sourceUrl": "https://www.gutenberg.org/ebooks/31"
   },
@@ -584,7 +584,7 @@
     "title": "Apology",
     "author": "Plato",
     "vol": 7,
-    "date": -390,
+    "date": -399,
     "item": 74,
     "sourceUrl": "https://www.gutenberg.org/ebooks/1656"
   },
@@ -592,7 +592,7 @@
     "title": "Crito",
     "author": "Plato",
     "vol": 7,
-    "date": -390,
+    "date": -399,
     "item": 75,
     "sourceUrl": "https://www.gutenberg.org/ebooks/1657"
   },
@@ -664,7 +664,7 @@
     "title": "Statesman",
     "author": "Plato",
     "vol": 7,
-    "date": -387,
+    "date": -360,
     "item": 84,
     "sourceUrl": "https://www.gutenberg.org/ebooks/1738"
   },
@@ -1184,7 +1184,7 @@
     "title": "On the Nature of Things",
     "author": "Lucretius",
     "vol": 12,
-    "date": 1473,
+    "date": -55,
     "item": 149,
     "sourceUrl": "https://www.gutenberg.org/ebooks/785"
   },
@@ -2630,7 +2630,7 @@
     "title": "Tartuffe",
     "author": "Molière",
     "vol": 31,
-    "date": 1666,
+    "date": 1664,
     "item": 331,
     "sourceUrl": "https://www.gutenberg.org/ebooks/2027"
   },

@@ -13,6 +13,7 @@
           "works": [
             {
               "title": "Apology",
+              "date": -399,
               "great_ideas": [
                 "Justice",
                 "Knowledge",
@@ -47,6 +48,7 @@
             },
             {
               "title": "Crito",
+              "date": -399,
               "great_ideas": [
                 "Justice",
                 "Knowledge",
@@ -88,6 +90,7 @@
           "works": [
             {
               "title": "Clouds",
+              "date": -423,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -121,6 +124,7 @@
             },
             {
               "title": "Lysistrata",
+              "date": -411,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -161,6 +165,7 @@
           "works": [
             {
               "title": "Republic",
+              "date": -375,
               "selection": "Book I-II",
               "great_ideas": [
                 "Aristocracy",
@@ -248,6 +253,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
+              "date": -350,
               "selection": "Book I",
               "great_ideas": [
                 "Art",
@@ -307,6 +313,7 @@
           "works": [
             {
               "title": "Politics",
+              "date": -350,
               "selection": "Book I",
               "great_ideas": [
                 "Aristocracy",
@@ -366,6 +373,7 @@
           "works": [
             {
               "title": "Lives",
+              "date": 100,
               "selection": "Lycurgus; Numa Pompilius; Lycurgus and Numa Compared; Alexander; Caesar",
               "great_ideas": [
                 "Man",
@@ -396,6 +404,7 @@
           "works": [
             {
               "title": "The Gospel According to Saint Matthew",
+              "date": 80,
               "selection": "Matthew 1-28",
               "great_ideas": [
                 "Angel",
@@ -428,6 +437,7 @@
             },
             {
               "title": "The Acts of the Apostles",
+              "date": 80,
               "selection": "Acts 1-28",
               "great_ideas": [
                 "Angel",
@@ -467,6 +477,7 @@
           "works": [
             {
               "title": "Confessions",
+              "date": 397,
               "selection": "Book I-VIII",
               "great_ideas": [
                 "Angel",
@@ -524,6 +535,7 @@
           "works": [
             {
               "title": "The Prince",
+              "date": 1513,
               "great_ideas": [
                 "Aristocracy",
                 "Government",
@@ -565,6 +577,7 @@
           "works": [
             {
               "title": "The Praise of Folly",
+              "date": 1509,
               "selection": "Preface and sections 1-30",
               "great_ideas": [
                 "Custom and Convention",
@@ -603,6 +616,7 @@
           "works": [
             {
               "title": "Gargantua and Pantagruel",
+              "date": 1532,
               "selection": "Book I-II",
               "great_ideas": [
                 "Custom and Convention",
@@ -641,6 +655,7 @@
           "works": [
             {
               "title": "Essays",
+              "date": 1580,
               "selection": "Of Custom; Of Pedantry; Of the Education of Children; That It Is Folly to Measure Truth and Error by Our Own Capacity; Of Cannibals; That the Relish of Good and Evil Depends in Great Measure upon the Opinion We Have of Them; Upon Some Verses of Virgil",
               "great_ideas": [
                 "Custom and Convention",
@@ -677,6 +692,7 @@
           "works": [
             {
               "title": "Hamlet",
+              "date": 1600,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -718,6 +734,7 @@
           "works": [
             {
               "title": "Concerning Civil Government",
+              "date": 1689,
               "selection": "Second Essay",
               "great_ideas": [
                 "Aristocracy",
@@ -760,6 +777,7 @@
           "works": [
             {
               "title": "The Social Contract",
+              "date": 1762,
               "selection": "Book I-II",
               "great_ideas": [
                 "Aristocracy",
@@ -810,6 +828,7 @@
           "works": [
             {
               "title": "Declaration of Independence",
+              "date": 1776,
               "great_ideas": [
                 "Citizen",
                 "Constitution",
@@ -844,6 +863,7 @@
             },
             {
               "title": "Constitution of the United States",
+              "date": 1787,
               "great_ideas": [
                 "Citizen",
                 "Constitution",
@@ -878,6 +898,7 @@
             },
             {
               "title": "The Federalist Papers",
+              "date": 1788,
               "selection": "Numbers 1-10, 15, 31, 47, 51, 68-71",
               "great_ideas": [
                 "Aristocracy",
@@ -923,6 +944,7 @@
           "works": [
             {
               "title": "The Wealth of Nations",
+              "date": 1776,
               "selection": "Introduction through Book I, ch. 9",
               "great_ideas": [
                 "Labor",
@@ -961,6 +983,7 @@
           "works": [
             {
               "title": "Democracy in America",
+              "date": 1835,
               "selection": "Introduction; Vol. I, Part 1, ch. 1-8; Vol. II, Part 2, ch. 1-5",
               "great_ideas": [
                 "Aristocracy",
@@ -1008,6 +1031,7 @@
           "works": [
             {
               "title": "Manifesto of the Communist Party",
+              "date": 1848,
               "great_ideas": [
                 "Dialectic",
                 "Government",
@@ -1052,6 +1076,7 @@
           "works": [
             {
               "title": "The Theory of the Leisure Class",
+              "date": 1899,
               "selection": "ch. 1-4, 7",
               "great_ideas": [
                 "Labor",
@@ -1088,6 +1113,7 @@
           "works": [
             {
               "title": "Animal Farm",
+              "date": 1945,
               "great_ideas": [
                 "Tyranny and Despotism",
                 "Revolution",
@@ -1131,6 +1157,7 @@
           "works": [
             {
               "title": "The Iliad",
+              "date": -750,
               "great_ideas": [
                 "War and Peace",
                 "Honor",
@@ -1169,6 +1196,7 @@
           "works": [
             {
               "title": "Agamemnon",
+              "date": -458,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1199,6 +1227,7 @@
             },
             {
               "title": "Choephoroe",
+              "date": -458,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1229,6 +1258,7 @@
             },
             {
               "title": "Eumenides",
+              "date": -458,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1266,6 +1296,7 @@
           "works": [
             {
               "title": "Oedipus the King",
+              "date": -429,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1297,6 +1328,7 @@
             },
             {
               "title": "Antigone",
+              "date": -441,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1335,6 +1367,7 @@
           "works": [
             {
               "title": "The History",
+              "date": -430,
               "selection": "Book I-II",
               "great_ideas": [
                 "Man",
@@ -1365,6 +1398,7 @@
           "works": [
             {
               "title": "Meno",
+              "date": -385,
               "great_ideas": [
                 "Dialectic",
                 "Education",
@@ -1423,6 +1457,7 @@
           "works": [
             {
               "title": "Poetics",
+              "date": -335,
               "great_ideas": [
                 "Art",
                 "Beauty",
@@ -1469,6 +1504,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
+              "date": -350,
               "selection": "Book II; Book III, ch. 5-12; Book VI, ch. 8-13",
               "great_ideas": [
                 "Art",
@@ -1528,6 +1564,7 @@
           "works": [
             {
               "title": "Introduction to Arithmetic",
+              "date": 100,
               "great_ideas": [
                 "Definition",
                 "Infinity",
@@ -1572,6 +1609,7 @@
           "works": [
             {
               "title": "On the Nature of Things",
+              "date": -55,
               "selection": "Book I-IV",
               "great_ideas": [
                 "Change",
@@ -1611,6 +1649,7 @@
           "works": [
             {
               "title": "Meditations",
+              "date": 170,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -1642,6 +1681,7 @@
           "works": [
             {
               "title": "Leviathan",
+              "date": 1651,
               "selection": "Part I",
               "great_ideas": [
                 "Aristocracy",
@@ -1690,6 +1730,7 @@
           "works": [
             {
               "title": "Areopagitica",
+              "date": 1644,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -1719,6 +1760,7 @@
           "works": [
             {
               "title": "Pensées",
+              "date": 1660,
               "selection": "Selected numbers from the standard ten-year plan",
               "great_ideas": [
                 "Definition",
@@ -1758,6 +1800,7 @@
           "works": [
             {
               "title": "Treatise on the Arithmetical Triangle",
+              "date": 1654,
               "great_ideas": [
                 "Definition",
                 "Mathematics",
@@ -1796,6 +1839,7 @@
           "works": [
             {
               "title": "Gulliver's Travels",
+              "date": 1726,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -1833,6 +1877,7 @@
           "works": [
             {
               "title": "Discourse on the Origin of Inequality",
+              "date": 1755,
               "great_ideas": [
                 "Aristocracy",
                 "Citizen",
@@ -1874,6 +1919,7 @@
           "works": [
             {
               "title": "Fundamental Principles of the Metaphysic of Morals",
+              "date": 1785,
               "great_ideas": [
                 "Duty",
                 "Judgment",
@@ -1912,6 +1958,7 @@
           "works": [
             {
               "title": "On Liberty",
+              "date": 1859,
               "great_ideas": [
                 "Government",
                 "Happiness",
@@ -1947,6 +1994,7 @@
           "works": [
             {
               "title": "Bérénice",
+              "date": 1670,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -1977,6 +2025,7 @@
             },
             {
               "title": "Phèdre",
+              "date": 1677,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -2014,6 +2063,7 @@
           "works": [
             {
               "title": "Tartuffe",
+              "date": 1664,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -2049,6 +2099,7 @@
           "works": [
             {
               "title": "Candide",
+              "date": 1759,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -2086,6 +2137,7 @@
           "works": [
             {
               "title": "A Doll's House",
+              "date": 1879,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -2115,6 +2167,7 @@
           "works": [
             {
               "title": "Emma",
+              "date": 1815,
               "great_ideas": [
                 "Love",
                 "Judgment",
@@ -2150,6 +2203,7 @@
           "works": [
             {
               "title": "Adventures of Huckleberry Finn",
+              "date": 1884,
               "selection": "ch. 1-31, 42-43",
               "great_ideas": [
                 "Man",
@@ -2185,6 +2239,7 @@
           "works": [
             {
               "title": "Prometheus Bound",
+              "date": -430,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -2222,6 +2277,7 @@
           "works": [
             {
               "title": "The History",
+              "date": -430,
               "selection": "Book VII-IX",
               "great_ideas": [
                 "Man",
@@ -2252,6 +2308,7 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
+              "date": -411,
               "selection": "Book I-II, V",
               "great_ideas": [
                 "War and Peace",
@@ -2288,6 +2345,7 @@
           "works": [
             {
               "title": "Statesman",
+              "date": -360,
               "great_ideas": [
                 "Aristocracy",
                 "Dialectic",
@@ -2335,6 +2393,7 @@
           "works": [
             {
               "title": "On Interpretation",
+              "date": -350,
               "selection": "ch. 1-10",
               "great_ideas": [
                 "Cause",
@@ -2398,6 +2457,7 @@
           "works": [
             {
               "title": "Politics",
+              "date": -350,
               "selection": "Book III-V",
               "great_ideas": [
                 "Aristocracy",
@@ -2457,6 +2517,7 @@
           "works": [
             {
               "title": "Elements",
+              "date": -300,
               "selection": "Book I",
               "great_ideas": [
                 "Definition",
@@ -2502,6 +2563,7 @@
           "works": [
             {
               "title": "The Annals",
+              "date": 117,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -2531,6 +2593,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I-II, QQ 90-97",
               "great_ideas": [
                 "Angel",
@@ -2606,6 +2669,7 @@
           "works": [
             {
               "title": "Troilus and Criseyde",
+              "date": 1385,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -2635,6 +2699,7 @@
           "works": [
             {
               "title": "Macbeth",
+              "date": 1606,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -2676,6 +2741,7 @@
           "works": [
             {
               "title": "Paradise Lost",
+              "date": 1667,
               "great_ideas": [
                 "Angel",
                 "Beauty",
@@ -2711,6 +2777,7 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
+              "date": 1689,
               "selection": "Book III, ch. 1-3, 9-11",
               "great_ideas": [
                 "Citizen",
@@ -2756,6 +2823,7 @@
           "works": [
             {
               "title": "The Science of Right",
+              "date": 1797,
               "great_ideas": [
                 "Duty",
                 "Judgment",
@@ -2794,6 +2862,7 @@
           "works": [
             {
               "title": "Considerations on Representative Government",
+              "date": 1861,
               "selection": "ch. 1-6",
               "great_ideas": [
                 "Aristocracy",
@@ -2830,6 +2899,7 @@
           "works": [
             {
               "title": "Elements of Chemistry",
+              "date": 1789,
               "selection": "Part I",
               "great_ideas": [
                 "Element",
@@ -2866,6 +2936,7 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
+              "date": 1880,
               "selection": "Part I-II",
               "great_ideas": [
                 "God",
@@ -2902,6 +2973,7 @@
           "works": [
             {
               "title": "The Origin and Development of Psychoanalysis",
+              "date": 1910,
               "great_ideas": [
                 "Mind",
                 "Memory and Imagination",
@@ -2939,6 +3011,7 @@
           "works": [
             {
               "title": "Cousin Bette",
+              "date": 1846,
               "selection": "Parts I-III",
               "great_ideas": [
                 "Custom and Convention",
@@ -2975,6 +3048,7 @@
           "works": [
             {
               "title": "Little Dorrit",
+              "date": 1857,
               "selection": "Book I, ch. 1-22; Book II, ch. 1-10, 30-34",
               "great_ideas": [
                 "Custom and Convention",
@@ -3011,6 +3085,7 @@
           "works": [
             {
               "title": "Middlemarch",
+              "date": 1871,
               "selection": "Prelude; Books I-IV; Finale",
               "great_ideas": [
                 "Custom and Convention",
@@ -3047,6 +3122,7 @@
           "works": [
             {
               "title": "The Golden Bough",
+              "date": 1890,
               "selection": "Preface; ch. 1-4, 24, 28, 37",
               "great_ideas": [
                 "Man",
@@ -3077,6 +3153,7 @@
           "works": [
             {
               "title": "Essays in Sociology",
+              "date": 1919,
               "selection": "Bureaucracy; Class, Status, Party; Science as a Vocation",
               "great_ideas": [
                 "Man",
@@ -3107,6 +3184,7 @@
           "works": [
             {
               "title": "The Autumn of the Middle Ages",
+              "date": 1919,
               "selection": "Introduction; ch. 1-5, 12, 20",
               "great_ideas": [
                 "Man",
@@ -3137,6 +3215,7 @@
           "works": [
             {
               "title": "The Acquisitive Society",
+              "date": 1920,
               "selection": "ch. 1-3, 5",
               "great_ideas": [
                 "Labor",
@@ -3173,6 +3252,7 @@
           "works": [
             {
               "title": "The General Theory of Employment, Interest, and Money",
+              "date": 1936,
               "selection": "Book I, ch. 1-3; Book II, ch. 4-7; Book VI, ch. 22-24",
               "great_ideas": [
                 "Labor",
@@ -3214,6 +3294,7 @@
           "works": [
             {
               "title": "Medea",
+              "date": -431,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -3244,6 +3325,7 @@
             },
             {
               "title": "Hippolytus",
+              "date": -428,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -3274,6 +3356,7 @@
             },
             {
               "title": "The Trojan Women",
+              "date": -415,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -3304,6 +3387,7 @@
             },
             {
               "title": "The Bacchae",
+              "date": -406,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -3341,6 +3425,7 @@
           "works": [
             {
               "title": "Republic",
+              "date": -375,
               "selection": "Book VI-VII",
               "great_ideas": [
                 "Aristocracy",
@@ -3428,6 +3513,7 @@
           "works": [
             {
               "title": "Theaetetus",
+              "date": -368,
               "great_ideas": [
                 "Change",
                 "Dialectic",
@@ -3490,6 +3576,7 @@
           "works": [
             {
               "title": "Physics",
+              "date": -350,
               "selection": "Book IV, ch. 1-5, 10-14",
               "great_ideas": [
                 "Cause",
@@ -3561,6 +3648,7 @@
           "works": [
             {
               "title": "Metaphysics",
+              "date": -335,
               "selection": "Book I, ch. 1-2; Book IV; Book VI, ch. 1; Book XI, ch. 1-4",
               "great_ideas": [
                 "Cause",
@@ -3644,6 +3732,7 @@
           "works": [
             {
               "title": "Confessions",
+              "date": 397,
               "selection": "Book IX-XIII",
               "great_ideas": [
                 "Angel",
@@ -3701,6 +3790,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I, QQ 16-17, 84-88",
               "great_ideas": [
                 "Angel",
@@ -3776,6 +3866,7 @@
           "works": [
             {
               "title": "Apology for Raymond de Sebonde",
+              "date": 1580,
               "great_ideas": [
                 "Courage",
                 "Justice",
@@ -3811,6 +3902,7 @@
           "works": [
             {
               "title": "Novum Organum",
+              "date": 1620,
               "selection": "Preface; Book I",
               "great_ideas": [
                 "Art",
@@ -3854,6 +3946,7 @@
             },
             {
               "title": "New Atlantis",
+              "date": 1627,
               "great_ideas": [
                 "Art",
                 "Experience",
@@ -3897,6 +3990,7 @@
           "works": [
             {
               "title": "Two New Sciences",
+              "date": 1638,
               "selection": "Third Day through Scholium of Theorem II",
               "great_ideas": [
                 "Astronomy",
@@ -3947,6 +4041,7 @@
           "works": [
             {
               "title": "Discourse on the Method",
+              "date": 1637,
               "great_ideas": [
                 "Hypothesis",
                 "Idea",
@@ -3993,6 +4088,7 @@
           "works": [
             {
               "title": "Mathematical Principles of Natural Philosophy",
+              "date": 1687,
               "selection": "Prefaces; Definitions; Axioms; General Scholium",
               "great_ideas": [
                 "Astronomy",
@@ -4046,6 +4142,7 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
+              "date": 1689,
               "selection": "Book II",
               "great_ideas": [
                 "Citizen",
@@ -4091,6 +4188,7 @@
           "works": [
             {
               "title": "An Enquiry Concerning Human Understanding",
+              "date": 1748,
               "great_ideas": [
                 "Cause",
                 "Chance",
@@ -4143,6 +4241,7 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
+              "date": 1781,
               "selection": "Prefaces; Introduction; Transcendental Aesthetic",
               "great_ideas": [
                 "Dialectic",
@@ -4211,6 +4310,7 @@
           "works": [
             {
               "title": "Moby-Dick",
+              "date": 1851,
               "great_ideas": [
                 "Nature",
                 "Fate",
@@ -4248,6 +4348,7 @@
           "works": [
             {
               "title": "The Brothers Karamazov",
+              "date": 1880,
               "selection": "Part III-IV",
               "great_ideas": [
                 "God",
@@ -4284,6 +4385,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
+              "date": 1890,
               "selection": "ch. XV, XX",
               "great_ideas": [
                 "Desire",
@@ -4328,6 +4430,7 @@
           "works": [
             {
               "title": "An Introduction to Metaphysics",
+              "date": 1903,
               "great_ideas": [
                 "Being",
                 "Change",
@@ -4374,6 +4477,7 @@
           "works": [
             {
               "title": "Experience and Education",
+              "date": 1938,
               "great_ideas": [
                 "Custom and Convention",
                 "Habit",
@@ -4406,6 +4510,7 @@
           "works": [
             {
               "title": "Science and the Modern World",
+              "date": 1925,
               "selection": "ch. 1-4, 10",
               "great_ideas": [
                 "Change",
@@ -4445,6 +4550,7 @@
           "works": [
             {
               "title": "The Problems of Philosophy",
+              "date": 1912,
               "selection": "ch. 1-8, 12, 15",
               "great_ideas": [
                 "Custom and Convention",
@@ -4481,6 +4587,7 @@
           "works": [
             {
               "title": "Structural Anthropology",
+              "date": 1958,
               "selection": "Introduction; The Structural Study of Myth; Social Structure",
               "great_ideas": [
                 "Man",
@@ -4516,6 +4623,7 @@
           "works": [
             {
               "title": "Phaedo",
+              "date": -360,
               "great_ideas": [
                 "Eternity",
                 "Form",
@@ -4574,6 +4682,7 @@
           "works": [
             {
               "title": "Categories",
+              "date": -350,
               "great_ideas": [
                 "Cause",
                 "Change",
@@ -4651,6 +4760,7 @@
           "works": [
             {
               "title": "On the Soul",
+              "date": -350,
               "selection": "Book II, ch. 1-3; Book III",
               "great_ideas": [
                 "Cause",
@@ -4699,6 +4809,7 @@
           "works": [
             {
               "title": "The Oath",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4727,6 +4838,7 @@
             },
             {
               "title": "On Ancient Medicine",
+              "date": -420,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4755,6 +4867,7 @@
             },
             {
               "title": "On Airs, Waters, and Places",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4783,6 +4896,7 @@
             },
             {
               "title": "The Book of Prognostics",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4811,6 +4925,7 @@
             },
             {
               "title": "Of the Epidemics",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4839,6 +4954,7 @@
             },
             {
               "title": "The Law",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4867,6 +4983,7 @@
             },
             {
               "title": "On the Sacred Disease",
+              "date": -400,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4902,6 +5019,7 @@
           "works": [
             {
               "title": "On the Natural Faculties",
+              "date": 180,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -4937,6 +5055,7 @@
           "works": [
             {
               "title": "The Aeneid",
+              "date": -19,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -4966,6 +5085,7 @@
           "works": [
             {
               "title": "Almagest",
+              "date": 150,
               "selection": "Book I, ch. 1-8",
               "great_ideas": [
                 "Astronomy",
@@ -5008,6 +5128,7 @@
           "works": [
             {
               "title": "On the Revolutions of Heavenly Spheres",
+              "date": 1543,
               "selection": "Introduction through Book I, ch. 11",
               "great_ideas": [
                 "Astronomy",
@@ -5050,6 +5171,7 @@
           "works": [
             {
               "title": "Epitome of Copernican Astronomy",
+              "date": 1618,
               "selection": "Book IV, Part II, ch. 1-2",
               "great_ideas": [
                 "Astronomy",
@@ -5082,6 +5204,7 @@
             },
             {
               "title": "The Harmonies of the World",
+              "date": 1619,
               "selection": "Book V, ch. 1-7",
               "great_ideas": [
                 "Astronomy",
@@ -5121,6 +5244,7 @@
           "works": [
             {
               "title": "Sixth Ennead",
+              "date": 270,
               "great_ideas": [
                 "Beauty",
                 "Being",
@@ -5168,6 +5292,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I, QQ 75-76, 78-79",
               "great_ideas": [
                 "Angel",
@@ -5243,6 +5368,7 @@
           "works": [
             {
               "title": "The Divine Comedy",
+              "date": 1308,
               "selection": "Inferno",
               "great_ideas": [
                 "Angel",
@@ -5294,6 +5420,7 @@
           "works": [
             {
               "title": "On the Motion of the Heart and Blood in Animals",
+              "date": 1628,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -5322,6 +5449,7 @@
             },
             {
               "title": "On the Circulation of Blood",
+              "date": 1649,
               "great_ideas": [
                 "Medicine",
                 "Nature",
@@ -5357,6 +5485,7 @@
           "works": [
             {
               "title": "Don Quixote",
+              "date": 1605,
               "selection": "Part I",
               "great_ideas": [
                 "Man",
@@ -5387,6 +5516,7 @@
           "works": [
             {
               "title": "Ethics",
+              "date": 1675,
               "selection": "Part II",
               "great_ideas": [
                 "Being",
@@ -5435,6 +5565,7 @@
           "works": [
             {
               "title": "The Principles of Human Knowledge",
+              "date": 1710,
               "great_ideas": [
                 "Being",
                 "God",
@@ -5479,6 +5610,7 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
+              "date": 1781,
               "selection": "Transcendental Analytic",
               "great_ideas": [
                 "Dialectic",
@@ -5547,6 +5679,7 @@
           "works": [
             {
               "title": "On the Origin of Species",
+              "date": 1859,
               "selection": "Introduction through ch. 6; ch. 15",
               "great_ideas": [
                 "Animal",
@@ -5588,6 +5721,7 @@
           "works": [
             {
               "title": "War and Peace",
+              "date": 1869,
               "selection": "Book I-VIII",
               "great_ideas": [
                 "War and Peace",
@@ -5629,6 +5763,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
+              "date": 1890,
               "selection": "ch. XXVIII",
               "great_ideas": [
                 "Desire",
@@ -5673,6 +5808,7 @@
           "works": [
             {
               "title": "Science and Hypothesis",
+              "date": 1902,
               "selection": "ch. 1-3, 6, 9-10",
               "great_ideas": [
                 "Custom and Convention",
@@ -5706,6 +5842,7 @@
           "works": [
             {
               "title": "Scientific Autobiography and Other Papers",
+              "date": 1948,
               "selection": "Scientific Autobiography; The Meaning and Limits of Exact Science",
               "great_ideas": [
                 "Cause",
@@ -5745,6 +5882,7 @@
           "works": [
             {
               "title": "An Introduction to Mathematics",
+              "date": 1911,
               "selection": "ch. 1-6, 10-13",
               "great_ideas": [
                 "Definition",
@@ -5787,6 +5925,7 @@
           "works": [
             {
               "title": "Relativity: The Special and the General Theory",
+              "date": 1916,
               "selection": "Parts I-II",
               "great_ideas": [
                 "Astronomy",
@@ -5832,6 +5971,7 @@
           "works": [
             {
               "title": "A Mathematician's Apology",
+              "date": 1940,
               "great_ideas": [
                 "Mathematics",
                 "Quantity",
@@ -5878,6 +6018,7 @@
           "works": [
             {
               "title": "Genesis",
+              "date": -600,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -5909,6 +6050,7 @@
             },
             {
               "title": "Exodus",
+              "date": -600,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -5940,6 +6082,7 @@
             },
             {
               "title": "Deuteronomy",
+              "date": -620,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -5978,6 +6121,7 @@
           "works": [
             {
               "title": "The Odyssey",
+              "date": -725,
               "great_ideas": [
                 "War and Peace",
                 "Honor",
@@ -6015,6 +6159,7 @@
           "works": [
             {
               "title": "Laws",
+              "date": -347,
               "selection": "Book X",
               "great_ideas": [
                 "Aristocracy",
@@ -6069,6 +6214,7 @@
           "works": [
             {
               "title": "Metaphysics",
+              "date": -335,
               "selection": "Book XII",
               "great_ideas": [
                 "Cause",
@@ -6152,6 +6298,7 @@
           "works": [
             {
               "title": "The Histories",
+              "date": 109,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -6181,6 +6328,7 @@
           "works": [
             {
               "title": "Fifth Ennead",
+              "date": 270,
               "great_ideas": [
                 "Beauty",
                 "Being",
@@ -6228,6 +6376,7 @@
           "works": [
             {
               "title": "The City of God",
+              "date": 413,
               "selection": "Book XV-XVIII",
               "great_ideas": [
                 "Angel",
@@ -6284,6 +6433,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I, QQ 1-13",
               "great_ideas": [
                 "Angel",
@@ -6359,6 +6509,7 @@
           "works": [
             {
               "title": "Institutes of the Christian Religion",
+              "date": 1536,
               "selection": "Book I, ch. 1-8; Book II, ch. 1-6; Book III, ch. 6-10; Book IV, ch. 1",
               "great_ideas": [
                 "Angel",
@@ -6392,6 +6543,7 @@
           "works": [
             {
               "title": "The Word of God and the Word of Man",
+              "date": 1928,
               "selection": "The Strange New World within the Bible; The Word of God as the Task of Theology",
               "great_ideas": [
                 "Angel",
@@ -6425,6 +6577,7 @@
           "works": [
             {
               "title": "The Divine Comedy",
+              "date": 1308,
               "selection": "Purgatorio",
               "great_ideas": [
                 "Angel",
@@ -6476,6 +6629,7 @@
           "works": [
             {
               "title": "The Comedy of Errors",
+              "date": 1594,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -6504,6 +6658,7 @@
             },
             {
               "title": "The Taming of the Shrew",
+              "date": 1593,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -6532,6 +6687,7 @@
             },
             {
               "title": "As You Like It",
+              "date": 1599,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -6560,6 +6716,7 @@
             },
             {
               "title": "Twelfth Night",
+              "date": 1601,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -6595,6 +6752,7 @@
           "works": [
             {
               "title": "Ethics",
+              "date": 1675,
               "selection": "Part I",
               "great_ideas": [
                 "Being",
@@ -6643,6 +6801,7 @@
           "works": [
             {
               "title": "Samson Agonistes",
+              "date": 1671,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -6672,6 +6831,7 @@
           "works": [
             {
               "title": "The Provincial Letters",
+              "date": 1656,
               "great_ideas": [
                 "Definition",
                 "Logic",
@@ -6710,6 +6870,7 @@
           "works": [
             {
               "title": "An Essay Concerning Human Understanding",
+              "date": 1689,
               "selection": "Book IV",
               "great_ideas": [
                 "Citizen",
@@ -6755,6 +6916,7 @@
           "works": [
             {
               "title": "The Decline and Fall of the Roman Empire",
+              "date": 1776,
               "selection": "ch. 1-5; General Observations on the Fall of the Roman Empire in the West",
               "great_ideas": [
                 "Man",
@@ -6785,6 +6947,7 @@
           "works": [
             {
               "title": "Critique of Pure Reason",
+              "date": 1781,
               "selection": "Transcendental Dialectic",
               "great_ideas": [
                 "Dialectic",
@@ -6853,6 +7016,7 @@
           "works": [
             {
               "title": "The Philosophy of History",
+              "date": 1831,
               "selection": "Introduction",
               "great_ideas": [
                 "Change",
@@ -6892,6 +7056,7 @@
           "works": [
             {
               "title": "War and Peace",
+              "date": 1869,
               "selection": "Book IX-XV; Epilogues",
               "great_ideas": [
                 "War and Peace",
@@ -6933,6 +7098,7 @@
           "works": [
             {
               "title": "Fear and Trembling",
+              "date": 1843,
               "selection": "Preface; Exordium; Problema I-III; Epilogue",
               "great_ideas": [
                 "Man",
@@ -6963,6 +7129,7 @@
           "works": [
             {
               "title": "Beyond Good and Evil",
+              "date": 1886,
               "selection": "Preface; Parts 1, 3, 6, 9",
               "great_ideas": [
                 "Good and Evil",
@@ -7002,6 +7169,7 @@
           "works": [
             {
               "title": "What Is Metaphysics?",
+              "date": 1929,
               "great_ideas": [
                 "Being",
                 "Metaphysics",
@@ -7042,6 +7210,7 @@
           "works": [
             {
               "title": "Philosophical Investigations",
+              "date": 1953,
               "selection": "Preface and §§1-133, 243-315",
               "great_ideas": [
                 "Definition",
@@ -7092,6 +7261,7 @@
           "works": [
             {
               "title": "Job",
+              "date": -500,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -7123,6 +7293,7 @@
             },
             {
               "title": "Isaiah",
+              "date": -740,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -7154,6 +7325,7 @@
             },
             {
               "title": "Amos",
+              "date": -750,
               "great_ideas": [
                 "God",
                 "Religion",
@@ -7189,6 +7361,7 @@
           "works": [
             {
               "title": "Symposium",
+              "date": -385,
               "great_ideas": [
                 "Art",
                 "Beauty",
@@ -7237,6 +7410,7 @@
             },
             {
               "title": "Philebus",
+              "date": -360,
               "great_ideas": [
                 "Beauty",
                 "Form",
@@ -7293,6 +7467,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
+              "date": -350,
               "selection": "Book VIII-X",
               "great_ideas": [
                 "Art",
@@ -7352,6 +7527,7 @@
           "works": [
             {
               "title": "Measurement of a Circle",
+              "date": -250,
               "great_ideas": [
                 "Cause",
                 "Infinity",
@@ -7386,6 +7562,7 @@
             },
             {
               "title": "The Equilibrium of Planes, Book I",
+              "date": -250,
               "great_ideas": [
                 "Cause",
                 "Mathematics",
@@ -7420,6 +7597,7 @@
             },
             {
               "title": "The Sand-Reckoner",
+              "date": -250,
               "great_ideas": [
                 "Astronomy",
                 "Cause",
@@ -7457,6 +7635,7 @@
             },
             {
               "title": "On Floating Bodies, Book I",
+              "date": -250,
               "great_ideas": [
                 "Cause",
                 "Mathematics",
@@ -7498,6 +7677,7 @@
           "works": [
             {
               "title": "Discourses",
+              "date": 108,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -7527,6 +7707,7 @@
           "works": [
             {
               "title": "First Ennead",
+              "date": 270,
               "great_ideas": [
                 "Beauty",
                 "Being",
@@ -7574,6 +7755,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I-II, QQ 1-5",
               "great_ideas": [
                 "Angel",
@@ -7649,6 +7831,7 @@
           "works": [
             {
               "title": "The Divine Comedy",
+              "date": 1308,
               "selection": "Paradiso",
               "great_ideas": [
                 "Angel",
@@ -7700,6 +7883,7 @@
           "works": [
             {
               "title": "Gargantua and Pantagruel",
+              "date": 1532,
               "selection": "Book III-IV",
               "great_ideas": [
                 "Custom and Convention",
@@ -7738,6 +7922,7 @@
           "works": [
             {
               "title": "Julius Caesar",
+              "date": 1599,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -7769,6 +7954,7 @@
             },
             {
               "title": "Antony and Cleopatra",
+              "date": 1607,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -7800,6 +7986,7 @@
             },
             {
               "title": "Coriolanus",
+              "date": 1608,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -7838,6 +8025,7 @@
           "works": [
             {
               "title": "Two New Sciences",
+              "date": 1638,
               "selection": "First Day",
               "great_ideas": [
                 "Astronomy",
@@ -7888,6 +8076,7 @@
           "works": [
             {
               "title": "Ethics",
+              "date": 1675,
               "selection": "Part IV-V",
               "great_ideas": [
                 "Being",
@@ -7936,6 +8125,7 @@
           "works": [
             {
               "title": "Mathematical Principles of Natural Philosophy",
+              "date": 1687,
               "selection": "Book III, Rules",
               "great_ideas": [
                 "Astronomy",
@@ -7982,6 +8172,7 @@
             },
             {
               "title": "Opticks",
+              "date": 1704,
               "selection": "Book I, Part I; Book III, Queries",
               "great_ideas": [
                 "Science",
@@ -8020,6 +8211,7 @@
           "works": [
             {
               "title": "Treatise on Light",
+              "date": 1690,
               "great_ideas": [
                 "Cause",
                 "Mathematics",
@@ -8058,6 +8250,7 @@
           "works": [
             {
               "title": "The Expanding Universe",
+              "date": 1933,
               "selection": "ch. 1-5, 8-9",
               "great_ideas": [
                 "Astronomy",
@@ -8100,6 +8293,7 @@
           "works": [
             {
               "title": "Atomic Theory and the Description of Nature",
+              "date": 1934,
               "selection": "Title essay and Light and Life",
               "great_ideas": [
                 "Cause",
@@ -8132,6 +8326,7 @@
             },
             {
               "title": "Discussion with Einstein on Epistemological Problems in Atomic Physics",
+              "date": 1949,
               "great_ideas": [
                 "Cause",
                 "Hypothesis",
@@ -8175,6 +8370,7 @@
           "works": [
             {
               "title": "Physics and Philosophy",
+              "date": 1958,
               "selection": "ch. 1-5, 10",
               "great_ideas": [
                 "Cause",
@@ -8216,6 +8412,7 @@
           "works": [
             {
               "title": "What Is Life?",
+              "date": 1944,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -8245,6 +8442,7 @@
           "works": [
             {
               "title": "Critique of Practical Reason",
+              "date": 1788,
               "great_ideas": [
                 "Duty",
                 "Judgment",
@@ -8276,6 +8474,7 @@
             },
             {
               "title": "Critique of Judgment",
+              "date": 1790,
               "selection": "Critique of Aesthetic Judgment",
               "great_ideas": [
                 "Art",
@@ -8326,6 +8525,7 @@
           "works": [
             {
               "title": "Utilitarianism",
+              "date": 1863,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -8360,6 +8560,7 @@
           "works": [
             {
               "title": "Thesmophoriazusae",
+              "date": -411,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -8390,6 +8591,7 @@
             },
             {
               "title": "Ecclesiazusae",
+              "date": -391,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -8420,6 +8622,7 @@
             },
             {
               "title": "Plutus",
+              "date": -388,
               "great_ideas": [
                 "Custom and Convention",
                 "Rhetoric",
@@ -8457,6 +8660,7 @@
           "works": [
             {
               "title": "Gorgias",
+              "date": -380,
               "great_ideas": [
                 "Art",
                 "Dialectic",
@@ -8509,6 +8713,7 @@
           "works": [
             {
               "title": "Nicomachean Ethics",
+              "date": -350,
               "selection": "Book V",
               "great_ideas": [
                 "Art",
@@ -8568,6 +8773,7 @@
           "works": [
             {
               "title": "Rhetoric",
+              "date": -335,
               "selection": "Book I through Book II, ch. 1; Book II, ch. 20 through Book III, ch. 1; Book III, ch. 13-19",
               "great_ideas": [
                 "Art",
@@ -8619,6 +8825,7 @@
           "works": [
             {
               "title": "On Christian Doctrine",
+              "date": 396,
               "great_ideas": [
                 "Angel",
                 "Art",
@@ -8660,6 +8867,7 @@
           "works": [
             {
               "title": "Leviathan",
+              "date": 1651,
               "selection": "Part II",
               "great_ideas": [
                 "Aristocracy",
@@ -8708,6 +8916,7 @@
           "works": [
             {
               "title": "Othello",
+              "date": 1603,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -8739,6 +8948,7 @@
             },
             {
               "title": "King Lear",
+              "date": 1606,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -8777,6 +8987,7 @@
           "works": [
             {
               "title": "The Advancement of Learning",
+              "date": 1605,
               "selection": "Book I through Book II, ch. 11",
               "great_ideas": [
                 "Art",
@@ -8825,6 +9036,7 @@
           "works": [
             {
               "title": "Meditations on First Philosophy",
+              "date": 1641,
               "great_ideas": [
                 "Idea",
                 "Knowledge",
@@ -8875,6 +9087,7 @@
           "works": [
             {
               "title": "Ethics",
+              "date": 1675,
               "selection": "Part III",
               "great_ideas": [
                 "Being",
@@ -8923,6 +9136,7 @@
           "works": [
             {
               "title": "A Letter Concerning Toleration",
+              "date": 1689,
               "great_ideas": [
                 "Government",
                 "Law",
@@ -8958,6 +9172,7 @@
           "works": [
             {
               "title": "Tristram Shandy",
+              "date": 1759,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -8987,6 +9202,7 @@
           "works": [
             {
               "title": "Discourse on Political Economy",
+              "date": 1755,
               "great_ideas": [
                 "Government",
                 "Law",
@@ -9022,6 +9238,7 @@
           "works": [
             {
               "title": "The Wealth of Nations",
+              "date": 1776,
               "selection": "Book II",
               "great_ideas": [
                 "Labor",
@@ -9060,6 +9277,7 @@
           "works": [
             {
               "title": "The Life of Samuel Johnson",
+              "date": 1791,
               "selection": "Core excerpts from the ten-year plan",
               "great_ideas": [
                 "Man",
@@ -9090,6 +9308,7 @@
           "works": [
             {
               "title": "Capital",
+              "date": 1867,
               "selection": "Prefaces; Part I-II",
               "great_ideas": [
                 "Dialectic",
@@ -9137,6 +9356,7 @@
           "works": [
             {
               "title": "Faust",
+              "date": 1808,
               "selection": "Part I",
               "great_ideas": [
                 "Man",
@@ -9167,6 +9387,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
+              "date": 1890,
               "selection": "ch. VIII-X",
               "great_ideas": [
                 "Desire",
@@ -9211,6 +9432,7 @@
           "works": [
             {
               "title": "Genetics and the Origin of Species",
+              "date": 1937,
               "selection": "ch. 1, 2, 7, 10",
               "great_ideas": [
                 "Evolution",
@@ -9249,6 +9471,7 @@
           "works": [
             {
               "title": "The Nature of Life",
+              "date": 1961,
               "selection": "ch. 1-4, 8",
               "great_ideas": [
                 "Evolution",
@@ -9285,6 +9508,7 @@
           "works": [
             {
               "title": "The Beast in the Jungle",
+              "date": 1903,
               "great_ideas": [
                 "Love",
                 "Judgment",
@@ -9320,6 +9544,7 @@
           "works": [
             {
               "title": "Heart of Darkness",
+              "date": 1899,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -9349,6 +9574,7 @@
           "works": [
             {
               "title": "Uncle Vanya",
+              "date": 1897,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -9378,6 +9604,7 @@
           "works": [
             {
               "title": "Six Characters in Search of an Author",
+              "date": 1921,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -9412,6 +9639,7 @@
           "works": [
             {
               "title": "Sophist",
+              "date": -360,
               "great_ideas": [
                 "Being",
                 "Change",
@@ -9482,6 +9710,7 @@
           "works": [
             {
               "title": "The History of the Peloponnesian War",
+              "date": -411,
               "selection": "Book VII-VIII",
               "great_ideas": [
                 "War and Peace",
@@ -9518,6 +9747,7 @@
           "works": [
             {
               "title": "Politics",
+              "date": -350,
               "selection": "Book VII-VIII",
               "great_ideas": [
                 "Aristocracy",
@@ -9577,6 +9807,7 @@
           "works": [
             {
               "title": "On Conic Sections",
+              "date": -200,
               "selection": "Book I, Prop. 1-15; Book III, Prop. 42-55",
               "great_ideas": [
                 "Definition",
@@ -9619,6 +9850,7 @@
           "works": [
             {
               "title": "The Gospel According to Saint John",
+              "date": 90,
               "selection": "John 1-21",
               "great_ideas": [
                 "Angel",
@@ -9651,6 +9883,7 @@
             },
             {
               "title": "Romans",
+              "date": 57,
               "great_ideas": [
                 "God",
                 "Religion",
@@ -9679,6 +9912,7 @@
             },
             {
               "title": "First Corinthians",
+              "date": 54,
               "great_ideas": [
                 "Angel",
                 "God",
@@ -9717,6 +9951,7 @@
           "works": [
             {
               "title": "The City of God",
+              "date": 413,
               "selection": "Book V, XIX",
               "great_ideas": [
                 "Angel",
@@ -9773,6 +10008,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part II-II, QQ 1-7",
               "great_ideas": [
                 "Angel",
@@ -9848,6 +10084,7 @@
           "works": [
             {
               "title": "On the Loadstone and Magnetic Bodies",
+              "date": 1600,
               "great_ideas": [
                 "Science",
                 "Mathematics",
@@ -9883,6 +10120,7 @@
           "works": [
             {
               "title": "Rules for the Direction of the Mind",
+              "date": 1628,
               "great_ideas": [
                 "Idea",
                 "Knowledge",
@@ -9917,6 +10155,7 @@
             },
             {
               "title": "Geometry",
+              "date": 1637,
               "great_ideas": [
                 "Knowledge",
                 "Mathematics",
@@ -9955,6 +10194,7 @@
           "works": [
             {
               "title": "The Great Experiment Concerning the Equilibrium of Fluids",
+              "date": 1648,
               "great_ideas": [
                 "Definition",
                 "Mathematics",
@@ -9986,6 +10226,7 @@
             },
             {
               "title": "On Geometrical Demonstration",
+              "date": 1657,
               "great_ideas": [
                 "Definition",
                 "Logic",
@@ -10027,6 +10268,7 @@
           "works": [
             {
               "title": "Tom Jones",
+              "date": 1749,
               "great_ideas": [
                 "Custom and Convention",
                 "Family",
@@ -10062,6 +10304,7 @@
           "works": [
             {
               "title": "The Spirit of Laws",
+              "date": 1748,
               "selection": "Book I-V, VIII, XI-XII",
               "great_ideas": [
                 "Aristocracy",
@@ -10110,6 +10353,7 @@
           "works": [
             {
               "title": "Analytical Theory of Heat",
+              "date": 1822,
               "selection": "Preliminary Discourse; ch. 1-2",
               "great_ideas": [
                 "Science",
@@ -10146,6 +10390,7 @@
           "works": [
             {
               "title": "Experimental Researches in Electricity",
+              "date": 1831,
               "selection": "Series I-II; A Speculation Touching Electric Conduction and the Nature of Matter",
               "great_ideas": [
                 "Science",
@@ -10182,6 +10427,7 @@
           "works": [
             {
               "title": "Philosophy of Right",
+              "date": 1820,
               "selection": "Part III",
               "great_ideas": [
                 "Art",
@@ -10221,6 +10467,7 @@
           "works": [
             {
               "title": "Capital",
+              "date": 1867,
               "selection": "Part III-IV",
               "great_ideas": [
                 "Dialectic",
@@ -10268,6 +10515,7 @@
           "works": [
             {
               "title": "Civilization and Its Discontents",
+              "date": 1930,
               "great_ideas": [
                 "Mind",
                 "Memory and Imagination",
@@ -10305,6 +10553,7 @@
           "works": [
             {
               "title": "Swann in Love",
+              "date": 1913,
               "great_ideas": [
                 "Love",
                 "Judgment",
@@ -10340,6 +10589,7 @@
           "works": [
             {
               "title": "A Lost Lady",
+              "date": 1923,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10369,6 +10619,7 @@
           "works": [
             {
               "title": "Death in Venice",
+              "date": 1912,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10398,6 +10649,7 @@
           "works": [
             {
               "title": "A Portrait of the Artist as a Young Man",
+              "date": 1916,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10427,6 +10679,7 @@
           "works": [
             {
               "title": "To the Lighthouse",
+              "date": 1927,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10456,6 +10709,7 @@
           "works": [
             {
               "title": "The Metamorphosis",
+              "date": 1915,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10485,6 +10739,7 @@
           "works": [
             {
               "title": "The Prussian Officer",
+              "date": 1914,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10519,6 +10774,7 @@
           "works": [
             {
               "title": "Ajax",
+              "date": -450,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -10549,6 +10805,7 @@
             },
             {
               "title": "Electra",
+              "date": -409,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -10586,6 +10843,7 @@
           "works": [
             {
               "title": "Timaeus",
+              "date": -360,
               "great_ideas": [
                 "Astronomy",
                 "Change",
@@ -10662,6 +10920,7 @@
           "works": [
             {
               "title": "On the Parts of Animals",
+              "date": -350,
               "selection": "Book I, ch. 1 through Book II, ch. 1",
               "great_ideas": [
                 "Cause",
@@ -10700,6 +10959,7 @@
             },
             {
               "title": "On the Generation of Animals",
+              "date": -350,
               "selection": "Book I, ch. 1, 17-18, 20-23",
               "great_ideas": [
                 "Cause",
@@ -10742,6 +11002,7 @@
           "works": [
             {
               "title": "On the Nature of Things",
+              "date": -55,
               "selection": "Book V-VI",
               "great_ideas": [
                 "Change",
@@ -10781,6 +11042,7 @@
           "works": [
             {
               "title": "Eclogues",
+              "date": -37,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10803,6 +11065,7 @@
             },
             {
               "title": "Georgics",
+              "date": -29,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -10832,6 +11095,7 @@
           "works": [
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I, QQ 65-74",
               "great_ideas": [
                 "Angel",
@@ -10900,6 +11164,7 @@
             },
             {
               "title": "Summa Theologica",
+              "date": 1265,
               "selection": "Part I, QQ 90-102",
               "great_ideas": [
                 "Angel",
@@ -10975,6 +11240,7 @@
           "works": [
             {
               "title": "The Canterbury Tales",
+              "date": 1387,
               "selection": "Prologue; Knight's Tale; Miller's Prologue and Tale; Reeve's Prologue and Tale; Wife of Bath's Prologue and Tale; Friar's Prologue and Tale; Summoner's Prologue and Tale; Pardoner's Prologue and Tale",
               "great_ideas": [
                 "Man",
@@ -11005,6 +11271,7 @@
           "works": [
             {
               "title": "Richard II",
+              "date": 1595,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -11036,6 +11303,7 @@
             },
             {
               "title": "Henry IV, Part 1",
+              "date": 1597,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -11067,6 +11335,7 @@
             },
             {
               "title": "Henry IV, Part 2",
+              "date": 1597,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -11098,6 +11367,7 @@
             },
             {
               "title": "Henry V",
+              "date": 1599,
               "great_ideas": [
                 "Man",
                 "Will",
@@ -11136,6 +11406,7 @@
           "works": [
             {
               "title": "On the Generation of Animals",
+              "date": 1651,
               "selection": "Introduction through Exercise 62",
               "great_ideas": [
                 "Medicine",
@@ -11172,6 +11443,7 @@
           "works": [
             {
               "title": "Don Quixote",
+              "date": 1605,
               "selection": "Part II",
               "great_ideas": [
                 "Man",
@@ -11202,6 +11474,7 @@
           "works": [
             {
               "title": "Critique of Judgment",
+              "date": 1790,
               "selection": "Critique of Teleological Judgment",
               "great_ideas": [
                 "Art",
@@ -11252,6 +11525,7 @@
           "works": [
             {
               "title": "The Life of Samuel Johnson",
+              "date": 1791,
               "selection": "Later assigned excerpts from the ten-year plan",
               "great_ideas": [
                 "Man",
@@ -11282,6 +11556,7 @@
           "works": [
             {
               "title": "Faust",
+              "date": 1808,
               "selection": "Part II",
               "great_ideas": [
                 "Man",
@@ -11312,6 +11587,7 @@
           "works": [
             {
               "title": "The Descent of Man",
+              "date": 1871,
               "selection": "Part I; Part III, ch. 21",
               "great_ideas": [
                 "Animal",
@@ -11356,6 +11632,7 @@
           "works": [
             {
               "title": "Capital",
+              "date": 1867,
               "selection": "Part VII-VIII",
               "great_ideas": [
                 "Dialectic",
@@ -11403,6 +11680,7 @@
           "works": [
             {
               "title": "The Principles of Psychology",
+              "date": 1890,
               "selection": "ch. I, V-VII",
               "great_ideas": [
                 "Desire",
@@ -11447,6 +11725,7 @@
           "works": [
             {
               "title": "A General Introduction to Psycho-Analysis",
+              "date": 1917,
               "great_ideas": [
                 "Mind",
                 "Memory and Imagination",
@@ -11484,6 +11763,7 @@
           "works": [
             {
               "title": "The Waste Land",
+              "date": 1922,
               "great_ideas": [
                 "Custom and Convention",
                 "Family",
@@ -11522,6 +11802,7 @@
           "works": [
             {
               "title": "Saint Joan",
+              "date": 1923,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -11551,6 +11832,7 @@
           "works": [
             {
               "title": "Mourning Becomes Electra",
+              "date": 1931,
               "great_ideas": [
                 "Fate",
                 "Justice",
@@ -11586,6 +11868,7 @@
           "works": [
             {
               "title": "The Great Gatsby",
+              "date": 1925,
               "great_ideas": [
                 "Wealth",
                 "Desire",
@@ -11623,6 +11906,7 @@
           "works": [
             {
               "title": "A Rose for Emily",
+              "date": 1930,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -11652,6 +11936,7 @@
           "works": [
             {
               "title": "The Short Happy Life of Francis Macomber",
+              "date": 1936,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -11681,6 +11966,7 @@
           "works": [
             {
               "title": "Mother Courage and Her Children",
+              "date": 1939,
               "great_ideas": [
                 "Man",
                 "Custom and Convention",
@@ -11710,6 +11996,7 @@
           "works": [
             {
               "title": "Waiting for Godot",
+              "date": 1952,
               "great_ideas": [
                 "Time",
                 "Being",

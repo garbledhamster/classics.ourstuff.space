@@ -50,6 +50,7 @@ function archiveSelectedNotes(){
 function filteredNotes(){
   const q = normalizeText(state.notesUI.search);
   const tag = state.notesUI.tag;
+  const noteTypeFilter = state.notesUI.noteTypeFilter;
   const showArchived = state.notesUI.showArchived;
 
   let notes = state.notes.slice();
@@ -64,6 +65,9 @@ function filteredNotes(){
   if (tag !== "all"){
     notes = notes.filter(n => n.book_tag === tag);
   }
+  if (noteTypeFilter !== "all"){
+    notes = notes.filter(n => (n.note_type || DEFAULT_NOTE_TYPE) === noteTypeFilter);
+  }
   if (q){
     notes = notes.filter(n => {
       const hay = normalizeText(`${n.title} ${n.body} ${n.book_tag} ${n.author} ${n.selection}`);
@@ -77,6 +81,9 @@ function filteredNotes(){
 function renderNotesList(){
   const tagSel = $("#noteTagFilter");
   if (tagSel && tagSel.value !== state.notesUI.tag) tagSel.value = state.notesUI.tag;
+
+  const typeFilterSel = $("#noteTypeFilter");
+  if (typeFilterSel && typeFilterSel.value !== state.notesUI.noteTypeFilter) typeFilterSel.value = state.notesUI.noteTypeFilter;
 
   // Update toggle button appearance
   const toggleBtn = $("#toggleArchivedBtn");
@@ -163,11 +170,13 @@ function noteItemHtml(n){
   const isSelected = state.notesUI.selectedIds.has(n.id);
   const selectedCls = isSelected ? " noteSelected" : "";
   const checked = isSelected ? " checked" : "";
+  const noteTypeLabel = NOTE_TYPE_OPTIONS.find(o => o.value === (n.note_type || DEFAULT_NOTE_TYPE))?.label || "Note";
 
   const pills = [
     `<span class="pill">${book}</span>`,
     `<span class="pill">${year}</span>`,
-    n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : ""
+    n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : "",
+    `<span class="pill">${escapeHtml(noteTypeLabel)}</span>`
   ].filter(Boolean).join("");
 
   return `
@@ -207,6 +216,7 @@ function startNewNote(ctx){
   $("#editAuthor").value = ctx.author || "";
   $("#editSelection").value = ctx.selection || "";
   $("#editBody").value = "";
+  $("#editNoteType").value = DEFAULT_NOTE_TYPE;
 
   $("#editMeta").textContent = "New note — not saved yet.";
   showEditor();
@@ -225,6 +235,7 @@ function startEditNote(id){
   $("#editAuthor").value = n.author || "";
   $("#editSelection").value = n.selection || "";
   $("#editBody").value = n.body || "";
+  $("#editNoteType").value = n.note_type || DEFAULT_NOTE_TYPE;
 
   const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
   $("#editMeta").textContent = meta;
@@ -247,6 +258,7 @@ function saveEditorNote(){
   const author = $("#editAuthor").value.trim();
   const selection = $("#editSelection").value.trim();
   const body = $("#editBody").value;
+  const note_type = $("#editNoteType").value || DEFAULT_NOTE_TYPE;
 
   const existingIdx = state.notes.findIndex(n => n.id === id);
 
@@ -259,6 +271,7 @@ function saveEditorNote(){
       author,
       selection,
       body,
+      note_type,
       created_at: nowIso(),
       updated_at: nowIso()
     };
@@ -271,6 +284,7 @@ function saveEditorNote(){
     n.author = author;
     n.selection = selection;
     n.body = body;
+    n.note_type = note_type;
     n.updated_at = nowIso();
   }
 
@@ -359,6 +373,7 @@ async function importNotesFile(e){
         author: String(n.author || "").trim(),
         selection: String(n.selection || "").trim(),
         body: String(n.body || ""),
+        note_type: NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? n.note_type : DEFAULT_NOTE_TYPE,
         created_at: n.created_at ? String(n.created_at) : nowIso(),
         updated_at: n.updated_at ? String(n.updated_at) : nowIso()
       });

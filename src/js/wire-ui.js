@@ -363,6 +363,11 @@ function wireUI(){
   $("#noteTagFilter").addEventListener("change", (e)=>{ state.notesUI.tag = e.target.value; renderNotesList(); });
   $("#noteTypeFilter").addEventListener("change", (e)=>{ state.notesUI.noteTypeFilter = e.target.value; renderNotesList(); });
 
+  // Populate note type options from NOTE_TYPE_OPTIONS constant
+  const noteTypeOpts = NOTE_TYPE_OPTIONS.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+  $("#noteTypeFilter").insertAdjacentHTML("beforeend", noteTypeOpts);
+  $("#editNoteType").innerHTML = noteTypeOpts;
+
   $("#newNoteBtn").addEventListener("click", () => startNewNote({}));
   $("#exportNotesBtn").addEventListener("click", exportNotes);
   $("#importNotesBtn").addEventListener("click", ()=> $("#importFile").click());

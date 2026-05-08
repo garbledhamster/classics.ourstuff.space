@@ -13,6 +13,15 @@ const LS_TIMER_SETTINGS    = "greatworks.reading.timerSettings.v1";
 const LS_TIMER_STATE       = "greatworks.reading.timerState.v1";
 const DEFAULT_CARD_STATUS = "not_started";
 const DEFAULT_CARD_TASK = "no_task";
+const DEFAULT_NOTE_TYPE = "note";
+const NOTE_TYPE_OPTIONS = [
+  { value: "note",       label: "Note" },
+  { value: "quote",      label: "Quote" },
+  { value: "excerpt",    label: "Excerpt" },
+  { value: "reflection", label: "Reflection" },
+  { value: "essay",      label: "Essay" },
+  { value: "great_idea", label: "Great Idea" }
+];
 const CARD_STATUS_OPTIONS = [
   { value: DEFAULT_CARD_STATUS, label: "Not Started" },
   { value: "in_progress", label: "In Progress" },

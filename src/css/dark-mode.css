@@ -28,9 +28,11 @@ html.dark .drawer,
 html.dark .noteTools,
 html.dark .noteList,
 html.dark .editor,
+html.dark .noteTypeGroup label,
 html.dark .codebox,
 html.dark .ytGoalDrawer,
 html.dark .error{ background:#1a1a1a; color:var(--ink); }
+html.dark .noteTypeGroup label:has(input:checked){ background:#fff; color:#000; }
 html.dark .libActions,
 /* biome-ignore lint/style/noDescendingSpecificity: dark-mode override of base class intentionally lower specificity */
 html.dark .workActions{ background:#222; }

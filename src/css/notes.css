@@ -129,6 +129,39 @@ html.dark .noteSelectMode .noteItem:hover{ background:#2a2a2a; }
 }
 .textarea:focus{ box-shadow:0 0 0 3px #00000022; }
 
+.noteTypeGroup{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  min-width:0;
+}
+.noteTypeGroup label{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:var(--border);
+  border-radius:var(--radius);
+  padding:6px 10px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:0.05em;
+  background:#fff;
+  user-select:none;
+  white-space:nowrap;
+}
+.noteTypeGroup label:has(input:checked){
+  background:#000;
+  color:#fff;
+}
+.noteTypeGroup input[type="checkbox"]{
+  width:14px;
+  height:14px;
+  accent-color:#000;
+  flex-shrink:0;
+}
+
 .help{
   color:var(--muted);
   font-size:12px;

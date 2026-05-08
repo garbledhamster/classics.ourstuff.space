@@ -52,6 +52,7 @@ function filteredNotes(){
   const tag = state.notesUI.tag;
   const noteTypeFilter = state.notesUI.noteTypeFilter;
   const showArchived = state.notesUI.showArchived;
+  const bookclubFilter = state.notesUI.bookclubFilter;
 
   let notes = state.notes.slice();
 
@@ -74,7 +75,29 @@ function filteredNotes(){
       return hay.includes(q);
     });
   }
-  notes.sort((a,b)=> (b.updated_at || "").localeCompare(a.updated_at || ""));
+
+  if (bookclubFilter) {
+    // Build a map of title -> chronological sort key from flatWorks
+    const orderMap = new Map();
+    for (const fw of state.flatWorks) {
+      const title = fw.work.title;
+      const key = fw.year * 10000 + fw.order;
+      if (!orderMap.has(title) || key < orderMap.get(title)) {
+        orderMap.set(title, key);
+      }
+    }
+    // Hide notes whose book_tag is not in the bookclub
+    notes = notes.filter(n => orderMap.has(n.book_tag));
+    // Sort by bookclub chronological order
+    notes.sort((a, b) => {
+      const ka = orderMap.get(a.book_tag) ?? Infinity;
+      const kb = orderMap.get(b.book_tag) ?? Infinity;
+      return ka - kb;
+    });
+  } else {
+    notes.sort((a,b)=> (b.updated_at || "").localeCompare(a.updated_at || ""));
+  }
+
   return notes;
 }
 
@@ -112,6 +135,13 @@ function renderNotesList(){
   }
   if (archiveSelBtnText) {
     archiveSelBtnText.textContent = state.notesUI.showArchived ? "Unarchive Selected" : "Archive Selected";
+  }
+
+  // Update bookclub filter button appearance
+  const bookclubBtn = $("#filterBookclubBtn");
+  if (bookclubBtn) {
+    bookclubBtn.classList.toggle("tabOn", state.notesUI.bookclubFilter);
+    bookclubBtn.setAttribute("aria-pressed", String(state.notesUI.bookclubFilter));
   }
 
   const list = $("#noteList");

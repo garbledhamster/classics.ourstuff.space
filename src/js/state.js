@@ -40,7 +40,7 @@ const state = {
   },
   ui: { tableHiddenCols: loadTableHiddenCols() },
   drawer: { open:false, which:null }, // notes
-  notesUI: { search:"", tag:"all", noteTypeFilter:"all", editingId:null, showArchived: false, selectMode: false, selectedIds: new Set() },
+  notesUI: { search:"", tag:"all", noteTypeFilter:"all", editingId:null, showArchived: false, selectMode: false, selectedIds: new Set(), bookclubFilter: false },
   tagsUniverse: [], // note tags (titles)
   greatIdeasUniverse: [],
   commentsUI: {

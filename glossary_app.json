@@ -1,0 +1,831 @@
+{
+  "sourcePath": "glossary_app.json",
+  "generatedAt": "2026-05-08",
+  "description": "App glossary: all 103 Great Ideas from Adler's Syntopicon as standalone entries, suitable for browsing, filtering, and deep-linking.",
+  "entries": [
+    {
+      "letter": "A",
+      "term": "Angel",
+      "qualifier": "Great Idea",
+      "entry": "Angel (Great Idea): Spiritual beings conceived as intermediaries between God and humanity, appearing across theological and philosophical traditions. Debates concern their nature, hierarchy, will, and relation to the divine intellect.",
+      "see": "God; Soul; Theology; Immortality",
+      "seeAlso": "Religion; Mind; Being; Form"
+    },
+    {
+      "letter": "A",
+      "term": "Animal",
+      "qualifier": "Great Idea",
+      "entry": "Animal (Great Idea): Living beings capable of sensation and voluntary motion. The study of animals encompasses biology, psychology, ethics, and the question of what distinguishes them from humans.",
+      "see": "Life and Death; Man; Soul; Nature",
+      "seeAlso": "Evolution; Sense; Desire; Science"
+    },
+    {
+      "letter": "A",
+      "term": "Aristocracy",
+      "qualifier": "Great Idea",
+      "entry": "Aristocracy (Great Idea): Rule by the best or most excellent citizens. Distinguished from oligarchy (rule by the wealthy few) and examined alongside democracy and monarchy as a fundamental form of government.",
+      "see": "Government; Democracy; Oligarchy; Virtue and Vice",
+      "seeAlso": "Justice; State; Constitution; Education"
+    },
+    {
+      "letter": "A",
+      "term": "Art",
+      "qualifier": "Great Idea",
+      "entry": "Art (Great Idea): Human skill in making — encompassing the fine arts, craft, and techne. Discussions explore the nature of beauty, imitation, inspiration, the role of the artist, and art's relation to truth and morality.",
+      "see": "Beauty; Poetry; Form; Imitation",
+      "seeAlso": "Mind; Pleasure and Pain; Science; Truth"
+    },
+    {
+      "letter": "A",
+      "term": "Astronomy",
+      "qualifier": "Great Idea",
+      "entry": "Astronomy (Great Idea): The science of the heavens — the motions of celestial bodies, the structure of the cosmos, and humanity's place in the universe. From Ptolemy to Copernicus to Newton, it reshapes philosophy and theology.",
+      "see": "Mathematics; Physics; Space; Time",
+      "seeAlso": "World; Change; Mechanics; Science"
+    },
+    {
+      "letter": "B",
+      "term": "Beauty",
+      "qualifier": "Great Idea",
+      "entry": "Beauty (Great Idea): The quality that produces aesthetic pleasure or admiration. Central questions concern whether beauty is objective or subjective, its relation to goodness and truth, and its role in art and nature.",
+      "see": "Art; Good and Evil; Truth; Pleasure and Pain",
+      "seeAlso": "Form; Love; Poetry; Sense"
+    },
+    {
+      "letter": "B",
+      "term": "Being",
+      "qualifier": "Great Idea",
+      "entry": "Being (Great Idea): The most fundamental concept in metaphysics — existence itself. Debates range from the nature of substance and essence to the distinction between existence and essence, and the grounds of all that is.",
+      "see": "Metaphysics; One and Many; Form; Cause",
+      "seeAlso": "God; Nature; Change; Universal and Particular"
+    },
+    {
+      "letter": "C",
+      "term": "Cause",
+      "qualifier": "Great Idea",
+      "entry": "Cause (Great Idea): That by which something comes to be or is understood. Aristotle's four causes — material, formal, efficient, and final — anchor the classical analysis, while modern science focuses on efficient causation.",
+      "see": "Change; Nature; Form; Necessity and Contingency",
+      "seeAlso": "Science; God; Fate; Principle"
+    },
+    {
+      "letter": "C",
+      "term": "Chance",
+      "qualifier": "Great Idea",
+      "entry": "Chance (Great Idea): The occurrence of events without apparent cause or design. Discussions address the relationship between chance, necessity, fate, and free will, and the role of probability in science and human affairs.",
+      "see": "Fate; Necessity and Contingency; Cause; Will",
+      "seeAlso": "Nature; God; Progress; History"
+    },
+    {
+      "letter": "C",
+      "term": "Change",
+      "qualifier": "Great Idea",
+      "entry": "Change (Great Idea): The transition from one state to another — motion, growth, decay, transformation. Among the first problems of philosophy: how can something become what it was not?",
+      "see": "Nature; Cause; Time; Matter",
+      "seeAlso": "Being; Form; Life and Death; Progress"
+    },
+    {
+      "letter": "C",
+      "term": "Citizen",
+      "qualifier": "Great Idea",
+      "entry": "Citizen (Great Idea): A member of a political community who participates in governance. Aristotle's definition — one who shares in ruling and being ruled — opens questions about rights, duties, inclusion, and the nature of the state.",
+      "see": "State; Democracy; Constitution; Government",
+      "seeAlso": "Justice; Liberty; Law; Education"
+    },
+    {
+      "letter": "C",
+      "term": "Constitution",
+      "qualifier": "Great Idea",
+      "entry": "Constitution (Great Idea): The fundamental law or structure of a political community, defining its offices, procedures, and principles. Aristotle classified constitutions; modern thought adds separation of powers and rights.",
+      "see": "Government; Law; Democracy; State",
+      "seeAlso": "Justice; Citizen; Tyranny and Despotism; Revolution"
+    },
+    {
+      "letter": "C",
+      "term": "Courage",
+      "qualifier": "Great Idea",
+      "entry": "Courage (Great Idea): The virtue of facing danger and pain for the sake of the noble. One of the four cardinal virtues, it is examined as the mean between cowardice and recklessness, and explored in war, civic life, and philosophy.",
+      "see": "Virtue and Vice; War and Peace; Fear; Soul",
+      "seeAlso": "Justice; Temperance; Wisdom; Honor"
+    },
+    {
+      "letter": "C",
+      "term": "Custom and Convention",
+      "qualifier": "Great Idea",
+      "entry": "Custom and Convention (Great Idea): The norms, habits, and agreements that govern social life. A central tension in ethics and politics: are morality and law natural or conventional? Sophists and Plato debate this directly.",
+      "see": "Law; Nature; Opinion; Habit",
+      "seeAlso": "Justice; Virtue and Vice; State; Religion"
+    },
+    {
+      "letter": "D",
+      "term": "Definition",
+      "qualifier": "Great Idea",
+      "entry": "Definition (Great Idea): The statement of the essence of a thing in terms of genus and differentia. Central to Socratic inquiry, Aristotle's logic, and all attempts to achieve precision in thought and language.",
+      "see": "Logic; Knowledge; Universal and Particular; Form",
+      "seeAlso": "Science; Reasoning; Dialectic; Language"
+    },
+    {
+      "letter": "D",
+      "term": "Democracy",
+      "qualifier": "Great Idea",
+      "entry": "Democracy (Great Idea): Rule by the many or by all citizens as equals. Praised as freedom's expression and criticized as mob rule, it has been a central concept in political philosophy from Athens to modernity.",
+      "see": "Government; Citizen; Liberty; Constitution",
+      "seeAlso": "Aristocracy; Oligarchy; Tyranny and Despotism; Justice"
+    },
+    {
+      "letter": "D",
+      "term": "Desire",
+      "qualifier": "Great Idea",
+      "entry": "Desire (Great Idea): The motivational force directed toward objects perceived as good. Plato distinguishes rational, spirited, and appetitive desire. Aristotle grounds it in the soul. Freud and modern psychology revisit it profoundly.",
+      "see": "Soul; Pleasure and Pain; Love; Will",
+      "seeAlso": "Good and Evil; Habit; Happiness; Emotion"
+    },
+    {
+      "letter": "D",
+      "term": "Dialectic",
+      "qualifier": "Great Idea",
+      "entry": "Dialectic (Great Idea): The art of argument through question and answer, or through the collision of opposing positions. For Plato, the highest philosophical method; for Hegel and Marx, the engine of history and thought.",
+      "see": "Reasoning; Philosophy; Idea; Logic",
+      "seeAlso": "Opinion; Knowledge; Opposition; Science"
+    },
+    {
+      "letter": "D",
+      "term": "Duty",
+      "qualifier": "Great Idea",
+      "entry": "Duty (Great Idea): Moral obligation — what one is required to do by law, role, or conscience. Kant's ethics grounds all morality in duty (the categorical imperative). Opposed to inclination; examined alongside virtue and rights.",
+      "see": "Virtue and Vice; Law; Justice; Will",
+      "seeAlso": "God; Conscience; Honor; Punishment"
+    },
+    {
+      "letter": "E",
+      "term": "Education",
+      "qualifier": "Great Idea",
+      "entry": "Education (Great Idea): The development of the human person through instruction, habituation, and experience. Questions include the aims of education (knowledge, virtue, citizenship), methods, and who should be educated and by whom.",
+      "see": "Virtue and Vice; State; Knowledge; Habit",
+      "seeAlso": "Democracy; Family; Science; Art"
+    },
+    {
+      "letter": "E",
+      "term": "Element",
+      "qualifier": "Great Idea",
+      "entry": "Element (Great Idea): The basic constituents of matter. Traditionally the four elements (earth, water, fire, air); later atoms; now the periodic table. The search for fundamental building blocks runs from Empedocles to quantum physics.",
+      "see": "Matter; Physics; Change; Nature",
+      "seeAlso": "Cause; Form; Quantity; Mechanics"
+    },
+    {
+      "letter": "E",
+      "term": "Emotion",
+      "qualifier": "Great Idea",
+      "entry": "Emotion (Great Idea): Feeling states that color perception, judgment, and action. Aristotle analyzes passions as tied to pleasure and pain. The Stoics counsel their control; Romantics celebrate them. Modern psychology maps their complexity.",
+      "see": "Pleasure and Pain; Soul; Desire; Habit",
+      "seeAlso": "Love; Fear; Courage; Mind"
+    },
+    {
+      "letter": "E",
+      "term": "Equality",
+      "qualifier": "Great Idea",
+      "entry": "Equality (Great Idea): The principle that persons should be treated as having equal moral worth, rights, or standing. Debates range from formal equality before the law to substantive equality of opportunity and outcome.",
+      "see": "Justice; Democracy; Liberty; Law",
+      "seeAlso": "Slavery; Government; Virtue and Vice; Wealth"
+    },
+    {
+      "letter": "E",
+      "term": "Eternity",
+      "qualifier": "Great Idea",
+      "entry": "Eternity (Great Idea): Existence outside of time, or endless duration through time. Theological and philosophical debates distinguish divine timelessness from everlasting temporal existence, and both from the immortal soul.",
+      "see": "Time; God; Immortality; Being",
+      "seeAlso": "World; Change; Soul; Infinity"
+    },
+    {
+      "letter": "E",
+      "term": "Evolution",
+      "qualifier": "Great Idea",
+      "entry": "Evolution (Great Idea): The gradual development and transformation of species through natural selection and other mechanisms. Darwin's theory fundamentally changed biology, philosophy of nature, theology, and ethics.",
+      "see": "Nature; Change; Life and Death; Animal",
+      "seeAlso": "Science; God; Man; Progress"
+    },
+    {
+      "letter": "E",
+      "term": "Experience",
+      "qualifier": "Great Idea",
+      "entry": "Experience (Great Idea): Knowledge derived from sense perception and practical engagement with the world. Empiricists ground all knowledge in experience; rationalists limit its epistemic role. Also the accumulation of wisdom through living.",
+      "see": "Knowledge; Sense; Memory and Imagination; Science",
+      "seeAlso": "Hypothesis; Induction; Truth; Philosophy"
+    },
+    {
+      "letter": "F",
+      "term": "Family",
+      "qualifier": "Great Idea",
+      "entry": "Family (Great Idea): The fundamental social unit based on kinship, marriage, and parenthood. Aristotle calls it the first natural community. Discussions cover its origin, structure, authority, education of children, and its relation to the state.",
+      "see": "State; Education; Love; Man",
+      "seeAlso": "Woman; Property; Liberty; Custom and Convention"
+    },
+    {
+      "letter": "F",
+      "term": "Fate",
+      "qualifier": "Great Idea",
+      "entry": "Fate (Great Idea): The idea that events in a person's or nation's life are predetermined or subject to divine decree. Explored in Greek tragedy, Stoic philosophy, and theology — always in tension with free will and human responsibility.",
+      "see": "Necessity and Contingency; God; Will; Chance",
+      "seeAlso": "Prophecy; Providence; Liberty; Nature"
+    },
+    {
+      "letter": "F",
+      "term": "Form",
+      "qualifier": "Great Idea",
+      "entry": "Form (Great Idea): The shape, structure, or essence that makes a thing what it is. For Plato, the eternal archetypes; for Aristotle, the actuality of substance. Central to metaphysics, logic, art, and biological theory.",
+      "see": "Matter; Being; Cause; Universal and Particular",
+      "seeAlso": "Art; Beauty; Definition; Change"
+    },
+    {
+      "letter": "G",
+      "term": "God",
+      "qualifier": "Great Idea",
+      "entry": "God (Great Idea): The supreme being, first cause, or ultimate ground of all existence. Among the most contested ideas in the Great Conversation — debated through the classical proofs, mystical experience, the problem of evil, and modern atheism.",
+      "see": "Theology; Religion; Being; Cause",
+      "seeAlso": "Soul; Immortality; Providence; World"
+    },
+    {
+      "letter": "G",
+      "term": "Good and Evil",
+      "qualifier": "Great Idea",
+      "entry": "Good and Evil (Great Idea): The fundamental moral distinction — what promotes flourishing and what harms it. The problem of evil is a touchstone in theology; the nature of the good is the central question of ethics.",
+      "see": "Virtue and Vice; Happiness; Justice; God",
+      "seeAlso": "Truth; Beauty; Will; Punishment"
+    },
+    {
+      "letter": "G",
+      "term": "Government",
+      "qualifier": "Great Idea",
+      "entry": "Government (Great Idea): The institutions and processes by which a political community is ruled and administered. Encompasses the forms of rule, separation of powers, legitimacy, and the relation between governors and governed.",
+      "see": "State; Constitution; Law; Democracy",
+      "seeAlso": "Tyranny and Despotism; Revolution; Citizen; Justice"
+    },
+    {
+      "letter": "H",
+      "term": "Habit",
+      "qualifier": "Great Idea",
+      "entry": "Habit (Great Idea): A stable disposition acquired through repetition that makes action easier and more consistent. For Aristotle, virtue is a habit. Habit shapes character, thought, and society in ways both beneficial and constraining.",
+      "see": "Virtue and Vice; Education; Custom and Convention; Desire",
+      "seeAlso": "Will; Temperance; Knowledge; Soul"
+    },
+    {
+      "letter": "H",
+      "term": "Happiness",
+      "qualifier": "Great Idea",
+      "entry": "Happiness (Great Idea): The ultimate aim of human life — eudaimonia in Aristotle, beatitude in Aquinas, pleasure in Epicurus. The greatest debate in ethics: what constitutes genuine human flourishing, and how is it achieved?",
+      "see": "Good and Evil; Virtue and Vice; Pleasure and Pain; Love",
+      "seeAlso": "God; Soul; Wealth; State"
+    },
+    {
+      "letter": "H",
+      "term": "History",
+      "qualifier": "Great Idea",
+      "entry": "History (Great Idea): The study of the past and the process by which events unfold over time. Questions include whether history has a meaning or direction, the role of individuals and forces, and the nature of historical knowledge.",
+      "see": "Progress; Time; Change; State",
+      "seeAlso": "Fate; Revolution; Science; Memory and Imagination"
+    },
+    {
+      "letter": "H",
+      "term": "Honor",
+      "qualifier": "Great Idea",
+      "entry": "Honor (Great Idea): Public recognition and esteem conferred for excellence or service. In ancient societies a primary motivation; examined by Aristotle as an external good and by Plato in the context of the spirited soul.",
+      "see": "Virtue and Vice; Courage; Justice; Government",
+      "seeAlso": "Pride; Shame; War and Peace; Aristocracy"
+    },
+    {
+      "letter": "H",
+      "term": "Hypothesis",
+      "qualifier": "Great Idea",
+      "entry": "Hypothesis (Great Idea): A provisional assumption or supposition used in reasoning or inquiry. In science, the basis of experimental method; in mathematics, an axiom to be proved or assumed. Central to the logic of discovery.",
+      "see": "Science; Reasoning; Induction; Principle",
+      "seeAlso": "Experience; Mathematics; Knowledge; Truth"
+    },
+    {
+      "letter": "I",
+      "term": "Idea",
+      "qualifier": "Great Idea",
+      "entry": "Idea (Great Idea): A mental content or universal form. For Plato, eternal archetypes known by reason; for Locke and Hume, contents of the mind; for Hegel, the absolute rational structure of reality.",
+      "see": "Form; Knowledge; Mind; Universal and Particular",
+      "seeAlso": "Being; Definition; Dialectic; Truth"
+    },
+    {
+      "letter": "I",
+      "term": "Immortality",
+      "qualifier": "Great Idea",
+      "entry": "Immortality (Great Idea): The continuation of individual existence, especially of the soul, after bodily death. Proofs and denials are offered by Plato, Aristotle, Aquinas, and modern thinkers, touching theology, ethics, and the meaning of life.",
+      "see": "Soul; God; Life and Death; Eternity",
+      "seeAlso": "Religion; Mind; Punishment; Happiness"
+    },
+    {
+      "letter": "I",
+      "term": "Induction",
+      "qualifier": "Great Idea",
+      "entry": "Induction (Great Idea): Reasoning from particular instances to general conclusions. The logical foundation of empirical science. Hume's problem of induction — that we cannot logically justify inductive inference — is a landmark puzzle in epistemology.",
+      "see": "Reasoning; Science; Experience; Knowledge",
+      "seeAlso": "Hypothesis; Logic; Mathematics; Truth"
+    },
+    {
+      "letter": "I",
+      "term": "Infinity",
+      "qualifier": "Great Idea",
+      "entry": "Infinity (Great Idea): That which has no limit or end. Aristotle distinguished potential from actual infinity. Modern mathematics (Cantor) shows infinities come in different sizes. In theology, God is infinite; in physics, infinity poses paradoxes.",
+      "see": "Mathematics; Being; God; Space",
+      "seeAlso": "Time; World; Quantity; Necessity and Contingency"
+    },
+    {
+      "letter": "J",
+      "term": "Judgment",
+      "qualifier": "Great Idea",
+      "entry": "Judgment (Great Idea): The mental act of affirming or denying, comparing or evaluating. In logic, the combination of subject and predicate; in Kant, the faculty connecting concepts and intuitions; in ethics, practical discernment.",
+      "see": "Reasoning; Logic; Knowledge; Truth",
+      "seeAlso": "Opinion; Prudence; Definition; Mind"
+    },
+    {
+      "letter": "J",
+      "term": "Justice",
+      "qualifier": "Great Idea",
+      "entry": "Justice (Great Idea): The virtue of giving each person their due. Plato's Republic revolves around it; Aristotle distinguishes distributive and corrective justice. Spans individual virtue, social arrangement, and divine order.",
+      "see": "Virtue and Vice; Law; Democracy; Good and Evil",
+      "seeAlso": "Equality; Liberty; Punishment; Government"
+    },
+    {
+      "letter": "K",
+      "term": "Knowledge",
+      "qualifier": "Great Idea",
+      "entry": "Knowledge (Great Idea): Justified true belief — or something more. Epistemology asks what we can know, how, and with what certainty. The contrast with opinion, faith, and experience has structured philosophy from the Meno to Kant.",
+      "see": "Truth; Science; Experience; Mind",
+      "seeAlso": "Idea; Sense; Reasoning; Philosophy"
+    },
+    {
+      "letter": "L",
+      "term": "Labor",
+      "qualifier": "Great Idea",
+      "entry": "Labor (Great Idea): Human activity that transforms nature to meet needs and desires. Marx makes it the cornerstone of his theory of history and value. Classical discussions address slavery, leisure, and the dignity of work.",
+      "see": "Wealth; Slavery; Art; State",
+      "seeAlso": "Justice; Liberty; Mechanics; Education"
+    },
+    {
+      "letter": "L",
+      "term": "Language",
+      "qualifier": "Great Idea",
+      "entry": "Language (Great Idea): The system of signs by which humans communicate thought. Questions include the relation between words and things, the origin of language, how meaning arises, and whether thought is possible without language.",
+      "see": "Sign and Symbol; Reasoning; Logic; Truth",
+      "seeAlso": "Poetry; Rhetoric; Mind; Custom and Convention"
+    },
+    {
+      "letter": "L",
+      "term": "Law",
+      "qualifier": "Great Idea",
+      "entry": "Law (Great Idea): The rule or principle governing conduct, whether natural, divine, or human. Debates range from natural law theory (Aquinas) to legal positivism, covering law's authority, justice, and the limits of legal obligation.",
+      "see": "Justice; State; Liberty; Government",
+      "seeAlso": "Custom and Convention; Punishment; Constitution; Tyranny and Despotism"
+    },
+    {
+      "letter": "L",
+      "term": "Liberty",
+      "qualifier": "Great Idea",
+      "entry": "Liberty (Great Idea): Freedom from constraint — whether external coercion or internal compulsion. Negative liberty (freedom from) and positive liberty (freedom to) have structured modern political debate from Locke and Rousseau onward.",
+      "see": "Democracy; Law; State; Will",
+      "seeAlso": "Slavery; Justice; Equality; Revolution"
+    },
+    {
+      "letter": "L",
+      "term": "Life and Death",
+      "qualifier": "Great Idea",
+      "entry": "Life and Death (Great Idea): The conditions that define animate existence — its origin, processes, and cessation. Biological, philosophical, and theological perspectives converge here, as do questions of the value, meaning, and conduct of life.",
+      "see": "Soul; Nature; God; Animal",
+      "seeAlso": "Immortality; Change; Medicine; Happiness"
+    },
+    {
+      "letter": "L",
+      "term": "Logic",
+      "qualifier": "Great Idea",
+      "entry": "Logic (Great Idea): The science of correct reasoning — the principles governing valid inference. Aristotle's syllogistic was the standard for two millennia; modern mathematical logic expanded and transformed the field.",
+      "see": "Reasoning; Science; Mathematics; Definition",
+      "seeAlso": "Knowledge; Dialectic; Truth; Language"
+    },
+    {
+      "letter": "L",
+      "term": "Love",
+      "qualifier": "Great Idea",
+      "entry": "Love (Great Idea): The attraction and devotion that binds persons to one another and to beauty, truth, or God. Plato's Symposium traces love's ascent from physical beauty to the Form of the Good; Christianity grounds agape in God's nature.",
+      "see": "Desire; Beauty; God; Soul",
+      "seeAlso": "Happiness; Family; Virtue and Vice; Friendship"
+    },
+    {
+      "letter": "M",
+      "term": "Man",
+      "qualifier": "Great Idea",
+      "entry": "Man (Great Idea): Human nature — what defines the human being as a species, what is distinctive about human life, and what its proper ends are. The central subject of anthropology, ethics, theology, and political philosophy.",
+      "see": "Soul; Nature; Animal; Reason",
+      "seeAlso": "Education; Family; State; God"
+    },
+    {
+      "letter": "M",
+      "term": "Mathematics",
+      "qualifier": "Great Idea",
+      "entry": "Mathematics (Great Idea): The science of number, quantity, and form. Its certainty and demonstrative method made it the model for philosophical and scientific reasoning. Debates concern the ontological status of mathematical objects.",
+      "see": "Logic; Quantity; Science; Hypothesis",
+      "seeAlso": "Induction; Truth; Form; Infinity"
+    },
+    {
+      "letter": "M",
+      "term": "Matter",
+      "qualifier": "Great Idea",
+      "entry": "Matter (Great Idea): The stuff of which physical things are made — the substrate of form and change. For Aristotle, prime matter is pure potentiality. Modern physics has transformed but not eliminated the concept.",
+      "see": "Form; Change; Element; Physics",
+      "seeAlso": "Nature; Being; Cause; Space"
+    },
+    {
+      "letter": "M",
+      "term": "Mechanics",
+      "qualifier": "Great Idea",
+      "entry": "Mechanics (Great Idea): The science of motion and the forces that produce it. The Newtonian synthesis established mechanics as the paradigm of natural science. Its extension to electricity, heat, and quantum phenomena shaped the modern world.",
+      "see": "Physics; Mathematics; Change; Cause",
+      "seeAlso": "Astronomy; Matter; Space; Time"
+    },
+    {
+      "letter": "M",
+      "term": "Medicine",
+      "qualifier": "Great Idea",
+      "entry": "Medicine (Great Idea): The art and science of preserving health and curing disease. The Hippocratic tradition, Galen's physiology, and modern biomedicine all grapple with the nature of health, the limits of intervention, and medical ethics.",
+      "see": "Life and Death; Nature; Art; Soul",
+      "seeAlso": "Science; Pleasure and Pain; Habit; Man"
+    },
+    {
+      "letter": "M",
+      "term": "Memory and Imagination",
+      "qualifier": "Great Idea",
+      "entry": "Memory and Imagination (Great Idea): The faculties that retain past experience and create mental images. Memory grounds personal identity and learning; imagination enables art, hypothesis, and the grasp of universals from particulars.",
+      "see": "Soul; Sense; Experience; Art",
+      "seeAlso": "Time; Knowledge; Mind; Poetry"
+    },
+    {
+      "letter": "M",
+      "term": "Metaphysics",
+      "qualifier": "Great Idea",
+      "entry": "Metaphysics (Great Idea): The study of being as being — the most fundamental features of reality. Questions include the nature of substance, causation, space, time, and the existence of God. Aristotle coined the term; Kant questioned its possibility.",
+      "see": "Being; Cause; God; Nature",
+      "seeAlso": "Form; Science; Knowledge; Philosophy"
+    },
+    {
+      "letter": "M",
+      "term": "Mind",
+      "qualifier": "Great Idea",
+      "entry": "Mind (Great Idea): The seat of thought, perception, will, and consciousness. The mind-body problem, the nature of consciousness, and the extent of human rationality have been central to philosophy from Plato to Descartes to contemporary cognitive science.",
+      "see": "Soul; Knowledge; Reasoning; Sense",
+      "seeAlso": "God; Memory and Imagination; Idea; Will"
+    },
+    {
+      "letter": "M",
+      "term": "Monarchy",
+      "qualifier": "Great Idea",
+      "entry": "Monarchy (Great Idea): Rule by one. Aristotle distinguishes kingship (rule for the common good) from tyranny (rule for private benefit). Debates about divine right, constitutional limits, and hereditary succession have shaped Western political history.",
+      "see": "Government; Tyranny and Despotism; State; Law",
+      "seeAlso": "Democracy; Aristocracy; Constitution; Revolution"
+    },
+    {
+      "letter": "N",
+      "term": "Nature",
+      "qualifier": "Great Idea",
+      "entry": "Nature (Great Idea): The intrinsic principle of motion and rest in things, or the totality of the physical world. Central to pre-Socratic cosmology, Aristotle's physics, Stoic ethics, and the foundation of natural law and natural rights.",
+      "see": "Change; Cause; Science; Animal",
+      "seeAlso": "Art; Custom and Convention; God; Law"
+    },
+    {
+      "letter": "N",
+      "term": "Necessity and Contingency",
+      "qualifier": "Great Idea",
+      "entry": "Necessity and Contingency (Great Idea): The contrast between what must be and what might or might not be. Necessary truths ground mathematics and logic; contingent facts define the empirical world. God's necessity vs. the world's contingency is a classic argument.",
+      "see": "Cause; Fate; God; Chance",
+      "seeAlso": "Being; Will; Logic; Mathematics"
+    },
+    {
+      "letter": "O",
+      "term": "Oligarchy",
+      "qualifier": "Great Idea",
+      "entry": "Oligarchy (Great Idea): Rule by the few — specifically by the wealthy minority. For Aristotle, a deviant form of government (rule for private benefit rather than the common good), contrasted with aristocracy as its degenerate mirror.",
+      "see": "Government; Aristocracy; Democracy; State",
+      "seeAlso": "Tyranny and Despotism; Wealth; Justice; Constitution"
+    },
+    {
+      "letter": "O",
+      "term": "One and Many",
+      "qualifier": "Great Idea",
+      "entry": "One and Many (Great Idea): The ancient tension between unity and multiplicity — how one thing can be many, and how many things can share one nature. Central to Parmenides, Plato's Parmenides and Philebus, and Plotinus's emanation theory.",
+      "see": "Being; Form; Universal and Particular; God",
+      "seeAlso": "Dialectic; Relation; Nature; Infinity"
+    },
+    {
+      "letter": "O",
+      "term": "Opinion",
+      "qualifier": "Great Idea",
+      "entry": "Opinion (Great Idea): Belief that may be true or false but lacks the certainty of knowledge. Plato sharply distinguishes opinion (doxa) from knowledge (episteme). Opinion is the domain of rhetoric, politics, and the probable.",
+      "see": "Knowledge; Truth; Reasoning; Democracy",
+      "seeAlso": "Custom and Convention; Dialectic; Sense; Judgment"
+    },
+    {
+      "letter": "O",
+      "term": "Opposition",
+      "qualifier": "Great Idea",
+      "entry": "Opposition (Great Idea): The logical and metaphysical relation of contraries, contradictories, and negations. Central to Aristotle's logic, the structure of dialectic, and Hegel's dialectical method of contradiction, negation, and sublation.",
+      "see": "Dialectic; Reasoning; One and Many; Same and Other",
+      "seeAlso": "Logic; Change; Relation; Being"
+    },
+    {
+      "letter": "P",
+      "term": "Philosophy",
+      "qualifier": "Great Idea",
+      "entry": "Philosophy (Great Idea): The love and pursuit of wisdom through reason — the mother discipline from which all sciences emerged. Questions about method, scope, the relation to science and religion, and philosophy's practical worth have never ceased.",
+      "see": "Knowledge; Truth; Science; Wisdom",
+      "seeAlso": "Dialectic; Metaphysics; Religion; Education"
+    },
+    {
+      "letter": "P",
+      "term": "Physics",
+      "qualifier": "Great Idea",
+      "entry": "Physics (Great Idea): The science of nature and natural change, in both the ancient (Aristotle's physical treatises) and modern senses (mathematical natural science). The transition from Aristotelian to Newtonian and then quantum physics is a great intellectual revolution.",
+      "see": "Nature; Mathematics; Mechanics; Change",
+      "seeAlso": "Matter; Cause; Space; Time"
+    },
+    {
+      "letter": "P",
+      "term": "Pleasure and Pain",
+      "qualifier": "Great Idea",
+      "entry": "Pleasure and Pain (Great Idea): The fundamental hedonic states that motivate and evaluate experience. Epicurus makes pleasure the highest good; Aristotle sees it as accompanying excellent activity. Pain grounds punishment and moral education.",
+      "see": "Happiness; Desire; Good and Evil; Soul",
+      "seeAlso": "Virtue and Vice; Punishment; Medicine; Emotion"
+    },
+    {
+      "letter": "P",
+      "term": "Poetry",
+      "qualifier": "Great Idea",
+      "entry": "Poetry (Great Idea): The art of imaginative expression through language — encompassing epic, lyric, and dramatic verse. Plato viewed it with suspicion; Aristotle analyzed its cathartic power. Poetry remains the art that most directly voices the human.",
+      "see": "Art; Language; Memory and Imagination; Truth",
+      "seeAlso": "Beauty; Rhetoric; Sign and Symbol; Soul"
+    },
+    {
+      "letter": "P",
+      "term": "Principle",
+      "qualifier": "Great Idea",
+      "entry": "Principle (Great Idea): A starting point of reasoning or action — a first premise, a primary cause, or a fundamental rule. Principles are assumed or demonstrated and ground the sciences, ethics, and political life.",
+      "see": "Cause; Reasoning; Logic; Science",
+      "seeAlso": "Hypothesis; Definition; Knowledge; Mathematics"
+    },
+    {
+      "letter": "P",
+      "term": "Progress",
+      "qualifier": "Great Idea",
+      "entry": "Progress (Great Idea): The idea that history moves in a generally improving direction — morally, technologically, or politically. Challenged by cyclical theories (Vico, Nietzsche) and by the catastrophes of the 20th century.",
+      "see": "History; Change; Science; State",
+      "seeAlso": "Education; Revolution; God; Nature"
+    },
+    {
+      "letter": "P",
+      "term": "Prophecy",
+      "qualifier": "Great Idea",
+      "entry": "Prophecy (Great Idea): The foretelling of future events through divine revelation or inspired insight. Biblical prophecy, the Delphic oracle, and the role of prophets in religion and politics raise questions of divine foreknowledge and human freedom.",
+      "see": "God; Fate; Religion; Theology",
+      "seeAlso": "Will; Knowledge; Soul; History"
+    },
+    {
+      "letter": "P",
+      "term": "Prudence",
+      "qualifier": "Great Idea",
+      "entry": "Prudence (Great Idea): Practical wisdom — the intellectual virtue that enables right choice in particular circumstances. For Aristotle, the master virtue that guides all action. Often paired with the four cardinal virtues.",
+      "see": "Virtue and Vice; Wisdom; Judgment; Government",
+      "seeAlso": "Justice; Courage; Temperance; Will"
+    },
+    {
+      "letter": "P",
+      "term": "Punishment",
+      "qualifier": "Great Idea",
+      "entry": "Punishment (Great Idea): The infliction of harm as a response to wrongdoing. Debates center on its justification — retribution, deterrence, rehabilitation — its proper measure, and who has authority to punish.",
+      "see": "Justice; Law; Crime; State",
+      "seeAlso": "Virtue and Vice; Duty; God; Liberty"
+    },
+    {
+      "letter": "Q",
+      "term": "Quality",
+      "qualifier": "Great Idea",
+      "entry": "Quality (Great Idea): A property or characteristic of a thing — how something is rather than how much. Aristotle's category of quality covers physical, cognitive, emotional, and moral characteristics of substances.",
+      "see": "Quantity; Relation; Being; Form",
+      "seeAlso": "Sense; Change; Matter; Same and Other"
+    },
+    {
+      "letter": "Q",
+      "term": "Quantity",
+      "qualifier": "Great Idea",
+      "entry": "Quantity (Great Idea): How much or how many — the measurable or countable aspect of things. Aristotle's category of quantity encompasses number and magnitude. Mathematics is the science of quantity; measurement grounds science.",
+      "see": "Mathematics; Quality; Relation; Being",
+      "seeAlso": "Infinity; Matter; Change; Physics"
+    },
+    {
+      "letter": "R",
+      "term": "Reasoning",
+      "qualifier": "Great Idea",
+      "entry": "Reasoning (Great Idea): The cognitive process of drawing conclusions from premises. Encompasses deductive, inductive, and analogical forms. The study of its validity and soundness is the province of logic; its limits are explored by skeptics.",
+      "see": "Logic; Knowledge; Science; Dialectic",
+      "seeAlso": "Truth; Opinion; Induction; Hypothesis"
+    },
+    {
+      "letter": "R",
+      "term": "Relation",
+      "qualifier": "Great Idea",
+      "entry": "Relation (Great Idea): How things stand with respect to one another — similarity, difference, causation, whole-part, greater-less. Aristotle's category of relation; central to the analysis of mathematics, metaphysics, and social structures.",
+      "see": "One and Many; Same and Other; Quality; Quantity",
+      "seeAlso": "Cause; Being; Universal and Particular; Form"
+    },
+    {
+      "letter": "R",
+      "term": "Religion",
+      "qualifier": "Great Idea",
+      "entry": "Religion (Great Idea): The institutions, practices, and beliefs through which humans relate to the divine. Encompasses worship, prayer, scripture, ritual, and community. Philosophy of religion addresses its truth claims and its relation to morality.",
+      "see": "God; Theology; Soul; Faith",
+      "seeAlso": "Prophecy; Custom and Convention; State; Knowledge"
+    },
+    {
+      "letter": "R",
+      "term": "Revolution",
+      "qualifier": "Great Idea",
+      "entry": "Revolution (Great Idea): Fundamental political change — the overthrow of an existing order and its replacement by a new one. The causes, justifications, and dangers of revolution are analyzed by Aristotle, Locke, Rousseau, and Marx.",
+      "see": "State; Liberty; Government; Justice",
+      "seeAlso": "Tyranny and Despotism; Democracy; History; Law"
+    },
+    {
+      "letter": "R",
+      "term": "Rhetoric",
+      "qualifier": "Great Idea",
+      "entry": "Rhetoric (Great Idea): The art of persuasion through speech. Aristotle's Rhetoric analyzes its modes of proof (logos, ethos, pathos); Plato criticizes it as mere flattery. Central to democratic life, law, and the relation of reason to emotion.",
+      "see": "Language; Opinion; Democracy; Art",
+      "seeAlso": "Poetry; Truth; Logic; Education"
+    },
+    {
+      "letter": "S",
+      "term": "Same and Other",
+      "qualifier": "Great Idea",
+      "entry": "Same and Other (Great Idea): The fundamental logical and metaphysical contrast between identity and difference. From Plato's Sophist to Hegel's logic of identity and difference, this opposition grounds ontology, epistemology, and ethics of the other.",
+      "see": "Relation; Being; One and Many; Opposition",
+      "seeAlso": "Universal and Particular; Form; Knowledge; Man"
+    },
+    {
+      "letter": "S",
+      "term": "Science",
+      "qualifier": "Great Idea",
+      "entry": "Science (Great Idea): Systematic knowledge of the causes and principles of things. The Greeks' demonstrative science; the modern empirical sciences; the question of what distinguishes science from other kinds of knowledge.",
+      "see": "Knowledge; Hypothesis; Experience; Induction",
+      "seeAlso": "Mathematics; Nature; Philosophy; Truth"
+    },
+    {
+      "letter": "S",
+      "term": "Sense",
+      "qualifier": "Great Idea",
+      "entry": "Sense (Great Idea): Perception through the bodily organs — sight, hearing, touch, taste, smell. The starting point of all empirical knowledge; the mechanism by which mind encounters world. Debated from Plato's distrust to Locke's empiricism.",
+      "see": "Experience; Knowledge; Soul; Memory and Imagination",
+      "seeAlso": "Mind; Pleasure and Pain; Matter; Nature"
+    },
+    {
+      "letter": "S",
+      "term": "Sign and Symbol",
+      "qualifier": "Great Idea",
+      "entry": "Sign and Symbol (Great Idea): Something that stands for or represents something else. Language, ritual, art, and dreams all involve signs and symbols. Philosophy of language and semiotics study their nature, function, and interpretation.",
+      "see": "Language; Art; Poetry; Reasoning",
+      "seeAlso": "Religion; Mind; Truth; Idea"
+    },
+    {
+      "letter": "S",
+      "term": "Sin",
+      "qualifier": "Great Idea",
+      "entry": "Sin (Great Idea): An act or disposition that offends divine law or moral order. Theological categories include original sin, mortal and venial sin, and their consequences. Philosophy examines the conditions of moral culpability and guilt.",
+      "see": "God; Religion; Virtue and Vice; Punishment",
+      "seeAlso": "Will; Duty; Soul; Law"
+    },
+    {
+      "letter": "S",
+      "term": "Slavery",
+      "qualifier": "Great Idea",
+      "entry": "Slavery (Great Idea): The social institution of owned persons. Aristotle's defense of natural slavery is among the most debated passages in the tradition. Abolitionist arguments drew on natural rights, Christian equality, and utilitarian grounds.",
+      "see": "Liberty; Justice; Labor; State",
+      "seeAlso": "Equality; Law; War and Peace; Man"
+    },
+    {
+      "letter": "S",
+      "term": "Soul",
+      "qualifier": "Great Idea",
+      "entry": "Soul (Great Idea): The life-principle of living beings; the seat of reason, will, and feeling in humans. Plato argues for its immortality and tripartite nature; Aristotle treats it as the form of the body; theology adds divine creation and salvation.",
+      "see": "Life and Death; Mind; God; Immortality",
+      "seeAlso": "Form; Desire; Virtue and Vice; Body"
+    },
+    {
+      "letter": "S",
+      "term": "Space",
+      "qualifier": "Great Idea",
+      "entry": "Space (Great Idea): The extended framework in which physical objects exist and events occur. Aristotle's place; Newton's absolute space; Kant's pure form of intuition; Einstein's relativistic spacetime — each transforms cosmology and physics.",
+      "see": "Mathematics; Physics; Time; Matter",
+      "seeAlso": "Infinity; World; Mechanics; Change"
+    },
+    {
+      "letter": "S",
+      "term": "State",
+      "qualifier": "Great Idea",
+      "entry": "State (Great Idea): The organized political community — its origin, structure, purpose, and justification. From Plato's ideal polis to Hobbes's Leviathan to modern nation-states, the question of legitimate political authority is inexhaustible.",
+      "see": "Government; Justice; Law; Democracy",
+      "seeAlso": "Constitution; Revolution; Citizen; Family"
+    },
+    {
+      "letter": "T",
+      "term": "Temperance",
+      "qualifier": "Great Idea",
+      "entry": "Temperance (Great Idea): Self-control with respect to pleasure and desire — one of the four cardinal virtues. For Plato, it is the harmony of the soul's parts; for Aristotle, the mean with respect to bodily pleasures; for Stoics, rational mastery.",
+      "see": "Virtue and Vice; Pleasure and Pain; Desire; Courage",
+      "seeAlso": "Habit; Wisdom; Soul; Education"
+    },
+    {
+      "letter": "T",
+      "term": "Theology",
+      "qualifier": "Great Idea",
+      "entry": "Theology (Great Idea): Reasoned discourse about God and divine things. Distinguished from natural theology (philosophical) and revealed theology (scriptural). Encompasses the proofs for God's existence, the Trinity, creation, and salvation.",
+      "see": "God; Religion; Metaphysics; Philosophy",
+      "seeAlso": "Soul; Faith; Science; Being"
+    },
+    {
+      "letter": "T",
+      "term": "Time",
+      "qualifier": "Great Idea",
+      "entry": "Time (Great Idea): The measure of change, or the framework in which events occur in sequence. Aristotle defines it as the number of motion; Augustine puzzles over its subjectivity; Newton posits absolute time; Einstein shows it is relative.",
+      "see": "Change; Space; Eternity; History",
+      "seeAlso": "World; Memory and Imagination; Physics; God"
+    },
+    {
+      "letter": "T",
+      "term": "Truth",
+      "qualifier": "Great Idea",
+      "entry": "Truth (Great Idea): The correspondence of thought or statement with reality, or the disclosure of being. Debates about truth's nature (correspondence, coherence, pragmatic), its attainability, and its value permeate the entire tradition.",
+      "see": "Knowledge; Opinion; Reasoning; Science",
+      "seeAlso": "Good and Evil; Beauty; Language; God"
+    },
+    {
+      "letter": "T",
+      "term": "Tyranny and Despotism",
+      "qualifier": "Great Idea",
+      "entry": "Tyranny and Despotism (Great Idea): Rule by one for private benefit rather than the common good — the corruption of monarchy or of any government. The analysis of tyranny's causes, marks, and remedies is a perennial political concern.",
+      "see": "Government; Justice; Law; Revolution",
+      "seeAlso": "Monarchy; Democracy; Virtue and Vice; Liberty"
+    },
+    {
+      "letter": "U",
+      "term": "Universal and Particular",
+      "qualifier": "Great Idea",
+      "entry": "Universal and Particular (Great Idea): The logical and metaphysical distinction between what applies to many (the universal) and what pertains to an individual instance (the particular). The problem of universals — whether they exist — is a thread running through medieval and modern philosophy.",
+      "see": "Form; Being; Definition; Knowledge",
+      "seeAlso": "One and Many; Same and Other; Science; Language"
+    },
+    {
+      "letter": "V",
+      "term": "Virtue and Vice",
+      "qualifier": "Great Idea",
+      "entry": "Virtue and Vice (Great Idea): The enduring moral qualities that make a person excellent or deficient. Aristotle's analysis of virtues as means between extremes, the four cardinal virtues, and the Stoic sage have been touchstones in ethical inquiry.",
+      "see": "Happiness; Good and Evil; Justice; Education",
+      "seeAlso": "Habit; Courage; Temperance; Wisdom"
+    },
+    {
+      "letter": "W",
+      "term": "War and Peace",
+      "qualifier": "Great Idea",
+      "entry": "War and Peace (Great Idea): The conditions of violent conflict between states or peoples and the conditions of their absence. Thucydides, Plato, Grotius, Kant ('Perpetual Peace'), and Tolstoy all contribute to this inexhaustible discussion.",
+      "see": "State; Justice; Liberty; Government",
+      "seeAlso": "Courage; Law; Revolution; Tyranny and Despotism"
+    },
+    {
+      "letter": "W",
+      "term": "Wealth",
+      "qualifier": "Great Idea",
+      "entry": "Wealth (Great Idea): Material goods and resources — their acquisition, distribution, and role in human flourishing. Economics as a discipline begins here, but the ethical and political dimensions of wealth are addressed throughout the tradition.",
+      "see": "Labor; Justice; State; Property",
+      "seeAlso": "Happiness; Oligarchy; Democracy; Virtue and Vice"
+    },
+    {
+      "letter": "W",
+      "term": "Will",
+      "qualifier": "Great Idea",
+      "entry": "Will (Great Idea): The faculty of choice — the power to initiate action in accordance with reason or desire. Central to ethics (free will and moral responsibility), theology (original sin, grace), and modern existentialist accounts of freedom.",
+      "see": "Liberty; Desire; Soul; Duty",
+      "seeAlso": "Fate; Necessity and Contingency; God; Sin"
+    },
+    {
+      "letter": "W",
+      "term": "Wisdom",
+      "qualifier": "Great Idea",
+      "entry": "Wisdom (Great Idea): The highest intellectual virtue — the understanding of ultimate causes, principles, and ends. Distinguished from technical skill and practical prudence. For Plato, the philosopher-king's defining trait; for Aristotle, theoretical wisdom (sophia).",
+      "see": "Virtue and Vice; Knowledge; Philosophy; God",
+      "seeAlso": "Prudence; Truth; Soul; Education"
+    },
+    {
+      "letter": "W",
+      "term": "World",
+      "qualifier": "Great Idea",
+      "entry": "World (Great Idea): The totality of physical existence — the cosmos, the universe, the earth. Questions include whether the world is eternal or created, finite or infinite, teleologically ordered or governed by chance and necessity.",
+      "see": "God; Nature; Space; Time",
+      "seeAlso": "Being; Cause; Infinity; Astronomy"
+    }
+  ]
+}

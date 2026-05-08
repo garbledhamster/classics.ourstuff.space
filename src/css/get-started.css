@@ -1,0 +1,456 @@
+/* get-started.css — Newspaper-style "Get Started" view */
+
+/* ── Masthead ─────────────────────────────────────────── */
+.gsMasthead {
+  border: 3px solid var(--ink);
+  background: var(--paper);
+  padding: 24px 20px 18px;
+  margin-bottom: 20px;
+  box-shadow: 6px 6px 0 var(--ink);
+  text-align: center;
+}
+
+.gsFlag {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+.gsFlagRule {
+  border: none;
+  border-top: 3px double var(--ink);
+  margin: 10px 0;
+}
+
+.gsEditionLine {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.gsDeck {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  font-style: italic;
+  line-height: 1.4;
+  margin: 12px auto 0;
+  max-width: 64ch;
+}
+
+/* ── Top Story Layout ─────────────────────────────────── */
+.gsTopStory {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid var(--ink);
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.gsTopStoryMain {
+  padding: 20px;
+  border-right: 2px solid var(--ink);
+}
+
+.gsTopStorySide {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Three-Column Grid ────────────────────────────────── */
+.gsThreeCol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 2px solid var(--ink);
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.gsCol {
+  padding: 18px;
+  border-right: 2px solid var(--ink);
+}
+
+.gsCol:last-child {
+  border-right: none;
+}
+
+/* ── Two-Column Grid ──────────────────────────────────── */
+.gsTwoCol {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  border: 2px solid var(--ink);
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.gsTwoColMain {
+  padding: 20px;
+  border-right: 2px solid var(--ink);
+}
+
+.gsTwoColSide {
+  padding: 20px;
+}
+
+/* ── Full Width Banner ────────────────────────────────── */
+.gsBanner {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0 var(--muted);
+}
+
+.gsBanner .gsHeadline,
+.gsBanner .gsSectionLabel,
+.gsBanner .gsBodyText,
+.gsBanner .gsSubhead {
+  color: var(--paper);
+}
+
+/* ── Typography ───────────────────────────────────────── */
+.gsSectionLabel {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+
+.gsHeadline {
+  font-family: "Newsreader", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.gsSubhead {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.gsBodyText {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.gsBodyText:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Drop Cap ─────────────────────────────────────────── */
+.gsDropCap::first-letter {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 4.2em;
+  font-weight: 900;
+  line-height: 0.75;
+  float: left;
+  margin-right: 6px;
+  padding-top: 4px;
+}
+
+/* ── Pull Quote ───────────────────────────────────────── */
+.gsPullQuote {
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 12px 0;
+  margin: 14px 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.gsAttrib {
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ── Step List ────────────────────────────────────────── */
+.gsStepList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: gs-step;
+}
+
+.gsStepList li {
+  counter-increment: gs-step;
+  display: grid;
+  grid-template-columns: 2em 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.gsStepList li:last-child {
+  border-bottom: none;
+}
+
+.gsStepList li::before {
+  content: counter(gs-step);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  line-height: 1;
+  justify-self: center;
+}
+
+/* ── Idea Grid ────────────────────────────────────────── */
+.gsIdeaGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.gsIdeaPill {
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  display: inline-block;
+  transition: transform 0.1s;
+}
+
+.gsIdeaPill:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.gsIdeaPill:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* ── Reading Path Cards ───────────────────────────────── */
+.gsPathRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0;
+  border: 2px solid var(--ink);
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.gsPathCard {
+  padding: 16px;
+  border-right: 2px solid var(--ink);
+}
+
+.gsPathCard:last-child {
+  border-right: none;
+}
+
+.gsPathNum {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.gsPathTitle {
+  font-weight: 900;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.gsPathText {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+/* ── Divider ──────────────────────────────────────────── */
+.gsRule {
+  border: none;
+  border-top: 1px solid var(--ink);
+  margin: 14px 0;
+}
+
+.gsDoubleRule {
+  border: none;
+  border-top: 3px double var(--ink);
+  margin: 18px 0;
+}
+
+/* ── CTA Box ──────────────────────────────────────────── */
+.gsCtaBox {
+  border: 3px solid var(--ink);
+  padding: 18px;
+  margin-top: 14px;
+  text-align: center;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.gsCtaBtn {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 22px;
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 4px 0;
+  box-shadow: 3px 3px 0 var(--muted);
+  transition: transform 0.1s;
+}
+
+.gsCtaBtn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--muted);
+}
+
+.gsCtaBtn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--muted);
+}
+
+.gsCtaBtnSecondary {
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+/* ── FAQ ──────────────────────────────────────────────── */
+.gsFaqItem {
+  border-top: 1px solid var(--ink);
+  padding: 10px 0;
+}
+
+.gsFaqQ {
+  font-weight: 900;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+}
+
+.gsFaqA {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink2);
+}
+
+/* ── Byline ───────────────────────────────────────────── */
+.gsByline {
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .gsTopStory {
+    grid-template-columns: 1fr;
+  }
+  .gsTopStoryMain {
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+  }
+  .gsTwoCol {
+    grid-template-columns: 1fr;
+  }
+  .gsTwoColMain {
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+  }
+}
+
+@media (max-width: 700px) {
+  .gsThreeCol {
+    grid-template-columns: 1fr;
+  }
+  .gsCol {
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+  }
+  .gsCol:last-child {
+    border-bottom: none;
+  }
+  .gsPathRow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gsPathCard {
+    border-bottom: 2px solid var(--ink);
+  }
+}
+
+@media (max-width: 460px) {
+  .gsPathRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Dark mode ────────────────────────────────────────── */
+html.dark .gsMasthead,
+html.dark .gsTopStory,
+html.dark .gsThreeCol,
+html.dark .gsTwoCol,
+html.dark .gsPathRow,
+html.dark .gsCtaBox,
+html.dark .gsIdeaPill {
+  background: #1a1a1a;
+}
+
+html.dark .gsBanner {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+html.dark .gsCtaBtn {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+html.dark .gsCtaBtnSecondary {
+  background: var(--paper);
+  color: var(--ink);
+}

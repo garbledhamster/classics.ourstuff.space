@@ -361,6 +361,7 @@ function wireUI(){
 
   $("#noteSearch").addEventListener("input", (e)=>{ state.notesUI.search = e.target.value; renderNotesList(); });
   $("#noteTagFilter").addEventListener("change", (e)=>{ state.notesUI.tag = e.target.value; renderNotesList(); });
+  $("#noteTypeFilter").addEventListener("change", (e)=>{ state.notesUI.noteTypeFilter = e.target.value; renderNotesList(); });
 
   $("#newNoteBtn").addEventListener("click", () => startNewNote({}));
   $("#exportNotesBtn").addEventListener("click", exportNotes);

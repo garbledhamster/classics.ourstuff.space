@@ -10,11 +10,11 @@
 }
 .noteToolsRow{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap:10px;
   min-width:0;
 }
-@media (max-width:520px){ .noteToolsRow{ grid-template-columns: 1fr; } }
+@media (max-width:380px){ .noteToolsRow{ grid-template-columns: 1fr; } }
 
 .noteList{
   border:var(--border);

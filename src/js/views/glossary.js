@@ -59,10 +59,15 @@
         continue;
       }
       const existing = merged.get(key);
+      const preferIncomingLabel = (term.greatIdeas || []).some(idea => normalizeText(idea) === normalizeText(term.term));
       const greatIdeas = Array.from(new Set([...(existing.greatIdeas || []), ...(term.greatIdeas || [])]));
       const next = {
         ...existing,
-        qualifier: existing.qualifier || term.qualifier,
+        id: preferIncomingLabel ? term.id : existing.id,
+        letter: preferIncomingLabel ? term.letter : existing.letter,
+        term: preferIncomingLabel ? term.term : existing.term,
+        displayTerm: preferIncomingLabel ? term.displayTerm : existing.displayTerm,
+        qualifier: preferIncomingLabel ? (term.qualifier || existing.qualifier) : (existing.qualifier || term.qualifier),
         entry: existing.entry || term.entry,
         see: existing.see || term.see,
         seeAlso: existing.seeAlso || term.seeAlso,

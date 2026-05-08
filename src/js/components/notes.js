@@ -1,4 +1,27 @@
-/* components/notes.js — Personal notes: filter, render, CRUD, import/export, multi-select */
+/* =========================================================
+   NOTE TYPE HELPERS
+   ========================================================= */
+function getNoteTypes(n){
+  if (Array.isArray(n.note_type)) return n.note_type.length ? n.note_type : [DEFAULT_NOTE_TYPE];
+  if (n.note_type && typeof n.note_type === "string") return [n.note_type];
+  return [DEFAULT_NOTE_TYPE];
+}
+
+function getCheckGroupValues(containerId){
+  const container = $("#" + containerId);
+  if (!container) return [];
+  return Array.from(container.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value);
+}
+
+function setCheckGroupValues(containerId, values){
+  const container = $("#" + containerId);
+  if (!container) return;
+  const arr = Array.isArray(values) ? values : (values && values !== "all" ? [values] : []);
+  container.querySelectorAll("input[type=checkbox]").forEach(cb => {
+    cb.checked = arr.includes(cb.value);
+  });
+}
+
 /* =========================================================
    NOTES (kept same behavior)
    ========================================================= */
@@ -65,8 +88,11 @@ function filteredNotes(){
   if (tag !== "all"){
     notes = notes.filter(n => n.book_tag === tag);
   }
-  if (noteTypeFilter !== "all"){
-    notes = notes.filter(n => (n.note_type || DEFAULT_NOTE_TYPE) === noteTypeFilter);
+  if (noteTypeFilter.length > 0){
+    notes = notes.filter(n => {
+      const types = getNoteTypes(n);
+      return noteTypeFilter.every(t => types.includes(t));
+    });
   }
   if (q){
     notes = notes.filter(n => {
@@ -82,8 +108,7 @@ function renderNotesList(){
   const tagSel = $("#noteTagFilter");
   if (tagSel && tagSel.value !== state.notesUI.tag) tagSel.value = state.notesUI.tag;
 
-  const typeFilterSel = $("#noteTypeFilter");
-  if (typeFilterSel && typeFilterSel.value !== state.notesUI.noteTypeFilter) typeFilterSel.value = state.notesUI.noteTypeFilter;
+  setCheckGroupValues("noteTypeFilter", state.notesUI.noteTypeFilter);
 
   // Update toggle button appearance
   const toggleBtn = $("#toggleArchivedBtn");
@@ -170,13 +195,13 @@ function noteItemHtml(n){
   const isSelected = state.notesUI.selectedIds.has(n.id);
   const selectedCls = isSelected ? " noteSelected" : "";
   const checked = isSelected ? " checked" : "";
-  const noteTypeLabel = NOTE_TYPE_OPTIONS.find(o => o.value === (n.note_type || DEFAULT_NOTE_TYPE))?.label || "Note";
+  const noteTypeLabels = getNoteTypes(n).map(t => NOTE_TYPE_OPTIONS.find(o => o.value === t)?.label || t);
 
   const pills = [
     `<span class="pill">${book}</span>`,
     `<span class="pill">${year}</span>`,
     n.author ? `<span class="pill">${escapeHtml(n.author)}</span>` : "",
-    `<span class="pill">${escapeHtml(noteTypeLabel)}</span>`
+    ...noteTypeLabels.map(l => `<span class="pill">${escapeHtml(l)}</span>`)
   ].filter(Boolean).join("");
 
   return `
@@ -216,7 +241,7 @@ function startNewNote(ctx){
   $("#editAuthor").value = ctx.author || "";
   $("#editSelection").value = ctx.selection || "";
   $("#editBody").value = "";
-  $("#editNoteType").value = DEFAULT_NOTE_TYPE;
+  setCheckGroupValues("editNoteType", [DEFAULT_NOTE_TYPE]);
 
   $("#editMeta").textContent = "New note — not saved yet.";
   showEditor();
@@ -235,7 +260,7 @@ function startEditNote(id){
   $("#editAuthor").value = n.author || "";
   $("#editSelection").value = n.selection || "";
   $("#editBody").value = n.body || "";
-  $("#editNoteType").value = n.note_type || DEFAULT_NOTE_TYPE;
+  setCheckGroupValues("editNoteType", getNoteTypes(n));
 
   const meta = `Saved • Created: ${n.created_at ? new Date(n.created_at).toLocaleString() : "—"} • Updated: ${n.updated_at ? new Date(n.updated_at).toLocaleString() : "—"}`;
   $("#editMeta").textContent = meta;
@@ -258,7 +283,8 @@ function saveEditorNote(){
   const author = $("#editAuthor").value.trim();
   const selection = $("#editSelection").value.trim();
   const body = $("#editBody").value;
-  const note_type = $("#editNoteType").value || DEFAULT_NOTE_TYPE;
+  const selectedTypes = getCheckGroupValues("editNoteType");
+  const note_type = selectedTypes.length > 0 ? selectedTypes : [DEFAULT_NOTE_TYPE];
 
   const existingIdx = state.notes.findIndex(n => n.id === id);
 
@@ -373,7 +399,13 @@ async function importNotesFile(e){
         author: String(n.author || "").trim(),
         selection: String(n.selection || "").trim(),
         body: String(n.body || ""),
-        note_type: NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? n.note_type : DEFAULT_NOTE_TYPE,
+        note_type: (() => {
+            if (Array.isArray(n.note_type)) {
+              const valid = n.note_type.filter(t => NOTE_TYPE_OPTIONS.some(o => o.value === t));
+              return valid.length ? valid : [DEFAULT_NOTE_TYPE];
+            }
+            return NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? [n.note_type] : [DEFAULT_NOTE_TYPE];
+          })(),
         created_at: n.created_at ? String(n.created_at) : nowIso(),
         updated_at: n.updated_at ? String(n.updated_at) : nowIso()
       });

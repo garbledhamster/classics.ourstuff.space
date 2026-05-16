@@ -316,6 +316,7 @@ The Worker also needs:
 
 ```text
 FIREBASE_PROJECT_ID=ourstuff-firebase
+FIREBASE_WEB_API_KEY=<Firebase web API key>
 USER_LINK_SECRET=<stored with wrangler secret put>
 ```
 

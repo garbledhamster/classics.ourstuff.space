@@ -12,6 +12,7 @@ const LS_TABLE_HIDDEN_COLS = "greatworks.reading.tableHiddenCols.v1";
 const LS_TIMER_SETTINGS    = "greatworks.reading.timerSettings.v1";
 const LS_TIMER_STATE       = "greatworks.reading.timerState.v1";
 const LS_PAYMENT_SUMMARIES = "greatworks.reading.paymentSummaries.v1";
+const LS_USER_PROFILE      = "greatworks.reading.userProfile.v1";
 const PAYMENTS_WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
 const SITE_ID = "classics";
 const DEFAULT_CARD_STATUS = "not_started";

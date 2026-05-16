@@ -106,7 +106,9 @@ async function startDonation(amount) {
     },
     body: JSON.stringify({
       site: "classics",
-      amount
+      amount,
+      customerName: profile.name,
+      customerEmail: profile.email
     })
   });
 
@@ -201,6 +203,7 @@ The Worker should return only safe fields:
   "status": "paid",
   "amount": "$10.00",
   "site": "Classics",
+  "customerName": "Person Name",
   "customerEmail": "person@example.com"
 }
 ```

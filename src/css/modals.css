@@ -57,6 +57,20 @@
   display:flex;
   gap:10px;
   justify-content:flex-end;
+  flex-wrap:wrap;
+}
+
+.profileProviderRow{
+  border:var(--borderThin);
+  padding:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:var(--paper);
+}
+.profileProviderRow .help{
+  margin-top:4px;
 }
 
 /* Modal backdrop */

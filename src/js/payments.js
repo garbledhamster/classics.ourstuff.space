@@ -75,6 +75,20 @@
     }
   }
 
+  function getDonationProfile() {
+    const user = (typeof state !== "undefined" && state.currentUser)
+      || (typeof currentUser !== "undefined" && currentUser)
+      || null;
+    const storedProfile = typeof state !== "undefined" ? (state.userProfile || {}) : {};
+    const profile = typeof normalizeUserProfile === "function"
+      ? normalizeUserProfile(storedProfile, user)
+      : storedProfile;
+    return {
+      name: String(profile?.name || user?.displayName || "").trim(),
+      email: String(user?.email || profile?.email || "").trim()
+    };
+  }
+
   async function startDonationCheckout() {
     const amount = getRequestedAmount();
     const validationError = validateAmount(amount);
@@ -90,6 +104,7 @@
 
     try {
       const token = await getFirebaseToken();
+      const profile = getDonationProfile();
       const headers = { "content-type": "application/json" };
       if (token) headers.Authorization = `Bearer ${token}`;
 
@@ -98,7 +113,9 @@
         headers,
         body: JSON.stringify({
           site: SITE_ID,
-          amount
+          amount,
+          customerName: profile.name,
+          customerEmail: profile.email
         })
       });
       const result = await response.json().catch(() => ({}));

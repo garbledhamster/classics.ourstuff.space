@@ -44,7 +44,8 @@ async function submitBookComment() {
   try {
     const col = window.firestoreCollection(db, "bookComments");
     const email = state.currentUser.email || "";
-    const displayName = email.split("@")[0] || "Anonymous";
+    const profile = typeof normalizeUserProfile === "function" ? normalizeUserProfile(state.userProfile || {}, state.currentUser) : {};
+    const displayName = profile.name || email.split("@")[0] || "Anonymous";
     await window.firestoreAddDoc(col, {
       bookKey,
       bookTitle,

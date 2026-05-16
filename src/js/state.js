@@ -14,6 +14,7 @@ const state = {
   notes: loadNotes(),
   deletedNoteIds: loadDeletedNoteIds(),
   paymentSummaries: loadPaymentSummaries(),
+  userProfile: loadUserProfile(),
   view: "library",   // "library" | "plan" | "authors"
   availableYears: [],
   filters: {

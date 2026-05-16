@@ -164,6 +164,7 @@
         const lines = [
           `Site: ${result.site || "Classics"}`,
           result.invoiceLabel ? `Invoice: ${result.invoiceLabel}` : "",
+          result.customerName ? `Name: ${result.customerName}` : "",
           result.customerEmail ? `Receipt email: ${result.customerEmail}` : "Receipt email: not provided"
         ].filter(Boolean);
         if (paid && firebaseSession?.user && await cachePaymentSummary(firebaseSession.app, firebaseSession.user, token)) {

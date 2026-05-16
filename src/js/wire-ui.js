@@ -37,10 +37,10 @@ function wireUI(){
     closeDrawer();
   });
 
-  // Authentication button - handles both login and logout
+  // Authentication button - opens sign-in or the signed-in profile editor
   $("#authBtn").addEventListener("click", () => {
     if (currentUser) {
-      handleLogout();
+      showProfileModal();
     } else {
       showLoginModal();
     }
@@ -62,14 +62,22 @@ function wireUI(){
   
   $("#closeLoginModalBtn").addEventListener("click", hideLoginModal);
   $("#loginSubmitBtn").addEventListener("click", handleLogin);
+  $("#loginGoogleBtn").addEventListener("click", handleGoogleSignIn);
   $("#showSignupBtn").addEventListener("click", showSignupModal);
   
   $("#closeSignupModalBtn").addEventListener("click", hideSignupModal);
   $("#signupSubmitBtn").addEventListener("click", handleSignup);
+  $("#signupGoogleBtn").addEventListener("click", handleGoogleSignIn);
   $("#showLoginBtn").addEventListener("click", () => {
     hideSignupModal();
     showLoginModal();
   });
+
+  $("#closeProfileModalBtn").addEventListener("click", hideProfileModal);
+  $("#profileCancelBtn").addEventListener("click", hideProfileModal);
+  $("#profileSaveBtn").addEventListener("click", handleProfileSave);
+  $("#profileSignOutBtn").addEventListener("click", handleLogout);
+  $("#profileGoogleBtn").addEventListener("click", handleProfileGoogleConnect);
 
   // EULA Modal
   $("#closeEulaModalBtn").addEventListener("click", () => {
@@ -134,11 +142,15 @@ function wireUI(){
   $("#signupPasswordConfirm").addEventListener("keydown", (e) => {
     if (e.key === "Enter") handleSignup();
   });
+  $("#profileName").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") handleProfileSave();
+  });
 
   // Close modals with backdrop click
   $("#modalBackdrop").addEventListener("click", () => {
     hideLoginModal();
     hideSignupModal();
+    hideProfileModal();
     hideEulaModal();
     hideSearchSettingsModal();
     if (window._closeTimerModal) window._closeTimerModal();
@@ -149,6 +161,7 @@ function wireUI(){
     if (e.key === "Escape" && state.drawer.open) closeDrawer();
     if (e.key === "Escape" && $("#loginModal").classList.contains("open")) hideLoginModal();
     if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
+    if (e.key === "Escape" && $("#profileModal").classList.contains("open")) hideProfileModal();
     if (e.key === "Escape" && $("#eulaModal").classList.contains("open")) { hideEulaModal(); showSignupModal(); }
     if (e.key === "Escape" && $("#timerModal").classList.contains("open") && window._closeTimerModal) window._closeTimerModal();
     if (e.key === "Escape" && $("#donationModal").classList.contains("open") && window._closeDonationModal) window._closeDonationModal();
@@ -350,6 +363,7 @@ function wireUI(){
         localStorage.removeItem(LS_CARD_STATUS);
         localStorage.removeItem(LS_CARD_DATES);
         localStorage.removeItem(LS_CARD_TASKS);
+        localStorage.removeItem(LS_USER_PROFILE);
       } catch(e) {
         console.error('Error clearing localStorage during profile reset:', e);
       }
@@ -369,6 +383,7 @@ function wireUI(){
       state.cardDates = {};
       state.cardTasks = {};
       state.notes = [];
+      state.userProfile = {};
       state.sync.lastSync = null;
       state.sync.syncing = false;
       state.sync.error = null;

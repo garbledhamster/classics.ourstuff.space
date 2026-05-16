@@ -64,7 +64,7 @@ header.masthead{
   transition: all 0.2s ease;
 }
 
-/* When signed in, show email with green styling */
+/* When signed in, the auth button opens the profile editor */
 #authBtn.signed-in{
   background:#e8f5e9;
   border:2px solid #4caf50;
@@ -72,20 +72,10 @@ header.masthead{
   font-weight:700;
 }
 
-#authBtn.signed-in svg{
-  display:none;
-}
-
-/* On hover or focus when signed in, switch to logout styling */
 #authBtn.signed-in:hover,
 #authBtn.signed-in:focus-visible{
-  background:#ffebee;
-  border:2px solid #f44336;
-  color:#b71c1c;
-}
-
-#authBtn.signed-in:hover svg,
-#authBtn.signed-in:focus-visible svg{
-  display:inline;
+  background:#dff3ff;
+  border:2px solid #2563eb;
+  color:#0f172a;
 }
 

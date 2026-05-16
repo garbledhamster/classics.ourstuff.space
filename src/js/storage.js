@@ -51,6 +51,13 @@ function loadPaymentSummaries(){
 function savePaymentSummaries(obj){
   localStorage.setItem(LS_PAYMENT_SUMMARIES, JSON.stringify(obj || {}));
 }
+function loadUserProfile(){
+  return safeJsonParse(localStorage.getItem(LS_USER_PROFILE) || "{}", {});
+}
+function saveUserProfile(profile){
+  localStorage.setItem(LS_USER_PROFILE, JSON.stringify(profile || {}));
+  triggerAutoSync();
+}
 
 function loadTableHiddenCols(){
   try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ console.error("Failed to load table column preferences:", e); return new Set(); }

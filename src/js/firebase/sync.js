@@ -226,6 +226,86 @@ async function loadPaymentSummariesFromFirestore(userId) {
   }
 }
 
+function cleanProfileString(value, maxLength = 120) {
+  return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
+}
+
+function normalizeUserProfile(profile = {}, user = state.currentUser) {
+  const email = cleanProfileString(user?.email || profile.email || "", 320);
+  const name = cleanProfileString(profile.name || user?.displayName || "", 120);
+  return {
+    name,
+    email,
+    updatedAt: profile.updatedAt || nowIso()
+  };
+}
+
+function profileMatchesUser(profile, user) {
+  if (!profile?.email || !user?.email) return true;
+  return String(profile.email).toLowerCase() === String(user.email).toLowerCase();
+}
+
+function compactProfile(profile) {
+  if (!profile || typeof profile !== "object") return {};
+  const compact = {};
+  const name = cleanProfileString(profile.name, 120);
+  const email = cleanProfileString(profile.email, 320);
+  if (name) compact.name = name;
+  if (email) compact.email = email;
+  if (profile.updatedAt) compact.updatedAt = profile.updatedAt;
+  return compact;
+}
+
+function mergeUserProfiles(remoteProfile, localProfile, user = state.currentUser) {
+  const usableLocal = profileMatchesUser(localProfile, user) ? compactProfile(localProfile) : {};
+  const remote = compactProfile(remoteProfile);
+  const localTime = Date.parse(usableLocal.updatedAt || "") || 0;
+  const remoteTime = Date.parse(remote.updatedAt || "") || 0;
+  const older = remoteTime > localTime ? usableLocal : remote;
+  const newer = remoteTime > localTime ? remote : usableLocal;
+  return normalizeUserProfile({
+    ...older,
+    ...newer,
+    email: user?.email || newer.email || older.email || "",
+    updatedAt: newer.updatedAt || older.updatedAt || nowIso()
+  }, user);
+}
+
+async function syncUserProfileToFirestore(userId) {
+  if (!userId || !window.firebaseDB) return;
+  try {
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+    const profile = normalizeUserProfile(state.userProfile, state.currentUser);
+    state.userProfile = profile;
+    saveUserProfile(profile);
+    await window.firestoreSetDoc(userRef, {
+      profile,
+      profileSyncedAt: window.firestoreServerTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.error('Error syncing profile to Firestore:', error);
+    state.sync.error = error.message;
+  }
+}
+
+async function loadUserProfileFromFirestore(userId) {
+  if (!userId || !window.firebaseDB) return {};
+  try {
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+    const docSnap = await window.firestoreGetDoc(userRef);
+    if (docSnap.exists()) {
+      return docSnap.data().profile || {};
+    }
+    return {};
+  } catch (error) {
+    console.error('Error loading profile from Firestore:', error);
+    state.sync.error = error.message;
+    return {};
+  }
+}
+
 async function refreshPaymentSummaryFromWorker(user) {
   if (!user || typeof user.getIdToken !== "function" || !window.firebaseDB) return null;
   try {
@@ -274,14 +354,15 @@ async function performFullSync(userId) {
   
   try {
     // First, load data from Firestore
-    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries] = await Promise.all([
+    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries, remoteUserProfile] = await Promise.all([
       loadChecksFromFirestore(userId),
       loadNotesFromFirestore(userId),
       loadCardStatusesFromFirestore(userId),
       loadCardDatesFromFirestore(userId),
       loadCardTasksFromFirestore(userId),
       loadTimerSettingsFromFirestore(userId),
-      loadPaymentSummariesFromFirestore(userId)
+      loadPaymentSummariesFromFirestore(userId),
+      loadUserProfileFromFirestore(userId)
     ]);
     
     // Merge remote data with local data
@@ -323,6 +404,9 @@ async function performFullSync(userId) {
     localStorage.setItem(LS_CARD_TASKS, JSON.stringify(state.cardTasks));
     state.paymentSummaries = { ...remotePaymentSummaries, ...state.paymentSummaries };
     savePaymentSummaries(state.paymentSummaries);
+    state.userProfile = mergeUserProfiles(remoteUserProfile, state.userProfile, state.currentUser);
+    saveUserProfile(state.userProfile);
+    updateAuthUI();
 
     // Timer settings: remote fills in what local hasn't set; local wins on conflict
     if (remoteTimerSettings) {
@@ -339,7 +423,8 @@ async function performFullSync(userId) {
       syncCardStatusesToFirestore(userId),
       syncCardDatesToFirestore(userId),
       syncCardTasksToFirestore(userId),
-      syncTimerSettingsToFirestore(userId)
+      syncTimerSettingsToFirestore(userId),
+      syncUserProfileToFirestore(userId)
     ]);
     await refreshPaymentSummaryFromWorker(state.currentUser);
     

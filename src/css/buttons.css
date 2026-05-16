@@ -63,6 +63,24 @@ html.dark .btnDanger:hover{ background:#3b1111; }
   border-color: var(--ink);
 }
 
+.btnGoogle{
+  justify-content:center;
+}
+.googleMark{
+  width:18px;
+  height:18px;
+  border:var(--borderThin);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Inter, system-ui, sans-serif;
+  font-size:12px;
+  font-weight:900;
+  line-height:1;
+  background:#fff;
+  color:#111;
+}
+
 /* ABC selector bar */
 .abcBar{
   display:flex;

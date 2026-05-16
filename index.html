@@ -43,7 +43,7 @@
   <!-- Firebase SDK (v9 modular) -->
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-    import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    import { createUserWithEmailAndPassword, EmailAuthProvider, fetchSignInMethodsForEmail, getAuth, GoogleAuthProvider, linkWithCredential, linkWithPopup, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
     import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
     
@@ -69,6 +69,13 @@
     window.firebaseSignIn = signInWithEmailAndPassword;
     window.firebaseSignUp = createUserWithEmailAndPassword;
     window.firebaseSignOut = signOut;
+    window.firebaseSignInWithPopup = signInWithPopup;
+    window.firebaseGoogleProvider = GoogleAuthProvider;
+    window.firebaseEmailAuthProvider = EmailAuthProvider;
+    window.firebaseFetchSignInMethodsForEmail = fetchSignInMethodsForEmail;
+    window.firebaseLinkWithCredential = linkWithCredential;
+    window.firebaseLinkWithPopup = linkWithPopup;
+    window.firebaseUpdateProfile = updateProfile;
     window.firebaseOnAuthStateChanged = onAuthStateChanged;
     window.firestoreCollection = collection;
     window.firestoreDoc = doc;
@@ -430,6 +437,10 @@
         <label for="loginPassword" class="label">Password</label>
         <input id="loginPassword" class="input" type="password" placeholder="Enter password" autocomplete="current-password" >
       </div>
+      <button class="btn btnGoogle" id="loginGoogleBtn" type="button">
+        <span class="googleMark" aria-hidden="true">G</span>
+        Continue with Google
+      </button>
       <div class="help helpMt">
         Protected by reCAPTCHA. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Privacy</a> • <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="linkUnderline">Terms</a>
       </div>
@@ -451,6 +462,10 @@
     <div class="modalBody">
       <div id="signupError" class="error errorForm" style="display:none;"></div>
       <div class="control">
+        <label for="signupName" class="label">Name</label>
+        <input id="signupName" class="input" type="text" placeholder="Your name" autocomplete="name" >
+      </div>
+      <div class="control">
         <label for="signupEmail" class="label">Email</label>
         <input id="signupEmail" class="input" type="email" placeholder="your@email.com" autocomplete="email" >
       </div>
@@ -468,7 +483,48 @@
     </div>
     <div class="modalFooter">
       <button class="btn btnGhost" id="showLoginBtn" type="button">Back to Sign In</button>
+      <button class="btn btnGoogle" id="signupGoogleBtn" type="button">
+        <span class="googleMark" aria-hidden="true">G</span>
+        Google
+      </button>
       <button class="btn" id="signupSubmitBtn" type="button">Create Account</button>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal" role="dialog" aria-labelledby="profileModalTitle" aria-hidden="true">
+    <div class="modalHeader">
+      <h2 id="profileModalTitle" class="modalTitle">Profile</h2>
+      <button class="btn btnGhost" id="closeProfileModalBtn" type="button" aria-label="Close profile">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <div id="profileError" class="error errorForm" style="display:none;"></div>
+      <div class="control">
+        <label for="profileName" class="label">Name for receipts and invoices</label>
+        <input id="profileName" class="input" type="text" placeholder="Your name" autocomplete="name" >
+      </div>
+      <div class="control">
+        <label for="profileEmail" class="label">Account email</label>
+        <input id="profileEmail" class="input" type="email" autocomplete="email" readonly >
+      </div>
+      <div class="profileProviderRow">
+        <div>
+          <div class="label">Google sign-in</div>
+          <div class="help" id="profileGoogleStatus">Not connected</div>
+        </div>
+        <button class="btn btnGoogle" id="profileGoogleBtn" type="button">
+          <span class="googleMark" aria-hidden="true">G</span>
+          Connect
+        </button>
+      </div>
+      <div class="help">This profile is sent with donation checkout so Stripe can attach your name and email to the customer and invoice.</div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="profileSignOutBtn" type="button">Sign Out</button>
+      <button class="btn btnGhost" id="profileCancelBtn" type="button">Cancel</button>
+      <button class="btn" id="profileSaveBtn" type="button">Save Profile</button>
     </div>
   </div>
 
@@ -489,7 +545,7 @@
         <h3 class="eulaSection">2. What We Collect &amp; Store</h3>
         <p>We collect the absolute minimum required to provide the service:</p>
         <ul class="eulaList">
-          <li><strong>Email address &amp; password</strong> — stored securely by <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="linkUnderline">Google Firebase Authentication</a>. Your password is hashed by Firebase and is never readable by us.</li>
+          <li><strong>Name, email address &amp; sign-in method</strong> — stored securely by <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="linkUnderline">Google Firebase Authentication</a> and Firestore. Passwords are hashed by Firebase and are never readable by us. Google sign-in may be connected to the same email address.</li>
           <li><strong>Reading progress &amp; settings</strong> — stored <em>locally</em> in your browser (localStorage) by default. This data never leaves your device unless you choose to enable cloud sync.</li>
           <li><strong>Notes &amp; synced data (optional)</strong> — if you use the cloud sync feature, your notes, reading progress, task status, and dates are stored in <a href="https://firebase.google.com/products/firestore" target="_blank" rel="noopener" class="linkUnderline">Google Firebase Firestore</a>, a cloud database managed by Google. Each record is associated with your unique user ID and is not shared with other users.</li>
         </ul>
@@ -511,6 +567,7 @@
         <ul class="eulaList">
           <li><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener" class="linkUnderline">Google Firebase</a> (Authentication &amp; Firestore cloud database)</li>
           <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Google reCAPTCHA v3</a> (bot protection on sign-in and sign-up)</li>
+          <li><a href="https://stripe.com/privacy" target="_blank" rel="noopener" class="linkUnderline">Stripe</a> (secure donation checkout, receipts, and invoice details)</li>
         </ul>
 
         <h3 class="eulaSection">6. Your Rights &amp; Data Deletion</h3>
@@ -690,7 +747,7 @@
         <span class="label">$</span>
         <input id="donationCustomAmount" class="input" type="text" inputmode="decimal" placeholder="10" aria-label="Custom donation amount">
       </div>
-      <div class="help">Payments are completed securely on Stripe. Donations may be anonymous; signed-in users are sent with their Firebase token when available.</div>
+      <div class="help">Payments are completed securely on Stripe. Signed-in users are sent with their profile name, email, and Firebase token for receipt and invoice details.</div>
     </div>
     <div class="modalFooter">
       <button class="btn btnGhost" id="donationCancelBtn" type="button">Cancel</button>

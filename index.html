@@ -127,6 +127,9 @@
           <span id="today">Loading…</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <button id="donateBtn" class="btn btnIconOnly" type="button" aria-label="Donate" title="Donate">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 0 1 0 8h-1"></path><path d="M6 2v2"></path></svg>
+          </button>
           <button id="timerBtn" class="btn btnIconOnly" type="button" aria-label="Open timer" title="Timer">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M5 3 2 6"></path><path d="m22 6-3-3"></path><path d="M6.38 18.7 4 21"></path><path d="M17.64 18.67 20 21"></path></svg>
           </button>
@@ -661,6 +664,39 @@
     </div>
   </div>
 
+  <!-- Donation Modal -->
+  <div id="donationModal" class="modal" role="dialog" aria-labelledby="donationModalTitle" aria-hidden="true">
+    <div class="modalHeader">
+      <h2 id="donationModalTitle" class="modalTitle">Thanks Donation</h2>
+      <button class="btn btnGhost" id="closeDonationModalBtn" type="button" aria-label="Close donation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="modalBody">
+      <p class="donationIntro">Send a small thanks to support The Classics.</p>
+      <div id="donationError" class="error errorForm" style="display:none;"></div>
+      <div class="donationAmountGrid" role="group" aria-label="Donation amount">
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="5">$5</button>
+        <button class="btn btnGhost donationAmountBtn selected" type="button" data-donation-amount="10">$10</button>
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="15">$15</button>
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="20">$20</button>
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="25">$25</button>
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="50">$50</button>
+        <button class="btn btnGhost donationAmountBtn" type="button" data-donation-amount="100">$100</button>
+      </div>
+      <div class="timerCustomRow donationCustomRow">
+        <label class="label" for="donationCustomAmount">Custom:</label>
+        <span class="label">$</span>
+        <input id="donationCustomAmount" class="input" type="text" inputmode="decimal" placeholder="10" aria-label="Custom donation amount">
+      </div>
+      <div class="help">Payments are completed securely on Stripe. Donations may be anonymous; signed-in users are sent with their Firebase token when available.</div>
+    </div>
+    <div class="modalFooter">
+      <button class="btn btnGhost" id="donationCancelBtn" type="button">Cancel</button>
+      <button class="btn" id="donationCheckoutBtn" type="button">Continue to Stripe</button>
+    </div>
+  </div>
+
   <!-- Notes Drawer (right) -->
   <aside id="notesDrawer" class="drawer" aria-label="Notes drawer" aria-hidden="true" inert>
     <div class="drawerHeader">
@@ -875,6 +911,7 @@
   <script src="src/js/modals.js"></script>
   <script src="src/js/export.js"></script>
   <script src="src/js/components/notes.js"></script>
+  <script src="src/js/payments.js"></script>
   <script src="src/js/components/timer.js"></script>
   <script src="src/js/wire-ui.js"></script>
   <script src="src/js/main.js"></script>

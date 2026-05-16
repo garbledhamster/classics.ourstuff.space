@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <script>try{if(localStorage.getItem("classicsDarkMode")==="true")document.documentElement.classList.add("dark");}catch(e){}</script>
+  <title>Thanks - The Classics</title>
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/src/css/reset.css">
+  <link rel="stylesheet" href="/src/css/theme.css">
+  <link rel="stylesheet" href="/src/css/layout.css">
+  <link rel="stylesheet" href="/src/css/masthead.css">
+  <link rel="stylesheet" href="/src/css/buttons.css">
+  <link rel="stylesheet" href="/src/css/forms.css">
+  <link rel="stylesheet" href="/src/css/modals.css">
+  <link rel="stylesheet" href="/src/css/utils.css">
+  <link rel="stylesheet" href="/src/css/dark-mode.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="mast-top">
+        <div class="brand">The Classics</div>
+        <div class="dateline">
+          <span>Donation</span>
+          <span class="mono">-</span>
+          <span>Thank You</span>
+        </div>
+        <a class="btn btnIconOnly" href="/" aria-label="Back to The Classics" title="Back to The Classics">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+        </a>
+      </div>
+      <div class="rule"></div>
+    </header>
+
+    <main>
+      <section class="donationStatusCard" aria-live="polite">
+        <div class="donationStatusKicker" id="donationStatusKicker">Checking donation</div>
+        <div class="donationStatusAmount" id="donationStatusAmount">Thanks</div>
+        <div class="donationStatusMeta" id="donationStatusMeta">
+          <div>Looking up your checkout session securely.</div>
+        </div>
+      </section>
+      <div class="donationStatusActions">
+        <a class="btn" href="/">Return to The Classics</a>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+    const WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
+    const firebaseConfig = {
+      apiKey: "AIzaSyAbGQLNf5DaihauUnZhVA03TAQUO_6PwZk",
+      authDomain: "ourstuff-firebase.firebaseapp.com",
+      projectId: "ourstuff-firebase",
+      storageBucket: "ourstuff-firebase.firebasestorage.app",
+      messagingSenderId: "450756988196",
+      appId: "1:450756988196:web:89ee37877b306bbb1277b1",
+      measurementId: "G-JR0JC5Z47E"
+    };
+
+    const kicker = document.getElementById("donationStatusKicker");
+    const amount = document.getElementById("donationStatusAmount");
+    const meta = document.getElementById("donationStatusMeta");
+    const sessionId = new URLSearchParams(window.location.search).get("session_id");
+
+    function setStatus(title, amountText, lines) {
+      kicker.textContent = title;
+      amount.textContent = amountText;
+      meta.innerHTML = lines.map(line => `<div>${escapeHtml(line)}</div>`).join("");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function getCurrentUser() {
+      try {
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        return await new Promise(resolve => {
+          const unsubscribe = onAuthStateChanged(auth, user => {
+            unsubscribe();
+            resolve(user);
+          }, () => resolve(null));
+        });
+      } catch {
+        return null;
+      }
+    }
+
+    async function loadSession() {
+      if (!sessionId) {
+        setStatus("Donation status unavailable", "Missing session", ["Stripe did not return a checkout session id."]);
+        return;
+      }
+
+      try {
+        const headers = {};
+        const user = await getCurrentUser();
+        if (user && typeof user.getIdToken === "function") {
+          try {
+            headers.Authorization = `Bearer ${await user.getIdToken()}`;
+          } catch {}
+        }
+
+        const response = await fetch(`${WORKER_BASE_URL}/api/checkout/sessions/${encodeURIComponent(sessionId)}`, { headers });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(result?.error?.message || "Unable to verify checkout session.");
+        }
+
+        const paid = result.status === "paid";
+        const lines = [
+          `Site: ${result.site || "Classics"}`,
+          result.customerEmail ? `Receipt email: ${result.customerEmail}` : "Receipt email: not provided"
+        ];
+        setStatus(paid ? "Donation received" : "Donation status", result.amount || "Thanks", lines);
+      } catch (error) {
+        setStatus("Donation lookup failed", "Thanks", [error.message || "Unable to load donation details."]);
+      }
+    }
+
+    loadSession();
+  </script>
+</body>
+</html>

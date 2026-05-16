@@ -220,18 +220,106 @@ Authorization: Bearer FIREBASE_ID_TOKEN
 ```
 
 4. Worker verifies the Firebase token.
-5. Worker stores the Firebase UID in Stripe metadata:
+5. Worker stores a server-derived user reference in Stripe metadata:
 
 ```ts
 metadata: {
-  firebaseUid,
+  firebaseUidHash,
   site: "classics"
 }
 ```
 
-6. Success lookup only returns data if the Firebase UID matches.
+6. Success lookup only returns data if the verified user reference matches.
 
 Donations can be anonymous. Purchases, subscriptions, and account pages should use Firebase.
+
+## D1 To Firebase App Sync
+
+D1 is the payment source of truth. Firebase is only the signed-in app cache that lets each app show the user their own payment summary inside that app.
+
+The trusted direction is:
+
+```text
+Stripe webhook -> Cloudflare Worker -> D1 payment ledger -> signed-in app readback -> app Firebase cache
+```
+
+Never let a site or Firebase write decide that a payment is paid. If Firebase and D1 disagree, D1 wins.
+
+Each app should use this sync flow:
+
+1. User signs in with Firebase.
+2. App gets a Firebase ID token.
+3. App calls the Worker with:
+
+```http
+GET https://stripe-worker-api.jrice.workers.dev/api/me/payments?site=classics
+Authorization: Bearer FIREBASE_ID_TOKEN
+```
+
+4. Worker verifies the Firebase ID token.
+5. Worker derives the same private user reference used during checkout, such as `firebaseUidHash = HMAC(firebaseUid, USER_LINK_SECRET)`.
+6. Worker reads matching paid rows from D1.
+7. Worker returns only safe app-display fields.
+8. App stores that safe summary in the user's Firebase document if the app needs offline display or normal app sync.
+
+Example safe Worker response:
+
+```json
+{
+  "site": "classics",
+  "summary": {
+    "totalPaidCents": 2500,
+    "currency": "usd",
+    "paymentCount": 3,
+    "lastPaidAt": "2026-05-16T15:00:00.000Z"
+  },
+  "items": [
+    {
+      "id": "cs_live_...",
+      "kind": "donation",
+      "amountCents": 1000,
+      "currency": "usd",
+      "paidAt": "2026-05-16T15:00:00.000Z"
+    }
+  ]
+}
+```
+
+Example Firebase cache shape for an app with the current Firestore rules:
+
+```text
+userPrivate/{firebaseUid}
+  paymentSummaries.classics
+```
+
+Store only the safe summary fields in Firebase. Do not store Stripe event payloads, Checkout URLs, webhook payloads, API tokens, raw Firebase tokens, raw Stripe customer objects, or full receipt details in Firebase.
+
+If an app already encrypts user data before Firestore sync, encrypt the payment summary with the same app-level encryption path. If app-level encryption is not available yet, keep the Firebase cache minimal and fetch fresh payment status from the Worker whenever the user opens the payment area.
+
+Recommended app UI:
+
+- total donated or paid for that app
+- last payment date
+- recent safe payment rows
+- current subscription/access status when that app supports subscriptions
+
+Recommended Worker endpoints:
+
+```http
+GET /api/me/payments?site=classics
+GET /api/me/payment-summary?site=classics
+```
+
+Both endpoints must require a valid Firebase ID token. Admin-only endpoints still require `API_AUTH_TOKEN` and must never be called from browser JavaScript.
+
+The Worker also needs:
+
+```text
+FIREBASE_PROJECT_ID=ourstuff-firebase
+USER_LINK_SECRET=<stored with wrangler secret put>
+```
+
+`USER_LINK_SECRET` is used to HMAC the Firebase UID before it is stored in D1 or Stripe metadata. Never store raw Firebase UIDs in Stripe metadata.
 
 ## Webhooks
 

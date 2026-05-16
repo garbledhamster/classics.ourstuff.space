@@ -63,7 +63,9 @@
   }
 
   async function getFirebaseToken() {
-    const user = window.currentUser || window.state?.currentUser || null;
+    const user = (typeof state !== "undefined" && state.currentUser)
+      || (typeof currentUser !== "undefined" && currentUser)
+      || null;
     if (!user || typeof user.getIdToken !== "function") return "";
     try {
       return await user.getIdToken();

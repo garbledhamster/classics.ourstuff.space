@@ -56,8 +56,10 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { doc, getFirestore, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
+    const SITE_ID = "classics";
     const firebaseConfig = {
       apiKey: "AIzaSyAbGQLNf5DaihauUnZhVA03TAQUO_6PwZk",
       authDomain: "ourstuff-firebase.firebaseapp.com",
@@ -92,14 +94,45 @@
       try {
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        return await new Promise(resolve => {
+        const user = await new Promise(resolve => {
           const unsubscribe = onAuthStateChanged(auth, user => {
             unsubscribe();
             resolve(user);
           }, () => resolve(null));
         });
+        return user ? { app, user } : null;
       } catch {
         return null;
+      }
+    }
+
+    async function cachePaymentSummary(app, user, token) {
+      if (!app || !user || !token) return false;
+
+      try {
+        const response = await fetch(`${WORKER_BASE_URL}/api/me/payment-summary?site=${encodeURIComponent(SITE_ID)}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) return false;
+
+        const db = getFirestore(app);
+        const userRef = doc(db, "userPrivate", user.uid);
+        await setDoc(userRef, {
+          paymentSummaries: {
+            [SITE_ID]: {
+              site: result.site || SITE_ID,
+              summary: result.summary || {},
+              items: Array.isArray(result.items) ? result.items : [],
+              source: result.source || "d1",
+              syncedAt: result.syncedAt || new Date().toISOString()
+            }
+          },
+          paymentSummariesSyncedAt: serverTimestamp()
+        }, { merge: true });
+        return true;
+      } catch {
+        return false;
       }
     }
 
@@ -111,10 +144,12 @@
 
       try {
         const headers = {};
-        const user = await getCurrentUser();
-        if (user && typeof user.getIdToken === "function") {
+        let firebaseSession = await getCurrentUser();
+        let token = "";
+        if (firebaseSession?.user && typeof firebaseSession.user.getIdToken === "function") {
           try {
-            headers.Authorization = `Bearer ${await user.getIdToken()}`;
+            token = await firebaseSession.user.getIdToken();
+            headers.Authorization = `Bearer ${token}`;
           } catch {}
         }
 
@@ -130,6 +165,11 @@
           `Site: ${result.site || "Classics"}`,
           result.customerEmail ? `Receipt email: ${result.customerEmail}` : "Receipt email: not provided"
         ];
+        if (paid && firebaseSession?.user && await cachePaymentSummary(firebaseSession.app, firebaseSession.user, token)) {
+          lines.push("Donation summary synced to your account.");
+        } else if (paid) {
+          lines.push("Sign in on The Classics to sync this to your account.");
+        }
         setStatus(paid ? "Donation received" : "Donation status", result.amount || "Thanks", lines);
       } catch (error) {
         setStatus("Donation lookup failed", "Thanks", [error.message || "Unable to load donation details."]);

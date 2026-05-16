@@ -45,6 +45,12 @@ function saveCardDates(obj){
   localStorage.setItem(LS_CARD_DATES, JSON.stringify(obj));
   triggerAutoSync();
 }
+function loadPaymentSummaries(){
+  return safeJsonParse(localStorage.getItem(LS_PAYMENT_SUMMARIES) || "{}", {});
+}
+function savePaymentSummaries(obj){
+  localStorage.setItem(LS_PAYMENT_SUMMARIES, JSON.stringify(obj || {}));
+}
 
 function loadTableHiddenCols(){
   try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ console.error("Failed to load table column preferences:", e); return new Set(); }

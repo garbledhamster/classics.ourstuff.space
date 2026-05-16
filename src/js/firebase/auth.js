@@ -29,6 +29,7 @@ function initAuth() {
       state.sync.enabled = false;
       state.sync.lastSync = null;
       updateSyncStatus();
+      updatePaymentSummaryStatus();
     }
   });
 }

@@ -210,6 +210,60 @@ async function loadTimerSettingsFromFirestore(userId) {
   }
 }
 
+async function loadPaymentSummariesFromFirestore(userId) {
+  if (!userId || !window.firebaseDB) return {};
+  try {
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+    const docSnap = await window.firestoreGetDoc(userRef);
+    if (docSnap.exists()) {
+      return docSnap.data().paymentSummaries || {};
+    }
+    return {};
+  } catch (error) {
+    console.error('Error loading payment summaries from Firestore:', error);
+    return {};
+  }
+}
+
+async function refreshPaymentSummaryFromWorker(user) {
+  if (!user || typeof user.getIdToken !== "function" || !window.firebaseDB) return null;
+  try {
+    const token = await user.getIdToken();
+    const response = await fetch(`${PAYMENTS_WORKER_BASE_URL}/api/me/payment-summary?site=${encodeURIComponent(SITE_ID)}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(result?.error?.message || "Unable to refresh payment summary.");
+    }
+
+    const safeSummary = {
+      site: result.site || SITE_ID,
+      summary: result.summary || {},
+      items: Array.isArray(result.items) ? result.items : [],
+      source: result.source || "d1",
+      syncedAt: result.syncedAt || new Date().toISOString()
+    };
+    const paymentSummaries = { ...(state.paymentSummaries || {}), [SITE_ID]: safeSummary };
+    state.paymentSummaries = paymentSummaries;
+    savePaymentSummaries(paymentSummaries);
+
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', user.uid);
+    await window.firestoreSetDoc(userRef, {
+      paymentSummaries,
+      paymentSummariesSyncedAt: window.firestoreServerTimestamp()
+    }, { merge: true });
+    return safeSummary;
+  } catch (error) {
+    console.error('Error refreshing payment summary from Worker:', error);
+    return null;
+  } finally {
+    updatePaymentSummaryStatus();
+  }
+}
+
 // Full sync: push local data to Firestore and pull remote data
 async function performFullSync(userId) {
   if (!userId || !window.firebaseDB) return;
@@ -220,13 +274,14 @@ async function performFullSync(userId) {
   
   try {
     // First, load data from Firestore
-    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings] = await Promise.all([
+    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries] = await Promise.all([
       loadChecksFromFirestore(userId),
       loadNotesFromFirestore(userId),
       loadCardStatusesFromFirestore(userId),
       loadCardDatesFromFirestore(userId),
       loadCardTasksFromFirestore(userId),
-      loadTimerSettingsFromFirestore(userId)
+      loadTimerSettingsFromFirestore(userId),
+      loadPaymentSummariesFromFirestore(userId)
     ]);
     
     // Merge remote data with local data
@@ -266,6 +321,8 @@ async function performFullSync(userId) {
     localStorage.setItem(LS_CARD_DATES, JSON.stringify(state.cardDates));
     state.cardTasks = { ...remoteCardTasks, ...state.cardTasks };
     localStorage.setItem(LS_CARD_TASKS, JSON.stringify(state.cardTasks));
+    state.paymentSummaries = { ...remotePaymentSummaries, ...state.paymentSummaries };
+    savePaymentSummaries(state.paymentSummaries);
 
     // Timer settings: remote fills in what local hasn't set; local wins on conflict
     if (remoteTimerSettings) {
@@ -284,6 +341,7 @@ async function performFullSync(userId) {
       syncCardTasksToFirestore(userId),
       syncTimerSettingsToFirestore(userId)
     ]);
+    await refreshPaymentSummaryFromWorker(state.currentUser);
     
     // Tombstones are intentionally kept in Firestore and localStorage so that devices
     // which haven't synced yet still learn about the deletions on their next sync.
@@ -299,6 +357,7 @@ async function performFullSync(userId) {
   } finally {
     state.sync.syncing = false;
     updateSyncStatus();
+    updatePaymentSummaryStatus();
   }
 }
 
@@ -341,5 +400,32 @@ function updateSyncStatus() {
     statusEl.textContent = 'Sign in to sync';
     statusEl.style.color = '#666';
   }
+}
+
+function updatePaymentSummaryStatus() {
+  const statusEl = document.getElementById('paymentSummaryStatus');
+  if (!statusEl) return;
+
+  if (!state.currentUser) {
+    statusEl.textContent = 'Sign in to see donations';
+    statusEl.style.color = '#666';
+    return;
+  }
+
+  const paymentData = state.paymentSummaries?.[SITE_ID];
+  const summary = paymentData?.summary;
+  if (!summary || !summary.paymentCount) {
+    statusEl.textContent = 'Donations: none synced';
+    statusEl.style.color = '#666';
+    return;
+  }
+
+  const total = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: (summary.currency || 'usd').toUpperCase()
+  }).format((summary.totalPaidCents || 0) / 100);
+  const count = summary.donationCount || summary.paymentCount || 0;
+  statusEl.textContent = `Donations: ${total} (${count})`;
+  statusEl.style.color = '#080';
 }
 

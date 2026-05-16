@@ -13,6 +13,7 @@ const state = {
   cardTasks: loadCardTasks(),
   notes: loadNotes(),
   deletedNoteIds: loadDeletedNoteIds(),
+  paymentSummaries: loadPaymentSummaries(),
   view: "library",   // "library" | "plan" | "authors"
   availableYears: [],
   filters: {

@@ -1,5 +1,10 @@
 /* payments.js - donation modal and Stripe checkout handoff */
 (() => {
+  const WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
+  const SITE_ID = "classics";
+  const MIN_CUSTOM_AMOUNT = 1;
+  const MAX_CUSTOM_AMOUNT = 500;
+
   const modal = document.getElementById("donationModal");
   const openBtn = document.getElementById("donateBtn");
   const closeBtn = document.getElementById("closeDonationModalBtn");
@@ -51,8 +56,8 @@
 
   function validateAmount(amount) {
     if (!Number.isFinite(amount)) return "Enter a valid donation amount.";
-    if (amount < DONATION_MIN_CUSTOM_AMOUNT) return `Minimum donation is $${DONATION_MIN_CUSTOM_AMOUNT}.`;
-    if (amount > DONATION_MAX_CUSTOM_AMOUNT) return `Maximum donation is $${DONATION_MAX_CUSTOM_AMOUNT}.`;
+    if (amount < MIN_CUSTOM_AMOUNT) return `Minimum donation is $${MIN_CUSTOM_AMOUNT}.`;
+    if (amount > MAX_CUSTOM_AMOUNT) return `Maximum donation is $${MAX_CUSTOM_AMOUNT}.`;
     if (Math.round(amount * 100) !== amount * 100) return "Use dollars and cents only.";
     return "";
   }
@@ -86,11 +91,11 @@
       const headers = { "content-type": "application/json" };
       if (token) headers.Authorization = `Bearer ${token}`;
 
-      const response = await fetch(`${DONATION_WORKER_BASE_URL}/api/donations/checkout`, {
+      const response = await fetch(`${WORKER_BASE_URL}/api/donations/checkout`, {
         method: "POST",
         headers,
         body: JSON.stringify({
-          site: DONATION_SITE_ID,
+          site: SITE_ID,
           amount
         })
       });

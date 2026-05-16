@@ -82,9 +82,3 @@ const LEARNING_GOAL_OPTIONS = [
   { label: "Create", query: "creative project prompts" }
 ];
 const AUTO_SYNC_DEBOUNCE_MS = 2000; // Wait 2 seconds after last change before auto-syncing
-
-const DONATION_WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
-const DONATION_SITE_ID = "classics";
-const DONATION_PRESET_AMOUNTS = [5, 10, 15, 20, 25, 50, 100];
-const DONATION_MIN_CUSTOM_AMOUNT = 1;
-const DONATION_MAX_CUSTOM_AMOUNT = 500;

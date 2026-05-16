@@ -294,6 +294,8 @@ userPrivate/{firebaseUid}
 
 Store only the safe summary fields in Firebase. Do not store Stripe event payloads, Checkout URLs, webhook payloads, API tokens, raw Firebase tokens, raw Stripe customer objects, or full receipt details in Firebase.
 
+D1 also owns per-site invoice numbers. `payment_orders.invoice_label` uses labels such as `CLASSICS-000002`; future Checkout Sessions pass that label into Stripe metadata and payment descriptions before the customer pays.
+
 If an app already encrypts user data before Firestore sync, encrypt the payment summary with the same app-level encryption path. If app-level encryption is not available yet, keep the Firebase cache minimal and fetch fresh payment status from the Worker whenever the user opens the payment area.
 
 Recommended app UI:

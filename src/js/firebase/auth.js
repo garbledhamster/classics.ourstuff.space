@@ -320,6 +320,22 @@ function setGoogleAuthError(message) {
   setLoginError(message);
 }
 
+function friendlyFirebaseAuthError(error, fallback) {
+  if (error?.code === "auth/operation-not-allowed") {
+    return "Google sign-in is not enabled yet for this Firebase project. Enable Google in Firebase Console > Authentication > Sign-in method, then try again.";
+  }
+  if (error?.code === "auth/unauthorized-domain") {
+    return "This domain is not authorized for Firebase sign-in. Add this site domain in Firebase Console > Authentication > Settings > Authorized domains.";
+  }
+  if (error?.code === "auth/popup-closed-by-user") {
+    return "Google sign-in was closed before it finished.";
+  }
+  if (error?.code === "auth/popup-blocked") {
+    return "The browser blocked the Google sign-in popup. Allow popups for this site and try again.";
+  }
+  return error?.message || fallback;
+}
+
 async function completePendingGoogleLink(user) {
   if (!pendingGoogleCredential || !user) return;
   const userEmail = String(user.email || "").toLowerCase();
@@ -338,7 +354,7 @@ async function completePendingGoogleLink(user) {
     pendingGoogleEmail = "";
     if (error.code === "auth/provider-already-linked" || error.code === "auth/credential-already-in-use") return;
     console.error("Google link error:", error);
-    showAlert("Signed in, but Google could not be connected to this account yet.");
+    showAlert(friendlyFirebaseAuthError(error, "Signed in, but Google could not be connected to this account yet."));
   }
 }
 
@@ -375,7 +391,7 @@ async function handleGoogleSignIn() {
       setLoginError("That email already has a password account. Sign in with your password once and Google will be connected to the same account.");
       return;
     }
-    setGoogleAuthError(error.message || "Google sign-in failed.");
+    setGoogleAuthError(friendlyFirebaseAuthError(error, "Google sign-in failed."));
   } finally {
     buttons.forEach(btn => {
       btn.disabled = false;
@@ -403,7 +419,7 @@ async function handleProfileGoogleConnect() {
       clearProfileError();
       return;
     }
-    setProfileError(error.message || "Could not connect Google sign-in.");
+    setProfileError(friendlyFirebaseAuthError(error, "Could not connect Google sign-in."));
   } finally {
     btn.disabled = false;
     btn.innerHTML = previousHtml;

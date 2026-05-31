@@ -91,7 +91,12 @@ function defaultConversationDeskState(){
   };
 }
 
+function conversationDeskRecord(value){
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+
 function normalizeConversationDraft(source = {}){
+  source = conversationDeskRecord(source);
   const now = nowIso();
   const status = CONVERSATION_DRAFT_STATUS_OPTIONS.some(opt => opt.value === source.draftStatus)
     ? source.draftStatus
@@ -124,6 +129,7 @@ function normalizeConversationDraft(source = {}){
 }
 
 function normalizeConversationDeskState(source = {}){
+  source = conversationDeskRecord(source);
   const base = defaultConversationDeskState();
   const drafts = Array.isArray(source.drafts) ? source.drafts.map(normalizeConversationDraft) : [];
   const selectedId = drafts.some(draft => draft.id === source.selectedId)

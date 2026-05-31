@@ -207,10 +207,10 @@ function wirePlanDelegation(){
       return;
     }
 
-    if (action === "openDiscussWork"){
+    if (action === "openDeskWork"){
       const title = row.dataset.book || "";
       const author = row.dataset.author || "";
-      openCommentsDrawer(title, author);
+      openConversationDesk({ linkedBook: title, linkedAuthor: author });
       return;
     }
   };

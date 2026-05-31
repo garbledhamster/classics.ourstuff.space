@@ -13,7 +13,10 @@ const LS_TIMER_SETTINGS    = "greatworks.reading.timerSettings.v1";
 const LS_TIMER_STATE       = "greatworks.reading.timerState.v1";
 const LS_PAYMENT_SUMMARIES = "greatworks.reading.paymentSummaries.v1";
 const LS_USER_PROFILE      = "greatworks.reading.userProfile.v1";
+const LS_CONVERSATION_DESK = "greatworks.reading.conversationDesk.v1";
 const PAYMENTS_WORKER_BASE_URL = "https://stripe-worker-api.jrice.workers.dev";
+const CLASSICS_APP_ID = "classics.ourstuff.space";
+const MORTAI_API_URL = "https://us-central1-ourstuff-firebase.cloudfunctions.net/mortaiApi";
 const SITE_ID = "classics";
 const DEFAULT_CARD_STATUS = "not_started";
 const DEFAULT_CARD_TASK = "no_task";
@@ -86,3 +89,22 @@ const LEARNING_GOAL_OPTIONS = [
   { label: "Create", query: "creative project prompts" }
 ];
 const AUTO_SYNC_DEBOUNCE_MS = 2000; // Wait 2 seconds after last change before auto-syncing
+const CONVERSATION_DRAFT_STATUS_OPTIONS = [
+  { value: "note", label: "Note" },
+  { value: "question", label: "Question" },
+  { value: "outline", label: "Outline" },
+  { value: "draft", label: "Draft" },
+  { value: "review", label: "Review" },
+  { value: "contribution", label: "Contribution" },
+  { value: "archived", label: "Archived" }
+];
+const MORTAI_ACTIONS = [
+  "Ask Socratic Questions",
+  "Find My Notes",
+  "Build Outline",
+  "Find Sources",
+  "Challenge My Argument",
+  "Connect to the Canon",
+  "Preserve My Voice",
+  "Prepare Final Contribution"
+];

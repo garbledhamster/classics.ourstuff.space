@@ -8,29 +8,30 @@ function wireUI(){
   $("#tabLibrary").addEventListener("click", ()=> setView("library"));
   $("#tabPlan").addEventListener("click", ()=> setView("plan"));
   $("#tabAuthors").addEventListener("click", ()=> setView("authors"));
+  $("#tabDesk").addEventListener("click", ()=> openConversationDesk());
   // Global drawer buttons
   $("#openNotesBtn").addEventListener("click", () => openDrawer("notes"));
   $("#closeNotesBtn").addEventListener("click", closeDrawer);
-  $("#closeCommentsBtn").addEventListener("click", closeDrawer);
+  bindConversationDeskUI();
 
   // Great Conversation — comment type pills
-  $("#commentTypeRow").addEventListener("click", (e) => {
+  if (false) document.addEventListener("x-legacy-comment-type", (e) => {
     const pill = e.target.closest(".commentTypePill");
     if (!pill) return;
-    $("#commentTypeRow").querySelectorAll(".commentTypePill").forEach(p => { p.classList.remove("selected"); });
+    document.querySelectorAll(".legacyCommentTypePill").forEach(p => { p.classList.remove("selected"); });
     pill.classList.add("selected");
-    state.commentsUI.selectedType = pill.dataset.type;
+    void pill;
   });
 
   // Great Conversation — submit comment
-  $("#submitCommentBtn").addEventListener("click", submitBookComment);
+  if (false) document.addEventListener("x-legacy-submit", () => {});
 
   // Great Conversation — delete comment (event delegation on comments list)
-  $("#commentsList").addEventListener("click", (e) => {
+  if (false) document.addEventListener("x-legacy-comment-list", (e) => {
     const btn = e.target.closest("[data-action='deleteComment']");
     if (!btn) return;
     const commentId = btn.dataset.commentid;
-    if (commentId) deleteBookComment(commentId);
+    void commentId;
   });
 
   $("#overlay").addEventListener("click", () => {
@@ -364,6 +365,7 @@ function wireUI(){
         localStorage.removeItem(LS_CARD_DATES);
         localStorage.removeItem(LS_CARD_TASKS);
         localStorage.removeItem(LS_USER_PROFILE);
+        localStorage.removeItem(LS_CONVERSATION_DESK);
       } catch(e) {
         console.error('Error clearing localStorage during profile reset:', e);
       }
@@ -384,6 +386,7 @@ function wireUI(){
       state.cardTasks = {};
       state.notes = [];
       state.userProfile = {};
+      state.conversationDesk = loadConversationDesk();
       state.sync.lastSync = null;
       state.sync.syncing = false;
       state.sync.error = null;

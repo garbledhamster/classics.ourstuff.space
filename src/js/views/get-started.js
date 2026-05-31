@@ -291,7 +291,7 @@
           <div class="gsSectionLabel">Companion Tools</div>
           <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
             ${[
-              ["📚","Reading Tasks","Each book card has a task tracker: Inspect → First Read → Annotate → Second Read → Reflect → Discuss. Work through them at your own pace."],
+              ["📚","Reading Tasks","Each book card has a task tracker: Inspect → First Read → Annotate → Second Read → Reflect → Desk. Work through them at your own pace."],
               ["🗒️","Notes Drawer","Keep reading notes linked to specific books. Create quotes, reflections, great ideas, or essays. Sign in to sync across devices."],
               ["🔍","Glossary Lookup","Search any term or idea in the Glossary. Each entry links to dictionary definitions, Wikipedia, and related books."],
               ["👥","Great Authors","See all 60+ authors in the plan with their works. Click an author to filter the library to their contributions."],
@@ -315,7 +315,7 @@
         ${[
           ["Do I need to read every book?","No. The plan distinguishes Core (essential), Extended (highly recommended), and Optional works. If time is short, focus on Core. Even reading one book from each year gives you a foundation."],
           ["How long does each book take?","It varies enormously — from 30 minutes for a Platonic dialogue to several months for the complete works of Aristotle. The plan is designed for about 20–30 minutes of reading per day."],
-          ["What if I don't understand something?","That is normal and expected. Adler advises reading all the way through on a first pass without stopping. Understanding comes in layers. Use the Glossary, Wikipedia, and the discussion community to fill gaps."],
+          ["What if I don't understand something?","That is normal and expected. Adler advises reading all the way through on a first pass without stopping. Understanding comes in layers. Use the Glossary, Wikipedia, and your Conversation Desk to fill gaps."],
           ["Do I need to read in order?","The plan is designed to be followed in order because later books build on earlier ones. But the Syntopicon method lets you jump directly to a topic that interests you."],
           ["Which translation should I use?","This is a real and important question. The site links to standard editions. For Homer, the Fagles or Lattimore translations are widely loved. For Plato, Grube/Cooper or the Hackett editions. The specific translation matters less than reading seriously."],
           ["Can I use this site without an account?","Yes. All tracking is saved locally in your browser. Create an account only if you want to sync across devices using the cloud backup feature."],

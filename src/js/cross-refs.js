@@ -80,18 +80,7 @@ function openDrawer(which){
     $("#notesDrawer").classList.add("open");
     $("#notesDrawer").setAttribute("aria-hidden", "false");
     $("#notesDrawer").removeAttribute("inert");
-    $("#commentsDrawer").classList.remove("open");
-    $("#commentsDrawer").setAttribute("aria-hidden", "true");
-    $("#commentsDrawer").setAttribute("inert", "");
     renderNotesList();
-  } else if (which === "comments") {
-    $("#commentsDrawer").classList.add("open");
-    $("#commentsDrawer").setAttribute("aria-hidden", "false");
-    $("#commentsDrawer").removeAttribute("inert");
-    $("#notesDrawer").classList.remove("open");
-    $("#notesDrawer").setAttribute("aria-hidden", "true");
-    $("#notesDrawer").setAttribute("inert", "");
-    hideEditor();
   }
 }
 
@@ -105,10 +94,6 @@ function closeDrawer(){
   $("#notesDrawer").classList.remove("open");
   $("#notesDrawer").setAttribute("aria-hidden", "true");
   $("#notesDrawer").setAttribute("inert", "");
-
-  $("#commentsDrawer").classList.remove("open");
-  $("#commentsDrawer").setAttribute("aria-hidden", "true");
-  $("#commentsDrawer").setAttribute("inert", "");
 
   hideEditor();
 }

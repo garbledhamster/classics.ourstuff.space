@@ -1,0 +1,312 @@
+/* Conversation Desk */
+.conversationDesk{
+  display:grid;
+  grid-template-columns:minmax(220px, 280px) minmax(0, 1fr) minmax(260px, 340px);
+  gap:16px;
+  align-items:start;
+}
+.deskDraftRail,
+.deskResearchRail,
+.deskEditorPanel{
+  min-width:0;
+}
+.deskDraftRail,
+.deskResearchRail{
+  position:sticky;
+  top:12px;
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  border:1px solid var(--ink);
+  background:var(--paper);
+  padding:12px;
+}
+.deskEditorPanel{
+  border:1px solid var(--ink);
+  background:var(--paper);
+  padding:16px;
+}
+.deskRailHeader,
+.deskTopbar,
+.deskPanelHeader{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.deskRailHeader h2,
+.deskTopbar h1,
+.deskResearchRail h2,
+.deskToolPanel h3,
+.personalCanon h3,
+.railSection h3{
+  margin:0;
+  line-height:1.15;
+}
+.deskEyebrow{
+  margin:0 0 4px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:0;
+  color:var(--muted);
+  font-weight:700;
+}
+.deskTopActions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.deskSegmented{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  border:1px solid var(--ink);
+  margin:12px 0;
+}
+.deskSegment{
+  border:0;
+  border-right:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  min-height:34px;
+  cursor:pointer;
+  font:inherit;
+  text-transform:capitalize;
+}
+.deskSegment:last-child{ border-right:0; }
+.deskSegment.on{
+  background:var(--ink);
+  color:var(--paper);
+}
+.deskDraftList{
+  display:grid;
+  gap:8px;
+}
+.deskDraftItem,
+.canonItem,
+.railItem{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  padding:10px;
+  cursor:pointer;
+  font:inherit;
+}
+.deskDraftItem.on,
+.canonItem:hover,
+.railItem:hover{
+  background:var(--ink);
+  color:var(--paper);
+}
+.deskDraftTitle,
+.deskDraftMeta,
+.canonItem span,
+.canonItem small,
+.railItem span,
+.railItem small{
+  display:block;
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.deskDraftTitle{ font-weight:700; }
+.deskDraftMeta,
+.canonItem small,
+.railItem small{
+  margin-top:4px;
+  font-size:12px;
+  color:inherit;
+  opacity:.78;
+}
+.personalCanon,
+.railSection,
+.deskToolPanel{
+  margin-top:16px;
+}
+.personalCanon,
+.railSection{
+  border-top:1px solid var(--ink);
+  padding-top:12px;
+}
+.deskMetaGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+  margin-top:16px;
+}
+.deskQuestionField{
+  grid-column:span 3;
+}
+.deskWritingSurface{
+  display:block;
+  margin-top:14px;
+}
+.deskWritingSurface textarea{
+  min-height:46vh;
+  resize:vertical;
+  font-size:17px;
+  line-height:1.55;
+}
+.deskLowerGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.deskToolPanel{
+  border:1px solid var(--ink);
+  padding:12px;
+  min-width:0;
+}
+.mortaiPanel .select{
+  max-width:230px;
+}
+.mortaiResult{
+  margin-top:12px;
+  display:grid;
+  gap:10px;
+}
+.mortaiResult p{ margin:0; }
+.mortaiSection ul,
+.railSection ul{
+  margin:8px 0 0 18px;
+  padding:0;
+}
+.mortaiSection li,
+.railSection li{
+  margin:4px 0;
+  overflow-wrap:anywhere;
+}
+.smallTextarea{
+  min-height:68px;
+  resize:vertical;
+}
+.memoryTextarea{
+  min-height:260px;
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:12px;
+  resize:vertical;
+}
+.deskNotice,
+.deskError,
+.deskEmptySmall{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.deskError{
+  color:#8f1d1d;
+  font-weight:700;
+}
+.sourceCard{
+  border:1px solid var(--ink);
+  padding:10px;
+  margin-bottom:8px;
+}
+.sourceCard p,
+.sourceCard small{
+  display:block;
+  margin:6px 0 0;
+  overflow-wrap:anywhere;
+}
+.deskChipRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:8px;
+}
+.deskChip{
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  padding:5px 8px;
+  cursor:pointer;
+  font:inherit;
+  font-size:13px;
+}
+.deskLoader{
+  min-height:58vh;
+  display:grid;
+  align-content:center;
+  justify-items:center;
+  gap:18px;
+  border:1px solid var(--ink);
+  background:var(--paper);
+  padding:28px;
+}
+.deskLoaderTitle{
+  font-size:32px;
+  font-weight:800;
+  text-align:center;
+}
+.deskLoaderTrack{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.deskLoaderTrack span{
+  border:1px solid var(--ink);
+  padding:6px 8px;
+  opacity:.45;
+}
+.deskLoaderTrack span.on{
+  background:var(--ink);
+  color:var(--paper);
+  opacity:1;
+}
+.deskEmpty{
+  min-height:40vh;
+  display:grid;
+  place-content:center;
+  gap:14px;
+  text-align:center;
+}
+html.dark .deskDraftRail,
+html.dark .deskResearchRail,
+html.dark .deskEditorPanel,
+html.dark .deskToolPanel,
+html.dark .deskLoader{
+  background:#222;
+}
+html.dark .deskError{ color:#ff9b9b; }
+
+@media (max-width: 1180px){
+  .conversationDesk{
+    grid-template-columns:minmax(210px, 250px) minmax(0, 1fr);
+  }
+  .deskResearchRail{
+    position:static;
+    grid-column:1 / -1;
+    max-height:none;
+  }
+}
+@media (max-width: 760px){
+  .conversationDesk,
+  .deskMetaGrid,
+  .deskLowerGrid{
+    grid-template-columns:1fr;
+  }
+  .deskDraftRail,
+  .deskResearchRail{
+    position:static;
+    max-height:none;
+  }
+  .deskQuestionField{
+    grid-column:auto;
+  }
+  .deskTopbar{
+    display:grid;
+  }
+  .deskTopActions{
+    justify-content:flex-start;
+  }
+  .deskWritingSurface textarea{
+    min-height:42vh;
+    font-size:16px;
+  }
+  .mortaiPanel .select{
+    max-width:100%;
+  }
+}

@@ -160,8 +160,8 @@ function wireLibraryDelegation(){
       return;
     }
 
-    if (btn.dataset.action === "openDiscussLib"){
-      openCommentsDrawer(title, author);
+    if (btn.dataset.action === "openDeskLib"){
+      openConversationDesk({ linkedBook: title, linkedAuthor: author });
       return;
     }
 

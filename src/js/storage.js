@@ -59,6 +59,98 @@ function saveUserProfile(profile){
   triggerAutoSync();
 }
 
+function defaultHouseStyle(){
+  return {
+    voicePreferences: "Plainspoken, serious, and grounded in the user's own phrasing.",
+    editorialPosture: "socratic_editor",
+    sourcePriority: "my_notes_first",
+    rewritePermissions: "preserve_voice_only",
+    challengeLevel: "moderate",
+    preferredTraditions: "",
+    forbiddenBehaviors: "Do not replace my argument with generic prose. Do not invent sources, claims, or personal facts.",
+    defaultStructure: "Central question, claim, reasons, objections, source notes, final contribution."
+  };
+}
+
+function defaultConversationDeskState(){
+  return {
+    drafts: [],
+    selectedId: null,
+    houseStyle: defaultHouseStyle(),
+    ui: {
+      loading: false,
+      loaderStep: 0,
+      mortaiAction: MORTAI_ACTIONS[0],
+      mortaiBusy: false,
+      mortaiResult: null,
+      mortaiError: "",
+      draftFilter: "active"
+    },
+    updatedAt: nowIso(),
+    schemaVersion: 1
+  };
+}
+
+function normalizeConversationDraft(source = {}){
+  const now = nowIso();
+  const status = CONVERSATION_DRAFT_STATUS_OPTIONS.some(opt => opt.value === source.draftStatus)
+    ? source.draftStatus
+    : "note";
+  const createdAt = source.createdAt || now;
+  const updatedAt = source.updatedAt || createdAt;
+  return {
+    id: String(source.id || uid()),
+    title: String(source.title || ""),
+    centralQuestion: String(source.centralQuestion || ""),
+    body: String(source.body || ""),
+    draftStatus: status,
+    linkedBook: String(source.linkedBook || ""),
+    linkedAuthor: String(source.linkedAuthor || ""),
+    linkedThemes: Array.isArray(source.linkedThemes) ? source.linkedThemes.map(String).filter(Boolean) : [],
+    linkedNotes: Array.isArray(source.linkedNotes) ? source.linkedNotes.map(String).filter(Boolean) : [],
+    linkedSourceCards: Array.isArray(source.linkedSourceCards)
+      ? source.linkedSourceCards.map(card => ({
+          id: String(card?.id || uid()),
+          title: String(card?.title || ""),
+          url: String(card?.url || ""),
+          note: String(card?.note || "")
+        })).filter(card => card.title || card.url || card.note)
+      : [],
+    visibility: source.visibility === "shared" ? "shared" : "private",
+    aiBrainMemoryObject: source.aiBrainMemoryObject || null,
+    createdAt,
+    updatedAt
+  };
+}
+
+function normalizeConversationDeskState(source = {}){
+  const base = defaultConversationDeskState();
+  const drafts = Array.isArray(source.drafts) ? source.drafts.map(normalizeConversationDraft) : [];
+  const selectedId = drafts.some(draft => draft.id === source.selectedId)
+    ? source.selectedId
+    : drafts[0]?.id || null;
+  return {
+    ...base,
+    drafts,
+    selectedId,
+    houseStyle: { ...base.houseStyle, ...(source.houseStyle || {}) },
+    ui: { ...base.ui, ...(source.ui || {}), loading: false, mortaiBusy: false },
+    updatedAt: source.updatedAt || base.updatedAt,
+    schemaVersion: 1
+  };
+}
+
+function loadConversationDesk(){
+  return normalizeConversationDeskState(safeJsonParse(localStorage.getItem(LS_CONVERSATION_DESK) || "{}", {}));
+}
+
+function saveConversationDesk(value, { sync = true } = {}){
+  const normalized = normalizeConversationDeskState({ ...value, updatedAt: nowIso() });
+  localStorage.setItem(LS_CONVERSATION_DESK, JSON.stringify(normalized));
+  if (sync) triggerAutoSync();
+  return normalized;
+}
+
 function loadTableHiddenCols(){
   try { return new Set(JSON.parse(localStorage.getItem(LS_TABLE_HIDDEN_COLS) || "[]")); } catch(e){ console.error("Failed to load table column preferences:", e); return new Set(); }
 }

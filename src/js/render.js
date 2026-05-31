@@ -5,10 +5,12 @@ function setView(view){
   $("#libraryView").classList.toggle("on", view === "library");
   $("#planView").classList.toggle("on", view === "plan");
   $("#authorsView").classList.toggle("on", view === "authors");
+  $("#deskView").classList.toggle("on", view === "desk");
 
   $("#tabLibrary").classList.toggle("tabOn", view === "library");
   $("#tabPlan").classList.toggle("tabOn", view === "plan");
   $("#tabAuthors").classList.toggle("tabOn", view === "authors");
+  $("#tabDesk").classList.toggle("tabOn", view === "desk");
 
   if (view === "library"){
     $("#planName").textContent = "Library";
@@ -16,6 +18,8 @@ function setView(view){
     $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
   } else if (view === "authors"){
     $("#planName").textContent = "Great Authors";
+  } else if (view === "desk"){
+    $("#planName").textContent = "Conversation Desk";
   }
 
   renderAll();
@@ -232,6 +236,7 @@ function renderAll(){
   if (state.view === "library") renderLibrary();
   else if (state.view === "plan") renderPlan();
   else if (state.view === "authors") renderAuthors();
+  else if (state.view === "desk") renderConversationDesk();
 
   // Notes list refresh if open
   if (state.drawer.open && state.drawer.which === "notes"){

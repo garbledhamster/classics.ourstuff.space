@@ -15,7 +15,8 @@ const state = {
   deletedNoteIds: loadDeletedNoteIds(),
   paymentSummaries: loadPaymentSummaries(),
   userProfile: loadUserProfile(),
-  view: "library",   // "library" | "plan" | "authors"
+  conversationDesk: loadConversationDesk(),
+  view: "library",   // "library" | "plan" | "authors" | "desk"
   availableYears: [],
   filters: {
     // plan view
@@ -45,14 +46,6 @@ const state = {
   notesUI: { search:"", tag:"all", noteTypeFilter:[], editingId:null, showArchived: false, selectMode: false, selectedIds: new Set(), bookclubFilter: false },
   tagsUniverse: [], // note tags (titles)
   greatIdeasUniverse: [],
-  commentsUI: {
-    bookTitle: "",
-    bookAuthor: "",
-    bookKey: "",
-    selectedType: "argument",
-    submitting: false
-  },
-  commentsCache: {}, // bookKey -> array of comment objects
   sync: {
     enabled: false,
     lastSync: null,

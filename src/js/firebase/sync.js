@@ -306,6 +306,48 @@ async function loadUserProfileFromFirestore(userId) {
   }
 }
 
+function conversationDeskFirestoreRef(userId) {
+  if (!userId || !window.firebaseDB) return null;
+  return window.firestoreDoc(
+    window.firebaseDB,
+    "users",
+    userId,
+    "apps",
+    CLASSICS_APP_ID,
+    "conversationDesk",
+    "state"
+  );
+}
+
+async function syncConversationDeskToFirestore(userId) {
+  const ref = conversationDeskFirestoreRef(userId);
+  if (!ref) return;
+  try {
+    await window.firestoreSetDoc(ref, {
+      ...normalizeConversationDeskState(state.conversationDesk),
+      owner: userId,
+      updatedAt: nowIso(),
+      syncedAt: window.firestoreServerTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.error("Error syncing Conversation Desk to Firestore:", error);
+    state.sync.error = error.message;
+  }
+}
+
+async function loadConversationDeskFromFirestore(userId) {
+  const ref = conversationDeskFirestoreRef(userId);
+  if (!ref || !window.firestoreGetDoc) return null;
+  try {
+    const docSnap = await window.firestoreGetDoc(ref);
+    return docSnap.exists() ? normalizeConversationDeskState(docSnap.data()) : null;
+  } catch (error) {
+    console.error("Error loading Conversation Desk from Firestore:", error);
+    state.sync.error = error.message;
+    return null;
+  }
+}
+
 async function refreshPaymentSummaryFromWorker(user) {
   if (!user || typeof user.getIdToken !== "function" || !window.firebaseDB) return null;
   try {
@@ -354,7 +396,7 @@ async function performFullSync(userId) {
   
   try {
     // First, load data from Firestore
-    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries, remoteUserProfile] = await Promise.all([
+    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries, remoteUserProfile, remoteConversationDesk] = await Promise.all([
       loadChecksFromFirestore(userId),
       loadNotesFromFirestore(userId),
       loadCardStatusesFromFirestore(userId),
@@ -362,7 +404,8 @@ async function performFullSync(userId) {
       loadCardTasksFromFirestore(userId),
       loadTimerSettingsFromFirestore(userId),
       loadPaymentSummariesFromFirestore(userId),
-      loadUserProfileFromFirestore(userId)
+      loadUserProfileFromFirestore(userId),
+      loadConversationDeskFromFirestore(userId)
     ]);
     
     // Merge remote data with local data
@@ -406,6 +449,13 @@ async function performFullSync(userId) {
     savePaymentSummaries(state.paymentSummaries);
     state.userProfile = mergeUserProfiles(remoteUserProfile, state.userProfile, state.currentUser);
     saveUserProfile(state.userProfile);
+    if (remoteConversationDesk) {
+      const localTime = Date.parse(state.conversationDesk?.updatedAt || "") || 0;
+      const remoteTime = Date.parse(remoteConversationDesk.updatedAt || "") || 0;
+      if (remoteTime > localTime) {
+        state.conversationDesk = saveConversationDesk(remoteConversationDesk, { sync: false });
+      }
+    }
     updateAuthUI();
 
     // Timer settings: remote fills in what local hasn't set; local wins on conflict
@@ -424,7 +474,8 @@ async function performFullSync(userId) {
       syncCardDatesToFirestore(userId),
       syncCardTasksToFirestore(userId),
       syncTimerSettingsToFirestore(userId),
-      syncUserProfileToFirestore(userId)
+      syncUserProfileToFirestore(userId),
+      syncConversationDeskToFirestore(userId)
     ]);
     await refreshPaymentSummaryFromWorker(state.currentUser);
     

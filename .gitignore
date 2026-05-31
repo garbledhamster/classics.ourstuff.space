@@ -1,1 +1,12 @@
 nohup.out
+/.firebase
+/.mobile
+/.obsidian
+/.llm_brain
+/.openrouter
+/.security
+/.github
+/.codex
+/.stripe
+/.wrangler
+*.md

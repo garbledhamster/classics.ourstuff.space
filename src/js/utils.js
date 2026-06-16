@@ -60,16 +60,13 @@ function normalizeText(s){
   return String(s ?? "").toLowerCase().replace(/\s+/g," ").trim();
 }
 
-// Show/hide action buttons in a .workActions or .libActions container based on the current task.
-// Buttons with data-btn-group="always" are never hidden.
-// When taskValue is DEFAULT_CARD_TASK (no action), all buttons are shown.
+// Keep every dashboard-side action visible. The current task still adjusts search terms,
+// but it no longer hides resource buttons from the drawer.
 function applyTaskVisibility(actionsEl, taskValue) {
   if (!actionsEl) return;
-  const visibleGroups = TASK_VISIBLE_GROUPS[taskValue]; // undefined = show all
+  void taskValue;
   actionsEl.querySelectorAll("[data-btn-group]").forEach(el => {
-    const group = el.dataset.btnGroup;
-    const show = !visibleGroups || group === "always" || visibleGroups.includes(group);
-    el.style.display = show ? "" : "none";
+    el.style.display = "";
   });
 }
 

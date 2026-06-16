@@ -9,6 +9,13 @@ function saveChecks(obj){
   localStorage.setItem(LS_CHECKS, JSON.stringify(obj));
   triggerAutoSync();
 }
+function loadReadingStageChecks(){
+  return safeJsonParse(localStorage.getItem(LS_READING_STAGE_CHECKS) || "{}", {});
+}
+function saveReadingStageChecks(obj){
+  localStorage.setItem(LS_READING_STAGE_CHECKS, JSON.stringify(obj));
+  triggerAutoSync();
+}
 
 function loadNotes(){
   return safeJsonParse(localStorage.getItem(LS_NOTES) || "[]", []);

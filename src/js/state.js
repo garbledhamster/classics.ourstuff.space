@@ -7,7 +7,10 @@ const state = {
   projectCatalog: [],  // book catalog from library.json with sourceUrls
   flatWorks: [],     // plan entries (can include duplicates across years)
   libraryWorks: [],  // aggregated unique works for default browsing
+  readingGuideRows: [],
+  readingGuideLookup: null,
   checks: loadChecks(),
+  readingStageChecks: loadReadingStageChecks(),
   cardStatuses: loadCardStatuses(),
   cardDates: loadCardDates(),
   cardTasks: loadCardTasks(),

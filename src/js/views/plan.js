@@ -377,6 +377,7 @@ function workRowHtml(w){
       </div>
 
       <div class="workDrawer"><div>
+        ${renderReadingStageChecklist(w)}
         <div class="workDrawerBody">
         ${renderCardMetaControls(w.author, title)}
         <div class="workActions">

@@ -12,6 +12,9 @@ async function loadPlan(){
     if (!Array.isArray(projectData)) throw new Error("library.json must be an array");
     state.projectCatalog = projectData;
 
+    state.readingGuideRows = await loadReadingGuides();
+    state.readingGuideLookup = buildReadingGuideLookup(state.readingGuideRows);
+
     // Load reading plan
     const res = await fetch("./bookclub.json", { cache:"no-store" });
     if (!res.ok) throw new Error(`Could not load bookclub.json (${res.status})`);
@@ -33,6 +36,211 @@ async function loadPlan(){
   } catch(err){
     setError(`LOAD ERROR: ${err.message}`);
   }
+}
+
+async function loadReadingGuides(){
+  try{
+    const res = await fetch("./greatbooks.csv", { cache:"no-store" });
+    if (!res.ok) throw new Error(`Could not load greatbooks.csv (${res.status})`);
+    const text = await res.text();
+    return parseCsvRecords(text);
+  } catch(err){
+    console.warn("Reading guidance CSV unavailable:", err);
+    return [];
+  }
+}
+
+function parseCsvRecords(text){
+  const rows = parseCsvRows(text);
+  if (!rows.length) return [];
+  const headers = rows[0].map(h => String(h || "").trim());
+  return rows.slice(1)
+    .filter(row => row.some(cell => String(cell || "").trim()))
+    .map(row => Object.fromEntries(headers.map((header, index) => [header, row[index] || ""])));
+}
+
+function parseCsvRows(text){
+  const rows = [];
+  let row = [];
+  let cell = "";
+  let inQuotes = false;
+  const src = String(text || "").replace(/^\uFEFF/, "");
+  for (let i = 0; i < src.length; i++){
+    const ch = src[i];
+    const next = src[i + 1];
+    if (inQuotes){
+      if (ch === '"' && next === '"'){
+        cell += '"';
+        i++;
+      } else if (ch === '"'){
+        inQuotes = false;
+      } else {
+        cell += ch;
+      }
+      continue;
+    }
+    if (ch === '"'){
+      inQuotes = true;
+    } else if (ch === ","){
+      row.push(cell);
+      cell = "";
+    } else if (ch === "\n"){
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else if (ch !== "\r"){
+      cell += ch;
+    }
+  }
+  if (cell || row.length){
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows;
+}
+
+function normalizeGuideKeyPart(value){
+  return normalizeText(value)
+    .replaceAll("&", " and ")
+    .replace(/\bst\.?\s+/g, "saint ")
+    .replace(/gospel according to saint\s+/g, "gospel of ")
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\b(the|a|an|of|and|in)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizeGuideAuthor(value){
+  return normalizeGuideKeyPart(value).replace(/\bsaint\b/g, "").trim();
+}
+
+function readingGuideKey({ year, order, author, title, selection }){
+  return [
+    Number(year) || "",
+    Number(order) || "",
+    normalizeGuideAuthor(author),
+    normalizeGuideKeyPart(title),
+    normalizeGuideKeyPart(selection)
+  ].join("|");
+}
+
+function readingGuideIdentityKey({ year, author, title }){
+  return [
+    Number(year) || "",
+    normalizeGuideAuthor(author),
+    normalizeGuideKeyPart(title)
+  ].join("|");
+}
+
+function readingGuideAuthorTitleKey({ author, title }){
+  return [
+    normalizeGuideAuthor(author),
+    normalizeGuideKeyPart(title)
+  ].join("|");
+}
+
+function buildReadingGuideLookup(rows){
+  const exact = new Map();
+  const loose = new Map();
+  const byYearAuthorTitle = new Map();
+  const byAuthorTitle = new Map();
+  const byYearTitle = new Map();
+  const byTitle = new Map();
+  for (const row of rows){
+    const entry = normalizeReadingGuideRow(row);
+    const exactKey = readingGuideKey({
+      year: entry.year,
+      order: entry.order,
+      author: entry.author,
+      title: entry.title,
+      selection: entry.selection
+    });
+    const looseKey = readingGuideKey({
+      year: entry.year,
+      order: entry.order,
+      author: entry.author,
+      title: entry.title,
+      selection: ""
+    });
+    exact.set(exactKey, entry);
+    if (!loose.has(looseKey)) loose.set(looseKey, entry);
+    byYearAuthorTitle.set(readingGuideIdentityKey(entry), entry);
+    byAuthorTitle.set(readingGuideAuthorTitleKey(entry), entry);
+    byYearTitle.set(`${entry.year}|${normalizeGuideKeyPart(entry.title)}`, entry);
+
+    const titleKey = normalizeGuideKeyPart(entry.title);
+    if (byTitle.has(titleKey)) byTitle.set(titleKey, null);
+    else byTitle.set(titleKey, entry);
+  }
+  return { exact, loose, byYearAuthorTitle, byAuthorTitle, byYearTitle, byTitle, rows: Array.from(exact.values()) };
+}
+
+function normalizeReadingGuideRow(row){
+  return {
+    status: String(row.Status || "").trim(),
+    globalSeq: Number(row.GlobalSeq),
+    year: Number(row.Year),
+    order: Number(row.SeqInYear),
+    author: String(row.Author || "").trim(),
+    title: String(row.Work || "").trim(),
+    selection: String(row.PlanSelection || "").trim(),
+    beforeReading: String(row.BeforeReading || "").trim(),
+    duringReading: String(row.DuringReading || "").trim(),
+    afterReading: String(row.AfterReading || "").trim(),
+    hook: String(row.Hook || "").trim(),
+    resourceTitles: String(row.ResourceTitles || "").trim(),
+    resourceUrls: String(row.ResourceURLs || "").trim(),
+    themes: String(row.Themes || "").trim()
+  };
+}
+
+function findReadingGuide(year, order, author, title, selection){
+  const lookup = state.readingGuideLookup;
+  if (!lookup) return null;
+  const exactKey = readingGuideKey({ year, order, author, title, selection });
+  const looseKey = readingGuideKey({ year, order, author, title, selection: "" });
+  const yearAuthorTitleKey = readingGuideIdentityKey({ year, author, title });
+  const authorTitleKey = readingGuideAuthorTitleKey({ author, title });
+  const yearTitleKey = `${Number(year) || ""}|${normalizeGuideKeyPart(title)}`;
+  const titleOnlyKey = normalizeGuideKeyPart(title);
+  return lookup.exact.get(exactKey)
+    || lookup.loose.get(looseKey)
+    || lookup.byYearAuthorTitle.get(yearAuthorTitleKey)
+    || lookup.byAuthorTitle.get(authorTitleKey)
+    || lookup.byYearTitle.get(yearTitleKey)
+    || lookup.byTitle.get(titleOnlyKey)
+    || findBestReadingGuide(lookup.rows || [], year, author, title);
+}
+
+function readingGuideTokenScore(a, b){
+  const aTokens = new Set(normalizeGuideKeyPart(a).split(" ").filter(Boolean));
+  const bTokens = new Set(normalizeGuideKeyPart(b).split(" ").filter(Boolean));
+  if (!aTokens.size || !bTokens.size) return 0;
+  let overlap = 0;
+  for (const token of aTokens){
+    if (bTokens.has(token)) overlap++;
+  }
+  return Math.max(
+    overlap / Math.max(aTokens.size, bTokens.size),
+    overlap / Math.min(aTokens.size, bTokens.size)
+  );
+}
+
+function findBestReadingGuide(rows, year, author, title){
+  let best = null;
+  for (const row of rows){
+    const sameYear = Number(row.year) === Number(year);
+    const sameAuthor = normalizeGuideAuthor(row.author) === normalizeGuideAuthor(author)
+      || normalizeGuideAuthor(author).endsWith(` ${normalizeGuideAuthor(row.author)}`)
+      || normalizeGuideAuthor(row.author).endsWith(` ${normalizeGuideAuthor(author)}`);
+    const titleScore = readingGuideTokenScore(row.title, title);
+    if (titleScore < 0.72) continue;
+    const score = titleScore + (sameAuthor ? 0.35 : 0) + (sameYear ? 0.15 : 0);
+    if (!best || score > best.score) best = { row, score };
+  }
+  return best ? best.row : null;
 }
 
 function normalizeForMatch(text){
@@ -101,6 +309,7 @@ function flattenPlan(){
         const blackBox = w.black_box || null;
         // Look up sourceUrl and publication year from project catalog instead of bookclub.json
         const catalogMeta = findCatalogMeta(author, title);
+        const readingGuide = findReadingGuide(yearNum, order, author, title, selection);
 
         const key = workKey({year:yearNum, order, tier, author, title, selection, selections});
         const search = normalizeText(`${author} ${title} ${selection} ${(selections||[]).join(" ")} ${(greatIdeas||[]).join(" ")} ${(customTags||[]).join(" ")}`);
@@ -119,7 +328,8 @@ function flattenPlan(){
           publishedYear: catalogMeta.publishedYear,
           greatIdeas,
           customTags,
-          blackBox
+          blackBox,
+          readingGuide
         });
       }
     }

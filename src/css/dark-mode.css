@@ -37,6 +37,8 @@ html.dark .libActions,
 /* biome-ignore lint/style/noDescendingSpecificity: dark-mode override of base class intentionally lower specificity */
 html.dark .workActions{ background:#222; }
 html.dark .workDrawerBody{ background:#222; }
+html.dark .readingStageChecklist,
+html.dark .readingStageItem{ background:#1a1a1a; }
 html.dark .workDrawerBody > .cardMetaControls{ background:transparent; border-right-color:#444; }
 html.dark .bookDetailsSection{ background:#222; border-bottom-color:#444; }
 html.dark .bookDetailsHeader{ background:#2a2a2a; border-bottom-color:#444; color:#888; }

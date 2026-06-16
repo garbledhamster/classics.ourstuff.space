@@ -360,6 +360,7 @@ function wireUI(){
       // Clear all site-specific localStorage keys
       try {
         localStorage.removeItem(LS_CHECKS);
+        localStorage.removeItem(LS_READING_STAGE_CHECKS);
         localStorage.removeItem(LS_NOTES);
         localStorage.removeItem(LS_CARD_STATUS);
         localStorage.removeItem(LS_CARD_DATES);
@@ -381,6 +382,7 @@ function wireUI(){
       }
       // Reset in-memory state
       state.checks = {};
+      state.readingStageChecks = {};
       state.cardStatuses = {};
       state.cardDates = {};
       state.cardTasks = {};

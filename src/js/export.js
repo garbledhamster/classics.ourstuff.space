@@ -16,6 +16,7 @@ function buildExportRows(){
       const taskOpt = CARD_TASK_OPTIONS.find(o => o.value === taskVal);
       const taskLabel = taskOpt ? taskOpt.label : "";
       const dates = getCardDates(key);
+      const stageChecks = getReadingStageState(fw.key);
       const bookNotes = state.notes.filter(n => !n.archived && n.book_tag === title);
       const notesText = bookNotes.map(n => `[${n.title || ""}] ${n.body || ""}`.trim()).join("\n\n---\n\n");
       seen.set(key, {
@@ -27,6 +28,9 @@ function buildExportRows(){
         current_action: taskLabel,
         date_started: dates.started || "",
         date_finished: dates.finished || "",
+        before_reading_done: stageChecks.before,
+        during_reading_done: stageChecks.during,
+        after_reading_done: stageChecks.after,
         notes_count: bookNotes.length,
         notes: notesText
       });
@@ -49,7 +53,7 @@ function downloadFile(filename, content, mimeType){
 
 function exportProgressCsv(){
   const rows = buildExportRows();
-  const headers = ["Author", "Title", "Year", "Tier", "Status", "Current Action", "Date Started", "Date Finished", "Notes Count", "Notes"];
+  const headers = ["Author", "Title", "Year", "Tier", "Status", "Current Action", "Date Started", "Date Finished", "Before Reading Done", "During Reading Done", "After Reading Done", "Notes Count", "Notes"];
   function csvCell(v){
     const s = String(v == null ? "" : v);
     if (s.includes('"') || s.includes(",") || s.includes("\n") || s.includes("\r")){
@@ -59,7 +63,7 @@ function exportProgressCsv(){
   }
   const lines = [
     headers.map(csvCell).join(","),
-    ...rows.map(r => [r.author, r.title, r.year, r.tier, r.status, r.current_action, r.date_started, r.date_finished, r.notes_count, r.notes].map(csvCell).join(","))
+    ...rows.map(r => [r.author, r.title, r.year, r.tier, r.status, r.current_action, r.date_started, r.date_finished, r.before_reading_done, r.during_reading_done, r.after_reading_done, r.notes_count, r.notes].map(csvCell).join(","))
   ];
   const dateStr = new Date().toISOString().slice(0, 10);
   downloadFile(`classics-progress-${dateStr}.csv`, lines.join("\r\n"), "text/csv;charset=utf-8;");

@@ -82,6 +82,63 @@
   border-top:var(--borderThin);
   background:#fafafa;
 }
+.readingStageChecklist{
+  border-top:var(--borderThin);
+  background:#fff;
+  padding:10px 0;
+  display:grid;
+  gap:8px;
+}
+.readingStageHook{
+  margin:0;
+  padding:0 2px;
+  font-size:12px;
+  line-height:1.45;
+  font-weight:800;
+  color:var(--muted);
+}
+.readingStageGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:8px;
+}
+.readingStageItem{
+  border:var(--borderThin);
+  background:#fff;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  align-items:start;
+  gap:8px;
+  padding:9px;
+  min-width:0;
+  cursor:pointer;
+}
+.readingStageItem input{
+  width:18px;
+  height:18px;
+  accent-color:var(--ink);
+  margin:1px 0 0;
+}
+.readingStageText{
+  display:grid;
+  gap:4px;
+  min-width:0;
+}
+.readingStageLabel{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:0.06em;
+  line-height:1;
+  text-transform:uppercase;
+}
+.readingStagePrompt{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:0;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
 .workDrawerBody > .cardMetaControls{
   display:flex;
   flex-direction:column;
@@ -93,6 +150,11 @@
   padding:10px 12px 8px 0;
   min-width:200px;
   max-width:300px;
+}
+@media (max-width:980px){
+  .readingStageGrid{
+    grid-template-columns:1fr;
+  }
 }
 .workDrawerBody .cardDateFields{
   grid-template-columns:1fr;

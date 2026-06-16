@@ -86,6 +86,67 @@ function renderCardMetaControls(author, title){
   `;
 }
 
+const READING_STAGE_OPTIONS = [
+  { key: "before", label: "Before reading", field: "beforeReading" },
+  { key: "during", label: "During reading", field: "duringReading" },
+  { key: "after", label: "After reading", field: "afterReading" }
+];
+
+function getReadingStageState(workKeyValue){
+  const raw = state.readingStageChecks[workKeyValue] || {};
+  return {
+    before: !!raw.before,
+    during: !!raw.during,
+    after: !!raw.after
+  };
+}
+
+function renderReadingStageChecklist(workItem){
+  const guide = workItem.readingGuide;
+  if (!guide) return "";
+  const checks = getReadingStageState(workItem.key);
+  const rows = READING_STAGE_OPTIONS.map(stage => {
+    const text = guide[stage.field] || "";
+    if (!text) return "";
+    return `
+      <label class="readingStageItem">
+        <input type="checkbox"
+          data-action="toggleReadingStage"
+          data-workkey="${escapeHtml(workItem.key)}"
+          data-stage="${escapeHtml(stage.key)}"
+          ${checks[stage.key] ? "checked" : ""}>
+        <span class="readingStageText">
+          <span class="readingStageLabel">${escapeHtml(stage.label)}</span>
+          <span class="readingStagePrompt">${escapeHtml(text)}</span>
+        </span>
+      </label>
+    `;
+  }).join("");
+  if (!rows.trim()) return "";
+  return `
+    <section class="readingStageChecklist" aria-label="Reading checklist">
+      ${guide.hook ? `<p class="readingStageHook">${escapeHtml(guide.hook)}</p>` : ""}
+      <div class="readingStageGrid">${rows}</div>
+    </section>
+  `;
+}
+
+function applyReadingStageChange(workKeyValue, stageKey, checked){
+  if (!workKeyValue || !READING_STAGE_OPTIONS.some(stage => stage.key === stageKey)) return;
+  const current = getReadingStageState(workKeyValue);
+  const next = { ...current, [stageKey]: !!checked };
+  if (!next.before && !next.during && !next.after) delete state.readingStageChecks[workKeyValue];
+  else state.readingStageChecks[workKeyValue] = next;
+  saveReadingStageChecks(state.readingStageChecks);
+}
+
+function handleReadingStageCheckboxChangeEvent(e){
+  const cb = e.target.closest('input[type="checkbox"][data-action="toggleReadingStage"]');
+  if (!cb) return false;
+  applyReadingStageChange(cb.dataset.workkey || "", cb.dataset.stage || "", cb.checked);
+  return true;
+}
+
 
 function normalizeCardDateValue(value){
   const v = String(value || "").trim();

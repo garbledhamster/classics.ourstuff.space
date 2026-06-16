@@ -11,3 +11,40 @@ nohup.out
 /.wrangler
 *.md
 /artifacts
+
+# Agent and Local AI Brain project conventions.
+!AGENTS.md
+!AGENT_ALIGNMENT.md
+!agents.md
+!/.codex/
+/.codex/*
+!/.codex/AGENTS.md
+!/.codex/actions/
+!/.codex/actions/**
+!/.codex/environments/
+!/.codex/environments/**
+!/.agents/
+!/.agents/skills/
+!/.agents/skills/**
+!/.claude/
+!/.claude/skills/
+!/.claude/skills/**
+!project-context/
+!project-context/ORIGINAL_IDEA.md
+!project-context/pointers/
+!project-context/pointers/**
+
+# Local AI Brain runtime state stays local.
+/localaibrain/brain/
+/localaibrain/brain/**
+
+# Python/runtime caches.
+__pycache__/
+*.py[cod]
+/.agents
+/.claude
+/.codex
+/localaibrain
+/project-context
+AGENTS.md
+AGENT_ALIGNMENT.md

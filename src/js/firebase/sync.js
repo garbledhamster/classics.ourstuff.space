@@ -20,6 +20,20 @@ async function syncChecksToFirestore(userId) {
     state.sync.error = error.message;
   }
 }
+async function syncReadingStageChecksToFirestore(userId) {
+  if (!userId || !window.firebaseDB) return;
+  try {
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+    await window.firestoreSetDoc(userRef, {
+      readingStageChecks: state.readingStageChecks,
+      readingStageChecksSyncedAt: window.firestoreServerTimestamp()
+    }, { merge: true });
+  } catch (error) {
+    console.error('Error syncing reading stage checks to Firestore:', error);
+    state.sync.error = error.message;
+  }
+}
 async function syncCardStatusesToFirestore(userId) {
   if (!userId || !window.firebaseDB) return;
   try {
@@ -99,6 +113,22 @@ async function loadChecksFromFirestore(userId) {
     return {};
   } catch (error) {
     console.error('Error loading checks from Firestore:', error);
+    state.sync.error = error.message;
+    return {};
+  }
+}
+async function loadReadingStageChecksFromFirestore(userId) {
+  if (!userId || !window.firebaseDB) return {};
+  try {
+    const db = window.firebaseDB;
+    const userRef = window.firestoreDoc(db, 'userPrivate', userId);
+    const docSnap = await window.firestoreGetDoc(userRef);
+    if (docSnap.exists()) {
+      return docSnap.data().readingStageChecks || {};
+    }
+    return {};
+  } catch (error) {
+    console.error('Error loading reading stage checks from Firestore:', error);
     state.sync.error = error.message;
     return {};
   }
@@ -396,8 +426,9 @@ async function performFullSync(userId) {
   
   try {
     // First, load data from Firestore
-    const [remoteChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries, remoteUserProfile, remoteConversationDesk] = await Promise.all([
+    const [remoteChecks, remoteReadingStageChecks, remoteNotesData, remoteCardStatuses, remoteCardDates, remoteCardTasks, remoteTimerSettings, remotePaymentSummaries, remoteUserProfile, remoteConversationDesk] = await Promise.all([
       loadChecksFromFirestore(userId),
+      loadReadingStageChecksFromFirestore(userId),
       loadNotesFromFirestore(userId),
       loadCardStatusesFromFirestore(userId),
       loadCardDatesFromFirestore(userId),
@@ -417,6 +448,8 @@ async function performFullSync(userId) {
     // Checks: Merge by key (spread operator, local values overwrite remote on conflict)
     state.checks = { ...remoteChecks, ...state.checks }; // Local wins on conflict
     localStorage.setItem(LS_CHECKS, JSON.stringify(state.checks));
+    state.readingStageChecks = { ...remoteReadingStageChecks, ...state.readingStageChecks };
+    localStorage.setItem(LS_READING_STAGE_CHECKS, JSON.stringify(state.readingStageChecks));
     
     // Notes: Merge deletedNoteIds first (union of local + remote tombstones) so that
     // deletions made on any device propagate everywhere.  A note deleted on device A
@@ -469,6 +502,7 @@ async function performFullSync(userId) {
     // Push all merged data back to Firestore (includes local-only items)
     await Promise.all([
       syncChecksToFirestore(userId),
+      syncReadingStageChecksToFirestore(userId),
       syncNotesToFirestore(userId),
       syncCardStatusesToFirestore(userId),
       syncCardDatesToFirestore(userId),

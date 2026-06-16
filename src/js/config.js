@@ -3,6 +3,7 @@
    STORAGE KEYS
    ========================================================= */
 const LS_CHECKS        = "greatworks.reading.checks.v2";
+const LS_READING_STAGE_CHECKS = "greatworks.reading.stageChecks.v1";
 const LS_NOTES         = "greatworks.reading.notes.v1";
 const LS_DELETED_NOTES = "greatworks.reading.deletedNoteIds.v1";
 const LS_CARD_STATUS       = "greatworks.reading.cardStatus.v1";

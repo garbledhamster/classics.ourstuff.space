@@ -216,6 +216,9 @@ function wirePlanDelegation(){
   };
 
   grid.onchange = (e) => {
+    if (handleReadingStageCheckboxChangeEvent(e)){
+      return;
+    }
     if (handleCardStatusSelectChangeEvent(e)){
       return;
     }

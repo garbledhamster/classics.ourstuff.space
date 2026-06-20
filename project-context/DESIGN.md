@@ -97,7 +97,7 @@ Browser
 
 2. **LLM Navigability** — LLM coding assistants (GitHub Copilot, Claude, GPT) work best with small, single-purpose files whose names and exports describe their responsibility. Uploading the entire monolith into every session wastes context window and degrades output quality. With modular files, a session can load only the relevant modules.
 
-3. **Onboarding** — New contributors can orient themselves by reading `DESIGN.md` and browsing the directory tree, then open only the file they need.
+3. **Onboarding** — New contributors can orient themselves by reading `project-context/DESIGN.md` and browsing the directory tree, then open only the file they need.
 
 4. **Testing** — Isolated ES modules with pure functions and explicit dependencies can be unit-tested. The monolith cannot.
 
@@ -123,7 +123,8 @@ Browser
 classics.ourstuff.space/
 │
 ├── index.html              ← Shell: <head> meta, <link> tags, Firebase module, <script type="module" src="src/js/main.js">
-├── DESIGN.md               ← This document
+├── project-context/
+│   └── DESIGN.md           ← This document
 ├── README.md
 ├── CNAME
 ├── manifest.json

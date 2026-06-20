@@ -1,0 +1,10 @@
+interface:
+  display_name: "Ourstuff LAIB Optimize Main"
+  short_description: "Optimize the main Local AI Brain."
+  default_prompt: "Use Ourstuff LAIB Optimize Main."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools: []
+metadata:
+  managed_by: "local-ai-brain-managed"

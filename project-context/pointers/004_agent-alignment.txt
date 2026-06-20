@@ -1,0 +1,23 @@
+# Agent Alignment Pointer
+
+Canonical file:
+- project-context/AGENT_ALIGNMENT.md
+
+Purpose:
+project-context/AGENT_ALIGNMENT.md is the project-wide operating agreement for future agents. It aligns agents on source-of-truth order, Local AI Brain use, pointer maintenance, $grill-with-docs behavior, $handoff behavior, Codex setup, git/runtime policy, and change discipline.
+
+When to read:
+- Before non-trivial repo work.
+- Before planning or architecture discussion.
+- Before creating or changing agent instructions.
+- Before changing Local AI Brain, Codex, pointer, or handoff workflows.
+
+Local AI Brain record:
+- Artifact type: agent-alignment
+- Target surface: agent-alignment
+
+Related files:
+- AGENTS.md
+- .codex/AGENTS.md
+- project-context/pointers/002_system-map.json
+- project-context/pointers/003_runtime-git-policy.txt

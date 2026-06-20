@@ -200,6 +200,7 @@
   height:0;
   overflow:hidden;
   margin-top:0;
+  visibility:hidden;
 }
 .ideaTagRow .pillIdea,
 .ideaTagRow .pillTag{
@@ -211,6 +212,7 @@
   height:auto;
   overflow:visible;
   margin-top:6px;
+  visibility:visible;
 }
 .libCard.active .ideaTagRow .pill,
 .workRow.active .ideaTagRow .pill{

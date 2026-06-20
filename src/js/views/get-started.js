@@ -21,6 +21,7 @@
   function escapeHtml(s){
     return String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
   }
+  function appState(){ return typeof state !== "undefined" ? state : window.state; }
 
   function buildGetStartedView(){
     const tabRow = $(".navRow");
@@ -372,7 +373,8 @@
   }
 
   function setGetStartedView(){
-    if (window.state) window.state.view = "get-started";
+    const currentState = appState();
+    if (currentState) currentState.view = "get-started";
     ["#libraryView","#planView","#authorsView","#glossaryView","#getStartedView"].forEach(sel =>
       document.querySelector(sel)?.classList.toggle("on", sel === "#getStartedView")
     );

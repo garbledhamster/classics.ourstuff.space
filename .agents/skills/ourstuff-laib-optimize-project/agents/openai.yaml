@@ -1,0 +1,10 @@
+interface:
+  display_name: "Ourstuff LAIB Optimize Project"
+  short_description: "Optimize the nearest project Local AI Brain."
+  default_prompt: "Use Ourstuff LAIB Optimize Project."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools: []
+metadata:
+  managed_by: "local-ai-brain-managed"

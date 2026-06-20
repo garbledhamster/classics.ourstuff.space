@@ -53,6 +53,11 @@ function wirePlanDelegation(){
       return;
     }
 
+    if (action === "gotoLibraryGreatIdea"){
+      gotoLibraryGreatIdea(btn.dataset.idea || "");
+      return;
+    }
+
     if (action === "openLinkedNote"){
       const noteId = btn.dataset.noteid;
       if (noteId){ openDrawer("notes"); startEditNote(noteId); }

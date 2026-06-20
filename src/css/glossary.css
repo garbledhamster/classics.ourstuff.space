@@ -359,11 +359,29 @@
   background: var(--paper);
 }
 
+.glossaryRelatedButton {
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  display: block;
+  font: inherit;
+}
+
+.glossaryRelatedButton:hover,
+.glossaryRelatedButton:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  outline: none;
+}
+
 .glossaryRelatedTitle {
+  display: block;
   font-weight: 900;
 }
 
 .glossaryRelatedMeta {
+  display: block;
   font-size: .9rem;
   opacity: .78;
   margin-top: 4px;

@@ -371,7 +371,7 @@ function workRowHtml(w){
             <span class="pill">${escapeHtml(wrStatusLabel)}</span>
             ${wrTaskOpt ? `<span class="pill">${escapeHtml(wrTaskOpt.label)}</span>` : ""}
           </div>
-          ${(w.greatIdeas||[]).length || (w.customTags||[]).length ? `<div class="ideaTagRow">${(w.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}${(w.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${(w.greatIdeas||[]).length || (w.customTags||[]).length ? `<div class="ideaTagRow">${(w.greatIdeas||[]).map(idea => `<button class="pill pillIdea pillButton" type="button" data-action="gotoLibraryGreatIdea" data-idea="${escapeHtml(idea)}" title="Show library works tagged ${escapeHtml(idea)}">${escapeHtml(idea)}</button>`).join("")}${(w.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
           ${subLines.length ? `<div>${subLines.map(escapeHtml).join("<br>")}</div>` : ""}
         </div>
       </div>

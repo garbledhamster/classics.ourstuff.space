@@ -44,6 +44,11 @@ function wireLibraryDelegation(){
       return;
     }
 
+    if (btn.dataset.action === "gotoLibraryGreatIdea"){
+      gotoLibraryGreatIdea(btn.dataset.idea || "");
+      return;
+    }
+
     if (btn.dataset.action === "openLinkedNote"){
       const noteId = btn.dataset.noteid;
       if (noteId){ openDrawer("notes"); startEditNote(noteId); }

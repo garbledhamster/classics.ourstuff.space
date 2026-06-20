@@ -9,6 +9,7 @@
     initialized:false, loading:false, error:"", terms:[], filteredTerms:[], activeLetter:"", query:"",
     selectedTerm:null, pageIndex:0, dictionaryCache:loadCache(DICT_CACHE_KEY), wikipediaCache:loadCache(WIKI_CACHE_KEY)
   };
+  function appState(){ return typeof state !== "undefined" ? state : window.state; }
 
   function $(selector, root=document){ return root.querySelector(selector); }
   function escapeHtml(value){
@@ -173,6 +174,19 @@
       const term = glossaryState.terms.find(t => t.id === btn.dataset.termId);
       if (term) openTermModal(term);
     });
+    $("#glossaryModalBody")?.addEventListener("click", e => {
+      const ideaBtn = e.target.closest("[data-glossary-idea]");
+      if (ideaBtn && typeof window.gotoLibraryGreatIdea === "function") {
+        closeTermModal();
+        window.gotoLibraryGreatIdea(ideaBtn.dataset.glossaryIdea || "");
+        return;
+      }
+      const workBtn = e.target.closest("[data-glossary-work-author][data-glossary-work-title]");
+      if (workBtn && typeof window.gotoLibraryWork === "function") {
+        closeTermModal();
+        window.gotoLibraryWork(workBtn.dataset.glossaryWorkAuthor || "", workBtn.dataset.glossaryWorkTitle || "");
+      }
+    });
     $("#glossaryCloseBtn")?.addEventListener("click", closeTermModal);
     $("#glossaryPrevBtn")?.addEventListener("click", () => moveModalPage(-1));
     $("#glossaryNextBtn")?.addEventListener("click", () => moveModalPage(1));
@@ -185,7 +199,8 @@
   }
 
   function setGlossaryView(){
-    if (window.state) window.state.view = "glossary";
+    const currentState = appState();
+    if (currentState) currentState.view = "glossary";
     ["#libraryView", "#planView", "#authorsView", "#glossaryView", "#getStartedView"].forEach(sel => $(sel)?.classList.toggle("on", sel === "#glossaryView"));
     ["#tabLibrary", "#tabPlan", "#tabAuthors", "#tabGlossary", "#tabGetStarted"].forEach(sel => $(sel)?.classList.remove("tabOn"));
     $("#tabGlossary")?.classList.add("tabOn");
@@ -234,8 +249,9 @@
 
   function knownGreatIdeas(){
     const ideas = new Map();
-    for (const idea of (window.state?.greatIdeasUniverse || [])) ideas.set(normalizeText(idea), idea);
-    for (const work of (window.state?.libraryWorks || [])) for (const idea of (work.greatIdeas || [])) ideas.set(normalizeText(idea), idea);
+    const currentState = appState();
+    for (const idea of (currentState?.greatIdeasUniverse || [])) ideas.set(normalizeText(idea), idea);
+    for (const work of (currentState?.libraryWorks || [])) for (const idea of (work.greatIdeas || [])) ideas.set(normalizeText(idea), idea);
     return ideas;
   }
 
@@ -271,7 +287,7 @@
   }
 
   function relatedLibraryItems(term){
-    const works = (window.state?.libraryWorks || []);
+    const works = (appState()?.libraryWorks || []);
     const ideas = mappedIdeas(term);
     const ideaKeys = new Set(ideas.map(normalizeText));
     const termNorm = normalizeText(term.term);
@@ -431,7 +447,7 @@
 
   function renderRelatedLibraryPage(term){
     const related = relatedLibraryItems(term);
-    renderPageShell(term, "Related Library", related.length ? `<div class="glossaryRelatedList">${related.map(({ work, matchedIdeas }) => `<div class="glossaryRelatedItem"><div class="glossaryRelatedTitle">${escapeHtml(work.author ? `${work.author} — ${work.title}` : work.title)}${work.date ? ` (${escapeHtml(formatDate(work.date))})` : ""}</div><div class="glossaryRelatedMeta">Matched by: ${escapeHtml(matchedIdeas.length ? matchedIdeas.join(", ") : term.term)}</div></div>`).join("")}</div>` : `<div class="glossaryBlock"><div class="glossaryRefText">No related books found yet. Add matching Great Ideas tags to library data or normalize the cross-references.</div></div>`);
+    renderPageShell(term, "Related Library", related.length ? `<div class="glossaryRelatedList">${related.map(({ work, matchedIdeas }) => `<button class="glossaryRelatedItem glossaryRelatedButton" type="button" data-glossary-work-author="${escapeHtml(work.author || "")}" data-glossary-work-title="${escapeHtml(work.title || "")}"><span class="glossaryRelatedTitle">${escapeHtml(work.author ? `${work.author} — ${work.title}` : work.title)}${work.date ? ` (${escapeHtml(formatDate(work.date))})` : ""}</span><span class="glossaryRelatedMeta">Matched by: ${escapeHtml(matchedIdeas.length ? matchedIdeas.join(", ") : term.term)}</span></button>`).join("")}</div>` : `<div class="glossaryBlock"><div class="glossaryRefText">No related books found yet. Add matching Great Ideas tags to library data or normalize the cross-references.</div></div>`);
   }
 
   function installSetViewPatch(){

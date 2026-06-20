@@ -14,7 +14,7 @@ nohup.out
 
 # Agent and Local AI Brain project conventions.
 !AGENTS.md
-!AGENT_ALIGNMENT.md
+!DESIGN_CONCEPT.md
 !agents.md
 !/.codex/
 /.codex/*
@@ -24,12 +24,16 @@ nohup.out
 !/.codex/environments/
 !/.codex/environments/**
 !/.agents/
+!/.agents/project-flow-status.json
+!/.agents/plans/
+!/.agents/plans/*.md
 !/.agents/skills/
 !/.agents/skills/**
 !/.claude/
 !/.claude/skills/
 !/.claude/skills/**
 !project-context/
+!project-context/*.md
 !project-context/ORIGINAL_IDEA.md
 !project-context/pointers/
 !project-context/pointers/**
@@ -41,10 +45,3 @@ nohup.out
 # Python/runtime caches.
 __pycache__/
 *.py[cod]
-/.agents
-/.claude
-/.codex
-/localaibrain
-/project-context
-AGENTS.md
-AGENT_ALIGNMENT.md

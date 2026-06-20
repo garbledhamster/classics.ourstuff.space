@@ -40,7 +40,7 @@ function libCardHtml(it){
             <span class="pill">${escapeHtml(libStatusLabel)}</span>
             ${libTaskOpt ? `<span class="pill">${escapeHtml(libTaskOpt.label)}</span>` : ""}
           </div>
-          ${(it.greatIdeas||[]).length || (it.customTags||[]).length ? `<div class="ideaTagRow">${(it.greatIdeas||[]).map(idea => `<span class="pill pillIdea">${escapeHtml(idea)}</span>`).join("")}${(it.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
+          ${(it.greatIdeas||[]).length || (it.customTags||[]).length ? `<div class="ideaTagRow">${(it.greatIdeas||[]).map(idea => `<button class="pill pillIdea pillButton" type="button" data-action="gotoLibraryGreatIdea" data-idea="${escapeHtml(idea)}" title="Show works tagged ${escapeHtml(idea)}">${escapeHtml(idea)}</button>`).join("")}${(it.customTags||[]).map(tag => `<span class="pill pillTag">${escapeHtml(tag)}</span>`).join("")}</div>` : ""}
         </div>
 
       </div>

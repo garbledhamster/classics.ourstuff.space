@@ -150,6 +150,16 @@
   gap:6px;
   white-space:nowrap;
 }
+.pillButton{
+  font:inherit;
+  cursor:pointer;
+}
+.pillButton:hover,
+.pillButton:focus-visible{
+  background:var(--ink);
+  color:var(--paper);
+  outline:none;
+}
 .pillArchived{
   background:#f5f5dc;
   color:#666;

@@ -1,0 +1,141 @@
+{
+  "project": "classics.ourstuff.space",
+  "phase": "project-execute-batch-1-review",
+  "blocked": false,
+  "blocked_reason": "",
+  "next_command": "Review Batch 1 execution handoff, assign Review Confidence, then audit after Review Confidence reaches 5/5 or the user overrides.",
+  "ready_for_idea_init": false,
+  "ready_for_project_execute": true,
+  "written_artifacts": [
+    "AGENTS.md",
+    "project-context/AGENT_ALIGNMENT.md",
+    "project-context/CONTEXT.md",
+    "project-context/ORIGINAL_IDEA.md",
+    "project-context/PRODUCT.md",
+    "project-context/DESIGN.md",
+    "DESIGN_CONCEPT.md",
+    ".agents/plans/000_prd.md",
+    ".agents/plans/001_stabilize-reading-desk-boot-and-navigation.md",
+    ".agents/plans/002_complete-work-discovery-and-research-path.md",
+    ".agents/plans/003_complete-bookclub-progress-loop.md",
+    ".agents/project-flow-status.json"
+  ],
+  "idea_init_artifacts": {
+    "DESIGN_CONCEPT.md": "present; distilled Destination created by idea-init",
+    ".agents/plans/000_prd.md": "present; full PRD created by idea-init",
+    ".agents/plans/NNN_slug.md": "batch 1 published: 001_stabilize-reading-desk-boot-and-navigation.md, 002_complete-work-discovery-and-research-path.md, 003_complete-bookclub-progress-loop.md",
+    "project-context/DESIGN.md": "present; broader technical/modularization design, not a DESIGN_CONCEPT.md equivalent",
+    "project-context/PRODUCT.md": "present; compact product brief, not a .agents/plans/000_prd.md equivalent"
+  },
+  "required_public_artifacts": {
+    "AGENTS.md": "present",
+    "project-context/AGENT_ALIGNMENT.md": "present",
+    "project-context/CONTEXT.md": "present",
+    "project-context/ORIGINAL_IDEA.md": "present",
+    ".agents/project-flow-status.json": "present"
+  },
+  "proposed_vertical_slices": [
+    {
+      "title": "Stabilize reading desk boot and navigation",
+      "type": "AFK",
+      "blocked_by": "None",
+      "summary": "A reader can load the static app over HTTP, move among Library, Bookclub, Great Authors, Glossary, Get Started, Conversation Desk, Notes, timer, and donation entry points without broken navigation or console-breaking errors.",
+      "user_stories_covered": [1, 8, 31, 39, 42, 46, 48, 55, 57, 58]
+    },
+    {
+      "title": "Complete Work discovery and research path",
+      "type": "AFK",
+      "blocked_by": "Stabilize reading desk boot and navigation",
+      "summary": "A reader can find a Work by Library search/filter, inspect Work context, open relevant Resource Links, and jump between Library, author, Great Idea, and plan context.",
+      "user_stories_covered": [1, 2, 3, 4, 5, 6, 7, 41]
+    },
+    {
+      "title": "Complete Bookclub progress loop",
+      "type": "AFK",
+      "blocked_by": "Stabilize reading desk boot and navigation",
+      "summary": "A reader can use the Ten-Year Great Conversation plan by year or all-years view, filter it, set Reading Progress, choose Reading Stages, record dates, and see persisted results after reload.",
+      "user_stories_covered": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+    },
+    {
+      "title": "Make Notes the durable reader-owned workspace",
+      "type": "AFK",
+      "blocked_by": "Complete Bookclub progress loop",
+      "summary": "A reader can create contextual Notes from Works or the drawer, filter and maintain Notes, archive or delete selected Notes, and import/export portable JSON.",
+      "user_stories_covered": [24, 25, 26, 27, 28, 29, 30]
+    },
+    {
+      "title": "Connect Glossary terms to Great Ideas and Works",
+      "type": "AFK",
+      "blocked_by": "Complete Work discovery and research path",
+      "summary": "A reader can browse or search Syntopicon terms, open term panels, see references, external support, mapped Great Ideas, and related Works.",
+      "user_stories_covered": [42, 43, 44, 45]
+    },
+    {
+      "title": "Shape Notes into Conversation Desk drafts",
+      "type": "AFK",
+      "blocked_by": "Make Notes the durable reader-owned workspace",
+      "summary": "A reader can open Conversation Desk from general navigation or Work context, create and maintain drafts, link Works/authors/themes/Notes/source cards, use research rail context, and preserve a Personal Canon.",
+      "user_stories_covered": [31, 32, 33, 34, 37, 38]
+    },
+    {
+      "title": "Verify optional Cloud Sync for private Reader Data",
+      "type": "AFK",
+      "blocked_by": "Complete Bookclub progress loop; Make Notes the durable reader-owned workspace; Shape Notes into Conversation Desk drafts",
+      "summary": "A signed-in reader can sync progress, stages, dates, Notes, profile, timer settings, and Conversation Desk state across devices while unsigned local use remains intact.",
+      "user_stories_covered": [19, 20, 21, 22, 23]
+    },
+    {
+      "title": "Review MortAI privacy and voice boundaries",
+      "type": "HITL",
+      "blocked_by": "Shape Notes into Conversation Desk drafts",
+      "summary": "A human reviews and approves the live MortAI interaction boundaries, House Style defaults, source priority, and private-data expectations before expanding AI-assisted writing behavior.",
+      "user_stories_covered": [35, 36, 38]
+    },
+    {
+      "title": "Polish support utilities and accessibility",
+      "type": "AFK",
+      "blocked_by": "Stabilize reading desk boot and navigation",
+      "summary": "A reader can use dark mode, timer, donation entry, keyboard-visible controls, modal/drawer behavior, and mobile layouts without losing the reading task.",
+      "user_stories_covered": [48, 49, 50, 51, 53, 54, 55, 56]
+    }
+  ],
+  "slice_publication": {
+    "published_slice_files": [
+      ".agents/plans/001_stabilize-reading-desk-boot-and-navigation.md",
+      ".agents/plans/002_complete-work-discovery-and-research-path.md",
+      ".agents/plans/003_complete-bookclub-progress-loop.md"
+    ],
+    "approval_state": "batch 1 approved by user on 2026-06-16",
+    "gate": "Batch 1 approved and published. Remaining proposed slices still require approval before publication."
+  },
+  "project_execute": {
+    "model_cap": "No GPT-5.5 xhigh for routine work",
+    "reasoning_cap": "medium/high maximum unless a blocker requires escalation",
+    "active_batch": [
+      ".agents/plans/001_stabilize-reading-desk-boot-and-navigation.md",
+      ".agents/plans/002_complete-work-discovery-and-research-path.md",
+      ".agents/plans/003_complete-bookclub-progress-loop.md"
+    ],
+    "active_phase": "Review",
+    "review_confidence": null,
+    "latest_execution_handoff": "C:\\Users\\jrice\\AppData\\Local\\Temp\\classics-execution-batch-1-handoff.md",
+    "latest_review_handoff": "",
+    "latest_audit_handoff": ""
+  },
+  "validation": {
+    "initialized_artifacts": "validated present",
+    "local_ai_brain_context_pack": "ran with query 'idea-init PRD Destination vertical slices classics reading app project-init status'; returned 0 results",
+    "proof_session_uid": "fca775d0-ede0-444f-b7ae-4550631ac4e5"
+  },
+  "notes": [
+    "ORIGINAL_IDEA.md is filled.",
+    "project-context/AGENT_ALIGNMENT.md includes product alignment from ORIGINAL_IDEA.md.",
+    "project-context/CONTEXT.md is glossary-only.",
+    "No ADR was created because this pass produced idea-init planning outputs and did not settle a hard-to-reverse architecture trade-off.",
+    "project-context/DESIGN.md remains the broader technical/modularization design and should not be treated as the distilled Destination.",
+    "project-context/PRODUCT.md remains a compact product brief and should not be treated as the full PRD.",
+    "User approved Batch 1 with: yup knock it out.",
+    "Batch 1 slice files were published and project-execute execution began.",
+    ".gitignore already unignores project-context/*.md, DESIGN_CONCEPT.md, and .agents/plans/*.md so the moved docs and idea-init Markdown outputs are trackable."
+  ]
+}

@@ -1,0 +1,10 @@
+interface:
+  display_name: "Ourstuff LAIB Index"
+  short_description: "Rebuild the nearest Local AI Brain index."
+  default_prompt: "Use Ourstuff LAIB Index."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools: []
+metadata:
+  managed_by: "local-ai-brain-managed"

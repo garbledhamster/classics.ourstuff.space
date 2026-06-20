@@ -58,6 +58,32 @@ function gotoLibraryWork(author, title){
   });
 }
 
+function gotoLibraryGreatIdea(idea){
+  const selectedIdea = String(idea || "").trim();
+  if (!selectedIdea) return;
+
+  state.filters.libGreatIdea = selectedIdea;
+  state.filters.libQ = "";
+  state.filters.libLetterFilter = "";
+  state.filters.libPage = 1;
+
+  const libQ = $("#libQ");
+  const libGreatIdeaSel = $("#libGreatIdeaSel");
+  if (libQ) libQ.value = "";
+  if (libGreatIdeaSel) libGreatIdeaSel.value = selectedIdea;
+
+  setView("library");
+  renderLibrary();
+
+  requestAnimationFrame(() => {
+    const firstMatch = document.querySelector(".libCard");
+    if (firstMatch){
+      firstMatch.scrollIntoView({ behavior:"smooth", block:"start" });
+      flashEl(firstMatch);
+    }
+  });
+}
+
 function getWorkContextFromRow(row){
   const book = row.dataset.book || "";
   const author = row.dataset.author || "";

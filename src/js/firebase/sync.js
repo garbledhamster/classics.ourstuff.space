@@ -349,16 +349,63 @@ function conversationDeskFirestoreRef(userId) {
   );
 }
 
+function conversationDeskPublishedIndexRef(userId) {
+  if (!userId || !window.firebaseDB) return null;
+  return window.firestoreDoc(window.firebaseDB, "conversationDeskPublished", userId);
+}
+
+function buildConversationDeskPublishedIndex(userId) {
+  const desk = normalizeConversationDeskState(state.conversationDesk);
+  const contributions = desk.drafts
+    .filter(draft => draft.publicationStatus === "published")
+    .sort((a, b) => (b.publishedAt || b.updatedAt || "").localeCompare(a.publishedAt || a.updatedAt || ""))
+    .map(draft => ({
+      id: draft.id,
+      title: draft.title || "Untitled contribution",
+      centralQuestion: draft.centralQuestion || "",
+      body: draft.body || "",
+      linkedBook: draft.linkedBook || "",
+      linkedAuthor: draft.linkedAuthor || "",
+      linkedThemes: Array.isArray(draft.linkedThemes) ? draft.linkedThemes : [],
+      visibility: draft.visibility || "private",
+      publicationStatus: "published",
+      publishedAt: draft.publishedAt || draft.updatedAt || nowIso(),
+      updatedAt: draft.updatedAt || draft.createdAt || nowIso()
+    }));
+
+  return {
+    owner: userId,
+    siteId: SITE_ID,
+    appId: CLASSICS_APP_ID,
+    publishedCount: contributions.length,
+    contributions,
+    // Future public reader surfaces should only query approved entries.
+    // This placeholder keeps the publication gap explicit until admin review
+    // controls are added in a follow-up.
+    approvalStatus: contributions.length ? "awaiting_admin_review" : "not_requested",
+    publicListReady: false,
+    updatedAt: nowIso()
+  };
+}
+
 async function syncConversationDeskToFirestore(userId) {
   const ref = conversationDeskFirestoreRef(userId);
   if (!ref) return;
   try {
+    const normalized = normalizeConversationDeskState(state.conversationDesk);
     await window.firestoreSetDoc(ref, {
-      ...normalizeConversationDeskState(state.conversationDesk),
+      ...normalized,
       owner: userId,
       updatedAt: nowIso(),
       syncedAt: window.firestoreServerTimestamp()
     }, { merge: true });
+    const publishedRef = conversationDeskPublishedIndexRef(userId);
+    if (publishedRef) {
+      await window.firestoreSetDoc(publishedRef, {
+        ...buildConversationDeskPublishedIndex(userId),
+        syncedAt: window.firestoreServerTimestamp()
+      }, { merge: true });
+    }
   } catch (error) {
     console.error("Error syncing Conversation Desk to Firestore:", error);
     state.sync.error = error.message;

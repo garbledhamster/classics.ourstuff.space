@@ -1,13 +1,13 @@
 /* Conversation Desk */
 .conversationDesk{
   display:grid;
-  grid-template-columns:minmax(220px, 280px) minmax(0, 1fr) minmax(260px, 340px);
+  grid-template-columns:minmax(240px, 300px) minmax(0, 1fr) minmax(260px, 340px);
   gap:16px;
   align-items:start;
 }
 .deskDraftRail,
 .deskResearchRail,
-.deskEditorPanel{
+.deskMainPanel{
   min-width:0;
 }
 .deskDraftRail,
@@ -20,14 +20,16 @@
   background:var(--paper);
   padding:12px;
 }
-.deskEditorPanel{
+.deskMainPanel{
   border:1px solid var(--ink);
   background:var(--paper);
   padding:16px;
 }
 .deskRailHeader,
 .deskTopbar,
-.deskPanelHeader{
+.deskPanelHeader,
+.deskSectionHeader,
+.deskReaderHeader{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
@@ -37,8 +39,9 @@
 .deskTopbar h1,
 .deskResearchRail h2,
 .deskToolPanel h3,
-.personalCanon h3,
-.railSection h3{
+.deskContributionSection h3,
+.railSection h3,
+.deskReaderBlock h2{
   margin:0;
   line-height:1.15;
 }
@@ -58,7 +61,7 @@
 }
 .deskSegmented{
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns:repeat(2, 1fr);
   border:1px solid var(--ink);
   margin:12px 0;
 }
@@ -67,22 +70,44 @@
   border-right:1px solid var(--ink);
   background:transparent;
   color:var(--ink);
-  min-height:34px;
+  min-height:36px;
   cursor:pointer;
   font:inherit;
-  text-transform:capitalize;
 }
 .deskSegment:last-child{ border-right:0; }
 .deskSegment.on{
   background:var(--ink);
   color:var(--paper);
 }
+.deskSidebarNote,
+.deskSectionCount,
+.deskNotice,
+.deskError,
+.deskEmptySmall{
+  font-size:13px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.deskSidebarNote{
+  margin-bottom:12px;
+}
+.deskContributionSection,
+.railSection,
+.deskToolPanel,
+.deskReaderBlock{
+  margin-top:16px;
+}
+.deskContributionSection,
+.railSection{
+  border-top:1px solid var(--ink);
+  padding-top:12px;
+}
 .deskDraftList{
   display:grid;
   gap:8px;
+  margin-top:10px;
 }
 .deskDraftItem,
-.canonItem,
 .railItem{
   width:100%;
   text-align:left;
@@ -94,15 +119,14 @@
   font:inherit;
 }
 .deskDraftItem.on,
-.canonItem:hover,
-.railItem:hover{
+.deskDraftItem:hover,
+.railItem:hover,
+.deskChip:hover{
   background:var(--ink);
   color:var(--paper);
 }
 .deskDraftTitle,
 .deskDraftMeta,
-.canonItem span,
-.canonItem small,
 .railItem span,
 .railItem small{
   display:block;
@@ -111,22 +135,11 @@
 }
 .deskDraftTitle{ font-weight:700; }
 .deskDraftMeta,
-.canonItem small,
 .railItem small{
   margin-top:4px;
   font-size:12px;
   color:inherit;
   opacity:.78;
-}
-.personalCanon,
-.railSection,
-.deskToolPanel{
-  margin-top:16px;
-}
-.personalCanon,
-.railSection{
-  border-top:1px solid var(--ink);
-  padding-top:12px;
 }
 .deskMetaGrid{
   display:grid;
@@ -137,11 +150,22 @@
 .deskQuestionField{
   grid-column:span 3;
 }
+.deskMarkdownToolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+  padding:10px;
+  border:1px solid var(--ink);
+}
+.deskToolButton{
+  min-width:44px;
+}
 .deskWritingSurface{
   display:block;
   margin-top:14px;
 }
-.deskWritingSurface textarea{
+.deskBodyTextarea{
   min-height:46vh;
   resize:vertical;
   font-size:17px;
@@ -158,25 +182,6 @@
   padding:12px;
   min-width:0;
 }
-.mortaiPanel .select{
-  max-width:230px;
-}
-.mortaiResult{
-  margin-top:12px;
-  display:grid;
-  gap:10px;
-}
-.mortaiResult p{ margin:0; }
-.mortaiSection ul,
-.railSection ul{
-  margin:8px 0 0 18px;
-  padding:0;
-}
-.mortaiSection li,
-.railSection li{
-  margin:4px 0;
-  overflow-wrap:anywhere;
-}
 .smallTextarea{
   min-height:68px;
   resize:vertical;
@@ -186,14 +191,6 @@
   font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
   font-size:12px;
   resize:vertical;
-}
-.deskNotice,
-.deskError,
-.deskEmptySmall{
-  margin-top:10px;
-  font-size:13px;
-  color:var(--muted);
-  overflow-wrap:anywhere;
 }
 .deskError{
   color:#8f1d1d;
@@ -263,18 +260,283 @@
   gap:14px;
   text-align:center;
 }
+.deskReaderPanel{
+  display:grid;
+  gap:14px;
+}
+.deskMetaSummary{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.deskMetaBadge{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:4px 10px;
+  border:1px solid var(--ink);
+  font-size:13px;
+}
+.deskReaderBlock{
+  border-top:1px solid var(--ink);
+  padding-top:14px;
+}
+.deskReaderBlock p{
+  margin:8px 0 0;
+}
+.deskRenderedMarkdown{
+  margin-top:10px;
+  line-height:1.65;
+  overflow-wrap:anywhere;
+}
+.deskRenderedMarkdown > :first-child{
+  margin-top:0;
+}
+.deskRenderedMarkdown h1,
+.deskRenderedMarkdown h2,
+.deskRenderedMarkdown h3,
+.deskRenderedMarkdown h4,
+.deskRenderedMarkdown h5,
+.deskRenderedMarkdown h6{
+  margin:1.2em 0 .45em;
+  line-height:1.15;
+}
+.deskRenderedMarkdown p,
+.deskRenderedMarkdown ul,
+.deskRenderedMarkdown ol,
+.deskRenderedMarkdown blockquote,
+.deskRenderedMarkdown pre,
+.deskRenderedMarkdown hr{
+  margin:0 0 1em;
+}
+.deskRenderedMarkdown ul,
+.deskRenderedMarkdown ol{
+  padding-left:1.3rem;
+}
+.deskRenderedMarkdown blockquote{
+  border-left:3px solid var(--ink);
+  padding-left:12px;
+  color:var(--muted);
+}
+.deskRenderedMarkdown code{
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:.92em;
+  padding:1px 4px;
+  border:1px solid var(--ink);
+}
+.deskRenderedMarkdown pre{
+  overflow:auto;
+  padding:12px;
+  border:1px solid var(--ink);
+}
+.deskRenderedMarkdown pre code{
+  border:0;
+  padding:0;
+}
+.deskRenderedMarkdown a{
+  color:inherit;
+  text-decoration:underline;
+}
+.deskDetailList{
+  display:grid;
+  gap:10px;
+  margin-top:10px;
+}
+.deskDetailList div{
+  display:grid;
+  gap:2px;
+}
+.deskDetailList strong{
+  font-size:12px;
+  text-transform:uppercase;
+}
 html.dark .deskDraftRail,
 html.dark .deskResearchRail,
-html.dark .deskEditorPanel,
+html.dark .deskMainPanel,
 html.dark .deskToolPanel,
 html.dark .deskLoader{
   background:#222;
 }
 html.dark .deskError{ color:#ff9b9b; }
 
+/* Reader | Editor desk */
+.conversationDesk{
+  display:block;
+}
+.deskSpaceTabs{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  border:1px solid var(--ink);
+  background:var(--paper);
+  margin-bottom:16px;
+}
+.deskSpaceTab{
+  min-height:42px;
+  border:0;
+  border-right:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  cursor:pointer;
+  font:inherit;
+  font-weight:800;
+}
+.deskSpaceTab:last-child{ border-right:0; }
+.deskSpaceTab.on{
+  background:var(--ink);
+  color:var(--paper);
+}
+.deskReaderLayout,
+.deskEditorLayout{
+  display:grid;
+  grid-template-columns:minmax(240px, 320px) minmax(0, 1fr);
+  gap:16px;
+  align-items:start;
+}
+.deskContributionRail,
+.deskPreviewRail{
+  position:sticky;
+  top:12px;
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  border:1px solid var(--ink);
+  background:var(--paper);
+  padding:12px;
+}
+.deskReaderPanel,
+.deskEditorPanel{
+  min-width:0;
+  border:1px solid var(--ink);
+  background:var(--paper);
+  padding:16px;
+}
+.deskEditorLayout .deskEditorPanel{
+  order:1;
+}
+.deskEditorLayout .deskPreviewRail{
+  order:2;
+}
+.deskReaderSection{
+  margin-top:16px;
+  border-top:1px solid var(--ink);
+  padding-top:12px;
+}
+.deskReaderSection h3,
+.deskPreviewRail h2{
+  margin:0;
+  line-height:1.15;
+}
+.deskMarkdownTextarea{
+  min-height:48vh;
+  resize:vertical;
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:16px;
+  line-height:1.55;
+}
+.deskToolButton{
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  min-width:42px;
+  min-height:34px;
+  padding:6px 8px;
+  cursor:pointer;
+  font:inherit;
+  font-weight:800;
+}
+.deskToolButton:hover{
+  background:var(--ink);
+  color:var(--paper);
+}
+.deskArticleHeader{
+  border-bottom:1px solid var(--ink);
+  padding-bottom:14px;
+  margin-bottom:16px;
+}
+.deskArticleHeader h1{
+  margin:0;
+  line-height:1.08;
+}
+.deskArticleQuestion{
+  margin:10px 0 0;
+  font-size:18px;
+  color:var(--muted);
+}
+.deskMarkdown{
+  line-height:1.68;
+  overflow-wrap:anywhere;
+}
+.deskMarkdown > :first-child{ margin-top:0; }
+.deskMarkdown h1,
+.deskMarkdown h2,
+.deskMarkdown h3,
+.deskMarkdown h4,
+.deskMarkdown h5,
+.deskMarkdown h6{
+  margin:1.2em 0 .45em;
+  line-height:1.15;
+}
+.deskMarkdown p,
+.deskMarkdown ul,
+.deskMarkdown ol,
+.deskMarkdown blockquote,
+.deskMarkdown pre,
+.deskMarkdown hr{
+  margin:0 0 1em;
+}
+.deskMarkdown ul,
+.deskMarkdown ol{
+  padding-left:1.4rem;
+}
+.deskMarkdown blockquote{
+  border-left:3px solid var(--ink);
+  padding-left:12px;
+  color:var(--muted);
+}
+.deskMarkdown code{
+  font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size:.92em;
+  padding:1px 4px;
+  border:1px solid var(--ink);
+}
+.deskMarkdown pre{
+  overflow:auto;
+  padding:12px;
+  border:1px solid var(--ink);
+}
+.deskMarkdown pre code{
+  border:0;
+  padding:0;
+}
+.deskMarkdown a{
+  color:inherit;
+  text-decoration:underline;
+  font-weight:700;
+}
+.deskPublicationState{
+  display:inline-flex;
+  align-items:center;
+  min-height:30px;
+  padding:4px 10px;
+  border:1px solid var(--ink);
+  font-size:13px;
+  font-weight:800;
+}
+.deskPublicationNote{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+html.dark .deskSpaceTabs,
+html.dark .deskContributionRail,
+html.dark .deskPreviewRail,
+html.dark .deskReaderPanel,
+html.dark .deskEditorPanel{
+  background:#222;
+}
+
 @media (max-width: 1180px){
   .conversationDesk{
-    grid-template-columns:minmax(210px, 250px) minmax(0, 1fr);
+    grid-template-columns:minmax(220px, 280px) minmax(0, 1fr);
   }
   .deskResearchRail{
     position:static;
@@ -284,12 +546,16 @@ html.dark .deskError{ color:#ff9b9b; }
 }
 @media (max-width: 760px){
   .conversationDesk,
+  .deskReaderLayout,
+  .deskEditorLayout,
   .deskMetaGrid,
   .deskLowerGrid{
     grid-template-columns:1fr;
   }
   .deskDraftRail,
-  .deskResearchRail{
+  .deskResearchRail,
+  .deskContributionRail,
+  .deskPreviewRail{
     position:static;
     max-height:none;
   }
@@ -302,11 +568,12 @@ html.dark .deskError{ color:#ff9b9b; }
   .deskTopActions{
     justify-content:flex-start;
   }
-  .deskWritingSurface textarea{
+  .deskBodyTextarea{
     min-height:42vh;
     font-size:16px;
   }
-  .mortaiPanel .select{
-    max-width:100%;
+  .deskMarkdownTextarea{
+    min-height:42vh;
+    font-size:15px;
   }
 }

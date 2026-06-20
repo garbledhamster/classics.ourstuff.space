@@ -1,14 +1,33 @@
-/* components/conversation-desk.js - private Conversation Desk workspace */
+/* components/conversation-desk.js - Reader and Editor contribution workspace */
 
 const DESK_LOADER_LINES = [
   "Preparing the Desk",
-  "Gathering your notes",
-  "Consulting your library",
-  "Finding related authors",
-  "Reviewing previous contributions"
+  "Gathering your contributions",
+  "Opening the Reader",
+  "Loading published work"
+];
+
+const DESK_READER_SECTIONS = [
+  { key: "unpublished", label: "Unpublished" },
+  { key: "published", label: "Published" }
+];
+
+const MARKDOWN_TOOLBAR = [
+  { action: "heading", label: "H", title: "Heading" },
+  { action: "bold", label: "B", title: "Bold" },
+  { action: "italic", label: "I", title: "Italic" },
+  { action: "quote", label: "\"", title: "Block quote" },
+  { action: "list", label: "List", title: "Bullet list" },
+  { action: "numberedList", label: "1.", title: "Numbered list" },
+  { action: "link", label: "Link", title: "Link" },
+  { action: "code", label: "</>", title: "Inline code" },
+  { action: "divider", label: "--", title: "Divider" }
 ];
 
 let deskLoaderTimer = null;
+let publishedContributionCache = [];
+let publishedContributionCacheLoaded = false;
+let publishedContributionCacheBusy = false;
 
 function selectedConversationDraft(){
   const desk = normalizeConversationDeskState(state.conversationDesk);
@@ -24,7 +43,6 @@ function saveConversationDeskState({ render = false } = {}){
   }
   state.conversationDesk = saveConversationDesk(state.conversationDesk);
   if (render) renderConversationDesk();
-  else updateDeskMemoryPreview();
 }
 
 function createConversationDraft(context = {}){
@@ -37,15 +55,18 @@ function createConversationDraft(context = {}){
     title,
     centralQuestion: "",
     body: "",
-    draftStatus: "note",
+    draftStatus: "draft",
     linkedBook: context.linkedBook || "",
     linkedAuthor: context.linkedAuthor || "",
     linkedThemes: context.linkedThemes || [],
-    visibility: "private"
+    visibility: "private",
+    publicationStatus: "unpublished",
+    approvalStatus: "draft"
   });
   draft.aiBrainMemoryObject = buildConversationMemoryObject(draft);
   state.conversationDesk.drafts.unshift(draft);
   state.conversationDesk.selectedId = draft.id;
+  state.conversationDesk.ui.activeSpace = "editor";
   saveConversationDeskState();
   return draft;
 }
@@ -74,7 +95,7 @@ function startDeskLoader(){
       ui.loading = false;
     }
     renderConversationDesk();
-  }, 220);
+  }, 180);
 }
 
 function buildConversationMemoryObject(draft){
@@ -85,28 +106,18 @@ function buildConversationMemoryObject(draft){
   const relatedWorks = draft.linkedBook ? [draft.linkedBook] : [];
   const relatedAuthors = draft.linkedAuthor ? [draft.linkedAuthor] : [];
   return {
-    sourceApp: "mort",
-    memoryType: draft.draftStatus === "contribution"
-      ? "great_conversation_contribution"
-      : "conversation_desk_working_draft",
+    sourceApp: "classics.ourstuff.space",
+    memoryType: "great_conversation_contribution",
     title: draft.title || "",
     centralQuestion: draft.centralQuestion || "",
     relatedAuthors,
     relatedWorks,
     relatedThemes: draft.linkedThemes || [],
     userPosition,
-    sourceNotes: (draft.linkedNotes || []).map(noteId => {
-      const note = state.notes.find(item => item.id === noteId);
-      return note ? {
-        id: note.id,
-        title: note.title || "Untitled note",
-        book: note.book_tag || "",
-        author: note.author || "",
-        noteType: note.type || DEFAULT_NOTE_TYPE
-      } : { id: noteId };
-    }),
-    draftStatus: draft.draftStatus || "note",
+    draftStatus: draft.draftStatus || "draft",
     visibility: draft.visibility || "private",
+    publicationStatus: draft.publicationStatus || "unpublished",
+    approvalStatus: draft.approvalStatus || "draft",
     createdAt: draft.createdAt || "",
     updatedAt: draft.updatedAt || nowIso()
   };
@@ -132,259 +143,212 @@ function renderConversationDesk(){
     return;
   }
 
+  const activeSpace = desk.ui.activeSpace === "editor" ? "editor" : "reader";
   root.innerHTML = `
     <section class="conversationDesk">
-      ${deskDraftListHtml(desk, draft)}
-      <section class="deskEditorPanel">
-        ${draft ? deskEditorHtml(draft) : deskEmptyHtml()}
-      </section>
-      ${draft ? deskResearchRailHtml(draft) : ""}
+      <div class="deskSpaceTabs" role="tablist" aria-label="Conversation Desk spaces">
+        <button class="deskSpaceTab ${activeSpace === "reader" ? "on" : ""}" type="button" role="tab" aria-selected="${activeSpace === "reader"}" data-desk-action="setSpace" data-space="reader">Reader</button>
+        <button class="deskSpaceTab ${activeSpace === "editor" ? "on" : ""}" type="button" role="tab" aria-selected="${activeSpace === "editor"}" data-desk-action="setSpace" data-space="editor">Editor</button>
+      </div>
+      ${activeSpace === "editor" ? deskEditorHtml(draft) : deskReaderHtml(desk, draft)}
+    </section>
+  `;
+
+  if (activeSpace === "reader" && state.currentUser && !publishedContributionCacheLoaded && !publishedContributionCacheBusy && window.firestoreGetDocs && window.firestoreQuery) {
+    loadPublishedContributionIndex().then(() => {
+      if (state.view === "desk" && state.conversationDesk.ui.activeSpace === "reader") renderConversationDesk();
+    });
+  }
+}
+
+function deskReaderHtml(desk, activeDraft){
+  const grouped = readerContributionGroups(desk);
+  const selected = activeDraft || grouped.unpublished[0] || grouped.published[0] || null;
+  return `
+    <section class="deskReaderLayout">
+      <aside class="deskContributionRail" aria-label="Contribution list">
+        <div class="deskRailHeader">
+          <div>
+            <p class="deskEyebrow">Signed-in contribution reader</p>
+            <h2>Reader</h2>
+          </div>
+          <button class="btn btnIconOnly" type="button" data-desk-action="newDraft" aria-label="New contribution" title="New contribution">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+        ${!state.currentUser ? `<div class="deskNotice">Sign in to load synced private contributions and the published reader index.</div>` : ""}
+        ${DESK_READER_SECTIONS.map(section => readerSectionHtml(section.label, grouped[section.key], activeDraft)).join("")}
+      </aside>
+      <article class="deskReaderPanel" aria-label="Selected contribution">
+        ${selected ? contributionArticleHtml(selected) : deskEmptyReaderHtml()}
+      </article>
     </section>
   `;
 }
 
-function deskDraftListHtml(desk, activeDraft){
-  const visibleDrafts = desk.ui.draftFilter === "canon"
-    ? desk.drafts.filter(draft => draft.draftStatus === "contribution")
-    : desk.ui.draftFilter === "archived"
-      ? desk.drafts.filter(draft => draft.draftStatus === "archived")
-      : desk.drafts.filter(draft => draft.draftStatus !== "archived");
+function readerContributionGroups(desk){
+  const ownDrafts = desk.drafts.map(draft => ({ ...draft, source: "private" }));
+  return {
+    unpublished: ownDrafts
+      .filter(draft => draft.publicationStatus !== "published")
+      .sort(sortByUpdatedDesc),
+    published: [
+      ...ownDrafts.filter(draft => draft.publicationStatus === "published"),
+      ...publishedContributionCache
+    ].sort(sortByPublishedDesc)
+  };
+}
+
+function sortByUpdatedDesc(a, b){
+  return String(b.updatedAt || b.createdAt || "").localeCompare(String(a.updatedAt || a.createdAt || ""));
+}
+
+function sortByPublishedDesc(a, b){
+  return String(b.publishedAt || b.updatedAt || "").localeCompare(String(a.publishedAt || a.updatedAt || ""));
+}
+
+function readerSectionHtml(title, items, activeDraft){
   return `
-    <aside class="deskDraftRail" aria-label="Conversation Desk drafts">
-      <div class="deskRailHeader">
-        <div>
-          <p class="deskEyebrow">Private workspace</p>
-          <h2>Conversation Desk</h2>
-        </div>
-        <button class="btn btnIconOnly" type="button" data-desk-action="newDraft" aria-label="New draft" title="New draft">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        </button>
-      </div>
-      <div class="deskSegmented" role="group" aria-label="Draft filter">
-        ${["active", "canon", "archived"].map(filter => `
-          <button class="deskSegment ${desk.ui.draftFilter === filter ? "on" : ""}" type="button" data-desk-action="draftFilter" data-filter="${escapeHtml(filter)}">${escapeHtml(filter)}</button>
-        `).join("")}
-      </div>
+    <section class="deskReaderSection">
+      <h3>${escapeHtml(title)}</h3>
       <div class="deskDraftList">
-        ${visibleDrafts.length ? visibleDrafts.map(draft => `
-          <button class="deskDraftItem ${activeDraft?.id === draft.id ? "on" : ""}" type="button" data-desk-action="selectDraft" data-id="${escapeHtml(draft.id)}">
-            <span class="deskDraftTitle">${escapeHtml(draft.title || "Untitled contribution")}</span>
-            <span class="deskDraftMeta">${escapeHtml(statusLabel(draft.draftStatus))}${draft.linkedBook ? ` / ${escapeHtml(draft.linkedBook)}` : ""}</span>
-          </button>
-        `).join("") : `<div class="deskEmptySmall">No ${escapeHtml(desk.ui.draftFilter)} drafts.</div>`}
+        ${items.length ? items.map(item => contributionListItemHtml(item, activeDraft)).join("") : `<div class="deskEmptySmall">No ${escapeHtml(title.toLowerCase())} contributions yet.</div>`}
       </div>
-      <section class="personalCanon">
-        <h3>Personal Canon</h3>
-        ${personalCanonHtml(desk.drafts)}
-      </section>
-    </aside>
+    </section>
   `;
 }
 
-function personalCanonHtml(drafts){
-  const canon = drafts.filter(draft => draft.draftStatus === "contribution");
-  if (!canon.length) return `<div class="deskEmptySmall">Saved contributions appear here.</div>`;
-  return canon.map(draft => `
-    <button class="canonItem" type="button" data-desk-action="selectDraft" data-id="${escapeHtml(draft.id)}">
-      <span>${escapeHtml(draft.title || "Contribution")}</span>
-      <small>${escapeHtml([draft.linkedAuthor, draft.linkedBook].filter(Boolean).join(" / ") || "Unlinked")}</small>
+function contributionListItemHtml(item, activeDraft){
+  const isLocal = item.source !== "publishedIndex";
+  const action = isLocal ? "selectDraft" : "selectPublished";
+  const id = item.id || item.indexId || "";
+  const active = isLocal && activeDraft?.id === id;
+  return `
+    <button class="deskDraftItem ${active ? "on" : ""}" type="button" data-desk-action="${action}" data-id="${escapeHtml(id)}">
+      <span class="deskDraftTitle">${escapeHtml(item.title || "Untitled contribution")}</span>
+      <span class="deskDraftMeta">${escapeHtml(contributionMetaLine(item))}</span>
     </button>
-  `).join("");
+  `;
+}
+
+function contributionMetaLine(item){
+  const status = publicationLabel(item.publicationStatus, item.approvalStatus);
+  const scope = item.visibility === "members" ? "Logged-in users" : "Private";
+  return [scope, status, item.linkedBook || item.linkedAuthor || ""].filter(Boolean).join(" / ");
+}
+
+function contributionArticleHtml(item){
+  return `
+    <div class="deskArticleHeader">
+      <p class="deskEyebrow">${escapeHtml(contributionMetaLine(item))}</p>
+      <h1>${escapeHtml(item.title || "Untitled contribution")}</h1>
+      ${item.centralQuestion ? `<p class="deskArticleQuestion">${escapeHtml(item.centralQuestion)}</p>` : ""}
+    </div>
+    <div class="deskMarkdown" data-markdown-root>
+      ${renderMarkdown(item.body || "") || `<p class="deskEmptySmall">No contribution body yet.</p>`}
+    </div>
+  `;
+}
+
+function deskEmptyReaderHtml(){
+  return `
+    <div class="deskEmpty">
+      <h1>Reader</h1>
+      <button class="btn" type="button" data-desk-action="newDraft">New contribution</button>
+    </div>
+  `;
 }
 
 function deskEditorHtml(draft){
+  if (!draft) return deskEmptyEditorHtml();
   return `
-    <div class="deskTopbar">
-      <div>
-        <p class="deskEyebrow">MortAI's Mandate lives in House Style</p>
-        <h1>${escapeHtml(draft.title || "Untitled contribution")}</h1>
+    <section class="deskEditorLayout">
+      <div class="deskEditorPanel">
+        <div class="deskTopbar">
+          <div>
+            <p class="deskEyebrow">Markdown contribution editor</p>
+            <h1>${escapeHtml(draft.title || "Untitled contribution")}</h1>
+          </div>
+          <div class="deskTopActions">
+            <button class="btn" type="button" data-desk-action="saveDraft">Save</button>
+            <button class="btn" type="button" data-desk-action="requestPublish">${draft.publicationStatus === "pending_review" ? "Update Request" : "Request Publish"}</button>
+            <button class="btn btnGhost" type="button" data-desk-action="deleteDraft">Delete</button>
+          </div>
+        </div>
+
+        <div class="deskMetaGrid">
+          <label class="control">
+            <span class="label">Title</span>
+            <input class="input" type="text" data-desk-field="title" value="${escapeHtml(draft.title)}" autocomplete="off">
+          </label>
+          <label class="control">
+            <span class="label">Visibility</span>
+            <select class="select" data-desk-field="visibility">
+              <option value="private"${draft.visibility !== "members" ? " selected" : ""}>Private</option>
+              <option value="members"${draft.visibility === "members" ? " selected" : ""}>Logged-in users after approval</option>
+            </select>
+          </label>
+          <label class="control">
+            <span class="label">Publication</span>
+            <input class="input" type="text" value="${escapeHtml(publicationLabel(draft.publicationStatus, draft.approvalStatus))}" readonly>
+          </label>
+          <label class="control">
+            <span class="label">Linked book</span>
+            <input class="input" type="text" data-desk-field="linkedBook" value="${escapeHtml(draft.linkedBook)}" autocomplete="off">
+          </label>
+          <label class="control">
+            <span class="label">Linked author</span>
+            <input class="input" type="text" data-desk-field="linkedAuthor" value="${escapeHtml(draft.linkedAuthor)}" autocomplete="off">
+          </label>
+          <label class="control deskQuestionField">
+            <span class="label">Central question</span>
+            <input class="input" type="text" data-desk-field="centralQuestion" value="${escapeHtml(draft.centralQuestion)}" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="deskMarkdownToolbar" role="toolbar" aria-label="Markdown tools">
+          ${MARKDOWN_TOOLBAR.map(tool => `
+            <button class="deskToolButton" type="button" data-desk-action="markdownTool" data-tool="${escapeHtml(tool.action)}" title="${escapeHtml(tool.title)}" aria-label="${escapeHtml(tool.title)}">${escapeHtml(tool.label)}</button>
+          `).join("")}
+        </div>
+
+        <label class="deskWritingSurface">
+          <span class="label">Markdown body</span>
+          <textarea id="deskBody" class="textarea deskMarkdownTextarea" data-desk-field="body" placeholder="# My contribution&#10;&#10;State the question, test the claim, answer the strongest objection.">${escapeHtml(draft.body)}</textarea>
+        </label>
       </div>
-      <div class="deskTopActions">
-        <button class="btn" type="button" data-desk-action="saveDraft">Save</button>
-        <button class="btn" type="button" data-desk-action="archiveDraft">Archive</button>
-        <button class="btn btnGhost" type="button" data-desk-action="deleteDraft">Delete</button>
-      </div>
-    </div>
 
-    <div class="deskMetaGrid">
-      <label class="control">
-        <span class="label">Title</span>
-        <input class="input" type="text" data-desk-field="title" value="${escapeHtml(draft.title)}" autocomplete="off">
-      </label>
-      <label class="control">
-        <span class="label">Status</span>
-        <select class="select" data-desk-field="draftStatus">
-          ${CONVERSATION_DRAFT_STATUS_OPTIONS.map(opt => `<option value="${escapeHtml(opt.value)}"${draft.draftStatus === opt.value ? " selected" : ""}>${escapeHtml(opt.label)}</option>`).join("")}
-        </select>
-      </label>
-      <label class="control">
-        <span class="label">Visibility</span>
-        <select class="select" data-desk-field="visibility">
-          <option value="private"${draft.visibility !== "shared" ? " selected" : ""}>Private</option>
-          <option value="shared"${draft.visibility === "shared" ? " selected" : ""}>Shared later</option>
-        </select>
-      </label>
-      <label class="control">
-        <span class="label">Linked book</span>
-        <input class="input" type="text" data-desk-field="linkedBook" value="${escapeHtml(draft.linkedBook)}" autocomplete="off">
-      </label>
-      <label class="control">
-        <span class="label">Linked author</span>
-        <input class="input" type="text" data-desk-field="linkedAuthor" value="${escapeHtml(draft.linkedAuthor)}" autocomplete="off">
-      </label>
-      <label class="control deskQuestionField">
-        <span class="label">Central question</span>
-        <input class="input" type="text" data-desk-field="centralQuestion" value="${escapeHtml(draft.centralQuestion)}" autocomplete="off">
-      </label>
-    </div>
-
-    <label class="deskWritingSurface">
-      <span class="label">Draft body</span>
-      <textarea id="deskBody" class="textarea" data-desk-field="body" placeholder="State the question, test the claim, answer the strongest objection.">${escapeHtml(draft.body)}</textarea>
-    </label>
-
-    <div class="deskLowerGrid">
-      ${mortaiPanelHtml()}
-      ${houseStyleHtml(state.conversationDesk.houseStyle)}
-      ${memoryObjectHtml(draft)}
-    </div>
+      <aside class="deskPreviewRail" aria-label="Markdown preview">
+        <div class="deskPanelHeader">
+          <h2>Reader Preview</h2>
+          <button class="btn btnGhost" type="button" data-desk-action="copyContribution">Copy Markdown</button>
+        </div>
+        <div class="deskMarkdown">
+          ${renderMarkdown(draft.body || "") || `<p class="deskEmptySmall">Preview appears as you write.</p>`}
+        </div>
+        ${publicationPipelineHtml(draft)}
+        ${sourceCardsHtml(draft)}
+        ${themeEditorHtml(draft)}
+      </aside>
+    </section>
   `;
 }
 
-function deskEmptyHtml(){
+function deskEmptyEditorHtml(){
   return `
     <div class="deskEmpty">
-      <h1>Conversation Desk</h1>
-      <button class="btn" type="button" data-desk-action="newDraft">New draft</button>
+      <h1>Editor</h1>
+      <button class="btn" type="button" data-desk-action="newDraft">New contribution</button>
     </div>
   `;
 }
 
-function mortaiPanelHtml(){
-  const ui = state.conversationDesk.ui;
-  return `
-    <section class="deskToolPanel mortaiPanel">
-      <div class="deskPanelHeader">
-        <h3>MortAI</h3>
-        <select class="select" id="mortaiAction">
-          ${MORTAI_ACTIONS.map(action => `<option value="${escapeHtml(action)}"${ui.mortaiAction === action ? " selected" : ""}>${escapeHtml(action)}</option>`).join("")}
-        </select>
-      </div>
-      <button class="btn" type="button" data-desk-action="runMortai"${ui.mortaiBusy ? " disabled" : ""}>${ui.mortaiBusy ? "Consulting..." : "Consult MortAI"}</button>
-      ${!state.currentUser ? `<div class="deskNotice">Sign in with Cloud to use live MortAI.</div>` : ""}
-      ${ui.mortaiError ? `<div class="deskError">${escapeHtml(ui.mortaiError)}</div>` : ""}
-      ${ui.mortaiResult ? mortaiResultHtml(ui.mortaiResult) : `<div class="deskEmptySmall">Editorial help will appear here.</div>`}
-    </section>
-  `;
-}
-
-function mortaiResultHtml(result){
-  const sections = Array.isArray(result.sections) ? result.sections : [];
-  return `
-    <div class="mortaiResult">
-      ${result.summary ? `<p>${escapeHtml(result.summary)}</p>` : ""}
-      ${sections.map(section => `
-        <div class="mortaiSection">
-          <strong>${escapeHtml(section.title || "Editorial note")}</strong>
-          <ul>${(section.items || []).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-      `).join("")}
-      ${Array.isArray(result.nextQuestions) && result.nextQuestions.length ? `
-        <div class="mortaiSection">
-          <strong>Next questions</strong>
-          <ul>${result.nextQuestions.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-        </div>
-      ` : ""}
-    </div>
-  `;
-}
-
-function houseStyleHtml(style){
-  return `
-    <section class="deskToolPanel houseStylePanel">
-      <div class="deskPanelHeader"><h3>House Style</h3></div>
-      <label class="control"><span class="label">Voice preferences</span><textarea class="textarea smallTextarea" data-house-field="voicePreferences">${escapeHtml(style.voicePreferences)}</textarea></label>
-      <label class="control"><span class="label">Editorial posture</span><select class="select" data-house-field="editorialPosture">
-        ${houseOption("socratic_editor", "Socratic editor", style.editorialPosture)}
-        ${houseOption("line_editor", "Line editor", style.editorialPosture)}
-        ${houseOption("adversarial_reader", "Adversarial reader", style.editorialPosture)}
-      </select></label>
-      <label class="control"><span class="label">Source priority</span><select class="select" data-house-field="sourcePriority">
-        ${houseOption("my_notes_first", "My notes first", style.sourcePriority)}
-        ${houseOption("canon_first", "Canon first", style.sourcePriority)}
-        ${houseOption("balanced", "Balanced", style.sourcePriority)}
-      </select></label>
-      <label class="control"><span class="label">Rewrite permissions</span><select class="select" data-house-field="rewritePermissions">
-        ${houseOption("none", "No rewrites", style.rewritePermissions)}
-        ${houseOption("preserve_voice_only", "Preserve voice only", style.rewritePermissions)}
-        ${houseOption("final_polish", "Final polish", style.rewritePermissions)}
-      </select></label>
-      <label class="control"><span class="label">Challenge level</span><select class="select" data-house-field="challengeLevel">
-        ${houseOption("gentle", "Gentle", style.challengeLevel)}
-        ${houseOption("moderate", "Moderate", style.challengeLevel)}
-        ${houseOption("severe", "Severe", style.challengeLevel)}
-      </select></label>
-      <label class="control"><span class="label">Preferred traditions/authors</span><textarea class="textarea smallTextarea" data-house-field="preferredTraditions">${escapeHtml(style.preferredTraditions)}</textarea></label>
-      <label class="control"><span class="label">Forbidden behaviors</span><textarea class="textarea smallTextarea" data-house-field="forbiddenBehaviors">${escapeHtml(style.forbiddenBehaviors)}</textarea></label>
-      <label class="control"><span class="label">Default structure</span><textarea class="textarea smallTextarea" data-house-field="defaultStructure">${escapeHtml(style.defaultStructure)}</textarea></label>
-    </section>
-  `;
-}
-
-function houseOption(value, label, selected){
-  return `<option value="${escapeHtml(value)}"${selected === value ? " selected" : ""}>${escapeHtml(label)}</option>`;
-}
-
-function memoryObjectHtml(draft){
-  return `
-    <section class="deskToolPanel memoryPanel">
-      <div class="deskPanelHeader">
-        <h3>Ready for AI Brain</h3>
-        <button class="btn btnGhost" type="button" data-desk-action="copyMemory">Copy</button>
-      </div>
-      <textarea id="deskMemoryObject" class="textarea memoryTextarea" readonly>${escapeHtml(JSON.stringify(draft.aiBrainMemoryObject || buildConversationMemoryObject(draft), null, 2))}</textarea>
-    </section>
-  `;
-}
-
-function deskResearchRailHtml(draft){
-  const rail = buildResearchRailContext(draft);
-  return `
-    <aside class="deskResearchRail" aria-label="Research rail">
-      <h2>Research Rail</h2>
-      ${railSectionHtml("Related user notes", rail.relatedNotes, "note")}
-      ${railSectionHtml("Active My Library books", rail.activeLibraryBooks, "book")}
-      ${railSectionHtml("Canonical works", rail.canonicalWorks, "book")}
-      ${railSectionHtml("Authors", rail.authors, "author")}
-      ${railListHtml("Suggested questions", rail.suggestedQuestions)}
-      ${railListHtml("Counterarguments", rail.counterarguments)}
-      ${sourceCardsHtml(draft)}
-      ${themeEditorHtml(draft)}
-    </aside>
-  `;
-}
-
-function railSectionHtml(title, items, type){
+function publicationPipelineHtml(draft){
   return `
     <section class="railSection">
-      <h3>${escapeHtml(title)}</h3>
-      ${items.length ? items.map(item => {
-        const action = type === "note" ? "toggleNoteLink" : type === "author" ? "applyAuthor" : "applyBook";
-        const id = item.id || item.title || item.author || "";
-        return `<button class="railItem" type="button" data-desk-action="${action}" data-id="${escapeHtml(id)}" data-title="${escapeHtml(item.title || "")}" data-author="${escapeHtml(item.author || "")}">
-          <span>${escapeHtml(item.title || item.author || "Untitled")}</span>
-          <small>${escapeHtml(item.meta || item.author || item.book || "")}</small>
-        </button>`;
-      }).join("") : `<div class="deskEmptySmall">No matches yet.</div>`}
-    </section>
-  `;
-}
-
-function railListHtml(title, items){
-  return `
-    <section class="railSection">
-      <h3>${escapeHtml(title)}</h3>
-      ${items.length ? `<ul>${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<div class="deskEmptySmall">Add a question or draft body.</div>`}
+      <h3>Publishing</h3>
+      <div class="deskPublicationState">${escapeHtml(publicationLabel(draft.publicationStatus, draft.approvalStatus))}</div>
+      <p class="deskPublicationNote">Public listing is wired for approved documents. Admin approval controls belong in the review gap before any request becomes published.</p>
     </section>
   `;
 }
@@ -422,81 +386,6 @@ function themeEditorHtml(draft){
   `;
 }
 
-function buildResearchRailContext(draft){
-  const keywords = keywordSet([draft.title, draft.centralQuestion, draft.body, draft.linkedBook, draft.linkedAuthor, ...(draft.linkedThemes || [])].join(" "));
-  const relatedNotes = state.notes
-    .filter(note => noteMatchesDraft(note, draft, keywords))
-    .slice(0, 8)
-    .map(note => ({
-      id: note.id,
-      title: note.title || note.book_tag || "Untitled note",
-      book: note.book_tag || "",
-      meta: [note.book_tag, note.author, note.type].filter(Boolean).join(" / ")
-    }));
-  const activeLibraryBooks = state.libraryWorks
-    .filter(work => {
-      const key = getCardStatusKey(work.author, work.title);
-      return getCardStatus(key) !== DEFAULT_CARD_STATUS || getCardTask(key).task !== DEFAULT_CARD_TASK || work.occurrences.some(occ => state.checks[occ.key]);
-    })
-    .slice(0, 8)
-    .map(work => ({ title: work.title, author: work.author, meta: getCardStatus(getCardStatusKey(work.author, work.title)) }));
-  const canonicalWorks = state.libraryWorks
-    .filter(work => workMatchesDraft(work, draft, keywords))
-    .slice(0, 8)
-    .map(work => ({ title: work.title, author: work.author, meta: (work.greatIdeas || []).slice(0, 2).join(" / ") }));
-  const authorNames = new Set();
-  if (draft.linkedAuthor) authorNames.add(draft.linkedAuthor);
-  canonicalWorks.forEach(work => { if (work.author) authorNames.add(work.author); });
-  relatedNotes.forEach(note => { if (note.author) authorNames.add(note.author); });
-  const authors = Array.from(authorNames).slice(0, 8).map(author => ({ author, meta: "linked context" }));
-  return {
-    relatedNotes,
-    activeLibraryBooks,
-    canonicalWorks,
-    authors,
-    suggestedQuestions: suggestedQuestionsFor(draft),
-    counterarguments: counterargumentsFor(draft)
-  };
-}
-
-function keywordSet(text){
-  const stop = new Set(["the", "and", "that", "with", "from", "this", "what", "when", "where", "which", "into", "about", "should", "would", "could"]);
-  return new Set(normalizeText(text).split(/\W+/).filter(word => word.length > 3 && !stop.has(word)).slice(0, 30));
-}
-
-function noteMatchesDraft(note, draft, keywords){
-  if (draft.linkedBook && note.book_tag === draft.linkedBook) return true;
-  if (draft.linkedAuthor && normalizeText(note.author).includes(normalizeText(draft.linkedAuthor))) return true;
-  const text = normalizeText([note.title, note.body, note.book_tag, note.author, note.type].join(" "));
-  return Array.from(keywords).some(word => text.includes(word));
-}
-
-function workMatchesDraft(work, draft, keywords){
-  if (draft.linkedBook && work.title === draft.linkedBook) return true;
-  if (draft.linkedAuthor && work.author === draft.linkedAuthor) return true;
-  const ideas = work.greatIdeas || [];
-  if ((draft.linkedThemes || []).some(theme => ideas.some(idea => normalizeText(idea).includes(normalizeText(theme))))) return true;
-  const text = normalizeText([work.title, work.author, ...ideas].join(" "));
-  return Array.from(keywords).some(word => text.includes(word));
-}
-
-function suggestedQuestionsFor(draft){
-  const base = draft.centralQuestion || draft.linkedBook || draft.linkedAuthor || "this claim";
-  return [
-    `What would have to be true for ${base} to hold?`,
-    "Where does the strongest objection come from?",
-    "Which source note actually supports the central claim?"
-  ];
-}
-
-function counterargumentsFor(draft){
-  return [
-    "The argument may rely on a modern concern the author did not share.",
-    "The linked source may show tension rather than support.",
-    "A rival tradition might define the central term differently."
-  ];
-}
-
 function bindConversationDeskUI(){
   const root = $("#conversationDeskRoot");
   if (!root || root.dataset.bound === "true") return;
@@ -508,29 +397,18 @@ function bindConversationDeskUI(){
 
 function handleDeskInput(event){
   const field = event.target.closest("[data-desk-field]");
-  const houseField = event.target.closest("[data-house-field]");
-  if (field) {
-    const draft = selectedConversationDraft();
-    if (!draft) return;
-    draft[field.dataset.deskField] = field.value;
-    saveConversationDeskState();
-  } else if (houseField) {
-    state.conversationDesk.houseStyle[houseField.dataset.houseField] = houseField.value;
-    saveConversationDeskState();
-  }
+  if (!field) return;
+  const draft = selectedConversationDraft();
+  if (!draft) return;
+  draft[field.dataset.deskField] = field.value;
+  if (field.dataset.deskField === "body") draft.body = field.value;
+  saveConversationDeskState();
 }
 
 function handleDeskChange(event){
-  if (event.target.id === "mortaiAction") {
-    state.conversationDesk.ui.mortaiAction = event.target.value;
-    saveConversationDeskState();
-    return;
-  }
-  if (event.target.closest("[data-desk-field], [data-house-field]")) {
+  if (event.target.closest("[data-desk-field]")) {
     handleDeskInput(event);
-    if (event.target.tagName === "SELECT") {
-      renderConversationDesk();
-    }
+    if (event.target.tagName === "SELECT") renderConversationDesk();
   }
 }
 
@@ -539,26 +417,37 @@ async function handleDeskClick(event){
   if (!btn) return;
   const action = btn.dataset.deskAction;
   const draft = selectedConversationDraft();
-  if (action === "newDraft") {
+  if (action === "setSpace") {
+    state.conversationDesk.ui.activeSpace = btn.dataset.space === "editor" ? "editor" : "reader";
+    saveConversationDeskState({ render: true });
+  } else if (action === "newDraft") {
     createConversationDraft();
     renderConversationDesk();
   } else if (action === "selectDraft") {
     state.conversationDesk.selectedId = btn.dataset.id;
     saveConversationDeskState({ render: true });
-  } else if (action === "draftFilter") {
-    state.conversationDesk.ui.draftFilter = btn.dataset.filter || "active";
-    saveConversationDeskState({ render: true });
+  } else if (action === "selectPublished") {
+    const published = publishedContributionCache.find(item => item.id === btn.dataset.id);
+    if (!published) return;
+    renderSelectedPublishedContribution(published);
   } else if (action === "saveDraft") {
     saveConversationDeskState({ render: true });
+  } else if (action === "requestPublish" && draft) {
+    await requestContributionPublication(draft);
   } else if (action === "archiveDraft" && draft) {
     draft.draftStatus = "archived";
+    draft.publicationStatus = draft.publicationStatus === "published" ? "published" : "archived";
     saveConversationDeskState({ render: true });
   } else if (action === "deleteDraft" && draft) {
-    const confirmed = await showConfirm("Delete this draft? This cannot be undone.", "Delete Draft");
+    const confirmed = await showConfirm("Delete this contribution? This cannot be undone.", "Delete Contribution");
     if (!confirmed) return;
     state.conversationDesk.drafts = state.conversationDesk.drafts.filter(item => item.id !== draft.id);
     state.conversationDesk.selectedId = state.conversationDesk.drafts[0]?.id || null;
     saveConversationDeskState({ render: true });
+  } else if (action === "markdownTool") {
+    applyMarkdownTool(btn.dataset.tool);
+  } else if (action === "copyContribution") {
+    await copyContributionMarkdown();
   } else if (action === "addTheme" && draft) {
     const input = $("#themeInput");
     const value = String(input?.value || "").trim();
@@ -581,108 +470,289 @@ async function handleDeskClick(event){
   } else if (action === "removeSource" && draft) {
     draft.linkedSourceCards = (draft.linkedSourceCards || []).filter(card => card.id !== btn.dataset.id);
     saveConversationDeskState({ render: true });
-  } else if (action === "toggleNoteLink" && draft) {
-    const noteId = btn.dataset.id;
-    const current = new Set(draft.linkedNotes || []);
-    if (current.has(noteId)) current.delete(noteId);
-    else current.add(noteId);
-    draft.linkedNotes = Array.from(current);
-    saveConversationDeskState({ render: true });
-  } else if (action === "applyBook" && draft) {
-    draft.linkedBook = btn.dataset.title || draft.linkedBook;
-    draft.linkedAuthor = btn.dataset.author || draft.linkedAuthor;
-    saveConversationDeskState({ render: true });
-  } else if (action === "applyAuthor" && draft) {
-    draft.linkedAuthor = btn.dataset.author || btn.dataset.title || draft.linkedAuthor;
-    saveConversationDeskState({ render: true });
-  } else if (action === "copyMemory") {
-    await copyDeskMemory();
-  } else if (action === "runMortai") {
-    await runMortaiAction();
   }
 }
 
-function updateDeskMemoryPreview(){
-  const draft = selectedConversationDraft();
-  const textarea = $("#deskMemoryObject");
-  if (draft && textarea) textarea.value = JSON.stringify(draft.aiBrainMemoryObject || buildConversationMemoryObject(draft), null, 2);
+function renderSelectedPublishedContribution(published){
+  const panel = $(".deskReaderPanel");
+  if (panel) panel.innerHTML = contributionArticleHtml(published);
 }
 
-async function copyDeskMemory(){
-  const value = $("#deskMemoryObject")?.value || "";
-  if (!value) return;
+function applyMarkdownTool(tool){
+  const textarea = $("#deskBody");
+  const draft = selectedConversationDraft();
+  if (!textarea || !draft) return;
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const value = textarea.value;
+  const selected = value.slice(start, end);
+  const fallback = selected || markdownFallbackText(tool);
+  const wrapped = markdownToolText(tool, fallback, Boolean(selected));
+  textarea.value = `${value.slice(0, start)}${wrapped}${value.slice(end)}`;
+  const cursorStart = start + wrapped.length;
+  textarea.focus();
+  textarea.setSelectionRange(cursorStart, cursorStart);
+  draft.body = textarea.value;
+  saveConversationDeskState({ render: true });
+}
+
+function markdownFallbackText(tool){
+  if (tool === "heading") return "Heading";
+  if (tool === "link") return "link text";
+  if (tool === "list" || tool === "numberedList") return "List item";
+  if (tool === "quote") return "Quoted idea";
+  if (tool === "code") return "code";
+  return "selected text";
+}
+
+function markdownToolText(tool, text, hadSelection){
+  if (tool === "heading") return `\n## ${text}\n`;
+  if (tool === "bold") return `**${text}**`;
+  if (tool === "italic") return `*${text}*`;
+  if (tool === "quote") return text.split(/\r?\n/).map(line => `> ${line}`).join("\n");
+  if (tool === "list") return text.split(/\r?\n/).map(line => `- ${line}`).join("\n");
+  if (tool === "numberedList") return text.split(/\r?\n/).map((line, idx) => `${idx + 1}. ${line}`).join("\n");
+  if (tool === "link") return `[${text}](https://)`;
+  if (tool === "code") return hadSelection && text.includes("\n") ? `\n\`\`\`\n${text}\n\`\`\`\n` : `\`${text}\``;
+  if (tool === "divider") return "\n\n---\n\n";
+  return text;
+}
+
+async function copyContributionMarkdown(){
+  const draft = selectedConversationDraft();
+  if (!draft?.body) return;
   try {
-    await navigator.clipboard.writeText(value);
-    await showAlert("AI Brain object copied.");
+    await navigator.clipboard.writeText(draft.body);
+    await showAlert("Markdown copied.");
   } catch {
-    await showAlert("Copy failed. Select the JSON and copy it manually.");
+    await showAlert("Copy failed. Select the Markdown and copy it manually.");
   }
 }
 
-async function runMortaiAction(){
-  const draft = selectedConversationDraft();
+async function requestContributionPublication(draft){
   if (!draft) return;
-  const ui = state.conversationDesk.ui;
-  if (!state.currentUser || typeof state.currentUser.getIdToken !== "function") {
-    ui.mortaiError = "Sign in with Cloud to use live MortAI.";
-    saveConversationDeskState({ render: true });
+  if (!state.currentUser) {
+    await showAlert("Sign in to request publication for logged-in readers.");
     return;
   }
-  ui.mortaiBusy = true;
-  ui.mortaiError = "";
-  ui.mortaiResult = null;
+  draft.visibility = "members";
+  draft.publicationStatus = "pending_review";
+  draft.approvalStatus = "needs_review";
+  draft.publishRequestedAt = nowIso();
+  draft.publicIndexId = contributionIndexId(state.currentUser?.uid || "local", draft.id);
+  draft.publicationReview = {
+    adminApprovalRequired: true,
+    reviewState: "queued",
+    reviewedAt: "",
+    reviewerUid: ""
+  };
+  await writeContributionIndexRequest(draft);
   saveConversationDeskState({ render: true });
-  try {
-    const token = await state.currentUser.getIdToken();
-    const bodyText = $("#deskBody") || {};
-    const selectedText = bodyText.value && bodyText.selectionStart !== bodyText.selectionEnd
-      ? bodyText.value.slice(bodyText.selectionStart, bodyText.selectionEnd)
-      : "";
-    const response = await fetch(MORTAI_API_URL, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        action: ui.mortaiAction,
-        contribution: draft,
-        houseStyle: state.conversationDesk.houseStyle,
-        linkedContext: buildDeskLinkedContext(draft),
-        selectedText,
-        researchRailContext: buildResearchRailContext(draft)
-      })
-    });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      throw new Error(payload?.error?.message || "MortAI could not respond.");
-    }
-    ui.mortaiResult = payload.result || payload;
-  } catch (error) {
-    ui.mortaiError = error.message || "MortAI could not respond.";
-  } finally {
-    ui.mortaiBusy = false;
-    saveConversationDeskState({ render: true });
-  }
+  await showAlert("Publish request saved. It will remain unpublished until admin approval is added.");
 }
 
-function buildDeskLinkedContext(draft){
-  const linkedNotes = (draft.linkedNotes || []).map(noteId => state.notes.find(note => note.id === noteId)).filter(Boolean);
+function publicationLabel(publicationStatus, approvalStatus){
+  if (publicationStatus === "published") return "Published";
+  if (publicationStatus === "pending_review") return "Unpublished / awaiting approval";
+  if (publicationStatus === "archived") return "Hidden";
+  if (approvalStatus === "approved") return "Approved";
+  return "Unpublished";
+}
+
+function contributionIndexId(userId, draftId){
+  return `${CLASSICS_APP_ID}_${userId}_${draftId}`.replace(/[^a-zA-Z0-9_.-]/g, "_");
+}
+
+function contributionIndexPayload(draft, user = state.currentUser){
+  const ownerName = getProfileDisplayName?.(user) || state.userProfile?.name || "Classics reader";
+  const now = nowIso();
   return {
-    linkedBook: draft.linkedBook,
-    linkedAuthor: draft.linkedAuthor,
-    linkedThemes: draft.linkedThemes,
-    linkedSourceCards: draft.linkedSourceCards,
-    linkedNotes: linkedNotes.map(note => ({
-      title: note.title || "",
-      book: note.book_tag || "",
-      author: note.author || "",
-      type: note.type || DEFAULT_NOTE_TYPE,
-      bodyPreview: String(note.body || "").slice(0, 500)
-    }))
+    appId: CLASSICS_APP_ID,
+    owner: user?.uid || "",
+    ownerName,
+    sourceDraftId: draft.id,
+    title: draft.title || "Untitled contribution",
+    centralQuestion: draft.centralQuestion || "",
+    body: draft.body || "",
+    excerpt: String(draft.body || "").replace(/\s+/g, " ").trim().slice(0, 240),
+    linkedBook: draft.linkedBook || "",
+    linkedAuthor: draft.linkedAuthor || "",
+    linkedThemes: draft.linkedThemes || [],
+    visibility: "members",
+    publicationStatus: draft.publicationStatus || "pending_review",
+    approvalStatus: draft.approvalStatus || "needs_review",
+    adminApprovalRequired: true,
+    publishedAt: draft.publicationStatus === "published" ? (draft.publishedAt || now) : "",
+    publishRequestedAt: draft.publishRequestedAt || now,
+    updatedAt: now
   };
 }
 
-function statusLabel(status){
-  return CONVERSATION_DRAFT_STATUS_OPTIONS.find(opt => opt.value === status)?.label || "Note";
+async function writeContributionIndexRequest(draft){
+  if (!state.currentUser || !window.firebaseDB || !window.firestoreDoc || !window.firestoreSetDoc) return;
+  const ref = publicContributionFirestoreRef(draft.publicIndexId || contributionIndexId(state.currentUser.uid, draft.id));
+  if (!ref) return;
+  await window.firestoreSetDoc(ref, contributionIndexPayload(draft), { merge: true });
+}
+
+function publicContributionFirestoreRef(indexId){
+  if (!indexId || !window.firebaseDB) return null;
+  return window.firestoreDoc(window.firebaseDB, "classicContributions", indexId);
+}
+
+async function loadPublishedContributionIndex(){
+  if (!state.currentUser || !window.firebaseDB || !window.firestoreCollection || !window.firestoreGetDocs) return [];
+  publishedContributionCacheBusy = true;
+  try {
+    const base = window.firestoreCollection(window.firebaseDB, "classicContributions");
+    const q = window.firestoreQuery(
+      base,
+      window.firestoreWhere("appId", "==", CLASSICS_APP_ID),
+      window.firestoreWhere("visibility", "==", "members"),
+      window.firestoreWhere("publicationStatus", "==", "published"),
+      window.firestoreWhere("approvalStatus", "==", "approved"),
+      window.firestoreOrderBy("publishedAt", "desc")
+    );
+    const snap = await window.firestoreGetDocs(q);
+    publishedContributionCache = snap.docs.map(docSnap => normalizePublishedContribution({ id: docSnap.id, ...docSnap.data() }));
+    publishedContributionCacheLoaded = true;
+    return publishedContributionCache;
+  } catch (error) {
+    console.error("Error loading published contributions:", error);
+    return publishedContributionCache;
+  } finally {
+    publishedContributionCacheBusy = false;
+  }
+}
+
+function normalizePublishedContribution(source = {}){
+  return {
+    id: String(source.id || source.publicIndexId || ""),
+    source: "publishedIndex",
+    title: String(source.title || ""),
+    centralQuestion: String(source.centralQuestion || ""),
+    body: String(source.body || ""),
+    linkedBook: String(source.linkedBook || ""),
+    linkedAuthor: String(source.linkedAuthor || ""),
+    linkedThemes: Array.isArray(source.linkedThemes) ? source.linkedThemes.map(String).filter(Boolean) : [],
+    visibility: "members",
+    publicationStatus: "published",
+    approvalStatus: "approved",
+    publishedAt: source.publishedAt || "",
+    updatedAt: source.updatedAt || ""
+  };
+}
+
+function renderMarkdown(markdown){
+  const text = String(markdown || "").replace(/\r\n/g, "\n");
+  if (!text.trim()) return "";
+  const lines = text.split("\n");
+  const html = [];
+  let paragraph = [];
+  let listType = null;
+  let listItems = [];
+  let quote = [];
+  let inCode = false;
+  let codeLines = [];
+
+  function flushParagraph(){
+    if (!paragraph.length) return;
+    html.push(`<p>${inlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  }
+  function flushList(){
+    if (!listType) return;
+    html.push(`<${listType}>${listItems.map(item => `<li>${inlineMarkdown(item)}</li>`).join("")}</${listType}>`);
+    listType = null;
+    listItems = [];
+  }
+  function flushQuote(){
+    if (!quote.length) return;
+    html.push(`<blockquote>${quote.map(item => `<p>${inlineMarkdown(item)}</p>`).join("")}</blockquote>`);
+    quote = [];
+  }
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("```")) {
+      if (inCode) {
+        html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+        inCode = false;
+        codeLines = [];
+      } else {
+        flushParagraph();
+        flushList();
+        flushQuote();
+        inCode = true;
+      }
+      continue;
+    }
+    if (inCode) {
+      codeLines.push(line);
+      continue;
+    }
+    if (!trimmed) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      continue;
+    }
+    const heading = /^(#{1,6})\s+(.+)$/.exec(trimmed);
+    if (heading) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      const level = Math.min(heading[1].length, 6);
+      html.push(`<h${level}>${inlineMarkdown(heading[2])}</h${level}>`);
+      continue;
+    }
+    if (/^---+$/.test(trimmed)) {
+      flushParagraph();
+      flushList();
+      flushQuote();
+      html.push("<hr>");
+      continue;
+    }
+    const bullet = /^[-*]\s+(.+)$/.exec(trimmed);
+    const numbered = /^\d+\.\s+(.+)$/.exec(trimmed);
+    if (bullet || numbered) {
+      flushParagraph();
+      flushQuote();
+      const nextType = bullet ? "ul" : "ol";
+      if (listType && listType !== nextType) flushList();
+      listType = nextType;
+      listItems.push((bullet || numbered)[1]);
+      continue;
+    }
+    const quoteMatch = /^>\s?(.+)$/.exec(trimmed);
+    if (quoteMatch) {
+      flushParagraph();
+      flushList();
+      quote.push(quoteMatch[1]);
+      continue;
+    }
+    flushList();
+    flushQuote();
+    paragraph.push(trimmed);
+  }
+  flushParagraph();
+  flushList();
+  flushQuote();
+  if (inCode) html.push(`<pre><code>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+  return html.join("");
+}
+
+function inlineMarkdown(text){
+  const placeholders = [];
+  let safe = escapeHtml(text);
+  safe = safe.replace(/`([^`]+)`/g, (_match, code) => {
+    const key = `@@CODE${placeholders.length}@@`;
+    placeholders.push([key, `<code>${code}</code>`]);
+    return key;
+  });
+  safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  safe = safe.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  safe = safe.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  for (const [key, value] of placeholders) safe = safe.replaceAll(key, value);
+  return safe;
 }

@@ -87,14 +87,11 @@ function defaultConversationDeskState(){
     ui: {
       loading: false,
       loaderStep: 0,
-      mortaiAction: MORTAI_ACTIONS[0],
-      mortaiBusy: false,
-      mortaiResult: null,
-      mortaiError: "",
-      draftFilter: "active"
+      mode: CONVERSATION_DESK_MODE_OPTIONS[0].value,
+      activeSpace: CONVERSATION_DESK_MODE_OPTIONS[0].value
     },
     updatedAt: nowIso(),
-    schemaVersion: 1
+    schemaVersion: 2
   };
 }
 
@@ -105,17 +102,29 @@ function conversationDeskRecord(value){
 function normalizeConversationDraft(source = {}){
   source = conversationDeskRecord(source);
   const now = nowIso();
-  const status = CONVERSATION_DRAFT_STATUS_OPTIONS.some(opt => opt.value === source.draftStatus)
-    ? source.draftStatus
-    : "note";
   const createdAt = source.createdAt || now;
   const updatedAt = source.updatedAt || createdAt;
+  const publicationStatus = CONVERSATION_PUBLICATION_OPTIONS.some(opt => opt.value === source.publicationStatus)
+    ? source.publicationStatus
+    : source.draftStatus === "contribution"
+      ? "published"
+      : "unpublished";
+  const visibility = CONVERSATION_VISIBILITY_OPTIONS.some(opt => opt.value === source.visibility)
+    ? source.visibility
+    : source.visibility === "shared"
+      ? "members"
+      : "private";
+  const approvalStatus = String(source.approvalStatus || (
+    publicationStatus === "published" ? "approved" :
+    publicationStatus === "pending_review" ? "needs_review" :
+    "draft"
+  ));
   return {
     id: String(source.id || uid()),
     title: String(source.title || ""),
     centralQuestion: String(source.centralQuestion || ""),
     body: String(source.body || ""),
-    draftStatus: status,
+    publicationStatus,
     linkedBook: String(source.linkedBook || ""),
     linkedAuthor: String(source.linkedAuthor || ""),
     linkedThemes: Array.isArray(source.linkedThemes) ? source.linkedThemes.map(String).filter(Boolean) : [],
@@ -128,8 +137,13 @@ function normalizeConversationDraft(source = {}){
           note: String(card?.note || "")
         })).filter(card => card.title || card.url || card.note)
       : [],
-    visibility: source.visibility === "shared" ? "shared" : "private",
+    visibility,
+    approvalStatus,
+    publicIndexId: String(source.publicIndexId || ""),
+    publishRequestedAt: String(source.publishRequestedAt || ""),
+    publicationReview: conversationDeskRecord(source.publicationReview),
     aiBrainMemoryObject: source.aiBrainMemoryObject || null,
+    publishedAt: publicationStatus === "published" ? String(source.publishedAt || updatedAt) : "",
     createdAt,
     updatedAt
   };
@@ -147,9 +161,21 @@ function normalizeConversationDeskState(source = {}){
     drafts,
     selectedId,
     houseStyle: { ...base.houseStyle, ...(source.houseStyle || {}) },
-    ui: { ...base.ui, ...(source.ui || {}), loading: false, mortaiBusy: false },
+    ui: {
+      ...base.ui,
+      ...(source.ui || {}),
+      loading: false,
+      mode: CONVERSATION_DESK_MODE_OPTIONS.some(opt => opt.value === source?.ui?.mode)
+        ? source.ui.mode
+        : base.ui.mode,
+      activeSpace: CONVERSATION_DESK_MODE_OPTIONS.some(opt => opt.value === source?.ui?.activeSpace)
+        ? source.ui.activeSpace
+        : CONVERSATION_DESK_MODE_OPTIONS.some(opt => opt.value === source?.ui?.mode)
+          ? source.ui.mode
+          : base.ui.activeSpace
+    },
     updatedAt: source.updatedAt || base.updatedAt,
-    schemaVersion: 1
+    schemaVersion: 2
   };
 }
 

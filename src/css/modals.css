@@ -20,12 +20,16 @@
   padding:0;
   z-index:70;
   display:none;
-  width:min(480px, 90vw);
+  width:min(480px, calc(100vw - 16px));
+  max-width:calc(100vw - 16px);
+  max-height:min(calc(100dvh - 16px), 760px);
+  overflow:hidden;
   opacity:0;
   transition: opacity 160ms ease, transform 160ms ease;
 }
 .modal.open{ 
-  display:block; 
+  display:grid;
+  grid-template-rows:auto minmax(0, 1fr) auto;
   opacity:1;
   transform: translate(-50%, -50%) scale(1);
 }
@@ -37,7 +41,9 @@
   align-items:center;
   justify-content:space-between;
   gap:10px;
+  min-width:0;
 }
+.modalHeader > *{ min-width:0; }
 .modalTitle{
   font-family: Newsreader, Georgia, "Times New Roman", serif;
   font-weight:900;
@@ -50,7 +56,10 @@
   padding:16px;
   display:grid;
   gap:16px;
+  min-width:0;
+  overflow:auto;
 }
+.modalBody > *{ min-width:0; }
 .modalFooter{
   padding:16px;
   border-top:var(--border);
@@ -58,7 +67,9 @@
   gap:10px;
   justify-content:flex-end;
   flex-wrap:wrap;
+  min-width:0;
 }
+.modalFooter > *{ min-width:0; }
 
 .profileProviderRow{
   border:var(--borderThin);
@@ -68,6 +79,8 @@
   justify-content:space-between;
   gap:12px;
   background:var(--paper);
+  flex-wrap:wrap;
+  min-width:0;
 }
 .profileProviderRow .help{
   margin-top:4px;
@@ -228,7 +241,7 @@ html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }
 }
 .donationAmountBtn{
   justify-content:center;
-  min-height:38px;
+  min-height:44px;
 }
 .donationAmountBtn.selected{
   background:var(--ink);
@@ -278,6 +291,19 @@ html.dark .timerDisplay.running{ background:var(--ink); color:var(--paper); }
 html.dark .donationStatusCard{
   background:#1a1a1a;
   color:var(--ink);
+}
+@media (max-width:560px){
+  .modalFooter .btn,
+  .profileProviderRow .btn,
+  .timerControls .btn,
+  .donationStatusActions .btn{
+    flex:1 1 140px;
+  }
+  .timerCustomRow,
+  .timerSoundRow,
+  .timerVolumeRow{
+    justify-content:flex-start;
+  }
 }
 @media (max-width:460px){
   .donationAmountGrid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }

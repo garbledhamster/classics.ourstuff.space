@@ -22,8 +22,10 @@ body{
 }
 
 .wrap{
+  width:min(100%, var(--max));
   max-width:var(--max);
   margin:0 auto;
   padding:18px;
+  min-width:0;
   overflow-x: hidden;
 }

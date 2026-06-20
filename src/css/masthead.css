@@ -5,13 +5,18 @@ header.masthead{
   border-bottom:3px solid var(--ink);
   padding:14px 0 12px 0;
   margin-bottom:16px;
+  min-width:0;
 }
 .mast-top{
   display:flex;
-  align-items:baseline;
+  align-items:flex-start;
   justify-content:space-between;
   gap:12px;
   flex-wrap:wrap;
+  min-width:0;
+}
+.mast-top > *{
+  min-width:0;
 }
 .brand{
   font-family: Newsreader, Georgia, "Times New Roman", serif;
@@ -20,6 +25,8 @@ header.masthead{
   font-size:clamp(26px,3vw,44px);
   line-height:1;
   text-transform:uppercase;
+  flex:1 1 240px;
+  overflow-wrap:anywhere;
 }
 .dateline{
   font-family: Newsreader, Georgia, "Times New Roman", serif;
@@ -32,6 +39,8 @@ header.masthead{
   gap:10px;
   flex-wrap:wrap;
   align-items:center;
+  flex:1 1 220px;
+  min-width:0;
 }
 .rule{ height:1px; background:var(--ink); margin-top:10px; }
 .subhead{
@@ -39,10 +48,31 @@ header.masthead{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  align-items:flex-start;
+  align-items:stretch;
   justify-content:space-between;
   font-size:13px;
   color:var(--muted);
+  min-width:0;
+}
+.subhead > *{
+  min-width:0;
+}
+.subhead > .navRow{
+  flex:1 1 320px;
+}
+.mast-top > div:last-child{
+  max-width:100%;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+@media (max-width:640px){
+  .mast-top > div:last-child{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .subhead > .navRow{
+    flex-basis:100%;
+  }
 }
 .badge{
   border:var(--borderThin);

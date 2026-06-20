@@ -80,6 +80,12 @@
   align-items:center;
   padding:4px 0;
 }
+.noteMultiBar > *{
+  min-width:0;
+}
+.noteMultiBar .btn{
+  flex:1 1 140px;
+}
 .noteSelectCount{
   font-size:11px;
   font-weight:900;
@@ -149,7 +155,8 @@ html.dark .noteSelectMode .noteItem:hover{ background:#2a2a2a; }
   letter-spacing:0.05em;
   background:#fff;
   user-select:none;
-  white-space:nowrap;
+  white-space:normal;
+  max-width:100%;
 }
 .noteTypeGroup label:has(input:checked){
   background:#000;

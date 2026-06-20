@@ -70,7 +70,7 @@
   border-right:1px solid var(--ink);
   background:transparent;
   color:var(--ink);
-  min-height:36px;
+  min-height:44px;
   cursor:pointer;
   font:inherit;
 }
@@ -272,7 +272,7 @@
 .deskMetaBadge{
   display:inline-flex;
   align-items:center;
-  min-height:30px;
+  min-height:44px;
   padding:4px 10px;
   border:1px solid var(--ink);
   font-size:13px;
@@ -371,7 +371,7 @@ html.dark .deskError{ color:#ff9b9b; }
   margin-bottom:16px;
 }
 .deskSpaceTab{
-  min-height:42px;
+  min-height:44px;
   border:0;
   border-right:1px solid var(--ink);
   background:transparent;
@@ -436,8 +436,8 @@ html.dark .deskError{ color:#ff9b9b; }
   border:1px solid var(--ink);
   background:transparent;
   color:var(--ink);
-  min-width:42px;
-  min-height:34px;
+  min-width:44px;
+  min-height:44px;
   padding:6px 8px;
   cursor:pointer;
   font:inherit;
@@ -515,7 +515,7 @@ html.dark .deskError{ color:#ff9b9b; }
 .deskPublicationState{
   display:inline-flex;
   align-items:center;
-  min-height:30px;
+  min-height:44px;
   padding:4px 10px;
   border:1px solid var(--ink);
   font-size:13px;

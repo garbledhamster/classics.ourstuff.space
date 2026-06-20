@@ -116,7 +116,8 @@ html.dark .planTable .td-date input[type="date"]{ background:#1a1a1a; color:var(
 /* Column picker */
 .colPickerWrap{
   position:relative;
-  display:inline-block;
+  display:inline-flex;
+  max-width:100%;
 }
 .colPickerPanel{
   position:absolute;
@@ -126,8 +127,11 @@ html.dark .planTable .td-date input[type="date"]{ background:#1a1a1a; color:var(
   background:#fff;
   border:var(--borderThin);
   padding:8px 0;
-  min-width:160px;
+  min-width:0;
+  width:min(220px, calc(100vw - 24px));
+  max-width:100%;
   box-shadow:0 4px 12px rgba(0,0,0,.15);
+  overflow:hidden;
 }
 html.dark .colPickerPanel{ background:#1a1a1a; color:var(--ink); }
 .colPickerPanel label{
@@ -139,6 +143,8 @@ html.dark .colPickerPanel{ background:#1a1a1a; color:var(--ink); }
   font-weight:600;
   cursor:pointer;
   user-select:none;
+  min-height:44px;
+  overflow-wrap:anywhere;
 }
 .colPickerPanel label:hover{ background:#f5f5f0; }
 html.dark .colPickerPanel label:hover{ background:#222; }
@@ -153,7 +159,8 @@ html.dark .colPickerPanel label:hover{ background:#222; }
 .planTable .th-colpicker .colPickerPanel{
   left:auto;
   right:0;
-  min-width:160px;
+  min-width:0;
+  max-width:min(220px, calc(100vw - 24px));
 }
 .planTable .th-colpicker .btn-colpicker{
   padding:2px 4px;

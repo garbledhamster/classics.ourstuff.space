@@ -1,5 +1,14 @@
 /* ===== Inline-style replacements ===== */
-.btnIconOnly{ padding:8px; line-height:0; align-self:center; }
+.btnIconOnly{
+  padding:8px;
+  line-height:0;
+  align-self:center;
+  min-width:44px;
+  min-height:44px;
+  justify-content:center;
+  flex:0 0 auto;
+  white-space:nowrap;
+}
 .toggleFlexStart{ justify-content:flex-start; }
 .siteFooter{
   margin-top:16px;
@@ -21,7 +30,7 @@
   padding:12px;
   background:#e8f4fd;
   border-radius:4px;
-  border-left:4px solid #2196F3;
+  border:var(--borderThin);
 }
 .searchBannerRow{ display:flex; align-items:center; gap:8px; }
 .searchBannerLabel{ font-weight:600; font-size:14px; }
@@ -47,11 +56,19 @@
 .helpSm{ margin-top:4px; font-size:12px; color:#666; }
 .helpSmMb{ margin-top:4px; margin-bottom:8px; font-size:12px; color:#666; }
 .bloomsBtnRow{ display:flex; flex-wrap:wrap; gap:8px; }
-.btnRow{ display:flex; gap:10px; flex-wrap:wrap; }
-.btnRowCompact{ display:flex; gap:10px; }
+.btnRow{ display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; min-width:0; }
+.btnRowCompact{ display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; min-width:0; }
+.btnRow > *,
+.btnRowCompact > *{ min-width:0; }
 .commentsBookTitle{
   font-family:Newsreader,'Times New Roman',serif;
   font-size:18px;
   font-weight:800;
   margin-bottom:14px;
+}
+.grecaptcha-badge{
+  left:auto !important;
+  right:0 !important;
+  max-width:min(256px, calc(100vw - 16px));
+  overflow:hidden;
 }

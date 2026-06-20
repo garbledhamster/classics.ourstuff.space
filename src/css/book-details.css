@@ -101,16 +101,19 @@ html.dark .pillTag{ background:#1a1a1a; color:var(--ink); border-color:var(--ink
   display:flex;
   flex-direction:column;
   border-bottom:var(--borderThin);
+  min-width:0;
+  max-width:100%;
 }
 .drawerPanelRow > .bookDetailsSection{
   flex:none;
-  min-width:unset;
+  min-width:0;
   border-bottom:var(--borderThin);
   border-right:none;
 }
 .drawerPanelRow > .blackBoxSection{
   flex:none;
-  min-width:unset;
+  min-width:0;
+  max-width:100%;
   border-bottom:var(--borderThin);
   background:#fafafa;
 }
@@ -120,31 +123,40 @@ html.dark .pillTag{ background:#1a1a1a; color:var(--ink); border-color:var(--ink
 }
 
 /* ===== Black Box Thinking Section ===== */
-.blackBoxSection{}
-.bbPanel{ padding:10px 12px 12px; }
+.blackBoxSection{ overflow:hidden; }
+.bbPanel{
+  padding:10px 12px 12px;
+  min-width:0;
+  max-width:100%;
+}
 .bbLayout{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:10px;
   min-width:0;
+  max-width:100%;
 }
 .bbCol{
-  flex:1;
+  flex:1 1 0;
   display:flex;
   flex-direction:column;
   gap:4px;
   min-width:0;
+  max-width:100%;
 }
 .bbCenter{
-  flex-shrink:0;
+  flex:0 1 90px;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:4px;
+  min-width:58px;
+  max-width:90px;
 }
 .bbSvg{
-  width:90px;
+  width:100%;
+  max-width:90px;
   height:60px;
   display:block;
 }
@@ -170,6 +182,8 @@ html.dark .pillTag{ background:#1a1a1a; color:var(--ink); border-color:var(--ink
   opacity:0;
 }
 .bbItem{
+  max-width:100%;
+  box-sizing:border-box;
   font-size:11px;
   font-weight:600;
   color:var(--ink);
@@ -178,6 +192,8 @@ html.dark .pillTag{ background:#1a1a1a; color:var(--ink); border-color:var(--ink
   background:#fff;
   line-height:1.4;
   opacity:0;
+  overflow-wrap:anywhere;
+  word-break:break-word;
 }
 .bbLeftCol .bbItem{ text-align:right; }
 .bbRightCol .bbItem{ text-align:left; }
@@ -236,6 +252,7 @@ html.dark .bbItem{ background:#111; }
   justify-content:center;
   gap:6px;
   width:100%;
+  min-height:44px;
   padding:6px 12px 5px;
   font-size:0.72rem;
   font-weight:700;

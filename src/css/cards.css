@@ -58,6 +58,7 @@
   border-top:var(--borderThin);
   padding:10px 0 4px;
   background:#fafafa;
+  min-width:0;
 }
 .cardMetaControls{
   display:grid;
@@ -68,6 +69,7 @@
   border-top:var(--borderThin);
   padding:10px 0 4px;
   background:#fafafa;
+  min-width:0;
 }
 .cardMetaControls > .statusSelect,
 .cardMetaControls > .taskTracker,
@@ -81,6 +83,10 @@
   align-items:stretch;
   border-top:var(--borderThin);
   background:#fafafa;
+  min-width:0;
+}
+.workDrawerBody > *{
+  min-width:0;
 }
 .readingStageChecklist{
   border-top:var(--borderThin);
@@ -203,13 +209,15 @@
 .workDrawerBody > .libActions{
   flex:1;
   min-width:0;
+  max-width:100%;
   border-top:none;
   padding:10px 0 2px 12px;
   background:transparent;
+  align-content:flex-start;
 }
 .libActions .btn,
 .workActions .btn{
-  min-height:38px;
+  min-height:44px;
   flex:1 1 130px;
   min-width:0;
   white-space:normal;
@@ -219,11 +227,24 @@
 .libActions .ytGoalWrap,
 .workActions .ytGoalWrap{
   flex:1 1 130px;
-  min-height:38px;
+  min-height:44px;
+  min-width:0;
+  max-width:100%;
 }
 .libActions .ytGoalWrap > .btn,
 .workActions .ytGoalWrap > .btn{
   width:100%;
+}
+@media (max-width:980px){
+  .workDrawerBody > .cardMetaControls{
+    min-width:0;
+    width:100%;
+  }
+  .workDrawerBody > .workActions,
+  .workDrawerBody > .libActions{
+    padding-left:0;
+    width:100%;
+  }
 }
 /* open: snappier ease-out */
 .libCard.active .libDrawer{

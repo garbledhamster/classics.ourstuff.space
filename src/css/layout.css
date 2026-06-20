@@ -16,7 +16,11 @@
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  align-items:center;
+  align-items:stretch;
+  min-width:0;
+}
+.navRow > *{
+  min-width:0;
 }
 
 /* Views */
@@ -26,7 +30,7 @@
 /* Cards grids: LEFT->RIGHT row-major */
 .grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap:16px;
   align-items:start;
   min-width:0;
@@ -42,10 +46,13 @@
   padding:12px;
   background:#fff;
   display:grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
   gap:10px;
   align-items:end;
   margin-bottom:16px;
+  min-width:0;
+}
+.controls > *{
   min-width:0;
 }
 @media (max-width:980px){ .controls{ grid-template-columns: 1fr 1fr; } }
@@ -60,12 +67,22 @@
   flex-wrap:wrap;
   min-width:0;
 }
+.rowWide > *{
+  min-width:0;
+}
 .planBtnRow{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
-  align-items:center;
+  align-items:stretch;
   justify-content:flex-start;
+  min-width:0;
+}
+.planBtnRow > *{
+  min-width:0;
+}
+.planBtnRow .btn{
+  flex:1 1 170px;
 }
 .planRefRow{
   display:flex;
@@ -78,6 +95,15 @@
   background:#fff;
   padding:10px 12px;
   margin-bottom:10px;
+  min-width:0;
+}
+.planRefRow > *{
+  min-width:0;
+}
+.planRefRow .btn{
+  flex:1 1 220px;
+  justify-content:flex-start;
+  text-align:left;
 }
 
 /* Newspaper-style masthead for the 10-year plan */
@@ -88,6 +114,7 @@
   padding:14px 20px 16px;
   margin-bottom:10px;
   text-align:center;
+  min-width:0;
 }
 .planMastheadRule{
   border:none;
@@ -119,7 +146,7 @@
 
 /* Year / All years / Tier / Filter row — 4 equal columns */
 .planFilterControls{
-  grid-template-columns: 1fr 1fr 1fr 1fr auto !important;
+  grid-template-columns:repeat(4, minmax(0, 1fr)) minmax(0, 1.6fr) !important;
 }
 @media (max-width:800px){ .planFilterControls{ grid-template-columns: 1fr 1fr !important; } }
 @media (max-width:460px){ .planFilterControls{ grid-template-columns: 1fr !important; } }
@@ -153,6 +180,8 @@
 .pillButton{
   font:inherit;
   cursor:pointer;
+  min-height:44px;
+  padding-block:8px;
 }
 .pillButton:hover,
 .pillButton:focus-visible{

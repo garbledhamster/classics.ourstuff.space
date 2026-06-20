@@ -16,7 +16,11 @@
   padding:10px;
   background:#fff;
   outline:none;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
   min-width:0;
+  min-height:44px;
 }
 .input:focus, .select:focus{ box-shadow:0 0 0 3px #00000022; }
 
@@ -27,6 +31,8 @@
   border:var(--border);
   box-shadow:var(--shadowXs);
   background:#fff;
+  min-width:0;
+  width:100%;
 }
 .yearStepper .btn{
   box-shadow:none;
@@ -35,6 +41,7 @@
   padding:10px 14px;
   font-size:18px;
   line-height:1;
+  flex:0 0 auto;
 }
 .yearStepper .btn:first-child{ border-right:var(--borderThin); }
 .yearStepper .btn:last-child{ border-left:var(--borderThin); }
@@ -48,8 +55,8 @@
   display:flex;
   align-items:center;
   justify-content:center;
-  white-space:nowrap;
-  min-width:78px;
+  white-space:normal;
+  min-width:0;
 }
 
 .toggle{
@@ -65,6 +72,10 @@
   font-size:12px;
   font-weight:900;
   user-select:none;
+  flex-wrap:wrap;
+  min-width:0;
+  min-height:44px;
+  max-width:100%;
 }
 .toggle input{ width:16px; height:16px; accent-color:#000; }
 

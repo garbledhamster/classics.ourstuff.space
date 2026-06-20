@@ -96,8 +96,14 @@
     }
   </script>
 
-  <!-- reCAPTCHA v3 -->
-  <script src="https://www.google.com/recaptcha/api.js?render=6LdVslAsAAAAAAwyU1wyjAxIG_K187E82ID2C7Re"></script>
+  <!-- reCAPTCHA v3: skip localhost so the unsupported-site-key badge does not cover local UI. -->
+  <script>
+    if (!["localhost", "127.0.0.1", "::1"].includes(location.hostname)) {
+      const recaptchaScript = document.createElement("script");
+      recaptchaScript.src = "https://www.google.com/recaptcha/api.js?render=6LdVslAsAAAAAAwyU1wyjAxIG_K187E82ID2C7Re";
+      document.head.appendChild(recaptchaScript);
+    }
+  </script>
 
   <!-- App Styles (modularized) -->
   <link rel="stylesheet" href="src/css/reset.css">

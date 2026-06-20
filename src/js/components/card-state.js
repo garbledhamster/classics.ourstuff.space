@@ -91,6 +91,111 @@ const READING_STAGE_OPTIONS = [
   { key: "during", label: "During reading", field: "duringReading" },
   { key: "after", label: "After reading", field: "afterReading" }
 ];
+const READING_STAGE_SEARCH_LABELS = {
+  before: "Find context",
+  during: "Find lecture",
+  after: "Find follow-up"
+};
+const READING_STAGE_FALLBACK_RESOURCE_INDEX = {
+  before: 0,
+  during: 1,
+  after: 2
+};
+
+function splitReadingResourceList(value){
+  return String(value || "")
+    .split(";")
+    .map(part => part.trim())
+    .filter(Boolean);
+}
+
+function compactReadingResourceLabel(title){
+  const firstPart = String(title || "").split(/\s+[—–-]\s+/)[0].trim();
+  const cleaned = firstPart
+    .replace(/\s+/g, " ")
+    .replace(/^The\s+/i, "")
+    .trim();
+  if (!cleaned) return "Resource";
+  return cleaned.length > 34 ? `${cleaned.slice(0, 31).trim()}...` : cleaned;
+}
+
+function readingResourceSearchUrl(query, videoMode=false){
+  const q = encodeURIComponent(String(query || "").replace(/\s+/g, " ").trim());
+  return `https://duckduckgo.com/?q=${q}${videoMode ? "&iax=videos&ia=videos" : ""}`;
+}
+
+function getReadingGuideResources(guide){
+  const titles = splitReadingResourceList(guide?.resourceTitles);
+  return titles.map((title, index) => ({
+    title,
+    label: compactReadingResourceLabel(title)
+  })).filter(resource => resource.title);
+}
+
+function normalizeReadingMatchText(value){
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function readingStageMentionsResource(stageText, resourceTitle){
+  const haystack = normalizeReadingMatchText(stageText);
+  const label = normalizeReadingMatchText(compactReadingResourceLabel(resourceTitle));
+  if (!haystack || !label) return false;
+  const tokens = label.split(" ").filter(token => token.length > 3 || /\d/.test(token));
+  return tokens.some(token => haystack.includes(token));
+}
+
+function extractReadingStageSearchText(stageText){
+  const text = String(stageText || "").trim();
+  const quoted = text.match(/[“"]([^”"]+)[”"]/);
+  if (quoted && quoted[1]) return quoted[1].trim();
+  return text
+    .replace(/\buse\/search:\s*/i, "")
+    .replace(/\bthen\s+.*/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function stageShouldUseVideoSearch(stageText){
+  return /\b(video|videos|youtube|lecture|documentary|episode|theatre|theater|course|watch)\b/i.test(stageText);
+}
+
+function getReadingStageResourcePills(workItem, stage, stageText){
+  const guide = workItem.readingGuide || {};
+  const resources = getReadingGuideResources(guide);
+  const matched = resources.filter(resource => readingStageMentionsResource(stageText, resource.title));
+  if (!matched.length) {
+    const fallback = resources[READING_STAGE_FALLBACK_RESOURCE_INDEX[stage.key]];
+    if (fallback) matched.push(fallback);
+  }
+
+  const deduped = [];
+  const seen = new Set();
+  for (const resource of matched) {
+    const key = normalizeReadingMatchText(resource.title);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(resource);
+  }
+
+  const resourcePills = deduped.slice(0, 3).map(resource => {
+    const searchQuery = `${resource.title} ${workItem.author || ""} ${workItem.title || ""}`.trim();
+    const href = readingResourceSearchUrl(searchQuery, stageShouldUseVideoSearch(stageText));
+    return `<a class="readingResourcePill" href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(resource.title)}">${escapeHtml(resource.label)}</a>`;
+  });
+
+  const searchText = extractReadingStageSearchText(stageText);
+  if (searchText) {
+    const searchQuery = `${workItem.title || ""} ${workItem.author || ""} ${searchText}`.trim();
+    resourcePills.push(`<a class="readingResourcePill readingSearchPill" href="${escapeHtml(readingResourceSearchUrl(searchQuery, stageShouldUseVideoSearch(stageText)))}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(searchQuery)}">${escapeHtml(READING_STAGE_SEARCH_LABELS[stage.key] || "Find more")}</a>`);
+  }
+
+  if (!resourcePills.length) return "";
+  return `<span class="readingResourcePills">${resourcePills.join("")}</span>`;
+}
 
 function getReadingStageState(workKeyValue){
   const raw = state.readingStageChecks[workKeyValue] || {};
@@ -109,17 +214,20 @@ function renderReadingStageChecklist(workItem){
     const text = guide[stage.field] || "";
     if (!text) return "";
     return `
-      <label class="readingStageItem">
-        <input type="checkbox"
-          data-action="toggleReadingStage"
-          data-workkey="${escapeHtml(workItem.key)}"
-          data-stage="${escapeHtml(stage.key)}"
-          ${checks[stage.key] ? "checked" : ""}>
-        <span class="readingStageText">
-          <span class="readingStageLabel">${escapeHtml(stage.label)}</span>
-          <span class="readingStagePrompt">${escapeHtml(text)}</span>
-        </span>
-      </label>
+      <div class="readingStageItem">
+        <label class="readingStageCheck">
+          <input type="checkbox"
+            data-action="toggleReadingStage"
+            data-workkey="${escapeHtml(workItem.key)}"
+            data-stage="${escapeHtml(stage.key)}"
+            ${checks[stage.key] ? "checked" : ""}>
+          <span class="readingStageText">
+            <span class="readingStageLabel">${escapeHtml(stage.label)}</span>
+            <span class="readingStagePrompt">${escapeHtml(text)}</span>
+          </span>
+        </label>
+        ${getReadingStageResourcePills(workItem, stage, text)}
+      </div>
     `;
   }).join("");
   if (!rows.trim()) return "";

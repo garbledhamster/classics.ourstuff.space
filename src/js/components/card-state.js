@@ -215,6 +215,7 @@ function renderReadingStageChecklist(workItem){
     if (!text) return "";
     return `
       <div class="readingStageItem">
+        <span class="readingStageLabel">${escapeHtml(stage.label)}</span>
         <label class="readingStageCheck">
           <input type="checkbox"
             data-action="toggleReadingStage"
@@ -222,7 +223,6 @@ function renderReadingStageChecklist(workItem){
             data-stage="${escapeHtml(stage.key)}"
             ${checks[stage.key] ? "checked" : ""}>
           <span class="readingStageText">
-            <span class="readingStageLabel">${escapeHtml(stage.label)}</span>
             <span class="readingStagePrompt">${escapeHtml(text)}</span>
           </span>
         </label>

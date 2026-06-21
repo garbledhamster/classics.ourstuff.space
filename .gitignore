@@ -13,3 +13,4 @@ dist/
 build/
 __pycache__/
 *.py[cod]
+Github.code-workspace

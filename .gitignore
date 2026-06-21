@@ -1,47 +1,15 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+
+# Runtime logs and local scratch output
+*.log
 nohup.out
-/.firebase
-/.mobile
-/.obsidian
-/.llm_brain
-/.openrouter
-/.security
-/.github
-/.codex
-/.stripe
-/.wrangler
-*.md
-/artifacts
+artifacts/
 
-# Agent and Local AI Brain project conventions.
-!AGENTS.md
-!DESIGN_CONCEPT.md
-!agents.md
-!/.codex/
-/.codex/*
-!/.codex/AGENTS.md
-!/.codex/actions/
-!/.codex/actions/**
-!/.codex/environments/
-!/.codex/environments/**
-!/.agents/
-!/.agents/project-flow-status.json
-!/.agents/plans/
-!/.agents/plans/*.md
-!/.agents/skills/
-!/.agents/skills/**
-!/.claude/
-!/.claude/skills/
-!/.claude/skills/**
-!project-context/
-!project-context/*.md
-!project-context/ORIGINAL_IDEA.md
-!project-context/pointers/
-!project-context/pointers/**
-
-# Local AI Brain runtime state stays local.
-/localaibrain/brain/
-/localaibrain/brain/**
-
-# Python/runtime caches.
+# Dependency/build output should not be committed to the public Pages repo.
+node_modules/
+dist/
+build/
 __pycache__/
 *.py[cod]

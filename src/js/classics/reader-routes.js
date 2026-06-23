@@ -1,7 +1,28 @@
-/* cross-refs.js — Cross-view navigation (gotoPlanWorkKey, gotoLibraryWork), openDrawer/closeDrawer */
-/* =========================================================
-   CROSS REFERENCES
-   ========================================================= */
+/* reader-routes.js — cross-view navigation, drawers, and render orchestration */
+import {
+  $,
+  flashEl,
+  hash32,
+  loadConversationDesk,
+  state
+} from "./foundation.js";
+import {
+  filteredLibrary,
+  renderLibrary
+} from "./library-shelf.js";
+import {
+  renderAuthors
+} from "./authors-atlas.js";
+import {
+  renderPlan,
+  updateYearStepper
+} from "./reading-plan.js";
+import {
+  hideEditor,
+  openConversationDesk,
+  renderConversationDesk,
+  renderNotesList
+} from "./writing-desks.js";
 function gotoPlanWorkKey(workkey){
   if (!workkey) return;
 
@@ -123,3 +144,60 @@ function closeDrawer(){
 
   hideEditor();
 }
+
+
+
+function setView(view){
+  state.view = view;
+
+  $("#libraryView")?.classList.toggle("on", view === "library");
+  $("#planView")?.classList.toggle("on", view === "plan");
+  $("#authorsView")?.classList.toggle("on", view === "authors");
+  $("#deskView")?.classList.toggle("on", view === "desk");
+  $("#glossaryView")?.classList.toggle("on", view === "glossary");
+  $("#getStartedView")?.classList.toggle("on", view === "get-started");
+
+  $("#tabLibrary")?.classList.toggle("tabOn", view === "library");
+  $("#tabPlan")?.classList.toggle("tabOn", view === "plan");
+  $("#tabAuthors")?.classList.toggle("tabOn", view === "authors");
+  $("#tabDesk")?.classList.toggle("tabOn", view === "desk");
+  $("#tabGlossary")?.classList.toggle("tabOn", view === "glossary");
+  $("#tabGetStarted")?.classList.toggle("tabOn", view === "get-started");
+
+  if (view === "library"){
+    $("#planName").textContent = "Library";
+  } else if (view === "plan"){
+    $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
+  } else if (view === "authors"){
+    $("#planName").textContent = "Great Authors";
+  } else if (view === "desk"){
+    $("#planName").textContent = "Conversation Desk";
+  } else if (view === "glossary"){
+    $("#planName").textContent = "Glossary";
+  } else if (view === "get-started"){
+    $("#planName").textContent = "Get Started";
+  }
+
+  renderAll();
+}
+function renderAll(){
+  if (state.view === "library") renderLibrary();
+  else if (state.view === "plan") renderPlan();
+  else if (state.view === "authors") renderAuthors();
+  else if (state.view === "desk") renderConversationDesk();
+
+  // Notes list refresh if open
+  if (state.drawer.open && state.drawer.which === "notes"){
+    renderNotesList();
+  }
+}
+export {
+  setView,
+  renderAll,
+  gotoPlanWorkKey,
+  gotoLibraryWork,
+  gotoLibraryGreatIdea,
+  getWorkContextFromRow,
+  openDrawer,
+  closeDrawer
+};

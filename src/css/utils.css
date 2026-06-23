@@ -9,6 +9,15 @@
   flex:0 0 auto;
   white-space:nowrap;
 }
+.mastActions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+}
+.isHidden{ display:none; }
+.rowWideCenter{ justify-content:center; }
+.helpCenter{ text-align:center; }
 .toggleFlexStart{ justify-content:flex-start; }
 .siteFooter{
   margin-top:16px;

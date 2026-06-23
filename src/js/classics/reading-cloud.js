@@ -1,4 +1,30 @@
-/* firebase/sync.js — Firestore sync: push/pull checks, statuses, tasks, dates, notes, timer; triggerAutoSync */
+
+import {
+  AUTO_SYNC_DEBOUNCE_MS,
+  CLASSICS_APP_ID,
+  LS_CARD_DATES,
+  LS_CARD_STATUS,
+  LS_CARD_TASKS,
+  LS_CHECKS,
+  LS_NOTES,
+  LS_READING_STAGE_CHECKS,
+  LS_TIMER_SETTINGS,
+  PAYMENTS_WORKER_BASE_URL,
+  SITE_ID,
+  loadDeletedNoteIds,
+  normalizeConversationDeskState,
+  nowIso,
+  refreshReaderAccountUi,
+  safeJsonParse,
+  saveConversationDesk,
+  saveDeletedNoteIds,
+  savePaymentSummaries,
+  saveUserProfile,
+  setAfterSaveCallback,
+  state
+} from "./foundation.js";
+import { applyTimerSettings } from "./reader-progress.js";
+/* Firestore sync for checks, statuses, tasks, dates, notes, timer state, and autosync */
 /* =========================================================
    FIRESTORE SYNC FUNCTIONS
    ========================================================= */
@@ -536,14 +562,14 @@ async function performFullSync(userId) {
         state.conversationDesk = saveConversationDesk(remoteConversationDesk, { sync: false });
       }
     }
-    updateAuthUI();
+    refreshReaderAccountUi();
 
     // Timer settings: remote fills in what local hasn't set; local wins on conflict
     if (remoteTimerSettings) {
       const localTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || "null", null);
       const merged = { ...remoteTimerSettings, ...(localTimerSettings || {}) };
       localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(merged));
-      if (window.applyTimerSettings) window.applyTimerSettings(merged);
+      applyTimerSettings(merged);
     }
     
     // Push all merged data back to Firestore (includes local-only items)
@@ -582,8 +608,7 @@ async function performFullSync(userId) {
 // Note: This performs a full bidirectional sync (pull, merge, push) on every change.
 // For production optimization, consider implementing incremental sync that only pushes changed items.
 let syncTimeout = null;
-// Reassign the triggerAutoSync function with actual implementation
-triggerAutoSync = () => {
+const triggerAutoSync = () => {
   // Skip if already syncing to prevent loops
   if (!state.currentUser || !state.sync.enabled || state.sync.syncing) return;
   
@@ -593,6 +618,8 @@ triggerAutoSync = () => {
     await performFullSync(state.currentUser.uid);
   }, AUTO_SYNC_DEBOUNCE_MS);
 };
+
+setAfterSaveCallback(triggerAutoSync);
 
 // Update sync status in UI
 function updateSyncStatus() {
@@ -645,4 +672,15 @@ function updatePaymentSummaryStatus() {
   statusEl.textContent = `Donations: ${total} (${count})`;
   statusEl.style.color = '#080';
 }
+
+export {
+  mergeUserProfiles,
+  normalizeUserProfile,
+  performFullSync,
+  refreshPaymentSummaryFromWorker,
+  syncUserProfileToFirestore,
+  updatePaymentSummaryStatus,
+  updateSyncStatus
+};
+
 

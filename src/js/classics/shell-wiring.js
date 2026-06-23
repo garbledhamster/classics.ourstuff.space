@@ -1,8 +1,91 @@
-/* wire-ui.js — wireUI(): one-time binding of nav tabs, dark mode, search inputs, export, notes drawer, etc. */
-
-/* =========================================================
-   WIRE UI
-   ========================================================= */
+/* shell-wiring.js — top-level UI binding for the Classics shell */
+import {
+  $,
+  LS_CARD_DATES,
+  LS_CARD_STATUS,
+  LS_CARD_TASKS,
+  LS_CHECKS,
+  LS_CONVERSATION_DESK,
+  LS_NOTES,
+  LS_READING_STAGE_CHECKS,
+  LS_USER_PROFILE,
+  NOTE_TYPE_OPTIONS,
+  escapeHtml,
+  loadConversationDesk,
+  state,
+  saveChecks,
+  saveTableHiddenCols,
+  showAlert,
+  showConfirm
+} from "./foundation.js";
+import {
+  closeAllTaskDropdowns,
+  closeTimerModal,
+  showExportModal
+} from "./reader-progress.js";
+import {
+  closeLearningGoalDrawers,
+  buildSearchUrlFromSettings,
+  hideSearchSettingsModal,
+  searchSettingsModalContext,
+  updateSearchPreview
+} from "./book-briefing.js";
+import {
+  closeDrawer,
+  openDrawer,
+  renderAll,
+  setView
+} from "./reader-routes.js";
+import {
+  renderAuthors
+} from "./authors-atlas.js";
+import {
+  renderLibrary
+} from "./library-shelf.js";
+import {
+  renderPlan,
+  toggleColPickerPanel,
+  toggleStandaloneColPicker,
+  updateYearStepper
+} from "./reading-plan.js";
+import {
+  archiveEditorNote,
+  archiveSelectedNotes,
+  bindConversationDeskUI,
+  deleteEditorNote,
+  deleteSelectedNotes,
+  exportNotes,
+  filteredNotes,
+  getCheckGroupValues,
+  hideEditor,
+  importNotesFile,
+  openConversationDesk,
+  renderNotesList,
+  saveEditorNote,
+  setCheckGroupValues,
+  startEditNote,
+  startNewNote,
+  toggleNoteSelectMode
+} from "./writing-desks.js";
+import {
+  closeDonationModal,
+  getCurrentReader,
+  handleEulaAccept,
+  handleGoogleSignIn,
+  handleLogin,
+  handleLogout,
+  handleProfileGoogleConnect,
+  handleProfileSave,
+  handleSignup,
+  hideEulaModal,
+  hideLoginModal,
+  hideProfileModal,
+  hideSignupModal,
+  showLoginModal,
+  showProfileModal,
+  showSignupModal
+} from "./reader-account.js";
+import { performFullSync } from "./reading-cloud.js";
 function wireUI(){
   // Tabs
   $("#tabLibrary").addEventListener("click", ()=> setView("library"));
@@ -14,33 +97,13 @@ function wireUI(){
   $("#closeNotesBtn").addEventListener("click", closeDrawer);
   bindConversationDeskUI();
 
-  // Great Conversation — comment type pills
-  if (false) document.addEventListener("x-legacy-comment-type", (e) => {
-    const pill = e.target.closest(".commentTypePill");
-    if (!pill) return;
-    document.querySelectorAll(".legacyCommentTypePill").forEach(p => { p.classList.remove("selected"); });
-    pill.classList.add("selected");
-    void pill;
-  });
-
-  // Great Conversation — submit comment
-  if (false) document.addEventListener("x-legacy-submit", () => {});
-
-  // Great Conversation — delete comment (event delegation on comments list)
-  if (false) document.addEventListener("x-legacy-comment-list", (e) => {
-    const btn = e.target.closest("[data-action='deleteComment']");
-    if (!btn) return;
-    const commentId = btn.dataset.commentid;
-    void commentId;
-  });
-
   $("#overlay").addEventListener("click", () => {
     closeDrawer();
   });
 
   // Authentication button - opens sign-in or the signed-in profile editor
   $("#authBtn").addEventListener("click", () => {
-    if (currentUser) {
+    if (getCurrentReader()) {
       showProfileModal();
     } else {
       showLoginModal();
@@ -154,8 +217,8 @@ function wireUI(){
     hideProfileModal();
     hideEulaModal();
     hideSearchSettingsModal();
-    if (window._closeTimerModal) window._closeTimerModal();
-    if (window._closeDonationModal) window._closeDonationModal();
+    closeTimerModal();
+    closeDonationModal();
   });
 
   document.addEventListener("keydown", (e)=>{
@@ -164,8 +227,8 @@ function wireUI(){
     if (e.key === "Escape" && $("#signupModal").classList.contains("open")) hideSignupModal();
     if (e.key === "Escape" && $("#profileModal").classList.contains("open")) hideProfileModal();
     if (e.key === "Escape" && $("#eulaModal").classList.contains("open")) { hideEulaModal(); showSignupModal(); }
-    if (e.key === "Escape" && $("#timerModal").classList.contains("open") && window._closeTimerModal) window._closeTimerModal();
-    if (e.key === "Escape" && $("#donationModal").classList.contains("open") && window._closeDonationModal) window._closeDonationModal();
+    if (e.key === "Escape" && $("#timerModal").classList.contains("open")) closeTimerModal();
+    if (e.key === "Escape" && $("#donationModal").classList.contains("open")) closeDonationModal();
     if (e.key === "Escape") closeLearningGoalDrawers(document, { restoreFocus: true });
     if (e.key === "Escape") closeAllTaskDropdowns();
   });
@@ -448,14 +511,6 @@ function wireUI(){
   });
 
 }
-
-/* =========================================================
-   TABLE HORIZONTAL SCROLL — shift+wheel on desktop
-   ========================================================= */
-document.addEventListener("wheel", (e)=> {
-  if (!e.shiftKey) return;
-  const wrap = e.target.closest(".planTableWrap");
-  if (!wrap) return;
-  e.preventDefault();
-  wrap.scrollLeft += e.deltaY || e.deltaX;
-}, { passive: false });
+export {
+  wireUI
+};

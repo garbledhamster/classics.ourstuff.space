@@ -1,7 +1,30 @@
-/* views/authors.js — Great Authors view: build data, filter, render author cards, wire delegation */
-/* =========================================================
-   GREAT AUTHORS
-   ========================================================= */
+/* authors-atlas.js — author cards, author filters, and author delegation */
+import {
+  $, 
+  YOUTUBE_SEARCH_SUFFIX,
+  buildAudiobookSearchUrl,
+  buildBiographySearchUrl,
+  buildBuyBookSearchUrl,
+  buildContextSearchUrl,
+  buildGoodreadsSearchUrl,
+  escapeHtml,
+  flashEl,
+  normalizeText,
+  state
+} from "./foundation.js";
+import {
+  filteredLibrary,
+  paginationHtml,
+  renderAbcBar
+} from "./library-shelf.js";
+import {
+  setView
+} from "./reader-routes.js";
+import {
+  openConversationDesk,
+  renderNotesList,
+  startNewNote
+} from "./writing-desks.js";
 function buildAuthorsData(){
   // Aggregate unique authors from libraryWorks
   const map = new Map();
@@ -295,4 +318,15 @@ function wireAuthorsDelegation(){
     }
   };
 }
-
+function authLetterKey(it){
+  const s = it.author.trim().toUpperCase();
+  return /^[A-Z]/.test(s) ? s[0] : "#";
+}
+export {
+  authLetterKey,
+  buildAuthorsData,
+  filteredAuthors,
+  authorCardHtml,
+  renderAuthors,
+  wireAuthorsDelegation
+};

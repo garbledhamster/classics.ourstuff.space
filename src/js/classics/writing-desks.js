@@ -2105,7 +2105,6 @@ export {
   archiveEditorNote,
   archiveSelectedNotes,
   bindConversationDeskUI,
-  closeTermModal,
   createConversationDraft,
   deleteEditorNote,
   deleteSelectedNotes,

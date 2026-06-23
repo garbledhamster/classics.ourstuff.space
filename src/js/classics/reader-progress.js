@@ -928,6 +928,7 @@ export {
   handleFinishedDateBlurEvent,
   handleFinishedDateFocusEvent,
   handleReadingStageCheckboxChangeEvent,
+  handleTaskDropdownClickEvent,
   renderCardDateFields,
   renderCardMetaControls,
   renderReadingStageChecklist,

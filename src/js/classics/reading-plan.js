@@ -551,6 +551,7 @@ function workRowHtml(w){
       </div></div>
     </div>
   `;
+}
 function applyPlanFilters(){
   const f = state.filters;
   const q = normalizeText(f.q);

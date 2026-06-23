@@ -7,6 +7,7 @@ import {
   normalizeText,
   state
 } from "./foundation.js";
+import { readerRuntime } from "./runtime-environment.js";
 
 let searchSettingsModalContext = {
   title: "",
@@ -335,6 +336,12 @@ async function loadBookDetails(section){
 
   inner.innerHTML = `<div class="bookDetailsLoading">Loading…</div>`;
 
+  if (remoteBookEnrichmentShouldStayLocal()) {
+    inner.innerHTML = remoteBookEnrichmentUnavailableHtml();
+    inner._loadingDetails = false;
+    return;
+  }
+
   try {
     // Fetch all three sources in parallel for faster load
     const [olResult, gutResult, wikiResult] = await Promise.allSettled([
@@ -355,7 +362,7 @@ async function loadBookDetails(section){
     }
 
     if (!sources.length){
-      inner.innerHTML = `<div class="bookDetailsError">No details found for this title.</div>`;
+      inner.innerHTML = remoteBookEnrichmentUnavailableHtml("Remote book sources returned no details. Your local notes and outside search links still work.");
       return;
     }
 
@@ -364,10 +371,23 @@ async function loadBookDetails(section){
     inner._sourceIdx = 0;
     _renderSourceView(inner);
   } catch(err){
-    inner.innerHTML = `<div class="bookDetailsError">Could not load book details. Please try again later.</div>`;
+    inner.innerHTML = remoteBookEnrichmentUnavailableHtml();
   } finally {
     inner._loadingDetails = false;
   }
+}
+
+function remoteBookEnrichmentShouldStayLocal(){
+  return readerRuntime.isLocalMode || navigator.onLine === false || typeof fetch !== "function";
+}
+
+function remoteBookEnrichmentUnavailableHtml(message = ""){
+  const reason = message || (
+    readerRuntime.isLocalMode
+      ? "Remote book details are unavailable in local mode. Your local notes and outside search links still work."
+      : "Remote book details are unavailable while offline. Your local notes and outside search links still work."
+  );
+  return `<div class="bookDetailsError">${escapeHtml(reason)}</div>`;
 }
 
 function _renderSourceView(inner){

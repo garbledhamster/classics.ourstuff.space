@@ -4,10 +4,19 @@ import {
   nowIso,
   registerReaderAccountRefresh,
   rerenderApp as renderAll,
+  savePaymentSummaries,
   saveUserProfile,
   showAlert,
   state
 } from "./foundation.js";
+import {
+  clearLocalReaderAuthState,
+  createLocalReaderUser,
+  readLocalReaderAuthState,
+  recordLocalReaderPaymentSimulation,
+  updateLocalReaderProfile,
+  writeLocalReaderAuthState
+} from "./local-reader-simulation.js";
 import {
   mergeUserProfiles,
   normalizeUserProfile,
@@ -16,6 +25,7 @@ import {
   updatePaymentSummaryStatus,
   updateSyncStatus
 } from "./reading-cloud.js";
+import { readerRuntime } from "./runtime-environment.js";
 /* Firebase authentication, sign-in flows, and account shell controls */
 /* =========================================================
    FIREBASE AUTHENTICATION
@@ -26,12 +36,59 @@ let pendingSignupDetails = null;
 let pendingGoogleCredential = null;
 let pendingGoogleEmail = "";
 
+function shouldUseLocalReaderSimulation() {
+  return readerRuntime.isLocalMode;
+}
+
+function firebaseAuthIsAvailable() {
+  return Boolean(window.firebaseAuth && window.firebaseOnAuthStateChanged);
+}
+
+async function activateLocalReader(authState, { alertMessage = "" } = {}) {
+  const localUser = createLocalReaderUser(authState);
+  currentUser = localUser;
+  state.currentUser = localUser;
+  state.sync.error = null;
+
+  if (localUser) {
+    state.userProfile = mergeUserProfiles(null, state.userProfile, localUser);
+    saveUserProfile(state.userProfile);
+    updateAuthUI();
+    await performFullSync(localUser.uid);
+  } else {
+    state.sync.enabled = false;
+    state.sync.lastSync = null;
+    updateAuthUI();
+    updateSyncStatus();
+    updatePaymentSummaryStatus();
+  }
+
+  renderAll();
+  if (alertMessage) showAlert(alertMessage);
+}
+
+function showCloudAuthUnavailable(setError) {
+  const message = "Cloud sign-in is unavailable right now. Local reader simulation only runs on localhost or file://.";
+  if (typeof setError === "function") {
+    setError(message);
+    return;
+  }
+  showAlert(message);
+}
+
 // Initialize auth state observer
 function initAuth() {
-  if (!window.firebaseAuth || !window.firebaseOnAuthStateChanged) {
+  if (shouldUseLocalReaderSimulation()) {
+    activateLocalReader(readLocalReaderAuthState());
+    return;
+  }
+
+  if (!firebaseAuthIsAvailable()) {
     console.error("Firebase not loaded");
     // Show auth button even if Firebase fails
     $("#authBtn").style.display = "inline-flex";
+    updateSyncStatus();
+    updatePaymentSummaryStatus();
     return;
   }
 
@@ -291,6 +348,13 @@ function updateProfileProviderUI() {
   const googleStatus = $("#profileGoogleStatus");
   if (!googleBtn || !googleStatus) return;
 
+  if (shouldUseLocalReaderSimulation()) {
+    googleBtn.disabled = true;
+    googleBtn.textContent = "Unavailable";
+    googleStatus.textContent = "Local reader simulation uses email only";
+    return;
+  }
+
   const connected = hasAuthProvider("google.com");
   googleBtn.disabled = connected;
   googleBtn.textContent = connected ? "Google Connected" : "Connect";
@@ -305,6 +369,7 @@ function updateProfileProviderUI() {
 }
 
 async function executeRecaptcha(action) {
+  if (shouldUseLocalReaderSimulation()) return "local-reader-simulation";
   return new Promise((resolve, reject) => {
     if (!window.grecaptcha) {
       reject(new Error("reCAPTCHA not loaded"));
@@ -377,6 +442,15 @@ async function completePendingGoogleLink(user) {
 }
 
 async function handleGoogleSignIn() {
+  if (shouldUseLocalReaderSimulation()) {
+    setGoogleAuthError("Google sign-in is unavailable in local reader simulation. Use email sign-in instead.");
+    return;
+  }
+  if (!firebaseAuthIsAvailable()) {
+    showCloudAuthUnavailable(setGoogleAuthError);
+    return;
+  }
+
   const buttons = ["#loginGoogleBtn", "#signupGoogleBtn"].map(sel => $(sel)).filter(Boolean);
   const previousLabels = new Map(buttons.map(btn => [btn, btn.innerHTML]));
   buttons.forEach(btn => {
@@ -419,6 +493,10 @@ async function handleGoogleSignIn() {
 }
 
 async function handleProfileGoogleConnect() {
+  if (shouldUseLocalReaderSimulation()) {
+    setProfileError("Google sign-in is unavailable in local reader simulation.");
+    return;
+  }
   if (!currentUser || !window.firebaseLinkWithPopup) return;
   const btn = $("#profileGoogleBtn");
   const previousHtml = btn.innerHTML;
@@ -458,6 +536,26 @@ async function handleProfileSave() {
     clearProfileError();
     btn.disabled = true;
     btn.textContent = "Saving...";
+    if (shouldUseLocalReaderSimulation()) {
+      const authState = updateLocalReaderProfile({ name, email: $("#profileEmail").value.trim() || currentUser.email });
+      currentUser = createLocalReaderUser(authState);
+      state.currentUser = currentUser;
+      state.userProfile = normalizeUserProfile({
+        name,
+        email: currentUser.email,
+        updatedAt: nowIso()
+      }, currentUser);
+      saveUserProfile(state.userProfile);
+      await performFullSync(currentUser.uid);
+      updateAuthUI();
+      hideProfileModal();
+      showAlert("Local profile saved.");
+      return;
+    }
+    if (!firebaseAuthIsAvailable()) {
+      showCloudAuthUnavailable(setProfileError);
+      return;
+    }
     if (window.firebaseUpdateProfile && currentUser.displayName !== name) {
       await window.firebaseUpdateProfile(currentUser, { displayName: name });
     }
@@ -494,6 +592,18 @@ async function handleLogin() {
     const btn = $("#loginSubmitBtn");
     btn.disabled = true;
     btn.textContent = "Signing in...";
+
+    if (shouldUseLocalReaderSimulation()) {
+      const authState = writeLocalReaderAuthState({ email });
+      await activateLocalReader(authState, { alertMessage: "Local reader signed in. Cloud auth was not used." });
+      hideLoginModal();
+      return;
+    }
+
+    if (!firebaseAuthIsAvailable()) {
+      showCloudAuthUnavailable(setLoginError);
+      return;
+    }
 
     // Execute reCAPTCHA
     const recaptchaToken = await executeRecaptcha("login");
@@ -566,6 +676,22 @@ async function handleEulaAccept() {
     btn.disabled = true;
     btn.textContent = "Creating account...";
 
+    if (shouldUseLocalReaderSimulation()) {
+      const authState = writeLocalReaderAuthState({ name, email });
+      await activateLocalReader(authState, { alertMessage: "Local reader account created. Cloud auth was not used." });
+      hideEulaModal();
+      $("#signupName").value = "";
+      $("#signupEmail").value = "";
+      $("#signupPassword").value = "";
+      $("#signupPasswordConfirm").value = "";
+      pendingSignupDetails = null;
+      return;
+    }
+
+    if (!firebaseAuthIsAvailable()) {
+      throw new Error("Cloud sign-up is unavailable right now. Local reader simulation only runs on localhost or file://.");
+    }
+
     // Execute reCAPTCHA
     const recaptchaToken = await executeRecaptcha("signup");
     console.log("reCAPTCHA token obtained:", recaptchaToken ? "✓" : "✗");
@@ -623,6 +749,15 @@ async function handleEulaAccept() {
 async function handleLogout() {
   try {
     hideProfileModal();
+    if (shouldUseLocalReaderSimulation()) {
+      clearLocalReaderAuthState();
+      await activateLocalReader(null, { alertMessage: "Local reader signed out." });
+      return;
+    }
+    if (!firebaseAuthIsAvailable()) {
+      showCloudAuthUnavailable();
+      return;
+    }
     await window.firebaseSignOut(window.firebaseAuth);
     showAlert("Signed out successfully");
   } catch (error) {
@@ -740,6 +875,17 @@ let closeDonationModal = () => {};
     setDonationError("");
 
     try {
+      if (shouldUseLocalReaderSimulation()) {
+        const profile = getDonationProfile();
+        const safeSummary = recordLocalReaderPaymentSimulation({ siteId: SITE_ID, amount, profile });
+        state.paymentSummaries = { ...(state.paymentSummaries || {}), [SITE_ID]: safeSummary };
+        savePaymentSummaries(state.paymentSummaries);
+        updatePaymentSummaryStatus();
+        closeDonationModal();
+        showAlert("Local donation simulated. No Stripe checkout was opened.");
+        return;
+      }
+
       const token = await getFirebaseToken();
       const profile = getDonationProfile();
       const headers = { "content-type": "application/json" };

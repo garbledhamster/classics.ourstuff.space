@@ -9,7 +9,7 @@ import {
   renderLibrary
 } from "./library-shelf.js";
 import {
-  loadPlan,
+  loadPlan as loadReadingPlan,
   renderPlan
 } from "./reading-plan.js";
 import {
@@ -20,10 +20,23 @@ import {
   setView
 } from "./reader-routes.js";
 
-registerRenderApp(renderAll);
-registerViewNavigator(setView);
-registerLibraryWorkNavigator(gotoLibraryWork);
-registerLibraryIdeaNavigator(gotoLibraryGreatIdea);
+let readingWorldBridgeRegistered = false;
+
+function registerReadingWorldBridge(){
+  if (readingWorldBridgeRegistered) return;
+
+  registerRenderApp(renderAll);
+  registerViewNavigator(setView);
+  registerLibraryWorkNavigator(gotoLibraryWork);
+  registerLibraryIdeaNavigator(gotoLibraryGreatIdea);
+
+  readingWorldBridgeRegistered = true;
+}
+
+function loadPlan(...args){
+  registerReadingWorldBridge();
+  return loadReadingPlan(...args);
+}
 
 export {
   filteredLibrary,
@@ -31,6 +44,7 @@ export {
   gotoLibraryWork,
   gotoPlanWorkKey,
   loadPlan,
+  registerReadingWorldBridge,
   renderAll,
   renderLibrary,
   renderPlan,

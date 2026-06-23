@@ -1,4 +1,5 @@
 import { initAuth, initAuthButtonHandlers } from "./classics/reader-account.js";
+import { readerRuntime } from "./classics/runtime-environment.js";
 import { loadPlan } from "./classics/reading-world.js";
 
 let bootHasRun = false;
@@ -11,8 +12,8 @@ function bootClassicsApp() {
   loadPlan();
 }
 
-window.onFirebaseReady = bootClassicsApp;
-if (window.firebaseReady) {
+readerRuntime.connectFirebaseReady(bootClassicsApp);
+if (readerRuntime.shouldBootImmediately) {
   bootClassicsApp();
 }
 

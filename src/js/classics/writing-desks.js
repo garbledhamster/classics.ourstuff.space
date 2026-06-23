@@ -26,6 +26,7 @@ import {
 import {
   CLASSICS_DATA_FILES
 } from "./data-paths.js";
+import { readerRuntime } from "./runtime-environment.js";
 /* =========================================================
    NOTE TYPE HELPERS
    ========================================================= */
@@ -511,6 +512,7 @@ let deskLoaderTimer = null;
 let publishedContributionCache = [];
 let publishedContributionCacheLoaded = false;
 let publishedContributionCacheBusy = false;
+let publishedContributionRemoteUnavailable = "";
 
 function selectedConversationDraft(){
   const desk = normalizeConversationDeskState(state.conversationDesk);
@@ -637,7 +639,11 @@ function renderConversationDesk(){
     </section>
   `;
 
-  if (activeSpace === "reader" && state.currentUser && !publishedContributionCacheLoaded && !publishedContributionCacheBusy && window.firestoreGetDocs && window.firestoreQuery) {
+  const contributionRemoteUnavailable = publishedContributionRemoteUnavailableReason();
+  if (activeSpace === "reader" && contributionRemoteUnavailable) {
+    publishedContributionRemoteUnavailable = contributionRemoteUnavailable;
+  }
+  if (activeSpace === "reader" && state.currentUser && !publishedContributionCacheLoaded && !publishedContributionCacheBusy && !contributionRemoteUnavailable) {
     loadPublishedContributionIndex().then(() => {
       if (state.view === "desk" && state.conversationDesk.ui.activeSpace === "reader") renderConversationDesk();
     });
@@ -659,7 +665,7 @@ function deskReaderHtml(desk, activeDraft){
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
         </div>
-        ${!state.currentUser ? `<div class="deskNotice">Sign in to load synced private contributions and the published reader index.</div>` : ""}
+        ${deskPublishedContributionRemoteNoticeHtml()}
         ${DESK_READER_SECTIONS.map(section => readerSectionHtml(section.label, grouped[section.key], activeDraft)).join("")}
       </aside>
       <article class="deskReaderPanel" aria-label="Selected contribution">
@@ -667,6 +673,22 @@ function deskReaderHtml(desk, activeDraft){
       </article>
     </section>
   `;
+}
+
+function publishedContributionRemoteUnavailableReason(){
+  if (!state.currentUser) return "";
+  if (readerRuntime.isLocalMode) return "Local mode: your saved drafts still work. The published contribution index needs the cloud reader bridge.";
+  if (navigator.onLine === false) return "Offline mode: your saved drafts still work. The published contribution index will return when the network is back.";
+  if (!window.firebaseDB || !window.firestoreCollection || !window.firestoreGetDocs || !window.firestoreQuery || !window.firestoreWhere || !window.firestoreOrderBy || !window.firestoreDoc || !window.firestoreSetDoc) {
+    return "Cloud bridge unavailable: your saved drafts still work. The published contribution index cannot load yet.";
+  }
+  return "";
+}
+
+function deskPublishedContributionRemoteNoticeHtml(){
+  if (!state.currentUser) return `<div class="deskNotice">Sign in to load synced private contributions and the published reader index.</div>`;
+  const message = publishedContributionRemoteUnavailable || publishedContributionRemoteUnavailableReason();
+  return message ? `<div class="deskNotice">${escapeHtml(message)}</div>` : "";
 }
 
 function readerContributionGroups(desk){
@@ -1018,6 +1040,13 @@ async function requestContributionPublication(draft){
     await showAlert("Sign in to request publication for logged-in readers.");
     return;
   }
+  const remoteUnavailable = publishedContributionRemoteUnavailableReason();
+  if (remoteUnavailable) {
+    publishedContributionRemoteUnavailable = remoteUnavailable;
+    await showAlert(`${remoteUnavailable} Your contribution remains saved locally as an unpublished draft.`);
+    renderConversationDesk();
+    return;
+  }
   draft.visibility = "members";
   draft.publicationStatus = "pending_review";
   draft.approvalStatus = "needs_review";
@@ -1072,9 +1101,11 @@ function contributionIndexPayload(draft, user = state.currentUser){
 }
 
 async function writeContributionIndexRequest(draft){
-  if (!state.currentUser || !window.firebaseDB || !window.firestoreDoc || !window.firestoreSetDoc) return;
+  if (!state.currentUser || !window.firebaseDB || !window.firestoreDoc || !window.firestoreSetDoc) {
+    throw new Error("Contribution publication needs the cloud reader bridge.");
+  }
   const ref = publicContributionFirestoreRef(draft.publicIndexId || contributionIndexId(state.currentUser.uid, draft.id));
-  if (!ref) return;
+  if (!ref) throw new Error("Contribution publication needs a cloud document reference.");
   await window.firestoreSetDoc(ref, contributionIndexPayload(draft), { merge: true });
 }
 
@@ -1084,7 +1115,12 @@ function publicContributionFirestoreRef(indexId){
 }
 
 async function loadPublishedContributionIndex(){
-  if (!state.currentUser || !window.firebaseDB || !window.firestoreCollection || !window.firestoreGetDocs) return [];
+  const remoteUnavailable = publishedContributionRemoteUnavailableReason();
+  if (remoteUnavailable) {
+    publishedContributionRemoteUnavailable = remoteUnavailable;
+    publishedContributionCacheLoaded = true;
+    return publishedContributionCache;
+  }
   publishedContributionCacheBusy = true;
   try {
     const base = window.firestoreCollection(window.firebaseDB, "classicContributions");
@@ -1098,10 +1134,13 @@ async function loadPublishedContributionIndex(){
     );
     const snap = await window.firestoreGetDocs(q);
     publishedContributionCache = snap.docs.map(docSnap => normalizePublishedContribution({ id: docSnap.id, ...docSnap.data() }));
+    publishedContributionRemoteUnavailable = "";
     publishedContributionCacheLoaded = true;
     return publishedContributionCache;
   } catch (error) {
     console.error("Error loading published contributions:", error);
+    publishedContributionRemoteUnavailable = "Published contribution index unavailable: cloud query failed. Your saved drafts still work.";
+    publishedContributionCacheLoaded = true;
     return publishedContributionCache;
   } finally {
     publishedContributionCacheBusy = false;
@@ -1249,7 +1288,8 @@ function inlineMarkdown(text){
   const PAGE_LABELS = { references:"References", ideas:"Idea Map", dictionary:"Dictionary", wikipedia:"Wikipedia", library:"Related Library" };
   const glossaryState = {
     initialized:false, loading:false, error:"", terms:[], filteredTerms:[], activeLetter:"", query:"",
-    selectedTerm:null, pageIndex:0, dictionaryCache:loadCache(DICT_CACHE_KEY), wikipediaCache:loadCache(WIKI_CACHE_KEY)
+    selectedTerm:null, pageIndex:0, dictionaryCache:loadCache(DICT_CACHE_KEY), wikipediaCache:loadCache(WIKI_CACHE_KEY),
+    dictionaryRemoteUnavailable:{}, wikipediaRemoteUnavailable:{}
   };
   function appState(){ return state; }
 
@@ -1605,6 +1645,21 @@ function inlineMarkdown(text){
   function dictionaryLookupKeys(term){ return lookupKeys(term); }
   function wikipediaLookupKeys(term){ return lookupKeys(term); }
 
+  function glossaryRemoteEnrichmentUnavailableReason(kind){
+    if (readerRuntime.isLocalMode) return `Local mode: ${kind} enrichment needs a remote service. References, idea map, and related library still work.`;
+    if (navigator.onLine === false) return `Offline mode: ${kind} enrichment needs the network. References, idea map, and related library still work.`;
+    if (typeof fetch !== "function") return `Remote fetch unavailable: ${kind} enrichment cannot load here. References, idea map, and related library still work.`;
+    return "";
+  }
+
+  function glossaryRemoteEnrichmentUnavailableHtml(reason){
+    return `<div class="glossaryBlock"><div class="glossaryRefText">${escapeHtml(reason)}</div></div>`;
+  }
+
+  function glossaryStoredRemoteUnavailable(store, keys){
+    return keys.map(key => store[key.toLowerCase()]).find(Boolean) || "";
+  }
+
   function renderDictionaryDefinitions(hit){
     const entries = Array.isArray(hit.entries) ? hit.entries : [];
     const blocks = [];
@@ -1619,6 +1674,8 @@ function inlineMarkdown(text){
   }
   function renderDictionaryPage(term){
     const keys = dictionaryLookupKeys(term);
+    const unavailable = glossaryRemoteEnrichmentUnavailableReason("Dictionary") || glossaryStoredRemoteUnavailable(glossaryState.dictionaryRemoteUnavailable, keys);
+    if (unavailable) { renderPageShell(term, "Dictionary", glossaryRemoteEnrichmentUnavailableHtml(unavailable)); return; }
     const hit = keys.map(k => glossaryState.dictionaryCache[k.toLowerCase()]).find(Boolean);
     if (!hit) { renderPageShell(term, "Dictionary", `<div class="glossaryBlock"><div class="glossaryRefText">Loading dictionary definitions…</div></div>`); loadDictionaryForSelectedTerm(); return; }
     if (hit.error) { renderPageShell(term, "Dictionary", `<div class="glossaryBlock"><div class="glossaryRefText">No dictionary definition found for this term.</div></div>`); return; }
@@ -1629,6 +1686,9 @@ function inlineMarkdown(text){
     if (!term || PAGES[glossaryState.pageIndex] !== "dictionary") return;
     const keys = dictionaryLookupKeys(term);
     if (keys.some(k => glossaryState.dictionaryCache[k.toLowerCase()])) return;
+    const unavailable = glossaryRemoteEnrichmentUnavailableReason("Dictionary");
+    if (unavailable) { glossaryState.dictionaryRemoteUnavailable[keys[0].toLowerCase()] = unavailable; renderTermModal(); return; }
+    let serviceUnavailable = "";
     for (const key of keys){
       const cacheKey = key.toLowerCase();
       try {
@@ -1643,7 +1703,14 @@ function inlineMarkdown(text){
           renderTermModal();
           return;
         }
-      } catch(e){}
+      } catch(e){
+        serviceUnavailable = "Dictionary service unavailable: remote lookup failed. References, idea map, and related library still work.";
+      }
+    }
+    if (serviceUnavailable) {
+      glossaryState.dictionaryRemoteUnavailable[keys[0].toLowerCase()] = serviceUnavailable;
+      renderTermModal();
+      return;
     }
     glossaryState.dictionaryCache[keys[0].toLowerCase()] = { error:true };
     saveDictionaryCache();
@@ -1652,6 +1719,8 @@ function inlineMarkdown(text){
 
   function renderWikipediaPage(term){
     const keys = wikipediaLookupKeys(term);
+    const unavailable = glossaryRemoteEnrichmentUnavailableReason("Wikipedia") || glossaryStoredRemoteUnavailable(glossaryState.wikipediaRemoteUnavailable, keys);
+    if (unavailable) { renderPageShell(term, "Wikipedia Summary", glossaryRemoteEnrichmentUnavailableHtml(unavailable)); return; }
     const hit = keys.map(k => glossaryState.wikipediaCache[k.toLowerCase()]).find(Boolean);
     if (!hit) { renderPageShell(term, "Wikipedia Summary", `<div class="glossaryBlock"><div class="glossaryRefText">Loading Wikipedia summary…</div></div>`); loadWikipediaForSelectedTerm(); return; }
     if (hit.error) { renderPageShell(term, "Wikipedia Summary", `<div class="glossaryBlock"><div class="glossaryRefText">No Wikipedia summary found for this term.</div></div>`); return; }
@@ -1662,6 +1731,9 @@ function inlineMarkdown(text){
     if (!term || PAGES[glossaryState.pageIndex] !== "wikipedia") return;
     const keys = wikipediaLookupKeys(term);
     if (keys.some(k => glossaryState.wikipediaCache[k.toLowerCase()])) return;
+    const unavailable = glossaryRemoteEnrichmentUnavailableReason("Wikipedia");
+    if (unavailable) { glossaryState.wikipediaRemoteUnavailable[keys[0].toLowerCase()] = unavailable; renderTermModal(); return; }
+    let serviceUnavailable = "";
     for (const key of keys){
       const cacheKey = key.toLowerCase();
       try {
@@ -1674,7 +1746,14 @@ function inlineMarkdown(text){
           renderTermModal();
           return;
         }
-      } catch(e){}
+      } catch(e){
+        serviceUnavailable = "Wikipedia service unavailable: remote lookup failed. References, idea map, and related library still work.";
+      }
+    }
+    if (serviceUnavailable) {
+      glossaryState.wikipediaRemoteUnavailable[keys[0].toLowerCase()] = serviceUnavailable;
+      renderTermModal();
+      return;
     }
     glossaryState.wikipediaCache[keys[0].toLowerCase()] = { error:true };
     saveWikipediaCache();

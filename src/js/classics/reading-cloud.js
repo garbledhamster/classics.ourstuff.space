@@ -23,7 +23,14 @@ import {
   setAfterSaveCallback,
   state
 } from "./foundation.js";
+import {
+  readLocalReaderPaymentSummaries,
+  readLocalReaderSyncSummary,
+  writeLocalReaderPaymentSummaries,
+  writeLocalReaderSyncSummary
+} from "./local-reader-simulation.js";
 import { applyTimerSettings } from "./reader-progress.js";
+import { readerRuntime } from "./runtime-environment.js";
 /* Firestore sync for checks, statuses, tasks, dates, notes, timer state, and autosync */
 /* =========================================================
    FIRESTORE SYNC FUNCTIONS
@@ -267,6 +274,7 @@ async function loadTimerSettingsFromFirestore(userId) {
 }
 
 async function loadPaymentSummariesFromFirestore(userId) {
+  if (readerRuntime.isLocalMode) return readLocalReaderPaymentSummaries(SITE_ID);
   if (!userId || !window.firebaseDB) return {};
   try {
     const db = window.firebaseDB;
@@ -452,6 +460,13 @@ async function loadConversationDeskFromFirestore(userId) {
 }
 
 async function refreshPaymentSummaryFromWorker(user) {
+  if (readerRuntime.isLocalMode) {
+    const paymentSummaries = readLocalReaderPaymentSummaries(SITE_ID);
+    state.paymentSummaries = { ...(state.paymentSummaries || {}), ...paymentSummaries };
+    savePaymentSummaries(state.paymentSummaries);
+    updatePaymentSummaryStatus();
+    return state.paymentSummaries[SITE_ID] || null;
+  }
   if (!user || typeof user.getIdToken !== "function" || !window.firebaseDB) return null;
   try {
     const token = await user.getIdToken();
@@ -491,7 +506,41 @@ async function refreshPaymentSummaryFromWorker(user) {
 
 // Full sync: push local data to Firestore and pull remote data
 async function performFullSync(userId) {
-  if (!userId || !window.firebaseDB) return;
+  if (!userId) return;
+  if (readerRuntime.isLocalMode) {
+    state.sync.syncing = true;
+    state.sync.error = null;
+    updateSyncStatus();
+    try {
+      const paymentSummaries = readLocalReaderPaymentSummaries(SITE_ID);
+      state.paymentSummaries = { ...(state.paymentSummaries || {}), ...paymentSummaries };
+      savePaymentSummaries(state.paymentSummaries);
+      writeLocalReaderPaymentSummaries(state.paymentSummaries);
+      const localSyncSummary = writeLocalReaderSyncSummary({
+        userId,
+        siteId: SITE_ID,
+        stateSnapshot: state
+      });
+      state.sync.lastSync = localSyncSummary.syncedAt;
+      state.sync.enabled = true;
+      refreshReaderAccountUi();
+    } catch (error) {
+      console.error("Error during local reader sync simulation:", error);
+      state.sync.error = error.message || "Local reader sync simulation failed.";
+    } finally {
+      state.sync.syncing = false;
+      updateSyncStatus();
+      updatePaymentSummaryStatus();
+    }
+    return;
+  }
+  if (!window.firebaseDB) {
+    state.sync.enabled = false;
+    state.sync.error = "Cloud sync unavailable.";
+    updateSyncStatus();
+    updatePaymentSummaryStatus();
+    return;
+  }
   
   state.sync.syncing = true;
   state.sync.error = null;
@@ -627,11 +676,22 @@ function updateSyncStatus() {
   if (!statusEl) return;
   
   if (state.sync.syncing) {
-    statusEl.textContent = '🔄 Syncing...';
+    statusEl.textContent = readerRuntime.isLocalMode ? 'Local sync saving...' : '🔄 Syncing...';
     statusEl.style.color = '#666';
   } else if (state.sync.error) {
     statusEl.textContent = '⚠️ Sync error';
     statusEl.style.color = '#d00';
+  } else if (readerRuntime.isLocalMode && state.currentUser) {
+    const localSummary = readLocalReaderSyncSummary();
+    const lastSync = state.sync.lastSync || localSummary?.syncedAt;
+    if (lastSync) {
+      const date = new Date(lastSync);
+      const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+      statusEl.textContent = `Local sync saved at ${timeStr}`;
+    } else {
+      statusEl.textContent = 'Local sync ready';
+    }
+    statusEl.style.color = '#080';
   } else if (state.sync.enabled && state.sync.lastSync) {
     const date = new Date(state.sync.lastSync);
     const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
@@ -659,7 +719,7 @@ function updatePaymentSummaryStatus() {
   const paymentData = state.paymentSummaries?.[SITE_ID];
   const summary = paymentData?.summary;
   if (!summary || !summary.paymentCount) {
-    statusEl.textContent = 'Donations: none synced';
+    statusEl.textContent = readerRuntime.isLocalMode ? 'Local donations: none simulated' : 'Donations: none synced';
     statusEl.style.color = '#666';
     return;
   }
@@ -669,7 +729,7 @@ function updatePaymentSummaryStatus() {
     currency: (summary.currency || 'usd').toUpperCase()
   }).format((summary.totalPaidCents || 0) / 100);
   const count = summary.donationCount || summary.paymentCount || 0;
-  statusEl.textContent = `Donations: ${total} (${count})`;
+  statusEl.textContent = `${readerRuntime.isLocalMode ? 'Local donations' : 'Donations'}: ${total} (${count})`;
   statusEl.style.color = '#080';
 }
 

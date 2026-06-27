@@ -54,11 +54,13 @@ import {
   setView
 } from "./reader-routes.js";
 import {
-  openConversationDesk,
   renderNotesList,
   startEditNote,
   startNewNote
 } from "./writing-desks.js";
+import {
+  openConversationDesk
+} from "./conversation-desk.js";
 function libCardHtml(it){
   const occ = it.occurrences;
   const doneCount = occ.reduce((a,o)=> a + (state.checks[o.key] ? 1 : 0), 0);

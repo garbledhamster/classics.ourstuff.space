@@ -83,7 +83,6 @@ import {
 import {
   archiveEditorNote,
   archiveSelectedNotes,
-  bindConversationDeskUI,
   deleteEditorNote,
   deleteSelectedNotes,
   exportNotes,
@@ -91,8 +90,6 @@ import {
   getCheckGroupValues,
   hideEditor,
   importNotesFile,
-  openConversationDesk,
-  renderConversationDesk,
   renderNotesList,
   saveEditorNote,
   setCheckGroupValues,
@@ -100,6 +97,11 @@ import {
   startNewNote,
   toggleNoteSelectMode
 } from "./writing-desks.js";
+import {
+  bindConversationDeskUI,
+  openConversationDesk,
+  renderConversationDesk
+} from "./conversation-desk.js";
 import {
   wireUI
 } from "./shell-wiring.js";

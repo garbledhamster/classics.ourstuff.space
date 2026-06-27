@@ -19,10 +19,12 @@ import {
 } from "./reading-plan.js";
 import {
   hideEditor,
-  openConversationDesk,
-  renderConversationDesk,
   renderNotesList
 } from "./writing-desks.js";
+import {
+  openConversationDesk,
+  renderConversationDesk
+} from "./conversation-desk.js";
 function gotoPlanWorkKey(workkey){
   if (!workkey) return;
 

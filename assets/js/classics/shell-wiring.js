@@ -51,7 +51,6 @@ import {
 import {
   archiveEditorNote,
   archiveSelectedNotes,
-  bindConversationDeskUI,
   deleteEditorNote,
   deleteSelectedNotes,
   exportNotes,
@@ -59,7 +58,6 @@ import {
   getCheckGroupValues,
   hideEditor,
   importNotesFile,
-  openConversationDesk,
   renderNotesList,
   saveEditorNote,
   setCheckGroupValues,
@@ -67,6 +65,10 @@ import {
   startNewNote,
   toggleNoteSelectMode
 } from "./writing-desks.js";
+import {
+  bindConversationDeskUI,
+  openConversationDesk
+} from "./conversation-desk.js";
 import {
   closeDonationModal,
   getCurrentReader,

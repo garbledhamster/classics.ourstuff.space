@@ -951,6 +951,7 @@ registerReaderAccountRefresh(updateAuthUI);
 export {
   closeDonationModal,
   getCurrentReader,
+  getProfileDisplayName,
   handleEulaAccept,
   handleGoogleSignIn,
   handleLogin,

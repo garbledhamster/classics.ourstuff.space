@@ -363,10 +363,12 @@ function defaultConversationDeskState(){
       loading: false,
       loaderStep: 0,
       mode: CONVERSATION_DESK_MODE_OPTIONS[0].value,
-      activeSpace: CONVERSATION_DESK_MODE_OPTIONS[0].value
+      activeSpace: CONVERSATION_DESK_MODE_OPTIONS[0].value,
+      articleListWidth: 320,
+      selectedPublishedId: ""
     },
     updatedAt: nowIso(),
-    schemaVersion: 2
+    schemaVersion: 3
   };
 }
 
@@ -440,6 +442,8 @@ function normalizeConversationDeskState(source = {}){
       ...base.ui,
       ...(source.ui || {}),
       loading: false,
+      articleListWidth: Math.min(460, Math.max(260, Number(source?.ui?.articleListWidth) || base.ui.articleListWidth)),
+      selectedPublishedId: String(source?.ui?.selectedPublishedId || ""),
       mode: CONVERSATION_DESK_MODE_OPTIONS.some(opt => opt.value === source?.ui?.mode)
         ? source.ui.mode
         : base.ui.mode,
@@ -450,7 +454,7 @@ function normalizeConversationDeskState(source = {}){
           : base.ui.activeSpace
     },
     updatedAt: source.updatedAt || base.updatedAt,
-    schemaVersion: 2
+    schemaVersion: 3
   };
 }
 

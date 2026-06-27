@@ -21,10 +21,12 @@ import {
   setView
 } from "./reader-routes.js";
 import {
-  openConversationDesk,
   renderNotesList,
   startNewNote
 } from "./writing-desks.js";
+import {
+  openConversationDesk
+} from "./conversation-desk.js";
 function buildAuthorsData(){
   // Aggregate unique authors from libraryWorks
   const map = new Map();

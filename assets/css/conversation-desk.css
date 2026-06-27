@@ -385,6 +385,61 @@ html.dark .deskError{ color:#ff9b9b; }
   background:var(--ink);
   color:var(--paper);
 }
+.conversationDeskWorkspace{
+  display:grid;
+  grid-template-columns:minmax(260px, var(--desk-article-rail-width, 320px)) 12px minmax(0, 1fr);
+  gap:16px;
+  align-items:start;
+}
+.deskArticleRail,
+.deskWorkbench{
+  min-width:0;
+  border:1px solid var(--ink);
+  background:var(--paper);
+}
+.deskArticleRail{
+  position:sticky;
+  top:12px;
+  max-height:calc(100vh - 24px);
+  overflow:auto;
+  padding:12px;
+}
+.deskWorkbench{
+  padding:16px;
+}
+.deskResizeHandle{
+  border:1px solid var(--ink);
+  background:
+    linear-gradient(to right, transparent 0, transparent 4px, var(--ink) 4px, var(--ink) 8px, transparent 8px, transparent 12px);
+  min-height:100%;
+  cursor:col-resize;
+  padding:0;
+}
+.deskResizeHandle:focus-visible{
+  outline:3px solid var(--ink);
+  outline-offset:2px;
+}
+.deskWorkbenchPreview{
+  margin-top:16px;
+  border-top:1px solid var(--ink);
+  padding-top:14px;
+}
+.deskWorkbenchGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:12px;
+  margin-top:16px;
+}
+.deskWorkbenchGrid .railSection{
+  margin-top:0;
+  border-top:0;
+  padding-top:0;
+  border:1px solid var(--ink);
+  padding:12px;
+}
+.deskWorkbenchEmpty{
+  min-height:58vh;
+}
 .deskReaderLayout,
 .deskEditorLayout{
   display:grid;
@@ -527,33 +582,51 @@ html.dark .deskError{ color:#ff9b9b; }
   font-size:13px;
 }
 html.dark .deskSpaceTabs,
+html.dark .deskArticleRail,
+html.dark .deskWorkbench,
 html.dark .deskContributionRail,
 html.dark .deskPreviewRail,
 html.dark .deskReaderPanel,
 html.dark .deskEditorPanel{
   background:#222;
 }
+html.dark .deskResizeHandle{
+  background:
+    linear-gradient(to right, transparent 0, transparent 4px, #f1ecd9 4px, #f1ecd9 8px, transparent 8px, transparent 12px);
+}
 
 @media (max-width: 1180px){
   .conversationDesk{
     grid-template-columns:minmax(220px, 280px) minmax(0, 1fr);
+  }
+  .conversationDeskWorkspace{
+    grid-template-columns:minmax(240px, 300px) 10px minmax(0, 1fr);
   }
   .deskResearchRail{
     position:static;
     grid-column:1 / -1;
     max-height:none;
   }
+  .deskWorkbenchGrid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
 }
 @media (max-width: 760px){
   .conversationDesk,
+  .conversationDeskWorkspace,
   .deskReaderLayout,
   .deskEditorLayout,
   .deskMetaGrid,
-  .deskLowerGrid{
+  .deskLowerGrid,
+  .deskWorkbenchGrid{
     grid-template-columns:1fr;
+  }
+  .deskResizeHandle{
+    display:none;
   }
   .deskDraftRail,
   .deskResearchRail,
+  .deskArticleRail,
   .deskContributionRail,
   .deskPreviewRail{
     position:static;

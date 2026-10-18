@@ -369,3 +369,82 @@ html:not(:has(#deskView.on)), body:not(:has(#deskView.on)) { overflow: clip; }
   .studyBrowseControls input.input, .studyBrowseControls select.select { font-size: 16px; min-height: 44px; }
   #planView .planBtnRow .btn, #planView .yearStepper .btn { min-height: 44px; min-width: 44px; }
 }
+
+/* Shared browse controls: quiet fields support the reading workspace. */
+:is(#planView, #libraryView, #authorsView) > .studyBrowseControls {
+  flex: 0 0 auto; max-height: none; overflow: visible;
+}
+:is(#libraryView, #authorsView) > .studyDetailLayout { flex: 1 0 112px; min-height: 112px; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .controls {
+  border: 0; box-shadow: none; background: transparent; padding: 0;
+  gap: 8px 12px; margin-bottom: 0;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .searchControl {
+  max-width: 28rem; width: 100%; gap: 4px; text-align: left;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .label {
+  font-size: 12px; line-height: 1.35; font-weight: 600;
+  letter-spacing: 0; text-transform: none;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select, .btn, .toggle, .yearStepper) {
+  box-sizing: border-box; border: 1px solid #777; border-radius: 0;
+  box-shadow: none; color: var(--ink); background: var(--paper);
+  font-weight: 400; letter-spacing: 0; text-transform: none;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select) {
+  padding: 5px 8px; font-family: Inter, system-ui, sans-serif; line-height: 1.4;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .searchControl .input { text-align: left; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .input::placeholder { color: var(--muted); opacity: 1; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .btn {
+  padding: 5px 8px; gap: 6px; font-size: 12px; line-height: 1.35;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .btn svg { width: 14px; height: 14px; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .btn:is(:hover, :active) { transform: none; box-shadow: none; background: var(--study-wash); }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select, .btn, .toggle):focus-visible {
+  outline: 2px solid var(--ink); outline-offset: 2px; box-shadow: none;
+}
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .studyDisclosure { margin-bottom: 0; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .studyDisclosure > summary { padding-block: 6px; }
+:is(#planView, #libraryView, #authorsView) .studyBrowseControls .help { font-weight: 400; text-transform: none; letter-spacing: 0; text-align: left; }
+:is(#libraryView, #authorsView) .studyBrowseControls > .controls {
+  display: flex; flex-wrap: wrap; align-items: end; gap: 8px 16px;
+}
+:is(#libraryView, #authorsView) .studyBrowseControls .searchControl { flex: 1 1 18rem; grid-column: auto; }
+:is(#libraryView, #authorsView) .studyBrowseControls details { flex: 0 1 auto; min-width: 0; }
+:is(#libraryView, #authorsView) .studyBrowseControls details[open] { flex: 1 1 100%; }
+:is(#libraryView, #authorsView) .studyBrowseControls :is(.studyDisclosureBody, .rowWide) {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start;
+  gap: 8px 16px; text-align: left;
+}
+#libraryView .studyDisclosureBody > .control { flex: 0 1 16rem; width: 100%; gap: 4px; }
+#libraryView .studyDisclosureBody > .rowWide { flex: 1 1 24rem; }
+#authorsView .studyBrowseControls .rowWide > .help { flex: 1 1 24rem; }
+#authorsView .studyBrowseControls .rowWide > .btn { flex: 0 0 auto; }
+#planView .planFilterControls {
+  max-width: 52rem; padding-block: 8px !important;
+  border-bottom: 1px solid var(--study-line) !important;
+}
+#planView .planFilterControls .control { gap: 4px; }
+#planView .yearStepper { max-width: 11rem; border: 0; outline: 1px solid #777; outline-offset: -1px; }
+#planView .yearStepper .btn { padding: 4px 8px; border: 0; }
+#planView .yearStepper .btn:first-child { border-right: 1px solid #777; }
+#planView .yearStepper .btn:last-child { border-left: 1px solid #777; }
+#planView .yearNum { padding: 4px 8px; font-weight: 600; text-transform: none; }
+#planView .studyBrowseControls .toggle { width: fit-content; padding: 4px; border-color: transparent; gap: 8px; }
+#planView .planBtnRow { gap: 8px; }
+:is(#libraryView, #authorsView) .studyBrowseControls .abcBar { margin-top: 4px; }
+:is(#libraryView, #authorsView) .studyBrowseControls .abcBtn { border: 0; box-shadow: none; background: transparent; font-size: 11px; padding: 4px; }
+:is(#libraryView, #authorsView) .studyBrowseControls .abcBtn.active { background: var(--ink); color: var(--paper); }
+@media (min-width: 761px) {
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select, .btn, .toggle, .yearStepper) { min-height: 32px; height: 32px; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select) { font-size: 14px; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls .studyDisclosure > summary { min-height: 32px; }
+  :is(#libraryView, #authorsView) .studyBrowseControls .abcBtn { min-width: 24px; min-height: 28px; height: 28px; }
+}
+@media (max-width: 760px) {
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls .searchControl { flex-basis: 100%; max-width: none; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.input, .select) { font-size: 16px; min-height: 44px; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.btn, .toggle, .yearStepper, .studyDisclosure > summary) { min-height: 44px; }
+  #planView .yearStepper .btn { min-width: 44px; }
+}

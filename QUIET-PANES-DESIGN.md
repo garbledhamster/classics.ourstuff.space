@@ -26,6 +26,8 @@ Move the original Notes Drawer button to a square masthead control immediately a
 Expanded Bookclub tools must be fully visible in their normal viewport, without a vertical scrolling toolbar. Use four filter columns on desktop, with original View/Reset/Export/Columns actions across a full-width row; use two filter columns on phones and wrap the action row as needed. Let the toolbar take its natural height and give the remaining space to the list/body. In a constrained-height work region, retain a small non-shrinking reading area and let the existing workspace scroll to it; never collapse the list or selected body to zero. The outer document stays still and the toolbar has no vertical scrollbar. Normal desktop/phone layouts must not gain unnecessary work-region overflow. Preserve every original node, field, option, handler and owner relationship. Verify the reported 984 × 779 view, a standard desktop, 390 × 844 phone, long titles, table mode and fixed outer page.
 
 
+**October 17 shared control refinement:** Use the same restrained control treatment in Bookclub, Library and Great Authors, including the actual input/select boxes, year stepper, checkbox, tool buttons and alphabet strip. Search stays left-aligned and at most 28rem wide on desktop; form fields and actions are 32px high there, with 1px borders and no heavy shadows. Retain 16px phone input text and 44px touch targets. Library and Great Authors tools wrap naturally, without a scrolling toolbar; preserve the 112px reading floor at constrained heights. Keep every existing field, option, label, node, handler and loading path. Conversation Desk stays unchanged.
+
 ## Global Constraints
 
 - Keep all the existing pages, content, and what gets loaded exactly the same.

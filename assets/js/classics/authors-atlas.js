@@ -1,3 +1,4 @@
+import { presentShelfDetails } from "./detail-presentation.js";
 /* authors-atlas.js — author cards, author filters, and author delegation */
 import {
   $, 
@@ -199,6 +200,7 @@ function renderAuthors(){
     wireAuthorsDelegation();
     pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
   }
+  presentShelfDetails(grid);
 }
 
 function wireAuthorsDelegation(){

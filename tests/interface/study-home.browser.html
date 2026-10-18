@@ -1,0 +1,119 @@
+<!doctype html><meta charset="utf-8"><title>Task 2 Home browser checks</title>
+<style>body{font:14px/1.5 system-ui;margin:20px}iframe{width:100%;height:700px;border:1px solid #999}pre{white-space:pre-wrap}#result{padding:16px;background:#eee}</style>
+<h1>Task 2 Home browser checks</h1><pre id="result">Waiting for the real app…</pre><iframe title="Real Classics app"></iframe>
+<script>
+if (!['localhost', '127.0.0.1'].includes(location.hostname)) throw new Error('Local-only fixture');
+const frame = document.querySelector('iframe');
+frame.onload = () => {
+  const script = frame.contentDocument.createElement('script');
+  script.type = 'module';
+  script.textContent = `
+    import { state, normalizeConversationDeskState } from '/assets/js/classics/foundation.js';
+    import { setView, closeDrawer } from '/assets/js/classics/reader-routes.js';
+    const output = parent.document.getElementById('result');
+    const lines = [];
+    const assert = (condition, message) => { if (!condition) throw new Error(message); lines.push('PASS '+message); };
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+    const frames = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    let original, setItem, storageBefore, attempts = 0;
+    try {
+      for (let n=0; !state.flatWorks.length && n<100; n++) await wait(50);
+      assert(state.flatWorks.length === 287, 'real plan loaded: 287 occurrences');
+      original = { notes:state.notes, checks:state.checks, filters:{...state.filters}, conversationDesk:state.conversationDesk, notesUI:{...state.notesUI}, view:state.view };
+      state.notes = [
+        {id:'task2-note-string', title:'String Great Idea', body:'Keep the first original thought.', note_type:'great_idea'},
+        {id:'task2-note-array', title:'Array Great Idea', body:'Keep the second original thought.', note_type:['note','great_idea']},
+        {id:'task2-note-archived', title:'Archived Great Idea', body:'Archived thought.', note_type:'great_idea', archived:true}
+      ];
+      state.checks = {[state.flatWorks[0].key]:true, 'stale-key':true};
+      state.conversationDesk = normalizeConversationDeskState({drafts:[
+        {id:'task2-draft-one', title:'First existing writing', body:'First original draft body.'},
+        {id:'task2-draft-two', title:'Second existing writing', body:'Second original draft body.'}
+      ], selectedId:'task2-draft-one'});
+      const recordsBefore = JSON.stringify({notes:state.notes, checks:state.checks, drafts:state.conversationDesk.drafts});
+      setItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function(){ attempts++; throw new Error('Unexpected storage write'); };
+      setView('home');
+      assert(document.querySelector('.homeMetric').textContent.includes('1'), 'stale check does not inflate completion metric');
+      assert(document.querySelector('[data-home-page="notes"]').textContent.includes('2'), 'active-note metric excludes archive');
+      assert(document.querySelector('[data-home-page="great-idea-notes"]').textContent.includes('2'), 'Great Idea metric includes legacy string and array types');
+      const targetKey = document.querySelector('.homeFocus [data-home-reading]').dataset.homeReading;
+      Object.assign(state.filters, {q:'not a matching title',tier:'hidden-tier',greatIdea:'Angel',sort:'tracker_complete',planViewMode:'table'});
+      document.querySelector('.homeFocus [data-home-reading]').click();
+      await frames();
+      assert(document.querySelector('.workRow.active')?.dataset.workkey === targetKey, 'Home reveals and opens exact occurrence through original detail toggle');
+      assert(state.filters.q === '' && state.filters.tier === 'all' && state.filters.greatIdea === 'all' && state.filters.sort === 'sort_check', 'only hiding filters reset, including legacy tier');
+      assert(document.getElementById('q').value === '' && document.getElementById('greatIdeaSel').value === 'all' && document.getElementById('sortSel').value === 'sort_check', 'visible filter controls reflect reveal');
+      const target = state.flatWorks.find(reading => reading.key === targetKey);
+      Object.assign(state.filters, {q:target.work.title,tier:target.tier,greatIdea:target.greatIdeas[0],sort:'sort_action'});
+      setView('home');
+      document.querySelector('.homeFocus [data-home-reading]').click();
+      await frames();
+      assert(state.filters.q === target.work.title && state.filters.tier === target.tier && state.filters.greatIdea === target.greatIdeas[0] && state.filters.sort === 'sort_action', 'matching filters and task/action sorting are retained');
+      setView('home');
+      Object.assign(state.notesUI,{search:'hidden',tag:'not-a-book',showArchived:true,bookclubFilter:true,noteTypeFilter:['quote']});
+      document.querySelector('[data-home-page="notes"]').click();
+      assert(document.getElementById('notesDrawer').classList.contains('open') && document.querySelectorAll('#noteList .noteItem').length === 2, 'Active notes metric reveals exactly two active notes');
+      closeDrawer();
+      document.querySelector('[data-home-page="great-idea-notes"]').click();
+      assert(state.notesUI.noteTypeFilter.join() === 'great_idea' && document.querySelectorAll('#noteList .noteItem').length === 2, 'Great Idea metric opens the existing Notes Drawer filter');
+      closeDrawer();
+      document.querySelector('[data-home-note="task2-note-string"]').click();
+      assert(state.notesUI.editingId === 'task2-note-string' && document.getElementById('editBody').value === 'Keep the first original thought.', 'Home opens original note by ID and preserves its text');
+      closeDrawer();
+      document.querySelector('[data-home-draft="task2-draft-two"]').click();
+      await wait(850);
+      assert(state.conversationDesk.selectedId === 'task2-draft-two' && document.getElementById('deskBody').value === 'Second original draft body.', 'Home continues the original writing by ID');
+      assert(state.conversationDesk.drafts.length === 2, 'writing continuation creates no duplicate draft');
+      for (const [tabId, viewId] of [['tabLibrary','libraryView'],['tabPlan','planView'],['tabAuthors','authorsView'],['tabDesk','deskView'],['tabGlossary','glossaryView'],['tabGetStarted','getStartedView']]) {
+        setView('home'); document.getElementById(tabId).click();
+        assert(document.querySelectorAll('.view.on').length === 1 && document.querySelector('.view.on').id === viewId, 'Home to '+viewId+' is exclusive');
+        document.getElementById('tabHome').click();
+        assert(document.querySelectorAll('.view.on').length === 1 && document.querySelector('.view.on').id === 'homeView', viewId+' returns exclusively to Home');
+      }
+      for (const tabId of ['tabGlossary','tabGetStarted']) {
+        document.getElementById('tabDesk').click(); document.getElementById(tabId).click();
+        assert(document.querySelectorAll('.view.on').length === 1, 'Desk to '+tabId+' hides Desk');
+      }
+      assert(JSON.stringify({notes:state.notes, checks:state.checks, drafts:state.conversationDesk.drafts}) === recordsBefore, 'navigation preserves all fixture records and completion data');
+      assert(attempts === 0, 'zero storage-write attempts, including caught writes');
+      Storage.prototype.setItem = setItem;
+      storageBefore = Object.fromEntries(Object.keys(localStorage).map(key=>[key,localStorage.getItem(key)]));
+      state.notes = [];
+      state.conversationDesk = normalizeConversationDeskState({drafts:[]});
+      setView('home');
+      assert(document.querySelector('.homeBottom').textContent.includes('No active notes.') && document.querySelector('.homeBottom').textContent.includes('No saved writings.'), 'original empty-state explanatory copy retained');
+      assert(document.querySelectorAll('[data-home-start]').length === 2, 'empty notes and writings offer Start now');
+      document.querySelector('[data-home-start="note"]').click();
+      assert(document.querySelector('#notesDrawer').classList.contains('open') && document.getElementById('editTitle').getClientRects().length > 0 && document.activeElement.id === 'editTitle', 'Start now opens visible original unsaved Notes editor');
+      assert(state.notes.length === 0 && document.getElementById('editMeta').textContent === 'New note — not saved yet.', 'starting a note creates no saved record');
+      closeDrawer();setView('home');
+      document.querySelector('[data-home-start="writing"]').click();
+      await wait(850);
+      assert(state.view === 'desk' && document.getElementById('deskBody').getClientRects().length > 0 && state.conversationDesk.drafts.length === 1, 'Start now opens exactly one original Desk draft');
+      assert(state.conversationDesk.drafts[0].title === 'Untitled article' && state.conversationDesk.drafts[0].body === '', 'new writing retains original draft defaults');
+      output.textContent = lines.join('\\n')+'\\nALL '+lines.length+' CHECKS PASSED';
+      output.dataset.result = 'pass';
+    } catch (error) {
+      output.textContent = lines.join('\\n')+'\\nFAIL '+error.stack+'\\nStorage attempts: '+attempts;
+      output.dataset.result = 'fail';
+    } finally {
+      if (setItem) Storage.prototype.setItem = setItem;
+      if (storageBefore) {
+        for (const key of Object.keys(localStorage)) if (!(key in storageBefore)) localStorage.removeItem(key);
+        for (const [key,value] of Object.entries(storageBefore)) localStorage.setItem(key,value);
+        const restored = JSON.stringify(Object.keys(localStorage).sort().map(key=>[key,localStorage.getItem(key)])) === JSON.stringify(Object.keys(storageBefore).sort().map(key=>[key,storageBefore[key]]));
+        output.textContent += restored ? '\\nCLEANUP localStorage restored and verified' : '\\nFAIL localStorage cleanup mismatch';
+        if (!restored) output.dataset.result = 'fail';
+      }
+      if (original) {
+        closeDrawer();
+        Object.assign(state,{notes:original.notes, checks:original.checks, filters:original.filters, conversationDesk:original.conversationDesk, notesUI:original.notesUI});
+        setView(original.view);
+      }
+    }
+  `;
+  frame.contentDocument.body.append(script);
+};
+frame.src = '/';
+</script>

@@ -3,6 +3,7 @@ import {
   $,
   flashEl,
   hash32,
+  normalizeText,
   loadConversationDesk,
   state
 } from "./foundation.js";
@@ -19,12 +20,87 @@ import {
 } from "./reading-plan.js";
 import {
   hideEditor,
-  renderNotesList
+  renderNotesList,
+  startEditNote,
+  startNewNote
 } from "./writing-desks.js";
 import {
   openConversationDesk,
   renderConversationDesk
 } from "./conversation-desk.js";
+import { deriveHomeSummary } from "./study-overview.js";
+import { renderStudyHome, wireStudyHome } from "./study-home.js";
+import { getCardStatus, getCardStatusKey } from "./reader-progress.js";
+
+// Home can reveal a reading without changing existing occurrence-link behavior.
+function openHomePlanReading(key){
+  const reading = state.flatWorks.find(item => item.key === key);
+  if (!reading) return;
+  const filters = state.filters;
+  if (normalizeText(filters.q) && !reading.search.includes(normalizeText(filters.q))) filters.q = "";
+  if (filters.tier !== "all" && filters.tier !== reading.tier) filters.tier = "all";
+  if (filters.greatIdea !== "all" && !reading.greatIdeas?.includes(filters.greatIdea)) filters.greatIdea = "all";
+  const filteredStatus = { tracker_in_progress: "in_progress", tracker_complete: "complete", tracker_not_started: "not_started", tracker_skipped: "skipped" }[filters.sort];
+  if (filteredStatus && filteredStatus !== getCardStatus(getCardStatusKey(reading.author, reading.work.title))) filters.sort = "sort_check";
+  // Table rows have no detail toggle. This is a transient presentation choice.
+  filters.planViewMode = "default";
+  for (const [id, value] of [["q", filters.q], ["tierSel", filters.tier], ["greatIdeaSel", filters.greatIdea], ["sortSel", filters.sort]]) {
+    const control = document.getElementById(id);
+    if (control) control.value = value;
+  }
+  gotoPlanWorkKey(key);
+  requestAnimationFrame(() => {
+    const row = document.getElementById(`wk_${hash32(key)}`);
+    if (row && !row.classList.contains("active")) row.querySelector(".workMain")?.click();
+  });
+}
+
+function openHomePage(page){
+  if (page === "notes" || page === "great-idea-notes") {
+    state.notesUI.search = "";
+    state.notesUI.tag = "all";
+    state.notesUI.showArchived = false;
+    state.notesUI.bookclubFilter = false;
+    state.notesUI.noteTypeFilter = page === "great-idea-notes" ? ["great_idea"] : [];
+    const search = $("#noteSearch");
+    if (search) search.value = "";
+    openDrawer("notes");
+    hideEditor();
+  } else {
+    // Rendering the existing Desk does not create a draft when it is empty.
+    setView(page);
+  }
+}
+
+function openHomeNote(id){
+  if (!state.notes.some(note => note.id === id && !note.archived)) return;
+  openDrawer("notes");
+  startEditNote(id);
+}
+
+function openHomeDraft(id){
+  if (!state.conversationDesk.drafts.some(draft => draft.id === id)) return;
+  state.conversationDesk.selectedId = id;
+  openConversationDesk();
+}
+
+let removeHomeListeners;
+function renderHome(){
+  const root = $("#homeView");
+  if (!root) return;
+  const selectedReadingKey = document.querySelector("#planGrid .workRow.active")?.dataset.workkey;
+  renderStudyHome(root, deriveHomeSummary({ ...state, selectedReadingKey }));
+  removeHomeListeners?.();
+  removeHomeListeners = wireStudyHome(root, {
+    openPage: openHomePage,
+    openPlanReading: openHomePlanReading,
+    openNote: openHomeNote,
+    openDraft: openHomeDraft,
+    startNote: () => { openDrawer("notes"); startNewNote({}); },
+    startWriting: () => openConversationDesk()
+  });
+}
+
 function gotoPlanWorkKey(workkey){
   if (!workkey) return;
 
@@ -152,6 +228,7 @@ function closeDrawer(){
 function setView(view){
   state.view = view;
 
+  $("#homeView")?.classList.toggle("on", view === "home");
   $("#libraryView")?.classList.toggle("on", view === "library");
   $("#planView")?.classList.toggle("on", view === "plan");
   $("#authorsView")?.classList.toggle("on", view === "authors");
@@ -159,6 +236,7 @@ function setView(view){
   $("#glossaryView")?.classList.toggle("on", view === "glossary");
   $("#getStartedView")?.classList.toggle("on", view === "get-started");
 
+  $("#tabHome")?.classList.toggle("tabOn", view === "home");
   $("#tabLibrary")?.classList.toggle("tabOn", view === "library");
   $("#tabPlan")?.classList.toggle("tabOn", view === "plan");
   $("#tabAuthors")?.classList.toggle("tabOn", view === "authors");
@@ -166,7 +244,9 @@ function setView(view){
   $("#tabGlossary")?.classList.toggle("tabOn", view === "glossary");
   $("#tabGetStarted")?.classList.toggle("tabOn", view === "get-started");
 
-  if (view === "library"){
+  if (view === "home"){
+    $("#planName").textContent = "Home";
+  } else if (view === "library"){
     $("#planName").textContent = "Library";
   } else if (view === "plan"){
     $("#planName").textContent = state.plan?.plan_name || "Ten-Year Plan";
@@ -183,7 +263,8 @@ function setView(view){
   renderAll();
 }
 function renderAll(){
-  if (state.view === "library") renderLibrary();
+  if (state.view === "home") renderHome();
+  else if (state.view === "library") renderLibrary();
   else if (state.view === "plan") renderPlan();
   else if (state.view === "authors") renderAuthors();
   else if (state.view === "desk") renderConversationDesk();

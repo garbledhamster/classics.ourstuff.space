@@ -90,6 +90,7 @@ import {
 import { performFullSync } from "./reading-cloud.js";
 function wireUI(){
   // Tabs
+  $("#tabHome").addEventListener("click", ()=> setView("home"));
   $("#tabLibrary").addEventListener("click", ()=> setView("library"));
   $("#tabPlan").addEventListener("click", ()=> setView("plan"));
   $("#tabAuthors").addEventListener("click", ()=> setView("authors"));

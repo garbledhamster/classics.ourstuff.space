@@ -127,6 +127,7 @@
   <link rel="stylesheet" href="assets/css/get-started.css">
   <link rel="stylesheet" href="assets/css/utils.css">
   <link rel="stylesheet" href="assets/css/dark-mode.css">
+  <link rel="stylesheet" href="assets/css/study-workspace.css">
 </head>
 
 <body>
@@ -138,7 +139,7 @@
       <div class="mast-top">
         <div class="brand">The Classics</div>
         <div class="dateline">
-          <span id="planName">Library</span>
+          <span id="planName">Home</span>
           <span class="mono">•</span>
           <span id="today">Loading…</span>
         </div>
@@ -153,6 +154,10 @@
             <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
           </button>
+          <button class="btn btnIconOnly" id="openNotesBtn" type="button" aria-label="Notes Drawer" title="Notes Drawer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+            <span class="studyNotesLabel">Notes Drawer</span>
+          </button>
         </div>
       </div>
 
@@ -160,7 +165,8 @@
 
       <div class="subhead">
         <div class="navRow">
-          <button class="btn tabOn" id="tabLibrary" type="button">
+          <button class="btn tabOn" id="tabHome" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"></path></svg>Home</button>
+          <button class="btn" id="tabLibrary" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
             Library
           </button>
@@ -176,13 +182,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
             Conversation Desk
           </button>
-          <button class="btn" id="openNotesBtn" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
-            Notes Drawer
-          </button>
+
         </div>
 
-        <div class="navRow">
+        <details class="studyDisclosure studyAccount"><summary>Account &amp; tools</summary><div class="navRow">
           <button class="btn isHidden" id="authBtn" type="button" aria-label="Sign in">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="authBtnIcon">
               <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line>
@@ -196,19 +199,23 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
           </button>
         </div>
+        </details>
       </div>
     </header>
 
     <div id="errorBox" class="error isHidden"></div>
 
+    <section id="homeView" class="view on" aria-label="Study overview"></section>
+
     <!-- ===== LIBRARY VIEW ===== -->
-    <section id="libraryView" class="view on" aria-label="All works view">
+    <section id="libraryView" class="view" aria-label="All works view">
       <section class="controls" aria-label="library filters">
         <div class="control searchControl">
           <div class="label">Search (title/author/ideas/tags)</div>
           <input id="libQ" class="input" type="search" placeholder="e.g., Plato, Republic, Justice…" autocomplete="search" >
         </div>
 
+        <details class="studyDisclosure studyFilterDisclosure"><summary>Filters &amp; help</summary><div class="studyDisclosureBody">
         <div class="control">
           <div class="label">Great Idea</div>
           <select id="libGreatIdeaSel" class="select">
@@ -219,6 +226,7 @@
         <div class="rowWide rowWideCenter">
           <div class="help helpCenter">Check out the <strong>BOOKCLUB</strong> for a 10 Year Reading Plan. Use &ldquo;Go to Plan&rdquo; on any card to jump in.</div>
         </div>
+        </div></details>
       </section>
 
       <div id="libAbcBar" class="abcBar" aria-label="Filter by letter"></div>
@@ -230,6 +238,7 @@
     <section id="planView" class="view" aria-label="Ten-year plan view">
 
       <!-- 10-year reference shortcuts -->
+      <details class="studyDisclosure"><summary>About the reading plan &amp; references</summary>
       <div class="planRefRow" aria-label="10-year plan references">
         <a class="btn" href="https://thinkingwest.com/10-year-reading-plan/" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
@@ -260,6 +269,7 @@
         <div class="planMastheadRule"></div>
       </div>
 
+      </details>
       <!-- Search + action buttons -->
       <section class="controls planSearchControls" aria-label="plan search">
         <div class="control searchControl">
@@ -270,6 +280,7 @@
       </section>
 
       <!-- Year / All years / Tier / Filter & Sort -->
+      <details class="studyDisclosure"><summary>Year, filters &amp; tools</summary>
       <section class="controls planFilterControls" aria-label="plan year and filters">
         <div class="control">
           <div class="label">Year</div>
@@ -341,6 +352,7 @@
           </div>
         </div>
       </section>
+      </details>
 
       <div id="planGrid" class="grid" aria-live="polite"></div>
     </section>
@@ -352,6 +364,7 @@
           <div class="label">Search (author)</div>
           <input id="authorsQ" class="input" type="search" placeholder="e.g., Plato, Aristotle, Homer…" autocomplete="search" aria-label="Search authors by name" >
         </div>
+        <details class="studyDisclosure"><summary>Help &amp; tools</summary>
         <div class="rowWide rowWideCenter">
           <div class="help helpCenter">Browse all authors here. Click a card to reveal research, notes and search actions.</div>
           <button class="btn" id="authorsResetBtn" type="button">
@@ -359,6 +372,7 @@
             Reset filters
           </button>
         </div>
+        </details>
       </section>
       <div id="authorsAbcBar" class="abcBar" aria-label="Filter by letter"></div>
       <div id="authorsGrid" class="grid" aria-live="polite"></div>
@@ -371,8 +385,10 @@
     </section>
 
     <footer class="siteFooter">
+      <details class="studyDisclosure"><summary>Data &amp; storage</summary>
       <div>Data files: <span class="mono">./data/library.json</span> (catalog + sources), <span class="mono">./data/bookclub.json</span> (reading plan), <span class="mono">./data/greatbooks.csv</span> (reading guidance)</div>
       <div>Storage: <span class="mono">localStorage</span> + <span class="mono">Firestore</span> (when signed in)</div>
+      </details>
       <div id="syncStatus" class="syncStatus">Sign in to sync</div>
       <div id="paymentSummaryStatus" class="syncStatus">Sign in to see donations</div>
     </footer>
@@ -912,6 +928,7 @@
 
   <!-- App Scripts -->
   <script type="module" src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/classics/study-shell.js"></script>
 
 </body>
 </html>

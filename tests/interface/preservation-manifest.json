@@ -1,0 +1,1994 @@
+{
+  "sourceCommit": "96892acf65e079a1efda1d35a6f8499bd59923e4",
+  "payloadRoot": ".",
+  "capturedDate": "2026-10-17",
+  "authoring": {
+    "verified": false,
+    "packageScriptsPresent": false,
+    "publicReadmeClaims": "Private authoring root with src/ and npm serve,test:syntax,test:unit,test:smoke,test:local",
+    "actualPayload": "Public checkout root contains index.html, assets/, data/; no src/ or package.json",
+    "availableCommands": [
+      "node --test tests/interface/preservation.test.mjs",
+      "node --check <JavaScript file>",
+      "python3 -m http.server 4319 --bind 0.0.0.0 --directory <public-payload-root>"
+    ],
+    "releaseStatus": "Private authoring location and canonical checks unresolved; no publication approval implied."
+  },
+  "contentFiles": [
+    {
+      "path": "data/bookclub.json",
+      "sha256": "2e571babe9106b5ef70551e3eb0e211ccbeef518f66a454a3f2a4f277e610903"
+    },
+    {
+      "path": "data/glossary_app.json",
+      "sha256": "fb67a74f6aa64c69477280041d68392e68f664561dc85337681d04d784c7ac48"
+    },
+    {
+      "path": "data/greatbooks.csv",
+      "sha256": "8523baa31fcfce49c9cf65432a430554b45f098adf767d789cd0c6e375c35ba7"
+    },
+    {
+      "path": "data/library.json",
+      "sha256": "d1f4e9d0f414b5d2580cfdc0b4cab7539867da072b82021bbfda358ad173f991"
+    },
+    {
+      "path": "data/manifest.json",
+      "sha256": "350116036ea464d9abb11c9d924d0c0a436f81e37559f92984392f541556cd8e"
+    },
+    {
+      "path": "data/syntopicon_terms.json",
+      "sha256": "f542a8c69098dfe08f6486d35bd029eb91455412b0527d5f6d6570d434a84c13"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Library",
+      "view": "library",
+      "viewId": "libraryView",
+      "entryId": "tabLibrary"
+    },
+    {
+      "name": "Bookclub",
+      "view": "plan",
+      "viewId": "planView",
+      "entryId": "tabPlan"
+    },
+    {
+      "name": "Great Authors",
+      "view": "authors",
+      "viewId": "authorsView",
+      "entryId": "tabAuthors"
+    },
+    {
+      "name": "Conversation Desk",
+      "view": "desk",
+      "viewId": "deskView",
+      "entryId": "tabDesk"
+    },
+    {
+      "name": "Glossary",
+      "view": "glossary",
+      "viewId": "glossaryView",
+      "entryId": "tabGlossary"
+    },
+    {
+      "name": "Get Started",
+      "view": "get-started",
+      "viewId": "getStartedView",
+      "entryId": "tabGetStarted"
+    }
+  ],
+  "notesDrawer": {
+    "name": "Notes Drawer",
+    "viewId": "notesDrawer",
+    "entryId": "openNotesBtn"
+  },
+  "glossaryPanels": [
+    {
+      "name": "References",
+      "view": "references",
+      "renderer": "renderReferencesPage"
+    },
+    {
+      "name": "Idea Map",
+      "view": "ideas",
+      "renderer": "renderIdeaMapPage"
+    },
+    {
+      "name": "Dictionary",
+      "view": "dictionary",
+      "renderer": "renderDictionaryPage"
+    },
+    {
+      "name": "Wikipedia",
+      "view": "wikipedia",
+      "renderer": "renderWikipediaPage"
+    },
+    {
+      "name": "Related Library",
+      "view": "library",
+      "renderer": "renderRelatedLibraryPage"
+    }
+  ],
+  "loaders": [
+    {
+      "module": "assets/js/classics/reading-plan.js",
+      "functionName": "loadPlan",
+      "inputs": [],
+      "endpoints": [
+        "./data/library.json",
+        "./data/bookclub.json"
+      ],
+      "defaultsAndFallbacks": "cache:no-store; catalog must be array; plan must contain years array; guidance fetched between these; failure sets LOAD ERROR.",
+      "source": "async function loadPlan(){\n  clearError();\n  try{\n    // Load project catalog for sourceUrls\n    const projRes = await fetch(CLASSICS_DATA_FILES.libraryCatalog, { cache:\"no-store\" });\n    if (!projRes.ok) throw new Error(`Could not load library.json (${projRes.status})`);\n    const projectData = await projRes.json();\n    if (!Array.isArray(projectData)) throw new Error(\"library.json must be an array\");\n    state.projectCatalog = projectData;\n\n    state.readingGuideRows = await loadReadingGuides();\n    state.readingGuideLookup = buildReadingGuideLookup(state.readingGuideRows);\n\n    // Load reading plan\n    const res = await fetch(CLASSICS_DATA_FILES.readingPlan, { cache:\"no-store\" });\n    if (!res.ok) throw new Error(`Could not load bookclub.json (${res.status})`);\n    const data = await res.json();\n    if (!data || !Array.isArray(data.years)) throw new Error(\"bookclub.json must include { plan_name, years: [...] }\");\n\n    state.plan = data;\n\n    const today = new Date().toLocaleDateString(undefined, { weekday:\"long\", year:\"numeric\", month:\"long\", day:\"numeric\" });\n    $(\"#today\").textContent = today;\n\n    flattenPlan();\n    buildLibraryWorks();\n    buildGreatIdeasUniverse();\n    fillYearOptions();\n    buildTagsUniverse();\n    wireUI();\n    renderAll();\n  } catch(err){\n    setError(`LOAD ERROR: ${err.message}`);\n  }\n}"
+    },
+    {
+      "module": "assets/js/classics/reading-plan.js",
+      "functionName": "loadReadingGuides",
+      "inputs": [],
+      "endpoints": [
+        "./data/greatbooks.csv"
+      ],
+      "defaultsAndFallbacks": "cache:no-store; parseCsvRecords; warning and [] on request failure.",
+      "source": "async function loadReadingGuides(){\n  try{\n    const res = await fetch(CLASSICS_DATA_FILES.readingGuide, { cache:\"no-store\" });\n    if (!res.ok) throw new Error(`Could not load greatbooks.csv (${res.status})`);\n    const text = await res.text();\n    return parseCsvRecords(text);\n  } catch(err){\n    console.warn(\"Reading guidance CSV unavailable:\", err);\n    return [];\n  }\n}"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "loadGlossaryTerms",
+      "inputs": [],
+      "endpoints": [
+        "./data/syntopicon_terms.json",
+        "./data/glossary_app.json"
+      ],
+      "defaultsAndFallbacks": "cache:no-store; Promise.allSettled, merge successful arrays/entries/terms; normalize, sort, dedupe; no data gives error.",
+      "source": "  async function loadGlossaryTerms(){\n    if (glossaryState.terms.length || glossaryState.loading) return;\n    glossaryState.loading = true;\n    glossaryState.error = \"\";\n    renderGlossary();\n    try {\n      const results = await Promise.allSettled(\n        TERMS_URLS.map(url => fetch(url, { cache:\"no-store\" }).then(r => r.ok ? r.json() : null))\n      );\n      const allRaw = [];\n      for (const result of results) {\n        if (result.status === \"fulfilled\" && result.value) allRaw.push(...getRawTermsPayload(result.value));\n      }\n      if (!allRaw.length) throw new Error(\"No glossary data could be loaded.\");\n      glossaryState.terms = allRaw.map(normalizeTerm).sort((a,b) =>\n        a.letter.localeCompare(b.letter) || a.term.localeCompare(b.term, undefined, { sensitivity:\"base\" })\n      );\n      applyGlossaryFilters();\n    } catch(err){\n      glossaryState.error = err.message || String(err);\n    } finally {\n      glossaryState.loading = false;\n      renderGlossary();\n    }\n  }"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "loadBookDetails",
+      "inputs": [
+        "section.dataset.author || \"\"",
+        "section.dataset.title || \"\""
+      ],
+      "endpoints": [
+        "Open Library",
+        "Gutendex",
+        "Wikipedia"
+      ],
+      "defaultsAndFallbacks": "Deduplicate in-flight; local/offline/no-fetch unavailable; allSettled; retain successful sources; unavailable on no results; finally clears loading.",
+      "source": "async function loadBookDetails(section){\n  const author = section.dataset.author || \"\";\n  const title  = section.dataset.title  || \"\";\n  const inner  = section.querySelector(\".bookDetailsPanel > div\");\n  if (!inner) return;\n\n  // Prevent duplicate in-flight fetches for the same section\n  if (inner._loadingDetails) return;\n  inner._loadingDetails = true;\n\n  inner.innerHTML = `<div class=\"bookDetailsLoading\">Loading…</div>`;\n\n  if (remoteBookEnrichmentShouldStayLocal()) {\n    inner.innerHTML = remoteBookEnrichmentUnavailableHtml();\n    inner._loadingDetails = false;\n    return;\n  }\n\n  try {\n    // Fetch all three sources in parallel for faster load\n    const [olResult, gutResult, wikiResult] = await Promise.allSettled([\n      _fetchOpenLibrary(title, author),\n      _fetchGutendexDetails(title, author),\n      _fetchWikipediaDetails(title, author)\n    ]);\n\n    const sources = [];\n    if (olResult.status === \"fulfilled\" && olResult.value){\n      sources.push({ label: \"Open Library\", html: _renderBookDetailsResult(olResult.value) });\n    }\n    if (gutResult.status === \"fulfilled\" && gutResult.value){\n      sources.push({ label: \"Project Gutenberg\", html: _renderGutendexResult(gutResult.value) });\n    }\n    if (wikiResult.status === \"fulfilled\" && wikiResult.value){\n      sources.push({ label: \"Wikipedia\", html: _renderWikipediaResult(wikiResult.value) });\n    }\n\n    if (!sources.length){\n      inner.innerHTML = remoteBookEnrichmentUnavailableHtml(\"Remote book sources returned no details. Your local notes and outside search links still work.\");\n      return;\n    }\n\n    // Store sources on the inner element (cleared when card is closed)\n    inner._sources = sources;\n    inner._sourceIdx = 0;\n    _renderSourceView(inner);\n  } catch(err){\n    inner.innerHTML = remoteBookEnrichmentUnavailableHtml();\n  } finally {\n    inner._loadingDetails = false;\n  }\n}"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "_fetchOpenLibrary",
+      "inputs": [
+        "title",
+        "author"
+      ],
+      "endpoints": [
+        "https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}"
+      ],
+      "defaultsAndFallbacks": "fields key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count; normalized exact-title match or docs[0] or null; non-ok returns null.",
+      "source": "async function _fetchOpenLibrary(title, author){\n  const fields = \"key,title,author_name,first_publish_year,subject,subject_time_period,cover_i,number_of_pages_median,edition_count\";\n  const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}&limit=3&fields=${fields}`;\n  const res = await fetch(url);\n  if (!res.ok) return null;\n  const data = await res.json();\n  const docs = data.docs || [];\n  if (!docs.length) return null;\n  const normTitle = normalizeText(title);\n  return docs.find(d => normalizeText(d.title || \"\") === normTitle) || docs[0] || null;\n}"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "_fetchGutendexDetails",
+      "inputs": [
+        "title",
+        "author"
+      ],
+      "endpoints": [
+        "https://gutendex.com/books/?search=${encodeURIComponent(q)}"
+      ],
+      "defaultsAndFallbacks": "q=[title,author].filter(Boolean).join(\" \"); normalized exact title or first result; non-ok/empty returns null.",
+      "source": "async function _fetchGutendexDetails(title, author){\n  const q = [title, author].filter(Boolean).join(\" \");\n  const url = `https://gutendex.com/books/?search=${encodeURIComponent(q)}`;\n  const res = await fetch(url);\n  if (!res.ok) return null;\n  const data = await res.json();\n  const results = data.results || [];\n  if (!results.length) return null;\n  const normTitle = normalizeText(title);\n  return results.find(b => normalizeText(b.title || \"\") === normTitle) || results[0];\n}"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "_fetchWikipediaDetails",
+      "inputs": [
+        "title",
+        "author"
+      ],
+      "endpoints": [
+        "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=3&format=json&origin=*",
+        "https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}"
+      ],
+      "defaultsAndFallbacks": "q=[title,author].filter(Boolean).join(\" \"); first search hit; non-ok/empty returns null.",
+      "source": "async function _fetchWikipediaDetails(title, author){\n  const q = [title, author].filter(Boolean).join(\" \");\n  const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&srlimit=3&format=json&origin=*`;\n  const searchRes = await fetch(searchUrl);\n  if (!searchRes.ok) return null;\n  const searchData = await searchRes.json();\n  const hits = searchData.query?.search || [];\n  if (!hits.length) return null;\n  const pageTitle = hits[0].title;\n  const summaryRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`);\n  if (!summaryRes.ok) return null;\n  return summaryRes.json();\n}"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "loadDictionaryForSelectedTerm",
+      "inputs": [
+        "selectedTerm",
+        "dictionaryLookupKeys(term)"
+      ],
+      "endpoints": [
+        "https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}"
+      ],
+      "defaultsAndFallbacks": "Selected-panel guard, cache/unavailable map, local/offline/no-fetch gate; ordered candidates; exceptions continue; cache [] final fallback.",
+      "source": "  async function loadDictionaryForSelectedTerm(){\n    const term = glossaryState.selectedTerm;\n    if (!term || PAGES[glossaryState.pageIndex] !== \"dictionary\") return;\n    const keys = dictionaryLookupKeys(term);\n    if (keys.some(k => glossaryState.dictionaryCache[k.toLowerCase()])) return;\n    const unavailable = glossaryRemoteEnrichmentUnavailableReason(\"Dictionary\");\n    if (unavailable) { glossaryState.dictionaryRemoteUnavailable[keys[0].toLowerCase()] = unavailable; renderTermModal(); return; }\n    let serviceUnavailable = \"\";\n    for (const key of keys){\n      const cacheKey = key.toLowerCase();\n      try {\n        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(key)}`);\n        if (!response.ok) continue;\n        const data = await response.json();\n        const entries = Array.isArray(data) ? data : [];\n        const hasDefinitions = entries.some(entry => (entry.meanings || []).some(meaning => (meaning.definitions || []).some(def => def.definition)));\n        if (hasDefinitions) {\n          glossaryState.dictionaryCache[cacheKey] = { word: entries[0]?.word || key, entries: entries.map(entry => ({ word: entry.word || key, phonetic: entry.phonetic || \"\", meanings: (entry.meanings || []).map(meaning => ({ partOfSpeech: meaning.partOfSpeech || \"\", definitions: (meaning.definitions || []).map(def => ({ definition: def.definition || \"\", example: def.example || \"\", synonyms: Array.isArray(def.synonyms) ? def.synonyms : [] })) })) })) };\n          saveDictionaryCache();\n          renderTermModal();\n          return;\n        }\n      } catch(e){\n        serviceUnavailable = \"Dictionary service unavailable: remote lookup failed. References, idea map, and related library still work.\";\n      }\n    }\n    if (serviceUnavailable) {\n      glossaryState.dictionaryRemoteUnavailable[keys[0].toLowerCase()] = serviceUnavailable;\n      renderTermModal();\n      return;\n    }\n    glossaryState.dictionaryCache[keys[0].toLowerCase()] = { error:true };\n    saveDictionaryCache();\n    renderTermModal();\n  }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "loadWikipediaForSelectedTerm",
+      "inputs": [
+        "selectedTerm",
+        "wikipediaLookupKeys(term)"
+      ],
+      "endpoints": [
+        "https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(key)}"
+      ],
+      "defaultsAndFallbacks": "Selected-panel guard, cache/unavailable map, local/offline/no-fetch gate; ordered candidates; exceptions continue; cache null final fallback.",
+      "source": "  async function loadWikipediaForSelectedTerm(){\n    const term = glossaryState.selectedTerm;\n    if (!term || PAGES[glossaryState.pageIndex] !== \"wikipedia\") return;\n    const keys = wikipediaLookupKeys(term);\n    if (keys.some(k => glossaryState.wikipediaCache[k.toLowerCase()])) return;\n    const unavailable = glossaryRemoteEnrichmentUnavailableReason(\"Wikipedia\");\n    if (unavailable) { glossaryState.wikipediaRemoteUnavailable[keys[0].toLowerCase()] = unavailable; renderTermModal(); return; }\n    let serviceUnavailable = \"\";\n    for (const key of keys){\n      const cacheKey = key.toLowerCase();\n      try {\n        const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(key)}`);\n        if (!response.ok) continue;\n        const data = await response.json();\n        if (data?.extract) {\n          glossaryState.wikipediaCache[cacheKey] = { title: data.title || key, extract: data.extract, url: data.content_urls?.desktop?.page || data.content_urls?.mobile?.page || \"\", thumbnail: data.thumbnail?.source || \"\" };\n          saveWikipediaCache();\n          renderTermModal();\n          return;\n        }\n      } catch(e){\n        serviceUnavailable = \"Wikipedia service unavailable: remote lookup failed. References, idea map, and related library still work.\";\n      }\n    }\n    if (serviceUnavailable) {\n      glossaryState.wikipediaRemoteUnavailable[keys[0].toLowerCase()] = serviceUnavailable;\n      renderTermModal();\n      return;\n    }\n    glossaryState.wikipediaCache[keys[0].toLowerCase()] = { error:true };\n    saveWikipediaCache();\n    renderTermModal();\n  }"
+    },
+    {
+      "module": "assets/js/classics/reader-account.js",
+      "functionName": "startDonationCheckout",
+      "inputs": [
+        "getRequestedAmount()",
+        "getFirebaseToken()",
+        "getDonationProfile()"
+      ],
+      "endpoints": [
+        "https://stripe-worker-api.jrice.workers.dev/api/donations/checkout"
+      ],
+      "defaultsAndFallbacks": "Local simulation exits before network; POST JSON body site,amount,customerName,customerEmail; optional Bearer auth; response JSON catch {}; require ok/url; location.assign; error restores button.",
+      "source": "  async function startDonationCheckout() {\n    const amount = getRequestedAmount();\n    const validationError = validateAmount(amount);\n    if (validationError) {\n      setDonationError(validationError);\n      return;\n    }\n\n    const previousText = checkoutBtn.textContent;\n    checkoutBtn.disabled = true;\n    checkoutBtn.textContent = \"Opening Stripe...\";\n    setDonationError(\"\");\n\n    try {\n      if (shouldUseLocalReaderSimulation()) {\n        const profile = getDonationProfile();\n        const safeSummary = recordLocalReaderPaymentSimulation({ siteId: SITE_ID, amount, profile });\n        state.paymentSummaries = { ...(state.paymentSummaries || {}), [SITE_ID]: safeSummary };\n        savePaymentSummaries(state.paymentSummaries);\n        updatePaymentSummaryStatus();\n        closeDonationModal();\n        showAlert(\"Local donation simulated. No Stripe checkout was opened.\");\n        return;\n      }\n\n      const token = await getFirebaseToken();\n      const profile = getDonationProfile();\n      const headers = { \"content-type\": \"application/json\" };\n      if (token) headers.Authorization = `Bearer ${token}`;\n\n      const response = await fetch(`${WORKER_BASE_URL}/api/donations/checkout`, {\n        method: \"POST\",\n        headers,\n        body: JSON.stringify({\n          site: SITE_ID,\n          amount,\n          customerName: profile.name,\n          customerEmail: profile.email\n        })\n      });\n      const result = await response.json().catch(() => ({}));\n\n      if (!response.ok) {\n        throw new Error(result?.error?.message || \"Donation checkout failed\");\n      }\n      if (!result?.url) {\n        throw new Error(\"Donation checkout did not return a Stripe URL.\");\n      }\n\n      window.location.assign(result.url);\n    } catch (error) {\n      setDonationError(error.message || \"Donation checkout failed.\");\n      checkoutBtn.disabled = false;\n      checkoutBtn.textContent = previousText;\n    }\n  }"
+    },
+    {
+      "module": "assets/js/classics/reading-cloud.js",
+      "functionName": "refreshPaymentSummaryFromWorker",
+      "inputs": [
+        "user.getIdToken()",
+        "SITE_ID=\"classics\""
+      ],
+      "endpoints": [
+        "https://stripe-worker-api.jrice.workers.dev/api/me/payment-summary?site=${encodeURIComponent(SITE_ID)}"
+      ],
+      "defaultsAndFallbacks": "Local simulation exits before network; cloud requires user/getIdToken/Firebase DB; GET Bearer token; JSON catch {}; fallback site,summary,items,source,syncedAt; save userPrivate merge.",
+      "source": "async function refreshPaymentSummaryFromWorker(user) {\n  if (readerRuntime.isLocalMode) {\n    const paymentSummaries = readLocalReaderPaymentSummaries(SITE_ID);\n    state.paymentSummaries = { ...(state.paymentSummaries || {}), ...paymentSummaries };\n    savePaymentSummaries(state.paymentSummaries);\n    updatePaymentSummaryStatus();\n    return state.paymentSummaries[SITE_ID] || null;\n  }\n  if (!user || typeof user.getIdToken !== \"function\" || !window.firebaseDB) return null;\n  try {\n    const token = await user.getIdToken();\n    const response = await fetch(`${PAYMENTS_WORKER_BASE_URL}/api/me/payment-summary?site=${encodeURIComponent(SITE_ID)}`, {\n      headers: { Authorization: `Bearer ${token}` }\n    });\n    const result = await response.json().catch(() => ({}));\n    if (!response.ok) {\n      throw new Error(result?.error?.message || \"Unable to refresh payment summary.\");\n    }\n\n    const safeSummary = {\n      site: result.site || SITE_ID,\n      summary: result.summary || {},\n      items: Array.isArray(result.items) ? result.items : [],\n      source: result.source || \"d1\",\n      syncedAt: result.syncedAt || new Date().toISOString()\n    };\n    const paymentSummaries = { ...(state.paymentSummaries || {}), [SITE_ID]: safeSummary };\n    state.paymentSummaries = paymentSummaries;\n    savePaymentSummaries(paymentSummaries);\n\n    const db = window.firebaseDB;\n    const userRef = window.firestoreDoc(db, 'userPrivate', user.uid);\n    await window.firestoreSetDoc(userRef, {\n      paymentSummaries,\n      paymentSummariesSyncedAt: window.firestoreServerTimestamp()\n    }, { merge: true });\n    return safeSummary;\n  } catch (error) {\n    console.error('Error refreshing payment summary from Worker:', error);\n    return null;\n  } finally {\n    updatePaymentSummaryStatus();\n  }\n}"
+    },
+    {
+      "module": "index.html",
+      "functionName": "manifest link",
+      "inputs": [],
+      "endpoints": [
+        "./data/manifest.json"
+      ],
+      "defaultsAndFallbacks": "Browser manifest link; no JS fetch wrapper.",
+      "source": "<link rel=\"manifest\" href=\"./data/manifest.json\" >"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "remoteBookEnrichmentShouldStayLocal",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "function remoteBookEnrichmentShouldStayLocal(){\n  return readerRuntime.isLocalMode || navigator.onLine === false || typeof fetch !== \"function\";\n}"
+    },
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "functionName": "remoteBookEnrichmentUnavailableHtml",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "function remoteBookEnrichmentUnavailableHtml(message = \"\"){\n  const reason = message || (\n    readerRuntime.isLocalMode\n      ? \"Remote book details are unavailable in local mode. Your local notes and outside search links still work.\"\n      : \"Remote book details are unavailable while offline. Your local notes and outside search links still work.\"\n  );\n  return `<div class=\"bookDetailsError\">${escapeHtml(reason)}</div>`;\n}"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "lookupKeys",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function lookupKeys(term){\n    const phrase = term.term.replace(/\\s+/g,\" \").trim();\n    const words = phrase.split(/\\s+/).filter(w => !/^(and|or|of|the|a|an|to|in)$/i.test(w));\n    return Array.from(new Set([phrase, words[0]].filter(Boolean)));\n  }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "dictionaryLookupKeys",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function dictionaryLookupKeys(term){ return lookupKeys(term); }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "wikipediaLookupKeys",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function wikipediaLookupKeys(term){ return lookupKeys(term); }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "glossaryRemoteEnrichmentUnavailableReason",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function glossaryRemoteEnrichmentUnavailableReason(kind){\n    if (readerRuntime.isLocalMode) return `Local mode: ${kind} enrichment needs a remote service. References, idea map, and related library still work.`;\n    if (navigator.onLine === false) return `Offline mode: ${kind} enrichment needs the network. References, idea map, and related library still work.`;\n    if (typeof fetch !== \"function\") return `Remote fetch unavailable: ${kind} enrichment cannot load here. References, idea map, and related library still work.`;\n    return \"\";\n  }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "getRawTermsPayload",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function getRawTermsPayload(data){\n    if (Array.isArray(data)) return data;\n    if (Array.isArray(data.entries)) return data.entries;\n    if (Array.isArray(data.terms)) return data.terms;\n    return [];\n  }"
+    },
+    {
+      "module": "assets/js/classics/writing-desks.js",
+      "functionName": "normalizeTerm",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "  function normalizeTerm(raw){\n    const baseTerm = raw.term || raw.title || \"Untitled Term\";\n    const qualifier = raw.qualifier || null;\n    const displayTerm = qualifier ? `${baseTerm} (${qualifier})` : baseTerm;\n    return {\n      id: raw.id || slugify(displayTerm),\n      letter: String(raw.letter || baseTerm[0] || \"#\").toUpperCase(),\n      term: baseTerm,\n      qualifier,\n      displayTerm,\n      entry: raw.entry || `${displayTerm}: ${raw.see || \"\"}`.trim(),\n      see: raw.see || null,\n      seeAlso: raw.seeAlso || raw.see_also || null,\n      search: normalizeText([baseTerm, qualifier, raw.entry, raw.see, raw.seeAlso || raw.see_also].filter(Boolean).join(\" \"))\n    };\n  }"
+    },
+    {
+      "module": "assets/js/classics/reading-plan.js",
+      "functionName": "parseCsvRecords",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "function parseCsvRecords(text){\n  const rows = parseCsvRows(text);\n  if (!rows.length) return [];\n  const headers = rows[0].map(h => String(h || \"\").trim());\n  return rows.slice(1)\n    .filter(row => row.some(cell => String(cell || \"\").trim()))\n    .map(row => Object.fromEntries(headers.map((header, index) => [header, row[index] || \"\"])));\n}"
+    },
+    {
+      "module": "assets/js/classics/reading-plan.js",
+      "functionName": "parseCsvRows",
+      "inputs": [
+        "see exact source signature"
+      ],
+      "endpoints": [
+        "normalization or local fallback; no network request"
+      ],
+      "source": "function parseCsvRows(text){\n  const rows = [];\n  let row = [];\n  let cell = \"\";\n  let inQuotes = false;\n  const src = String(text || \"\").replace(/^\\uFEFF/, \"\");\n  for (let i = 0; i < src.length; i++){\n    const ch = src[i];\n    const next = src[i + 1];\n    if (inQuotes){\n      if (ch === '\"' && next === '\"'){\n        cell += '\"';\n        i++;\n      } else if (ch === '\"'){\n        inQuotes = false;\n      } else {\n        cell += ch;\n      }\n      continue;\n    }\n    if (ch === '\"'){\n      inQuotes = true;\n    } else if (ch === \",\"){\n      row.push(cell);\n      cell = \"\";\n    } else if (ch === \"\\n\"){\n      row.push(cell);\n      rows.push(row);\n      row = [];\n      cell = \"\";\n    } else if (ch !== \"\\r\"){\n      cell += ch;\n    }\n  }\n  if (cell || row.length){\n    row.push(cell);\n    rows.push(row);\n  }\n  return rows;\n}"
+    }
+  ],
+  "detailSections": [
+    {
+      "name": "Black Box Thinking",
+      "guards": [
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"blackBoxSection\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"bbCol bbLeftCol\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"bbCol bbRightCol\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "${boxTitle}"
+        }
+      ]
+    },
+    {
+      "name": "Linked Notes",
+      "guards": [
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"linkedNotesSection open\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "data-action=\"openLinkedNote\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"linkedNotesPanel\""
+        }
+      ]
+    },
+    {
+      "name": "Book Information",
+      "guards": [
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"bookDetailsSection open\""
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "BOOK INFORMATION"
+        },
+        {
+          "module": "assets/js/classics/book-briefing.js",
+          "source": "class=\"bookDetailsPanel\""
+        }
+      ]
+    },
+    {
+      "name": "Reading guidance",
+      "guards": [
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "workItem.readingGuide"
+        },
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "Before reading"
+        },
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "During reading"
+        },
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "After reading"
+        }
+      ]
+    },
+    {
+      "name": "Reading stages",
+      "guards": [
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "data-action=\"toggleReadingStage\""
+        },
+        {
+          "module": "assets/js/classics/reader-progress.js",
+          "source": "function renderReadingStageChecklist(workItem)"
+        }
+      ]
+    },
+    {
+      "name": "Owner context",
+      "guards": [
+        {
+          "module": "assets/js/classics/library-shelf.js",
+          "source": "class=\"libHead\""
+        },
+        {
+          "module": "assets/js/classics/library-shelf.js",
+          "source": "class=\"libTitle\""
+        },
+        {
+          "module": "assets/js/classics/library-shelf.js",
+          "source": "class=\"libAuthor\""
+        },
+        {
+          "module": "assets/js/classics/library-shelf.js",
+          "source": "class=\"occList\""
+        },
+        {
+          "module": "assets/js/classics/library-shelf.js",
+          "source": "class=\"ideaTagRow\""
+        },
+        {
+          "module": "assets/js/classics/reading-plan.js",
+          "source": "class=\"workMain\""
+        },
+        {
+          "module": "assets/js/classics/reading-plan.js",
+          "source": "class=\"workTitle\""
+        },
+        {
+          "module": "assets/js/classics/reading-plan.js",
+          "source": "class=\"workSub\""
+        },
+        {
+          "module": "assets/js/classics/reading-plan.js",
+          "source": "subLines.map(escapeHtml).join(\"<br>\")"
+        },
+        {
+          "module": "assets/js/classics/authors-atlas.js",
+          "source": "data-action=\"gotoLibraryForAuthorWork\""
+        }
+      ]
+    }
+  ],
+  "controlGroups": [
+    {
+      "name": "library",
+      "ids": [
+        "libQ",
+        "libGreatIdeaSel",
+        "libAbcBar",
+        "libraryGrid",
+        "libPagination"
+      ],
+      "attributes": [
+        "data-action=gotoLibraryGreatIdea",
+        "data-action=gotoPlanFirst",
+        "data-action=gotoPlanOcc",
+        "data-action=newNoteLib",
+        "data-action=openAudiobooksLib",
+        "data-action=openBiographyLib",
+        "data-action=openBuyBookLib",
+        "data-action=openContextLib",
+        "data-action=openDeskLib",
+        "data-action=openFreeBookLib",
+        "data-action=openGoodreadsLib",
+        "data-action=openNotesLib",
+        "data-action=openOutlinesLib",
+        "data-action=openWikiSearchLib",
+        "data-action=openWikipediaLib"
+      ]
+    },
+    {
+      "name": "bookclub",
+      "ids": [
+        "q",
+        "greatIdeaSel",
+        "sortSel",
+        "yearPrev",
+        "yearNext",
+        "yearDisplay",
+        "showAllYears",
+        "filterBookclubBtn",
+        "planViewModeBtn",
+        "planColPickerBtn",
+        "planGrid",
+        "resetChecksBtn"
+      ],
+      "attributes": [
+        "data-action=gotoLibraryGreatIdea",
+        "data-action=newNoteFromWork",
+        "data-action=openAudiobooks",
+        "data-action=openBiography",
+        "data-action=openBuyBook",
+        "data-action=openContext",
+        "data-action=openDeskWork",
+        "data-action=openFreeBook",
+        "data-action=openGoodreads",
+        "data-action=openLibraryForWork",
+        "data-action=openNotesForBook",
+        "data-action=openOutlines",
+        "data-action=openWikiSearch",
+        "data-action=openWikipedia",
+        "data-action=setCardDate",
+        "data-action=toggleColPicker",
+        "data-action=toggleComplete",
+        "data-action=toggleTableCol"
+      ]
+    },
+    {
+      "name": "authors",
+      "ids": [
+        "authorsQ",
+        "authorsResetBtn",
+        "authorsAbcBar",
+        "authorsGrid",
+        "authorsPagination"
+      ],
+      "attributes": [
+        "data-action=gotoLibraryForAuthorWork",
+        "data-action=newNoteAuthor",
+        "data-action=openAudiobooksAuthor",
+        "data-action=openBiographyAuthor",
+        "data-action=openBuyBookAuthor",
+        "data-action=openContextAuthor",
+        "data-action=openDeskAuthor",
+        "data-action=openGoodreadsAuthor",
+        "data-action=openGoogleAuthor",
+        "data-action=openNotesAuthor",
+        "data-action=openWikiSearchAuthor",
+        "data-action=openWikipediaAuthor",
+        "data-action=openYouTubeAuthor"
+      ]
+    },
+    {
+      "name": "notes",
+      "ids": [
+        "archiveNoteBtn",
+        "archiveNoteBtnText",
+        "archiveSelectedNotesBtn",
+        "closeNotesBtn",
+        "deleteNoteBtn",
+        "deleteSelectedNotesBtn",
+        "deselectAllNotesBtn",
+        "editAuthor",
+        "editBody",
+        "editBookTag",
+        "editMeta",
+        "editNoteType",
+        "editSelection",
+        "editTitle",
+        "editYear",
+        "exportNotesBtn",
+        "importFile",
+        "importNotesBtn",
+        "newNoteBtn",
+        "noteEditor",
+        "noteList",
+        "noteMultiBar",
+        "noteSearch",
+        "noteSelectCount",
+        "noteTagFilter",
+        "noteTypeFilter",
+        "notesDrawer",
+        "openNotesBtn",
+        "saveNoteBtn",
+        "selectAllNotesBtn",
+        "sourceNote",
+        "toggleNoteSelectBtn",
+        "toggleNoteSelectBtnText"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "conversation",
+      "ids": [
+        "conversationDeskRoot",
+        "deskTitle",
+        "deskQuestion",
+        "deskBody",
+        "sourceTitle",
+        "sourceUrl",
+        "sourceNote",
+        "themeInput"
+      ],
+      "attributes": [
+        "data-desk-action=addSource",
+        "data-desk-action=addTheme",
+        "data-desk-action=copyContribution",
+        "data-desk-action=deleteDraft",
+        "data-desk-action=markdownTool",
+        "data-desk-action=newDraft",
+        "data-desk-action=removeSource",
+        "data-desk-action=removeTheme",
+        "data-desk-action=requestPublish",
+        "data-desk-action=resizeRail",
+        "data-desk-action=saveDraft",
+        "data-desk-field=body",
+        "data-desk-field=centralQuestion",
+        "data-desk-field=linkedAuthor",
+        "data-desk-field=linkedBook",
+        "data-desk-field=title",
+        "data-desk-field=visibility"
+      ]
+    },
+    {
+      "name": "glossary",
+      "ids": [
+        "glossaryCloseBtn",
+        "glossaryIndex",
+        "glossaryLetterGrid",
+        "glossaryLetterSel",
+        "glossaryModal",
+        "glossaryModalBody",
+        "glossaryModalSub",
+        "glossaryModalTitle",
+        "glossaryNextBtn",
+        "glossaryPrevBtn",
+        "glossaryQ",
+        "glossaryView"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "get-started",
+      "ids": [
+        "getStartedView",
+        "tabGetStarted"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "account",
+      "ids": [
+        "authBtn",
+        "authBtnIcon",
+        "authBtnText",
+        "authorsAbcBar",
+        "authorsGrid",
+        "authorsPagination",
+        "authorsQ",
+        "authorsResetBtn",
+        "authorsView",
+        "closeLoginModalBtn",
+        "closeProfileModalBtn",
+        "closeSignupModalBtn",
+        "loginEmail",
+        "loginError",
+        "loginGoogleBtn",
+        "loginModal",
+        "loginModalTitle",
+        "loginPassword",
+        "loginSubmitBtn",
+        "manualSyncBtn",
+        "paymentSummaryStatus",
+        "profileCancelBtn",
+        "profileEmail",
+        "profileError",
+        "profileGoogleBtn",
+        "profileGoogleStatus",
+        "profileModal",
+        "profileModalTitle",
+        "profileName",
+        "profileSaveBtn",
+        "profileSignOutBtn",
+        "resetProfileBtn",
+        "showLoginBtn",
+        "showSignupBtn",
+        "signupEmail",
+        "signupError",
+        "signupGoogleBtn",
+        "signupModal",
+        "signupModalTitle",
+        "signupName",
+        "signupPassword",
+        "signupPasswordConfirm",
+        "signupSubmitBtn",
+        "syncStatus"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "timer",
+      "ids": [
+        "closeTimerModalBtn",
+        "timerAlarmSelect",
+        "timerBtn",
+        "timerCustomMins",
+        "timerCustomSecs",
+        "timerDisplay",
+        "timerModal",
+        "timerModalTitle",
+        "timerResetBtn",
+        "timerSetCustomBtn",
+        "timerStartBtn",
+        "timerTestSoundBtn",
+        "timerVolumeLabel",
+        "timerVolumeSlider"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "export",
+      "ids": [
+        "exportModal",
+        "exportModalCancelBtn",
+        "exportModalCsvBtn",
+        "exportModalJsonBtn",
+        "exportModalTitle",
+        "exportNotesBtn",
+        "exportProgressBtn"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "donation",
+      "ids": [
+        "closeDonationModalBtn",
+        "donateBtn",
+        "donationCancelBtn",
+        "donationCheckoutBtn",
+        "donationCustomAmount",
+        "donationError",
+        "donationModal",
+        "donationModalTitle"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "legal",
+      "ids": [
+        "closeEulaModalBtn",
+        "eulaAcceptBtn",
+        "eulaAcceptCheck",
+        "eulaDeclineBtn",
+        "eulaModal",
+        "eulaModalTitle",
+        "eulaText"
+      ],
+      "attributes": []
+    },
+    {
+      "name": "shared",
+      "ids": [
+        "darkModeBtn",
+        "searchSettingsModal",
+        "includeTitle",
+        "includeAuthor",
+        "includeSelectedWorks",
+        "customSearch",
+        "bloomsButtonsContainer",
+        "selectedWorksContainer",
+        "searchPreview",
+        "alertModal",
+        "confirmModal",
+        "promptModal"
+      ],
+      "attributes": []
+    }
+  ],
+  "emittedIds": [
+    "alertModal",
+    "alertModalMessage",
+    "alertModalOkBtn",
+    "alertModalTitle",
+    "archiveNoteBtn",
+    "archiveNoteBtnText",
+    "archiveSelectedBtnText",
+    "archiveSelectedNotesBtn",
+    "authBtn",
+    "authBtnIcon",
+    "authBtnText",
+    "authorsAbcBar",
+    "authorsGrid",
+    "authorsPagination",
+    "authorsQ",
+    "authorsResetBtn",
+    "authorsView",
+    "bloomsButtonsContainer",
+    "cancelEditBtn",
+    "closeDonationModalBtn",
+    "closeEulaModalBtn",
+    "closeLoginModalBtn",
+    "closeNotesBtn",
+    "closeProfileModalBtn",
+    "closeSearchSettingsModalBtn",
+    "closeSignupModalBtn",
+    "closeTimerModalBtn",
+    "confirmModal",
+    "confirmModalCancelBtn",
+    "confirmModalMessage",
+    "confirmModalOkBtn",
+    "confirmModalTitle",
+    "conversationDeskRoot",
+    "customSearch",
+    "darkModeBtn",
+    "deleteNoteBtn",
+    "deleteSelectedNotesBtn",
+    "deselectAllNotesBtn",
+    "deskBody",
+    "deskQuestion",
+    "deskTitle",
+    "deskView",
+    "donateBtn",
+    "donationCancelBtn",
+    "donationCheckoutBtn",
+    "donationCustomAmount",
+    "donationError",
+    "donationModal",
+    "donationModalTitle",
+    "editAuthor",
+    "editBody",
+    "editBookTag",
+    "editMeta",
+    "editNoteType",
+    "editSelection",
+    "editTitle",
+    "editYear",
+    "errorBox",
+    "eulaAcceptBtn",
+    "eulaAcceptCheck",
+    "eulaDeclineBtn",
+    "eulaModal",
+    "eulaModalTitle",
+    "eulaText",
+    "exportModal",
+    "exportModalCancelBtn",
+    "exportModalCsvBtn",
+    "exportModalJsonBtn",
+    "exportModalTitle",
+    "exportNotesBtn",
+    "exportProgressBtn",
+    "filterBookclubBtn",
+    "getStartedView",
+    "glossaryCloseBtn",
+    "glossaryIndex",
+    "glossaryLetterGrid",
+    "glossaryLetterSel",
+    "glossaryModal",
+    "glossaryModalBody",
+    "glossaryModalSub",
+    "glossaryModalTitle",
+    "glossaryNextBtn",
+    "glossaryPrevBtn",
+    "glossaryQ",
+    "glossaryView",
+    "greatIdeaSel",
+    "importFile",
+    "importNotesBtn",
+    "includeAuthor",
+    "includeSelectedWorks",
+    "includeTitle",
+    "libAbcBar",
+    "libGreatIdeaSel",
+    "libPagination",
+    "libQ",
+    "libraryGrid",
+    "libraryView",
+    "loginEmail",
+    "loginError",
+    "loginGoogleBtn",
+    "loginModal",
+    "loginModalTitle",
+    "loginPassword",
+    "loginSubmitBtn",
+    "manualSyncBtn",
+    "modalBackdrop",
+    "newNoteBtn",
+    "noteEditor",
+    "noteList",
+    "noteMultiBar",
+    "noteSearch",
+    "noteSelectCount",
+    "noteTagFilter",
+    "noteTypeFilter",
+    "notesDrawer",
+    "openNotesBtn",
+    "overlay",
+    "paymentSummaryStatus",
+    "planColPickerBtn",
+    "planColPickerPanel",
+    "planColPickerWrap",
+    "planGrid",
+    "planName",
+    "planView",
+    "planViewModeBtn",
+    "planViewModeBtnLabel",
+    "planViewModeIcon",
+    "profileCancelBtn",
+    "profileEmail",
+    "profileError",
+    "profileGoogleBtn",
+    "profileGoogleStatus",
+    "profileModal",
+    "profileModalTitle",
+    "profileName",
+    "profileSaveBtn",
+    "profileSignOutBtn",
+    "promptModal",
+    "promptModalCancelBtn",
+    "promptModalInput",
+    "promptModalMessage",
+    "promptModalOkBtn",
+    "promptModalTitle",
+    "q",
+    "resetChecksBtn",
+    "resetProfileBtn",
+    "saveNoteBtn",
+    "searchPlatformIcon",
+    "searchPlatformIndicator",
+    "searchPlatformName",
+    "searchPreview",
+    "searchSettingsCancelBtn",
+    "searchSettingsModal",
+    "searchSettingsModalTitle",
+    "searchSettingsOpenBtn",
+    "selectAllNotesBtn",
+    "selectedWorksContainer",
+    "selectedWorksDropdown",
+    "showAllYears",
+    "showLoginBtn",
+    "showSignupBtn",
+    "signupEmail",
+    "signupError",
+    "signupGoogleBtn",
+    "signupModal",
+    "signupModalTitle",
+    "signupName",
+    "signupPassword",
+    "signupPasswordConfirm",
+    "signupSubmitBtn",
+    "sortSel",
+    "sourceNote",
+    "sourceTitle",
+    "sourceUrl",
+    "syncStatus",
+    "tabAuthors",
+    "tabDesk",
+    "tabGetStarted",
+    "tabGlossary",
+    "tabLibrary",
+    "tabPlan",
+    "themeInput",
+    "timerAlarmSelect",
+    "timerBtn",
+    "timerCustomMins",
+    "timerCustomSecs",
+    "timerDisplay",
+    "timerModal",
+    "timerModalTitle",
+    "timerResetBtn",
+    "timerSetCustomBtn",
+    "timerStartBtn",
+    "timerTestSoundBtn",
+    "timerVolumeLabel",
+    "timerVolumeSlider",
+    "today",
+    "toggleArchivedBtn",
+    "toggleArchivedBtnText",
+    "toggleNoteSelectBtn",
+    "toggleNoteSelectBtnText",
+    "yearDisplay",
+    "yearNext",
+    "yearPrev"
+  ],
+  "controlAttributes": [
+    "data-action=gotoLibraryForAuthorWork",
+    "data-action=gotoLibraryGreatIdea",
+    "data-action=gotoPlanFirst",
+    "data-action=gotoPlanOcc",
+    "data-action=linkedNotesToggle",
+    "data-action=newNoteAuthor",
+    "data-action=newNoteFromWork",
+    "data-action=newNoteLib",
+    "data-action=openAudiobooks",
+    "data-action=openAudiobooksAuthor",
+    "data-action=openAudiobooksLib",
+    "data-action=openBiography",
+    "data-action=openBiographyAuthor",
+    "data-action=openBiographyLib",
+    "data-action=openBuyBook",
+    "data-action=openBuyBookAuthor",
+    "data-action=openBuyBookLib",
+    "data-action=openContext",
+    "data-action=openContextAuthor",
+    "data-action=openContextLib",
+    "data-action=openDeskAuthor",
+    "data-action=openDeskLib",
+    "data-action=openDeskWork",
+    "data-action=openFreeBook",
+    "data-action=openFreeBookLib",
+    "data-action=openGoodreads",
+    "data-action=openGoodreadsAuthor",
+    "data-action=openGoodreadsLib",
+    "data-action=openGoogleAuthor",
+    "data-action=openLearningGoal",
+    "data-action=openLibraryForWork",
+    "data-action=openLinkedNote",
+    "data-action=openNotesAuthor",
+    "data-action=openNotesForBook",
+    "data-action=openNotesLib",
+    "data-action=openOutlines",
+    "data-action=openOutlinesLib",
+    "data-action=openWikiSearch",
+    "data-action=openWikiSearchAuthor",
+    "data-action=openWikiSearchLib",
+    "data-action=openWikipedia",
+    "data-action=openWikipediaAuthor",
+    "data-action=openWikipediaLib",
+    "data-action=openYouTubeAuthor",
+    "data-action=selectTaskOption",
+    "data-action=setCardDate",
+    "data-action=setCardStatus",
+    "data-action=setCardTask",
+    "data-action=toggleColPicker",
+    "data-action=toggleComplete",
+    "data-action=toggleLearningGoals",
+    "data-action=toggleReadingStage",
+    "data-action=toggleTableCol",
+    "data-action=toggleTaskDropdown",
+    "data-action=toggleYouTubeGoals",
+    "data-btn-group=always",
+    "data-btn-group=audiobooks",
+    "data-btn-group=biography",
+    "data-btn-group=buybook",
+    "data-btn-group=context",
+    "data-btn-group=freebook",
+    "data-btn-group=goodreads",
+    "data-btn-group=google",
+    "data-btn-group=outlines",
+    "data-btn-group=wikipedia",
+    "data-btn-group=wikisearch",
+    "data-btn-group=youtube",
+    "data-col=action",
+    "data-col=author",
+    "data-col=check",
+    "data-col=date-end",
+    "data-col=date-start",
+    "data-col=notes",
+    "data-col=number",
+    "data-col=status",
+    "data-col=type",
+    "data-col=work",
+    "data-col=year",
+    "data-datefield=finished",
+    "data-datefield=started",
+    "data-desk-action=addSource",
+    "data-desk-action=addTheme",
+    "data-desk-action=copyContribution",
+    "data-desk-action=deleteDraft",
+    "data-desk-action=markdownTool",
+    "data-desk-action=newDraft",
+    "data-desk-action=removeSource",
+    "data-desk-action=removeTheme",
+    "data-desk-action=requestPublish",
+    "data-desk-action=resizeRail",
+    "data-desk-action=saveDraft",
+    "data-desk-field=body",
+    "data-desk-field=centralQuestion",
+    "data-desk-field=linkedAuthor",
+    "data-desk-field=linkedBook",
+    "data-desk-field=title",
+    "data-desk-field=visibility",
+    "data-donation-amount=10",
+    "data-donation-amount=100",
+    "data-donation-amount=15",
+    "data-donation-amount=20",
+    "data-donation-amount=25",
+    "data-donation-amount=5",
+    "data-donation-amount=50",
+    "data-gs-nav=glossary",
+    "data-gs-nav=library",
+    "data-gs-nav=plan",
+    "data-paction=next",
+    "data-paction=prev",
+    "data-platform=google",
+    "data-platform=youtube",
+    "data-timerpreset=1500",
+    "data-timerpreset=300",
+    "data-timerpreset=60",
+    "data-timerpreset=600",
+    "data-year=all"
+  ],
+  "selectOptions": [
+    "<option value=\"\">-- Select a work --</option>",
+    "<option value=\"\">All Letters</option>",
+    "<option value=\"${escapeHtml(idea)}\">${escapeHtml(idea)}</option>",
+    "<option value=\"${escapeHtml(letter)}\"${letter === glossaryState.activeLetter ? \" selected\" : \"\"}>${escapeHtml(letter)}</option>",
+    "<option value=\"${escapeHtml(opt.value)}\"${opt.value === current ? \" selected\" : \"\"}>${escapeHtml(opt.label)}</option>",
+    "<option value=\"${escapeHtml(t)}\">${escapeHtml(t)}</option>",
+    "<option value=\"10\"${pageSize === 10 ? \" selected\" : \"\"}>10 per page</option>",
+    "<option value=\"50\"${pageSize === 50 ? \" selected\" : \"\"}>50 per page</option>",
+    "<option value=\"all\">All Ideas</option>",
+    "<option value=\"all\">All</option>",
+    "<option value=\"beep\">Beep</option>",
+    "<option value=\"bell\">Bell</option>",
+    "<option value=\"chime\">Chime</option>",
+    "<option value=\"ding\">Ding</option>",
+    "<option value=\"members\"${draft.visibility === \"members\" ? \" selected\" : \"\"}>Logged-in users after approval</option>",
+    "<option value=\"private\"${draft.visibility !== \"members\" ? \" selected\" : \"\"}>Private</option>",
+    "<option value=\"sort_check\">— All —</option>",
+    "<option value=\"tracker_complete\">Book → Complete</option>",
+    "<option value=\"tracker_in_progress\">Book → In-Progress</option>",
+    "<option value=\"tracker_not_started\">Book → Not Started</option>",
+    "<option value=\"tracker_skipped\">Book → Skipped</option>"
+  ],
+  "publicCopy": [
+    "\"Not to know the great works of the past is to be a cultural orphan, adrift in time.\"",
+    "\"The Syntopicon is the greatest index ever compiled.\"",
+    "\"The tradition of the West is embodied in the Great Conversation that began in the dawn of history and that continues to the present day.\" — Mortimer J. Adler",
+    "\"To be a student of great books is to take your place in one of the longest and most important conversations in the history of the human race.\" — Mortimer Adler",
+    "\"What is the purpose of education? To develop the intellect and free it for lifelong self-education.\"",
+    "', table: '",
+    "(1940, revised 1972), arguably the most important guide to serious reading ever published, and founded the Paideia Group, which advocated for a classical liberal arts education for all students regardless of background.",
+    "(1952) to make this conversation accessible to any reader. They identified",
+    "(Encyclopædia Britannica, 1952). His most audacious project was the Syntopicon — an index of 3,000 topics organized under 102 chapters (103 ideas by modern count) — which took ten years to compile and required reading every page of every book.",
+    "(bot protection on sign-in and sign-up)",
+    "(catalog + sources),",
+    "(reading guidance)",
+    "(reading plan),",
+    "(secure donation checkout, receipts, and invoice details)",
+    "(when signed in)",
+    ", \"of the same place\") is the two-volume index at the heart of",
+    ", a cloud database managed by Google. Each record is associated with your unique user ID and is not shared with other users.",
+    "-- Select a work --",
+    ". By using it, you acknowledge the following:",
+    ". Great ideas arrive wrapped in great narrative. Tolstoy's",
+    ". It organizes all the ideas in the entire set by 103 Great Ideas — from Angel to World — and for each idea lists the specific passages in the Great Books where that idea appears and is debated.",
+    "./data/bookclub.json",
+    "./data/greatbooks.csv",
+    "./data/library.json",
+    "0 selected",
+    "1 min",
+    "1. About This Application",
+    "10 Year (theworldclassics.org)",
+    "10 Year (thinkwest.com)",
+    "10 min",
+    "10 per page",
+    "10 year (greatconversation.com)",
+    "103 Great Ideas",
+    "25 min",
+    "4. What We Do Not Collect",
+    "5 min",
+    "5. Third-Party Services",
+    "50 per page",
+    "7. No Warranty",
+    "8. Changes to These Terms",
+    "A",
+    "A Decade to Stretch the Mind",
+    "A Twenty-Five-Century Dialogue You Are Invited to Join",
+    "Account email",
+    "Add source",
+    "Add theme",
+    "Adler also wrote",
+    "Adler's",
+    "Adler's Philosophical Dictionary",
+    "Alarm:",
+    "Alert",
+    "All",
+    "All Ideas",
+    "All Letters",
+    "All Years",
+    "All years",
+    "Apology",
+    "Archive",
+    "Archive Selected",
+    "At a Glance",
+    "Audiobooks",
+    "Author",
+    "Author lifespan:",
+    "Author:",
+    "B",
+    "BOOK INFORMATION",
+    "BOOKCLUB",
+    "Back to Sign In",
+    "Beep",
+    "Begin with Homer's",
+    "Bell",
+    "Biography",
+    "Biography — Page 3",
+    "Black Box Thinking",
+    "Bloom's Taxonomy Level",
+    "Body",
+    "Book I for a different temperament. You will have read two of the greatest minds in 60 pages.",
+    "Book tag",
+    "Book → Complete",
+    "Book → In-Progress",
+    "Book → Not Started",
+    "Book → Skipped",
+    "Bookclub",
+    "Books",
+    "Britannica's Great Books",
+    "Browse Library",
+    "Browse all authors here. Click a card to reveal research, notes and search actions.",
+    "Browse terms from the Great Conversation. Click any term to explore its references, Great Ideas, dictionary definition, Wikipedia summary, and related books.",
+    "Browse the Library →",
+    "Buy Book",
+    "Buy Books",
+    "C",
+    "CSV",
+    "Cancel",
+    "Central question",
+    "Check out the",
+    "Chime",
+    "Choose a Bloom-style learning goal",
+    "Choose a format to export your reading progress and notes. The file will include every book club entry with status, current action, start/finish dates, and any linked notes.",
+    "Close",
+    "Companion Tools",
+    "Confirm",
+    "Confirm Password",
+    "Connect",
+    "Context",
+    "Continue to Stripe",
+    "Continue with Google",
+    "Conversation Desk",
+    "Copy Markdown",
+    "Create Account",
+    "Create one",
+    "Crito",
+    "Current Action",
+    "Custom Search Addition",
+    "Custom:",
+    "D",
+    "Data files:",
+    "Date Finished",
+    "Date Started",
+    "Delete",
+    "Delete Selected",
+    "Description:",
+    "Deselect All",
+    "Desk",
+    "Ding",
+    "Do not store sensitive personal information",
+    "Downloads:",
+    "Each year gathers works around a governing idea, while the readings inside that year move broadly in chronological order so you can feel the historical development of the conversation. Across the full decade, the plan ranges through law, politics, theology, epic, tragedy, science, psychology, rhetoric, and poetry so that no one discipline becomes the whole of your education.",
+    "Editions:",
+    "Email",
+    "End Date",
+    "Every great thinker from Plato to Freud was engaged with some subset of these ideas. Adler identified them as the permanent themes of the Western tradition. Click any idea below to find it in the Glossary.",
+    "Explore the Glossary →",
+    "Export",
+    "Export JSON",
+    "Filter (book tag)",
+    "Filter by Bookclub",
+    "Firestore",
+    "First published:",
+    "For most books in the plan, aim for Level III on your first pass and Level IV — through the Glossary and the plan — over time. Do not worry about understanding everything at once. The tradition rewards re-reading above all else.",
+    "Free Online",
+    "Frequently Asked Questions — Page 7",
+    "From Plato's dialogues and Aristotle's treatises, through Dante, Shakespeare, Locke, Kant, and Darwin, to Tolstoy and Freud — each great mind enters the conversation already in progress, responds to predecessors, and sets the stage for successors. No single author holds all the answers. That is the point.",
+    "Front Page",
+    "G",
+    "Glossary",
+    "Glossary data not loaded.",
+    "Go to plan",
+    "Goodreads",
+    "Google",
+    "Google Firebase",
+    "Google Firebase Authentication",
+    "Google Firebase Firestore",
+    "Google reCAPTCHA v3",
+    "Google sign-in",
+    "Great Authors",
+    "Great Books of the Western World",
+    "Great Idea",
+    "Great Ideas",
+    "Has supplemental",
+    "How to Read a Book",
+    "How to Read a Great Book: The Four Levels",
+    "How to Use This Website",
+    "I have read and agree to the Terms of Use and Privacy Notice above, including the notice about cloud-stored notes.",
+    "Iliad",
+    "Import JSON",
+    "Include Author",
+    "Include Selected Work",
+    "Include Title",
+    "Input Required",
+    "Inside This Edition",
+    "JSON",
+    "Jump into the 10-year reading plan or explore the library and glossary.",
+    "Key works:",
+    "Last updated: May 2025",
+    "Letter",
+    "Letters",
+    "Library",
+    "Linked Author",
+    "Linked Work",
+    "Linked themes",
+    "Loading Wikipedia summary…",
+    "Loading dictionary definitions…",
+    "Loading glossary terms…",
+    "Loading…",
+    "Logged-in users after approval",
+    "Mapped Great Ideas",
+    "Mapping Rule",
+    "Markdown body",
+    "Mortimer Adler and Robert Maynard Hutchins assembled the fifty-four-volume",
+    "Mortimer Jerome Adler (1902–2001) was an American philosopher, educator, and popularizer of the Great Books. A self-described \"public philosopher,\" he spent his career arguing that the Western tradition's greatest works belong to everyone — not just scholars.",
+    "My Articles",
+    "Name",
+    "Name for receipts and invoices",
+    "New article",
+    "New note",
+    "Next ▶",
+    "Nicomachean Ethics",
+    "No Action",
+    "No Wikipedia summary found for this term.",
+    "No approved published contributions are available right now.",
+    "No contribution body yet.",
+    "No definition text found.",
+    "No dictionary definition found for this term.",
+    "No glossary terms match the current filters.",
+    "No matches",
+    "No matching Great Ideas found in the local library tags. This usually means the term references need normalization or the books need Great Ideas tags.",
+    "No notes",
+    "No notes active",
+    "No related books found yet. Add matching Great Ideas tags to library data or normalize the cross-references.",
+    "No source cards linked.",
+    "No themes linked.",
+    "Not connected",
+    "Note title",
+    "Note type",
+    "Note type filter",
+    "Notes",
+    "Notes Drawer",
+    "Notes are stored as plain text associated with your account. The site administrator may access Firestore data via the Firebase console for debugging or maintenance purposes.",
+    "Nothing matched your author search.",
+    "Nothing matched your library filters.",
+    "Number",
+    "OK",
+    "Oedipus Rex",
+    "Open Bookclub Plan →",
+    "Open Search",
+    "Open Wikipedia",
+    "Open notes",
+    "Outlines",
+    "Pages (median):",
+    "Password",
+    "Payments are completed securely on Stripe. Signed-in users are sent with their profile name, email, and Firebase token for receipt and invoice details.",
+    "Pick a Great Idea that matters to you — Justice, Freedom, God, Democracy — and use the Glossary to find all the books where it appears. Read those passages. This is the Syntopicon method at its purest.",
+    "Plan occurrences (click a pill to jump):",
+    "Preview appears as you write.",
+    "Privacy",
+    "Private",
+    "Private article workspace",
+    "Profile",
+    "Protected by reCAPTCHA.",
+    "Public listing stays behind approval. Local and synced drafts remain your main working surface until approval exists.",
+    "Publication",
+    "Published Reader Index",
+    "Published reader contribution",
+    "Publishing",
+    "Read on Project Gutenberg →",
+    "Readers Ask. We Answer.",
+    "Reading Pane",
+    "Reading Paths — Page 6",
+    "Ready to Begin?",
+    "Reference — Page 3",
+    "Remove",
+    "Reset",
+    "Reset filters",
+    "Save",
+    "Save Profile",
+    "Search",
+    "Search (author)",
+    "Search (title/author)",
+    "Search (title/author/ideas/tags)",
+    "Search (title/body)",
+    "Search Components",
+    "Search Platform",
+    "Search Preview",
+    "Search Settings",
+    "Search notes + filter by book tag. Create notes from works or here.",
+    "Search terms, references, and ideas",
+    "See",
+    "See Also",
+    "Select",
+    "Select All",
+    "Select a learning level to optimize search results (click again to deselect)",
+    "Selections / reference",
+    "Send a small thanks to support The Classics.",
+    "Set",
+    "Show Archived",
+    "Sign In",
+    "Sign Out",
+    "Sign in to load synced private articles and the published reader index.",
+    "Sign in to see donations",
+    "Sign in to sync",
+    "Source cards",
+    "Source: Project Gutenberg",
+    "Source: Wikipedia",
+    "Start",
+    "Start Date",
+    "Start at Year 1 of the Bookclub plan and follow it in order. The plan is designed to build: later works presuppose earlier ones. Adler's",
+    "Start the Reading Plan →",
+    "Start with Plato's",
+    "Start your first article to shape reading notes into your own contribution to the Great Conversation.",
+    "Status",
+    "Storage:",
+    "Stripe",
+    "Subjects:",
+    "Technique — Page 6",
+    "Term",
+    "Terms",
+    "Test Sound",
+    "Thanks Donation",
+    "The 10-Year Great Conversation",
+    "The 103 Great Ideas: The Vocabulary of the Great Conversation",
+    "The App is provided",
+    "The Classics",
+    "The Classics — Library + Ten-Year Plan",
+    "The Committed Beginner",
+    "The Conversation Has Been Going for 2,500 Years.",
+    "The Core Vocabulary — Page 5",
+    "The First-Timer",
+    "The Great Conversation",
+    "The Idea Hunter",
+    "The Idea of Freedom",
+    "The Paideia Proposal",
+    "The Plan — Page 2",
+    "The Story Reader",
+    "The Syntopicon (from Greek:",
+    "The Western intellectual tradition is not a museum. It is a living conversation — conducted across centuries, languages, and civilizations — about the questions that matter most: What is justice? What makes a good life? What do we owe one another? How should we be governed? What is the soul?",
+    "The bookclub tracker on this site lets you mark your progress through each stage: pre-reading research, first listening, first and second reads, analysis, discussion, reflection, and integration. Each card tracks one work's complete lifecycle in your reading life.",
+    "The cloud sync feature is",
+    "The ten-year reading plan is not designed to be \"got through\" as quickly as possible. It is a guide for lifelong mental growth: a disciplined way of reading works that are often over most people's heads, and therefore worth growing into. The aim is not merely to finish the list, but to read well enough that the books change you.",
+    "These terms may be updated from time to time. Significant changes will be noted in the app. Continued use of the App after changes constitutes your acceptance of the revised terms.",
+    "This App relies on the following third-party services, each with their own privacy policies:",
+    "This page maps the glossary term through its cross-references, then finds books whose Great Ideas tags match those references.",
+    "This profile is sent with donation checkout so Stripe can attach your name and email to the customer and invoice.",
+    "This text will be appended to the end of the search query",
+    "This website is your reading companion for the Great Books Bookclub — a ten-year reading plan designed to take you through the essential works at a sustainable pace. You can track your progress, annotate your reactions, and follow the threads of any great idea across centuries of debate.",
+    "This website recreates the Syntopicon as a digital glossary. Click",
+    "Time period:",
+    "Timer",
+    "Title",
+    "Together with Robert Maynard Hutchins, president of the University of Chicago, Adler developed the Great Books curriculum and co-edited the fifty-four-volume",
+    "Try a different search",
+    "Try different filters",
+    "Tutorial — Page 4",
+    "Type",
+    "Use “New note” or click “New note” on a work.",
+    "Videos",
+    "View Bookclub Plan",
+    "View Library",
+    "View on Open Library →",
+    "View on Wikipedia →",
+    "View: Full",
+    "Visibility",
+    "Volume:",
+    "Want to trace what Plato, Aristotle, Aquinas, Hobbes, Locke, and Kant each said about Justice? The Syntopicon shows you exactly where to look. It turns 32,000 pages of text into a navigable intellectual network.",
+    "War and Peace",
+    "We collect the absolute minimum required to provide the service:",
+    "We do",
+    "What Is the Syntopicon?",
+    "Where Should I Begin? Four Paths Into the Conversation",
+    "While access is protected by Firebase security rules scoped to your user ID, this is an",
+    "Who Was Mortimer Adler?",
+    "WikiSearch",
+    "Wikipedia",
+    "Work",
+    "Works",
+    "Works (click to view in library):",
+    "Year",
+    "Year 1",
+    "Year by Year",
+    "Years",
+    "Years of Ideas",
+    "Your Chair Has Been Waiting.",
+    "Your notes and reading data are stored in a Firestore database hosted on Google Cloud infrastructure.",
+    "Your saved articles stay local first. Sign in only when you want Cloud Sync to follow your Reader Data across devices.",
+    "and",
+    "and Firestore. Passwords are hashed by Firebase and are never readable by us. Google sign-in may be connected to the same email address.",
+    "and does not carry the security guarantees of a commercial service.",
+    "awaits you in Year 9.",
+    "curriculum. It is provided for personal, non-commercial use only.",
+    "distinguishes four levels of reading that apply perfectly to the Great Books. You need not reach Level Four every time — but knowing the levels tells you how deep you are going and what the work demands.",
+    "experimental",
+    "experimental personal project",
+    "in the top navigation to explore the ~2,000 Syntopicon terms and the 103 Great Ideas, each linked to related books in the library.",
+    "in your browser (localStorage) by default. This data never leaves your device unless you choose to enable cloud sync.",
+    "in your notes — this includes passwords, financial data, medical information, government IDs, or any other data you would not want stored in a third-party cloud database.",
+    "is your first companion.",
+    "localStorage",
+    "locally",
+    "min",
+    "not",
+    "sec",
+    "sell, rent, or share your personal information with any third parties for marketing or commercial purposes. We do not use third-party analytics beyond Firebase's built-in authentication logging.",
+    "syntopikos",
+    "without warranties of any kind, express or implied. Your use of this App is entirely at your own risk. We are not liable for any data loss, service interruption, or unauthorized access.",
+    "— All —",
+    "— Browse all ~130 Great Books works. Filter by Great Idea, search by author or title, and click any card to open its detail drawer with book info, reading tasks, and notes.",
+    "— Browse the Syntopicon index of ~2,000 terms plus the 103 Great Ideas. Each term links to its references, a dictionary definition, Wikipedia summary, and related library works.",
+    "— Clifton Fadiman",
+    "— Encyclopedia Britannica",
+    "— Follow the 10-year reading plan. Each year's readings are organized by author and tier (Core, Extended, Optional). Use the task tracker on each card to move through the reading sequence.",
+    "— Mortimer J. Adler, The Paideia Proposal",
+    "— Open the Notes Drawer from the top nav to keep personal reading notes, quotes, and reflections linked to specific books. Sign in to sync across devices.",
+    "— See all authors alphabetically with counts of their works in the plan.",
+    "— epic, emotional, and foundational. Follow it with Sophocles'",
+    "— if you use the cloud sync feature, your notes, reading progress, task status, and dates are stored in",
+    "— short, gripping, and immediately relevant. Then try Aristotle's",
+    "— stored",
+    "— stored securely by",
+    "— the recurring themes that link every thinker to every other — and organized them in the Syntopicon, the first index of ideas in intellectual history.",
+    "▶ Frequently Asked Questions ................... p.7",
+    "▶ How to Use This Website ....................... p.4",
+    "▶ The 10-Year Reading Plan ...................... p.2",
+    "▶ The 103 Great Ideas .......................... p.5",
+    "▶ What Is the Great Conversation? .............. p.1",
+    "▶ Where Should I Begin? ........................ p.6",
+    "▶ Who Was Mortimer Adler? ....................... p.3",
+    "◀ Prev"
+  ],
+  "protectedModules": [
+    {
+      "path": "assets/js/classics/data-paths.js",
+      "sha256": "4f4a64f8a1dfaca6fa3365dd03b67c3f0b585df0f721609b8d4ae0bb1a4478e0"
+    },
+    {
+      "path": "assets/js/classics/foundation.js",
+      "sha256": "f2b136998bd396fe0d229f174c466550fcc4e142502b8241ee740c67aae737c9"
+    },
+    {
+      "path": "assets/js/classics/local-reader-simulation.js",
+      "sha256": "01a4e85006466eee9c12c199b7ca4deef4ae5af996ffc5792d26c775c8ac3c76"
+    },
+    {
+      "path": "assets/js/classics/reader-account.js",
+      "sha256": "6dde872fa08545046dd6208f4318ebc9137576401bed26bba20f0a21ed754520"
+    },
+    {
+      "path": "assets/js/classics/reading-cloud.js",
+      "sha256": "dc9b5054f81413e0b746ce347ae269b225181bde70743bddfbf3cea04e26f535"
+    },
+    {
+      "path": "assets/js/classics/runtime-environment.js",
+      "sha256": "36e75e3457a916b7a4f01c50638db01500e2fd6d48e488f4896fe8b2d0649f69"
+    }
+  ],
+  "firebaseBridge": {
+    "module": "index.html",
+    "source": "  <!-- Firebase SDK (v9 modular) -->\n  <script type=\"module\">\n    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';\n    import { createUserWithEmailAndPassword, EmailAuthProvider, fetchSignInMethodsForEmail, getAuth, GoogleAuthProvider, linkWithCredential, linkWithPopup, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';\n    import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, orderBy, query, serverTimestamp, setDoc, where } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';\n\n    \n    // Firebase configuration\n    const firebaseConfig = {\n      apiKey: \"AIzaSyAbGQLNf5DaihauUnZhVA03TAQUO_6PwZk\",\n      authDomain: \"ourstuff-firebase.firebaseapp.com\",\n      projectId: \"ourstuff-firebase\",\n      storageBucket: \"ourstuff-firebase.firebasestorage.app\",\n      messagingSenderId: \"450756988196\",\n      appId: \"1:450756988196:web:89ee37877b306bbb1277b1\",\n      measurementId: \"G-JR0JC5Z47E\"\n    };\n    \n    // Initialize Firebase\n    const app = initializeApp(firebaseConfig);\n    const auth = getAuth(app);\n    const db = getFirestore(app);\n    \n    // Store in window for access from main script\n    window.firebaseAuth = auth;\n    window.firebaseDB = db;\n    window.firebaseSignIn = signInWithEmailAndPassword;\n    window.firebaseSignUp = createUserWithEmailAndPassword;\n    window.firebaseSignOut = signOut;\n    window.firebaseSignInWithPopup = signInWithPopup;\n    window.firebaseGoogleProvider = GoogleAuthProvider;\n    window.firebaseEmailAuthProvider = EmailAuthProvider;\n    window.firebaseFetchSignInMethodsForEmail = fetchSignInMethodsForEmail;\n    window.firebaseLinkWithCredential = linkWithCredential;\n    window.firebaseLinkWithPopup = linkWithPopup;\n    window.firebaseUpdateProfile = updateProfile;\n    window.firebaseOnAuthStateChanged = onAuthStateChanged;\n    window.firestoreCollection = collection;\n    window.firestoreDoc = doc;\n    window.firestoreSetDoc = setDoc;\n    window.firestoreGetDoc = getDoc;\n    window.firestoreGetDocs = getDocs;\n    window.firestoreDeleteDoc = deleteDoc;\n    window.firestoreAddDoc = addDoc;\n    window.firestoreQuery = query;\n    window.firestoreWhere = where;\n    window.firestoreOrderBy = orderBy;\n    window.firestoreServerTimestamp = serverTimestamp;\n    \n    // Signal that Firebase is ready\n    window.firebaseReady = true;\n    if (window.onFirebaseReady) {\n      window.onFirebaseReady();\n    }\n  </script>"
+  },
+  "routeGuards": [
+    {
+      "label": "Library",
+      "module": "assets/js/classics/shell-wiring.js",
+      "source": "$(\"#tabLibrary\").addEventListener(\"click\", ()=> setView(\"library\"));"
+    },
+    {
+      "label": "Bookclub",
+      "module": "assets/js/classics/shell-wiring.js",
+      "source": "$(\"#tabPlan\").addEventListener(\"click\", ()=> setView(\"plan\"));"
+    },
+    {
+      "label": "Great Authors",
+      "module": "assets/js/classics/shell-wiring.js",
+      "source": "$(\"#tabAuthors\").addEventListener(\"click\", ()=> setView(\"authors\"));"
+    },
+    {
+      "label": "Conversation Desk",
+      "module": "assets/js/classics/shell-wiring.js",
+      "source": "$(\"#tabDesk\").addEventListener(\"click\", ()=> openConversationDesk());"
+    },
+    {
+      "label": "Glossary",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "btn.addEventListener(\"click\", () => setGlossaryView());"
+    },
+    {
+      "label": "Get Started",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "btn.addEventListener(\"click\", () => setGetStartedView());"
+    }
+  ],
+  "savingGuards": [
+    {
+      "label": "saveEditorNote",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "function saveEditorNote(){\n  const id = state.notesUI.editingId;\n  if (!id) return;\n\n  const title = $(\"#editTitle\").value.trim();\n  const book_tag = $(\"#editBookTag\").value;\n  const year = Number($(\"#editYear\").value) || null;\n  const author = $(\"#editAuthor\").value.trim();\n  const selection = $(\"#editSelection\").value.trim();\n  const body = $(\"#editBody\").value;\n  const selectedTypes = getCheckGroupValues(\"editNoteType\");\n  const note_type = selectedTypes.length > 0 ? selectedTypes : [DEFAULT_NOTE_TYPE];\n\n  const existingIdx = state.notes.findIndex(n => n.id === id);\n\n  if (existingIdx === -1){\n    const note = {\n      id,\n      title: title || `Note — ${book_tag}`,\n      book_tag,\n      year,\n      author,\n      selection,\n      body,\n      note_type,\n      created_at: nowIso(),\n      updated_at: nowIso()\n    };\n    state.notes.unshift(note);\n  } else {\n    const n = state.notes[existingIdx];\n    n.title = title || `Note — ${book_tag}`;\n    n.book_tag = book_tag;\n    n.year = year;\n    n.author = author;\n    n.selection = selection;\n    n.body = body;\n    n.note_type = note_type;\n    n.updated_at = nowIso();\n  }\n\n  saveNotes(state.notes);\n\n  if (state.notesUI.tag !== \"all\" && state.notesUI.tag !== book_tag){\n    state.notesUI.tag = book_tag;\n    $(\"#noteTagFilter\").value = book_tag;\n  }\n\n  renderNotesList();\n  hideEditor();\n  renderAll();\n}"
+    },
+    {
+      "label": "deleteEditorNote",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "function deleteEditorNote(){\n  const id = state.notesUI.editingId;\n  if (!id) return;\n  showConfirm(\"Delete this note?\").then(confirmed => {\n    if (!confirmed) return;\n\n    state.notes = state.notes.filter(n => n.id !== id);\n    saveNotes(state.notes);\n    state.deletedNoteIds.add(id);\n    saveDeletedNoteIds(state.deletedNoteIds);\n\n    renderNotesList();\n    hideEditor();\n    renderAll();\n  });\n}"
+    },
+    {
+      "label": "archiveEditorNote",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "function archiveEditorNote(){\n  const id = state.notesUI.editingId;\n  if (!id) return;\n\n  const existingIdx = state.notes.findIndex(n => n.id === id);\n  if (existingIdx === -1) return;\n\n  const note = state.notes[existingIdx];\n  note.archived = !note.archived;\n  note.updated_at = nowIso();\n\n  saveNotes(state.notes);\n  renderNotesList();\n  hideEditor();\n  renderAll();\n}"
+    },
+    {
+      "label": "exportNotes",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "function exportNotes(){\n  const payload = { exported_at: nowIso(), notes: state.notes };\n  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:\"application/json\" });\n  const url = URL.createObjectURL(blob);\n\n  const a = document.createElement(\"a\");\n  a.href = url;\n  a.download = `reading-notes-export-${new Date().toISOString().slice(0,10)}.json`;\n  document.body.appendChild(a);\n  a.click();\n  a.remove();\n\n  URL.revokeObjectURL(url);\n}"
+    },
+    {
+      "label": "importNotesFile",
+      "module": "assets/js/classics/writing-desks.js",
+      "source": "async function importNotesFile(e){\n  const file = e.target.files?.[0];\n  if (!file) return;\n\n  try{\n    const text = await file.text();\n    const parsed = JSON.parse(text);\n\n    let notesIn = [];\n    if (Array.isArray(parsed)) notesIn = parsed;\n    else if (parsed && Array.isArray(parsed.notes)) notesIn = parsed.notes;\n    else throw new Error(\"Import must be an array of notes, or { notes: [...] }\");\n\n    const existing = new Map(state.notes.map(n => [n.id, n]));\n    for (const n of notesIn){\n      if (!n?.id) continue;\n      existing.set(n.id, {\n        id: String(n.id),\n        title: String(n.title || \"\").trim() || `Note — ${String(n.book_tag || \"Unknown\")}`,\n        book_tag: String(n.book_tag || \"\").trim(),\n        year: (n.year === null || n.year === undefined || n.year === \"\") ? null : Number(n.year),\n        author: String(n.author || \"\").trim(),\n        selection: String(n.selection || \"\").trim(),\n        body: String(n.body || \"\"),\n        note_type: (() => {\n            if (Array.isArray(n.note_type)) {\n              const valid = n.note_type.filter(t => NOTE_TYPE_OPTIONS.some(o => o.value === t));\n              return valid.length ? valid : [DEFAULT_NOTE_TYPE];\n            }\n            return NOTE_TYPE_OPTIONS.some(o => o.value === n.note_type) ? [n.note_type] : [DEFAULT_NOTE_TYPE];\n          })(),\n        created_at: n.created_at ? String(n.created_at) : nowIso(),\n        updated_at: n.updated_at ? String(n.updated_at) : nowIso()\n      });\n    }\n\n    state.notes = Array.from(existing.values()).sort((a,b)=> (b.updated_at||\"\").localeCompare(a.updated_at||\"\"));\n    saveNotes(state.notes);\n\n    $(\"#importFile\").value = \"\";\n\n    renderAll();\n    showAlert(\"Notes imported.\");\n  } catch(err){\n    showAlert(`Import failed: ${err.message}`);\n  }\n}"
+    },
+    {
+      "label": "applyCardStatusChange",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function applyCardStatusChange(statusKey, statusValue){\n  if (!statusKey || !CARD_STATUS_OPTIONS.some(opt => opt.value === statusValue)) {\n    console.warn(\"Invalid card status update ignored.\", { statusKey, statusValue });\n    return;\n  }\n  state.cardStatuses[statusKey] = statusValue;\n  saveCardStatuses(state.cardStatuses);\n}"
+    },
+    {
+      "label": "applyCardTaskChange",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function applyCardTaskChange(statusKey, updates){\n  if (!statusKey) {\n    console.warn(\"Invalid card task update ignored.\", { statusKey, updates });\n    return;\n  }\n  const current = getCardTask(statusKey);\n  let nextTask = current.task;\n  if (updates && \"task\" in updates && isValidCardTask(updates.task)) {\n    nextTask = updates.task;\n  }\n  if (nextTask === DEFAULT_CARD_TASK) {\n    delete state.cardTasks[statusKey];\n  } else {\n    state.cardTasks[statusKey] = {\n      task: nextTask\n    };\n  }\n  saveCardTasks(state.cardTasks);\n}"
+    },
+    {
+      "label": "applyCardDateChange",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function applyCardDateChange(dateKey, dateField, dateValue){\n  if (!dateKey || ![\"started\", \"finished\"].includes(dateField)) {\n    console.warn(\"Invalid card date update ignored.\", { dateKey, dateField, dateValue });\n    return;\n  }\n  const normalized = normalizeCardDateValue(dateValue);\n  if (dateValue && !normalized) {\n    console.warn(\"Invalid card date value ignored.\", { dateKey, dateField, dateValue });\n    return;\n  }\n  const current = getCardDates(dateKey);\n  const next = { ...current };\n  if (!normalized) delete next[dateField];\n  else next[dateField] = normalized;\n  if (!next.started && !next.finished) delete state.cardDates[dateKey];\n  else state.cardDates[dateKey] = next;\n  saveCardDates(state.cardDates);\n}"
+    },
+    {
+      "label": "buildExportRows",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function buildExportRows(){\n  // Build one row per unique book (author + title), deduped from flatWorks\n  const seen = new Map();\n  for (const fw of state.flatWorks){\n    const author = fw.author || \"\";\n    const title = fw.work.title || \"\";\n    const key = getCardStatusKey(author, title);\n    if (!seen.has(key)){\n      const statusVal = getCardStatus(key);\n      const statusLabel = (CARD_STATUS_OPTIONS.find(o => o.value === statusVal) || {}).label || statusVal;\n      const taskVal = getCardTask(key).task;\n      const taskOpt = CARD_TASK_OPTIONS.find(o => o.value === taskVal);\n      const taskLabel = taskOpt ? taskOpt.label : \"\";\n      const dates = getCardDates(key);\n      const stageChecks = getReadingStageState(fw.key);\n      const bookNotes = state.notes.filter(n => !n.archived && n.book_tag === title);\n      const notesText = bookNotes.map(n => `[${n.title || \"\"}] ${n.body || \"\"}`.trim()).join(\"\\n\\n---\\n\\n\");\n      seen.set(key, {\n        author,\n        title,\n        year: fw.year,\n        tier: fw.tier,\n        status: statusLabel,\n        current_action: taskLabel,\n        date_started: dates.started || \"\",\n        date_finished: dates.finished || \"\",\n        before_reading_done: stageChecks.before,\n        during_reading_done: stageChecks.during,\n        after_reading_done: stageChecks.after,\n        notes_count: bookNotes.length,\n        notes: notesText\n      });\n    }\n  }\n  return Array.from(seen.values());\n}"
+    },
+    {
+      "label": "downloadFile",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function downloadFile(filename, content, mimeType){\n  const blob = new Blob([content], { type: mimeType });\n  const url = URL.createObjectURL(blob);\n  const a = document.createElement(\"a\");\n  a.href = url;\n  a.download = filename;\n  document.body.appendChild(a);\n  a.click();\n  document.body.removeChild(a);\n  URL.revokeObjectURL(url);\n}"
+    },
+    {
+      "label": "exportProgressCsv",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function exportProgressCsv(){\n  const rows = buildExportRows();\n  const headers = [\"Author\", \"Title\", \"Year\", \"Tier\", \"Status\", \"Current Action\", \"Date Started\", \"Date Finished\", \"Before Reading Done\", \"During Reading Done\", \"After Reading Done\", \"Notes Count\", \"Notes\"];\n  function csvCell(v){\n    const s = String(v == null ? \"\" : v);\n    if (s.includes('\"') || s.includes(\",\") || s.includes(\"\\n\") || s.includes(\"\\r\")){\n      return `\"${s.replace(/\"/g, '\"\"')}\"`;\n    }\n    return s;\n  }\n  const lines = [\n    headers.map(csvCell).join(\",\"),\n    ...rows.map(r => [r.author, r.title, r.year, r.tier, r.status, r.current_action, r.date_started, r.date_finished, r.before_reading_done, r.during_reading_done, r.after_reading_done, r.notes_count, r.notes].map(csvCell).join(\",\"))\n  ];\n  const dateStr = new Date().toISOString().slice(0, 10);\n  downloadFile(`classics-progress-${dateStr}.csv`, lines.join(\"\\r\\n\"), \"text/csv;charset=utf-8;\");\n}"
+    },
+    {
+      "label": "exportProgressJson",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "function exportProgressJson(){\n  const rows = buildExportRows();\n  const dateStr = new Date().toISOString().slice(0, 10);\n  const payload = {\n    exported_at: new Date().toISOString(),\n    plan_name: state.plan?.plan_name || \"Ten-Year Plan\",\n    entries: rows\n  };\n  downloadFile(`classics-progress-${dateStr}.json`, JSON.stringify(payload, null, 2), \"application/json\");\n}"
+    },
+    {
+      "label": "saveConversationDeskState",
+      "module": "assets/js/classics/conversation-desk.js",
+      "source": "function saveConversationDeskState({ render = false } = {}){\n  const draft = selectedConversationDraft();\n  if (draft) {\n    draft.aiBrainMemoryObject = buildConversationMemoryObject(draft);\n    draft.updatedAt = nowIso();\n  }\n  state.conversationDesk = saveConversationDesk(state.conversationDesk);\n  if (render) renderConversationDesk();\n}"
+    },
+    {
+      "label": "buildConversationMemoryObject",
+      "module": "assets/js/classics/conversation-desk.js",
+      "source": "function buildConversationMemoryObject(draft){\n  const userPosition = String(draft.body || \"\")\n    .replace(/\\s+/g, \" \")\n    .trim()\n    .slice(0, 900);\n  const relatedWorks = draft.linkedBook ? [draft.linkedBook] : [];\n  const relatedAuthors = draft.linkedAuthor ? [draft.linkedAuthor] : [];\n  return {\n    sourceApp: \"classics.ourstuff.space\",\n    memoryType: \"great_conversation_contribution\",\n    title: draft.title || \"\",\n    centralQuestion: draft.centralQuestion || \"\",\n    relatedAuthors,\n    relatedWorks,\n    relatedThemes: draft.linkedThemes || [],\n    userPosition,\n    draftStatus: draft.draftStatus || \"draft\",\n    visibility: draft.visibility || \"private\",\n    publicationStatus: draft.publicationStatus || \"unpublished\",\n    approvalStatus: draft.approvalStatus || \"draft\",\n    createdAt: draft.createdAt || \"\",\n    updatedAt: draft.updatedAt || nowIso()\n  };\n}"
+    },
+    {
+      "label": "Timer settings, persistence, alarms and controls",
+      "module": "assets/js/classics/reader-progress.js",
+      "source": "let applyTimerSettings = () => {};\nlet closeTimerModal = () => {};\n\n(() => {\n  let _timerInterval = null;\n  let _timerRemaining = 25 * 60; // seconds\n  let _timerRunning = false;\n  let _timerOriginal = 25 * 60;\n\n  const display = document.getElementById(\"timerDisplay\");\n  const startBtn = document.getElementById(\"timerStartBtn\");\n  const resetBtn = document.getElementById(\"timerResetBtn\");\n  const setCustomBtn = document.getElementById(\"timerSetCustomBtn\");\n  const alarmSelect = document.getElementById(\"timerAlarmSelect\");\n  const testSoundBtn = document.getElementById(\"timerTestSoundBtn\");\n  const volumeSlider = document.getElementById(\"timerVolumeSlider\");\n  const volumeLabel = document.getElementById(\"timerVolumeLabel\");\n  const timerBtn = document.getElementById(\"timerBtn\");\n\n  // ── Persist alarm/volume settings ─────────────────────────────\n  applyTimerSettings = function applyReaderTimerSettings(settings) {\n    if (!settings) return;\n    if (settings.alarm && alarmSelect) alarmSelect.value = settings.alarm;\n    if (typeof settings.volume === \"number\" && volumeSlider) {\n      volumeSlider.value = settings.volume;\n      if (volumeLabel) volumeLabel.textContent = `${settings.volume}%`;\n    }\n  };\n\n  function saveTimerSettings() {\n    if (!alarmSelect || !volumeSlider) return;\n    const settings = { alarm: alarmSelect.value, volume: parseInt(volumeSlider.value, 10) };\n    localStorage.setItem(LS_TIMER_SETTINGS, JSON.stringify(settings));\n    notifyAfterSave();\n  }\n\n  // Load saved settings on startup\n  const _savedTimerSettings = safeJsonParse(localStorage.getItem(LS_TIMER_SETTINGS) || \"null\", null);\n  applyTimerSettings(_savedTimerSettings);\n\n  // ── Persist timer state across refreshes ──────────────────────\n  function saveTimerState() {\n    localStorage.setItem(LS_TIMER_STATE, JSON.stringify({\n      remaining: _timerRemaining,\n      original: _timerOriginal,\n      running: _timerRunning,\n      savedAt: _timerRunning ? Date.now() : null\n    }));\n  }\n\n  // Restore timer state on load\n  const _savedTimerState = safeJsonParse(localStorage.getItem(LS_TIMER_STATE) || \"null\", null);\n  if (_savedTimerState && typeof _savedTimerState.remaining === \"number\" && _savedTimerState.remaining > 0) {\n    let remaining = _savedTimerState.remaining;\n    if (_savedTimerState.running && _savedTimerState.savedAt) {\n      const elapsed = Math.floor((Date.now() - _savedTimerState.savedAt) / 1000);\n      remaining = Math.max(0, remaining - elapsed);\n    }\n    _timerRemaining = remaining;\n    _timerOriginal = typeof _savedTimerState.original === \"number\" ? _savedTimerState.original : remaining;\n    if (_savedTimerState.running && remaining > 0) {\n      _timerRunning = true;\n      _timerInterval = setInterval(tick, 1000);\n    }\n    updateDisplay();\n  }\n\n  // ── Audio helpers ──────────────────────────────────────────────\n  function getAudioCtx(){\n    if (!window._timerAudioCtx){\n      window._timerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();\n    }\n    // Resume if suspended (autoplay policy)\n    if (window._timerAudioCtx.state === \"suspended\") window._timerAudioCtx.resume();\n    return window._timerAudioCtx;\n  }\n\n  function getVolume(){\n    return Math.max(0, Math.min(1, (parseInt(volumeSlider.value, 10) || 0) / 100));\n  }\n\n  function playBell(ctx, vol, when){\n    const osc = ctx.createOscillator();\n    const gain = ctx.createGain();\n    osc.connect(gain);\n    gain.connect(ctx.destination);\n    osc.type = \"sine\";\n    osc.frequency.setValueAtTime(880, when);\n    osc.frequency.exponentialRampToValueAtTime(440, when + 1.2);\n    gain.gain.setValueAtTime(vol, when);\n    gain.gain.exponentialRampToValueAtTime(0.001, when + 1.8);\n    osc.start(when);\n    osc.stop(when + 1.8);\n  }\n\n  function playChime(ctx, vol, when){\n    [[523, 0], [659, 0.25], [784, 0.5], [1047, 0.75]].forEach(([freq, offset]) => {\n      const osc = ctx.createOscillator();\n      const gain = ctx.createGain();\n      osc.connect(gain);\n      gain.connect(ctx.destination);\n      osc.type = \"triangle\";\n      osc.frequency.value = freq;\n      const t = when + offset;\n      gain.gain.setValueAtTime(vol, t);\n      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.8);\n      osc.start(t);\n      osc.stop(t + 0.8);\n    });\n  }\n\n  function playBeep(ctx, vol, when){\n    [0, 0.35, 0.7].forEach(offset => {\n      const osc = ctx.createOscillator();\n      const gain = ctx.createGain();\n      osc.connect(gain);\n      gain.connect(ctx.destination);\n      osc.type = \"square\";\n      osc.frequency.value = 1000;\n      const t = when + offset;\n      gain.gain.setValueAtTime(vol * 0.3, t);\n      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);\n      osc.start(t);\n      osc.stop(t + 0.2);\n    });\n  }\n\n  function playDing(ctx, vol, when){\n    const osc = ctx.createOscillator();\n    const gain = ctx.createGain();\n    osc.connect(gain);\n    gain.connect(ctx.destination);\n    osc.type = \"sine\";\n    osc.frequency.setValueAtTime(1318, when);\n    gain.gain.setValueAtTime(vol, when);\n    gain.gain.exponentialRampToValueAtTime(0.001, when + 1.4);\n    osc.start(when);\n    osc.stop(when + 1.4);\n  }\n\n  function playAlarm(){\n    try {\n      const ctx = getAudioCtx();\n      const vol = getVolume();\n      const when = ctx.currentTime + 0.05;\n      const type = alarmSelect.value;\n      if (type === \"bell\")  playBell(ctx, vol, when);\n      else if (type === \"chime\") playChime(ctx, vol, when);\n      else if (type === \"beep\")  playBeep(ctx, vol, when);\n      else if (type === \"ding\")  playDing(ctx, vol, when);\n    } catch(e) { /* audio not supported */ }\n  }\n  // ── End audio helpers ──────────────────────────────────────────\n\n  function pad(n){ return String(n).padStart(2, \"0\"); }\n\n  function updateDisplay(){\n    const m = Math.floor(_timerRemaining / 60);\n    const s = _timerRemaining % 60;\n    display.textContent = `${pad(m)}:${pad(s)}`;\n    if (_timerRunning){\n      display.classList.add(\"running\");\n      startBtn.textContent = \"Pause\";\n      timerBtn.classList.add(\"timerActive\");\n    } else {\n      display.classList.remove(\"running\");\n      startBtn.textContent = _timerRemaining < _timerOriginal && _timerRemaining > 0 ? \"Resume\" : \"Start\";\n      timerBtn.classList.remove(\"timerActive\");\n    }\n  }\n\n  function tick(){\n    if (_timerRemaining <= 0){\n      clearInterval(_timerInterval);\n      _timerInterval = null;\n      _timerRunning = false;\n      _timerRemaining = 0;\n      updateDisplay();\n      saveTimerState();\n      playAlarm();\n      // Notify when done (request permission once on first tick-end if not granted)\n      if (typeof Notification !== \"undefined\"){\n        if (Notification.permission === \"granted\"){\n          try { new Notification(\"Timer done! ⏰\"); } catch(e){}\n        } else if (Notification.permission !== \"denied\"){\n          Notification.requestPermission().then(p => {\n            if (p === \"granted\") try { new Notification(\"Timer done! ⏰\"); } catch(e){}\n          });\n        }\n      }\n      startBtn.textContent = \"Start\";\n      display.classList.remove(\"running\");\n      return;\n    }\n    _timerRemaining--;\n    updateDisplay();\n  }\n\n  function setTimer(seconds){\n    clearInterval(_timerInterval);\n    _timerInterval = null;\n    _timerRunning = false;\n    _timerRemaining = seconds;\n    _timerOriginal = seconds;\n    updateDisplay();\n    saveTimerState();\n  }\n\n  function openTimerModal(){\n    const modal = $(\"#timerModal\");\n    const backdrop = $(\"#modalBackdrop\");\n    modal.classList.add(\"open\");\n    backdrop.classList.add(\"show\");\n    modal.setAttribute(\"aria-hidden\", \"false\");\n  }\n\n  closeTimerModal = function closeReaderTimerModal(){\n    const modal = $(\"#timerModal\");\n    const backdrop = $(\"#modalBackdrop\");\n    modal.classList.remove(\"open\");\n    backdrop.classList.remove(\"show\");\n    modal.setAttribute(\"aria-hidden\", \"true\");\n  };\n\n  document.getElementById(\"timerBtn\").addEventListener(\"click\", openTimerModal);\n  document.getElementById(\"closeTimerModalBtn\").addEventListener(\"click\", closeTimerModal);\n\n  startBtn.addEventListener(\"click\", ()=> {\n    if (_timerRemaining <= 0) return;\n    if (_timerRunning){\n      clearInterval(_timerInterval);\n      _timerInterval = null;\n      _timerRunning = false;\n    } else {\n      _timerRunning = true;\n      _timerInterval = setInterval(tick, 1000);\n    }\n    updateDisplay();\n    saveTimerState();\n  });\n\n  resetBtn.addEventListener(\"click\", ()=> {\n    setTimer(_timerOriginal);\n  });\n\n  testSoundBtn.addEventListener(\"click\", ()=> {\n    playAlarm();\n  });\n\n  volumeSlider.addEventListener(\"input\", ()=> {\n    volumeLabel.textContent = `${volumeSlider.value}%`;\n  });\n\n  if (volumeSlider) volumeSlider.addEventListener(\"change\", saveTimerSettings);\n  if (alarmSelect) alarmSelect.addEventListener(\"change\", saveTimerSettings);\n\n  // Preset buttons\n  document.getElementById(\"timerModal\").addEventListener(\"click\", (e)=> {\n    const btn = e.target.closest(\"[data-timerpreset]\");\n    if (!btn) return;\n    setTimer(Number(btn.dataset.timerpreset));\n  });\n\n  // Custom set\n  setCustomBtn.addEventListener(\"click\", ()=> {\n    const mins = Math.max(0, Math.min(99, parseInt(document.getElementById(\"timerCustomMins\").value, 10) || 0));\n    const secs = Math.max(0, Math.min(59, parseInt(document.getElementById(\"timerCustomSecs\").value, 10) || 0));\n    const total = mins * 60 + secs;\n    if (total <= 0) return;\n    setTimer(total);\n  });\n\n  updateDisplay();\n})();\n\n\n/* Export reading progress as CSV/JSON and notes as JSON */\n/* =========================================================\n   EXPORT PROGRESS & NOTES\n   ========================================================= */"
+    }
+  ],
+  "linkTargets": [
+    "$2",
+    "${escapeHtml(`https://openlibrary.org${doc.key}`)}",
+    "${escapeHtml(hit.url)}",
+    "${escapeHtml(href)}",
+    "${escapeHtml(page.content_urls.desktop.page)}",
+    "${escapeHtml(readingResourceSearchUrl(searchQuery, stageShouldUseVideoSearch(stageText)))}",
+    "./data/manifest.json",
+    "/assets/favicon/apple-touch-icon.png",
+    "/assets/favicon/favicon.ico",
+    "/assets/favicon/icon-192.png",
+    "/assets/favicon/icon-512.png",
+    "assets/css/book-details.css",
+    "assets/css/buttons.css",
+    "assets/css/cards.css",
+    "assets/css/conversation-desk.css?v=20260620-reader-editor",
+    "assets/css/dark-mode.css",
+    "assets/css/drawers.css",
+    "assets/css/forms.css",
+    "assets/css/get-started.css",
+    "assets/css/glossary-overrides.css",
+    "assets/css/glossary.css",
+    "assets/css/layout.css",
+    "assets/css/masthead.css",
+    "assets/css/modals.css",
+    "assets/css/notes.css",
+    "assets/css/pills.css",
+    "assets/css/plan-cards.css",
+    "assets/css/plan.css",
+    "assets/css/reset.css",
+    "assets/css/task-drop.css",
+    "assets/css/theme.css",
+    "assets/css/utils.css",
+    "https://firebase.google.com/products/firestore",
+    "https://firebase.google.com/support/privacy",
+    "https://fonts.googleapis.com",
+    "https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;800;900&family=Inter:wght@400;600;800&display=swap",
+    "https://fonts.gstatic.com",
+    "https://greatconversation.com/ten-year-reading-list/",
+    "https://policies.google.com/privacy",
+    "https://policies.google.com/terms",
+    "https://stripe.com/privacy",
+    "https://thinkingwest.com/10-year-reading-plan/",
+    "https://thinkingwest.com/encyclopedia-britannicas-great-books-of-the-western-world/",
+    "https://www.gutenberg.org/ebooks/${book.id}",
+    "https://www.theworldsclassics.org/p/the-ten-year-reading-plan-10yp.html"
+  ],
+  "headRequests": [
+    {
+      "module": "index.html",
+      "source": "<link rel=\"icon\" href=\"/assets/favicon/favicon.ico\" type=\"image/x-icon\" >"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"icon\" href=\"/assets/favicon/icon-192.png\" sizes=\"192x192\" type=\"image/png\" >"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"icon\" href=\"/assets/favicon/icon-512.png\" sizes=\"512x512\" type=\"image/png\" >"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"apple-touch-icon\" href=\"/assets/favicon/apple-touch-icon.png\" >"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"manifest\" href=\"./data/manifest.json\" >"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>"
+    },
+    {
+      "module": "index.html",
+      "source": "<link href=\"https://fonts.googleapis.com/css2?family=Newsreader:wght@400;600;800;900&family=Inter:wght@400;600;800&display=swap\" rel=\"stylesheet\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/reset.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/theme.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/layout.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/masthead.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/buttons.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/forms.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/pills.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/cards.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/book-details.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/plan-cards.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/task-drop.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/plan.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/modals.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/drawers.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/notes.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/conversation-desk.css?v=20260620-reader-editor\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/glossary.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/glossary-overrides.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/get-started.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/utils.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "<link rel=\"stylesheet\" href=\"assets/css/dark-mode.css\">"
+    },
+    {
+      "module": "index.html",
+      "source": "  <!-- reCAPTCHA v3: skip localhost so the unsupported-site-key badge does not cover local UI. -->\n  <script>\n    if (![\"localhost\", \"127.0.0.1\", \"::1\"].includes(location.hostname)) {\n      const recaptchaScript = document.createElement(\"script\");\n      recaptchaScript.src = \"https://www.google.com/recaptcha/api.js?render=6LdVslAsAAAAAAwyU1wyjAxIG_K187E82ID2C7Re\";\n      document.head.appendChild(recaptchaScript);\n    }\n  </script>"
+    }
+  ],
+  "markupControlAttributes": [
+    {
+      "module": "assets/js/classics/book-briefing.js",
+      "attributes": [
+        "data-action=linkedNotesToggle",
+        "data-action=openLearningGoal",
+        "data-action=openLinkedNote",
+        "data-action=toggleLearningGoals"
+      ]
+    },
+    {
+      "module": "assets/js/classics/reader-progress.js",
+      "attributes": [
+        "data-action=selectTaskOption",
+        "data-action=setCardDate",
+        "data-action=setCardStatus",
+        "data-action=toggleReadingStage",
+        "data-action=toggleTaskDropdown"
+      ]
+    },
+    {
+      "module": "assets/js/classics/reading-plan.js",
+      "attributes": [
+        "data-action=gotoLibraryGreatIdea",
+        "data-action=newNoteFromWork",
+        "data-action=openAudiobooks",
+        "data-action=openBiography",
+        "data-action=openBuyBook",
+        "data-action=openContext",
+        "data-action=openDeskWork",
+        "data-action=openFreeBook",
+        "data-action=openGoodreads",
+        "data-action=openLibraryForWork",
+        "data-action=openNotesForBook",
+        "data-action=openOutlines",
+        "data-action=openWikiSearch",
+        "data-action=openWikipedia",
+        "data-action=setCardDate",
+        "data-action=toggleColPicker",
+        "data-action=toggleComplete",
+        "data-action=toggleTableCol"
+      ]
+    },
+    {
+      "module": "assets/js/classics/library-shelf.js",
+      "attributes": [
+        "data-action=gotoLibraryGreatIdea",
+        "data-action=gotoPlanFirst",
+        "data-action=gotoPlanOcc",
+        "data-action=newNoteLib",
+        "data-action=openAudiobooksLib",
+        "data-action=openBiographyLib",
+        "data-action=openBuyBookLib",
+        "data-action=openContextLib",
+        "data-action=openDeskLib",
+        "data-action=openFreeBookLib",
+        "data-action=openGoodreadsLib",
+        "data-action=openNotesLib",
+        "data-action=openOutlinesLib",
+        "data-action=openWikiSearchLib",
+        "data-action=openWikipediaLib"
+      ]
+    },
+    {
+      "module": "assets/js/classics/conversation-desk.js",
+      "attributes": [
+        "data-desk-action=addSource",
+        "data-desk-action=addTheme",
+        "data-desk-action=copyContribution",
+        "data-desk-action=deleteDraft",
+        "data-desk-action=markdownTool",
+        "data-desk-action=newDraft",
+        "data-desk-action=removeSource",
+        "data-desk-action=removeTheme",
+        "data-desk-action=requestPublish",
+        "data-desk-action=resizeRail",
+        "data-desk-action=saveDraft",
+        "data-desk-field=body",
+        "data-desk-field=centralQuestion",
+        "data-desk-field=linkedAuthor",
+        "data-desk-field=linkedBook",
+        "data-desk-field=title",
+        "data-desk-field=visibility"
+      ]
+    },
+    {
+      "module": "assets/js/classics/authors-atlas.js",
+      "attributes": [
+        "data-action=gotoLibraryForAuthorWork",
+        "data-action=newNoteAuthor",
+        "data-action=openAudiobooksAuthor",
+        "data-action=openBiographyAuthor",
+        "data-action=openBuyBookAuthor",
+        "data-action=openContextAuthor",
+        "data-action=openDeskAuthor",
+        "data-action=openGoodreadsAuthor",
+        "data-action=openGoogleAuthor",
+        "data-action=openNotesAuthor",
+        "data-action=openWikiSearchAuthor",
+        "data-action=openWikipediaAuthor",
+        "data-action=openYouTubeAuthor"
+      ]
+    }
+  ]
+}

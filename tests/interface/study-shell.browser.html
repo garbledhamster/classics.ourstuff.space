@@ -1,0 +1,115 @@
+<!doctype html><meta charset="utf-8"><title>Shell and Glossary presentation checks</title>
+<style>body{font:14px/1.5 system-ui;margin:16px}iframe{width:1200px;height:800px;border:1px solid #aaa}pre{white-space:pre-wrap}</style>
+<h1>Shell and Glossary presentation checks</h1><pre id="result">Running…</pre><iframe title="Real Classics app"></iframe>
+<script>
+if (!['localhost','127.0.0.1'].includes(location.hostname)) throw Error('Local-only fixture');
+const frame=document.querySelector('iframe');
+frame.onload=()=>{
+ const script=frame.contentDocument.createElement('script');script.type='module';
+ script.textContent=`
+ import {state} from '/assets/js/classics/foundation.js';
+ import {setView,closeDrawer} from '/assets/js/classics/reader-routes.js';
+ import {showSearchSettingsModal} from '/assets/js/classics/book-briefing.js';
+ const out=parent.document.querySelector('#result'),lines=[];
+ const assert=(ok,msg)=>{lines.push((ok?'PASS ':'FAIL ')+msg);if(!ok)failures++};
+ const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ const wait=ms=>new Promise(r=>setTimeout(r,ms));
+ const visible=el=>el&&el.getClientRects().length>0;
+ let saved,write,attempts=0,failures=0;
+ try{
+ for(let n=0;!state.flatWorks.length&&n<100;n++)await wait(50);
+ saved={view:state.view,notesUI:{...state.notesUI},notes:state.notes,filters:{...state.filters}};
+ write=Storage.prototype.setItem;Storage.prototype.setItem=function(){attempts++;throw Error('Unexpected storage write')};
+ assert(document.getElementById('darkModeBtn').nextElementSibling?.id==='openNotesBtn','original Notes is immediately after Night Mode');
+ assert(visible(document.querySelector('#tabHome svg'))&&document.querySelector('#tabHome').textContent.trim()==='Home','Home has visible icon and label');
+ for(const id of ['authBtn','manualSyncBtn','resetProfileBtn','tabGetStarted']) assert(!!document.getElementById(id)?.closest('details'),'original '+id+' is reachable inside compact disclosure');
+ for(const [view,ids] of [['plan',['showAllYears','greatIdeaSel','sortSel','planViewModeBtn','resetChecksBtn','exportProgressBtn','planColPickerBtn']],['library',['libGreatIdeaSel']],['authors',['authorsResetBtn']]]){
+ setView(view);await tick();
+ for(const id of ids){const control=document.getElementById(id),disclosure=control.closest('details');assert(!!disclosure,'original '+id+' belongs to compact disclosure');if(disclosure)disclosure.open=true}
+ assert(visible(document.getElementById(ids[0])),'disclosed '+view+' controls remain visible');
+ }
+ for(const [page,gridId,ownerSelector] of [['library','libraryGrid','.libCard'],['plan','planGrid','.workRow']]){
+ setView(page);await tick();const grid=document.getElementById(gridId),disclosure=document.querySelector('#'+(page==='plan'?'planView':'libraryView')+' .studyDisclosure'+(page==='library'?'.studyFilterDisclosure':':has(.planFilterControls)'));
+ disclosure.open=false;await tick();await tick();
+ grid.parentElement.querySelector('.detailIndexItem').click();await tick();
+ const owner=grid.querySelector(ownerSelector+'.detailOwner'),slot=grid.parentElement.querySelector('.detailSlot'),beforeTop=owner.getBoundingClientRect().top;
+ disclosure.open=true;await tick();await tick();
+ assert(Math.abs(owner.getBoundingClientRect().top-Math.max(16,Math.min(slot.getBoundingClientRect().top,innerHeight-180)))<=1&&owner.getBoundingClientRect().bottom<=innerHeight&&owner.getBoundingClientRect().top!==beforeTop,'expanding '+page+' disclosure repositions selected original body within viewport');
+ disclosure.open=false;await tick();await tick();
+ assert(Math.abs(owner.getBoundingClientRect().top-Math.max(16,Math.min(slot.getBoundingClientRect().top,innerHeight-180)))<=1&&owner.getBoundingClientRect().bottom<=innerHeight,'collapsing '+page+' disclosure follows selected original body bounds');
+ owner.querySelector('.detailClose').click();await tick();
+ }
+ parent.document.querySelector('iframe').style.width='390px';await tick();await tick();setView('library');await tick();
+ const routeGrid=document.getElementById('libraryGrid');routeGrid.parentElement.querySelector('.detailIndexItem').click();await tick();
+ const routeOwner=routeGrid.querySelector('.detailOwner'),occurrence=routeOwner.querySelector('.occList [data-workkey]'),occurrenceKey=occurrence.dataset.workkey;
+ occurrence.click();await tick();
+ const routeProxy=[...document.getElementById('planGrid').parentElement.querySelectorAll('.detailIndexItem')].find(node=>node.dataset.workkey===occurrenceKey),routeRect=routeProxy.getBoundingClientRect();
+ const routeVisible=routeProxy.classList.contains('flash')&&routeRect.top>=0&&routeRect.bottom<=innerHeight;
+ assert(routeVisible,'original occurrence route visibly highlights matching proxy'+(routeVisible?'':' '+JSON.stringify({top:routeRect.top,bottom:routeRect.bottom,height:innerHeight,indexTop:routeProxy.closest('.detailIndex').getBoundingClientRect().top,indexHeight:routeProxy.closest('.detailIndex').getBoundingClientRect().height,scroll:scrollY,indexScrollTop:routeProxy.closest('.detailIndex').scrollTop,indexScrollHeight:routeProxy.closest('.detailIndex').scrollHeight,indexClientHeight:routeProxy.closest('.detailIndex').clientHeight,lastRow:routeProxy===routeProxy.closest('.detailIndex').querySelector('.detailIndexGroup:last-child .detailIndexItem:last-child'),highlight:routeProxy.classList.contains('flash')})));
+ parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
+ document.getElementById('tabGlossary').click();
+ for(let n=0;!document.querySelector('#glossaryIndex [data-term-id]')&&n<100;n++)await wait(50);
+ const index=document.getElementById('glossaryIndex'),modal=document.getElementById('glossaryModal'),body=document.getElementById('glossaryModalBody');
+ const first=index.querySelector('[data-term-id]'),fullTerm=first.textContent.trim();
+ first.click();await tick();
+ assert(visible(document.getElementById('glossaryModalTitle'))&&document.getElementById('glossaryModalTitle').textContent===fullTerm,'original full selected term and header remain visible');
+ assert(getComputedStyle(modal).position==='fixed'&&modal.getBoundingClientRect().left>index.getBoundingClientRect().right,'desktop original body sits beside index');
+ assert(getComputedStyle(index).overflowY==='auto'&&index.getBoundingClientRect().bottom<=innerHeight&&getComputedStyle(body).overflowY==='auto'&&modal.getBoundingClientRect().bottom<=innerHeight,'index and original body have independent bounded overflow');
+ assert(modal.getAttribute('role')==='region'&&modal.getAttribute('aria-modal')!=='true','desktop original body has nonmodal semantics');
+ for(const id of ['glossaryPrevBtn','glossaryNextBtn','glossaryCloseBtn'])assert(visible(document.getElementById(id)),'original '+id+' remains visible');
+ for(const label of ['References','Idea Map','Dictionary','Wikipedia Summary','Related Library']){
+ assert(body.querySelector('.glossaryPagerLabel')?.textContent===label,'original '+label+' panel remains reachable');
+ if(['Dictionary','Wikipedia Summary'].includes(label))assert(body.textContent.includes('Local mode:'),'original '+label+' local-mode fallback retained');
+ document.getElementById('glossaryNextBtn').click();await tick();
+ }
+ document.getElementById('glossaryPrevBtn').click();await tick();
+ assert(body.querySelector('.glossaryPagerLabel')?.textContent==='Wikipedia Summary','original previous panel control works');
+ const before=document.getElementById('glossaryModalSub').textContent,search=document.getElementById('glossaryQ');search.focus();
+ search.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true,cancelable:true}));await tick();
+ assert(document.getElementById('glossaryModalSub').textContent===before,'search caret arrows do not switch original panels');
+ document.getElementById('glossaryNextBtn').focus();document.getElementById('glossaryNextBtn').dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowLeft',bubbles:true}));await tick();
+ assert(body.querySelector('.glossaryPagerLabel')?.textContent==='Dictionary','intentional panel arrow navigation remains');
+ document.getElementById('glossaryCloseBtn').click();await tick();
+ assert(!modal.classList.contains('open')&&document.activeElement===first,'original Close restores selected term focus');
+ parent.document.querySelector('iframe').style.width='390px';await tick();await tick();first.click();await tick();
+ assert(modal.getAttribute('role')==='dialog'&&modal.getAttribute('aria-modal')==='true'&&modal.getBoundingClientRect().width<=390,'phone exposes original body as bounded modal dialog');
+ assert(modal.contains(document.activeElement)&&document.body.style.overflow==='hidden','phone focus moves inside and background scroll locks');
+ assert(modal.scrollWidth===modal.clientWidth,'phone original body has no horizontal overflow');
+ const back=modal.querySelector('.studyGlossaryBack');assert(visible(back)&&back.textContent==='Back','phone supplies Back alongside original Close');
+ const focusable=[...modal.querySelectorAll('button,a[href],input,select,textarea,[tabindex]')].filter(el=>!el.disabled&&el.tabIndex>=0&&visible(el));
+ focusable[0].focus();focusable[0].dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));assert(document.activeElement===focusable.at(-1),'phone Shift-Tab wraps inside original modal');
+ document.activeElement.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));assert(document.activeElement===focusable[0],'phone Tab wraps inside original modal');
+ parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
+ assert(modal.getAttribute('role')==='region'&&modal.getAttribute('aria-modal')!=='true'&&modal.contains(document.activeElement)&&visible(document.activeElement)&&document.body.style.overflow!=='hidden','resizing open phone body to desktop releases modal state and preserves visible focus');
+ parent.document.querySelector('iframe').style.width='390px';await tick();await tick();
+ assert(modal.contains(document.activeElement)&&visible(document.activeElement)&&modal.getAttribute('aria-modal')==='true','resizing selected body back to phone restores modal focus');
+ document.getElementById('openNotesBtn').click();await tick();
+ const notesClose=document.getElementById('closeNotesBtn');notesClose.focus();await tick();
+ assert(document.activeElement===notesClose&&Number(getComputedStyle(document.getElementById('notesDrawer')).zIndex)>Number(getComputedStyle(modal).zIndex)&&modal.getAttribute('aria-modal')!=='true','original Notes overlay owns focus and stacking');
+ notesClose.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));await tick();
+ assert(!document.getElementById('notesDrawer').classList.contains('open')&&modal.classList.contains('open'),'nested Escape closes original Notes while keeping Glossary open');
+ notesClose.click();await tick();assert(modal.contains(document.activeElement)&&modal.getAttribute('aria-modal')==='true','closing Notes returns phone focus and modal semantics');
+ showSearchSettingsModal({title:'Original fixture',author:'Fixture',platform:'google'});await tick();
+ const settingsClose=document.getElementById('closeSearchSettingsModalBtn');settingsClose.focus();await tick();
+ assert(document.activeElement===settingsClose&&modal.getAttribute('aria-modal')!=='true','original Search Settings overlay owns focus');
+ settingsClose.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));await tick();
+ assert(modal.classList.contains('open'),'nested Escape does not close Glossary under original overlay');
+ settingsClose.click();await tick();assert(modal.contains(document.activeElement),'closing Search Settings returns phone focus');
+ back?.click();await tick();assert(!modal.classList.contains('open')&&document.activeElement===first&&document.body.style.overflow!=='hidden','phone Back invokes original Close and restores term focus and scroll');
+ first.click();await tick();setView('home');await tick();
+ assert(!modal.classList.contains('open')&&!visible(modal)&&document.body.style.overflow!=='hidden','leaving Glossary releases original modal and background scroll');
+ assert(visible(document.activeElement)&&document.activeElement!==document.body,'leaving Glossary restores visible navigation focus');
+ assert(attempts===0,'shell and Glossary presentation attempt zero storage writes');
+ }catch(error){lines.push('ERROR '+error.stack);failures++}
+ finally{
+ if(write)Storage.prototype.setItem=write;
+ document.getElementById('glossaryCloseBtn')?.click();closeDrawer();
+ if(saved){Object.assign(state,{notesUI:saved.notesUI,notes:saved.notes,filters:saved.filters});setView(saved.view)}
+ lines.push('CLEANUP original state and storage method restored');
+ out.textContent=lines.join('\\n')+'\\n'+(failures?'FAILED '+failures+' CHECKS':'ALL '+lines.filter(l=>l.startsWith('PASS')).length+' CHECKS PASSED');out.dataset.result=failures?'fail':'pass';
+ }
+ `;
+ frame.contentDocument.body.append(script);
+};
+frame.src='/';
+</script>

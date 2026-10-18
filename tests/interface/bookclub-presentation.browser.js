@@ -1,0 +1,160 @@
+// Real app regression: catches lost Bookclub layout, ancestry, occurrence identity and editor routes.
+import {state, NOTE_TYPE_OPTIONS, LS_CHECKS, LS_READING_STAGE_CHECKS, LS_CARD_STATUS, LS_CARD_TASKS, LS_CARD_DATES, LS_NOTES, LS_CONVERSATION_DESK} from '/assets/js/classics/foundation.js';
+import {setView, closeDrawer} from '/assets/js/classics/reader-routes.js';
+import {renderPlan} from '/assets/js/classics/reading-plan.js';
+import {exportProgressJson, exportProgressCsv} from '/assets/js/classics/reader-progress.js';
+import {hideSearchSettingsModal} from '/assets/js/classics/book-briefing.js';
+import {startEditNote} from '/assets/js/classics/writing-desks.js';
+if (!['localhost','127.0.0.1'].includes(location.hostname)) throw Error('Local-only fixture');
+const out=parent.document.querySelector('#result'),lines=[];
+const assert=(ok,msg)=>{if(!ok)throw Error(msg);lines.push('PASS '+msg)};
+const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const $=s=>document.querySelector(s);
+const rowFor=k=>[...document.querySelectorAll('#planGrid div.workRow')].find(r=>r.dataset.workkey===k);
+const change=(el,value)=>{el.value=value;el.dispatchEvent(new Event('change',{bubbles:true}))};
+let saved,storage,originalCreate,originalRevoke,originalClick;
+try {
+ for(let n=0;!state.flatWorks.length&&n<100;n++)await wait(50);
+ assert(state.flatWorks.length===287,'real plan loaded with 287 occurrences');
+ storage=Object.fromEntries(Object.keys(localStorage).map(k=>[k,localStorage.getItem(k)]));
+ saved={filters:{...state.filters},checks:state.checks,readingStageChecks:state.readingStageChecks,cardStatuses:state.cardStatuses,cardTasks:state.cardTasks,cardDates:state.cardDates,notes:state.notes,conversationDesk:state.conversationDesk,notesUI:{...state.notesUI},view:state.view,dark:document.documentElement.classList.contains('dark'),hiddenCols:new Set(state.ui.tableHiddenCols)};
+ Object.assign(state,{checks:{},readingStageChecks:{},cardStatuses:{},cardTasks:{},cardDates:{},notes:[],conversationDesk:{drafts:[],selectedId:null}});
+ Object.assign(state.filters,{year:'all',q:'',tier:'all',greatIdea:'all',sort:'sort_check',planViewMode:'default'});
+ setView('plan');await tick();
+ const repeated=state.flatWorks.find(w=>w.readingGuide&&state.flatWorks.some(b=>b.key!==w.key&&b.author===w.author&&b.work.title===w.work.title&&b.readingGuide));
+ const other=state.flatWorks.find(w=>w.key!==repeated.key&&w.author===repeated.author&&w.work.title===repeated.work.title&&w.readingGuide);
+ assert(!!other,'fixture uses two real occurrences of one work');
+ let row=rowFor(repeated.key),head=row.querySelector('.workMain'),detail=row.querySelector('.workDrawer');
+ const block=row.closest('.readingBlock'),originalHead=block.querySelector('.readingHead');
+ const originalContext=originalHead.textContent.replace(/\s+/g,' ').trim();
+ const originalId=row.id;
+ const index=$('#planGrid').parentElement.querySelector('.detailIndex');
+ assert(index&&index.querySelectorAll('.detailIndexItem').length===287,'Bookclub generated plain index preserves every occurrence');
+ const yearGroups=[...index.querySelectorAll('.detailIndexGroup')];
+ assert(JSON.stringify(yearGroups.map(g=>g.querySelector('.detailIndexHeading')?.textContent))===JSON.stringify(['Year 1','Year 2','Year 3','Year 4','Year 5','Year 6','Year 7','Year 8','Year 9','Year 10'])&&yearGroups.every(g=>g.querySelector('.detailIndexHeading').getClientRects().length>0),'Bookclub index retains visible read-only year headings in plan order');
+ assert(yearGroups.every((g,n)=>JSON.stringify([...g.querySelectorAll('.detailIndexItem')].map(p=>p.dataset.workkey))===JSON.stringify([...document.querySelectorAll('#planGrid > .yearCard')[n].querySelectorAll('div.workRow')].map(o=>o.dataset.workkey))),'each Bookclub year group keeps its original occurrences in original order');
+ const proxyFor=k=>[...index.querySelectorAll('.detailIndexItem')].find(p=>p.dataset.workkey===k);
+ assert(proxyFor(repeated.key).textContent===row.dataset.book+row.dataset.author&&!index.querySelector('.pill, .ideaTagRow, [data-action], input, select'),'Bookclub index shows exact title and author without metadata or ideas');
+ let writeAttempts=0;const originalSetItem=Storage.prototype.setItem;
+ Storage.prototype.setItem=function(){writeAttempts++;throw Error('Presentation attempted a save')};
+ try{proxyFor(repeated.key).click();await tick();row.querySelector('.detailClose').click();await tick();assert(document.activeElement===proxyFor(repeated.key),'Bookclub Back focuses visible matching occurrence proxy');proxyFor(repeated.key).click();await tick();assert(writeAttempts===0,'Bookclub selection and Back perform zero persistence writes')}finally{Storage.prototype.setItem=originalSetItem}
+
+ // Characterize the original save/export behavior before checking the new layout.
+ row.querySelector('[data-action="toggleReadingStage"]').click();
+ assert(state.readingStageChecks[repeated.key].before&&!state.readingStageChecks[other.key],'stage completion belongs only to selected occurrence');
+ assert(row.classList.contains('active'),'nested stage control keeps selected work open');
+ const status=row.querySelector('[data-action="setCardStatus"]');
+ const statusValue=status.options[0].value;
+ change(status,statusValue);
+ row.querySelector('[data-action="toggleTaskDropdown"]').click();
+ const task=row.querySelectorAll('[data-action="selectTaskOption"]')[1];const taskValue=task.dataset.task;task.click();
+ change(row.querySelector('[data-datefield="started"]'),'2026-10-01');
+ change(row.querySelector('[data-datefield="finished"]'),'2026-10-02');
+  row.querySelector('[data-action="toggleComplete"]').click();await tick();
+ assert(state.checks[repeated.key]===true&&!state.checks[other.key],'completion belongs only to selected occurrence');
+ row=rowFor(other.key);
+ assert(row.querySelector('[data-action="setCardStatus"]').value===statusValue&&row.querySelector('[data-action="selectTaskOption"][aria-selected="true"]').dataset.task===taskValue,'status and task remain shared by work');
+ assert(row.querySelector('[data-datefield="started"]').value==='2026-10-01'&&row.querySelector('[data-datefield="finished"]').value==='2026-10-02','dates remain shared by work');
+ for(const [key,value] of [[LS_CHECKS,state.checks],[LS_READING_STAGE_CHECKS,state.readingStageChecks],[LS_CARD_STATUS,state.cardStatuses],[LS_CARD_TASKS,state.cardTasks],[LS_CARD_DATES,state.cardDates]])assert(JSON.stringify(JSON.parse(localStorage.getItem(key)))===JSON.stringify(value),'original saved payload '+key);
+ const blobs=[];originalCreate=URL.createObjectURL;originalRevoke=URL.revokeObjectURL;originalClick=HTMLAnchorElement.prototype.click;
+ URL.createObjectURL=blob=>{blobs.push(blob);return 'blob:local-task4'};URL.revokeObjectURL=()=>{};HTMLAnchorElement.prototype.click=function(){if(!this.download)originalClick.call(this)};
+ exportProgressJson();exportProgressCsv();
+ const json=JSON.parse(await blobs[0].text()),csv=await blobs[1].text();
+ const summary={checks:state.checks,stages:state.readingStageChecks,status:state.cardStatuses,tasks:state.cardTasks,dates:state.cardDates,entries:json.entries,csv};
+ const bytes=new TextEncoder().encode(JSON.stringify(summary));
+ const digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ lines.push('BASELINE save/export SHA256 '+digest);
+ assert(digest==='b0b98c9d81f70ae8a81aac4c15249998c87e62c89abad42e218f6cc06b5c1f39','saved records and JSON/CSV output match pre-change baseline exactly');
+ assert(json.entries.length>0&&csv.startsWith('Author,Title,Year,Tier,Status,Current Action'),'original JSON and CSV exports contain progress');
+ row=rowFor(repeated.key);
+ const changedStatus=row.querySelector('[data-action="setCardStatus"]');const changedValue=changedStatus.options[1].value;change(changedStatus,changedValue);renderPlan();await tick();
+ assert(rowFor(other.key).querySelector('[data-action="setCardStatus"]').value===changedValue&&JSON.parse(localStorage.getItem(LS_CARD_STATUS))[changedStatus.dataset.statuskey]===changedValue,'nondefault status change is saved and shared by both occurrences');
+ row=rowFor(repeated.key);head=row.querySelector('.workMain');detail=row.querySelector('.workDrawer');head.click();await tick();
+ assert(getComputedStyle(row).position==='fixed'&&getComputedStyle(detail).position!=='fixed'&&head.getClientRects().length>0,'desktop Bookclub fixes the complete original owner');
+ assert(row.id===originalId&&detail.parentElement===row&&row.closest('.readingBlock').querySelector('.readingHead').textContent.replace(/\s+/g,' ').trim()===originalContext,'original owner id and reading-block ancestry retained');
+ assert(row.getBoundingClientRect().left>index.getBoundingClientRect().right,'full reading body leaves plain occurrence index visible');
+ assert(getComputedStyle(index).overflowY==='auto'&&getComputedStyle(row).overflowY==='auto'&&index.getBoundingClientRect().bottom<=innerHeight&&row.getBoundingClientRect().bottom<=innerHeight,'Bookclub index and full body scroll independently within viewport');
+ assert(detail.scrollWidth===detail.clientWidth,'desktop drawer has no horizontal overflow');
+ assert(detail.querySelector('.readingStageChecklist')&&detail.querySelector('.readingResourcePill')&&detail.querySelector('.cardMetaControls')&&detail.querySelector('.linkedNotesSection')&&detail.querySelector('.bookDetailsSection'),'original checklist resources metadata notes and book sections retained');
+ assert(row.closest('.readingBlock').querySelector('.readingHead').parentElement===row.closest('.readingBlock'),'original reading head remains a direct child of its block');
+ const learning=row.querySelector('[data-action="toggleLearningGoals"]');
+ learning.click();await tick();assert($('#searchSettingsModal').classList.contains('open'),'original research and Bloom settings open from grouped occurrence');
+ hideSearchSettingsModal();await tick();assert(row.classList.contains('active'),'research dialog does not toggle selected occurrence');
+ assert(row.querySelector('.detailToolbar').textContent.includes(originalContext),'toolbar retains original author order tier and marker context');
+ assert(row.querySelector('.detailToolbar').textContent.includes(row.closest('.yearCard').querySelector('.yearHeader').textContent.replace(/\s+/g,' ').trim())&&row.querySelector('.detailToolbar progress'),'selected body retains original year done/total and progress alongside reading marker context');
+ row.querySelector('.detailClose').click();await tick();
+ assert(!row.classList.contains('active')&&row.querySelector('.bookDetailsPanel > div').innerHTML==='','close follows original cleanup');
+ const detached=row,detachedHead=head,detachedDetail=detail;
+ renderPlan();await tick();row=rowFor(repeated.key);proxyFor(repeated.key).click();await tick();
+ assert(row!==detached&&row.classList.contains('detailOwner')&&!detached.classList.contains('detailOwner')&&!detachedHead.hasAttribute('aria-controls')&&!detachedDetail.hasAttribute('inert')&&row.closest('.readingBlock')!==block,'identical-data Bookclub render opens new owner inside its new original block and restores detached owner');
+ row.querySelector('.detailClose').click();await tick();
+ // Full/table/all-years/filter/sort retain original rows and table semantics.
+ const fullKeys=[...document.querySelectorAll('#planGrid div.workRow')].map(r=>r.dataset.workkey);
+ state.filters.planViewMode='table';renderPlan();await tick();
+ assert(document.querySelectorAll('#planGrid tr.workRow').length===287&&!$('#planGrid .detailOwner')&&!$('#planGrid .workDrawer'),'all-years table retains every occurrence and no drawers');
+ assert(getComputedStyle($('#planGrid').parentElement).display!=='grid','table uses the full available width');
+ assert([...document.querySelectorAll('#planGrid tr.workRow')].every(r=>!r.hasAttribute('role')&&!r.querySelector('.workMain')),'table owners have no presentation role or invented header');
+ $('#planGrid [data-action="toggleColPicker"]').click();
+ const column=$('#planGrid [data-action="toggleTableCol"][data-col-id="notes"]');column.click();await tick();
+ assert(state.ui.tableHiddenCols.has('notes')&&[...document.querySelectorAll('#planGrid [data-col="notes"]')].every(c=>getComputedStyle(c).display==='none'),'original column controls hide table cells');
+ $('#planGrid [data-action="toggleColPicker"]').click();$('#planGrid [data-action="toggleTableCol"][data-col-id="notes"]').click();await tick();
+ assert(!state.ui.tableHiddenCols.has('notes'),'original column controls restore table cells');
+ state.filters.year=String(repeated.year);renderPlan();await tick();
+ assert([...document.querySelectorAll('#planGrid tr.workRow')].every(r=>r.dataset.year===String(repeated.year)),'table year filter retains original occurrence year');
+ state.filters.planViewMode='default';state.filters.year='all';renderPlan();await tick();
+ assert(JSON.stringify([...document.querySelectorAll('#planGrid div.workRow')].map(r=>r.dataset.workkey))===JSON.stringify(fullKeys),'full/table round trip preserves ordering and grouping');
+ state.filters.q='no-matches-task4-zzzz';renderPlan();await tick();assert(!$('#planGrid .detailOwner')&&$('#planGrid').textContent.includes('No matches'),'empty filter releases detail');
+ state.filters.q=repeated.work.title;state.filters.sort='sort_action';renderPlan();await tick();assert(!!rowFor(repeated.key)&&!!rowFor(other.key),'work filter and action sort preserve both occurrences');
+ Object.assign(state.filters,{q:'',sort:'sort_check'});renderPlan();await tick();
+ // The baseline has delegated block actions but no emitted buttons. Exercise that retained path with a disposable trigger.
+ const blockKeys=[...rowFor(repeated.key).closest('.readingBlock').querySelectorAll('.workRow')].map(r=>r.dataset.workkey);
+ const checksBeforeBlock={...state.checks};
+ for(const [action,checked]of [['markBlockDone',true],['markBlockUndone',false]]){
+  const button=document.createElement('button');button.dataset.action=action;rowFor(repeated.key).closest('.readingBlock').append(button);button.click();await tick();
+  assert(blockKeys.every(k=>state.checks[k]===checked)&&!state.checks[other.key],'original '+action+' touches only original block occurrences');
+ }
+ state.checks=checksBeforeBlock;renderPlan();await tick();
+ parent.document.querySelector('iframe').style.width='390px';await tick();await tick();
+ row=rowFor(repeated.key);head=row.querySelector('.workMain');const phoneHeadText=head.textContent;head.click();await tick();
+ assert(getComputedStyle(row).position==='fixed'&&row.getBoundingClientRect().width<=390,'phone presents complete original work row');
+ assert(head.textContent===phoneHeadText&&row.querySelector('.workCheck input')&&row.querySelector('.ideaTagRow')&&row.querySelector('.workDrawer'),'phone retains original title selection idea links and completion control');
+ assert(row.querySelector('.detailToolbar').textContent.includes(originalContext),'phone shows original reading-block context');
+ assert(row.scrollWidth===row.clientWidth,'phone selected occurrence has no horizontal overflow');
+ assert(row.getAttribute('role')==='dialog'&&row.contains(document.activeElement),'phone focuses selected occurrence');
+ const blockOnPhone=row.closest('.readingBlock');const countBefore=blockOnPhone.querySelectorAll('.workRow').length;
+ row.querySelector('[data-action="toggleLearningGoals"]').click();await tick();
+ assert($('#searchSettingsModal').classList.contains('open')&&$('#selectedWorksDropdown').options.length===countBefore+1&&$('#bloomsButtonsContainer').children.length>0,'phone research retains original grouped works and Bloom controls');
+ hideSearchSettingsModal();await tick();
+ document.documentElement.classList.add('dark');await tick();assert(getComputedStyle(row).backgroundColor==='rgb(17, 17, 17)','Bookclub phone uses existing dark paper');document.documentElement.classList.remove('dark');
+ row.querySelector('[data-action="newNoteFromWork"]').click();await tick();
+ assert($('#notesDrawer').classList.contains('open')&&$('#editSelection').value===(repeated.work.selection||'')&&$('#editAuthor').value===repeated.author&&$('#editYear').value===String(repeated.year),'new note retains selected occurrence metadata');
+ assert($('#editNoteType').querySelectorAll('input').length===NOTE_TYPE_OPTIONS.length,'all original note types reachable');
+ $('#editTitle').value='Task 4 disposable note';$('#editBody').value='Exact note text\nSecond line';$('#editNoteType').querySelectorAll('input').forEach(i=>i.checked=true);
+ const noteId=state.notesUI.editingId;$('#saveNoteBtn').click();await tick();startEditNote(noteId);
+ assert($('#editBody').value==='Exact note text\nSecond line'&&state.notes.find(n=>n.id===noteId).note_type.length===NOTE_TYPE_OPTIONS.length,'note saves and reopens original text and all types');
+ assert(JSON.parse(localStorage.getItem(LS_NOTES))[0].id===noteId,'note saved through original identity path');
+ closeDrawer();await tick();
+ row=rowFor(repeated.key);row.querySelector('.workMain').click();await tick();
+ row.querySelector('[data-action="openDeskWork"]').click();await wait(900);
+ const draftId=state.conversationDesk.selectedId;
+ assert(state.view==='desk'&&draftId&&$('#deskBody'),'Bookclub opens original Desk with a selected draft');
+ const body=$('#deskBody');body.value='# Task 4\n\nExact writing text';body.dispatchEvent(new Event('input',{bubbles:true}));await wait(900);
+ assert(state.conversationDesk.drafts.find(d=>d.id===draftId).body===body.value&&JSON.parse(localStorage.getItem(LS_CONVERSATION_DESK)).drafts.find(d=>d.id===draftId).body===body.value,'Desk original autosave preserves body and draft id');
+ assert($('.deskLivePreview').textContent.includes('Exact writing text'),'Desk original live preview updates');
+ assert(state.conversationDesk.drafts.find(d=>d.id===draftId).linkedBook===repeated.work.title&&state.conversationDesk.drafts.find(d=>d.id===draftId).linkedAuthor===repeated.author,'Desk preserves selected book and author metadata');
+ parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
+ const rail=$('[data-desk-action="resizeRail"]');const widthBefore=state.conversationDesk.ui.articleListWidth;
+ rail.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,clientX:300,button:0}));window.dispatchEvent(new PointerEvent('pointermove',{clientX:350}));window.dispatchEvent(new PointerEvent('pointerup',{clientX:350}));
+ assert(state.conversationDesk.ui.articleListWidth!==widthBefore&&state.conversationDesk.selectedId===draftId&&$('#deskBody').value==='# Task 4\n\nExact writing text','original Desk resizing retains selected draft and body');
+ assert(!$('#planGrid .detailPhone')&&document.body.style.overflow!=='hidden','Desk transition releases Bookclub phone presentation');
+ out.dataset.result='pass';out.textContent=lines.join('\n')+'\nALL '+lines.filter(l=>l.startsWith('PASS')).length+' CHECKS PASSED';
+} catch(e) {out.dataset.result='fail';out.textContent=lines.join('\n')+'\nFAIL '+e.stack;}
+finally {
+ if(originalCreate){URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;HTMLAnchorElement.prototype.click=originalClick}
+ if(saved){closeDrawer();Object.assign(state,{filters:saved.filters,checks:saved.checks,readingStageChecks:saved.readingStageChecks,cardStatuses:saved.cardStatuses,cardTasks:saved.cardTasks,cardDates:saved.cardDates,notes:saved.notes,conversationDesk:saved.conversationDesk,notesUI:saved.notesUI});state.ui.tableHiddenCols=saved.hiddenCols;document.documentElement.classList.toggle('dark',saved.dark);setView(saved.view)}
+ await wait(1000);
+ if(storage){for(const key of Object.keys(localStorage))if(!(key in storage))localStorage.removeItem(key);for(const [k,v]of Object.entries(storage))localStorage.setItem(k,v)}
+ parent.document.querySelector('iframe').style.width='1200px';
+ out.textContent+='\nFINALLY restored original state and localhost storage';
+}

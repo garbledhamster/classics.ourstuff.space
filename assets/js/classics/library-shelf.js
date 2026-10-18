@@ -1,3 +1,4 @@
+import { presentShelfDetails } from "./detail-presentation.js";
 /* library-shelf.js — library cards, library filters, and library delegation */
 import {
   $,
@@ -315,6 +316,7 @@ function renderLibrary(){
 
     pagination.innerHTML = paginationHtml(page, totalPages, pageSize, items.length);
   }
+  presentShelfDetails(grid);
 }
 function wireLibraryDelegation(){
   const grid = $("#libraryGrid");

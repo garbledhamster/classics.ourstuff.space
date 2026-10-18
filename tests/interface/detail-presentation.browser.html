@@ -1,0 +1,220 @@
+<!doctype html><meta charset="utf-8"><title>Library and Authors presentation checks</title>
+<style>body{font:14px/1.5 system-ui;margin:16px}iframe{width:1200px;height:800px;border:1px solid #aaa}pre{white-space:pre-wrap}</style>
+<h1>Library and Authors presentation checks</h1><pre id="result">Running…</pre><iframe title="Real Classics app"></iframe>
+<script>
+if (!['localhost','127.0.0.1'].includes(location.hostname)) throw Error('Local-only fixture');
+const frame=document.querySelector('iframe'),out=document.querySelector('#result');
+const capture=()=>Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
+const storageBefore=capture();
+let finished=false,deadline;
+window.finishFixture=(error)=>{
+ if(finished)return;
+ finished=true;clearTimeout(deadline);
+ window.removeEventListener('pagehide',onPageHide);
+ frame.remove();
+ if(error){out.dataset.result='fail';out.textContent+='\nFAIL '+error;}
+ try{
+  localStorage.clear();for(const [key,value]of Object.entries(storageBefore))localStorage.setItem(key,value);
+  if(JSON.stringify(capture())!==JSON.stringify(storageBefore))throw Error('Storage restoration mismatch');
+  out.textContent+='\nFINALLY parent restored exact prior localhost storage';
+ }catch(e){out.dataset.result='fail';out.textContent+='\nCLEANUP FAILED '+e.message;}
+};
+const onPageHide=()=>window.finishFixture('Fixture host closed before completion');
+window.addEventListener('pagehide',onPageHide);
+deadline=setTimeout(()=>window.finishFixture('Fixture startup or completion timed out'),60000);
+frame.onerror=()=>window.finishFixture('App iframe failed to load');
+frame.onload=()=>{
+ if(finished)return;
+ const fail=e=>window.finishFixture(e.message||e.reason?.message||'App or fixture module failed to load');
+ frame.contentWindow.addEventListener('error',fail);
+ frame.contentWindow.addEventListener('unhandledrejection',fail);
+ const script=frame.contentDocument.createElement('script'); script.type='module';
+ script.onerror=()=>window.finishFixture('Fixture module failed to load');
+ script.textContent=`
+ import {state} from '/assets/js/classics/foundation.js';
+ import {setView,closeDrawer} from '/assets/js/classics/reader-routes.js';
+ import {renderLibrary} from '/assets/js/classics/library-shelf.js';
+ import {connectDetailPresentation} from '/assets/js/classics/detail-presentation.js';
+ import {renderAuthors} from '/assets/js/classics/authors-atlas.js';
+ import {showSearchSettingsModal} from '/assets/js/classics/book-briefing.js';
+ const out=parent.document.querySelector('#result'),lines=[];
+ const assert=(ok,msg)=>{if(!ok)throw Error(msg);lines.push('PASS '+msg)};
+ const tick=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+ const wait=ms=>new Promise(r=>setTimeout(r,ms));
+ let saved,write,attempts=0;
+ try{
+ for(let n=0;!state.flatWorks.length&&n<100;n++)await wait(50);
+ saved={filters:{...state.filters},notesUI:{...state.notesUI},dark:document.documentElement.classList.contains('dark'),view:state.view};
+ write=Storage.prototype.setItem;Storage.prototype.setItem=function(){attempts++;throw Error('Unexpected write')};
+ setView('library');await tick();
+ const grid=document.querySelector('#libraryGrid');
+ let owner=grid.querySelector('.libCard'),head=owner.querySelector('.libHead'),detail=owner.querySelector('.libDrawer');
+ const parentBefore=detail.parentElement;
+ const index=grid.parentElement.querySelector('.detailIndex');
+ assert(index&&index.querySelectorAll('.detailIndexItem').length===grid.querySelectorAll('.libDrawer').length,'generated index represents each original owner');
+ const libraryOwners=[...grid.querySelectorAll('.libCard')].filter(o=>o.querySelector('.libDrawer'));
+ const authorGroups=[...index.querySelectorAll('.detailIndexGroup')];
+ assert(JSON.stringify(authorGroups.map(g=>g.querySelector('.detailIndexHeading')?.textContent))===JSON.stringify(['Adam Smith','Aeschylus','American State Papers','Apollonius','Archimedes'])&&authorGroups.every(g=>g.querySelector('.detailIndexHeading').getClientRects().length>0),'Library index has visible read-only author headings in original order');
+ assert(JSON.stringify(authorGroups.flatMap(g=>[...g.querySelectorAll('.detailIndexItem')].map(p=>[g.querySelector('.detailIndexHeading').textContent,p.textContent])))===JSON.stringify(libraryOwners.map(o=>[o.dataset.author,o.dataset.title+o.dataset.author])),'Library grouping keeps every title and original owner order');
+ let proxy=index.querySelector('.detailIndexItem');
+ assert(proxy.textContent===owner.dataset.title+owner.dataset.author&&!proxy.querySelector('.pill, .ideaTagRow, [data-action], input, select'),'index contains only exact title and author text');
+ proxy.click();await tick();
+ assert(getComputedStyle(owner).position==='fixed'&&getComputedStyle(detail).position!=='fixed','desktop fixes full original owner rather than inner drawer');
+ assert(owner.querySelector('.libHead')===head&&head.getClientRects().length>0&&owner.querySelector('.occList').getClientRects().length>0,'desktop body retains original visible title author and occurrence links');
+ assert(getComputedStyle(index).overflowY==='auto'&&getComputedStyle(owner).overflowY==='auto'&&index.getBoundingClientRect().bottom<=innerHeight&&owner.getBoundingClientRect().bottom<=innerHeight,'index and reading body have independent bounded overflow');
+ assert(detail.parentElement===parentBefore&&grid.contains(detail),'original drawer identity and delegation ancestry retained');
+ assert(owner.getBoundingClientRect().left>index.getBoundingClientRect().right,'right full owner leaves plain index visible');
+ assert(detail.querySelector('.cardMetaControls').getBoundingClientRect().width>detail.clientWidth*.8,'metadata controls use the available detail width');
+ assert(detail.querySelector('.ytGoalWrap > button').getBoundingClientRect().height<=64,'nested learning-goal buttons retain compact usable height');
+ assert(head.getAttribute('aria-expanded')==='true','header exposes expanded state');
+ assert(document.querySelector('#libraryGrid').nextElementSibling.getAttribute('aria-hidden')==='true','selected detail hides the empty-slot prompt from assistive technology');
+ assert(detail.querySelector('.bookDetailsPanel > div'),'original async book information panel retained');
+ const panel=detail.querySelector('.bookDetailsPanel > div');panel._sources=[{sentinel:true}];panel._sourceIdx=2;
+ const delayed=document.createElement('p');delayed.textContent='Delayed source sentinel';panel.append(delayed);await tick();
+ assert(panel.contains(delayed)&&panel._sourceIdx===2,'async content and source state survive presenter sync');
+ panel._sources=[{label:'Open Library',html:'<p>Original Open Library source</p>'},{label:'Project Gutenberg',html:'<p>Original Gutenberg source</p>'},{label:'Wikipedia',html:'<p>Original Wikipedia source</p>'}];panel._sourceIdx=0;
+ const cycle=document.createElement('button');cycle.dataset.action='cycleBookDetails';cycle.className='bookDetailsCycleBtn';owner.querySelector('.bookDetailsSection .bookDetailsHeader').append(cycle);
+ for(const [index,text] of [[1,'Original Gutenberg source'],[2,'Original Wikipedia source'],[0,'Original Open Library source']]){cycle.click();await tick();assert(panel._sourceIdx===index&&panel.textContent===text&&owner.classList.contains('active'),'original source cycling reaches '+text)}
+
+ owner.querySelector('.detailClose').click();await tick();
+ assert(document.getElementById(head.getAttribute('aria-controls'))===detail,'close retains header-to-detail relationship');
+ assert(!owner.classList.contains('active')&&panel.innerHTML===''&&panel._sources===null&&panel._sourceIdx===0,'close invokes original cleanup');
+ assert(document.activeElement===proxy&&proxy.getClientRects().length>0,'Back restores the visible matching proxy focus');
+ head.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}));await tick();
+ assert(owner.classList.contains('active'),'Enter opens original header');
+ head.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));await tick();
+ assert(!owner.classList.contains('active')&&document.activeElement===proxy,'Escape closes original owner and focuses visible matching proxy');
+ head.click();await tick();
+ detail.querySelector('[data-action="linkedNotesToggle"]').click();await tick();
+ assert(owner.classList.contains('active'),'nested detail action does not toggle owner');
+ const detached=owner,detachedHead=head,detachedDetail=detail;
+ renderLibrary();await tick();
+ owner=grid.querySelector('.libCard');head=owner.querySelector('.libHead');detail=owner.querySelector('.libDrawer');proxy=index.querySelector('.detailIndexItem');
+ assert(owner!==detached&&owner.dataset.libkey===detached.dataset.libkey,'identical-data render creates a new original owner identity');
+ proxy.click();await tick();
+ assert(owner.classList.contains('detailOwner')&&!detached.classList.contains('detailOwner')&&!detachedHead.hasAttribute('aria-controls')&&!detachedDetail.hasAttribute('inert')&&!detached.hasAttribute('style'),'identical-data proxy opens new owner and restores detached original attributes');
+ state.filters.libQ='not-a-real-work-zzzz';renderLibrary();await tick();
+ assert(!grid.querySelector('.detailOwner')&&!grid.querySelector('[aria-expanded]'),'filter replaces selection and skips no-match placeholder');
+ state.filters.libQ='';renderLibrary();await tick();
+ owner=grid.querySelector('.libCard');head=owner.querySelector('.libHead');head.click();await tick();
+ state.filters.libPage=2;renderLibrary();await tick();
+ assert(!grid.querySelector('.detailOwner'),'pagination releases replaced selection');
+ state.filters.libPage=1;renderLibrary();await tick();
+ parent.document.querySelector('iframe').style.width='390px';await tick();await tick();
+ owner=grid.querySelector('.libCard');head=owner.querySelector('.libHead');head.click();await tick();
+ assert(getComputedStyle(owner).position==='fixed'&&owner.getBoundingClientRect().width<=390,'phone presents complete original owner');
+ assert(owner.contains(owner.querySelector('.libTitle'))&&owner.querySelector('.libAuthor')&&owner.querySelector('.ideaTagRow')&&owner.querySelector('.occList [data-action]'),'phone retains title author ideas and occurrence links');
+ assert(owner.getAttribute('role')==='dialog'&&owner.getAttribute('aria-modal')==='true','phone exposes modal semantics');
+ assert(owner.scrollWidth===owner.clientWidth,'phone selected book has no horizontal overflow');
+ assert(owner.contains(document.activeElement),'phone moves focus into selected owner');
+ const phoneClose=owner.querySelector('.detailClose');phoneClose.focus();phoneClose.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));
+ assert(owner.contains(document.activeElement)&&document.activeElement!==phoneClose,'phone Shift-Tab wraps within owner');
+ document.activeElement.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));
+ assert(document.activeElement===phoneClose,'phone Tab wraps to close');
+
+ owner.querySelector('[data-action="openNotesLib"]').click();await tick();
+ assert(state.notesUI.tag===owner.dataset.title,'original selected-book Notes action retains book context');
+ assert(document.querySelector('#notesDrawer').classList.contains('open'),'existing Notes Drawer remains reachable above selection');
+ assert(Number(getComputedStyle(document.querySelector('#notesDrawer')).zIndex)>Number(getComputedStyle(owner).zIndex),'Notes Drawer stacks above selected owner');
+ assert(owner.getAttribute('aria-modal')!=='true','selected owner yields modal semantics to Notes Drawer');
+
+ const notesClose=document.querySelector('#closeNotesBtn');notesClose.focus();await tick();
+ assert(document.activeElement===notesClose,'Notes retains focus while open above phone details');
+ notesClose.click();await tick();
+ assert(owner.contains(document.activeElement)&&document.activeElement.getClientRects().length>0,'closing Notes returns focus to visible phone details');
+ assert(owner.getAttribute('aria-modal')==='true','phone modal semantics resume after Notes closes');
+ showSearchSettingsModal({title:owner.dataset.title,author:owner.dataset.author,platform:'google'});await tick();
+ const searchClose=document.querySelector('#closeSearchSettingsModalBtn');searchClose.focus();await tick();
+ assert(document.activeElement===searchClose&&owner.getAttribute('aria-modal')!=='true','Search Settings owns focus and modal priority while open');
+ searchClose.click();await tick();
+ assert(owner.contains(document.activeElement)&&document.activeElement.getClientRects().length>0,'closing Search Settings returns focus to visible phone details');
+ setView('home');await tick();
+ assert(!owner.classList.contains('detailOwner')&&document.body.style.overflow!=='hidden','leaving source view releases phone overlay and body scroll');
+ assert(document.activeElement.getClientRects().length>0&&document.activeElement!==document.body,'hidden source view returns focus to visible navigation');
+ setView('authors');await tick();
+ const authorsRoot=document.querySelector('#authorsGrid'),authorsIndex=authorsRoot.parentElement.querySelector('.detailIndex');
+ const alphabetGroups=[...authorsIndex.querySelectorAll('.detailIndexGroup')];
+ assert(alphabetGroups.length>0&&alphabetGroups.every(g=>g.querySelector('.detailIndexHeading')?.getClientRects().length>0&&!g.querySelector('.detailIndexHeading button')),'Authors index has visible read-only alphabet headings');
+ assert(JSON.stringify(alphabetGroups.flatMap(g=>[...g.querySelectorAll('.detailIndexItem')].map(p=>[g.querySelector('.detailIndexHeading').textContent,p.textContent])))===JSON.stringify([...authorsRoot.querySelectorAll('.libCard')].filter(o=>o.querySelector('.libDrawer')).map(o=>[o.dataset.author.charAt(0).toUpperCase(),o.dataset.author])),'Authors alphabet grouping keeps the original author order and text');
+ const author=document.querySelector('#authorsGrid .libCard');author.querySelector('.libHead').click();await tick();
+ assert(author.getAttribute('role')==='dialog'&&author.querySelector('.occList [data-action="gotoLibraryForAuthorWork"]'),'phone author retains original work links');
+ author.querySelector('.occList [data-action="gotoLibraryForAuthorWork"]').click();await tick();
+ assert(state.view==='library'&&!author.classList.contains('detailOwner'),'original author-work route leaves phone presentation');
+ Object.assign(state.filters,{libQ:'',libLetterFilter:'',libGreatIdea:'all',libPage:1});setView('library');await tick();
+ owner=grid.querySelector('.libCard');owner.querySelector('.libHead').click();await tick();
+ const idea=owner.querySelector('.ideaTagRow [data-action]');const ideaName=idea.dataset.idea;idea.click();await tick();
+ assert(state.filters.libGreatIdea===ideaName&&!grid.querySelector('.detailOwner'),'original sibling Great Idea filter works from phone selection');
+ Object.assign(state.filters,{libQ:'',libGreatIdea:'all',libPage:1});renderLibrary();await tick();
+ owner=grid.querySelector('.libCard');owner.querySelector('.libHead').click();await tick();
+ const occurrence=owner.querySelector('.occList [data-workkey]');const occurrenceKey=occurrence.dataset.workkey;occurrence.click();await tick();
+ assert(state.view==='plan'&&document.getElementById('planGrid').querySelector('[data-workkey="'+occurrenceKey+'"]'),'original occurrence route retains its exact work key');
+ const routeProxy=[...document.querySelector('#planGrid').parentElement.querySelectorAll('.detailIndexItem')].find(p=>p.dataset.workkey===occurrenceKey);
+ assert(routeProxy?.classList.contains('flash')&&routeProxy.getBoundingClientRect().top>=0&&routeProxy.getBoundingClientRect().bottom<=innerHeight,'original occurrence jump visibly reveals and highlights its matching plain proxy');
+ assert(!owner.classList.contains('detailOwner')&&document.body.style.overflow!=='hidden','occurrence route releases phone presentation');
+ setView('authors');await tick();
+ const authorAgain=document.querySelector('#authorsGrid .libCard');authorAgain.querySelector('.libHead').click();await tick();
+ assert(authorAgain.scrollWidth===authorAgain.clientWidth,'phone selected author has no horizontal overflow');
+ document.documentElement.classList.add('dark');await tick();
+ assert(getComputedStyle(authorAgain).backgroundColor==='rgb(17, 17, 17)','phone selected owner follows original dark paper');
+ document.documentElement.classList.remove('dark');
+ authorAgain.querySelector('.detailClose').click();await tick();
+ parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
+ authorAgain.querySelector('.libHead').click();await tick();
+ assert(getComputedStyle(authorAgain).position==='fixed'&&authorAgain.querySelector('.libHead').getClientRects().length>0,'Authors desktop uses full original owner');
+ authorAgain.querySelector('.detailClose').click();
+ const longest=state.libraryWorks.reduce((a,b)=>a.title.length>b.title.length?a:b);
+ Object.assign(state.filters,{libQ:longest.title,libLetterFilter:'',libGreatIdea:'all',libPage:1});setView('library');await tick();
+ const longOwner=document.querySelector('#libraryGrid .libCard');longOwner.querySelector('.libHead').click();await tick();
+ assert(longOwner.dataset.title===longest.title&&longOwner.querySelector('.libTitle').textContent.includes(longest.title),'long original title survives selection');
+ const longDrawer=longOwner.querySelector('.libDrawer');assert(longDrawer.scrollWidth===longDrawer.clientWidth,'long desktop detail has no horizontal overflow');
+ longOwner.querySelector('.detailClose').click();
+ // Empty search must retain the original feedback, then recover the real index.
+ const emptyFailures=[];
+ const checkEmpty=(ok,msg)=>{if(ok)assert(true,msg);else{lines.push('FAIL '+msg);emptyFailures.push(msg)}};
+ const visible=node=>!!node?.getClientRects().length&&getComputedStyle(node).visibility!=='hidden';
+ for(const width of [1200,390]){
+  parent.document.querySelector('iframe').style.width=width+'px';await tick();await tick();
+  for(const [view,id,query,render,message]of [
+   ['library','libraryGrid','libQ',renderLibrary,'Nothing matched your library filters.'],
+   ['authors','authorsGrid','authorsQ',renderAuthors,'Nothing matched your author search.']
+  ]){
+   Object.assign(state.filters,{libQ:'',libLetterFilter:'',libGreatIdea:'all',libPage:1,authorsQ:'',authorsLetterFilter:'',authorsPage:1});
+   setView(view);await tick();
+   const root=document.getElementById(id),readingIndex=root.parentElement.querySelector('.detailIndex'),prompt=root.nextElementSibling;
+   const originalRows=[...root.querySelectorAll('.libCard')].map(row=>row.dataset.title||row.dataset.author);
+   readingIndex.querySelector('.detailIndexItem').click();await tick();
+   state.filters[query]='not-a-real-work-or-author-zzzz';render();await tick();
+   const empty=root.querySelector('.libCard'),prefix=view+' '+width+'px ';
+   checkEmpty(visible(empty)&&empty.querySelector('.libTitle')?.textContent==='No matches'&&visible(empty.querySelector('.help'))&&empty.querySelector('.help').textContent===message,prefix+'shows the original no-match feedback');
+   checkEmpty(!visible(prompt),prefix+'does not show a misleading selection prompt');
+   checkEmpty(!visible(readingIndex)&&!root.querySelector('.detailOwner')&&document.body.style.overflow!=='hidden',prefix+'empty search releases the index selection and body scroll');
+   state.filters[query]='';render();await tick();
+   const recovered=[...root.querySelectorAll('.libCard')],newProxy=readingIndex.querySelector('.detailIndexItem');
+   checkEmpty(visible(readingIndex)&&readingIndex.querySelectorAll('.detailIndexItem').length===recovered.length&&JSON.stringify(recovered.map(row=>row.dataset.title||row.dataset.author))===JSON.stringify(originalRows)&&visible(prompt)===(width>760),prefix+'filter clear restores the complete ordered index and appropriate prompt');
+   newProxy.click();await tick();
+   const selected=root.querySelector('.detailOwner');
+   checkEmpty(selected===recovered[0]&&visible(selected)&&getComputedStyle(selected).position==='fixed'&&selected.getAttribute('role')===(width<=760?'dialog':'region'),prefix+'recovered proxy opens the original complete owner');
+   selected?.querySelector('.detailClose').click();await tick();
+   checkEmpty(!root.querySelector('.detailOwner')&&document.activeElement===newProxy&&visible(newProxy)&&document.body.style.overflow!=='hidden',prefix+'recovered Back restores visible proxy focus and body scroll');
+  }
+ }
+ if(emptyFailures.length)throw Error(emptyFailures.length+' empty-search regressions: '+emptyFailures.join('; '));
+ parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
+ const host=document.createElement('div'),slot=document.createElement('aside');
+ host.innerHTML='<table><tbody><tr class=workRow><td>No drawer</td></tr></tbody></table><section class="workRow active"><div class=workMain>Fixture</div><div class=workDrawer style="color:red"><div>Original detail</div></div></section>';
+ document.body.append(host,slot);const before=host.innerHTML,hostStyle=host.getAttribute('style');
+ const presenter=connectDetailPresentation({root:host,slot,ownerSelector:'.workRow',detailSelector:'.workDrawer',headerSelector:'.workMain'});
+ assert(!host.querySelector('tr').hasAttribute('role')&&!host.querySelector('tr [tabindex]'),'generic presenter skips table owners with no real detail');
+ presenter.destroy();assert(host.innerHTML===before&&host.getAttribute('style')===hostStyle&&!host.previousElementSibling?.classList.contains('detailIndex'),'destroy removes generated index and restores original root and owner attributes and content');
+ const detachedOwner=host.querySelector('section'), originalOwner=detachedOwner.outerHTML;
+ const replacementPresenter=connectDetailPresentation({root:host,slot,ownerSelector:'.workRow',detailSelector:'.workDrawer',headerSelector:'.workMain'});
+ host.replaceChildren();replacementPresenter.sync();
+ assert(detachedOwner.outerHTML===originalOwner,'replacement restores detached original owner without erasing its styles');
+ replacementPresenter.destroy();host.remove();slot.remove();
+ assert(attempts===0,'presentation and navigation make zero storage-write attempts');
+ out.dataset.result='pass';out.textContent=lines.join('\\n')+'\\nALL '+lines.length+' CHECKS PASSED';
+ }catch(e){out.dataset.result='fail';out.textContent=lines.join('\\n')+'\\nFAIL '+e.stack+'\\nWrite attempts: '+attempts}
+ finally{if(write)Storage.prototype.setItem=write;if(saved){closeDrawer();state.filters=saved.filters;state.notesUI=saved.notesUI;document.documentElement.classList.toggle('dark',saved.dark);setView(saved.view)}parent.finishFixture()}
+ `;frame.contentDocument.body.append(script);
+};frame.src='/';
+</script>

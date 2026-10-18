@@ -30,11 +30,7 @@ import { readerRuntime } from "./runtime-environment.js";
 /* =========================================================
    NOTE TYPE HELPERS
    ========================================================= */
-function getNoteTypes(n){
-  if (Array.isArray(n.note_type)) return n.note_type.length ? n.note_type : [DEFAULT_NOTE_TYPE];
-  if (n.note_type && typeof n.note_type === "string") return [n.note_type];
-  return [DEFAULT_NOTE_TYPE];
-}
+import { getNoteTypes } from "./note-types.js";
 
 function getCheckGroupValues(containerId){
   const container = $("#" + containerId);
@@ -686,8 +682,8 @@ async function importNotesFile(e){
   function setGlossaryView(){
     const currentState = appState();
     if (currentState) currentState.view = "glossary";
-    ["#libraryView", "#planView", "#authorsView", "#glossaryView", "#getStartedView"].forEach(sel => $(sel)?.classList.toggle("on", sel === "#glossaryView"));
-    ["#tabLibrary", "#tabPlan", "#tabAuthors", "#tabGlossary", "#tabGetStarted"].forEach(sel => $(sel)?.classList.remove("tabOn"));
+    ["#homeView", "#libraryView", "#planView", "#authorsView", "#deskView", "#glossaryView", "#getStartedView"].forEach(sel => $(sel)?.classList.toggle("on", sel === "#glossaryView"));
+    ["#tabHome", "#tabLibrary", "#tabPlan", "#tabAuthors", "#tabDesk", "#tabGlossary", "#tabGetStarted"].forEach(sel => $(sel)?.classList.remove("tabOn"));
     $("#tabGlossary")?.classList.add("tabOn");
     const planName = $("#planName");
     if (planName) planName.textContent = "Glossary";
@@ -1359,10 +1355,10 @@ async function importNotesFile(e){
   function setGetStartedView(){
     const currentState = appState();
     if (currentState) currentState.view = "get-started";
-    ["#libraryView","#planView","#authorsView","#glossaryView","#getStartedView"].forEach(sel =>
+    ["#homeView","#libraryView","#planView","#authorsView","#deskView","#glossaryView","#getStartedView"].forEach(sel =>
       document.querySelector(sel)?.classList.toggle("on", sel === "#getStartedView")
     );
-    ["#tabLibrary","#tabPlan","#tabAuthors","#tabGlossary","#tabGetStarted"].forEach(sel =>
+    ["#tabHome","#tabLibrary","#tabPlan","#tabAuthors","#tabDesk","#tabGlossary","#tabGetStarted"].forEach(sel =>
       document.querySelector(sel)?.classList.remove("tabOn")
     );
     document.getElementById("tabGetStarted")?.classList.add("tabOn");

@@ -2,7 +2,8 @@ import {
   registerLibraryIdeaNavigator,
   registerLibraryWorkNavigator,
   registerRenderApp,
-  registerViewNavigator
+  registerViewNavigator,
+  state
 } from "./foundation.js";
 import {
   filteredLibrary,
@@ -34,7 +35,9 @@ function registerReadingWorldBridge(){
 }
 
 function loadPlan(...args){
+  const firstLoad = !readingWorldBridgeRegistered;
   registerReadingWorldBridge();
+  if (firstLoad && state.view === "library") setView("home");
   return loadReadingPlan(...args);
 }
 

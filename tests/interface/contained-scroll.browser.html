@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><title>Contained scrolling checks</title>
+<style>body{font:14px/1.5 system-ui;margin:16px}iframe{width:1440px;height:900px;border:1px solid #aaa}pre{white-space:pre-wrap}</style>
+<h1>Contained scrolling checks</h1><pre id="result">Running…</pre><iframe title="Real Classics app"></iframe>
+<script>
+if (!['localhost','127.0.0.1'].includes(location.hostname)) throw Error('Local-only fixture');
+const frame=document.querySelector('iframe'),out=document.querySelector('#result');
+const manual=new URLSearchParams(location.search).has('manual');
+if(manual){
+ out.textContent='Manual scroll confirmation; restore storage before closing.';
+ for(const [label,width,height]of [['Desktop',1440,900],['Phone',390,844]]){const button=document.createElement('button');button.textContent=label;button.onclick=()=>{frame.style.width=width+'px';frame.style.height=height+'px'};out.before(button)}
+ const done=document.createElement('button');done.textContent='Restore storage';done.onclick=()=>window.finishFixture();out.before(done);
+}
+const capture=()=>Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
+window.fixtureStorage=capture();
+let finished=false,deadline;
+window.finishFixture=(error)=>{
+ if(finished)return;
+ finished=true;clearTimeout(deadline);
+ window.removeEventListener('pagehide',onPageHide);
+ // Stop the child and its delayed writers before restoring the parent's snapshot.
+ frame.remove();
+ if(error){out.dataset.result='fail';out.textContent+='\nFAIL '+error;}
+ try{
+  localStorage.clear();for(const [key,value]of Object.entries(window.fixtureStorage))localStorage.setItem(key,value);
+  if(JSON.stringify(capture())!==JSON.stringify(window.fixtureStorage))throw Error('Storage restoration mismatch');
+  out.textContent+='\nFINALLY parent restored exact prior localhost storage';
+ }catch(e){out.dataset.result='fail';out.textContent+='\nCLEANUP FAILED '+e.message;}
+};
+const onPageHide=()=>window.finishFixture('Fixture host closed before completion');
+window.addEventListener('pagehide',onPageHide);
+deadline=setTimeout(()=>window.finishFixture('Fixture startup or completion timed out'),60000);
+frame.onerror=()=>window.finishFixture('App iframe failed to load');
+frame.onload=()=>{
+ if(finished||manual)return;
+ try{
+  const fail=e=>window.finishFixture(e.message||e.reason?.message||'App or fixture module failed to load');
+  frame.contentWindow.addEventListener('error',fail);
+  frame.contentWindow.addEventListener('unhandledrejection',fail);
+  const script=frame.contentDocument.createElement('script');script.type='module';script.src='/tests/interface/contained-scroll.browser.js';
+  script.onerror=()=>window.finishFixture('Fixture module failed to load');
+  frame.contentDocument.body.append(script);
+ }catch(e){window.finishFixture(e.message);}
+};
+try{
+ localStorage.setItem('greatworks.reading.timerState.v1',JSON.stringify({remaining:90,original:120,running:false,savedAt:null}));
+ localStorage.setItem('greatworks.reading.timerSettings.v1',JSON.stringify({alarm:'bell',volume:25}));
+frame.src='/';
+}catch(e){window.finishFixture(e.message);}
+</script>

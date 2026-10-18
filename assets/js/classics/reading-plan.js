@@ -108,6 +108,7 @@ import {
 import {
   CLASSICS_DATA_FILES
 } from "./data-paths.js";
+import { presentPlanDetails } from "./detail-presentation.js";
 function renderPlan(){
   const grid = $("#planGrid");
   const filtered = applyPlanFilters();
@@ -130,6 +131,7 @@ function renderPlan(){
         <div class="help">Nothing matched your plan search/tier/year filter &amp; sorter.</div>
       </div>
     `;
+    presentPlanDetails(grid, false);
     return;
   }
 
@@ -144,6 +146,7 @@ function renderPlan(){
   }
   wirePlanDelegation();
   applyAllTaskVisibilities(grid);
+  presentPlanDetails(grid, vm !== "table");
 }
 
 /* ---- View button label sync ---- */

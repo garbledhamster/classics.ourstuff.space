@@ -448,3 +448,78 @@ html:not(:has(#deskView.on)), body:not(:has(#deskView.on)) { overflow: clip; }
   :is(#planView, #libraryView, #authorsView) .studyBrowseControls :is(.btn, .toggle, .yearStepper, .studyDisclosure > summary) { min-height: 44px; }
   #planView .yearStepper .btn { min-width: 44px; }
 }
+
+/* C: original settings and the index share the left column; the reader spans
+   both rows and keeps the same rectangle throughout disclosure changes. */
+:is(#planView, #libraryView, #authorsView) > .studyDetailLayout {
+  display: grid; grid-template-columns: 240px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr); gap: 0 30px;
+  flex: 1 1 0; min-height: 156px;
+}
+.studyDetailLayout > .studyBrowseControls {
+  grid-column: 1; grid-row: 1; align-self: start; min-width: 0;
+  max-height: none; overflow: visible; margin: 0;
+}
+.studyDetailLayout > .detailIndex,
+.studyDetailLayout > .studyDetailList { grid-column: 1; grid-row: 2; }
+.studyDetailLayout > .detailIndex {
+  height: 100%; max-height: 100%; min-height: 0; align-self: stretch;
+}
+.studyDetailLayout > .studyDetailList { height: 0; min-height: 0; }
+.studyDetailLayout > .detailSlot { grid-column: 2; grid-row: 1 / span 2; }
+.studyBrowseToggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; min-height: 40px; padding: 8px 10px; margin: 0 0 8px;
+  border: 1px solid var(--study-line); background: var(--paper); color: var(--ink);
+  font: 500 12px/1.4 Inter, system-ui, sans-serif; text-align: left; cursor: pointer;
+}
+.studyBrowseToggle:hover, .studyBrowseToggle[aria-expanded="true"] { background: var(--study-wash); }
+.studyBrowseToggle:focus-visible { outline: 2px solid var(--ink); outline-offset: -3px; }
+.studyBrowseCaret { font-size: 20px; line-height: 1; transition: transform 180ms ease-out; }
+.studyBrowseToggle[aria-expanded="true"] .studyBrowseCaret { transform: rotate(90deg); }
+.studyBrowsePanel {
+  box-sizing: border-box; width: 100%; min-width: 0;
+  max-height: var(--browse-panel-height, 240px); padding: 4px 4px 12px 2px; margin-bottom: 8px;
+  overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable;
+  scrollbar-color: var(--study-line) var(--paper); border-bottom: 1px solid var(--study-line);
+}
+.studyBrowsePanel[hidden] { display: none; }
+:is(#planView, #libraryView, #authorsView) .studyBrowsePanel .controls { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+:is(#planView, #libraryView, #authorsView) .studyBrowsePanel .searchControl { max-width: none; width: 100%; margin-bottom: 14px; }
+:is(#planView, #libraryView, #authorsView) .studyBrowsePanel :is(.control, .rowWide) { min-width: 0; max-width: 100%; }
+:is(#planView, #libraryView, #authorsView) .studyBrowsePanel :is(.input, .select, .btn) { max-width: 100%; height: auto; }
+:is(#planView, #libraryView, #authorsView) .studyBrowsePanel .btn { min-height: 32px; white-space: normal; }
+:is(#libraryView, #authorsView) .studyBrowsePanel .studyDisclosureBody { display: block; }
+:is(#libraryView, #authorsView) .studyBrowsePanel .rowWide { display: flex; gap: 12px; margin-top: 12px; }
+:is(#libraryView, #authorsView) .studyBrowsePanel .rowWide > .help { flex-basis: 100%; }
+:is(#libraryView, #authorsView) .studyBrowsePanel .abcBar { display: flex; flex-wrap: wrap; overflow: visible; gap: 0; }
+.studyBrowseLetters { margin-top: 8px; }
+.studyBrowseLetters > summary { min-height: 32px; padding: 8px 0; cursor: pointer; font: 500 12px/1.4 Inter, system-ui, sans-serif; }
+.studyBrowseLetters > summary:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+#planView .studyBrowsePlanTools > summary { display: none; }
+#planView .studyBrowsePanel .planFilterControls { grid-template-columns: minmax(0, 1fr) !important; border: 0 !important; padding: 0 !important; max-width: none; }
+.studyBrowseHeading { margin: 12px 0 2px; grid-column: 1 / -1; font: 600 12px/1.4 Inter, system-ui, sans-serif; }
+.studyBrowseHeading:first-child { margin-top: 0; }
+#planView .studyBrowsePanel .planBtnRow { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+#planView .studyBrowsePanel .planBtnRow .btn { width: 100%; justify-content: flex-start; }
+#planView .studyBrowsePanel .planRefRow { display: flex; flex-wrap: wrap; gap: 8px; }
+#planView .studyBrowsePanel .planRefRow .btn { white-space: normal; }
+#planView .studyBrowsePanel .planMasthead { margin-block: 12px; padding: 0; border: 0; box-shadow: none; }
+#planView .studyBrowsePanel .planMastheadTitle { font-size: 18px; }
+#planView .studyBrowsePanel .planMastheadDesc { font: 400 14px/1.5 Inter, system-ui, sans-serif; }
+#planView .studyBrowsePanel .colPickerWrap { display: block; }
+#planView .studyBrowsePanel .colPickerPanel { position: static; width: 100%; min-width: 0; box-sizing: border-box; max-height: none; box-shadow: none; margin-top: 8px; }
+/* The original full/table presentation keeps the entire work width. */
+:is(#planView, #libraryView, #authorsView) > .studyDetailLayoutInactive > .grid { grid-column: 1 / -1; grid-row: 2; height: auto; min-height: 0; align-self: stretch; overflow: auto; }
+#planView > .studyDetailLayoutInactive > .studyBrowseControls { grid-column: 1; }
+#planView > .studyDetailLayoutInactive > .detailSlot { display: none; }
+@media (max-width: 760px) {
+  :is(#planView, #libraryView, #authorsView) > .studyDetailLayout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .studyDetailLayout > .detailSlot { display: none; }
+  .studyBrowseToggle { min-height: 44px; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowsePanel :is(.input, .select) { font-size: 16px; min-height: 44px; }
+  :is(#planView, #libraryView, #authorsView) .studyBrowsePanel :is(.btn, .toggle, .yearStepper, summary, .abcBtn) { min-height: 44px; }
+  #planView .studyBrowsePanel .planFilterControls { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  #planView .studyBrowsePanel .planBtnRow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .studyBrowseCaret { transition: none; } }

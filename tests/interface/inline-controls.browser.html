@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><title>Inline browse controls checks</title>
+<style>body{font:14px/1.5 system-ui;margin:16px}iframe{width:1200px;height:800px;border:1px solid #aaa}pre{white-space:pre-wrap}</style>
+<h1>Inline browse controls checks</h1><pre id="result">Running…</pre><iframe title="Real Classics app"></iframe>
+<script>
+if (!['localhost','127.0.0.1'].includes(location.hostname)) throw Error('Local-only fixture');
+const frame=document.querySelector('iframe'),out=document.querySelector('#result');
+const capture=()=>Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
+window.fixtureStorage=capture();let finished=false,deadline;
+window.finishFixture=error=>{
+ if(finished)return;finished=true;clearTimeout(deadline);window.removeEventListener('pagehide',onPageHide);frame.remove();
+ if(error){out.dataset.result='fail';out.textContent+='\nFAIL '+error;}
+ try{localStorage.clear();for(const[key,value]of Object.entries(window.fixtureStorage))localStorage.setItem(key,value);if(JSON.stringify(capture())!==JSON.stringify(window.fixtureStorage))throw Error('Storage restoration mismatch');out.textContent+='\nFINALLY parent restored exact prior localhost storage';}
+ catch(e){out.dataset.result='fail';out.textContent+='\nCLEANUP FAILED '+e.message;}
+};
+const onPageHide=()=>window.finishFixture('Fixture host closed before completion');window.addEventListener('pagehide',onPageHide);
+deadline=setTimeout(()=>window.finishFixture('Fixture timed out'),60000);
+frame.onerror=()=>window.finishFixture('App iframe failed to load');
+frame.onload=()=>{if(finished)return;const script=frame.contentDocument.createElement('script');script.type='module';script.src='/tests/interface/inline-controls.browser.js';script.onerror=()=>window.finishFixture('Fixture module failed to load');frame.contentDocument.body.append(script)};
+frame.src='/';
+</script>

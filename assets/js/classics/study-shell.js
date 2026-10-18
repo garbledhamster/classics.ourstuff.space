@@ -1,3 +1,5 @@
+import {connectBrowseControls} from './browse-controls.js?v=5629049023c12db3';
+
 /* Presentation for the original shell and lazily mounted Glossary controller. */
 function initStudyShell(){
   const nav = document.querySelector('.subhead > .navRow');
@@ -7,6 +9,7 @@ function initStudyShell(){
   nav?.append(help);
   const phone = matchMedia('(max-width: 760px)');
   let view, index, modal, slot, back, geometry, frame = 0;
+  const browseControls = new Map();
   let selectedTermId = '', wasOpen = false, overlayWasOpen = false, savedOverflow;
   const visible = node => !!node?.getClientRects().length;
   const otherOverlayOpen = () => [...document.querySelectorAll('.drawer.open, .modal.open, .modalBackdrop.show, .overlay.open')].some(visible);
@@ -58,15 +61,29 @@ function initStudyShell(){
     }, true);
   }
   function sync(){
+    for (const [page, mounted] of browseControls) {
+      if (!page.isConnected || !page.contains(mounted.layout) || !mounted.layout.contains(mounted.controls)) {
+        mounted.presentation.destroy(); browseControls.delete(page);
+      }
+    }
     // Keep original controls together so expanded tools consume a bounded part
     // of the work region; their IDs, handlers and view ancestry stay intact.
     for (const page of document.querySelectorAll('.view:not(#deskView)')) {
       const layout = page.querySelector(':scope > .studyDetailLayout, :scope > .glossaryLayout');
-      if (!layout || page.querySelector(':scope > .studyBrowseControls')) continue;
+      // A relocated controls group still belongs to this view; never wrap it
+      // again or consume the layout's geometry/index/root siblings.
+      if (!layout || page.querySelector('.studyBrowseControls')) continue;
       const controls = document.createElement('div');
       controls.className = 'studyBrowseControls';
       while (page.firstElementChild !== layout) controls.append(page.firstElementChild);
       layout.before(controls);
+    }
+    for (const page of document.querySelectorAll('#planView, #libraryView, #authorsView')) {
+      const layout = page.querySelector(':scope > .studyDetailLayout');
+      const controls = page.querySelector('.studyBrowseControls');
+      if (!layout || !controls) continue;
+      if (!browseControls.has(page)) browseControls.set(page, {layout, controls, presentation:connectBrowseControls({page, layout, controls})});
+      browseControls.get(page).presentation.sync();
     }
     mount();
     if (!modal) return;
@@ -147,7 +164,7 @@ function initStudyShell(){
   new MutationObserver(records => {
     if (records.some(record => record.type === 'attributes'
       ? record.target.matches('.view, .glossaryModal, .drawer, .modal, .overlay, .modalBackdrop') && /(?:^|\s)(on|open|show)(?:\s|$)/.test(record.oldValue || '') !== /(?:^|\s)(on|open|show)(?:\s|$)/.test(record.target.className)
-      : record.target !== geometry && !geometry?.contains(record.target) && (record.target === document.body || record.target === nav || record.target.closest?.('#glossaryView, #glossaryModal')))) schedule();
+      : record.target !== geometry && !geometry?.contains(record.target) && (record.target === document.body || record.target.matches?.('.wrap') || record.target === nav || record.target.closest?.('#glossaryView, #glossaryModal, #planView, #libraryView, #authorsView')))) schedule();
   }).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['class'],attributeOldValue:true});
   sync();
 }

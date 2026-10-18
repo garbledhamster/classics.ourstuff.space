@@ -19,7 +19,7 @@ try{
  for(let n=0;!state.flatWorks.length&&n<100;n++)await wait(50);
  assert(state.flatWorks.length===287&&state.libraryWorks.length===243,'original plan and library populations loaded');
  saved={notes:state.notes,deletedNoteIds:state.deletedNoteIds,notesUI:{...state.notesUI},filters:{...state.filters},view:state.view,dark:document.documentElement.classList.contains('dark')};
- // Selected A acceptance supplements the identical original-action digest below.
+ // Current presentation acceptance supplements the identical original-action digest below.
  if(location.pathname==='/'){
   const checks=[],check=(ok,label)=>checks.push([ok,label]);
   const rect=el=>el.getBoundingClientRect();
@@ -30,18 +30,26 @@ try{
    const index=$('.view.on .detailIndex'),proxy=index.querySelector('.detailIndexItem'),title=proxy.querySelector('.detailIndexTitle');
    check(rect(index).width>=180&&rect(index).width<=260,'A '+page+' desktop index stays compact');
    check(parseFloat(getComputedStyle(title).fontSize)<=20&&Number(getComputedStyle(title).fontWeight)>=600,'A '+page+' proxy title uses compact bold type');
-   const alphabet=$('.view.on .abcBar'),buttons=[...alphabet.querySelectorAll('button')];
-   check(buttons.length>=27&&new Set(buttons.map(b=>Math.round(rect(b).top))).size===1,'A '+page+' desktop alphabet retains all buttons on one row');
+   const alphabet=$('.view.on .abcBar'),browse=$('.view.on .studyBrowseToggle'),panel=$('.view.on .studyBrowsePanel'),letters=alphabet.closest('details'),wasOpen=!panel.hidden,lettersOpen=letters.open;
+   if(!wasOpen)browse.click();letters.open=true;await tick();await tick();
+   const controlsReachable=()=>{
+    const buttons=[...alphabet.querySelectorAll('button')];
+    return buttons.length>=27&&buttons.every(button=>{button.scrollIntoView({block:'nearest',inline:'nearest'});const box=rect(button),bounds=rect(panel);return visible(button)&&box.top>=bounds.top-1&&box.bottom<=bounds.bottom+1&&box.left>=bounds.left-1&&box.right<=bounds.right+1});
+   };
+   check(controlsReachable(),'C '+page+' desktop alphabet retains all original buttons reachable in settings');
    parent.document.querySelector('iframe').style.width='390px';await tick();await tick();
-   check(new Set(buttons.map(b=>Math.round(rect(b).top))).size===1&&alphabet.scrollWidth>alphabet.clientWidth,'A '+page+' phone alphabet scrolls horizontally on one row');
-   parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();
-   if(page==='authors'){proxy.click();await tick();const owner=$('#authorsGrid .detailOwner');check(owner.querySelector('.detailToolbar > span').textContent.trim()===owner.dataset.author,'A author toolbar names selected author once');owner.querySelector('.detailClose').click();await tick()}
+   check(controlsReachable()&&alphabet.scrollWidth<=alphabet.clientWidth,'C '+page+' phone alphabet wraps with all original buttons reachable in settings');
+   const filter=page==='library'?'libLetterFilter':'authorsLetterFilter',beforeLetter=state.filters[filter],button=[...alphabet.querySelectorAll('button')].find(node=>node.dataset.letter==='P'&&!node.disabled);
+   button.click();await tick();check(state.filters[filter]==='P'&&index.querySelectorAll('.detailIndexItem').length>0,'C '+page+' original letter control still filters the original index');
+   [...alphabet.querySelectorAll('button')].find(node=>node.dataset.letter===beforeLetter).click();await tick();
+   parent.document.querySelector('iframe').style.width='1200px';await tick();await tick();letters.open=lettersOpen;if(!wasOpen)browse.click();await tick();
+   if(page==='authors'){index.querySelector('.detailIndexItem').click();await tick();const owner=$('#authorsGrid .detailOwner');check(owner.querySelector('.detailToolbar > span').textContent.trim()===owner.dataset.author,'A author toolbar names selected author once');owner.querySelector('.detailClose').click();await tick()}
   }
   $('#tabGlossary').click();for(let n=0;!$('#glossaryIndex')&&n<100;n++)await wait(50);await tick();
   check(rect($('#glossaryIndex')).width>=180&&rect($('#glossaryIndex')).width<=260,'A Glossary desktop index stays compact');
   setView(saved.view);await tick();
   for(const [ok,label]of checks)lines.push((ok?'PASS ':'FAIL ')+label);
-  if(checks.some(([ok])=>!ok))throw Error('Selected A presentation acceptance: '+checks.filter(([ok])=>!ok).map(([,label])=>label).join('; '));
+  if(checks.some(([ok])=>!ok))throw Error('Current presentation acceptance: '+checks.filter(([ok])=>!ok).map(([,label])=>label).join('; '));
  }
  assert($('#timerDisplay').textContent.trim()==='01:30'&&$('#timerStartBtn').textContent.trim()==='Resume','app load restores saved paused time and Resume control');
  assert($('#timerVolumeSlider').value==='25'&&$('#timerAlarmSelect').value==='bell','app load restores timer settings');
@@ -109,7 +117,17 @@ try{
   if(width===1200)snapshots.push({label:'glossary',texts});
   $('#glossaryPrevBtn').click();await tick();assert($('#glossaryModalSub').textContent.includes('Wikipedia'),width+' glossary previous returns one panel');$('#glossaryCloseBtn').click();
   $('#tabGetStarted').click();await tick();assert($('#getStartedView').textContent.includes('Twenty-Five-Century'),width+' complete introduction remains reachable');
-  if(width===1200)snapshots.push({label:'introduction',text:$('#getStartedView').textContent.replace(/\s+/g,' ').trim(),links:[...$('#getStartedView').querySelectorAll('a')].map(a=>a.getAttribute('href'))});
+  if(width===1200){
+   const introduction=$('#getStartedView'),edition=introduction.querySelector('.gsEditionLine');
+   const actualDay=new OriginalDate().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
+   assert(!!edition&&edition.textContent.split(actualDay).length===2,'original introduction boot date displays the actual current day');
+   // The original SHA was captured on October 17. Normalize only that one
+   // boot-rendered date in a detached capture; keep production DOM and all
+   // other original text, links, records and the expected SHA unchanged.
+   const captured=introduction.cloneNode(true),capturedEdition=captured.querySelector('.gsEditionLine');
+   capturedEdition.textContent=capturedEdition.textContent.replace(actualDay,'SATURDAY, OCTOBER 17, 2026');
+   snapshots.push({label:'introduction',text:captured.textContent.replace(/\s+/g,' ').trim(),links:[...introduction.querySelectorAll('a')].map(a=>a.getAttribute('href'))});
+  }
   $('#authBtn').click();await tick();assert(visible($('#loginEmail'))&&visible($('#loginGoogleBtn'))&&visible($('#loginSubmitBtn')),width+' sign-in fields and providers reachable');
   $('#showSignupBtn').click();await tick();assert(visible($('#signupName'))&&visible($('#signupPasswordConfirm')),width+' signup fields reachable');$('#closeSignupModalBtn').click();
   showEulaModal();await tick();assert(visible($('#eulaText'))&&!$('#eulaAcceptCheck').checked&&$('#eulaAcceptBtn').disabled,width+' legal text and unaccepted agreement controls reachable');hideEulaModal();
@@ -121,6 +139,7 @@ try{
  assert(newKeys.every(k=>[LS_NOTES,LS_DELETED_NOTES,LS_TIMER_SETTINGS,LS_TIMER_STATE].includes(k)),'only original notes tombstone and timer storage keys added');
  const text=JSON.stringify(snapshots),hash=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))].map(b=>b.toString(16).padStart(2,'0')).join('');
  lines.push('BASELINE notes/timer/content SHA256 '+hash);
+ if(parent.location.search.includes('diagnostic'))for(const snapshot of snapshots){const digest=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(snapshot))))].map(b=>b.toString(16).padStart(2,'0')).join('');lines.push('SNAPSHOT '+snapshot.label+' SHA256 '+digest);lines.push('SNAPSHOT DATA '+snapshot.label+' '+JSON.stringify(snapshot));}
  assert(hash==='c4371c49d861d389b5c050f3fdff8e213376a22f09eb223f7ae281fff5cc28ed','notes archives imports exports tombstones timer and original page content match baseline exactly');
  out.dataset.result='pass';out.textContent=lines.join('\n')+'\nALL '+lines.filter(l=>l.startsWith('PASS')).length+' CHECKS PASSED';
 }catch(e){out.dataset.result='fail';out.textContent=lines.join('\n')+'\nFAIL '+e.stack}

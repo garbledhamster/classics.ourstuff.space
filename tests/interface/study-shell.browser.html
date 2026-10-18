@@ -24,19 +24,22 @@ frame.onload=()=>{
  assert(visible(document.querySelector('#tabHome svg'))&&document.querySelector('#tabHome').textContent.trim()==='Home','Home has visible icon and label');
  for(const id of ['authBtn','manualSyncBtn','resetProfileBtn','tabGetStarted']) assert(!!document.getElementById(id)?.closest('details'),'original '+id+' is reachable inside compact disclosure');
  for(const [view,ids] of [['plan',['showAllYears','greatIdeaSel','sortSel','planViewModeBtn','resetChecksBtn','exportProgressBtn','planColPickerBtn']],['library',['libGreatIdeaSel']],['authors',['authorsResetBtn']]]){
- setView(view);await tick();
+ setView(view);await tick();const browse=document.querySelector('.view.on .studyBrowseToggle');if(browse.getAttribute('aria-expanded')!=='true')browse.click();await tick();
  for(const id of ids){const control=document.getElementById(id),disclosure=control.closest('details');assert(!!disclosure,'original '+id+' belongs to compact disclosure');if(disclosure)disclosure.open=true}
- assert(visible(document.getElementById(ids[0])),'disclosed '+view+' controls remain visible');
+ const control=document.getElementById(ids[0]),region=control.closest('.studyBrowsePanel');control.focus();control.scrollIntoView({block:'nearest'});await tick();
+ assert(visible(control)&&control.getBoundingClientRect().top>=region.getBoundingClientRect().top-1&&control.getBoundingClientRect().bottom<=region.getBoundingClientRect().bottom+1,'disclosed '+view+' controls remain reachable inside inline settings');browse.click();await tick();
  }
  for(const [page,gridId,ownerSelector] of [['library','libraryGrid','.libCard'],['plan','planGrid','.workRow']]){
  setView(page);await tick();const grid=document.getElementById(gridId),disclosure=document.querySelector('#'+(page==='plan'?'planView':'libraryView')+' .studyDisclosure'+(page==='library'?'.studyFilterDisclosure':':has(.planFilterControls)'));
  disclosure.open=false;await tick();await tick();
  grid.parentElement.querySelector('.detailIndexItem').click();await tick();
- const owner=grid.querySelector(ownerSelector+'.detailOwner'),slot=grid.parentElement.querySelector('.detailSlot'),beforeTop=owner.getBoundingClientRect().top;
- disclosure.open=true;await tick();await tick();
- assert(Math.abs(owner.getBoundingClientRect().top-Math.max(16,Math.min(slot.getBoundingClientRect().top,innerHeight-180)))<=1&&owner.getBoundingClientRect().bottom<=innerHeight&&owner.getBoundingClientRect().top!==beforeTop,'expanding '+page+' disclosure repositions selected original body within viewport');
- disclosure.open=false;await tick();await tick();
- assert(Math.abs(owner.getBoundingClientRect().top-Math.max(16,Math.min(slot.getBoundingClientRect().top,innerHeight-180)))<=1&&owner.getBoundingClientRect().bottom<=innerHeight,'collapsing '+page+' disclosure follows selected original body bounds');
+ const owner=grid.querySelector(ownerSelector+'.detailOwner'),slot=grid.parentElement.querySelector('.detailSlot'),toggle=grid.parentElement.querySelector('.studyBrowseToggle');
+ const before=owner.getBoundingClientRect().toJSON(),slotBefore=slot.getBoundingClientRect().toJSON();
+ toggle.click();await tick();await tick();
+ const same=(a,b)=>['left','top','width','height'].every(key=>Math.abs(a[key]-b[key])<=1);
+ assert(same(before,owner.getBoundingClientRect())&&same(slotBefore,slot.getBoundingClientRect()),'expanding '+page+' inline settings preserves selected original body bounds');
+ toggle.click();await tick();await tick();
+ assert(same(before,owner.getBoundingClientRect())&&owner.getBoundingClientRect().bottom<=innerHeight,'collapsing '+page+' inline settings preserves selected original body bounds');
  owner.querySelector('.detailClose').click();await tick();
  }
  parent.document.querySelector('iframe').style.width='390px';await tick();await tick();setView('library');await tick();

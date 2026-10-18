@@ -93,7 +93,8 @@ try {
  const fullKeys=[...document.querySelectorAll('#planGrid div.workRow')].map(r=>r.dataset.workkey);
  state.filters.planViewMode='table';renderPlan();await tick();
  assert(document.querySelectorAll('#planGrid tr.workRow').length===287&&!$('#planGrid .detailOwner')&&!$('#planGrid .workDrawer'),'all-years table retains every occurrence and no drawers');
- assert(getComputedStyle($('#planGrid').parentElement).display!=='grid','table uses the full available width');
+ const tableGridBounds=$('#planGrid').getBoundingClientRect(),tableWorkBounds=$('#planView').getBoundingClientRect();
+ assert(Math.abs(tableGridBounds.left-tableWorkBounds.left)<=1&&Math.abs(tableGridBounds.right-tableWorkBounds.right)<=1,'table uses the full available width');
  assert([...document.querySelectorAll('#planGrid tr.workRow')].every(r=>!r.hasAttribute('role')&&!r.querySelector('.workMain')),'table owners have no presentation role or invented header');
  $('#planGrid [data-action="toggleColPicker"]').click();
  const column=$('#planGrid [data-action="toggleTableCol"][data-col-id="notes"]');column.click();await tick();

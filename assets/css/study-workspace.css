@@ -9,7 +9,7 @@ html.dark { --study-line: #444; --study-wash: #202020; }
 .wrap { padding: 0 42px 64px; }
 header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .mast-top { align-items: center; padding-bottom: 18px; }
-.brand { font-size: 39px; text-transform: none; letter-spacing: -.04em; flex: 1 1 240px; }
+.brand { font-size: 30px; font-weight: 600; text-transform: none; letter-spacing: -.04em; flex: 1 1 240px; }
 .dateline { font-family: Inter, system-ui, sans-serif; font-size: 11px; font-weight: 400; text-transform: none; letter-spacing: 0; flex: 0 1 auto; }
 .rule { background: var(--study-line); margin: 0; }
 .subhead { margin-top: 0; align-items: center; gap: 10px 20px; }
@@ -21,8 +21,8 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .subhead > .navRow:first-child > .btn.tabOn { border-bottom-color: var(--ink); font-weight: 700; }
 #homeView { line-height: 1.55; padding-bottom: 26px; }
 #homeView h1, #homeView h2 { font-family: var(--study-serif); font-weight: 600; text-transform: none; letter-spacing: -.025em; line-height: 1.12; margin: 0; }
-#homeView h1 { font-size: 42px; }
-#homeView h2 { font-size: 27px; }
+#homeView h1 { font-size: 28px; }
+#homeView h2 { font-size: 20px; }
 #homeView p { margin: 0; }
 #homeView button { font-family: Inter, system-ui, sans-serif; color: var(--ink); cursor: pointer; }
 #homeView button:focus-visible, .masthead button:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
@@ -39,22 +39,22 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .homeMetric:first-child { padding-left: 0; }
 .homeMetric:last-child { border-right: 0; }
 .homeMetric:hover, .homePreview:hover, .homeNext:hover { background: var(--study-wash); }
-.homeMetric strong { font: 600 36px/1 var(--study-serif); font-variant-numeric: tabular-nums; }
+.homeMetric strong { font: 600 28px/1 var(--study-serif); font-variant-numeric: tabular-nums; }
 .homeMetric span { font-size: 12px; }
 .homeMetric small { display: block; font-size: 10px; margin-top: 3px; color: var(--muted); }
 .homeMain { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(250px, 1fr); gap: 32px; align-items: start; }
 .homeFocus { border: 1px solid var(--ink); box-shadow: 5px 5px 0 var(--ink); padding: 27px 30px; margin-bottom: 33px; }
 .homeEyebrow { font-size: 12px; display: block; margin-bottom: 25px; }
-#homeView .homeFocus h2 { font-size: 45px; margin: 11px 0 8px; overflow-wrap: anywhere; }
+#homeView .homeFocus h2 { font-size: 30px; margin: 11px 0 8px; overflow-wrap: anywhere; }
 .homeAuthor, .homeSelection { font-size: 14px; color: var(--muted); }
 .homeSelection { margin-top: 5px !important; }
-.homeHook { font: 500 23px/1.4 var(--study-serif); padding: 22px 0 12px; }
+.homeHook { font: 600 18px/1.45 var(--study-serif); padding: 22px 0 12px; }
 .homeGuidance { margin-top: 18px; border-top: 1px solid var(--study-line); border-bottom: 1px solid var(--study-line); padding: 13px 0; font-size: 12px; }
 .homeGuidance summary { cursor: pointer; font-weight: 600; }
 .homeGuidance p { margin-top: 10px !important; white-space: pre-wrap; }
 .homeProgress { padding: 4px 0 25px; }
 .homeSectionLine { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--ink); margin-bottom: 18px; }
-#homeView .homeSectionLine h2 { font-size: 25px; }
+#homeView .homeSectionLine h2 { font-size: 20px; }
 .homeSectionLine > span { font-size: 12px; color: var(--muted); white-space: nowrap; }
 .homeProgressLabel { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
 .homeProgressTrack { height: 5px; background: var(--study-line); margin: 11px 0 13px; }
@@ -62,12 +62,12 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .homeMuted { color: var(--muted); font-size: 12px; }
 .homeNextLabel { font-size: 11px; padding: 24px 0 10px; }
 .homeNext { display: block; text-align: left; width: 100%; padding: 18px 0; border: 0; border-top: 1px solid var(--study-line); border-bottom: 1px solid var(--study-line); background: transparent; }
-.homeNext strong { display: block; font: 600 21px/1.3 var(--study-serif); }
+.homeNext strong { display: block; font: 600 16px/1.3 var(--study-serif); }
 .homeNext small { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
 .homeBottom { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 14px; }
 .homeBottom > section { min-width: 0; }
 .homePreview { display: block; text-align: left; width: 100%; padding: 17px 0; border: 0; border-bottom: 1px solid var(--study-line); background: transparent; overflow-wrap: anywhere; }
-.homePreview strong { font: 600 21px/1.3 var(--study-serif); display: block; }
+.homePreview strong { font: 600 16px/1.3 var(--study-serif); display: block; }
 .homePreview p { font-size: 12px; color: var(--muted); margin-top: 7px !important; white-space: pre-wrap; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .homePreview small { display: block; font-size: 10px; margin-top: 10px; color: var(--muted); }
 @media (max-width: 1100px) {
@@ -79,7 +79,7 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 @media (max-width: 760px) {
   .wrap { padding: 0 19px 45px; }
   header.masthead { padding-top: 20px; }
-  .brand { font-size: 34px; }
+  .brand { font-size: 28px; }
   .mast-top { gap: 14px; }
   .dateline { flex: 1 1 100%; order: 3; }
   .mast-top > div:last-child { width: auto; }
@@ -88,14 +88,14 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
   .subhead > .navRow:first-child > .btn svg { width: 14px; height: 14px; }
   .subhead > .navRow + .navRow { padding: 4px 0 10px; }
   .homeHeading { display: block; margin-top: 28px; }
-  #homeView h1 { font-size: 36px; }
+  #homeView h1 { font-size: 28px; }
   .homeHeading > .homeButton { margin-top: 14px; }
   .homeMetrics { grid-template-columns: 1fr 1fr; margin-bottom: 25px; }
   .homeMetric, .homeMetric:first-child { padding: 16px; border-bottom: 1px solid var(--study-line); }
   .homeMetric:nth-child(2) { border-right: 0; }
   .homeMetric:nth-child(n+3) { border-bottom: 0; }
   .homeMain, .homeBottom { grid-template-columns: 1fr; gap: 25px; }
-  #homeView .homeFocus h2 { font-size: 39px; }
+  #homeView .homeFocus h2 { font-size: 28px; }
   .homeFocus { margin-bottom: 0; padding: 22px; }
   .homeProgress { padding-bottom: 5px; }
 }
@@ -108,11 +108,11 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .detailIndexSelected { position: fixed; left: var(--detail-index-left); top: var(--detail-index-top); width: var(--detail-index-width); z-index: 20; }
 .detailIndex[hidden] { display: none; }
 .detailIndexGroup + .detailIndexGroup { margin-top: 28px; }
-.detailIndexHeading { margin: 0; padding: 12px; border-bottom: 1px solid var(--study-line); font: 600 14px/1.4 Inter, system-ui, sans-serif; color: var(--ink); overflow-wrap: anywhere; }
+.detailIndexHeading { margin: 0; padding: 12px; border-bottom: 1px solid var(--study-line); font: 600 12px/1.4 Inter, system-ui, sans-serif; color: var(--ink); overflow-wrap: anywhere; }
 .detailIndexItem { display: block; width: 100%; padding: 12px 8px; text-align: left; border: 0; border-bottom: 1px solid var(--study-line); background: var(--paper); color: var(--ink); cursor: pointer; overflow-wrap: anywhere; }
 .detailIndexItem:hover, .detailIndexItem[aria-expanded="true"] { background: var(--study-wash); }
 .detailIndexItem:focus-visible { outline: 2px solid var(--ink); outline-offset: -3px; }
-.detailIndexTitle { display: block; font: 700 20px/1.2 var(--study-serif); }
+.detailIndexTitle { display: block; font: 600 16px/1.3 var(--study-serif); }
 .detailIndexItem small { display: block; margin-top: 4px; font: 500 12px/1.5 Inter, system-ui, sans-serif; color: var(--muted); }
 .studyDetailList > .libCard:not(.detailOwner), #planGrid.studyDetailList div.workRow:not(.detailOwner) { display: none; }
 #planGrid.studyDetailList .yearHeader, #planGrid.studyDetailList .readingHead { display: none; }
@@ -121,12 +121,12 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .studyDetailList > .libCard.active { border-left: 3px solid var(--ink); background: var(--study-wash); padding-left: 15px; }
 .studyDetailList .libHead { cursor: pointer; border: 0; margin: 0; padding: 0; }
 .studyDetailList .libHead:focus-visible, .detailClose:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-.studyDetailList .libTitle { font-size: 24px; font-weight: 600; line-height: 1.18; }
+.studyDetailList .libTitle { font-size: 20px; font-weight: 600; line-height: 1.18; }
 .studyDetailList .libAuthor { text-transform: none; font-size: 12px; letter-spacing: 0; font-weight: 500; }
 .studyDetailList .libCard > .help { margin-top: 14px; }
 .studyDetailList .libCard > .libDrawer:not(.detailPane) { visibility: hidden; }
 .studyDetailList .libCard.active > .libDrawer { visibility: visible; }
-.detailSlot { position: sticky; top: 16px; min-height: 340px; padding: 32px; box-sizing: border-box; border: 1px solid var(--study-line); color: var(--muted); font: 500 24px/1.4 var(--study-serif); }
+.detailSlot { position: sticky; top: 16px; min-height: 340px; padding: 20px; box-sizing: border-box; border: 1px solid var(--study-line); color: var(--muted); font: 400 16px/1.5 var(--study-serif); }
 .detailSlotSelected { color: transparent; }
 .studyDetailList > .libCard.detailPane, #planGrid.studyDetailList div.workRow.detailPane { position: fixed; left: var(--detail-left); top: var(--detail-top); width: var(--detail-width); height: var(--detail-height); box-sizing: border-box; overflow: auto; overscroll-behavior: contain; z-index: 20; background: var(--paper); border: 1px solid var(--study-line); padding: 0 24px 24px; border-radius: 0; box-shadow: none; transform: none; display: block; transition: none; }
 .studyDetailList .detailPane > .libDrawer, #planGrid.studyDetailList .detailPane > .workDrawer { display: block; position: static; margin-top: 18px; visibility: visible; transition: none; }
@@ -135,7 +135,7 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 .studyDetailList .detailOwner > .libHead, #planGrid.studyDetailList .detailOwner > .workMain { margin-top: 18px; }
 #planGrid.studyDetailList .detailOwner > .workCheck { float: right; margin-top: 18px; }
 .detailToolbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: start; justify-content: space-between; gap: 16px; padding: 18px 0; margin-bottom: 16px; border-bottom: 1px solid var(--study-line); background: var(--paper); }
-.detailToolbar > span { font: 600 23px/1.2 var(--study-serif); overflow-wrap: anywhere; }
+.detailToolbar > span { font: 600 20px/1.25 var(--study-serif); overflow-wrap: anywhere; }
 .detailClose { flex: 0 0 auto; min-height: 36px; border: 1px solid var(--study-line); background: var(--paper); color: var(--ink); padding: 7px 10px; font: 500 12px/1.5 Inter, system-ui, sans-serif; cursor: pointer; }
 .studyDetailList .detailPane .workDrawerBody { display: block; }
 .studyDetailList .detailPane .libActions { margin-top: 16px; }
@@ -176,7 +176,7 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 #planGrid.studyDetailList .worksList { gap: 0; }
 #planGrid.studyDetailList div.workRow { border: 0; border-bottom: 1px solid var(--study-line); box-shadow: none; padding: 18px 12px; background: var(--paper); }
 #planGrid.studyDetailList div.workRow.active { border-left: 3px solid var(--ink); padding-left: 9px; background: var(--study-wash); }
-#planGrid.studyDetailList .workTitle { font-size: 24px; font-weight: 600; line-height: 1.18; }
+#planGrid.studyDetailList .workTitle { font-size: 20px; font-weight: 600; line-height: 1.18; }
 #planGrid.studyDetailList .workMain { cursor: pointer; }
 #planGrid.studyDetailList .workMain:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 #planGrid.studyDetailList .workSub { font-weight: 400; text-transform: none; letter-spacing: 0; line-height: 1.5; }
@@ -214,7 +214,7 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 
 /* Original Glossary index and modal become independent reading panes. */
 #glossaryView .glossaryMasthead { border: 0; box-shadow: none; padding: 0; margin: 26px 0; }
-#glossaryView .glossaryTitle { font-weight: 600; font-size: 42px; line-height: 1.1; }
+#glossaryView .glossaryTitle { font-weight: 600; font-size: 28px; line-height: 1.1; }
 #glossaryView .glossaryDesc { font-size: 14px; max-width: 70ch; margin-top: 12px; color: var(--muted); }
 #glossaryView .glossaryLayout { grid-template-columns: 240px minmax(0, 1fr); gap: 0 30px; align-items: start; }
 .studyGlossaryLetters { grid-column: 1; grid-row: 1; }
@@ -224,16 +224,16 @@ header.masthead { border-top: 0; margin-bottom: 28px; padding: 24px 0 0; }
 #glossaryIndex .glossarySection { border: 0; box-shadow: none; margin-bottom: 28px; }
 #glossaryIndex .glossarySectionHeader { font: 600 14px/1.5 Inter, system-ui, sans-serif; border-bottom: 1px solid var(--study-line); padding: 12px; }
 #glossaryIndex .glossaryTermList { display: block; }
-#glossaryIndex .glossaryTermBtn { width: 100%; border: 0; border-bottom: 1px solid var(--study-line); padding: 12px 8px; font: 600 20px/1.3 var(--study-serif); overflow-wrap: anywhere; }
+#glossaryIndex .glossaryTermBtn { width: 100%; border: 0; border-bottom: 1px solid var(--study-line); padding: 12px 8px; font: 600 16px/1.3 var(--study-serif); overflow-wrap: anywhere; }
 #glossaryIndex .glossaryTermQualifier { font: 500 12px/1.5 Inter, system-ui, sans-serif; }
 #glossaryIndex .glossaryTermBtn:hover, #glossaryIndex .glossaryTermBtn:focus-visible { background: var(--study-wash); color: var(--ink); }
 #glossaryIndex .glossaryTermBtn:focus-visible { outline: 2px solid var(--ink); outline-offset: -3px; }
-.studyGlossarySlot { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 16px; min-height: 340px; box-sizing: border-box; border: 1px solid var(--study-line); padding: 32px; color: var(--muted); font: 500 24px/1.4 var(--study-serif); }
+.studyGlossarySlot { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 16px; min-height: 340px; box-sizing: border-box; border: 1px solid var(--study-line); padding: 20px; color: var(--muted); font: 400 16px/1.5 var(--study-serif); }
 .studyGlossarySlotSelected { color: transparent; }
 .studyGlossaryModal { inset: auto; left: var(--glossary-left); top: var(--glossary-top); width: var(--glossary-width); height: var(--glossary-height); max-height: none; transform: none; z-index: 20; grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) auto; border: 1px solid var(--study-line); box-shadow: none; box-sizing: border-box; }
 .studyGlossaryModal .glossaryModalMain { grid-column: 1 / -1; grid-row: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
 .studyGlossaryModal .glossaryModalHeader { flex: 0 0 auto; border-bottom: 1px solid var(--study-line); padding: 18px; }
-.studyGlossaryModal .glossaryModalTitle { font-size: 32px; font-weight: 600; line-height: 1.15; overflow-wrap: anywhere; }
+.studyGlossaryModal .glossaryModalTitle { font-size: 20px; font-weight: 600; line-height: 1.15; overflow-wrap: anywhere; }
 .studyGlossaryModal .glossaryModalSub { font: 500 11px/1.5 Inter, system-ui, sans-serif; text-transform: none; letter-spacing: 0; }
 .studyGlossaryModal .glossaryModalBody { overflow: auto; overscroll-behavior: contain; flex: 1 1 auto; min-height: 0; padding: 18px; overflow-wrap: anywhere; scrollbar-color: var(--study-line) var(--paper); }
 .studyGlossaryModal .glossaryModalPrev { grid-column: 1; grid-row: 2; }
@@ -325,4 +325,47 @@ html:not(:has(#deskView.on)), body:not(:has(#deskView.on)) { overflow: clip; }
   .wrap:not(:has(#deskView.on)) .mast-top { padding-bottom: 10px; }
   .studyBrowseControls { max-height: 40%; }
   .view.on > .paginationBar { margin-top: 8px; }
+}
+
+/* A compact reading scale and an expanded Bookclub toolbar with no hidden rows. */
+.wrap:not(:has(#deskView.on)) > .masthead { padding-top: 16px; margin-bottom: 16px; }
+.wrap:not(:has(#deskView.on)) .mast-top { padding-bottom: 12px; }
+.wrap:not(:has(#deskView.on)) > .siteFooter { margin-top: 8px; padding-top: 8px; }
+.studyGlossaryModal .glossaryRefText,
+.studyGlossaryModal .glossaryDefinitionList,
+.studyGlossaryModal .glossaryWikipediaBlock { max-width: 68ch; font-size: 16px; line-height: 1.55; }
+#getStartedView .gsFlag { font-size: 28px; line-height: 1.1; }
+#getStartedView .gsHeadline { font-size: 20px; line-height: 1.2; }
+#getStartedView .gsPathNum { font-size: 28px; }
+#getStartedView .gsDeck, #getStartedView .gsBodyText { font-size: 16px; line-height: 1.55; max-width: 68ch; }
+#getStartedView .gsPullQuote { font-size: 18px; line-height: 1.45; }
+#planView > .studyBrowseControls { flex: 0 0 auto; max-height: none; overflow: visible; display: grid; gap: 4px; }
+/* In short work regions, scroll to the list instead of collapsing it. */
+#planView > .studyDetailLayout { flex: 1 0 112px; min-height: 112px; }
+#planView .studyBrowseControls > .studyDisclosure { margin-bottom: 0; }
+#planView .studyDisclosure[open] > summary { margin-bottom: 4px; }
+#planView .studyBrowseControls .controls { padding: 6px; border-width: 1px; box-shadow: none; gap: 4px; margin-bottom: 0; }
+#planView .studyBrowseControls .planSearchControls { padding: 0; border: 0; background: transparent; }
+#planView .planFilterControls { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+#planView .planFilterControls > .control { gap: 4px; }
+#planView .planFilterControls > .control:last-child { grid-column: 1 / -1; }
+#planView .planFilterControls > .control:last-child > .label { display: none; }
+#planView .planBtnRow { gap: 6px; }
+#planView .planBtnRow .btn { flex: 0 1 auto; padding-inline: 6px; gap: 4px; }
+#planView .yearNum { font-size: 12px; letter-spacing: 0; padding: 6px; }
+#planView .yearStepper .btn { padding-inline: 8px; }
+@media (min-width: 761px) {
+  .wrap:not(:has(#deskView.on)) .subhead > .navRow:first-child > .btn { min-height: 36px; padding-block: 8px; }
+  .studyBrowseControls .input, .studyBrowseControls .select,
+  .studyBrowseControls .btn, .studyBrowseControls .toggle,
+  .studyBrowseControls .studyDisclosure > summary { min-height: 36px; }
+  .studyBrowseControls .input, .studyBrowseControls .select { padding-block: 6px; }
+  .studyBrowseControls .studyDisclosure > summary { padding-block: 8px; }
+  #planView .studyBrowseControls > .studyDisclosure > summary { min-height: 36px; padding-block: 8px; }
+}
+@media (max-width: 760px) {
+  .homeMetric strong { font-size: 26px; }
+  #planView .planFilterControls { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .studyBrowseControls input.input, .studyBrowseControls select.select { font-size: 16px; min-height: 44px; }
+  #planView .planBtnRow .btn, #planView .yearStepper .btn { min-height: 44px; min-width: 44px; }
 }

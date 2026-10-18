@@ -350,6 +350,60 @@ The single final layout scan (`detect.mjs --scope layout --json index.html asset
 Repeat the new suite at `http://localhost:4329/tests/interface/contained-scroll.browser.html`; `?short` isolates 780×500, and `?manual` supplies Desktop/Phone controls plus Restore storage for bounded native-input checks. Manual mode retains the same page-exit/timeout cleanup path.
 
 
+
+## Reading density and visible Bookclub tools — October 17, 2026
+
+Joe reported oversized type across the site and asked for every expanded Bookclub Year/filter/tool control to remain visible together. This correction starts from the actual live source `2b6431a7509b5b3f22ae8767663810b4034c0c7f` on `interface/reading-density`. The tested stylesheet blob is `0fd7c7d6b98411cf1fc96c7fa9ade763bc6635a4`.
+
+The established Newsreader/Inter families and font delivery stay intact. Shared brand type is now 30px desktop/28px phone; page headings 28px, featured work 30/28px, pane/section headings 20px, reading-list titles and empty guidance 16px, and metrics 28/26px. Long reading prose uses 16px with 1.55 leading and a 68ch maximum where appropriate. Desktop browse controls may be 36px high; phone text inputs remain 16px and the original action buttons remain 44px high. No browser/CSS zoom or transform scaling was introduced. Root measured computed CSS zoom1 and visualViewport.scale1 before this correction; those facts do not establish the browser UI's separate page-zoom setting.
+
+Bookclub's original controls now use four filter columns plus a full-width action row on desktop, and two filter columns plus naturally wrapping actions on phones. Its control group takes its natural height, with no vertical scrolling inside it. Every original node, ID, label, option and handler is retained; only the original blank spacer label is hidden. Search stays above the expanded tools. Lists and long reading text retain their bounded scrolling; the outer document stays stationary. Other browse control groups retain their existing behavior.
+
+### Reproduced regression and measured correction
+
+Ten meaningful assertions were added to the existing actual-module contained-scroll fixture, covering actual overflow, simultaneous visibility, Search position, compact action rows and remaining reading space at 984×779 and390×844. Six failed before the production edit: group overflow, clipped controls and stacked action rows at both sizes. The original377 checks remain. After the correction, the complete fixture passes **387/387** and reports exact prior localhost storage restoration. No tests assert literal font sizes; role sizes are recorded as measurements.
+
+| Actual-module viewport | Before group client / scroll height | After group client / scroll height | Filter panel before → after | Reading index after |
+| --- | --- | --- | --- | --- |
+| 984×779 | 268 /435px | 259 /259px | 200 →118px | 321px |
+| 390×844 | 224 /751px | 369 /369px | 516 →203.5px | 120px |
+
+These are local fixture measurements. The preceding live assessment separately measured434/268px control overflow. Desktop actions share one36px row. Phone View/Reset/Export share one44px row; Search is44px high and both native selects45.5px, all with16px text. All original Year/All years/Great Idea/Filter & Sort/View/Reset/Export controls are visible together without scrolling the toolbar.
+
+### Fresh verification on the final source
+
+| Harness | Result |
+| --- | --- |
+| Contained scrolling, including toolbar regression | 387/387 |
+| Home | 35/35 |
+| Shell / Glossary | 59/59 |
+| Library / Authors | 87/87 |
+| Bookclub | 62/62 |
+| Whole site | 81/81 |
+| Node preservation / Home logic | 15/15 |
+
+The five unchanged affected browser harnesses total324. Bookclub save/export still matches `b0b98c9d81f70ae8a81aac4c15249998c87e62c89abad42e218f6cc06b5c1f39`; whole-site notes/timer/content still matches `c4371c49d861d389b5c050f3fdff8e213376a22f09eb223f7ae281fff5cc28ed`. Archived-original runs were not repeated because original source was unchanged. All applicable cleanup messages were read, including Bookclub's delayed finally restoration.
+
+Nine direct byte guards against live2b6431a pass for index.html, study-shell.js, detail-presentation.js, conversation-desk.js, conversation-desk.css, writing-desks.js, main.js and the preservation manifest/test. No JS, original markup, data, loading, account/storage or save/export implementation changed. Desk internals remain untouched; its shared brand reflects Joe's expressly approved smaller global branding. Fresh Bookclub checks retain Desk edit/autosave/draft identity/preview/metadata/resizing. Changed fixture module and host script syntax pass, as does scoped `git diff --check`.
+
+One bounded desktop984×779 and phone390×844 visual batch confirmed the complete expanded toolbar and compact hierarchy. Actual phone table navigation still opens the original column picker with11 options; keyboard focus reaches its final `date-end` checkbox within the viewport while document scroll remains0. The original table's internal scrolling remains available. No additional screenshot or polish loop was performed. Screenshots were returned as native image output; the documented API offers bytes, not a save-path option, so no screenshot files or unsupported filesystem/browser APIs were used.
+
+The final type scan exits2 with only three existing `overused-font` warnings for pinned Inter declarations/font loading. Those warnings are retained and explained by Joe's chosen identity. Stderr explicitly reports missing optional htmlparser2/css-select/css-tree/domutils and regex fallback; the scan is degraded evidence and does not certify contrast or computed layout.
+
+Disposable work stayed on the parent-owned no-store localhost4329 server with exact storage restoration before closing the owned QA tab. No viewport override or user tab change occurred. Physical-phone, live-service and release verification remain outside this local result. Root owns RELEASE.md and QUIET-PANES-DESIGN.md; neither is included in this implementation commit. No push, merge or publication occurred.
+
+
+### Constrained-height follow-up
+
+Review reproduced a collapsed reading list at390×500 with tools open: work221px, controls368.5px and reading layout0px. With About and tools open at984×779, the reading layout was66.617px. The focused actual-module assertions failed four checks before the correction. Bookclub's reading layout now has a non-shrinking112px basis/minimum; the existing bounded work region scrolls to reveal it. The toolbar keeps its natural height and no internal vertical scrollbar. No production JS, markup, data or Desk internals changed.
+
+The changed contained-scroll fixture passes **405/405**. Its18 added checks cover the two expanded states: usable visible reading space, last-item scrolling and pointer hits, selected full-body access/internal scrolling, Back focus, original controls, fixed document/masthead and recovery after disclosures close. At390×500 the expanded reading layout and visible index are112px; at984×779 with both disclosures they are112px and111.914px. Document scroll stays0. Exact prior localhost storage was restored and the disposable QA tab closed.
+
+Normal dimensions remain unchanged:984×779 has259px controls,118px filter panel and321px reading layout;390×844 has369px controls,203.5px panel and119.5px reading layout (index rounds to120px). The phone work region remains352px wide with scrollHeight/clientHeight **488/488** and scrollTop0. A literal120px floor had introduced0.5px overflow and a scrollbar gutter;112px avoids it. All original expanded controls remain visible together.
+
+Tested CSS blob: `1f6c6d09271214cf57fd74d3580528d6385dccf0`. Fixture syntax, scoped whitespace and exact unchanged protected production paths against `ce046dc` pass. The preceding324 browser and15 Node results remain the earlier evidence; they were not repeated for this CSS-only correction. No additional screenshot, scan, polish or publication occurred.
+
+
 ## Joe's comments
 
 _Add anything you want kept especially close to the current app, or a baseline behavior that looks wrong._

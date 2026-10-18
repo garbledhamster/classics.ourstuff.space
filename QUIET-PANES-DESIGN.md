@@ -17,7 +17,14 @@ Glossary keeps its original index, five panels and panel navigation. Apply A's i
 Move the original Notes Drawer button to a square masthead control immediately after Night Mode. Keep the visible Home label and add the matching Home icon. Empty Home notes/writings sections retain their current explanatory text and gain Start now actions opening the original Notes editor or Conversation Desk workflow. No duplicate draft creation.
 
 
-**October 17 release refinement:** Joe wants this site to feel like a desk: its masthead/navigation and outer page stay in one place. Lists and long text may scroll inside bounded work areas. Avoid outer-document vertical or horizontal scrolling and prevent unnecessary nested scroll regions. Preserve all original content and controls, with no pagination, truncation or smaller type used to force content onto one screen. Scope the fixed shell away from Conversation Desk so its existing layout and behavior remain unchanged. Verify desktop, phone and constrained-height layouts, empty searches, open tools, keyboard/overlay access and the original table mode before release.
+**October 17 release refinement:** Joe wants this site to feel like a desk: its masthead/navigation and outer page stay in one place. Lists and long text may scroll inside bounded work areas. Avoid outer-document vertical or horizontal scrolling and prevent unnecessary nested scroll regions. Preserve all original content and controls, with no pagination, truncation, artificial page scaling or unreadably small type used to force content onto one screen. Joe's later sizing feedback calls for a deliberate smaller display/list scale while retaining comfortable reading text. Scope the fixed shell away from Conversation Desk so its existing layout and behavior remain unchanged. Verify desktop, phone and constrained-height layouts, empty searches, open tools, keyboard/overlay access and the original table mode before release.
+
+
+
+**October 17 typography and toolbar correction:** Joe reported that live A feels oversized and requires zooming out. Keep Newsreader/Inter and native browser scaling. Use a deliberate compact scale: brand 30px desktop/28px phone; page headings 28px; featured work 30/28px; pane and section headings 20px; list titles and empty guidance 16px; long prose 16px with comfortable leading and roughly 65–70ch measure; metadata 12px; metric figures 28/26px. Preserve original text and all font resource requests. Keep phone text inputs at 16px and touch controls at least 44px. Conversation Desk internals remain unchanged.
+
+Expanded Bookclub tools must be fully visible in their normal viewport, without a vertical scrolling toolbar. Use four filter columns on desktop, with original View/Reset/Export/Columns actions across a full-width row; use two filter columns on phones and wrap the action row as needed. Let the toolbar take its natural height and give the remaining space to the list/body. In a constrained-height work region, retain a small non-shrinking reading area and let the existing workspace scroll to it; never collapse the list or selected body to zero. The outer document stays still and the toolbar has no vertical scrollbar. Normal desktop/phone layouts must not gain unnecessary work-region overflow. Preserve every original node, field, option, handler and owner relationship. Verify the reported 984 × 779 view, a standard desktop, 390 × 844 phone, long titles, table mode and fixed outer page.
+
 
 ## Global Constraints
 
@@ -53,3 +60,7 @@ _Add any change to the selected layout here._
 October 17 release decision: “Looks good, let's get A live on classics.ourstuff.space. Keep all the existing pages, content, and loading exactly the same, and leave Conversation Desk as it is.”
 
 Scrolling clarification: “yeah like text can scroll but not the whole page, i hate when pages do tha”
+
+
+
+Live sizing feedback: “idk why it's so zoomed in but also on the bookclub the year filters & tools area shouldnt verticle it should all be in view, btu aslo why is the font so huge can you make the font more reasonable please it looks terribly huge in any view, i have to zoomout super far for it to look okay”

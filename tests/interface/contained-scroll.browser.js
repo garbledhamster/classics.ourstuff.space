@@ -25,6 +25,43 @@ function reachable(node,region,label){
 try{
  for(let n=0;!state.flatWorks.length&&n<100;n++)await wait(50);
  assert(state.flatWorks.length===287&&state.libraryWorks.length===243,'original populations loaded');
+ // A short work region must retain a real list below naturally sized controls.
+ for(const [width,height,aboutOpen]of [[390,500,false],[984,779,true]]){
+ frame.style.width=width+'px';frame.style.height=height+'px';await tick();await tick();setView('plan');await tick();await tick();
+ const view=$('#planView'),group=view.querySelector('.studyBrowseControls'),layout=view.querySelector('.studyDetailLayout'),index=layout.querySelector('.detailIndex'),about=group.querySelector('details'),tools=view.querySelector('.planFilterControls').closest('details');
+ about.open=aboutOpen;tools.open=true;await tick();await tick();const expandedHeight=group.scrollHeight;
+ view.scrollTop=view.scrollHeight;await tick();await tick();index.scrollTop=index.scrollHeight;await tick();
+ const last=index.querySelector('.detailIndexGroup:last-child .detailIndexItem:last-child'),indexBox=rect(index),viewBox=rect(view);
+ const expanded={layout:rect(layout).height,index:indexBox.height,visibleIndex:Math.min(indexBox.bottom,viewBox.bottom)-Math.max(indexBox.top,viewBox.top),workScrollTop:view.scrollTop,workScrollHeight:view.scrollHeight};
+ assert(rect(layout).height>=100&&Math.min(indexBox.bottom,viewBox.bottom)-Math.max(indexBox.top,viewBox.top)>=100,width+'x'+height+' expanded disclosures retain a usable reachable reading region');
+ reachable(last,index,width+'x'+height+' expanded disclosures');
+ assert(document.elementFromPoint(rect(last).left+20,Math.min(rect(last).bottom,rect(index).bottom)-8)?.closest('.detailIndexItem')===last,width+'x'+height+' last reading receives pointer hits after work-region scrolling');
+ last.click();await tick();const owner=$('#planGrid .detailOwner');
+ assert(!!owner&&rect(owner).height>=100&&rect(owner).top>=0&&rect(owner).bottom<=innerHeight+1,width+'x'+height+' selected complete body remains bounded and usable');
+ owner.scrollTop=owner.scrollHeight;await tick();assert(owner.scrollHeight<=owner.clientHeight||owner.scrollTop>0,width+'x'+height+' selected body long content scrolls internally');
+ owner.querySelector('.detailClose').click();await tick();assert(document.activeElement===last&&!$('#planGrid .detailOwner'),width+'x'+height+' Back restores the original list proxy');
+ view.scrollTop=0;await tick();assert(rect($('#q')).top>=rect(view).top&&rect($('#q')).bottom<=rect(view).bottom&&group.scrollHeight<=group.clientHeight+1,width+'x'+height+' original controls remain reachable without a toolbar scrollbar');
+ assert(document.scrollingElement.scrollTop===0&&document.body.scrollTop===0&&rect($('.masthead')).top===0,width+'x'+height+' outer document and masthead stay fixed');
+ about.open=false;tools.open=false;view.scrollTop=0;await tick();await tick();
+ assert(group.scrollHeight<expandedHeight&&index.querySelectorAll('.detailIndexItem').length>0&&!$('#planGrid .detailOwner')&&rect($('#q')).top>=rect(view).top,width+'x'+height+' closing disclosures recovers the browse view and controls');
+ lines.push('STRESS '+JSON.stringify({width,height,aboutOpen,expandedControls:expandedHeight,expanded,layout:rect(layout).height,work:rect(view).height,index:rect(index).height,workScrollHeight:view.scrollHeight,controls:group.scrollHeight,documentTop:document.scrollingElement.scrollTop}));
+ }
+ // Reproduce the reported toolbar overflow at the live viewport and phone width.
+ for(const [width,height]of [[984,779],[390,844]]){
+ frame.style.width=width+'px';frame.style.height=height+'px';await tick();await tick();setView('plan');await tick();await tick();
+ const group=$('#planView .studyBrowseControls'),panel=$('#planView .planFilterControls'),tools=panel.closest('details');
+ group.querySelectorAll('details').forEach(node=>node.open=node===tools);group.scrollTop=0;await tick();await tick();
+ const ids=['q','yearPrev','yearDisplay','yearNext','showAllYears','greatIdeaSel','sortSel','planViewModeBtn','resetChecksBtn','exportProgressBtn'];
+ const nodes=ids.map(id=>$('#'+id)),groupBox=rect(group),viewBox=rect($('#planView'));
+ assert(group.scrollHeight<=group.clientHeight+1&&panel.scrollHeight<=panel.clientHeight+1,width+' expanded toolbar has no vertical scrolling');
+ assert(nodes.every(node=>{const box=rect(node);return visible(node)&&box.top>=Math.max(groupBox.top,viewBox.top)-1&&box.bottom<=Math.min(groupBox.bottom,viewBox.bottom)+1&&box.left>=groupBox.left-1&&box.right<=groupBox.right+1}),width+' all original year/filter/action controls visible together');
+ assert(rect($('#q')).top>=groupBox.top&&group.scrollTop===0,width+' search stays visible above expanded tools');
+ const actionRows=new Set(['planViewModeBtn','resetChecksBtn','exportProgressBtn'].map(id=>Math.round(rect($('#'+id)).top)));
+ assert(actionRows.size<=(width>760?1:2),width+' actions use compact full-width rows');
+ assert(rect($('#planView .detailIndex')).height>=(width>760?180:100),width+' expanded tools retain useful reading-list space');
+ lines.push('METRICS '+JSON.stringify({width,height,brand:getComputedStyle($('.brand')).fontSize,list:getComputedStyle($('#planView .detailIndexTitle')).fontSize,guide:getComputedStyle($('#planView .detailSlot')).fontSize,group:{height:group.clientHeight,scrollHeight:group.scrollHeight},panel:rect(panel).height,index:rect($('#planView .detailIndex')).height,layout:rect($('#planView .studyDetailLayout')).height,work:{width:rect($('#planView')).width,clientHeight:$('#planView').clientHeight,scrollHeight:$('#planView').scrollHeight,scrollTop:$('#planView').scrollTop},controls:nodes.map(node=>({id:node.id,rect:rect(node).toJSON()}))}));
+ tools.open=false;await tick();await tick();
+ }
  for(const [width,height]of [[1440,900],[390,844],[900,650],[780,500]].filter(size=>!parent.location.search.includes('short')||size[0]===780)){
  frame.style.width=width+'px';frame.style.height=height+'px';await tick();await tick();
  const size=width+'x'+height;
@@ -71,6 +108,6 @@ try{
  const before=geometry();const incumbent=document.createElement('style');incumbent.textContent=(await (await fetch(sheet.href)).text()).split('/* Contained workspace.')[0];document.head.append(incumbent);sheet.disabled=true;await tick();const base=geometry();sheet.disabled=false;incumbent.remove();await tick();assert(before===base&&before===geometry(),size+' Desk wrapper/body equal original enhancement-disabled state '+before);
  setView('home');await tick();await bounds(size+' return from Desk');
  }
- out.dataset.result=failures?'fail':'pass';out.textContent=lines.join('\n')+'\n'+(failures?'FAIL '+failures:'ALL '+lines.length+' CHECKS PASSED');
+ out.dataset.result=failures?'fail':'pass';out.textContent=lines.join('\n')+'\n'+(failures?'FAIL '+failures:'ALL '+lines.filter(line=>line.startsWith('PASS ')).length+' CHECKS PASSED');
 }catch(e){out.dataset.result='fail';out.textContent=lines.join('\n')+'\nFAIL '+e.stack}
 finally{parent.finishFixture()}

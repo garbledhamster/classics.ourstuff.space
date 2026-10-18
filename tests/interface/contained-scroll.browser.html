@@ -7,7 +7,7 @@ const frame=document.querySelector('iframe'),out=document.querySelector('#result
 const manual=new URLSearchParams(location.search).has('manual');
 if(manual){
  out.textContent='Manual scroll confirmation; restore storage before closing.';
- for(const [label,width,height]of [['Desktop',1440,900],['Phone',390,844]]){const button=document.createElement('button');button.textContent=label;button.onclick=()=>{frame.style.width=width+'px';frame.style.height=height+'px'};out.before(button)}
+ for(const [label,width,height]of [['Desktop',1440,900],['Live desktop',984,779],['Phone',390,844]]){const button=document.createElement('button');button.textContent=label;button.onclick=()=>{frame.style.width=width+'px';frame.style.height=height+'px'};out.before(button)}
  const done=document.createElement('button');done.textContent='Restore storage';done.onclick=()=>window.finishFixture();out.before(done);
 }
 const capture=()=>Object.fromEntries(Object.keys(localStorage).sort().map(k=>[k,localStorage.getItem(k)]));
